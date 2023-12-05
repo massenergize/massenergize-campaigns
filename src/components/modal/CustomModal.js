@@ -10,12 +10,38 @@ function CustomModal(props) {
       centered
     >
       <Modal.Header
-        style={{ background: "var(--app-deep-green)", color: "white" }}
+        style={{
+          background: "var(--app-deep-green)",
+          color: "white",
+          padding: "7px 25px",
+        }}
       >
-        <Modal.Title id="contained-modal-title-vcenter">
-          Welcome To The Wayland Energy Challenge
-        </Modal.Title>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <img
+            src="https://i.pravatar.cc/300"
+            style={{
+              borderRadius: "100%",
+              width: 30,
+              height: 30,
+              marginBlock: 10,
+              marginRight: 10,
+            }}
+          ></img>
+          <Modal.Title
+            id="contained-modal-title-vcenter"
+            style={{ fontSize: 20}}
+          >
+            Welcome To The Wayland Energy Challenge
+          </Modal.Title>
+        </div>
         <Button
+          className="touchable-opacity"
           variant="link"
           style={{ color: "white", textDecoration: "none" }}
           onClick={props.onHide}
@@ -35,8 +61,9 @@ function CustomModal(props) {
           consectetur ac, vestibulum at eros.
         </p>
       </Modal.Body>
-      <Modal.Footer style={{ padding: 0 }}>
+      <Modal.Footer style={{ padding: 0, fontWeight: "bold" }}>
         <div
+          className="touchable-opacity"
           style={{
             background: "var(--app-close-red)",
             padding: "10px 20px",
@@ -55,6 +82,7 @@ function CustomModal(props) {
           </p>
         </div>
         <div
+          className="touchable-opacity"
           style={{
             background: "var(--app-deep-green)",
             padding: "10px 20px",

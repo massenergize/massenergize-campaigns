@@ -23,3 +23,16 @@
   --app-close-red: #D33F2B;
 
 }
+
+.touchable-opacity { 
+  cursor: pointer;
+}
+
+.touchable-opacity:hover { 
+  opacity: .7;
+  transition: 0.5s;
+}
+
+.touchable-opacity:active{ 
+  transform:scale(.95);
+}

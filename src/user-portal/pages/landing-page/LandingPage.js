@@ -10,6 +10,7 @@ import EventsSection from "../events/EventsSection";
 import GettingStartedSection from "../getting-started/GettingStartedSection";
 import CoachesSection from "../coaches/CoachesSection";
 import CustomModal from "../../../components/modal/CustomModal";
+import CustomTabView from "../../../components/tab-view/CustomTabView";
 
 function LandingPage() {
   return (
@@ -24,13 +25,15 @@ function LandingPage() {
           />
         </Container>
       </Container>
+
+      <CustomTabView />
       {/* <RoamingBox /> */}
       {/* <TestimonialSection/>  */}
       {/* <EventsSection /> */}
 
       {/* <GettingStartedSection /> */}
-      <CoachesSection />
-      <CustomModal show />
+      {/* <CoachesSection /> */}
+      {/* <CustomModal show /> */}
       <Footer />
     </div>
   );
