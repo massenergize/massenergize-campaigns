@@ -3,10 +3,12 @@ import React from "react";
 import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
 import Introduction from "../introduction/Introduction";
 import { Container } from "react-bootstrap";
+import RoamingBox from "./RoamingBox";
+import Footer from "../footer/Footer";
 
 function LandingPage() {
   return (
-    <div>
+    <div style={{}}>
       <AppNavigationBar />
       <Container>
         <Introduction />
@@ -17,6 +19,8 @@ function LandingPage() {
           />
         </Container>
       </Container>
+      <RoamingBox />
+      <Footer />
     </div>
   );
 }
