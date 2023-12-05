@@ -8,6 +8,8 @@ import Footer from "../footer/Footer";
 import TestimonialSection from "../testimonials/TestimonialSection";
 import EventsSection from "../events/EventsSection";
 import GettingStartedSection from "../getting-started/GettingStartedSection";
+import CoachesSection from "../coaches/CoachesSection";
+import CustomModal from "../../../components/modal/CustomModal";
 
 function LandingPage() {
   return (
@@ -26,7 +28,9 @@ function LandingPage() {
       {/* <TestimonialSection/>  */}
       {/* <EventsSection /> */}
 
-      <GettingStartedSection />
+      {/* <GettingStartedSection /> */}
+      <CoachesSection />
+      <CustomModal show />
       <Footer />
     </div>
   );

@@ -35,6 +35,7 @@ function Footer() {
                 borderWidth: 0,
                 padding: "10px 30px",
                 marginTop: 15,
+                borderRadius: 500,
               }}
             >
               I want To Follow
