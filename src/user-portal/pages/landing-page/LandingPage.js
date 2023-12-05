@@ -37,7 +37,7 @@ function LandingPage() {
 
       <EventsSection />
 
-      {/* <CoachesSection /> */}
+      <CoachesSection />
       {/* <CustomModal show /> */}
       <Footer />
     </div>
