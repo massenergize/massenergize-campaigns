@@ -11,6 +11,7 @@ function OneBox() {
         borderRadius: 5,
         display: "flex",
         flexDirection: "column",
+        background: "white",
       }}
     >
       <div
@@ -51,14 +52,14 @@ function OneBox() {
         }}
       >
         <Button
-          className="tech-btn elevate-2"
+          className="tech-btn elevate-2 touchable-opacity"
           style={{ background: "var(--app-medium-green)" }}
         >
           QUOTE
         </Button>
         <Button
           style={{ background: "var(--app-deep-green)" }}
-          className="tech-btn elevate-2"
+          className="tech-btn elevate-2 touchable-opacity"
         >
           COACH
         </Button>

@@ -11,27 +11,32 @@ import GettingStartedSection from "../getting-started/GettingStartedSection";
 import CoachesSection from "../coaches/CoachesSection";
 import CustomModal from "../../../components/modal/CustomModal";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
+import Banner from "../banner/Banner";
 
 function LandingPage() {
   return (
     <div style={{}}>
       <AppNavigationBar />
       <Container>
-        <Introduction />
+        <Banner />
+        {/* <Introduction /> */}
         <Container>
           <img
             src="https://picsum.photos/id/870/800/400?grayscale&blur=2"
             style={{ width: "100%", borderRadius: 10, marginTop: 20 }}
           />
         </Container>
+        <RoamingBox />
       </Container>
+      <GettingStartedSection />
 
-      <CustomTabView />
-      {/* <RoamingBox /> */}
-      {/* <TestimonialSection/>  */}
-      {/* <EventsSection /> */}
+      {/* <CustomTabView /> */}
 
-      {/* <GettingStartedSection /> */}
+      <TestimonialSection />
+      <br />
+
+      <EventsSection />
+
       {/* <CoachesSection /> */}
       {/* <CustomModal show /> */}
       <Footer />

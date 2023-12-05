@@ -4,21 +4,33 @@ import { Col, Container, Row } from "react-bootstrap";
 
 function GettingStartedSection() {
   return (
-    <Container className="mt-5">
-      <Row>
-        <Col xs={3}>
-          <OneBox />
-        </Col>
-        <Col xs={6}>
-          {/* Content for the second column */}
-          <div className="bg-secondary text-white p-3">Column 2</div>
-        </Col>
-        <Col xs={3}>
-          {/* Content for the third column */}
-          <div className="bg-info text-white p-3">Column 3</div>
-        </Col>
-      </Row>
-    </Container>
+    <div
+      className="mt-5"
+      style={{ background: "var(--app-medium-green)", padding: "50px 20px" }}
+    >
+      <Container>
+        <Row>
+          <Col lg={{ span: 12, offset: 1 }}>
+            <h2 style={{ color: "white", fontWeight: "bold" }}>
+              Getting Started
+            </h2>
+            <p style={{ color: "white", marginBottom: 20 }}>
+              Explore the actions we have under these technologies and get
+              started right away!
+            </p>
+            <Row>
+              {[1, 2, 3].map((item, index) => {
+                return (
+                  <Col key={index?.toString()} xs={3}>
+                    <OneBox />
+                  </Col>
+                );
+              })}
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 }
 

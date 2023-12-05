@@ -3,7 +3,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 
 function RoamingBox() {
   return (
-    <div className="mt-5">
+    <div style={{ margin: "100px 0px" }}>
       <Container>
         <Col lg={{ span: 9, offset: 1 }}>
           <Row>
@@ -42,7 +42,7 @@ function RoamingBox() {
                         borderWidth: 0,
                         padding: "9px 19px",
                       }}
-                      className="elevate-2"
+                      className="elevate-2 touchable-opacity"
                     >
                       Learn More
                     </Button>
