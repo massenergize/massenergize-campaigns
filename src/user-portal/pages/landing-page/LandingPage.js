@@ -7,6 +7,7 @@ import RoamingBox from "./RoamingBox";
 import Footer from "../footer/Footer";
 import TestimonialSection from "../testimonials/TestimonialSection";
 import EventsSection from "../events/EventsSection";
+import GettingStartedSection from "../getting-started/GettingStartedSection";
 
 function LandingPage() {
   return (
@@ -23,7 +24,9 @@ function LandingPage() {
       </Container>
       {/* <RoamingBox /> */}
       {/* <TestimonialSection/>  */}
-      <EventsSection />
+      {/* <EventsSection /> */}
+
+      <GettingStartedSection />
       <Footer />
     </div>
   );

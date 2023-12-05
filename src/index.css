@@ -1,1 +1,10 @@
 @import url(./assets/styles/universal.css);
+
+.tech-btn {
+  border-radius: 500px !important;
+  padding: 8px 23px !important;
+  margin: 6px;
+  font-size: 12px !important;
+  border-width: 0px !important;
+  font-weight: bold !important;
+}
