@@ -6,6 +6,7 @@ import { Container } from "react-bootstrap";
 import RoamingBox from "./RoamingBox";
 import Footer from "../footer/Footer";
 import TestimonialSection from "../testimonials/TestimonialSection";
+import EventsSection from "../events/EventsSection";
 
 function LandingPage() {
   return (
@@ -21,7 +22,8 @@ function LandingPage() {
         </Container>
       </Container>
       {/* <RoamingBox /> */}
-      <TestimonialSection/>
+      {/* <TestimonialSection/>  */}
+      <EventsSection />
       <Footer />
     </div>
   );
