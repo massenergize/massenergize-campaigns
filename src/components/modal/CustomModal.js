@@ -9,10 +9,23 @@ function CustomModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header
+        style={{ background: "var(--app-deep-green)", color: "white" }}
+      >
         <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
+          Welcome To The Wayland Energy Challenge
         </Modal.Title>
+        <Button
+          variant="link"
+          style={{ color: "white", textDecoration: "none" }}
+          onClick={props.onHide}
+        >
+          <span
+            aria-hidden="true"
+            className="fa fa-times"
+            style={{ fontSize: 20 }}
+          ></span>
+        </Button>
       </Modal.Header>
       <Modal.Body>
         <h4>Centered Modal</h4>
@@ -22,8 +35,44 @@ function CustomModal(props) {
           consectetur ac, vestibulum at eros.
         </p>
       </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+      <Modal.Footer style={{ padding: 0 }}>
+        <div
+          style={{
+            background: "var(--app-close-red)",
+            padding: "10px 20px",
+            height: "100%",
+            margin: 0,
+          }}
+        >
+          <p
+            style={{
+              color: "white",
+              margin: 0,
+              padding: "7px 30px",
+            }}
+          >
+            CLOSE
+          </p>
+        </div>
+        <div
+          style={{
+            background: "var(--app-deep-green)",
+            padding: "10px 20px",
+            height: "100%",
+            margin: 0,
+            borderBottomRightRadius: 5,
+          }}
+        >
+          <p
+            style={{
+              color: "white",
+              margin: 0,
+              padding: "7px 30px",
+            }}
+          >
+            JOIN US
+          </p>
+        </div>
       </Modal.Footer>
     </Modal>
   );
