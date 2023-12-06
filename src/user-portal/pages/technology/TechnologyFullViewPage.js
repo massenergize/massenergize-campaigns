@@ -240,15 +240,13 @@ function TechnologyFullViewPage() {
             </Col>
           </Row>
         </OptimumWrapper>
-        {/* <WhySection /> */}
-        {/* <TakeAtionSetion /> */}
-        {/* <OneTechTestimonialsSection /> */}
-
-        {/* <OneTechMeetTheCoachesSection /> */}
-        {/* <GetAGreatDealSection /> */}
-        {/* <MoreDetailsSection /> */}
-
+        <WhySection />
+        <TakeAtionSetion />
+        <OneTechTestimonialsSection />
+        <OneTechMeetTheCoachesSection />
+        <GetAGreatDealSection />
         <Vendors />
+        <MoreDetailsSection />
       </div>
       <Footer />
     </div>

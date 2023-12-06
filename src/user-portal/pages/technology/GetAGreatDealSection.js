@@ -6,7 +6,7 @@ import { Col, Row } from "react-bootstrap";
 function GetAGreatDealSection() {
   return (
     <div
-      className="mt-5"
+      className="mt-5 mb-5"
       style={{
         background: "white",
         width: "100%",
@@ -15,8 +15,8 @@ function GetAGreatDealSection() {
       }}
     >
       <OptimumWrapper>
-        <SectionTitle className="mb-5">Get A Great Deal</SectionTitle>
-        <p style={{ textAlign: "justify" }}>
+        <SectionTitle className="mb-3">Get A Great Deal</SectionTitle>
+        <p style={{ textAlign: "justify" }} className="mb-3">
           {" "}
           essentially unchanged. It was popularised in the 1960s with the
           release of Letraset sheets containing t ever since the 1500s, when an
