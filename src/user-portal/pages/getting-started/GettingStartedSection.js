@@ -10,13 +10,13 @@ const dummies = [
     title: "Heat Pump",
   },
   {
-    key: "community-solar",
+    key: "home-solar",
     icon: "fa-sun-o",
     text: "Some light paragraph bi here and lets see what is going on",
     title: "Home Solar",
   },
   {
-    key: "heat-pump",
+    key: "community-solar",
     icon: "fa-cog",
     text: "Some light paragraph bi here and lets see what is going on",
     title: "Community Solar",

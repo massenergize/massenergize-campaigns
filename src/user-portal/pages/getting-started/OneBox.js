@@ -1,7 +1,9 @@
 import React from "react";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-function OneBox({ icon, title, text }) {
+function OneBox({ icon, title, text, key }) {
+  const navigator = useNavigate();
   return (
     <div
       className="elevate-float-pro"
@@ -50,6 +52,7 @@ function OneBox({ icon, title, text }) {
         }}
       >
         <Button
+          onClick={() => navigator("/technology/" + key)}
           className="tech-btn elevate-2 touchable-opacity"
           style={{ background: "var(--app-medium-green)" }}
         >
