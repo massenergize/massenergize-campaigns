@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PageWrapper from "../wrappers/PageWrapper";
 import carPhoto from "./../../../assets/imgs/car.jpeg";
 import { Col, Row } from "react-bootstrap";
@@ -14,8 +14,13 @@ import GetAGreatDealSection from "./GetAGreatDealSection";
 import MoreDetailsSection from "./MoreDetailsSection";
 import Vendors from "./Vendors";
 import CommentComponentForModal from "../commenting/CommentComponentForModal";
+import JoinUsForm from "../forms/JoinUsForm";
+import GetHelpForm from "../forms/GetHelpForm";
 
+const DEFAULT_READ_HEIGHT = 190;
 function TechnologyFullViewPage({ toggleModal }) {
+  const [height, setHeight] = useState(DEFAULT_READ_HEIGHT);
+  const descriptionRef = useRef();
   const triggerCommentBox = () => {
     toggleModal({
       show: true,
@@ -26,6 +31,8 @@ function TechnologyFullViewPage({ toggleModal }) {
       fullControl: true,
     });
   };
+  const readMore = height !== "100%";
+
   return (
     <div>
       <AppNavigationBar />
@@ -48,30 +55,45 @@ function TechnologyFullViewPage({ toggleModal }) {
               />
               <InteractionsPanel />
               <p className="mt-3" style={{ textAlign: "justify" }}>
-                t ever since the 1500s, when an unknown printer took a galley of
-                type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing t ever since the 1500s, when an unknown printer took
-                a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing t ever since the 1500s, when an unknown printer took
-                a galley of type rised in the 1960s with the release of Letraset
-                sheets containing. when an unknown printer took a galley of type
-                rised in the 1960s with the release of Letraset sheets
-                containing. when an unknown printer took a galley of type rised
-                in the 1960s with the release of Letraset sheets containing.{" "}
                 <span
+                  ref={descriptionRef}
+                  style={{ height, display: "block", overflowY: "hidden" }}
+                >
+                  t ever since the 1500s, when an unknown printer took a galley
+                  of type and scrambled it to make a type specimen book. It has
+                  survived not only five centuries, but also the leap into
+                  electronic typesetting, remaining essentially unchanged. It
+                  was popularised in the 1960s with the release of Letraset
+                  sheets containing t ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged. It was popularised in the 1960s with
+                  the release of Letraset sheets containing t ever since the
+                  1500s, when an unknown printer took a galley of type rised in
+                  the 1960s with the release of Letraset sheets containing. when
+                  an unknown printer took a galley of type rised in the 1960s
+                  with the release of Letraset sheets containing. when an
+                  unknown printer took a galley of type rised in the 1960s with
+                  the release of Letraset sheets containing.{" "}
+                  the 1960s with the release of Letraset sheets containing. when
+                  an unknown printer took a galley of type rised in the 1960s
+                  with the release of Letraset sheets containing. when an
+                  unknown printer took a galley of type rised in the 1960s with
+                  the release of Letraset sheets containing.{" "}
+                </span>
+                <span
+                  onClick={() =>
+                    setHeight(readMore ? "100%" : DEFAULT_READ_HEIGHT)
+                  }
+                  className="touchable-opacity"
                   style={{
                     fontWeight: "bold",
                     color: "var(--app-orange)",
                     textDecoration: "underline",
                   }}
                 >
-                  Read More...
+                  {readMore ? "Read More..." : "Hide"}
                 </span>
               </p>
             </Col>
@@ -106,10 +128,17 @@ function TechnologyFullViewPage({ toggleModal }) {
                       width: "83%",
                     }}
                   >
-                    Get all deals and updates on this technology
+                    Get all deals and updates on this technology!
                   </p>
                 </div>
                 <div
+                  onClick={() =>
+                    toggleModal({
+                      show: true,
+                      title: "Get updates about this technology",
+                      component: <JoinUsForm />,
+                    })
+                  }
                   className="touchable-opacity"
                   style={{
                     background: "var(--app-deep-green)",
@@ -125,11 +154,11 @@ function TechnologyFullViewPage({ toggleModal }) {
                       margin: 0,
                       //   padding: "7px 30px",
                       textAlign: "center",
-                      fontSize: 12,
+                      fontSize: 16,
                       fontWeight: "bold",
                     }}
                   >
-                    GET UPDATES
+                    Get Updates!
                   </p>
                 </div>
               </div>
@@ -256,12 +285,20 @@ function TechnologyFullViewPage({ toggleModal }) {
         <WhySection />
         <TakeAtionSetion />
         <OneTechTestimonialsSection />
-        <OneTechMeetTheCoachesSection />
+        <OneTechMeetTheCoachesSection
+          toggleModal={() =>
+            toggleModal({
+              show: true,
+              component: <GetHelpForm />,
+              title: "Get Help",
+            })
+          }
+        />
         <GetAGreatDealSection />
         <Vendors />
         <MoreDetailsSection />
       </div>
-      <Footer />
+      <Footer toggleModal={toggleModal} />
     </div>
   );
 }

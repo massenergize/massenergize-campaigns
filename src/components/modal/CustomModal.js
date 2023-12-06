@@ -10,7 +10,6 @@ function CustomModal(props) {
       show={show}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
-      centered
       style={styles}
       {...(modalNativeProps || {})}
     >

@@ -71,21 +71,3 @@ function OneBox({ icon, title, text, key }) {
 
 export default OneBox;
 
-export const ArrowButtons = () => {
-  return (
-    <div style={{}}>
-      <i
-        className="fa fa-arrow-circle-left"
-        style={{
-          fontSize: 50,
-          color: "var(--app-medium-green)",
-          marginRight: 10,
-        }}
-      />
-      <i
-        className="fa fa-arrow-circle-right"
-        style={{ fontSize: 50, color: "var(--app-medium-green)" }}
-      />
-    </div>
-  );
-};

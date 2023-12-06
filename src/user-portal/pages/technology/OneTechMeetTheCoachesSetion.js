@@ -30,7 +30,7 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
   },
 ];
-function OneTechMeetTheCoachesSection() {
+function OneTechMeetTheCoachesSection({ toggleModal }) {
   return (
     <div
       className="mt-5 elevate-float-pro"
@@ -82,6 +82,7 @@ function OneTechMeetTheCoachesSection() {
                 background: "var(--app-deep-green)",
                 borderWidth: 0,
               }}
+              onClick={() => toggleModal()}
             >
               Get Help{" "}
             </Button>

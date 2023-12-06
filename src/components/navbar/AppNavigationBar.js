@@ -31,7 +31,15 @@ function AppNavigationBar() {
               return (
                 <NavDropdown
                   style={{ textTransform: "uppercase" }}
-                  title={menu.text}
+                  title={
+                    <span>
+                      <i
+                        className={`fa ${menu.icon}`}
+                        style={{ marginRight: 6 }}
+                      ></i>
+                      <span>{menu.text}</span>
+                    </span>
+                  }
                   id="basic-nav-dropdown"
                 >
                   {menu.children.map((child) => {

@@ -5,31 +5,35 @@ const children = [
 ];
 
 export const NAVIGATION_MENU = [
-  { key: "Questions", url: "#", text: "Questions" },
+  { key: "Questions", url: "#", text: "Questions", icon: "fa-question" },
 
   {
     key: "vendors",
     url: "#",
     text: "Vendors",
     children,
+    icon: "fa-vendor",
   },
   {
     key: "incentives",
     url: "#",
     text: "Incentives",
     children,
+    icon: "fa-money",
   },
   {
     key: "testimonial",
     url: "#",
     text: "Testimonials",
     children,
+    icon: "fa-comment",
   },
   {
     key: "contact-us",
     url: "#",
     text: "Contact Us",
     children,
+    icon: "fa-phone",
   },
 ];
 

@@ -3,6 +3,7 @@ import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
 import TestimonialBox from "../testimonials/TestimonialBox";
+import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 
 const dummies = [
   {
@@ -42,7 +43,22 @@ function OneTechTestimonialsSection() {
       }}
     >
       <OptimumWrapper>
-        <SectionTitle className="mb-5">Testimonials</SectionTitle>
+        <div
+          className="mb-5"
+          style={{
+            wdith: "100%",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <SectionTitle style={{ margin: 0 }}>Testimonials</SectionTitle>
+
+          <div style={{ marginLeft: "auto" }}>
+            <ArrowButtons />
+          </div>
+        </div>
 
         <Row style={{ overflowX: "auto", flexWrap: "nowrap" }}>
           {dummies.map((item, index) => {
