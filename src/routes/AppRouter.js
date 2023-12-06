@@ -29,7 +29,10 @@ function AppRouter({ test, testFunction, modalOptions, toggleModal }) {
           }
         />
 
-        <Route path="/technology/:name" element={<TechnologyFullViewPage />} />
+        <Route
+          path="/technology/:name"
+          element={<TechnologyFullViewPage toggleModal={toggleModal} />}
+        />
       </Routes>
     </>
   );

@@ -13,8 +13,19 @@ import OneTechMeetTheCoachesSection from "./OneTechMeetTheCoachesSetion";
 import GetAGreatDealSection from "./GetAGreatDealSection";
 import MoreDetailsSection from "./MoreDetailsSection";
 import Vendors from "./Vendors";
+import CommentComponentForModal from "../commenting/CommentComponentForModal";
 
-function TechnologyFullViewPage() {
+function TechnologyFullViewPage({ toggleModal }) {
+  const triggerCommentBox = () => {
+    toggleModal({
+      show: true,
+      title: "Add a comment",
+      iconName: "fa-comment",
+      component: <CommentComponentForModal />,
+      modalNativeProps: { size: "md" },
+      fullControl: true,
+    });
+  };
   return (
     <div>
       <AppNavigationBar />
@@ -209,6 +220,7 @@ function TechnologyFullViewPage() {
                     justifyContent: "center",
                     alignItems: "center",
                   }}
+                  onClick={() => triggerCommentBox()}
                 >
                   <p
                     style={{
@@ -232,6 +244,7 @@ function TechnologyFullViewPage() {
                     padding: 10,
                     color: "white",
                   }}
+                  onClick={() => triggerCommentBox()}
                 >
                   <i className=" fa fa-plus" style={{ marginRight: 4 }}></i>
                   <p style={{ margin: 0, fontWeight: "bold" }}>Add a Comment</p>

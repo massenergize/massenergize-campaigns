@@ -2,18 +2,27 @@ import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 
 function CustomModal(props) {
-  const { show, component } = props || {};
+  const { show, component, modalNativeProps, fullControl, style } = props || {};
   if (!show) return <></>;
+  const styles = { ...(style || {}), ...(fullControl ? { padding: 0 } : {}) };
   return (
     <Modal
       show={show}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      style={styles}
+      {...(modalNativeProps || {})}
     >
       <SmartHeader {...props} />
-      <Modal.Body>{component}</Modal.Body>
-      <SmartFooter {...props} />
+      {fullControl ? (
+        <Modal.Body style={{ padding: 0 }}>{component}</Modal.Body>
+      ) : (
+        <>
+          <Modal.Body>{component}</Modal.Body>
+          <SmartFooter {...props} />
+        </>
+      )}
     </Modal>
   );
 }
@@ -39,7 +48,12 @@ const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName }) => {
       );
 
     if (iconName)
-      return <i className={`fa ${iconName}`} style={{ fontSize: 30 }} />;
+      return (
+        <i
+          className={`fa ${iconName}`}
+          style={{ fontSize: 19, color: "white", marginRight: 6 }}
+        />
+      );
 
     return <></>;
   };
