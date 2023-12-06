@@ -14,7 +14,6 @@ import CustomTabView from "../../../components/tab-view/CustomTabView";
 import Banner from "../banner/Banner";
 
 function LandingPage({}) {
-  console.log("HERE IS THE TEST STUFF", test);
   return (
     <div style={{}}>
       <AppNavigationBar />
