@@ -13,7 +13,7 @@ import CustomModal from "../../../components/modal/CustomModal";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
 import Banner from "../banner/Banner";
 
-function LandingPage({}) {
+function LandingPage({ toggleModal }) {
   return (
     <div style={{}}>
       <AppNavigationBar />
@@ -25,13 +25,17 @@ function LandingPage({}) {
             src="https://picsum.photos/id/870/800/400?grayscale&blur=2"
             style={{ width: "100%", borderRadius: 10, marginTop: 20 }}
           />
-          <Button onClick={() => null}>Click me</Button>
+          <Button
+            onClick={() =>
+              toggleModal({ show: true, component: <h3>I'm the goat</h3> })
+            }
+          >
+            Click me
+          </Button>
         </Container>
         <RoamingBox />
       </Container>
       <GettingStartedSection />
-
-      {/* <CustomTabView /> */}
 
       <TestimonialSection />
       <br />
@@ -39,7 +43,7 @@ function LandingPage({}) {
       <EventsSection />
 
       <CoachesSection />
-      {/* <CustomModal show /> */}
+
       <Footer />
     </div>
   );

@@ -11,7 +11,7 @@ const tabs = [
       </span>
     ),
     key: "heat-pump",
-    component: <h1> this bruddah is a genius</h1>,
+    component: <h1> this bruddah is short as hell</h1>,
   },
   {
     title: (

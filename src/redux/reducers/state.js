@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
-import { doNothingReducer } from "./reducers";
+import { doNothingReducer, universalModalReducer } from "./reducers";
 
 export default combineReducers({
   testStore: doNothingReducer,
+  modalOptions: universalModalReducer,
 });
