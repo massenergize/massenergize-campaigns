@@ -11,6 +11,8 @@ import TakeAtionSetion from "./TakeActionSection";
 import OneTechTestimonialsSection from "./OneTechTestimonialsSection";
 import OneTechMeetTheCoachesSection from "./OneTechMeetTheCoachesSetion";
 import GetAGreatDealSection from "./GetAGreatDealSection";
+import MoreDetailsSection from "./MoreDetailsSection";
+import Vendors from "./Vendors";
 
 function TechnologyFullViewPage() {
   return (
@@ -243,7 +245,10 @@ function TechnologyFullViewPage() {
         {/* <OneTechTestimonialsSection /> */}
 
         {/* <OneTechMeetTheCoachesSection /> */}
-        <GetAGreatDealSection />
+        {/* <GetAGreatDealSection /> */}
+        {/* <MoreDetailsSection /> */}
+
+        <Vendors />
       </div>
       <Footer />
     </div>
