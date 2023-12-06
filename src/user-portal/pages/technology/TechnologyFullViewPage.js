@@ -7,6 +7,10 @@ import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import Footer from "../footer/Footer";
 import WhySection from "./WhySection";
+import TakeAtionSetion from "./TakeActionSection";
+import OneTechTestimonialsSection from "./OneTechTestimonialsSection";
+import OneTechMeetTheCoachesSection from "./OneTechMeetTheCoachesSetion";
+import GetAGreatDealSection from "./GetAGreatDealSection";
 
 function TechnologyFullViewPage() {
   return (
@@ -234,7 +238,12 @@ function TechnologyFullViewPage() {
             </Col>
           </Row>
         </OptimumWrapper>
-        <WhySection />
+        {/* <WhySection /> */}
+        {/* <TakeAtionSetion /> */}
+        {/* <OneTechTestimonialsSection /> */}
+
+        {/* <OneTechMeetTheCoachesSection /> */}
+        <GetAGreatDealSection />
       </div>
       <Footer />
     </div>
