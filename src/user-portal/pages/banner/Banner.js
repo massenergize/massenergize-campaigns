@@ -1,5 +1,7 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
+// import partnerLogo from "./../../../assets/imgs/me-logo.png";
+import partnerLogo from "./../../../assets/imgs/me-round-logo.png";
 
 function Banner() {
   return (
@@ -16,12 +18,13 @@ function Banner() {
           }}
         >
           <img
-            src="https://i.pravatar.cc/300"
+            src={partnerLogo}
             style={{
               borderRadius: "100%",
-              width: 120,
-              height: 120,
+              width: 190,
+              height: 190,
               marginBlock: 10,
+              objectFit: "contain",
             }}
           ></img>
         </Col>
@@ -38,7 +41,9 @@ function Banner() {
           <h1 style={{ textAlign: "center", fontSize: "3rem" }}>
             WAYLAND ENERGY CHALLENGE
           </h1>
-          <h5>A CAMPAIGN TO GUIDE CLIMATE ACTION</h5>
+          <h5 style={{ fontWeight: "400", color: "var(--app-medium-green)" }}>
+            A CAMPAIGN TO GUIDE CLIMATE ACTION
+          </h5>
         </Col>
         <Col
           lg={3}
@@ -51,12 +56,13 @@ function Banner() {
           }}
         >
           <img
-            src="https://i.pravatar.cc/300"
+            src="https://massenergize-prod-files.s3.amazonaws.com/media/MassEnergize-logo-231130-142610.png"
             style={{
               borderRadius: "100%",
-              width: 120,
-              height: 120,
+              width: 190,
+              height: 190,
               marginBlock: 10,
+              objectFit: "contain",
             }}
           ></img>
         </Col>

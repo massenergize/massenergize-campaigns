@@ -20,15 +20,35 @@ function CustomModal(props) {
 
 export default CustomModal;
 
-const SmartHeader = ({ renderHeader, close }) => {
+const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName }) => {
   if (renderHeader) return renderHeader();
 
+  const renderHeaderMedia = () => {
+    if (imgSrc)
+      return (
+        <img
+          src={imgSrc || "https://i.pravatar.cc/300"}
+          style={{
+            borderRadius: "100%",
+            width: 25,
+            height: 25,
+            marginBlock: 10,
+            marginRight: 10,
+          }}
+        ></img>
+      );
+
+    if (iconName)
+      return <i className={`fa ${iconName}`} style={{ fontSize: 30 }} />;
+
+    return <></>;
+  };
   return (
     <Modal.Header
       style={{
         background: "var(--app-deep-green)",
         color: "white",
-        padding: "7px 25px",
+        padding: "10px 25px",
       }}
     >
       <div
@@ -38,21 +58,12 @@ const SmartHeader = ({ renderHeader, close }) => {
           alignItems: "center",
         }}
       >
-        <img
-          src="https://i.pravatar.cc/300"
-          style={{
-            borderRadius: "100%",
-            width: 30,
-            height: 30,
-            marginBlock: 10,
-            marginRight: 10,
-          }}
-        ></img>
+        {renderHeaderMedia()}
         <Modal.Title
           id="contained-modal-title-vcenter"
-          style={{ fontSize: 20 }}
+          style={{ fontSize: 18 }}
         >
-          Welcome To The Wayland Energy Challenge
+          {title || "..."}
         </Modal.Title>
       </div>
       <Button

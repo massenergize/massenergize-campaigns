@@ -61,13 +61,33 @@ function RoamingBox() {
               }}
             >
               <img
+                className="mb-2"
                 src="https://i.pravatar.cc/300"
                 style={{ borderRadius: "100%", width: 120, height: 120 }}
               ></img>
-              <span style={{ fontSize: 12, color: "grey" }}>KEY CONTACT</span>
-              <h6 className="m-0">ELLEN TOHN</h6>
-              <p className="m-0">kaatbradamie@gmail.com</p>
-              <p>+200 456 789 45</p>
+              <span className="mb-1" style={{ fontSize: 12, color: "#c8c8c8" }}>
+                KEY CONTACT
+              </span>
+              <h6
+                className="mb-1"
+                style={{ color: "var(--app-medium-green)", fontWeight: "800" }}
+              >
+                <span>ELLEN TOHN</span>
+              </h6>
+              <p
+                className="mb-1"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <i className=" fa fa-envelope" style={{ marginRight: 6 }} />
+                <span> kaatbradamie@gmail.com</span>
+              </p>
+              <p>
+                <i className="fa fa-phone" /> <span>+200 456 789 45 </span>
+              </p>
             </Col>
           </Row>
         </Col>

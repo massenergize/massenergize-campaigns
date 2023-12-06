@@ -12,6 +12,8 @@ import CoachesSection from "../coaches/CoachesSection";
 import CustomModal from "../../../components/modal/CustomModal";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
 import Banner from "../banner/Banner";
+import JoinUsForm from "../forms/JoinUsForm";
+import planetB from "./../../../assets/imgs/planet-b.jpeg";
 
 function LandingPage({ toggleModal }) {
   return (
@@ -22,16 +24,30 @@ function LandingPage({ toggleModal }) {
         {/* <Introduction /> */}
         <Container>
           <img
-            src="https://picsum.photos/id/870/800/400?grayscale&blur=2"
-            style={{ width: "100%", borderRadius: 10, marginTop: 20 }}
+            className="elevate-float-pro"
+            src={planetB}
+            // src="https://picsum.photos/id/870/800/400?grayscale&blur=2"
+            // src="https://massenergize-prod-files.s3.amazonaws.com/media/crowd-of-people-marching-on-a-rally-2975498.jpg"
+            style={{
+              width: "80%",
+              margin: "0px 10%",
+              height: 530,
+              borderRadius: 10,
+              marginTop: 20,
+              objectFit: "cover",
+            }}
           />
-          <Button
+          {/* <Button
             onClick={() =>
-              toggleModal({ show: true, component: <h3>I'm the goat</h3> })
+              toggleModal({
+                show: true,
+                component: <JoinUsForm />,
+                title: "Welcome to the Wayland Energy Challenge",
+              })
             }
           >
             Click me
-          </Button>
+          </Button> */}
         </Container>
         <RoamingBox />
       </Container>
