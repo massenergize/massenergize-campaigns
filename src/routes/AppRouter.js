@@ -8,6 +8,7 @@ import {
 } from "../redux/actions/actions";
 import { connect } from "react-redux";
 import CustomModal from "../components/modal/CustomModal";
+import TechnologyFullViewPage from "../user-portal/pages/technology/TechnologyFullViewPage";
 
 function AppRouter({ test, testFunction, modalOptions, toggleModal }) {
   return (
@@ -28,6 +29,7 @@ function AppRouter({ test, testFunction, modalOptions, toggleModal }) {
           }
         />
         <Route path="/home" element={<p> This is the HOMEPAGE</p>} />
+        <Route path="/technology/:name" element={<TechnologyFullViewPage />} />
       </Routes>
     </>
   );
