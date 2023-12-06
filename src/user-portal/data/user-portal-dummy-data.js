@@ -6,12 +6,7 @@ const children = [
 
 export const NAVIGATION_MENU = [
   { key: "Questions", url: "#", text: "Questions" },
-  {
-    key: "vendors",
-    url: "#",
-    text: "Vendors",
-    children,
-  },
+
   {
     key: "vendors",
     url: "#",

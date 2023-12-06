@@ -28,12 +28,19 @@ function EventsSection() {
             </h2>
 
             <CustomTabView
-              defaultTab="heat-pump"
+              defaultTab="home-solar"
               data={[
                 {
                   title: (
-                    <span>
-                      <i className=" fa fa-home" /> Home
+                    <span
+                      style={{
+                        color: "var(--app-deep-green)",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      <span>
+                        <i className=" fa fa-heat" /> Heat Pump
+                      </span>
                     </span>
                   ),
                   key: "heat-pump",
@@ -41,8 +48,15 @@ function EventsSection() {
                 },
                 {
                   title: (
-                    <span>
-                      <i className=" fa fa-sun-o" /> Home Solar
+                    <span
+                      style={{
+                        color: "var(--app-deep-green)",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      <span>
+                        <i className=" fa fa-sun-o" /> Home Solar
+                      </span>
                     </span>
                   ),
                   key: "home-solar",
@@ -60,8 +74,15 @@ function EventsSection() {
                 },
                 {
                   title: (
-                    <span>
-                      <i className=" fa f" /> Community Solar
+                    <span
+                      style={{
+                        color: "var(--app-deep-green)",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      <span>
+                        <i className=" fa fa-people" /> Community Solar
+                      </span>
                     </span>
                   ),
                   key: "community-solar",
@@ -73,22 +94,6 @@ function EventsSection() {
         </Container>
       </CenteredWrapper>
     </div>
-    // <Container className="mt-5">
-    //   <Row>
-    //     <Col xs={3}>
-    //       {/* Content for the first column */}
-    //       <EventBox />
-    //     </Col>
-    //     <Col xs={6}>
-    //       {/* Content for the second column */}
-    //       <div className="bg-secondary text-white p-3">Column 2</div>
-    //     </Col>
-    //     <Col xs={3}>
-    //       {/* Content for the third column */}
-    //       <div className="bg-info text-white p-3">Column 3</div>
-    //     </Col>
-    //   </Row>
-    // </Container>
   );
 }
 

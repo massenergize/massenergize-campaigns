@@ -30,12 +30,19 @@ function TestimonialSection() {
           </div>
 
           <CustomTabView
-            defaultTab="heat-pump"
+            defaultTab="home-solar"
             data={[
               {
                 title: (
-                  <span>
-                    <i className=" fa fa-home" /> Home
+                  <span
+                    style={{
+                      color: "var(--app-deep-green)",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    <span>
+                      <i className=" fa fa-pump" /> Heat Pump
+                    </span>
                   </span>
                 ),
                 key: "heat-pump",
@@ -43,8 +50,15 @@ function TestimonialSection() {
               },
               {
                 title: (
-                  <span>
-                    <i className=" fa fa-sun-o" /> Home Solar
+                  <span
+                    style={{
+                      color: "var(--app-deep-green)",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    <span>
+                      <i className=" fa fa-sun-o" /> Home Solar
+                    </span>
                   </span>
                 ),
                 key: "home-solar",
@@ -62,8 +76,15 @@ function TestimonialSection() {
               },
               {
                 title: (
-                  <span>
-                    <i className=" fa f" /> Community Solar
+                  <span
+                    style={{
+                      color: "var(--app-deep-green)",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    <span>
+                      <i className=" fa fa-home" /> Community Solar
+                    </span>
                   </span>
                 ),
                 key: "community-solar",

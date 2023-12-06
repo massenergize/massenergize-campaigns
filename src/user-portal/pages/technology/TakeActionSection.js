@@ -39,7 +39,7 @@ function TakeAtionSetion() {
       }}
     >
       <OptimumWrapper>
-        <SectionTitle className="mb-5" style={{ color: "white" }}>
+        <SectionTitle className="mb-3" style={{ color: "white" }}>
           Take Action!
         </SectionTitle>
         <Row>

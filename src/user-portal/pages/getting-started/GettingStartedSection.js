@@ -2,6 +2,26 @@ import React from "react";
 import OneBox from "./OneBox";
 import { Col, Container, Row } from "react-bootstrap";
 
+const dummies = [
+  {
+    key: "heat-pump",
+    icon: "fa-fire",
+    text: "Some light paragraph bi here and lets see what is going on",
+    title: "Heat Pump",
+  },
+  {
+    key: "community-solar",
+    icon: "fa-sun-o",
+    text: "Some light paragraph bi here and lets see what is going on",
+    title: "Home Solar",
+  },
+  {
+    key: "heat-pump",
+    icon: "fa-cog",
+    text: "Some light paragraph bi here and lets see what is going on",
+    title: "Community Solar",
+  },
+];
 function GettingStartedSection() {
   return (
     <div
@@ -19,10 +39,10 @@ function GettingStartedSection() {
               started right away!
             </p>
             <Row>
-              {[1, 2, 3].map((item, index) => {
+              {dummies.map((box, index) => {
                 return (
                   <Col key={index?.toString()} xs={3}>
-                    <OneBox />
+                    <OneBox {...box} />
                   </Col>
                 );
               })}

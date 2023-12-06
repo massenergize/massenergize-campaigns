@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 
-function OneBox() {
+function OneBox({ icon, title, text }) {
   return (
     <div
       className="elevate-float-pro"
@@ -26,17 +26,15 @@ function OneBox() {
         }}
       >
         <i
-          className="fa fa-fire"
+          className={`fa ${icon}`}
           style={{
             fontSize: 60,
             marginBlock: 15,
             color: "var(--app-medium-green)",
           }}
         />
-        <h5 style={{ color: "var(--app-medium-green)" }}>Heat Pumps</h5>
-        <p style={{ textAlign: "center", fontSize: 14 }}>
-          Some light paragraph bi here and lets see what is going on
-        </p>
+        <h5 style={{ color: "var(--app-medium-green)" }}>{title}</h5>
+        <p style={{ textAlign: "center", fontSize: 14 }}>{text || "..."}</p>
         <a href="#" style={{ fontWeight: "bold", color: "var(--app-orange)" }}>
           Learn More...
         </a>

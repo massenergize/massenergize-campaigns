@@ -6,12 +6,13 @@ import { Col, Row } from "react-bootstrap";
 function GetAGreatDealSection() {
   return (
     <div
-      className="mt-5 mb-5"
+      className="mt-5"
       style={{
         background: "white",
         width: "100%",
         padding: "80px 0px",
         minHeight: 200,
+        marginBottom: 140,
       }}
     >
       <OptimumWrapper>
