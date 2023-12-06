@@ -32,3 +32,12 @@ export const NAVIGATION_MENU = [
     children,
   },
 ];
+
+export const COMMUNITY_LIST = [
+  { key: "wayland", name: "Wayland" },
+  { key: "newton", name: "Newton" },
+  { key: "framingham", name: "Framingham" },
+  { key: "concord", name: "Concord" },
+  { key: "abode", name: "Abode" },
+  { key: "other", name: "Other" },
+];

@@ -58,9 +58,9 @@ function LandingPage({ toggleModal }) {
 
       <EventsSection />
 
-      <CoachesSection />
+      <CoachesSection toggleModal={toggleModal} />
 
-      <Footer />
+      <Footer toggleModal={toggleModal} />
     </div>
   );
 }

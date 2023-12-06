@@ -77,13 +77,13 @@ function OneTechMeetTheCoachesSection() {
               className="touchable-opacity"
               style={{
                 borderRadius: 55,
-                padding: "10px 20px",
+                padding: "8px 20px",
                 fontWeight: "bold",
                 background: "var(--app-deep-green)",
                 borderWidth: 0,
               }}
             >
-              GET HELP{" "}
+              Get Help{" "}
             </Button>
           </div>
         </div>

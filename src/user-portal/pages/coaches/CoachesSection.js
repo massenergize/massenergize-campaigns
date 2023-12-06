@@ -3,8 +3,10 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import OneCoach from "./OneCoach";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
+import JoinUsForm from "../forms/JoinUsForm";
+import GetHelpForm from "../forms/GetHelpForm";
 
-function CoachesSection() {
+function CoachesSection({ toggleModal }) {
   return (
     <div
       className="elevate-float-pro"
@@ -110,16 +112,24 @@ function CoachesSection() {
                 }}
               >
                 <Button
-                  className="touchable-opacity"
+                  onClick={() =>
+                    toggleModal({
+                      show: true,
+                      icon: "fa-help",
+                      component: <GetHelpForm />,
+                      title: "Get Help",
+                    })
+                  }
+                  className="touchable-opacity elevate-2 mt-2"
                   style={{
                     borderRadius: 55,
-                    padding: "10px 20px",
+                    padding: "8px 27px",
                     fontWeight: "bold",
                     background: "var(--app-deep-green)",
                     borderWidth: 0,
                   }}
                 >
-                  GET HELP{" "}
+                  Get Help
                 </Button>
               </div>
             </div>

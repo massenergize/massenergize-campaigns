@@ -28,7 +28,7 @@ function AppRouter({ test, testFunction, modalOptions, toggleModal }) {
             />
           }
         />
-        <Route path="/home" element={<p> This is the HOMEPAGE</p>} />
+
         <Route path="/technology/:name" element={<TechnologyFullViewPage />} />
       </Routes>
     </>

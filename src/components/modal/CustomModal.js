@@ -90,7 +90,7 @@ const SmartFooter = ({ renderFooter, close }) => {
         className="touchable-opacity"
         style={{
           background: "var(--app-close-red)",
-          padding: "10px 20px",
+          padding: "5px 15px",
           height: "100%",
           margin: 0,
         }}
@@ -110,7 +110,7 @@ const SmartFooter = ({ renderFooter, close }) => {
         className="touchable-opacity"
         style={{
           background: "var(--app-deep-green)",
-          padding: "10px 20px",
+          padding: "5px 15px",
           height: "100%",
           margin: 0,
           borderBottomRightRadius: 5,
