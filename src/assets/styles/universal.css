@@ -19,20 +19,5 @@
   --app-kicking-yellow: #FFD66D; 
   --kicking-background: #FFF5DD
   --app-antique-white: antiquewhite;
-  --app-orange: #F57907;
-  --app-close-red: #D33F2B;
 
-}
-
-.touchable-opacity { 
-  cursor: pointer;
-}
-
-.touchable-opacity:hover { 
-  opacity: .7;
-  transition: 0.5s;
-}
-
-.touchable-opacity:active{ 
-  transform:scale(.95);
 }

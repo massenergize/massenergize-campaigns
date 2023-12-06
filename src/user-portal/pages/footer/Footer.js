@@ -29,14 +29,11 @@ function Footer() {
               with the release of Letraset she remaining essen
             </p>
             <Button
-              className="elevate-float-pro touchable-opacity"
+              className="elevate-float"
               style={{
                 background: "var(--app-medium-green)",
                 borderWidth: 0,
                 padding: "10px 30px",
-                marginTop: 15,
-                borderRadius: 500,
-                fontWeight: "bold",
               }}
             >
               I want To Follow
@@ -68,7 +65,7 @@ function Footer() {
                   paddingLeft: 0,
                 }}
               >
-                {[2, 3, 3, 4, 4, 5, 5, 5, 64, 7, 8, 10].map((item, index) => {
+                {[2, 3, 3, 4, 4, 5, 5, 5, 64,7,8,10].map((item, index) => {
                   return (
                     <li
                       style={{
