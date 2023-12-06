@@ -8,7 +8,6 @@ function Banner() {
         <Col
           lg={3}
           style={{
-            background: "red",
             padding: 20,
             display: "flex",
             flexDirection: "row",
@@ -29,7 +28,6 @@ function Banner() {
         <Col
           lg={6}
           style={{
-            background: "blue",
             padding: 20,
             display: "flex",
             flexDirection: "column",
@@ -45,7 +43,6 @@ function Banner() {
         <Col
           lg={3}
           style={{
-            background: "green",
             padding: 20,
             display: "flex",
             flexDirection: "row",

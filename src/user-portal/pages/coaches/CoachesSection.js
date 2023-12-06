@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import OneCoach from "./OneCoach";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
@@ -7,6 +7,7 @@ import CustomTabView from "../../../components/tab-view/CustomTabView";
 function CoachesSection() {
   return (
     <div
+      className="elevate-float-pro"
       style={{
         margin: "40px 0px",
         padding: "100px 0px",
@@ -69,14 +70,38 @@ function CoachesSection() {
                 },
               ]}
             ></CustomTabView>
-            <p style={{ width: "80%", marginTop: 10 }}>
-              In publishing and graphic design, Lorem ipsum is a placeholder
-              text commonly used to demonstrate the visual form of a document or
-              a typeface without relying on meaningful content. Lorem ipsum may
-              be used as a placeholder before final copy is availa a typeface
-              without relying on meaningful content. Lorem ipsum may be used as
-              a placeholder before final copy is availa
-            </p>
+
+            <div style={{ width: "80%" }}>
+              <p>
+                In publishing and graphic design, Lorem ipsum is a placeholder
+                text commonly used to demonstrate the visual form of a document
+                or a typeface without relying on meaningful content. Lorem ipsum
+                may be used as a placeholder before final copy is availa a
+                typeface without relying on meaningful content. Lorem ipsum may
+                be used as a placeholder before final copy is availa
+              </p>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Button
+                  className="touchable-opacity"
+                  style={{
+                    borderRadius: 55,
+                    padding: "10px 20px",
+                    fontWeight: "bold",
+                    background: "var(--app-deep-green)",
+                    borderWidth: 0,
+                  }}
+                >
+                  GET HELP{" "}
+                </Button>
+              </div>
+            </div>
           </div>
         </Container>
       </CenteredWrapper>

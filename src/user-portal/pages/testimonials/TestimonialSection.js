@@ -7,7 +7,7 @@ import CustomTabView from "../../../components/tab-view/CustomTabView";
 function TestimonialSection() {
   return (
     <div
-      className="elevate-3"
+      className="elevate-float-pro"
       style={{
         margin: "40px 0px",
         padding: "100px 0px",

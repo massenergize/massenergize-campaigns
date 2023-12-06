@@ -6,7 +6,7 @@ function GettingStartedSection() {
   return (
     <div
       className="mt-5"
-      style={{ background: "var(--app-medium-green)", padding: "50px 20px" }}
+      style={{ background: "var(--app-medium-green)", padding: "130px 20px" }}
     >
       <Container>
         <Row>
