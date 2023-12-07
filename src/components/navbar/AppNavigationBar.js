@@ -25,7 +25,13 @@ function AppNavigationBar() {
                     style={{ textTransform: "uppercase" }}
                     href={menu.url || "#"}
                   >
-                    {menu.text}
+                    <span>
+                      <i
+                        className={`fa ${menu.icon}`}
+                        style={{ marginRight: 6 }}
+                      ></i>
+                      <span>{menu.text}</span>
+                    </span>
                   </Nav.Link>
                 );
               return (
