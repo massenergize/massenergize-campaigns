@@ -8,7 +8,7 @@ function RoamingBox() {
         <Col lg={{ span: 9, offset: 1 }}>
           <Row>
             <Col lg={8}>
-              <div className="elevate-float">
+              <div className="elevate-float-pro">
                 <div
                   style={{
                     padding: "10px 30px",

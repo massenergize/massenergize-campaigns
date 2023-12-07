@@ -1,16 +1,19 @@
 import React from "react";
-import EventBox from "./EventBox";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
+import OneCoach from "./OneCoach";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
+import JoinUsForm from "../forms/JoinUsForm";
+import GetHelpForm from "../forms/GetHelpForm";
 
-function EventsSection() {
+function CoachesSection({ toggleModal }) {
   return (
     <div
+      className="elevate-float-pro"
       style={{
         margin: "40px 0px",
         padding: "100px 0px",
-        background: "white",
+        background: "antiquewhite",
         width: "100%",
       }}
     >
@@ -19,12 +22,12 @@ function EventsSection() {
           <div>
             <h2
               style={{
-                color: "var(--app-medium-green)",
+                color: "black",
                 fontWeight: "bold",
                 marginBottom: 20,
               }}
             >
-              Featured Events
+              Meet The Coaches
             </h2>
 
             <CustomTabView
@@ -65,7 +68,7 @@ function EventsSection() {
                       {[1, 3, 4].map((item, index) => {
                         return (
                           <Col key={index?.toString()} xs={3}>
-                            <EventBox />
+                            <OneCoach />
                           </Col>
                         );
                       })}
@@ -81,7 +84,7 @@ function EventsSection() {
                       }}
                     >
                       <span>
-                        <i className=" fa fa-people" /> Community Solar
+                        <i className=" fa fa-home" /> Community Solar
                       </span>
                     </span>
                   ),
@@ -90,6 +93,46 @@ function EventsSection() {
                 },
               ]}
             ></CustomTabView>
+
+            <div style={{ width: "80%" }}>
+              <p>
+                In publishing and graphic design, Lorem ipsum is a placeholder
+                text commonly used to demonstrate the visual form of a document
+                or a typeface without relying on meaningful content. Lorem ipsum
+                may be used as a placeholder before final copy is availa a
+                typeface without relying on meaningful content. Lorem ipsum may
+                be used as a placeholder before final copy is availa
+              </p>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Button
+                  onClick={() =>
+                    toggleModal({
+                      show: true,
+                      icon: "fa-help",
+                      component: <GetHelpForm />,
+                      title: "Get Help",
+                    })
+                  }
+                  className="touchable-opacity elevate-2 mt-2"
+                  style={{
+                    borderRadius: 55,
+                    padding: "8px 27px",
+                    fontWeight: "bold",
+                    background: "var(--app-deep-green)",
+                    borderWidth: 0,
+                  }}
+                >
+                  Get Help
+                </Button>
+              </div>
+            </div>
           </div>
         </Container>
       </CenteredWrapper>
@@ -97,4 +140,4 @@ function EventsSection() {
   );
 }
 
-export default EventsSection;
+export default CoachesSection;
