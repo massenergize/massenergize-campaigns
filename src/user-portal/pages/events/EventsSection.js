@@ -4,9 +4,10 @@ import { Col, Container, Row } from "react-bootstrap";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
 
-function EventsSection() {
+function EventsSection({ sectionId }) {
   return (
     <div
+      id={sectionId}
       style={{
         margin: "40px 0px",
         padding: "100px 0px",

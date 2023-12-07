@@ -3,9 +3,10 @@ import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
 
-function MoreDetailsSection() {
+function MoreDetailsSection({ sectionId }) {
   return (
     <div
+      id={sectionId}
       className="mt-5 mb-2"
       style={{
         background: "white",

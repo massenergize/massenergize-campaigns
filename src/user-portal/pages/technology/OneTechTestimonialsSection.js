@@ -31,10 +31,11 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
   },
 ];
-function OneTechTestimonialsSection() {
+function OneTechTestimonialsSection({ sectionId }) {
   return (
     <div
-      className="mt-5 "
+      id={sectionId}
+      className="mt-5"
       style={{
         background: "white",
         width: "100%",

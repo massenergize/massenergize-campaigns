@@ -75,12 +75,12 @@ function TechnologyFullViewPage({ toggleModal }) {
                   an unknown printer took a galley of type rised in the 1960s
                   with the release of Letraset sheets containing. when an
                   unknown printer took a galley of type rised in the 1960s with
-                  the release of Letraset sheets containing.{" "}
-                  the 1960s with the release of Letraset sheets containing. when
-                  an unknown printer took a galley of type rised in the 1960s
-                  with the release of Letraset sheets containing. when an
-                  unknown printer took a galley of type rised in the 1960s with
-                  the release of Letraset sheets containing.{" "}
+                  the release of Letraset sheets containing. the 1960s with the
+                  release of Letraset sheets containing. when an unknown printer
+                  took a galley of type rised in the 1960s with the release of
+                  Letraset sheets containing. when an unknown printer took a
+                  galley of type rised in the 1960s with the release of Letraset
+                  sheets containing.{" "}
                 </span>
                 <span
                   onClick={() =>
@@ -282,10 +282,11 @@ function TechnologyFullViewPage({ toggleModal }) {
             </Col>
           </Row>
         </OptimumWrapper>
-        <WhySection />
-        <TakeAtionSetion />
-        <OneTechTestimonialsSection />
+        <WhySection sectionId="why-section" />
+        <TakeAtionSetion sectionId="take-action-section" />
+        <OneTechTestimonialsSection sectionId="testimonial-section" />
         <OneTechMeetTheCoachesSection
+          sectionId="meet-coach"
           toggleModal={() =>
             toggleModal({
               show: true,
@@ -294,9 +295,9 @@ function TechnologyFullViewPage({ toggleModal }) {
             })
           }
         />
-        <GetAGreatDealSection />
-        <Vendors />
-        <MoreDetailsSection />
+        <GetAGreatDealSection sectionId="get-a-deal" />
+        <Vendors sectionId="vendors" />
+        <MoreDetailsSection sectionId="more-detail" />
       </div>
       <Footer toggleModal={toggleModal} />
     </div>

@@ -6,9 +6,10 @@ import CustomTabView from "../../../components/tab-view/CustomTabView";
 import JoinUsForm from "../forms/JoinUsForm";
 import GetHelpForm from "../forms/GetHelpForm";
 
-function CoachesSection({ toggleModal }) {
+function CoachesSection({ toggleModal, sectionId }) {
   return (
     <div
+      id={sectionId}
       className="elevate-float-pro"
       style={{
         margin: "40px 0px",

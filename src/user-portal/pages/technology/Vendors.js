@@ -1,11 +1,12 @@
 import React from "react";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
-import { Col, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 
-function Vendors() {
+function Vendors({ sectionId }) {
   return (
     <div
+      id={sectionId}
       className="mt-5 elevate-float-pro"
       style={{
         background: "antiquewhite",

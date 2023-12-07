@@ -22,9 +22,10 @@ const dummies = [
     title: "Community Solar",
   },
 ];
-function GettingStartedSection() {
+function GettingStartedSection({ sectionId }) {
   return (
     <div
+      id={sectionId}
       className="mt-5"
       style={{ background: "var(--app-medium-green)", padding: "130px 20px" }}
     >
