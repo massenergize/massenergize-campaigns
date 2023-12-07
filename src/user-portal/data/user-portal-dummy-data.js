@@ -1,3 +1,5 @@
+import campaign_data from "./home-page-data.json";
+
 const children = [
   { key: "heat-pump", url: "#coaches-section", text: "Heat Pump" },
   { key: "community-solar", url: "#", text: "Community Solar" },
@@ -6,8 +8,19 @@ const children = [
 
 export const NAVIGATION_MENU = [
   { key: "home", url: "/", text: "Home", icon: "fa-home" },
-  { key: "questions", url: "#testimonial-section", text: "Questions", icon: "fa-question-circle" },
-  { key: "coaches", url: "#coaches-section", text: "Coaches", icon: "fa-users", children },
+  {
+    key: "questions",
+    url: "#testimonial-section",
+    text: "Questions",
+    icon: "fa-question-circle",
+  },
+  {
+    key: "coaches",
+    url: "#coaches-section",
+    text: "Coaches",
+    icon: "fa-users",
+    children,
+  },
 
   {
     key: "vendors",
@@ -53,3 +66,5 @@ export const COMMUNITY_LIST = [
   { key: "abode", name: "Abode" },
   { key: "other", name: "Other" },
 ];
+
+export const CAMPAIGN_DATA = campaign_data;

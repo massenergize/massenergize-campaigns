@@ -11,8 +11,10 @@ import GettingStartedSection from "../getting-started/GettingStartedSection";
 import CoachesSection from "../coaches/CoachesSection";
 import Banner from "../banner/Banner";
 import planetB from "./../../../assets/imgs/planet-b.jpeg";
+import { CAMPAIGN_DATA } from "../../data/user-portal-dummy-data";
 
 function LandingPage({ toggleModal }) {
+  const campaign = CAMPAIGN_DATA.data;
   return (
     <div style={{}}>
       <AppNavigationBar />

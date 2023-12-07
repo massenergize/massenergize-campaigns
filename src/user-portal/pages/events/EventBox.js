@@ -23,6 +23,7 @@ function EventBox() {
       />
       <div style={{ padding: "15px 15px" }}>
         <h6
+          className="touchable-opacity"
           onClick={() => navigator("/technology/event/uri/euri")}
           style={{ textDecoration: "underline" }}
         >

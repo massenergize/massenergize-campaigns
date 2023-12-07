@@ -1,0 +1,317 @@
+{
+    "data": {
+        "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d",
+        "created_at": "2023-12-07T10:56:12.888Z",
+        "updated_at": "2023-12-07T11:12:24.494Z",
+        "is_deleted": false,
+        "info": null,
+        "account": {
+            "id": "583c96c5-7fb4-488f-ac54-2558252ae535"
+        },
+        "title": "Wayland Campaign",
+        "description": "Helo there",
+        "start_date": "2023-12-07",
+        "end_date": null,
+        "logo": {
+            "id": 609,
+            "name": "ImageFor Wayland Campaign Campaign",
+            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+        },
+        "is_approved": false,
+        "is_published": false,
+        "is_global": true,
+        "is_template": false,
+        "owner": null,
+        "technologies": [
+            {
+                "campaign_technology": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2",
+                "coaches": [
+                    {
+                        "id": "503f0c73-7c66-4606-8ee4-065df50c6ea6",
+                        "created_at": "2023-12-07T13:38:47.652Z",
+                        "updated_at": "2023-12-07T13:38:47.652Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "technology": {
+                            "id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d"
+                        },
+                        "user": {
+                            "id": "d5293973-7a5b-4679-8fe3-13a0c17b89e6",
+                            "full_name": "Tahiru Abdullai",
+                            "preferred_name": "TahiruAbdullai1",
+                            "email": "abdullai.tahiru+203@massenergize.org"
+                        },
+                        "community": "Wayland"
+                    },
+                    {
+                        "id": "70961b88-425d-4481-ae0f-fc8e16894d64",
+                        "created_at": "2023-12-07T13:39:11.255Z",
+                        "updated_at": "2023-12-07T13:39:11.255Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "technology": {
+                            "id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d"
+                        },
+                        "user": {
+                            "id": "4e006f09-e9d6-480a-a287-585fd59ca5a8",
+                            "full_name": "Guest User",
+                            "preferred_name": "Guest",
+                            "email": "tahiruthegamer@gmail.com"
+                        },
+                        "community": "Concord"
+                    },
+                    {
+                        "id": "b11b4a9e-a0fc-4371-be93-1ab1581028e9",
+                        "created_at": "2023-12-07T13:39:27.716Z",
+                        "updated_at": "2023-12-07T13:39:27.716Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "technology": {
+                            "id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d"
+                        },
+                        "user": {
+                            "id": "41361487-6652-469b-bdad-844635696465",
+                            "full_name": "New990 event990",
+                            "preferred_name": "New990event990",
+                            "email": "abdullai.tahiru+333@gmail.com"
+                        },
+                        "community": "Acton"
+                    }
+                ],
+                "testimonials": [
+                    {
+                        "id": "4e36c42c-79a1-468b-aaba-4610accd6b5a",
+                        "created_at": "2023-12-07T12:55:36.906Z",
+                        "updated_at": "2023-12-07T12:55:36.906Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": null,
+                        "campaign_technology": {
+                            "id": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2"
+                        },
+                        "title": "Testimonial  101",
+                        "body": "When using the double-underscore notation, you can chain relationships to navigate through multiple levels of ForeignKey relationships. For instance, if Author had a ForeignKey to another model, you could use 'author__another_related_model' in the prefetch_related call.",
+                        "is_approved": false,
+                        "image": null,
+                        "created_by": null,
+                        "is_published": false,
+                        "anonymous": false,
+                        "community": null,
+                        "user": null,
+                        "file": null
+                    },
+                    {
+                        "id": "4edc0d73-4e43-4a04-8d69-3ea1ab4ae735",
+                        "created_at": "2023-12-07T12:55:56.642Z",
+                        "updated_at": "2023-12-07T12:55:59.660Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": null,
+                        "campaign_technology": {
+                            "id": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2"
+                        },
+                        "title": "Testimonial  101",
+                        "body": "When using the double-underscore notation, you can chain relationships to navigate through multiple levels of ForeignKey relationships. For instance, if Author had a ForeignKey to another model, you could use 'author__another_related_model' in the prefetch_related call.",
+                        "is_approved": false,
+                        "image": 617,
+                        "created_by": null,
+                        "is_published": false,
+                        "anonymous": false,
+                        "community": null,
+                        "user": null,
+                        "file": {
+                            "id": 617,
+                            "name": "ImageFor Testimonial  101 CampaignTech Testimonial",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                        }
+                    },
+                    {
+                        "id": "7e586aa4-6885-44cc-a860-1daac65f2c0e",
+                        "created_at": "2023-12-07T12:56:17.504Z",
+                        "updated_at": "2023-12-07T12:56:18.359Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": null,
+                        "campaign_technology": {
+                            "id": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2"
+                        },
+                        "title": "Testimonial  Ver Good",
+                        "body": "When using the double-underscore notation, you can chain relationships to navigate through multiple levels of ForeignKey relationships. For instance, if Author had a ForeignKey to another model, you could use 'author__another_related_model' in the prefetch_related call.",
+                        "is_approved": false,
+                        "image": 618,
+                        "created_by": null,
+                        "is_published": false,
+                        "anonymous": false,
+                        "community": null,
+                        "user": null,
+                        "file": {
+                            "id": 618,
+                            "name": "ImageFor Testimonial  Ver Good CampaignTech Testimonial",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                        }
+                    }
+                ],
+                "events": [],
+                "id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d",
+                "created_at": "2023-12-07T11:20:24.726Z",
+                "updated_at": "2023-12-07T11:20:25.724Z",
+                "is_deleted": false,
+                "info": null,
+                "name": "Community Solar",
+                "description": " Allow GitHub, its affiliates and third parties to use my code snippets to research and improve GitHub Copilot suggestions, related models and product features. More information in",
+                "image": {
+                    "id": 611,
+                    "name": "FileUpload for 4c74b279-45c4-435a-b05d-11f5f3dcd69d Technology",
+                    "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                }
+            },
+            {
+                "campaign_technology": "4a6c33cb-528c-4483-bde3-dc7b8b02f745",
+                "coaches": [
+                    {
+                        "id": "503f0c73-7c66-4606-8ee4-065df50c6ea6",
+                        "created_at": "2023-12-07T13:38:47.652Z",
+                        "updated_at": "2023-12-07T13:38:47.652Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "technology": {
+                            "id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d"
+                        },
+                        "user": {
+                            "id": "d5293973-7a5b-4679-8fe3-13a0c17b89e6",
+                            "full_name": "Tahiru Abdullai",
+                            "preferred_name": "TahiruAbdullai1",
+                            "email": "abdullai.tahiru+203@massenergize.org"
+                        },
+                        "community": "Wayland"
+                    },
+                    {
+                        "id": "70961b88-425d-4481-ae0f-fc8e16894d64",
+                        "created_at": "2023-12-07T13:39:11.255Z",
+                        "updated_at": "2023-12-07T13:39:11.255Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "technology": {
+                            "id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d"
+                        },
+                        "user": {
+                            "id": "4e006f09-e9d6-480a-a287-585fd59ca5a8",
+                            "full_name": "Guest User",
+                            "preferred_name": "Guest",
+                            "email": "tahiruthegamer@gmail.com"
+                        },
+                        "community": "Concord"
+                    },
+                    {
+                        "id": "b11b4a9e-a0fc-4371-be93-1ab1581028e9",
+                        "created_at": "2023-12-07T13:39:27.716Z",
+                        "updated_at": "2023-12-07T13:39:27.716Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "technology": {
+                            "id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d"
+                        },
+                        "user": {
+                            "id": "41361487-6652-469b-bdad-844635696465",
+                            "full_name": "New990 event990",
+                            "preferred_name": "New990event990",
+                            "email": "abdullai.tahiru+333@gmail.com"
+                        },
+                        "community": "Acton"
+                    }
+                ],
+                "testimonials": [
+                    {
+                        "id": "4e36c42c-79a1-468b-aaba-4610accd6b5a",
+                        "created_at": "2023-12-07T12:55:36.906Z",
+                        "updated_at": "2023-12-07T12:55:36.906Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": null,
+                        "campaign_technology": {
+                            "id": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2"
+                        },
+                        "title": "Testimonial  101",
+                        "body": "When using the double-underscore notation, you can chain relationships to navigate through multiple levels of ForeignKey relationships. For instance, if Author had a ForeignKey to another model, you could use 'author__another_related_model' in the prefetch_related call.",
+                        "is_approved": false,
+                        "image": null,
+                        "created_by": null,
+                        "is_published": false,
+                        "anonymous": false,
+                        "community": null,
+                        "user": null,
+                        "file": null
+                    },
+                    {
+                        "id": "4edc0d73-4e43-4a04-8d69-3ea1ab4ae735",
+                        "created_at": "2023-12-07T12:55:56.642Z",
+                        "updated_at": "2023-12-07T12:55:59.660Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": null,
+                        "campaign_technology": {
+                            "id": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2"
+                        },
+                        "title": "Testimonial  101",
+                        "body": "When using the double-underscore notation, you can chain relationships to navigate through multiple levels of ForeignKey relationships. For instance, if Author had a ForeignKey to another model, you could use 'author__another_related_model' in the prefetch_related call.",
+                        "is_approved": false,
+                        "image": 617,
+                        "created_by": null,
+                        "is_published": false,
+                        "anonymous": false,
+                        "community": null,
+                        "user": null,
+                        "file": {
+                            "id": 617,
+                            "name": "ImageFor Testimonial  101 CampaignTech Testimonial",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                        }
+                    },
+                    {
+                        "id": "7e586aa4-6885-44cc-a860-1daac65f2c0e",
+                        "created_at": "2023-12-07T12:56:17.504Z",
+                        "updated_at": "2023-12-07T12:56:18.359Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": null,
+                        "campaign_technology": {
+                            "id": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2"
+                        },
+                        "title": "Testimonial  Ver Good",
+                        "body": "When using the double-underscore notation, you can chain relationships to navigate through multiple levels of ForeignKey relationships. For instance, if Author had a ForeignKey to another model, you could use 'author__another_related_model' in the prefetch_related call.",
+                        "is_approved": false,
+                        "image": 618,
+                        "created_by": null,
+                        "is_published": false,
+                        "anonymous": false,
+                        "community": null,
+                        "user": null,
+                        "file": {
+                            "id": 618,
+                            "name": "ImageFor Testimonial  Ver Good CampaignTech Testimonial",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                        }
+                    }
+                ],
+                "events": [],
+                "id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d",
+                "created_at": "2023-12-07T11:20:24.726Z",
+                "updated_at": "2023-12-07T11:20:25.724Z",
+                "is_deleted": false,
+                "info": null,
+                "name": "Community Solar",
+                "description": " Allow GitHub, its affiliates and third parties to use my code snippets to research and improve GitHub Copilot suggestions, related models and product features. More information in",
+                "image": {
+                    "id": 611,
+                    "name": "FileUpload for 4c74b279-45c4-435a-b05d-11f5f3dcd69d Technology",
+                    "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                }
+            }
+        ],
+        "managers": [],
+        "partners": []
+    },
+    "error": null,
+    "success": true,
+    "cursor": {}
+}
