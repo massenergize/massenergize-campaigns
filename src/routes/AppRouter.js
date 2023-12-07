@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import CustomModal from "../components/modal/CustomModal";
 import TechnologyFullViewPage from "../user-portal/pages/technology/TechnologyFullViewPage";
 import OneEvent from "../user-portal/pages/events/OneEvent";
+import AllComponents from "../admin-portal/pages/AllComponents";
 
 function AppRouter({ test, testFunction, modalOptions, toggleModal }) {
   return (
@@ -38,6 +39,7 @@ function AppRouter({ test, testFunction, modalOptions, toggleModal }) {
           path="/technology/event/:tech_id/:event_id"
           element={<OneEvent toggleModal={toggleModal} />}
         />
+        <Route path="/components" element={<AllComponents />} />
       </Routes>
     </>
   );
