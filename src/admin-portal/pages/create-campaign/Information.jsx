@@ -186,7 +186,7 @@ const Information = () => {
 						<Button
 							text="Save & Continue"
 							onSubmit={handleSubmit}
-							rounded={true}
+							rounded={false}
 						/>
 					</Col>
 				</Row>

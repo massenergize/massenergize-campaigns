@@ -5,7 +5,6 @@ import Checkbox from "./Checkbox";
 const Dropdown = ({
 	displayTextToggle,
 	data,
-	outputArray,
 	valueExtractor,
 	labelExtractor,
 	onItemSelect,
@@ -13,6 +12,7 @@ const Dropdown = ({
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedItem, setSelectedItem] = useState([]);
+	const [labelShowing, setLabelShowing] = useState(displayTextToggle);
 
 	const handleToggleDropdown = () => {
 		setIsOpen(!isOpen);
@@ -21,11 +21,19 @@ const Dropdown = ({
 	const handleSelect = (value) => {
 		onItemSelect && onItemSelect(value, selectedItem);
 
-		if (selectedItem.includes(value)) {
-			selectedItem.filter((item) => item !== value);
-			return selectedItem;
+		if (multiple) {
+			if (selectedItem.includes(value)) {
+				var filtered = selectedItem.filter((item) => item.id !== value?.id);
+				setSelectedItem(filtered);
+				// console.log(selectedItem);
+				return selectedItem;
+			} else {
+				// console.log(selectedItem);
+				return setSelectedItem([...selectedItem, value]);
+			}
 		} else {
-			return setSelectedItem([...selectedItem, value]);
+			setSelectedItem([value]);
+			setIsOpen(false);
 		}
 	};
 
@@ -36,7 +44,7 @@ const Dropdown = ({
 				onClick={handleToggleDropdown}
 			>
 				<div className="cusdropdown-toggle">
-					{displayTextToggle}
+					{labelShowing}
 					<span className={isOpen ? "arrow arrow-rotate" : "arrow "}>
 						<svg
 							stroke="#6e207c"
@@ -67,26 +75,39 @@ const Dropdown = ({
 					style={{
 						display: "flex",
 						flexDirection: "column",
-						gap: 15,
+						gap: multiple && 20,
 						padding: "0 1.125rem 2rem 1.125rem",
 					}}
 				>
-					{data.map((datum, index) => (
-						<div
-							key={index}
-							onClick={() => {
-								handleSelect(datum?.value);
-								// console.log(outputArray);
-							}}
-						>
-							<Checkbox
-								label={labelExtractor && labelExtractor(datum)}
-								id={datum?.id}
-								icon={datum?.icon}
-								value={valueExtractor && valueExtractor(datum)}
-							/>
-						</div>
-					))}
+					{data.map((datum, index) =>
+						multiple ? (
+							<div key={index}>
+								<Checkbox
+									label={labelExtractor && labelExtractor(datum)}
+									id={`${datum?.id} ${index} ${
+										labelExtractor && labelExtractor(datum)
+									} `}
+									icon={datum?.icon}
+									value={valueExtractor && valueExtractor(datum)}
+									onItemSelect={(val) => {
+										handleSelect(val);
+									}}
+								/>
+							</div>
+						) : (
+							<div key={index}>
+								<p
+									onClick={() => {
+										handleSelect(valueExtractor && valueExtractor(datum));
+										setLabelShowing(labelExtractor && labelExtractor(datum));
+									}}
+									className="cusdropdown-item"
+								>
+									{labelExtractor && labelExtractor(datum)}
+								</p>
+							</div>
+						)
+					)}
 				</div>
 			</div>
 		</div>

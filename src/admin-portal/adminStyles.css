@@ -9,3 +9,49 @@
 .light-red-background {
 	background-color: rgb(255, 157, 157) (237, 129, 129);
 }
+
+.text-link {
+	cursor: pointer;
+	font-weight: 500;
+}
+
+.light-gray-back {
+	background-color: rgb(236, 236, 236);
+}
+
+/* ........................image styles ................ */
+.smallimages-container-wrapper {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 2rem;
+}
+
+.small-image-container {
+	width: 200px;
+	height: 200px;
+	position: relative;
+}
+
+.small-image {
+	width: 200px;
+	height: 200px;
+	border-radius: 10px;
+}
+
+.image-close-btn {
+	position: absolute;
+	padding: 0.5rem 0.8rem;
+	top: -18px;
+	border-radius: 100%;
+	right: -18px;
+	background-color: white;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5),
+		0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	cursor: pointer;
+}
+
+.small-image-text {
+	margin-top: -1.2rem;
+	padding-top: 2rem;
+}

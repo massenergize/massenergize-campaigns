@@ -8,6 +8,8 @@ const Checkbox = ({
 	id,
 	valueExtractor,
 	labelExtractor,
+	value,
+	onItemSelect,
 }) => {
 	return (
 		<label
@@ -21,10 +23,15 @@ const Checkbox = ({
 			<input
 				type="checkbox"
 				id={id}
-				onChange={(e) => valueExtractor(e.target.checked)}
+				onChange={(e) => {
+					valueExtractor && valueExtractor(value ? value : e.target.checked);
+					onItemSelect && onItemSelect(value);
+				}}
 			/>
 			<span className="checkbox-icon"></span>
-			<span className="text">{label ? label : labelExtractor()}</span>
+			<span className="text">
+				{icon} {label ? label : labelExtractor()}
+			</span>
 		</label>
 	);
 };
