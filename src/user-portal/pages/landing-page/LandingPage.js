@@ -12,12 +12,17 @@ import CoachesSection from "../coaches/CoachesSection";
 import Banner from "../banner/Banner";
 import planetB from "./../../../assets/imgs/planet-b.jpeg";
 import { CAMPAIGN_DATA } from "../../data/user-portal-dummy-data";
+import { connect } from "react-redux";
+import Loading from "../../../components/pieces/Loading";
 
-function LandingPage({ toggleModal }) {
-  const campaign = CAMPAIGN_DATA.data;
+function LandingPage({ toggleModal, campaign }) {
+  console.log("HER EIS THE campaign from redux", campaign);
+
+  const technologies = campaign?.technologies || [];
   return (
     <div style={{}}>
       <AppNavigationBar />
+      {/* <Loading fullPage /> */}
       <Container>
         <Banner />
         <Container>
@@ -36,18 +41,31 @@ function LandingPage({ toggleModal }) {
         </Container>
         <RoamingBox id="roaming-box" />
       </Container>
-      <GettingStartedSection sectionId="getting-started-section" />
+      <GettingStartedSection
+        technologies={technologies}
+        sectionId="getting-started-section"
+      />
 
-      <TestimonialSection sectionId="testimonial-section" />
+      <TestimonialSection
+        technologies={technologies}
+        sectionId="testimonial-section"
+      />
       <br />
 
-      <EventsSection sectionId="event-section" />
+      <EventsSection technologies={technologies} sectionId="event-section" />
 
-      <CoachesSection toggleModal={toggleModal} sectionId="coaches-section" />
+      <CoachesSection
+        technologies={technologies}
+        toggleModal={toggleModal}
+        sectionId="coaches-section"
+      />
 
       <Footer toggleModal={toggleModal} />
     </div>
   );
 }
 
-export default LandingPage;
+const mapState = (state) => {
+  return { campaign: CAMPAIGN_DATA.data };
+};
+export default connect(mapState)(LandingPage);

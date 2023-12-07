@@ -44,6 +44,7 @@ function Footer({ toggleModal }) {
                   show: true,
                   component: <JoinUsForm />,
                   title: "Welcome to the Wayland Energy Challenge",
+                  fullControl: true,
                 })
               }
             >

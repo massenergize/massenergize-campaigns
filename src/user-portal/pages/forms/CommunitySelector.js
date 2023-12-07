@@ -15,6 +15,8 @@ function CommunitySelector({ selected, onChange }) {
     setOption(selected);
   }, [selected]);
 
+  const isOther = option === OTHER;
+
   return (
     <div>
       <Form.Text>Please tell us where you are from (Editable)</Form.Text>
@@ -47,18 +49,35 @@ function CommunitySelector({ selected, onChange }) {
           </Form.Check>
         ))}
       </Form>
-      {option === OTHER && (
-        <div>
-          <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1">Community Name</InputGroup.Text>
-            <Form.Control
-              type="text"
-              placeholder="Tell us where you are from..."
-              aria-label="text"
-              aria-describedby="basic-addon1"
-            />
-          </InputGroup>
-        </div>
+      {isOther && (
+        <>
+          <div>
+            <InputGroup className="mb-3">
+              <InputGroup.Text id="basic-addon1">
+                Community Name
+              </InputGroup.Text>
+              <Form.Control
+                type="text"
+                placeholder="Tell us where you are from..."
+                aria-label="text"
+                aria-describedby="basic-addon1"
+              />
+            </InputGroup>
+          </div>
+
+          <div>
+            <Form.Text>Enter your zip code (Editable)</Form.Text>
+            <InputGroup className="mb-3 mt-2">
+              <InputGroup.Text id="basic-addon1">Zip Code</InputGroup.Text>
+              <Form.Control
+                type="number"
+                placeholder="Enter zip code here..."
+                aria-label="zipcode"
+                aria-describedby="basic-addon1"
+              />
+            </InputGroup>
+          </div>
+        </>
       )}
     </div>
   );

@@ -22,7 +22,8 @@ const dummies = [
     title: "Community Solar",
   },
 ];
-function GettingStartedSection({ sectionId }) {
+function GettingStartedSection({ sectionId, technologies }) {
+  console.log("these are the technologies", technologies);
   return (
     <div
       id={sectionId}
@@ -40,9 +41,9 @@ function GettingStartedSection({ sectionId }) {
               started right away!
             </p>
             <Row>
-              {dummies.map((box, index) => {
+              {technologies?.map((box, index) => {
                 return (
-                  <Col key={index?.toString()} xs={3}>
+                  <Col key={box.id} xs={3}>
                     <OneBox {...box} />
                   </Col>
                 );
