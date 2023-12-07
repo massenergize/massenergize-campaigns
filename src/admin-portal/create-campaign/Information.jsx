@@ -2,11 +2,11 @@ import React, { useReducer, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Checkbox from "../../../components/admin-components/Checkbox";
-import Input from "../../../components/admin-components/Input";
-import FileUploader from "../../../components/admin-components/FileUploader";
-import Button from "../../../components/admin-components/Button";
-import "./../../adminStyles.css";
+import Checkbox from "../../components/admin-components/Checkbox";
+import Input from "../../components/admin-components/Input";
+import FileUploader from "../../components/admin-components/FileUploader";
+import Button from "../../components/admin-components/Button";
+import "../adminStyles.css";
 
 const Information = () => {
 	const [showError, setShowError] = useState(false);

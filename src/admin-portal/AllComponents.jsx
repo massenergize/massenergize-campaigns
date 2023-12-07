@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import Input from "../../components/admin-components/Input";
-import Button from "../../components/admin-components/Button";
-import Chip from "../../components/admin-components/Chip";
-import Checkbox from "../../components/admin-components/Checkbox";
-import Dropdown from "../../components/admin-components/Dropdown";
+import Input from "../components/admin-components/Input";
+import Button from "../components/admin-components/Button";
+import Chip from "../components/admin-components/Chip";
+import Checkbox from "../components/admin-components/Checkbox";
+import Dropdown from "../components/admin-components/Dropdown";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import FileUploader from "../../components/admin-components/FileUploader";
+import FileUploader from "../components/admin-components/FileUploader";
 import Information from "./create-campaign/Information";
 import ActionSelect from "./create-campaign/ActionSelect";
 import Info from "./create-campaign/create-technology/Info";
 import Coaches from "./create-campaign/create-technology/Coaches";
 import Incentives from "./create-campaign/create-technology/Incentives";
+import Alert from 'react-bootstrap/Alert';
 
 const AllComponents = () => {
 	const handleAlert = () => {
@@ -277,6 +278,9 @@ const AllComponents = () => {
 				<Info /> */}
 				{/* <Coaches /> */}
 				<Incentives />
+				<Alert variant={"danger"} className="border-0">
+					This is a Red alert—check it out!
+				</Alert>
 			</div>
 		</div>
 	);
