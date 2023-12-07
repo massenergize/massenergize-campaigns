@@ -25,6 +25,7 @@ const FileUploader = ({ text, valueExtractor, required, id }) => {
 					className="file-input"
 					onChange={handleFileChange}
 					required={required}
+					accept="image/*"
 				/>
 				<div>
 					{previewUrl ? (

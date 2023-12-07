@@ -8,6 +8,10 @@ import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FileUploader from "../../components/admin-components/FileUploader";
 import Information from "./create-campaign/Information";
+import ActionSelect from "./create-campaign/ActionSelect";
+import Info from "./create-campaign/create-technology/Info";
+import Coaches from "./create-campaign/create-technology/Coaches";
+import Incentives from "./create-campaign/create-technology/Incentives";
 
 const AllComponents = () => {
 	const handleAlert = () => {
@@ -268,7 +272,11 @@ const AllComponents = () => {
 					width: "100%",
 				}}
 			>
-				<Information />
+				{/* <Information />
+				<ActionSelect />
+				<Info /> */}
+				{/* <Coaches /> */}
+				<Incentives />
 			</div>
 		</div>
 	);

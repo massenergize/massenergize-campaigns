@@ -1,7 +1,15 @@
 import React from "react";
 import "./styles.css";
 
-const Input = ({ label, placeholder, required, type, onChange }) => {
+const Input = ({
+	label,
+	placeholder,
+	required,
+	type,
+	onChange,
+	maxLength,
+	value,
+}) => {
 	return (
 		<div className="input-container">
 			<label for={type === "textarea" ? "textarea" : "input"} className="text">
@@ -16,6 +24,8 @@ const Input = ({ label, placeholder, required, type, onChange }) => {
 					onChange={(e) => {
 						onChange(e.target.value);
 					}}
+					maxlength={maxLength}
+					value={value}
 				/>
 			) : type === "email" ? (
 				<input
@@ -26,6 +36,8 @@ const Input = ({ label, placeholder, required, type, onChange }) => {
 					onChange={(e) => {
 						onChange(e.target.value);
 					}}
+					maxlength={maxLength}
+					value={value}
 				/>
 			) : type === "textarea" ? (
 				<textarea
@@ -36,6 +48,8 @@ const Input = ({ label, placeholder, required, type, onChange }) => {
 					onChange={(e) => {
 						onChange(e.target.value);
 					}}
+					maxlength={maxLength}
+					value={value}
 				/>
 			) : (
 				type === "date" && (
@@ -47,6 +61,7 @@ const Input = ({ label, placeholder, required, type, onChange }) => {
 						onChange={(e) => {
 							onChange(e.target.value);
 						}}
+						// value={value}
 					/>
 				)
 			)}

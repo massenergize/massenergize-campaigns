@@ -95,8 +95,8 @@
 	padding-right: 2rem;
 	background-color: #6e207c;
 	color: white;
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
+	padding-top: 0.8rem;
+	padding-bottom: 0.8rem;
 	border-radius: 0.125rem;
 	font-size: 0.875rem;
 	line-height: 1.25rem;
@@ -313,6 +313,18 @@
 	list-style: none;
 }
 
+.cusdropdown-item {
+	padding: 1rem;
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 300ms;
+	cursor: pointer;
+}
+
+.cusdropdown-item:hover {
+	background-color: #ebebeb;
+}
+
 /* ...................................................   File Upload   ................................... */
 
 .file-upload {
@@ -369,4 +381,53 @@
 	color: #555;
 	font-weight: bold;
 	background-color: #f2f2f2;
+}
+
+/* ...................................... incentives Bar ...................................... */
+
+.incentivesBar-menu-open {
+	height: 40rem;
+	padding-top: 2rem;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+		0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.cusdropdown-toggle .arrowincentivesBar {
+	position: absolute;
+	right: 1.25rem;
+	top: 10px;
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 300ms;
+}
+
+.arrowincentivesBar-rotate {
+	rotate: 180deg;
+}
+
+.incentivesBardropdown {
+	position: relative;
+	display: inline-block;
+	border-radius: 4px;
+	cursor: pointer;
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
+	border-width: 1px;
+	border-color: #f4f4f4;
+	border-style: solid;
+	width: 100%;
+	letter-spacing: 0.025em;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+		0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 200ms;
+	z-index: 2;
+	background-color: white;
+}
+
+.icentiveBarIcon {
+	padding-right: 15px;
 }
