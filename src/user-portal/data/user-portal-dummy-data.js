@@ -5,14 +5,15 @@ const children = [
 ];
 
 export const NAVIGATION_MENU = [
-  { key: "Questions", url: "#", text: "Questions", icon: "fa-question" },
+  { key: "questions", url: "#", text: "Questions", icon: "fa-question-circle" },
+  { key: "coaches", url: "#", text: "Coaches", icon: "fa-users", children },
 
   {
     key: "vendors",
     url: "#",
     text: "Vendors",
     children,
-    icon: "fa-vendor",
+    icon: "fa-sell",
   },
   {
     key: "incentives",
@@ -22,9 +23,16 @@ export const NAVIGATION_MENU = [
     icon: "fa-money",
   },
   {
+    key: "events",
+    url: "#",
+    text: "Events",
+    children,
+    icon: "fa-calendar",
+  },
+  {
     key: "testimonial",
     url: "#",
-    text: "Testimonials",
+    text: "Testimonial",
     children,
     icon: "fa-comment",
   },
@@ -32,7 +40,6 @@ export const NAVIGATION_MENU = [
     key: "contact-us",
     url: "#",
     text: "Contact Us",
-    children,
     icon: "fa-phone",
   },
 ];
