@@ -13,7 +13,8 @@ function TestimonialBox() {
         pped in the wilderness!’ 4 And once again I will harden Pharaoh’s heart,
         and he will chase after you.[a] I have planned this
         <a
-          href="#"
+          className="touchable-opacity"
+          href="/technology/testimonial/sdfkjl/sdkfjlsd"
           style={{ marginLeft: 10, color: "var(--app-medium-green)" }}
         >
           Read More...

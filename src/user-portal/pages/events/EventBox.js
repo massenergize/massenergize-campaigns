@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function EventBox() {
+  const navigator = useNavigate();
   return (
     <div
       className="elevate-float-pro"
@@ -20,7 +22,10 @@ function EventBox() {
         src="https://picsum.photos/id/870/300/300?grayscale&blur=2"
       />
       <div style={{ padding: "15px 15px" }}>
-        <h6 style={{ textDecoration: "underline" }}>
+        <h6
+          onClick={() => navigator("/technology/event/uri/euri")}
+          style={{ textDecoration: "underline" }}
+        >
           Acton Business Energy Efficient Grant{" "}
           <i
             className="fa fa-long-arrow-right"
