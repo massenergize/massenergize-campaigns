@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -10,36 +10,53 @@ import "./../../adminStyles.css";
 
 const Information = () => {
 	const [showError, setShowError] = useState(false);
-	const [formData, setFormData] = useState({
-		template: false,
+
+	const initialState = {
+		isTemplate: false,
 		title: "",
 		slogan: "",
-		start_date: "",
-		end_date: "",
+		startDate: "",
+		endDate: "",
 		description: "",
 		logo: "",
-		full_name: "",
+		fullName: "",
 		email: "",
 		contact: "",
-		profile_image: "",
-	});
+		profileImage: "",
+	};
+
+	const reducer = (state, action) => {
+		switch (action.type) {
+			case "SET_FIELD_VALUE":
+				return { ...state, [action.field]: action.value };
+			default:
+				throw new Error(`Unsupported action type: ${action.type}`);
+		}
+	};
+
+	const [formData, dispatch] = useReducer(reducer, initialState);
+
+	const handleFieldChange = (field, value) => {
+		dispatch({ type: "SET_FIELD_VALUE", field, value });
+	}
 
 	const handleSubmit = async () => {
 		console.log(formData);
 	};
 
 	return (
-		<Container
-		// fluid
-		>
-			<form>
+		<Container>
+			<form onSubmit={(e) => {
+				e.preventDefault();
+			}}>
 				<Row className="py-4">
 					<Col>
 						<Checkbox
 							label="Is this Campaign a template ?"
-							id="Is this Campaign a template ?"
+							id="isTemplate"
+							name="isTemplate"
 							valueExtractor={(val) => {
-								setFormData({ ...formData, template: val });
+								handleFieldChange("isTemplate", val);
 							}}
 							size="big"
 						/>
@@ -48,12 +65,14 @@ const Information = () => {
 				<Row className="py-4">
 					<Col>
 						<Input
+							id="title"
+							name="title"
 							label="Campaign Title"
 							placeholder="Enter a Title for this campaign ..."
 							required={true}
 							type="textbox"
 							onChange={(val) => {
-								setFormData({ ...formData, title: val });
+								handleFieldChange("title", val);
 							}}
 						/>
 					</Col>
@@ -61,12 +80,14 @@ const Information = () => {
 				<Row className="py-4">
 					<Col>
 						<Input
+							id="slogan"
+							name="slogan"
 							label="Campaign Slogan"
 							placeholder="Enter a slogan for this campaign ..."
 							required={false}
 							type="textbox"
 							onChange={(val) => {
-								setFormData({ ...formData, slogan: val });
+								handleFieldChange("slogan", val)
 							}}
 						/>
 					</Col>
@@ -74,12 +95,14 @@ const Information = () => {
 				<Row className="py-4">
 					<Col>
 						<Input
+							id="startDate"
+							name="startDate"
 							label="Start Date"
 							placeholder="Enter a slogan for this campaign ..."
 							required={false}
 							type="date"
 							onChange={(val) => {
-								setFormData({ ...formData, start_date: val });
+								handleFieldChange("startDate", val)
 							}}
 						/>
 					</Col>
@@ -87,12 +110,14 @@ const Information = () => {
 				<Row className="py-4">
 					<Col>
 						<Input
+							id="endDate"
+							name="endDate"
 							label="End Date"
 							placeholder="Enter a slogan for this campaign ..."
 							required={false}
 							type="date"
 							onChange={(val) => {
-								setFormData({ ...formData, end_date: val });
+								handleFieldChange("endDate", val)
 							}}
 						/>
 					</Col>
@@ -100,12 +125,14 @@ const Information = () => {
 				<Row className="py-4">
 					<Col>
 						<Input
+							id="description"
+							name="description"
 							label="Description"
 							placeholder="Add a more detailed description of your campaign..."
 							required={false}
 							type="textarea"
 							onChange={(val) => {
-								setFormData({ ...formData, description: val });
+								handleFieldChange("description", val)
 							}}
 						/>
 					</Col>
@@ -117,7 +144,7 @@ const Information = () => {
 							id="campaign_logo"
 							text="Add a logo to your campaign (optional)"
 							valueExtractor={(val) => {
-								setFormData({ ...formData, logo: val });
+								handleFieldChange("logo", val)
 							}}
 						/>
 					</Col>
@@ -133,12 +160,14 @@ const Information = () => {
 				<Row className="py-4">
 					<Col>
 						<Input
+							id="fullName"
+							name="fullName"
 							label="Full Name"
 							placeholder="Enter full name here ..."
 							required={true}
 							type="textbox"
 							onChange={(val) => {
-								setFormData({ ...formData, full_name: val });
+								handleFieldChange("fullName", val)
 							}}
 						/>
 					</Col>
@@ -146,12 +175,14 @@ const Information = () => {
 				<Row className="py-4">
 					<Col>
 						<Input
+							id="email"
+							name="email"
 							label="Email of Contact"
 							placeholder="Enter email here ..."
 							required={true}
 							type="email"
 							onChange={(val) => {
-								setFormData({ ...formData, email: val });
+								handleFieldChange("email", val)
 							}}
 						/>
 					</Col>
@@ -159,12 +190,14 @@ const Information = () => {
 				<Row className="py-4">
 					<Col>
 						<Input
+							id="contact"
+							name="contact"
 							label="Phone Number"
 							placeholder="Enter Phone Number here...."
 							required={true}
 							type="textbox"
 							onChange={(val) => {
-								setFormData({ ...formData, contact: val });
+								handleFieldChange("contact", val)
 							}}
 						/>
 					</Col>
@@ -176,7 +209,7 @@ const Information = () => {
 							id="key_contact_profile"
 							text="Upload a picture of the key contact"
 							valueExtractor={(val) => {
-								setFormData({ ...formData, profile_image: val });
+								handleFieldChange("profileImage", val)
 							}}
 						/>
 					</Col>
