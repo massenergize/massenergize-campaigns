@@ -2,19 +2,30 @@ import React, { useState } from "react";
 import "./styles.css";
 import Checkbox from "./Checkbox";
 
-const Dropdown = ({ displayTextToggle, data, outputArray }) => {
+const Dropdown = ({
+	displayTextToggle,
+	data,
+	outputArray,
+	valueExtractor,
+	labelExtractor,
+	onItemSelect,
+	multiple,
+}) => {
 	const [isOpen, setIsOpen] = useState(false);
+	const [selectedItem, setSelectedItem] = useState([]);
 
 	const handleToggleDropdown = () => {
 		setIsOpen(!isOpen);
 	};
 
 	const handleSelect = (value) => {
-		if (outputArray.includes(value)) {
-			outputArray = outputArray.filter((item) => item !== value);
-			return outputArray;
+		onItemSelect && onItemSelect(value, selectedItem);
+
+		if (selectedItem.includes(value)) {
+			selectedItem.filter((item) => item !== value);
+			return selectedItem;
 		} else {
-			return outputArray.push(value);
+			return setSelectedItem([...selectedItem, value]);
 		}
 	};
 
@@ -65,14 +76,14 @@ const Dropdown = ({ displayTextToggle, data, outputArray }) => {
 							key={index}
 							onClick={() => {
 								handleSelect(datum?.value);
-								console.log(outputArray);
+								// console.log(outputArray);
 							}}
 						>
 							<Checkbox
-								text={datum?.name}
+								label={labelExtractor && labelExtractor(datum)}
 								id={datum?.id}
 								icon={datum?.icon}
-								value={datum?.value}
+								value={valueExtractor && valueExtractor(datum)}
 							/>
 						</div>
 					))}

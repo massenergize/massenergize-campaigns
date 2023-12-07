@@ -7,6 +7,7 @@ import Dropdown from "../../components/admin-components/Dropdown";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FileUploader from "../../components/admin-components/FileUploader";
+import Information from "./create-campaign/Information";
 
 const AllComponents = () => {
 	const handleAlert = () => {
@@ -89,7 +90,7 @@ const AllComponents = () => {
 				margin: "2rem 2rem",
 			}}
 		>
-			<Input
+			{/* <Input
 				label="First Name"
 				placeholder="Enter name of partner here ..."
 				required={true}
@@ -175,7 +176,7 @@ const AllComponents = () => {
 				}}
 			>
 				<Checkbox
-					text="Disable the Partner's section"
+					label="Disable the Partner's section"
 					id="Disable the Partner's section"
 				/>
 			</div>
@@ -185,7 +186,7 @@ const AllComponents = () => {
 				}}
 			>
 				<Checkbox
-					text="Google"
+					label="Google"
 					id="Google"
 					size="big"
 					icon={
@@ -239,6 +240,12 @@ const AllComponents = () => {
 					displayTextToggle="New Action for Wayland Energy"
 					data={dropDownDataNoIcons}
 					outputArray={outputArray}
+					valueExtractor={(item) => item?.name}
+					labelExtractor={(item) => item?.id}
+					multiple={true}
+					onItemSelect={(selectedItem, allSelected) =>
+						console.log("=== selected===", selectedItem, allSelected)
+					}
 				/>
 			</div>
 			<div
@@ -248,6 +255,20 @@ const AllComponents = () => {
 				}}
 			>
 				<FileUploader text="Add an image for the action" />
+			</div>
+			<div
+				style={{
+					marginTop: "200px",
+					width: "100%",
+				}}
+			></div> */}
+			<div
+				style={{
+					marginTop: "20px",
+					width: "100%",
+				}}
+			>
+				<Information />
 			</div>
 		</div>
 	);
