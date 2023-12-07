@@ -1,12 +1,13 @@
 const children = [
-  { key: "solar", url: "#", text: "Solar" },
+  { key: "heat-pump", url: "#coaches-section", text: "Heat Pump" },
   { key: "community-solar", url: "#", text: "Community Solar" },
-  { key: "home-solar", url: "#", text: "Home-Solar" },
+  { key: "home-solar", url: "#", text: "Home Solar" },
 ];
 
 export const NAVIGATION_MENU = [
-  { key: "questions", url: "#", text: "Questions", icon: "fa-question-circle" },
-  { key: "coaches", url: "#", text: "Coaches", icon: "fa-users", children },
+  { key: "home", url: "/", text: "Home", icon: "fa-home" },
+  { key: "questions", url: "#testimonial-section", text: "Questions", icon: "fa-question-circle" },
+  { key: "coaches", url: "#coaches-section", text: "Coaches", icon: "fa-users", children },
 
   {
     key: "vendors",

@@ -1,18 +1,15 @@
 import React from "react";
 
 import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
-import Introduction from "../introduction/Introduction";
-import { Button, Container } from "react-bootstrap";
+
+import { Container } from "react-bootstrap";
 import RoamingBox from "./RoamingBox";
 import Footer from "../footer/Footer";
 import TestimonialSection from "../testimonials/TestimonialSection";
 import EventsSection from "../events/EventsSection";
 import GettingStartedSection from "../getting-started/GettingStartedSection";
 import CoachesSection from "../coaches/CoachesSection";
-import CustomModal from "../../../components/modal/CustomModal";
-import CustomTabView from "../../../components/tab-view/CustomTabView";
 import Banner from "../banner/Banner";
-import JoinUsForm from "../forms/JoinUsForm";
 import planetB from "./../../../assets/imgs/planet-b.jpeg";
 
 function LandingPage({ toggleModal }) {
@@ -21,13 +18,10 @@ function LandingPage({ toggleModal }) {
       <AppNavigationBar />
       <Container>
         <Banner />
-        {/* <Introduction /> */}
         <Container>
           <img
             className="elevate-float-pro"
             src={planetB}
-            // src="https://picsum.photos/id/870/800/400?grayscale&blur=2"
-            // src="https://massenergize-prod-files.s3.amazonaws.com/media/crowd-of-people-marching-on-a-rally-2975498.jpg"
             style={{
               width: "80%",
               margin: "0px 10%",
@@ -37,28 +31,17 @@ function LandingPage({ toggleModal }) {
               objectFit: "cover",
             }}
           />
-          {/* <Button
-            onClick={() =>
-              toggleModal({
-                show: true,
-                component: <JoinUsForm />,
-                title: "Welcome to the Wayland Energy Challenge",
-              })
-            }
-          >
-            Click me
-          </Button> */}
         </Container>
-        <RoamingBox />
+        <RoamingBox id="roaming-box" />
       </Container>
-      <GettingStartedSection />
+      <GettingStartedSection sectionId="getting-started-section" />
 
-      <TestimonialSection />
+      <TestimonialSection sectionId="testimonial-section" />
       <br />
 
-      <EventsSection />
+      <EventsSection sectionId="event-section" />
 
-      <CoachesSection toggleModal={toggleModal} />
+      <CoachesSection toggleModal={toggleModal} sectionId="coaches-section" />
 
       <Footer toggleModal={toggleModal} />
     </div>

@@ -12,7 +12,7 @@ function OneEvent() {
           <img
             className="elevate-float-pro mt-3"
             src={
-              "https://massenergize-prod-files.s3.amazonaws.com/media/EV_1000_x_720-230403-024429.png"
+              "https://massenergize-prod-files.s3.amazonaws.com/media/new_image-231024-210048"
             }
             style={{
               width: "100%",

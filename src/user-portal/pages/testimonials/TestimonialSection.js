@@ -4,9 +4,10 @@ import { Col, Container, Row } from "react-bootstrap";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
 
-function TestimonialSection() {
+function TestimonialSection({ sectionId }) {
   return (
     <div
+      id={sectionId}
       className="elevate-float-pro"
       style={{
         margin: "40px 0px",

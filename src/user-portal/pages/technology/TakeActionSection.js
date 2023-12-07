@@ -27,9 +27,10 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the re ",
   },
 ];
-function TakeAtionSetion() {
+function TakeAtionSetion({ sectionId }) {
   return (
     <div
+      id={sectionId}
       className="mt-5 elevate-float-pro"
       style={{
         background: "var(--app-medium-green)",
