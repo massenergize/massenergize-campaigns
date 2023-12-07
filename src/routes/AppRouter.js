@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import CustomModal from "../components/modal/CustomModal";
 import TechnologyFullViewPage from "../user-portal/pages/technology/TechnologyFullViewPage";
 import OneEvent from "../user-portal/pages/events/OneEvent";
-import AllComponents from "../admin-portal/pages/AllComponents";
+import AllComponents from "../admin-portal/AllComponents";
 
 const ROUTE_TABLE = [
   {
