@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles.css";
 
-const Checkbox = ({ text, size, icon, id, value, onClick }) => {
+const Checkbox = ({
+	label,
+	size,
+	icon,
+	id,
+	valueExtractor,
+	labelExtractor,
+}) => {
 	return (
 		<label
 			for={id}
@@ -10,13 +17,14 @@ const Checkbox = ({ text, size, icon, id, value, onClick }) => {
 					? "custom-checkbox checkbox-big"
 					: "custom-checkbox checkbox-small"
 			}
-			// onClick={onClick}
 		>
-			<input type="checkbox" id={id} value={value} />
+			<input
+				type="checkbox"
+				id={id}
+				onChange={(e) => valueExtractor(e.target.checked)}
+			/>
 			<span className="checkbox-icon"></span>
-			<span className="text">
-				{icon} {text}
-			</span>
+			<span className="text">{label ? label : labelExtractor()}</span>
 		</label>
 	);
 };

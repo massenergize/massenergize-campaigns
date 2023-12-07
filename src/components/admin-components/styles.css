@@ -1,3 +1,15 @@
+.theme-color {
+	color: #6e207c;
+}
+
+.custom-letter-spacing-p {
+	letter-spacing: 1px;
+}
+
+.light-red-background {
+	background-color: rgb(255, 157, 157) (237, 129, 129);
+}
+
 /* .......................................  input styles  ................................... */
 
 .input-container {
@@ -15,7 +27,8 @@
 	top: 0.5rem;
 	margin: 0 0 0 7px;
 	left: 12px;
-	padding: 0 50px 0 13px;
+	/* width: 170px !important; */
+	padding: 0 20px 0 13px;
 	background: #ffffff;
 	width: fit-content;
 	letter-spacing: 0.05em;
@@ -46,6 +59,24 @@
 	min-width: 20rem;
 	padding: 2rem 1.4rem;
 	min-height: 15rem;
+	outline: none;
+	font-size: 0.9rem;
+	border: 1px #202020 solid;
+	border-radius: 3px;
+	background: #ffffff;
+	font-weight: 200;
+	color: #4b5563;
+}
+/* .......................................  input  ----  date  ................................... */
+
+.date-input {
+	width: 100%;
+	height: 100%;
+	letter-spacing: 0.05em;
+	resize: none;
+	min-width: 20rem;
+	padding: 1rem 1.4rem;
+	/* min-height: 15rem; */
 	outline: none;
 	font-size: 0.9rem;
 	border: 1px #202020 solid;
@@ -291,9 +322,9 @@
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	height: 250px;
+	height: 290px;
 	border-width: 1px;
-	border-color: black;
+	border-color: rgb(148, 148, 148);
 	border-style: solid;
 	border-radius: 3px;
 }
@@ -319,7 +350,7 @@
 	top: 0;
 }
 
-#file-input {
+.file-input {
 	opacity: 0;
 }
 

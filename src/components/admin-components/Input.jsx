@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles.css";
 
-const Input = ({ label, placeholder, required, type }) => {
+const Input = ({ label, placeholder, required, type, onChange }) => {
 	return (
 		<div className="input-container">
 			<label for={type === "textarea" ? "textarea" : "input"} className="text">
@@ -13,15 +13,30 @@ const Input = ({ label, placeholder, required, type }) => {
 					placeholder={placeholder}
 					className="input"
 					required={required ? true : false}
+					onChange={(e) => {
+						onChange(e.target.value);
+					}}
+				/>
+			) : type === "textarea" ? (
+				<textarea
+					placeholder={placeholder}
+					className="input-textarea"
+					required={required ? true : false}
+					minLength={800}
+					onChange={(e) => {
+						onChange(e.target.value);
+					}}
 				/>
 			) : (
-				type === "textarea" && (
-					<textarea
+				type === "date" && (
+					<input
+						type="date"
 						placeholder={placeholder}
-						className="input-textarea"
+						className="date-input"
 						required={required ? true : false}
-						minLength={800}
-						// rows="5"
+						onChange={(e) => {
+							onChange(e.target.value);
+						}}
 					/>
 				)
 			)}

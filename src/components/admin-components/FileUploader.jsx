@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 
-const FileUploader = ({ text }) => {
-	const [file, setFile] = useState(null);
+const FileUploader = ({ text, valueExtractor, required, id }) => {
 	const [previewUrl, setPreviewUrl] = useState(null);
 
 	const handleFileChange = (event) => {
 		const selectedFile = event.target.files[0];
-		setFile(selectedFile);
+		valueExtractor(event.target.files[0]);
 
 		if (selectedFile) {
 			const fileReader = new FileReader();
@@ -19,8 +18,14 @@ const FileUploader = ({ text }) => {
 
 	return (
 		<div className="file-upload">
-			<label htmlFor="file-input" className="file-input-label">
-				<input type="file" id="file-input" onChange={handleFileChange} />
+			<label htmlFor={id} className="file-input-label">
+				<input
+					type="file"
+					id={id}
+					className="file-input"
+					onChange={handleFileChange}
+					required={required}
+				/>
 				<div>
 					{previewUrl ? (
 						<img src={previewUrl} alt="Preview" className="preview-image" />
@@ -57,7 +62,7 @@ const FileUploader = ({ text }) => {
 					color: "#9CA3AF",
 				}}
 			>
-				{text}
+				{text} {required && "*"}
 			</p>
 		</div>
 	);
