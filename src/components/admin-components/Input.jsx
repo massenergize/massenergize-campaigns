@@ -17,6 +17,16 @@ const Input = ({ label, placeholder, required, type, onChange }) => {
 						onChange(e.target.value);
 					}}
 				/>
+			) : type === "email" ? (
+				<input
+					type="email"
+					placeholder={placeholder}
+					className="input"
+					required={required ? true : false}
+					onChange={(e) => {
+						onChange(e.target.value);
+					}}
+				/>
 			) : type === "textarea" ? (
 				<textarea
 					placeholder={placeholder}

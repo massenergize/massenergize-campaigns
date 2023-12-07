@@ -34,7 +34,8 @@
 	letter-spacing: 0.05em;
 }
 
-.input-container input[type="text"].input {
+.input-container input[type="text"].input,
+.input-container input[type="email"].input {
 	padding: 1rem 1.4rem;
 	font-size: 0.9rem;
 	border: 1px #202020 solid;
@@ -45,7 +46,8 @@
 	color: #4b5563;
 }
 
-.input-container input[type="text"].input:focus {
+.input-container input[type="text"].input:focus,
+.input-container input[type="email"].input:focus {
 	outline: none;
 }
 

@@ -9,7 +9,7 @@ import Button from "../../../components/admin-components/Button";
 import "./../../adminStyles.css";
 
 const Information = () => {
-	const [showError, setShowError] = useState(true);
+	const [showError, setShowError] = useState(false);
 	const [formData, setFormData] = useState({
 		template: false,
 		title: "",
@@ -149,7 +149,7 @@ const Information = () => {
 							label="Email of Contact"
 							placeholder="Enter email here ..."
 							required={true}
-							type="textbox"
+							type="email"
 							onChange={(val) => {
 								setFormData({ ...formData, email: val });
 							}}
