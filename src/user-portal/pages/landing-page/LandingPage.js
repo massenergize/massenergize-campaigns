@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
 
@@ -14,12 +14,43 @@ import planetB from "./../../../assets/imgs/planet-b.jpeg";
 import { CAMPAIGN_DATA } from "../../data/user-portal-dummy-data";
 import { connect } from "react-redux";
 import Loading from "../../../components/pieces/Loading";
+import { apiCall } from "../../../api/messenger";
 
 function LandingPage({ toggleModal, campaign }) {
   console.log("HER EIS THE campaign from redux", campaign);
   const { image, config, key_contact } = campaign || {};
 
   const technologies = campaign?.technologies || [];
+
+  useEffect(() => {
+    // fetch("https://jsonplaceholder.typicode.com/todos/1")
+    //   .then((response) => response.json())
+    //   .then((json) => console.log(json));
+    // var myHeaders = new Headers();
+    // myHeaders.append("Content-Type", "application/json");
+    // var raw = JSON.stringify({
+    //   id: "ab3b98d2-f1a3-4620-86db-f48a06459b3d",
+    // });
+    // var requestOptions = {
+    //   method: "POST",
+    //   headers: myHeaders,
+    //   body: raw,
+    //   redirect: "follow",
+    // };
+    // fetch(
+    //   "https://2606-154-160-22-219.ngrok-free.app/api/campaigns.info",
+    //   requestOptions
+    // )
+    //   .then((response) => response.text())
+    //   .then((result) => console.log(result))
+    //   .catch((error) => console.log("error", error));
+    // apiCall("campaign.info", {
+    //   id: "ab3b98d2-f1a3-4620-86db-f48a06459b3d",
+    // }).then((response) => {
+    //   console.log("RESPONSE_FROM_API_REQUEST", response);
+    // });
+  }, []);
+
   return (
     <div style={{}}>
       <AppNavigationBar />
