@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Checkbox from "../../components/admin-components/Checkbox";
 import Input from "../../components/admin-components/Input";
@@ -35,13 +35,40 @@ const Goal = () => {
 		},
 	];
 
-	const [formData, setFormData] = useState({
-		description: "",
+	const initialState = {
+		isTemplate: false,
 		title: "",
-		icon: "",
-	});
+		slogan: "",
+		start_date: "",
+		end_date: "",
+		description: "",
+		logo: "",
+		fullName: "",
+		email: "",
+		contact: "",
+		profileImage: "",
+		tagline: "",
+	};
 
-	const handleSubmit = async () => {};
+	const reducer = (state, action) => {
+		switch (action.type) {
+			case "SET_FIELD_VALUE":
+				return { ...state, [action.field]: action.value };
+			default:
+				throw new Error(`Unsupported action type: ${action.type}`);
+		}
+	};
+
+	const [formData, dispatch] = useReducer(reducer, initialState);
+
+	const handleFieldChange = (field, value) => {
+		dispatch({ type: "SET_FIELD_VALUE", field, value });
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		console.log(formData);
+	};
 
 	return (
 		<m.div
@@ -50,54 +77,56 @@ const Goal = () => {
 			transition={{ duration: 0.3 }}
 		>
 			<Container className="border-dashed my-4">
-				<Row>
-					<Col>
-						<h6>Goals</h6>
-					</Col>
-				</Row>
-				<Row className="py-4">
-					<Col>
-						<Checkbox
-							label="Disable the “Goals” section"
-							id="isTemplate"
-							name="isTemplate"
-							valueExtractor={(val) => {
-								// handleFieldChange("isTemplate", val);
-							}}
-							size="big"
-						/>
-					</Col>
-				</Row>
-				<Row className="py-4">
-					<Col>
-						<p>
-							Set a target number of action completions that you would like to
-							track for this campaign
-						</p>
-					</Col>
-				</Row>
-				<Row className="py-4">
-					<Col>
-						<Input
-							label="Target"
-							placeholder="Enter target of campaign here..."
-							required={true}
-							type="email"
-							onChange={(val) => {
-								// setFormData({ ...formData, email: val });
-							}}
-						/>
-					</Col>
-				</Row>
-				<Row className="py-4 justify-content-end mb-4">
-					<Col>
-						<Button
-							text="Save Changes"
-							onSubmit={handleSubmit}
-							rounded={false}
-						/>
-					</Col>
-				</Row>
+				<form>
+					<Row>
+						<Col>
+							<h6>Goals</h6>
+						</Col>
+					</Row>
+					<Row className="py-4">
+						<Col>
+							<Checkbox
+								label="Disable the “Goals” section"
+								id="isTemplate"
+								name="isTemplate"
+								valueExtractor={(val) => {
+									handleFieldChange("isTemplate", val);
+								}}
+								size="big"
+							/>
+						</Col>
+					</Row>
+					<Row className="py-4">
+						<Col>
+							<p>
+								Set a target number of action completions that you would like to
+								track for this campaign
+							</p>
+						</Col>
+					</Row>
+					<Row className="py-4">
+						<Col>
+							<Input
+								label="Target"
+								placeholder="Enter target of campaign here..."
+								required={true}
+								type="textbox"
+								onChange={(val) => {
+									handleFieldChange("target", val);
+								}}
+							/>
+						</Col>
+					</Row>
+					<Row className="py-4 justify-content-end mb-4">
+						<Col>
+							<Button
+								text="Save Changes"
+								onSubmit={handleSubmit}
+								rounded={false}
+							/>
+						</Col>
+					</Row>
+				</form>
 			</Container>
 
 			<Container className="border-dashed mt-4">

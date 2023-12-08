@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../../adminStyles.css";
-import { useNavigate } from "react-router-dom";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import Input from "../../../components/admin-components/Input";
 import Button from "../../../components/admin-components/Button";
 import IncentivesBar from "../../../components/admin-components/IncentivesBar";
-// import Input
 
 const Incentives = () => {
 	const data = [
@@ -38,13 +36,32 @@ const Incentives = () => {
 		},
 	];
 
-	const [formData, setFormData] = useState({
+	const initialState = {
+		name: "",
+		image: "",
 		description: "",
-		title: "",
-		icon: "",
-	});
+		summary: "",
+	};
 
-	const handleSubmit = async () => {};
+	const reducer = (state, action) => {
+		switch (action.type) {
+			case "SET_FIELD_VALUE":
+				return { ...state, [action.field]: action.value };
+			default:
+				throw new Error(`Unsupported action type: ${action.type}`);
+		}
+	};
+
+	const [formData, dispatch] = useReducer(reducer, initialState);
+
+	const handleFieldChange = (field, value) => {
+		dispatch({ type: "SET_FIELD_VALUE", field, value });
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		console.log(formData);
+	};
 
 	return (
 		<div>
@@ -85,7 +102,8 @@ const Incentives = () => {
 								required={true}
 								type="textbox"
 								onChange={(val) => {
-									setFormData({ ...formData, title: val });
+									// handleFieldChange("name", val);
+									// setFormData({ ...formData, title: val });
 								}}
 								value={data?.title}
 							/>
@@ -99,7 +117,7 @@ const Incentives = () => {
 								required={false}
 								type="textarea"
 								onChange={(val) => {
-									setFormData({ ...formData, description: val });
+									// handleFieldChange("name", val);
 								}}
 								value={data?.description}
 							/>

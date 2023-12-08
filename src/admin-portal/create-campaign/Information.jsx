@@ -11,10 +11,10 @@ import { motion as m } from "framer-motion";
 
 const Information = () => {
 	const [showError, setShowError] = useState(false);
-	const [loading, setLoading] = useState(false);
+	// const [loading, setLoading] = useState(false);
 
 	const initialState = {
-		isTemplate: false,
+		is_template: false,
 		title: "",
 		slogan: "",
 		start_date: "",
@@ -45,7 +45,21 @@ const Information = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(formData);
+		return fetch("url", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(initialState),
+		})
+			.then((data) => {
+				console.log("Success:", data);
+				return data;
+			})
+			.catch((error) => {
+				console.error("Error:", error);
+				throw error;
+			});
 	};
 
 	return (

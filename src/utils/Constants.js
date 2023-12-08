@@ -3,6 +3,7 @@ import CampaignCoaches from "../admin-portal/create-campaign/CampaignCoaches";
 import Events from "../admin-portal/create-campaign/Events";
 import Goal from "../admin-portal/create-campaign/Goal";
 import Information from "../admin-portal/create-campaign/Information";
+import Navigation from "../admin-portal/create-campaign/Navigation";
 import Partners from "../admin-portal/create-campaign/Partners";
 import Coaches from "../admin-portal/create-campaign/create-technology/Coaches";
 import Incentives from "../admin-portal/create-campaign/create-technology/Incentives";
@@ -33,6 +34,10 @@ export const campaignPages = [
 	{
 		name: "Partners",
 		component: Partners,
+	},
+	{
+		name: "Navigation",
+		component: Navigation,
 	},
 ];
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useReducer } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -6,15 +6,32 @@ import Input from "../../../components/admin-components/Input";
 import FileUploader from "../../../components/admin-components/FileUploader";
 import Button from "../../../components/admin-components/Button";
 import "../../adminStyles.css";
-import Dropdown from "../../../components/admin-components/Dropdown";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
 
 const Info = () => {
-	const [formData, setFormData] = useState({});
+	const initialState = {
+		name: "",
+		image: "",
+		description: "",
+		summary: "",
+	};
 
-	const handleSubmit = async () => {
+	const reducer = (state, action) => {
+		switch (action.type) {
+			case "SET_FIELD_VALUE":
+				return { ...state, [action.field]: action.value };
+			default:
+				throw new Error(`Unsupported action type: ${action.type}`);
+		}
+	};
+
+	const [formData, dispatch] = useReducer(reducer, initialState);
+
+	const handleFieldChange = (field, value) => {
+		dispatch({ type: "SET_FIELD_VALUE", field, value });
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
 		console.log(formData);
 	};
 
@@ -30,12 +47,11 @@ const Info = () => {
 								required={true}
 								type="textbox"
 								onChange={(val) => {
-									setFormData({ ...formData, name: val });
+									handleFieldChange("name", val);
 								}}
 							/>
 						</Col>
 					</Row>
-					{/* TODO ADD A SUMMARY TEXTAREA */}
 					<Row className="py-4">
 						<Col>
 							<Input
@@ -44,7 +60,7 @@ const Info = () => {
 								required={true}
 								type="textarea"
 								onChange={(val) => {
-									setFormData({ ...formData, description: val });
+									handleFieldChange("summary", val);
 								}}
 							/>
 						</Col>
@@ -57,7 +73,7 @@ const Info = () => {
 								required={true}
 								type="textarea"
 								onChange={(val) => {
-									setFormData({ ...formData, description: val });
+									handleFieldChange("description", val);
 								}}
 								maxLength="100"
 							/>
@@ -70,7 +86,7 @@ const Info = () => {
 								id="tech_image"
 								text="Add an image for the action"
 								valueExtractor={(val) => {
-									setFormData({ ...formData, image: val });
+									handleFieldChange("image", val);
 								}}
 							/>
 						</Col>
