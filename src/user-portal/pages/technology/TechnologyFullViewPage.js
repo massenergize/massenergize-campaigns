@@ -18,11 +18,13 @@ import JoinUsForm from "../forms/JoinUsForm";
 import GetHelpForm from "../forms/GetHelpForm";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { COMMENTS } from "../../data/user-portal-dummy-data";
+import { COMMENTS, ONE_TECH_DATA } from "../../data/user-portal-dummy-data";
 
 const DEFAULT_READ_HEIGHT = 190;
 const COMMENT_LENGTH = 40;
-function TechnologyFullViewPage({ toggleModal, comments }) {
+function TechnologyFullViewPage({ toggleModal, comments, technology }) {
+  const { name, coaches, testimonials, likes, views, image } = technology;
+  console.log("hti sis the full technology", technology);
   const [height, setHeight] = useState(DEFAULT_READ_HEIGHT);
   const triggerCommentBox = () => {
     toggleModal({
@@ -41,22 +43,25 @@ function TechnologyFullViewPage({ toggleModal, comments }) {
       <AppNavigationBar />
       <div style={{ marginTop: 100 }}>
         <OptimumWrapper>
-          <h2 style={{ color: "var(--app-deep-green)" }}>
-            Drive Electric Cars
-          </h2>
+          <h2 style={{ color: "var(--app-deep-green)" }}>{name || "..."}</h2>
           <Row>
             <Col lg={9}>
               <img
                 className="elevate-float-pro mt-2"
-                src={carPhoto}
+                src={image?.url || carPhoto}
                 style={{
                   width: "100%",
                   height: 420,
-                  objectFit: "cover",
+                  objectFit: "contain",
                   borderRadius: 10,
                 }}
               />
-              <InteractionsPanel openCommentBox={triggerCommentBox} />
+              <InteractionsPanel
+                openCommentBox={triggerCommentBox}
+                likes={likes}
+                views={views}
+                comments={comments?.length || 0}
+              />
               <p className="mt-3" style={{ textAlign: "justify" }}>
                 <span style={{ height, display: "block", overflowY: "hidden" }}>
                   t ever since the 1500s, when an unknown printer took a galley
@@ -309,7 +314,7 @@ function TechnologyFullViewPage({ toggleModal, comments }) {
 }
 
 const mapState = (state) => {
-  return { comments: COMMENTS };
+  return { comments: COMMENTS, technology: ONE_TECH_DATA.data };
 };
 const mapDispatch = (dispatch) => {
   return bindActionCreators({}, dispatch);

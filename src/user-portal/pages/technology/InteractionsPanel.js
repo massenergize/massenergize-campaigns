@@ -6,7 +6,7 @@ const interactions = [
   { icon: "fa-eye", name: "Views", count: 3542 },
   // { icon: "fa-share", name: "Shares", count: 15 },
 ];
-function InteractionsPanel({ openCommentBox }) {
+function InteractionsPanel({ openCommentBox, likes, views, comments }) {
   return (
     <div
       className="mt-3"
@@ -38,7 +38,9 @@ function InteractionsPanel({ openCommentBox }) {
           // style={{ fontWeight: "bold", textDecoration: "underline" }}
           style={{ fontWeight: "bold" }}
         >
-          1345 Likes
+          {`${likes ? likes : ""} ${
+            !likes || likes === 1 ? " Like" : " Likes"
+          }`}
         </small>
       </div>
       <div
@@ -59,23 +61,29 @@ function InteractionsPanel({ openCommentBox }) {
           className="touchable-opacity"
           style={{ fontWeight: "bold", textDecoration: "underline" }}
         >
-          185 Comments
+          {`${comments ? comments : ""} ${
+            !comments || comments === 1 ? " Comment" : " Comments"
+          }`}
         </small>
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          margin: "0px 10px",
-        }}
-      >
-        <i
-          className={`fa fa-eye`}
-          style={{ marginRight: 6, color: "var(--app-deep-green)" }}
-        />
-        <small style={{ fontWeight: "bold" }}>3542 Views</small>
-      </div>
+      {views ? (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            margin: "0px 10px",
+          }}
+        >
+          <i
+            className={`fa fa-eye`}
+            style={{ marginRight: 6, color: "var(--app-deep-green)" }}
+          />
+          <small style={{ fontWeight: "bold" }}>{views} Views</small>
+        </div>
+      ) : (
+        <></>
+      )}
 
       {/* {interactions.map((inter, index) => {
         return (

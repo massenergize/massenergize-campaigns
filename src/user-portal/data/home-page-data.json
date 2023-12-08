@@ -2,7 +2,7 @@
     "data": {
         "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d",
         "created_at": "2023-12-07T10:56:12.888Z",
-        "updated_at": "2023-12-07T11:12:24.494Z",
+        "updated_at": "2023-12-08T10:34:31.573Z",
         "is_deleted": false,
         "info": null,
         "account": {
@@ -23,22 +23,23 @@
             "url": "https://massenergize-files.s3.amazonaws.com/media/csu.jpeg"
         },
         "image": {
-            "id": 622,
+            "id": 631,
             "name": "ImageFor Wayland Campaign Campaign",
-            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"
+            "url": "https://massenergize-files.s3.amazonaws.com/media/pexels-pixabay-221012.jpg"
         },
         "is_approved": false,
         "is_published": false,
         "is_global": true,
         "is_template": false,
-        "owner": null,
+        "tagline": "Wayland and Acton Colab",
+        "owner": "906d4df9-e7a7-4b75-b2c6-235796cab193",
         "key_contact": {
             "name": "Tahiru Abdullai",
             "email": "abdullai.tahiru+203@massenergize.org",
             "phone_number": "1286398612983",
             "image": {
                 "id": 622,
-                "name": "ImageFor Wayland Campaign Campaign",
+                "name": "ImageFor-Wayland-Campaign-Campaign",
                 "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"
             }
         },
@@ -242,6 +243,28 @@
                                 "url": "https://massenergize-files.s3.amazonaws.com/media/Farmers_Market.jpg"
                             }
                         }
+                    },
+                    {
+                        "id": "74308254-f97d-4210-b439-67429188f8f7",
+                        "created_at": "2023-12-07T17:11:37.947Z",
+                        "updated_at": "2023-12-07T17:11:37.947Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": {
+                            "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                        },
+                        "event": {
+                            "id": 98,
+                            "name": "Newly Tested Event",
+                            "start_date": "2023-08-30T10:59:00Z",
+                            "end_date": "2023-08-30T11:59:00Z",
+                            "description": "<p>Space may seem like the most obvious thing ever to an external observer. You hit the giant &lsquo;space&rsquo; button, space appears, as expected, and you move on. However, in reality, typing in spaces is quite tricky, and there are numerous ways of going around it in HTML. Pick the wrong.</p>\r\n<p>You have access to all the images that are in use in the communities you manage. Your library contains images that have either been uploaded by you, or other admins of your community. You may also see images that are not from any of your communities, but have been made public by admins of different communities</p>",
+                            "image": {
+                                "id": 598,
+                                "name": "ImageFor December Event Event",
+                                "url": "https://massenergize-files.s3.amazonaws.com/media/Farmers_Market.jpg"
+                            }
+                        }
                     }
                 ],
                 "id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d",
@@ -262,9 +285,222 @@
             },
             {
                 "campaign_technology": "5c6973b7-d3e6-416a-9a7f-23afb3d2f52d",
-                "coaches": [],
-                "testimonials": [],
-                "events": [],
+                "coaches": [
+                    {
+                        "id": "e8d30404-c743-49bd-a7ef-d5a7ea4d4d9b",
+                        "created_at": "2023-12-08T10:10:25.887Z",
+                        "updated_at": "2023-12-08T10:10:25.887Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "technology": {
+                            "id": "f6200821-430d-4557-95f8-e7f146130d07"
+                        },
+                        "full_name": "Kaat",
+                        "email": "kaat@gmail.com",
+                        "phone_number": "0550751805",
+                        "image": {
+                            "id": 630,
+                            "name": "ImageFor Testimonial  101 Campaign",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/plastic_bank.png"
+                        },
+                        "community": "Wayland"
+                    },
+                    {
+                        "id": "16a2edef-a144-43eb-a2d9-739d7c61a79d",
+                        "created_at": "2023-12-08T10:10:52.983Z",
+                        "updated_at": "2023-12-08T10:10:52.983Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "technology": {
+                            "id": "f6200821-430d-4557-95f8-e7f146130d07"
+                        },
+                        "full_name": "Aimee",
+                        "email": "aimee@gmail.com",
+                        "phone_number": "0246073516",
+                        "image": {
+                            "id": 630,
+                            "name": "ImageFor Testimonial  101 Campaign",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/plastic_bank.png"
+                        },
+                        "community": "Framingham"
+                    },
+                    {
+                        "id": "52000a39-8ca5-44df-b280-06274b6e5a83",
+                        "created_at": "2023-12-08T10:11:20.349Z",
+                        "updated_at": "2023-12-08T10:11:20.349Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "technology": {
+                            "id": "f6200821-430d-4557-95f8-e7f146130d07"
+                        },
+                        "full_name": "Jeph",
+                        "email": "jeph@gmail.com",
+                        "phone_number": "0550751805",
+                        "image": {
+                            "id": 629,
+                            "name": "FileUpload for a337eedb-baef-49b9-a813-9afc5d25ad4b TechnologyCoach",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                        },
+                        "community": "Acton"
+                    }
+                ],
+                "testimonials": [
+                    {
+                        "id": "3f0e5c33-54dc-40a1-b10b-1884ed2dd102",
+                        "created_at": "2023-12-08T10:14:22.124Z",
+                        "updated_at": "2023-12-08T10:14:22.124Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": null,
+                        "campaign_technology": {
+                            "id": "5c6973b7-d3e6-416a-9a7f-23afb3d2f52d"
+                        },
+                        "title": "I did This !!",
+                        "body": "dable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lore",
+                        "is_approved": true,
+                        "image": {
+                            "id": 627,
+                            "name": "FileUpload for 80c75c35-0aaa-4dfd-8977-1d3586711d24 TechnologyCoach",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"
+                        },
+                        "created_by": "4e006f09-e9d6-480a-a287-585fd59ca5a8",
+                        "is_published": true,
+                        "anonymous": false,
+                        "community": null,
+                        "user": {
+                            "id": "4e006f09-e9d6-480a-a287-585fd59ca5a8",
+                            "full_name": "Guest User",
+                            "preferred_name": "Guest",
+                            "email": "tahiruthegamer@gmail.com"
+                        }
+                    },
+                    {
+                        "id": "1fceea2e-bf01-49ba-ad54-50fe419f2263",
+                        "created_at": "2023-12-08T10:37:27.772Z",
+                        "updated_at": "2023-12-08T10:37:27.772Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": null,
+                        "campaign_technology": {
+                            "id": "5c6973b7-d3e6-416a-9a7f-23afb3d2f52d"
+                        },
+                        "title": "Wooooow !!",
+                        "body": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                        "is_approved": true,
+                        "image": {
+                            "id": 629,
+                            "name": "FileUpload for a337eedb-baef-49b9-a813-9afc5d25ad4b TechnologyCoach",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                        },
+                        "created_by": "8c60fed6-c1a8-410e-9729-a7368e78be5f",
+                        "is_published": true,
+                        "anonymous": false,
+                        "community": null,
+                        "user": {
+                            "id": "8c60fed6-c1a8-410e-9729-a7368e78be5f",
+                            "full_name": "Tahiru hybrid",
+                            "preferred_name": "Tahiruhybrid",
+                            "email": "abdullai.tahiru+233@gmail.com"
+                        }
+                    },
+                    {
+                        "id": "8b57bf4e-a698-4ae5-b4a0-035dc63aefc0",
+                        "created_at": "2023-12-08T10:40:03.738Z",
+                        "updated_at": "2023-12-08T10:40:03.739Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": null,
+                        "campaign_technology": {
+                            "id": "5c6973b7-d3e6-416a-9a7f-23afb3d2f52d"
+                        },
+                        "title": "This One DI33",
+                        "body": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                        "is_approved": true,
+                        "image": {
+                            "id": 630,
+                            "name": "ImageFor Testimonial  101 Campaign",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/plastic_bank.png"
+                        },
+                        "created_by": "d5293973-7a5b-4679-8fe3-13a0c17b89e6",
+                        "is_published": true,
+                        "anonymous": false,
+                        "community": null,
+                        "user": {
+                            "id": "d5293973-7a5b-4679-8fe3-13a0c17b89e6",
+                            "full_name": "Tahiru Abdullai",
+                            "preferred_name": "TahiruAbdullai1",
+                            "email": "abdullai.tahiru+203@massenergize.org"
+                        }
+                    }
+                ],
+                "events": [
+                    {
+                        "id": "a6262fcf-e27b-4ac1-950c-e7512c0f891c",
+                        "created_at": "2023-12-08T10:27:44.471Z",
+                        "updated_at": "2023-12-08T10:27:44.471Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": {
+                            "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                        },
+                        "event": {
+                            "id": 39,
+                            "name": "Local Seedling Sale!",
+                            "start_date": "2020-04-06T19:30:53Z",
+                            "end_date": "2020-07-26T19:30:00Z",
+                            "description": "<p>This year, the Neighborhood Farm is moving their massive spring seedling sale online! &nbsp;Hundreds and hundreds of varieties of vegetable, herb and flower seedlings will be available through <a href=\"https://app.barn2door.com/e/3DqVQ/all\" target=\"_blank\" style=\"\">their new online store</a>. &nbsp;Everything is grown &nbsp;naturally, with non-gmo seed, without pesticides and without synthetic fertilizers. &nbsp;New varieties will be listed weekly throughout the spring. &nbsp;Order online and pick up at the Farm in Wayland.</p>\r\n\r\n<p>The Neighborhood Farm is a small, all natural, vegetable and flower farm in Wayland, MA. &nbsp;We grow a wide range of vegetables, herbs and flowers but we specialize in heirloom tomatoes and garlic. &nbsp;We also grow hundreds and hundreds of varieties of seedlings each spring, and encourage everyone to try growing something. &nbsp;We lease land from Mainstone Farm on Old Connecticut Path, and have an on site, year round Farm Stand. &nbsp;We also attend local farmers markets including Needham, Roslindale and Jamaica Plain.</p>",
+                            "image": {
+                                "id": 372,
+                                "name": "ImageForLocal Seedling Sale!Event",
+                                "url": "https://massenergize-files.s3.amazonaws.com/media/The_Neighborhood_Farm_FB_banner.jpg"
+                            }
+                        }
+                    },
+                    {
+                        "id": "58af6c37-bddc-4270-b2ef-bb5a6d89eace",
+                        "created_at": "2023-12-08T10:26:49.501Z",
+                        "updated_at": "2023-12-08T10:26:49.501Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": {
+                            "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                        },
+                        "event": {
+                            "id": 53,
+                            "name": "Backyard Gardening and Compost",
+                            "start_date": "2020-06-08T23:30:26Z",
+                            "end_date": "2020-06-09T00:15:26Z",
+                            "description": "<p>Learn about soil and compost from the professionals at Black Earth Compost, get some backyard composting tips and learn of resources for backyard vegetable gardening. Click<a href=\"https://us02web.zoom.us/meeting/register/tZAldOCtpzgvHdR3SUFvlWQV8B6y1D9PcxmY\" target=\"_blank\" style=\"\"> here</a> to register and you will receive a confirmation email containing the link.&nbsp;</p>",
+                            "image": {
+                                "id": 495,
+                                "name": "ImageForBackyard Gardening and CompostEvent",
+                                "url": "https://massenergize-files.s3.amazonaws.com/media/Copy_of_Webinars_2.jpg"
+                            }
+                        }
+                    },
+                    {
+                        "id": "2c9d1116-1085-40e3-8441-5b4750bbf48b",
+                        "created_at": "2023-12-08T10:25:57.279Z",
+                        "updated_at": "2023-12-08T10:25:57.279Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": {
+                            "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                        },
+                        "event": {
+                            "id": 46,
+                            "name": "Energize Framingham Virtual Tutorial",
+                            "start_date": "2020-05-09T19:23:24Z",
+                            "end_date": "2020-05-31T16:00:00Z",
+                            "description": "<p>If you would like to host a virtual meeting to demonstrate Energize Framingham to a group of friends, neighbors or community members, please reach out to <a href=\"mailto:Aimee@massenergize.org\" target=\"_blank\" style=\"\">Aimee@massenergize.org</a>. We are looking for Teams to help spread the word about all the sustainability actions that the Framingham community is doing. We will set up an online meeting to teach people how to use the Energize Framingham website.<br>\r\n</p>",
+                            "image": {
+                                "id": 437,
+                                "name": "ImageForEnergize Framingham Virtual TutorialEvent",
+                                "url": "https://massenergize-files.s3.amazonaws.com/media/McAuliffe_2042_2MP.jpg"
+                            }
+                        }
+                    }
+                ],
                 "id": "f6200821-430d-4557-95f8-e7f146130d07",
                 "created_at": "2023-12-07T11:20:09.148Z",
                 "updated_at": "2023-12-07T11:20:12.242Z",
@@ -283,9 +519,197 @@
             },
             {
                 "campaign_technology": "7f194e30-9c4a-408b-a854-98a134aebaf3",
-                "coaches": [],
-                "testimonials": [],
+                "coaches": [
+                    {
+                        "id": "d2e4cdb1-973a-45c0-8b30-d6be9aab3c81",
+                        "created_at": "2023-12-08T10:06:56.973Z",
+                        "updated_at": "2023-12-08T10:06:56.973Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "technology": {
+                            "id": "17c7e50b-28ee-4d6a-a6f5-4a4a61267653"
+                        },
+                        "full_name": "Brad",
+                        "email": "brad@me.org",
+                        "phone_number": "0550751805",
+                        "image": {
+                            "id": 629,
+                            "name": "FileUpload for a337eedb-baef-49b9-a813-9afc5d25ad4b TechnologyCoach",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                        },
+                        "community": "Wayland"
+                    },
+                    {
+                        "id": "ed2314b1-189c-4e91-979a-8d670e874fa6",
+                        "created_at": "2023-12-08T10:07:32.171Z",
+                        "updated_at": "2023-12-08T10:07:32.171Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "technology": {
+                            "id": "17c7e50b-28ee-4d6a-a6f5-4a4a61267653"
+                        },
+                        "full_name": "George",
+                        "email": "george@me.org",
+                        "phone_number": "0550751805",
+                        "image": {
+                            "id": 630,
+                            "name": "ImageFor Testimonial  101 Campaign",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/plastic_bank.png"
+                        },
+                        "community": "Acton"
+                    },
+                    {
+                        "id": "cbe52539-bd3f-4931-bf7f-71ca6cc26597",
+                        "created_at": "2023-12-08T10:08:17.241Z",
+                        "updated_at": "2023-12-08T10:08:17.241Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "technology": {
+                            "id": "17c7e50b-28ee-4d6a-a6f5-4a4a61267653"
+                        },
+                        "full_name": "New hybrid",
+                        "email": "new@me.org",
+                        "phone_number": "0550751805",
+                        "image": {
+                            "id": 628,
+                            "name": "FileUpload for 400a32b6-a21e-414e-866b-c9c1306b1a6b TechnologyCoach",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                        },
+                        "community": "Framingham"
+                    }
+                ],
+                "testimonials": [
+                    {
+                        "id": "5513358e-c091-423c-bdc3-afaf2bd864cb",
+                        "created_at": "2023-12-08T10:12:52.028Z",
+                        "updated_at": "2023-12-08T10:12:52.028Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": {
+                            "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                        },
+                        "campaign_technology": {
+                            "id": "7f194e30-9c4a-408b-a854-98a134aebaf3"
+                        },
+                        "title": "Way to go !!!",
+                        "body": "dable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem., dable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lore",
+                        "is_approved": true,
+                        "image": {
+                            "id": 629,
+                            "name": "FileUpload for a337eedb-baef-49b9-a813-9afc5d25ad4b TechnologyCoach",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                        },
+                        "created_by": "906d4df9-e7a7-4b75-b2c6-235796cab193",
+                        "is_published": true,
+                        "anonymous": false,
+                        "community": null,
+                        "user": {
+                            "id": "906d4df9-e7a7-4b75-b2c6-235796cab193",
+                            "full_name": "ME Tahiru",
+                            "preferred_name": "MET",
+                            "email": "abdullai.tahiru@massenergize.org"
+                        }
+                    },
+                    {
+                        "id": "e074d592-cbb3-49f6-9735-109f56e27155",
+                        "created_at": "2023-12-08T10:13:42.844Z",
+                        "updated_at": "2023-12-08T10:13:42.845Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": null,
+                        "campaign_technology": {
+                            "id": "7f194e30-9c4a-408b-a854-98a134aebaf3"
+                        },
+                        "title": "Cool Things",
+                        "body": "dable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lore. dable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lore",
+                        "is_approved": true,
+                        "image": {
+                            "id": 630,
+                            "name": "ImageFor Testimonial  101 Campaign",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/plastic_bank.png"
+                        },
+                        "created_by": "8c60fed6-c1a8-410e-9729-a7368e78be5f",
+                        "is_published": true,
+                        "anonymous": false,
+                        "community": null,
+                        "user": {
+                            "id": "8c60fed6-c1a8-410e-9729-a7368e78be5f",
+                            "full_name": "Tahiru hybrid",
+                            "preferred_name": "Tahiruhybrid",
+                            "email": "abdullai.tahiru+233@gmail.com"
+                        }
+                    },
+                    {
+                        "id": "68fa94d4-4ee8-4827-9fa5-72a15b9d6652",
+                        "created_at": "2023-12-08T10:15:13.237Z",
+                        "updated_at": "2023-12-08T10:15:13.237Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": null,
+                        "campaign_technology": {
+                            "id": "7f194e30-9c4a-408b-a854-98a134aebaf3"
+                        },
+                        "title": "Great Things Here !!",
+                        "body": "dable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lore dable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lore",
+                        "is_approved": true,
+                        "image": {
+                            "id": 626,
+                            "name": "partner_logo",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_11.28.35AM.png"
+                        },
+                        "created_by": "ba9feb49-d4c4-48e7-af7f-d88cefa8cd5c",
+                        "is_published": true,
+                        "anonymous": false,
+                        "community": null,
+                        "user": {
+                            "id": "ba9feb49-d4c4-48e7-af7f-d88cefa8cd5c",
+                            "full_name": "New hybrid78",
+                            "preferred_name": "Newhybrid78",
+                            "email": "abdullai.tahiru+280@gmail.com"
+                        }
+                    }
+                ],
                 "events": [
+                    {
+                        "id": "5bc8602b-7f1b-4c91-8aa4-433a3f30a196",
+                        "created_at": "2023-12-08T10:23:06.271Z",
+                        "updated_at": "2023-12-08T10:23:06.271Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": {
+                            "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                        },
+                        "event": {
+                            "id": 94,
+                            "name": "my Test Event ooo",
+                            "start_date": "2023-07-29T11:36:00Z",
+                            "end_date": "2023-07-30T11:36:00Z",
+                            "description": "<p>&nbsp;&tilde;bkxcb kxb x x xcv xc vxc vcxbkvjxb xcv xcv xcv cxvxc</p>",
+                            "image": {
+                                "id": 595,
+                                "name": "ImageFor my Test Event Event",
+                                "url": "https://massenergize-files.s3.amazonaws.com/media/Farmers_Market.jpg"
+                            }
+                        }
+                    },
+                    {
+                        "id": "f89b32a0-7e1d-43a4-ab1b-5ac2cf8e10ba",
+                        "created_at": "2023-12-08T10:22:34.481Z",
+                        "updated_at": "2023-12-08T10:22:34.481Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": {
+                            "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                        },
+                        "event": {
+                            "id": 96,
+                            "name": "New hybrid event",
+                            "start_date": "2023-07-30T20:54:00Z",
+                            "end_date": "2023-07-31T20:54:00Z",
+                            "description": "<p>A date and time (year, month, day, hour, minute, second, fractions of a second) encoded according to ISO 8601 with the time zone set to UTC. A date and time (year, month, day, hour, minute, second, fractions of a second) encoded according to ISO 8601 with the time zone set to UTC.hkghj</p>",
+                            "image": null
+                        }
+                    },
                     {
                         "id": "6c38af98-5c43-4b3f-bb3b-d2a533731cb0",
                         "created_at": "2023-12-07T17:12:02.239Z",

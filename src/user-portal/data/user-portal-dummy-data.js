@@ -1,4 +1,5 @@
-import campaign_data from "./home-page-data.json";
+import campaignData from "./home-page-data.json";
+import oneTechData from "./one-tech.json";
 
 const children = [
   { key: "heat-pump", url: "#coaches-section", text: "Heat Pump" },
@@ -105,4 +106,5 @@ export const COMMENTS = [
   },
 ];
 
-export const CAMPAIGN_DATA = campaign_data;
+export const CAMPAIGN_DATA = campaignData;
+export const ONE_TECH_DATA = oneTechData;
