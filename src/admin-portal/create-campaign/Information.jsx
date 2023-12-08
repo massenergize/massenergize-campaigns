@@ -53,7 +53,7 @@ const Information = () => {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(initialState),
+			body: JSON.stringify(formData),
 		})
 			.then((data) => {
 				console.log("Success:", data);
