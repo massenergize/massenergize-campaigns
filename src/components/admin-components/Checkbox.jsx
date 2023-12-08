@@ -30,7 +30,7 @@ const Checkbox = ({
 			/>
 			<span className="checkbox-icon"></span>
 			<span className="text">
-				{icon} {label ? label : labelExtractor()}
+				<span>{icon}</span> {label ? label : labelExtractor()}
 			</span>
 		</label>
 	);

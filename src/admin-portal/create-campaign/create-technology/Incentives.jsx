@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Input from "../../../components/admin-components/Input";
-import FileUploader from "../../../components/admin-components/FileUploader";
-import Button from "../../../components/admin-components/Button";
 import "../../adminStyles.css";
-import Dropdown from "../../../components/admin-components/Dropdown";
 import { useNavigate } from "react-router-dom";
-import Chip from "../../../components/admin-components/Chip";
-import IncentivesBar from "../../../components/admin-components/IncentivesBar";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import Input from "../../../components/admin-components/Input";
+import Button from "../../../components/admin-components/Button";
+import IncentivesBar from "../../../components/admin-components/IncentivesBar";
+// import Input
 
 const Incentives = () => {
 	const data = [
@@ -115,11 +113,7 @@ const Incentives = () => {
 					</Row>
 					<Row className="py-4 justify-content-end">
 						<Col>
-							<Button
-								text="Add Incentive"
-								onSubmit={handleSubmit}
-								rounded={false}
-							/>
+							<Button text="Submit" onSubmit={handleSubmit} rounded={false} />
 						</Col>
 					</Row>
 				</form>

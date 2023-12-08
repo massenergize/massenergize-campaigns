@@ -61,10 +61,7 @@ const Coaches = () => {
 						<Col>
 							<p>
 								Please include details of the new coaches of this campaign. Or{" "}
-								<span
-									onClick={() => navigate("")}
-									className="theme-color text-link"
-								>
+								<span onClick={() => navigate("")} className="theme-color">
 									Add campaign coaches from existing user
 								</span>
 							</p>

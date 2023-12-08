@@ -22,14 +22,14 @@ const Dropdown = ({
 		onItemSelect && onItemSelect(value, selectedItem);
 
 		if (multiple) {
-			if (selectedItem.includes(value)) {
-				var filtered = selectedItem.filter((item) => item.id !== value?.id);
+			if (selectedItem.find((item) => item.id === value?.id)) {
+				const filtered = selectedItem.filter((item) => item.id !== value?.id);
 				setSelectedItem(filtered);
-				// console.log(selectedItem);
-				return selectedItem;
+				console.log(filtered);
+				return filtered;
 			} else {
-				// console.log(selectedItem);
-				return setSelectedItem([...selectedItem, value]);
+				setSelectedItem([...selectedItem, value]);
+				return selectedItem;
 			}
 		} else {
 			setSelectedItem([value]);

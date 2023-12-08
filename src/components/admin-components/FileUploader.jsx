@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const FileUploader = ({ text, valueExtractor, required, id }) => {
+const FileUploader = ({ text, valueExtractor, required, id, accept }) => {
 	const [previewUrl, setPreviewUrl] = useState(null);
 
 	const handleFileChange = (event) => {
@@ -25,11 +25,19 @@ const FileUploader = ({ text, valueExtractor, required, id }) => {
 					className="file-input"
 					onChange={handleFileChange}
 					required={required}
-					accept="image/*"
+					accept={accept ? accept : "image/*"}
 				/>
 				<div>
 					{previewUrl ? (
-						<img src={previewUrl} alt="Preview" className="preview-image" />
+						<img
+							src={
+								accept === ".csv"
+									? "https://cdn2.vectorstock.com/i/1000x1000/40/71/csv-file-document-icon-vector-24704071.jpg"
+									: previewUrl
+							}
+							alt="Preview"
+							className="preview-image"
+						/>
 					) : (
 						<span
 							style={{
@@ -61,6 +69,7 @@ const FileUploader = ({ text, valueExtractor, required, id }) => {
 			<p
 				style={{
 					color: "#9CA3AF",
+					textAlign: "center",
 				}}
 			>
 				{text} {required && "*"}

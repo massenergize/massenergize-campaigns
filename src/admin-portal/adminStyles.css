@@ -31,6 +31,7 @@
 	width: 200px;
 	height: 200px;
 	position: relative;
+	margin-bottom: 60px;
 }
 
 .small-image {
@@ -54,4 +55,48 @@
 .small-image-text {
 	margin-top: -1.2rem;
 	padding-top: 2rem;
+}
+
+/* ................. goals page ...................... */
+
+.border-dashed {
+	border-style: dashed;
+	padding: 2rem 1rem;
+	border-color: rgb(212, 212, 212);
+}
+
+/*  .................. Navigation tabs  ........................ */
+
+.tab-active {
+	color: white;
+	background-color: #6e207c;
+}
+
+.nav-tabs {
+	padding: 1rem;
+	text-align: center;
+	cursor: pointer;
+	border-width: 0.1px;
+	border: solid;
+	width: 100%;
+	white-space: pre;
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 300ms;
+}
+
+.nav-tabs-main {
+	display: flex;
+	width: 100% !important;
+}
+
+.nav-tabs-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+	/* border: solid;
+	border-width: 1px; */
+	padding: 0;
+	overflow: scroll;
 }

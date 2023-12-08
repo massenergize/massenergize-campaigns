@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import CreateCampaignPageWrapper from "../PageWrapper/CreateCampaignPageWrapper";
-import { campaignPages } from "../../../utils/Constants";
+import { technologyPages } from "../../../utils/Constants";
 import { motion as m } from "framer-motion";
+import CreateTechnologyPageWrapper from "../PageWrapper/CreateTechnologyPageWrapper";
 
 const { useReducer } = require("react");
 
@@ -29,9 +29,9 @@ const reducer = (state, action) => {
 	}
 };
 
-export function NewCampaign() {
+export function CreateTechnology() {
 	const [showError, setShowError] = useState(false);
-	const [activeTab, setActiveTab] = useState(campaignPages[0].name);
+	const [activeTab, setActiveTab] = useState(technologyPages[0].name);
 
 	const [campaignDetails, dispatch] = useReducer(reducer, initialState);
 
@@ -88,7 +88,7 @@ export function NewCampaign() {
 				padding: "1rem",
 			}}
 		>
-			<CreateCampaignPageWrapper>
+			<CreateTechnologyPageWrapper>
 				<Container>
 					{/*region Header*/}
 					<Row
@@ -97,7 +97,7 @@ export function NewCampaign() {
 					>
 						<Col>
 							<div className="nav-tabs-container">
-								{campaignPages?.map((page) => (
+								{technologyPages?.map((page) => (
 									<div
 										key={page?.name}
 										className="nav-tabs-main"
@@ -122,7 +122,7 @@ export function NewCampaign() {
 					{/*region Body: Content goes here*/}
 					<Row className="mt-4 pt-4">
 						<Col>
-							{campaignPages?.map((tab) => {
+							{technologyPages?.map((tab) => {
 								return (
 									activeTab === tab?.name && <tab.component key={tab?.name} />
 								);
@@ -134,7 +134,7 @@ export function NewCampaign() {
 					{/*region Footer*/}
 					{/*endregion*/}
 				</Container>
-			</CreateCampaignPageWrapper>
+			</CreateTechnologyPageWrapper>
 		</div>
 	);
 }

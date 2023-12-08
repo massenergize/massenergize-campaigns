@@ -39,6 +39,19 @@ const Info = () => {
 					<Row className="py-4">
 						<Col>
 							<Input
+								label="Summary"
+								placeholder="Add a Summary for this focus......."
+								required={true}
+								type="textarea"
+								onChange={(val) => {
+									setFormData({ ...formData, description: val });
+								}}
+							/>
+						</Col>
+					</Row>
+					<Row className="py-4">
+						<Col>
+							<Input
 								label="Description"
 								placeholder="Add more description for this focus......."
 								required={true}

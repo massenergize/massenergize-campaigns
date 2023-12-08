@@ -1,21 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Button from "../../components/admin-components/Button";
 import "../adminStyles.css";
-import Dropdown from "../../components/admin-components/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/admin-components/Button";
+import Dropdown from "../../components/admin-components/Dropdown";
+import { motion as m } from "framer-motion";
 
 const ActionSelect = () => {
-	const [formData, setFormData] = useState({
-		technologies: [],
-	});
-
-	const handleSubmit = async () => {};
-
 	const opts = [
 		{
 			id: 1,
@@ -47,21 +42,62 @@ const ActionSelect = () => {
 		},
 	];
 
-	console.log(formData);
+	// console.log(formData);
 
 	const navigate = useNavigate();
 
+	const initialState = {
+		isTemplate: false,
+		title: "",
+		slogan: "",
+		start_date: "",
+		end_date: "",
+		description: "",
+		logo: "",
+		fullName: "",
+		email: "",
+		contact: "",
+		profileImage: "",
+		tagline: "",
+	};
+
+	const reducer = (state, action) => {
+		switch (action.type) {
+			case "SET_FIELD_VALUE":
+				return { ...state, [action.field]: action.value };
+			default:
+				throw new Error(`Unsupported action type: ${action.type}`);
+		}
+	};
+
+	const [formData, dispatch] = useReducer(reducer, initialState);
+
+	const handleFieldChange = (field, value) => {
+		dispatch({ type: "SET_FIELD_VALUE", field, value });
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		console.log(formData);
+	};
+
+	useEffect(() => {}, [formData]);
+
 	return (
-		<div>
+		<m.div
+			initial={{ y: " 10%" }}
+			animate={{ y: 0 }}
+			transition={{ duration: 0.3 }}
+		>
 			<Container>
 				<form>
 					<Row>
 						<Col>
 							<p>
 								Pick out the technologies you want to show up in this campaign.
-								Or
+								Or{" "}
 								<span
-									onClick={() => navigate("")}
+									onClick={() => navigate("/admin/campaign/create-technology")}
 									className="theme-color text-link"
 								>
 									Create a new technolgy
@@ -79,7 +115,7 @@ const ActionSelect = () => {
 								multiple={true}
 								onItemSelect={(selectedItem, allSelected) => {
 									console.log(allSelected);
-									setFormData({ ...formData, technologies: allSelected });
+									handleFieldChange("technologies", allSelected);
 								}}
 							/>
 						</Col>
@@ -122,7 +158,7 @@ const ActionSelect = () => {
 					</Row>
 				</form>
 			</Container>
-		</div>
+		</m.div>
 	);
 };
 
