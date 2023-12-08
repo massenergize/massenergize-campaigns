@@ -17,6 +17,7 @@ import Loading from "../../../components/pieces/Loading";
 
 function LandingPage({ toggleModal, campaign }) {
   console.log("HER EIS THE campaign from redux", campaign);
+  const { image, config, key_contact } = campaign || {};
 
   const technologies = campaign?.technologies || [];
   return (
@@ -24,11 +25,11 @@ function LandingPage({ toggleModal, campaign }) {
       <AppNavigationBar />
       {/* <Loading fullPage /> */}
       <Container>
-        <Banner />
+        <Banner {...campaign} />
         <Container>
           <img
             className="elevate-float-pro"
-            src={planetB}
+            src={image?.url || planetB}
             style={{
               width: "80%",
               margin: "0px 10%",
@@ -39,7 +40,11 @@ function LandingPage({ toggleModal, campaign }) {
             }}
           />
         </Container>
-        <RoamingBox id="roaming-box" />
+        <RoamingBox
+          id="roaming-box"
+          advert={config?.advert}
+          keyContact={key_contact}
+        />
       </Container>
       <GettingStartedSection
         technologies={technologies}

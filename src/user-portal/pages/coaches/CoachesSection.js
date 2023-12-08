@@ -6,7 +6,58 @@ import CustomTabView from "../../../components/tab-view/CustomTabView";
 import JoinUsForm from "../forms/JoinUsForm";
 import GetHelpForm from "../forms/GetHelpForm";
 
-function CoachesSection({ toggleModal, sectionId }) {
+function CoachesSection({ toggleModal, sectionId, technologies }) {
+  console.log("I am already in coaches section", technologies);
+
+  const coachesForEachTech = technologies?.map(
+    ({
+      campaign_technology,
+      coaches,
+      is_icon,
+      is_image,
+      image,
+      icon,
+      name,
+      id,
+    }) => ({
+      id,
+      campaign_technology,
+      coaches,
+      is_icon,
+      is_image,
+      image,
+      icon,
+      name,
+    })
+  );
+  const firstOne = coachesForEachTech[0];
+
+  const intoTabs = coachesForEachTech?.map(({ id, name, coaches }) => ({
+    key: id,
+    title: (
+      <span
+        style={{
+          color: "var(--app-deep-green)",
+          fontWeight: "bold",
+        }}
+      >
+        <span>
+          <i className=" fa fa-pump" /> {name}
+        </span>
+      </span>
+    ),
+    component: (
+      <Row style={{ marginTop: 50 }}>
+        {coaches?.map((item) => {
+          return (
+            <Col key={item.id} xs={3}>
+              <OneCoach {...item} />
+            </Col>
+          );
+        })}
+      </Row>
+    ),
+  }));
   return (
     <div
       id={sectionId}
@@ -32,67 +83,68 @@ function CoachesSection({ toggleModal, sectionId }) {
             </h2>
 
             <CustomTabView
-              defaultTab="home-solar"
-              data={[
-                {
-                  title: (
-                    <span
-                      style={{
-                        color: "var(--app-deep-green)",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      <span>
-                        <i className=" fa fa-heat" /> Heat Pump
-                      </span>
-                    </span>
-                  ),
-                  key: "heat-pump",
-                  component: <h1> this bruddah is short as hell</h1>,
-                },
-                {
-                  title: (
-                    <span
-                      style={{
-                        color: "var(--app-deep-green)",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      <span>
-                        <i className=" fa fa-sun-o" /> Home Solar
-                      </span>
-                    </span>
-                  ),
-                  key: "home-solar",
-                  component: (
-                    <Row style={{ marginTop: 50 }}>
-                      {[1, 3, 4].map((item, index) => {
-                        return (
-                          <Col key={index?.toString()} xs={3}>
-                            <OneCoach />
-                          </Col>
-                        );
-                      })}
-                    </Row>
-                  ),
-                },
-                {
-                  title: (
-                    <span
-                      style={{
-                        color: "var(--app-deep-green)",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      <span>
-                        <i className=" fa fa-home" /> Community Solar
-                      </span>
-                    </span>
-                  ),
-                  key: "community-solar",
-                  component: <h1> this is the community solar my geee</h1>,
-                },
-              ]}
+              defaultTab={firstOne?.id}
+              data={intoTabs}
+              // data={[
+              //   {
+              //     title: (
+              //       <span
+              //         style={{
+              //           color: "var(--app-deep-green)",
+              //           fontWeight: "bold",
+              //         }}
+              //       >
+              //         <span>
+              //           <i className=" fa fa-heat" /> Heat Pump
+              //         </span>
+              //       </span>
+              //     ),
+              //     key: "heat-pump",
+              //     component: <h1> this bruddah is short as hell</h1>,
+              //   },
+              //   {
+              //     title: (
+              //       <span
+              //         style={{
+              //           color: "var(--app-deep-green)",
+              //           fontWeight: "bold",
+              //         }}
+              //       >
+              //         <span>
+              //           <i className=" fa fa-sun-o" /> Home Solar
+              //         </span>
+              //       </span>
+              //     ),
+              //     key: "home-solar",
+              //     component: (
+              //       <Row style={{ marginTop: 50 }}>
+              //         {[1, 3, 4].map((item, index) => {
+              //           return (
+              //             <Col key={index?.toString()} xs={3}>
+              //               <OneCoach />
+              //             </Col>
+              //           );
+              //         })}
+              //       </Row>
+              //     ),
+              //   },
+              //   {
+              //     title: (
+              //       <span
+              //         style={{
+              //           color: "var(--app-deep-green)",
+              //           fontWeight: "bold",
+              //         }}
+              //       >
+              //         <span>
+              //           <i className=" fa fa-home" /> Community Solar
+              //         </span>
+              //       </span>
+              //     ),
+              //     key: "community-solar",
+              //     component: <h1> this is the community solar my geee</h1>,
+              //   },
+              // ]}
             ></CustomTabView>
 
             <div style={{ width: "80%" }}>

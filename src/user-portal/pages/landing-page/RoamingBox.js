@@ -1,7 +1,8 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 
-function RoamingBox() {
+function RoamingBox({ advert, keyContact }) {
+  const preview = advert?.description?.substr(0, 250);
   return (
     <div style={{ margin: "100px 0px" }}>
       <Container>
@@ -17,7 +18,7 @@ function RoamingBox() {
                   }}
                 >
                   <h3 className="m-0" style={{ fontSize: 23 }}>
-                    What is Kicking Gas?
+                    {advert?.title}
                   </h3>
                 </div>
                 <div
@@ -27,11 +28,7 @@ function RoamingBox() {
                   }}
                 >
                   <p style={{ padding: "15px 25px", fontSize: 18 }}>
-                    centuries, but also the leap into electronic typesetting,
-                    remaining essentially unchanged. It was popularised in the
-                    1960s with the release of Letraset she remaining essentially
-                    unchanged. It was popularised in the 1960s with the release
-                    of Letraset she
+                    {preview}...
                   </p>
                   <div style={{ display: "flex", padding: "20px 35px" }}>
                     <Button
@@ -62,7 +59,7 @@ function RoamingBox() {
             >
               <img
                 className="mb-2"
-                src="https://i.pravatar.cc/300"
+                src={keyContact?.image?.url || "https://i.pravatar.cc/300"}
                 style={{ borderRadius: "100%", width: 120, height: 120 }}
               ></img>
               <span className="mb-1" style={{ fontSize: 12, color: "#c8c8c8" }}>
@@ -70,9 +67,15 @@ function RoamingBox() {
               </span>
               <h6
                 className="mb-1"
-                style={{ color: "var(--app-medium-green)", fontWeight: "800" }}
+                style={{
+                  color: "var(--app-medium-green)",
+                  fontWeight: "800",
+                  textTransform: "uppercase",
+                  textAlign: "center",
+                  fontSize: 15,
+                }}
               >
-                <span>ELLEN TOHN</span>
+                <span>{keyContact?.name || "..."}</span>
               </h6>
               <p
                 className="mb-1"
@@ -83,10 +86,11 @@ function RoamingBox() {
                 }}
               >
                 <i className=" fa fa-envelope" style={{ marginRight: 6 }} />
-                <span> kaatbradamie@gmail.com</span>
+                <span> {keyContact?.email}</span>
               </p>
               <p>
-                <i className="fa fa-phone" /> <span>+200 456 789 45 </span>
+                <i className="fa fa-phone" />{" "}
+                <span>{keyContact?.phone_number}</span>
               </p>
             </Col>
           </Row>

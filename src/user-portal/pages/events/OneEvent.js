@@ -3,7 +3,8 @@ import PageWrapper from "../wrappers/PageWrapper";
 import carPhoto from "./../../../assets/imgs/car.jpeg";
 import { Col, Container, Row } from "react-bootstrap";
 import SectionTitle from "../../../components/pieces/SectionTitle";
-function OneEvent() {
+function OneEvent({ event }) {
+  const { title, start_date, description } = event || {};
   return (
     <PageWrapper>
       <SectionTitle>One Event of Technology</SectionTitle>

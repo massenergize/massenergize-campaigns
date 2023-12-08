@@ -1,1 +1,533 @@
-{"data": {"id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d", "created_at": "2023-12-07T10:56:12.888Z", "updated_at": "2023-12-07T11:12:24.494Z", "is_deleted": false, "info": null, "account": {"id": "583c96c5-7fb4-488f-ac54-2558252ae535"}, "title": "Wayland Campaign", "description": "Helo there", "start_date": "2023-12-07", "end_date": null, "primary_logo": {"id": 620, "name": "PrimaryLogoFor Wayland Campaign Campaign", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"}, "secondary_logo": {"id": 621, "name": "SecondaryLogoFor Wayland Campaign Campaign", "url": "https://massenergize-files.s3.amazonaws.com/media/csu.jpeg"}, "image": {"id": 622, "name": "ImageFor Wayland Campaign Campaign", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"}, "is_approved": false, "is_published": false, "is_global": true, "is_template": false, "owner": null, "key_contact": {"name": "Tahiru Abdullai", "email": "abdullai.tahiru+203@massenergize.org", "phone_number": "1286398612983", "image": {"id": 622, "name": "ImageFor Wayland Campaign Campaign", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"}}, "technologies": [{"campaign_technology": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2", "coaches": [{"id": "80c75c35-0aaa-4dfd-8977-1d3586711d24", "created_at": "2023-12-07T22:03:48.931Z", "updated_at": "2023-12-07T22:03:51.755Z", "is_deleted": false, "info": null, "technology": {"id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d"}, "full_name": "Faddal Ibrahim", "email": "xyz@wayland.com", "phone_number": "+233550751805", "image": {"id": 627, "name": "FileUpload for 80c75c35-0aaa-4dfd-8977-1d3586711d24 TechnologyCoach", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"}, "community": "Wayland"}, {"id": "400a32b6-a21e-414e-866b-c9c1306b1a6b", "created_at": "2023-12-07T22:04:36.144Z", "updated_at": "2023-12-07T22:04:42.609Z", "is_deleted": false, "info": null, "technology": {"id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d"}, "full_name": "Frimpong O.A", "email": "xyz@acton.com", "phone_number": "+233550751805", "image": {"id": 628, "name": "FileUpload for 400a32b6-a21e-414e-866b-c9c1306b1a6b TechnologyCoach", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"}, "community": "Acton"}, {"id": "a337eedb-baef-49b9-a813-9afc5d25ad4b", "created_at": "2023-12-07T22:05:07.883Z", "updated_at": "2023-12-07T22:05:09.299Z", "is_deleted": false, "info": null, "technology": {"id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d"}, "full_name": "Samuel O.A", "email": "xyz@concord.com", "phone_number": "+233550751805", "image": {"id": 629, "name": "FileUpload for a337eedb-baef-49b9-a813-9afc5d25ad4b TechnologyCoach", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"}, "community": "Concord"}], "testimonials": [{"id": "4e36c42c-79a1-468b-aaba-4610accd6b5a", "created_at": "2023-12-07T12:55:36.906Z", "updated_at": "2023-12-07T12:55:36.906Z", "is_deleted": false, "info": null, "campaign": null, "campaign_technology": {"id": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2"}, "title": "Testimonial  101", "body": "When using the double-underscore notation, you can chain relationships to navigate through multiple levels of ForeignKey relationships. For instance, if Author had a ForeignKey to another model, you could use 'author__another_related_model' in the prefetch_related call.", "is_approved": false, "image": null, "created_by": null, "is_published": false, "anonymous": false, "community": null, "user": null, "file": null}, {"id": "4edc0d73-4e43-4a04-8d69-3ea1ab4ae735", "created_at": "2023-12-07T12:55:56.642Z", "updated_at": "2023-12-07T12:55:59.660Z", "is_deleted": false, "info": null, "campaign": null, "campaign_technology": {"id": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2"}, "title": "Testimonial  101", "body": "When using the double-underscore notation, you can chain relationships to navigate through multiple levels of ForeignKey relationships. For instance, if Author had a ForeignKey to another model, you could use 'author__another_related_model' in the prefetch_related call.", "is_approved": false, "image": 617, "created_by": null, "is_published": false, "anonymous": false, "community": null, "user": null, "file": {"id": 617, "name": "ImageFor Testimonial  101 CampaignTech Testimonial", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"}}, {"id": "7e586aa4-6885-44cc-a860-1daac65f2c0e", "created_at": "2023-12-07T12:56:17.504Z", "updated_at": "2023-12-07T12:56:18.359Z", "is_deleted": false, "info": null, "campaign": null, "campaign_technology": {"id": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2"}, "title": "Testimonial  Ver Good", "body": "When using the double-underscore notation, you can chain relationships to navigate through multiple levels of ForeignKey relationships. For instance, if Author had a ForeignKey to another model, you could use 'author__another_related_model' in the prefetch_related call.", "is_approved": false, "image": 618, "created_by": null, "is_published": false, "anonymous": false, "community": null, "user": null, "file": {"id": 618, "name": "ImageFor Testimonial  Ver Good CampaignTech Testimonial", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"}}], "events": [{"id": "4310cccb-39cf-422f-8b2d-d255ab7677a6", "created_at": "2023-12-07T17:11:15.700Z", "updated_at": "2023-12-07T17:11:15.700Z", "is_deleted": false, "info": null, "campaign": {"id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"}, "event": {"id": 99, "name": "New Event", "start_date": "2023-10-28T18:56:00Z", "end_date": "2023-10-29T18:56:00Z", "description": "<p>jshflkjshfgvlkhjfglksdjglkjsgdf</p>", "image": {"id": 604, "name": "ImageFor New Event Event", "url": "https://massenergize-files.s3.amazonaws.com/media/concord.png", "created_at": "2023-10-23T20:25:38.955Z", "info": {"size": "33785", "size_text": "34 KB", "copyright_att": "fg", "permission_key": "YES", "permission_notes": "Took the photo or made the image, or was given permission by the person who made the image", "has_copyright_permission": true}}}}, {"id": "0933dbf4-bd72-4847-86c5-081bec7b87d7", "created_at": "2023-12-07T17:11:41.938Z", "updated_at": "2023-12-07T17:11:41.939Z", "is_deleted": false, "info": null, "campaign": {"id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"}, "event": {"id": 97, "name": "December Event", "start_date": "2023-09-29T09:48:00Z", "end_date": "2023-09-30T09:48:00Z", "description": "<p>A message has been sent from a community portal user to the Community Admin for Tachyon Community through the \"Contact Us\" page. This message is being sent to all Community Admins listed for Tachyon Community, and if possible should be responded to within 2-3 days, using the following link: View and respond to message</p>", "image": {"id": 598, "name": "ImageFor December Event Event", "url": "https://massenergize-files.s3.amazonaws.com/media/Farmers_Market.jpg"}}}], "id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d", "created_at": "2023-12-07T11:20:24.726Z", "updated_at": "2023-12-07T11:20:25.724Z", "is_deleted": false, "info": null, "name": "Community Solar", "description": " Allow GitHub, its affiliates and third parties to use my code snippets to research and improve GitHub Copilot suggestions, related models and product features. More information in", "summary": null, "image": {"id": 611, "name": "FileUpload for 4c74b279-45c4-435a-b05d-11f5f3dcd69d Technology", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"}, "icon": null, "is_icon": false}, {"campaign_technology": "4a6c33cb-528c-4483-bde3-dc7b8b02f745", "coaches": [{"id": "80c75c35-0aaa-4dfd-8977-1d3586711d24", "created_at": "2023-12-07T22:03:48.931Z", "updated_at": "2023-12-07T22:03:51.755Z", "is_deleted": false, "info": null, "technology": {"id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d"}, "full_name": "Faddal Ibrahim", "email": "xyz@wayland.com", "phone_number": "+233550751805", "image": {"id": 627, "name": "FileUpload for 80c75c35-0aaa-4dfd-8977-1d3586711d24 TechnologyCoach", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"}, "community": "Wayland"}, {"id": "400a32b6-a21e-414e-866b-c9c1306b1a6b", "created_at": "2023-12-07T22:04:36.144Z", "updated_at": "2023-12-07T22:04:42.609Z", "is_deleted": false, "info": null, "technology": {"id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d"}, "full_name": "Frimpong O.A", "email": "xyz@acton.com", "phone_number": "+233550751805", "image": {"id": 628, "name": "FileUpload for 400a32b6-a21e-414e-866b-c9c1306b1a6b TechnologyCoach", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"}, "community": "Acton"}, {"id": "a337eedb-baef-49b9-a813-9afc5d25ad4b", "created_at": "2023-12-07T22:05:07.883Z", "updated_at": "2023-12-07T22:05:09.299Z", "is_deleted": false, "info": null, "technology": {"id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d"}, "full_name": "Samuel O.A", "email": "xyz@concord.com", "phone_number": "+233550751805", "image": {"id": 629, "name": "FileUpload for a337eedb-baef-49b9-a813-9afc5d25ad4b TechnologyCoach", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"}, "community": "Concord"}], "testimonials": [{"id": "4e36c42c-79a1-468b-aaba-4610accd6b5a", "created_at": "2023-12-07T12:55:36.906Z", "updated_at": "2023-12-07T12:55:36.906Z", "is_deleted": false, "info": null, "campaign": null, "campaign_technology": {"id": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2"}, "title": "Testimonial  101", "body": "When using the double-underscore notation, you can chain relationships to navigate through multiple levels of ForeignKey relationships. For instance, if Author had a ForeignKey to another model, you could use 'author__another_related_model' in the prefetch_related call.", "is_approved": false, "image": null, "created_by": null, "is_published": false, "anonymous": false, "community": null, "user": null, "file": null}, {"id": "4edc0d73-4e43-4a04-8d69-3ea1ab4ae735", "created_at": "2023-12-07T12:55:56.642Z", "updated_at": "2023-12-07T12:55:59.660Z", "is_deleted": false, "info": null, "campaign": null, "campaign_technology": {"id": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2"}, "title": "Testimonial  101", "body": "When using the double-underscore notation, you can chain relationships to navigate through multiple levels of ForeignKey relationships. For instance, if Author had a ForeignKey to another model, you could use 'author__another_related_model' in the prefetch_related call.", "is_approved": false, "image": 617, "created_by": null, "is_published": false, "anonymous": false, "community": null, "user": null, "file": {"id": 617, "name": "ImageFor Testimonial  101 CampaignTech Testimonial", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"}}, {"id": "7e586aa4-6885-44cc-a860-1daac65f2c0e", "created_at": "2023-12-07T12:56:17.504Z", "updated_at": "2023-12-07T12:56:18.359Z", "is_deleted": false, "info": null, "campaign": null, "campaign_technology": {"id": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2"}, "title": "Testimonial  Ver Good", "body": "When using the double-underscore notation, you can chain relationships to navigate through multiple levels of ForeignKey relationships. For instance, if Author had a ForeignKey to another model, you could use 'author__another_related_model' in the prefetch_related call.", "is_approved": false, "image": 618, "created_by": null, "is_published": false, "anonymous": false, "community": null, "user": null, "file": {"id": 618, "name": "ImageFor Testimonial  Ver Good CampaignTech Testimonial", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"}}], "events": [{"id": "4310cccb-39cf-422f-8b2d-d255ab7677a6", "created_at": "2023-12-07T17:11:15.700Z", "updated_at": "2023-12-07T17:11:15.700Z", "is_deleted": false, "info": null, "campaign": {"id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"}, "event": {"id": 99, "name": "New Event", "start_date": "2023-10-28T18:56:00Z", "end_date": "2023-10-29T18:56:00Z", "description": "<p>jshflkjshfgvlkhjfglksdjglkjsgdf</p>", "image": {"id": 604, "name": "ImageFor New Event Event", "url": "https://massenergize-files.s3.amazonaws.com/media/concord.png", "created_at": "2023-10-23T20:25:38.955Z", "info": {"size": "33785", "size_text": "34 KB", "copyright_att": "fg", "permission_key": "YES", "permission_notes": "Took the photo or made the image, or was given permission by the person who made the image", "has_copyright_permission": true}}}}, {"id": "0933dbf4-bd72-4847-86c5-081bec7b87d7", "created_at": "2023-12-07T17:11:41.938Z", "updated_at": "2023-12-07T17:11:41.939Z", "is_deleted": false, "info": null, "campaign": {"id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"}, "event": {"id": 97, "name": "December Event", "start_date": "2023-09-29T09:48:00Z", "end_date": "2023-09-30T09:48:00Z", "description": "<p>A message has been sent from a community portal user to the Community Admin for Tachyon Community through the \"Contact Us\" page. This message is being sent to all Community Admins listed for Tachyon Community, and if possible should be responded to within 2-3 days, using the following link: View and respond to message</p>", "image": {"id": 598, "name": "ImageFor December Event Event", "url": "https://massenergize-files.s3.amazonaws.com/media/Farmers_Market.jpg"}}}], "id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d", "created_at": "2023-12-07T11:20:24.726Z", "updated_at": "2023-12-07T11:20:25.724Z", "is_deleted": false, "info": null, "name": "Community Solar", "description": " Allow GitHub, its affiliates and third parties to use my code snippets to research and improve GitHub Copilot suggestions, related models and product features. More information in", "summary": null, "image": {"id": 611, "name": "FileUpload for 4c74b279-45c4-435a-b05d-11f5f3dcd69d Technology", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"}, "icon": null, "is_icon": false}, {"campaign_technology": "5c6973b7-d3e6-416a-9a7f-23afb3d2f52d", "coaches": [], "testimonials": [], "events": [], "id": "f6200821-430d-4557-95f8-e7f146130d07", "created_at": "2023-12-07T11:20:09.148Z", "updated_at": "2023-12-07T11:20:12.242Z", "is_deleted": false, "info": null, "name": "Heat Pump", "description": " Allow GitHub, its affiliates and third parties to use my code snippets to research and improve GitHub Copilot suggestions, related models and product features. More information in", "summary": null, "image": {"id": 610, "name": "FileUpload for f6200821-430d-4557-95f8-e7f146130d07 Technology", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"}, "icon": null, "is_icon": false}], "communities": [{"id": "b4873cf3-85b4-40f4-8b8e-448d55f60cf9", "created_at": "2023-12-07T17:28:45.672Z", "updated_at": "2023-12-07T17:28:45.672Z", "is_deleted": false, "info": null, "campaign": {"id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"}, "community": {"id": 21, "name": "Tachyonics ", "subdomain": "taCom"}}, {"id": "f50263dd-3ec2-46c4-85b8-db56bdf4b463", "created_at": "2023-12-07T17:29:03.441Z", "updated_at": "2023-12-07T17:29:03.441Z", "is_deleted": false, "info": null, "campaign": {"id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"}, "community": {"id": 23, "name": "Bibisoft", "subdomain": "bibinii"}}, {"id": "634f1101-80b3-457c-911d-1e571b4ef644", "created_at": "2023-12-07T17:29:13.622Z", "updated_at": "2023-12-07T17:29:13.622Z", "is_deleted": false, "info": null, "campaign": {"id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"}, "community": {"id": 11, "name": "LexEnergize", "subdomain": "newMan"}}, {"id": "8a272088-727b-4af5-88cf-f67b4fd3fedb", "created_at": "2023-12-07T17:29:24.191Z", "updated_at": "2023-12-07T17:29:24.191Z", "is_deleted": false, "info": null, "campaign": {"id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"}, "community": {"id": 2, "name": "EnergizeUs", "subdomain": "Energize_Us"}}], "managers": [{"id": "e4db42e5-3f3a-48a3-90ec-1c7f8cb2622e", "created_at": "2023-12-07T22:15:26.631Z", "updated_at": "2023-12-07T22:15:26.631Z", "is_deleted": false, "info": null, "campaign": {"id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"}, "user": {"id": "d5293973-7a5b-4679-8fe3-13a0c17b89e6", "full_name": "Tahiru Abdullai", "preferred_name": "TahiruAbdullai1", "email": "abdullai.tahiru+203@massenergize.org"}, "is_key_contact": true, "contact": "1286398612983"}], "partners": [{"id": "ef6bc85d-3cf4-4c08-a60c-6c028714bfb8", "created_at": "2023-12-07T21:37:01.161Z", "updated_at": "2023-12-07T21:37:01.161Z", "is_deleted": false, "info": null, "campaign": {"id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"}, "partner": {"id": "973567af-c2d3-47d1-ac82-e0e3fde13979", "created_at": "2023-12-07T20:50:33.517Z", "updated_at": "2023-12-07T20:50:33.524Z", "is_deleted": false, "info": null, "name": "Google Ai", "website": "ww.google.com", "logo": {"id": 623, "name": "partner_logo", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"}, "phone_number": "+233550751805", "email": "google@gmail.com"}}, {"id": "0e644303-2dac-4688-a50e-26392b51d61c", "created_at": "2023-12-07T21:37:11.065Z", "updated_at": "2023-12-07T21:37:11.065Z", "is_deleted": false, "info": null, "campaign": {"id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"}, "partner": {"id": "65684082-179f-41a4-9857-1dc90ea1bdc2", "created_at": "2023-12-07T20:53:20.032Z", "updated_at": "2023-12-07T20:53:20.034Z", "is_deleted": false, "info": null, "name": "Meta  Solarizer", "website": "ww.meta.com", "logo": {"id": 625, "name": "partner_logo", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"}, "phone_number": "+233550751805", "email": "meta@gmail.com"}}, {"id": "87776169-649b-462a-826c-a2f681e172b8", "created_at": "2023-12-07T21:37:23.410Z", "updated_at": "2023-12-07T21:37:23.410Z", "is_deleted": false, "info": null, "campaign": {"id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"}, "partner": {"id": "3d7e3e0a-6b7b-4b4d-8c9a-568a88068ce1", "created_at": "2023-12-07T20:53:32.921Z", "updated_at": "2023-12-07T20:53:32.924Z", "is_deleted": false, "info": null, "name": "Meta  Solarizer", "website": "ww.meta.com", "logo": {"id": 626, "name": "partner_logo", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_11.28.35AM.png"}, "phone_number": "+233550751805", "email": "meta@gmail.com"}}, {"id": "1c8db71e-f2ec-4c71-9add-f9e5c0fc173a", "created_at": "2023-12-07T21:37:38.190Z", "updated_at": "2023-12-07T21:37:38.190Z", "is_deleted": false, "info": null, "campaign": {"id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"}, "partner": {"id": "9ebcbeb5-488e-423d-9c85-2dfc879c5855", "created_at": "2023-12-07T20:51:13.117Z", "updated_at": "2023-12-07T20:51:13.118Z", "is_deleted": false, "info": null, "name": "MassEnergize  Solarizer", "website": "ww.me.com", "logo": {"id": 624, "name": "partner_logo", "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"}, "phone_number": "+233550751805", "email": "me@gmail.com"}}], "config": {"id": "08815f91-d008-44a0-b49e-a4135dcbe5eb", "created_at": "2023-12-07T18:15:33.117Z", "updated_at": "2023-12-07T18:15:33.117Z", "is_deleted": false, "info": null, "campaign": {"id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"}, "theme": null, "navigation": null, "advert": {"title": "Circular model import issue", "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."}}}, "error": null, "success": true, "cursor": {}}
+{
+    "data": {
+        "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d",
+        "created_at": "2023-12-07T10:56:12.888Z",
+        "updated_at": "2023-12-07T11:12:24.494Z",
+        "is_deleted": false,
+        "info": null,
+        "account": {
+            "id": "583c96c5-7fb4-488f-ac54-2558252ae535"
+        },
+        "title": "Wayland Campaign",
+        "description": "Helo there",
+        "start_date": "2023-12-07",
+        "end_date": null,
+        "primary_logo": {
+            "id": 620,
+            "name": "PrimaryLogoFor Wayland Campaign Campaign",
+            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+        },
+        "secondary_logo": {
+            "id": 621,
+            "name": "SecondaryLogoFor Wayland Campaign Campaign",
+            "url": "https://massenergize-files.s3.amazonaws.com/media/csu.jpeg"
+        },
+        "image": {
+            "id": 622,
+            "name": "ImageFor Wayland Campaign Campaign",
+            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"
+        },
+        "is_approved": false,
+        "is_published": false,
+        "is_global": true,
+        "is_template": false,
+        "owner": null,
+        "key_contact": {
+            "name": "Tahiru Abdullai",
+            "email": "abdullai.tahiru+203@massenergize.org",
+            "phone_number": "1286398612983",
+            "image": {
+                "id": 622,
+                "name": "ImageFor Wayland Campaign Campaign",
+                "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"
+            }
+        },
+        "technologies": [
+            {
+                "campaign_technology": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2",
+                "coaches": [
+                    {
+                        "id": "80c75c35-0aaa-4dfd-8977-1d3586711d24",
+                        "created_at": "2023-12-07T22:03:48.931Z",
+                        "updated_at": "2023-12-07T22:03:51.755Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "technology": {
+                            "id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d"
+                        },
+                        "full_name": "Faddal Ibrahim",
+                        "email": "xyz@wayland.com",
+                        "phone_number": "+233550751805",
+                        "image": {
+                            "id": 627,
+                            "name": "FileUpload for 80c75c35-0aaa-4dfd-8977-1d3586711d24 TechnologyCoach",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"
+                        },
+                        "community": "Wayland"
+                    },
+                    {
+                        "id": "400a32b6-a21e-414e-866b-c9c1306b1a6b",
+                        "created_at": "2023-12-07T22:04:36.144Z",
+                        "updated_at": "2023-12-07T22:04:42.609Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "technology": {
+                            "id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d"
+                        },
+                        "full_name": "Frimpong O.A",
+                        "email": "xyz@acton.com",
+                        "phone_number": "+233550751805",
+                        "image": {
+                            "id": 628,
+                            "name": "FileUpload for 400a32b6-a21e-414e-866b-c9c1306b1a6b TechnologyCoach",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                        },
+                        "community": "Acton"
+                    },
+                    {
+                        "id": "a337eedb-baef-49b9-a813-9afc5d25ad4b",
+                        "created_at": "2023-12-07T22:05:07.883Z",
+                        "updated_at": "2023-12-07T22:05:09.299Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "technology": {
+                            "id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d"
+                        },
+                        "full_name": "Samuel O.A",
+                        "email": "xyz@concord.com",
+                        "phone_number": "+233550751805",
+                        "image": {
+                            "id": 629,
+                            "name": "FileUpload for a337eedb-baef-49b9-a813-9afc5d25ad4b TechnologyCoach",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                        },
+                        "community": "Concord"
+                    }
+                ],
+                "testimonials": [
+                    {
+                        "id": "7e586aa4-6885-44cc-a860-1daac65f2c0e",
+                        "created_at": "2023-12-07T12:56:17.504Z",
+                        "updated_at": "2023-12-08T08:59:14.907Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": null,
+                        "campaign_technology": {
+                            "id": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2"
+                        },
+                        "title": "Testimonial  Ver Good",
+                        "body": "When using the double-underscore notation, you can chain relationships to navigate through multiple levels of ForeignKey relationships. For instance, if Author had a ForeignKey to another model, you could use 'author__another_related_model' in the prefetch_related call.",
+                        "is_approved": false,
+                        "image": {
+                            "id": 618,
+                            "name": "ImageFor Testimonial  Ver Good CampaignTech Testimonial",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                        },
+                        "created_by": "906d4df9-e7a7-4b75-b2c6-235796cab193",
+                        "is_published": false,
+                        "anonymous": false,
+                        "community": null,
+                        "user": {
+                            "id": "906d4df9-e7a7-4b75-b2c6-235796cab193",
+                            "full_name": "ME Tahiru",
+                            "preferred_name": "MET",
+                            "email": "abdullai.tahiru@massenergize.org"
+                        }
+                    },
+                    {
+                        "id": "4edc0d73-4e43-4a04-8d69-3ea1ab4ae735",
+                        "created_at": "2023-12-07T12:55:56.642Z",
+                        "updated_at": "2023-12-08T08:59:26.351Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": null,
+                        "campaign_technology": {
+                            "id": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2"
+                        },
+                        "title": "Testimonial  101",
+                        "body": "When using the double-underscore notation, you can chain relationships to navigate through multiple levels of ForeignKey relationships. For instance, if Author had a ForeignKey to another model, you could use 'author__another_related_model' in the prefetch_related call.",
+                        "is_approved": false,
+                        "image": {
+                            "id": 617,
+                            "name": "ImageFor Testimonial  101 CampaignTech Testimonial",
+                            "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                        },
+                        "created_by": "7f11c30e-e4a9-4cb5-94c6-a645ee901914",
+                        "is_published": false,
+                        "anonymous": false,
+                        "community": null,
+                        "user": {
+                            "id": "7f11c30e-e4a9-4cb5-94c6-a645ee901914",
+                            "full_name": "Tahiru kehillah",
+                            "preferred_name": "TahiruK",
+                            "email": "abdullai@kehillahglobal.com"
+                        }
+                    },
+                    {
+                        "id": "4e36c42c-79a1-468b-aaba-4610accd6b5a",
+                        "created_at": "2023-12-07T12:55:36.906Z",
+                        "updated_at": "2023-12-08T08:59:41.278Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": null,
+                        "campaign_technology": {
+                            "id": "5cd65137-6b1e-424e-b5b7-b3fcfaa935e2"
+                        },
+                        "title": "Testimonial  101",
+                        "body": "When using the double-underscore notation, you can chain relationships to navigate through multiple levels of ForeignKey relationships. For instance, if Author had a ForeignKey to another model, you could use 'author__another_related_model' in the prefetch_related call.",
+                        "is_approved": false,
+                        "image": null,
+                        "created_by": "a744f543-4232-4a46-85f5-f78af86348ff",
+                        "is_published": true,
+                        "anonymous": false,
+                        "community": null,
+                        "user": {
+                            "id": "a744f543-4232-4a46-85f5-f78af86348ff",
+                            "full_name": "Tahiru Abdullai",
+                            "preferred_name": "tahiru",
+                            "email": "abdullai.tahiru@gmail.com"
+                        }
+                    }
+                ],
+                "events": [
+                    {
+                        "id": "4310cccb-39cf-422f-8b2d-d255ab7677a6",
+                        "created_at": "2023-12-07T17:11:15.700Z",
+                        "updated_at": "2023-12-07T17:11:15.700Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": {
+                            "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                        },
+                        "event": {
+                            "id": 99,
+                            "name": "New Event",
+                            "start_date": "2023-10-28T18:56:00Z",
+                            "end_date": "2023-10-29T18:56:00Z",
+                            "description": "<p>jshflkjshfgvlkhjfglksdjglkjsgdf</p>",
+                            "image": {
+                                "id": 604,
+                                "name": "ImageFor New Event Event",
+                                "url": "https://massenergize-files.s3.amazonaws.com/media/concord.png",
+                                "created_at": "2023-10-23T20:25:38.955Z",
+                                "info": {
+                                    "size": "33785",
+                                    "size_text": "34 KB",
+                                    "copyright_att": "fg",
+                                    "permission_key": "YES",
+                                    "permission_notes": "Took the photo or made the image, or was given permission by the person who made the image",
+                                    "has_copyright_permission": true
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "0933dbf4-bd72-4847-86c5-081bec7b87d7",
+                        "created_at": "2023-12-07T17:11:41.938Z",
+                        "updated_at": "2023-12-07T17:11:41.939Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": {
+                            "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                        },
+                        "event": {
+                            "id": 97,
+                            "name": "December Event",
+                            "start_date": "2023-09-29T09:48:00Z",
+                            "end_date": "2023-09-30T09:48:00Z",
+                            "description": "<p>A message has been sent from a community portal user to the Community Admin for Tachyon Community through the \"Contact Us\" page. This message is being sent to all Community Admins listed for Tachyon Community, and if possible should be responded to within 2-3 days, using the following link: View and respond to message</p>",
+                            "image": {
+                                "id": 598,
+                                "name": "ImageFor December Event Event",
+                                "url": "https://massenergize-files.s3.amazonaws.com/media/Farmers_Market.jpg"
+                            }
+                        }
+                    }
+                ],
+                "id": "4c74b279-45c4-435a-b05d-11f5f3dcd69d",
+                "created_at": "2023-12-07T11:20:24.726Z",
+                "updated_at": "2023-12-07T22:28:57.304Z",
+                "is_deleted": false,
+                "info": null,
+                "name": "Community Solar",
+                "description": " Allow GitHub, its affiliates and third parties to use my code snippets to research and improve GitHub Copilot suggestions, related models and product features. More information in",
+                "summary": "Allow GitHub, its affiliates and third parties to",
+                "image": {
+                    "id": 611,
+                    "name": "FileUpload for 4c74b279-45c4-435a-b05d-11f5f3dcd69d Technology",
+                    "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                },
+                "icon": null,
+                "is_icon": false
+            },
+            {
+                "campaign_technology": "5c6973b7-d3e6-416a-9a7f-23afb3d2f52d",
+                "coaches": [],
+                "testimonials": [],
+                "events": [],
+                "id": "f6200821-430d-4557-95f8-e7f146130d07",
+                "created_at": "2023-12-07T11:20:09.148Z",
+                "updated_at": "2023-12-07T11:20:12.242Z",
+                "is_deleted": false,
+                "info": null,
+                "name": "Heat Pump",
+                "description": " Allow GitHub, its affiliates and third parties to use my code snippets to research and improve GitHub Copilot suggestions, related models and product features. More information in",
+                "summary": null,
+                "image": {
+                    "id": 610,
+                    "name": "FileUpload for f6200821-430d-4557-95f8-e7f146130d07 Technology",
+                    "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                },
+                "icon": null,
+                "is_icon": false
+            },
+            {
+                "campaign_technology": "7f194e30-9c4a-408b-a854-98a134aebaf3",
+                "coaches": [],
+                "testimonials": [],
+                "events": [
+                    {
+                        "id": "6c38af98-5c43-4b3f-bb3b-d2a533731cb0",
+                        "created_at": "2023-12-07T17:12:02.239Z",
+                        "updated_at": "2023-12-07T17:12:02.239Z",
+                        "is_deleted": false,
+                        "info": null,
+                        "campaign": {
+                            "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                        },
+                        "event": {
+                            "id": 89,
+                            "name": "aasdasd",
+                            "start_date": "2023-07-27T11:00:00Z",
+                            "end_date": "2023-07-28T12:00:00Z",
+                            "description": "<p>asdasdasdaDAS</p>",
+                            "image": null
+                        }
+                    }
+                ],
+                "id": "17c7e50b-28ee-4d6a-a6f5-4a4a61267653",
+                "created_at": "2023-12-07T11:20:35.185Z",
+                "updated_at": "2023-12-07T11:25:33.231Z",
+                "is_deleted": true,
+                "info": null,
+                "name": "Change Name",
+                "description": " Allow GitHub, its affiliates and third parties to use my code snippets to research and improve GitHub Copilot suggestions, related models and product features. More information in",
+                "summary": null,
+                "image": {
+                    "id": 612,
+                    "name": "FileUpload for 17c7e50b-28ee-4d6a-a6f5-4a4a61267653 Technology",
+                    "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png"
+                },
+                "icon": null,
+                "is_icon": false
+            }
+        ],
+        "communities": [
+            {
+                "id": "b4873cf3-85b4-40f4-8b8e-448d55f60cf9",
+                "created_at": "2023-12-07T17:28:45.672Z",
+                "updated_at": "2023-12-07T17:28:45.672Z",
+                "is_deleted": false,
+                "info": null,
+                "campaign": {
+                    "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                },
+                "community": {
+                    "id": 21,
+                    "name": "Tachyonics ",
+                    "subdomain": "taCom"
+                }
+            },
+            {
+                "id": "f50263dd-3ec2-46c4-85b8-db56bdf4b463",
+                "created_at": "2023-12-07T17:29:03.441Z",
+                "updated_at": "2023-12-07T17:29:03.441Z",
+                "is_deleted": false,
+                "info": null,
+                "campaign": {
+                    "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                },
+                "community": {
+                    "id": 23,
+                    "name": "Bibisoft",
+                    "subdomain": "bibinii"
+                }
+            },
+            {
+                "id": "634f1101-80b3-457c-911d-1e571b4ef644",
+                "created_at": "2023-12-07T17:29:13.622Z",
+                "updated_at": "2023-12-07T17:29:13.622Z",
+                "is_deleted": false,
+                "info": null,
+                "campaign": {
+                    "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                },
+                "community": {
+                    "id": 11,
+                    "name": "LexEnergize",
+                    "subdomain": "newMan"
+                }
+            },
+            {
+                "id": "8a272088-727b-4af5-88cf-f67b4fd3fedb",
+                "created_at": "2023-12-07T17:29:24.191Z",
+                "updated_at": "2023-12-07T17:29:24.191Z",
+                "is_deleted": false,
+                "info": null,
+                "campaign": {
+                    "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                },
+                "community": {
+                    "id": 2,
+                    "name": "EnergizeUs",
+                    "subdomain": "Energize_Us"
+                }
+            }
+        ],
+        "managers": [
+            {
+                "id": "e4db42e5-3f3a-48a3-90ec-1c7f8cb2622e",
+                "created_at": "2023-12-07T22:15:26.631Z",
+                "updated_at": "2023-12-07T22:15:26.631Z",
+                "is_deleted": false,
+                "info": null,
+                "campaign": {
+                    "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                },
+                "user": {
+                    "id": "d5293973-7a5b-4679-8fe3-13a0c17b89e6",
+                    "full_name": "Tahiru Abdullai",
+                    "preferred_name": "TahiruAbdullai1",
+                    "email": "abdullai.tahiru+203@massenergize.org"
+                },
+                "is_key_contact": true,
+                "contact": "1286398612983"
+            }
+        ],
+        "partners": [
+            {
+                "id": "ef6bc85d-3cf4-4c08-a60c-6c028714bfb8",
+                "created_at": "2023-12-07T21:37:01.161Z",
+                "updated_at": "2023-12-07T21:37:01.161Z",
+                "is_deleted": false,
+                "info": null,
+                "campaign": {
+                    "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                },
+                "partner": {
+                    "id": "973567af-c2d3-47d1-ac82-e0e3fde13979",
+                    "created_at": "2023-12-07T20:50:33.517Z",
+                    "updated_at": "2023-12-07T20:50:33.524Z",
+                    "is_deleted": false,
+                    "info": null,
+                    "name": "Google Ai",
+                    "website": "ww.google.com",
+                    "logo": {
+                        "id": 623,
+                        "name": "partner_logo",
+                        "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"
+                    },
+                    "phone_number": "+233550751805",
+                    "email": "google@gmail.com"
+                }
+            },
+            {
+                "id": "0e644303-2dac-4688-a50e-26392b51d61c",
+                "created_at": "2023-12-07T21:37:11.065Z",
+                "updated_at": "2023-12-07T21:37:11.065Z",
+                "is_deleted": false,
+                "info": null,
+                "campaign": {
+                    "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                },
+                "partner": {
+                    "id": "65684082-179f-41a4-9857-1dc90ea1bdc2",
+                    "created_at": "2023-12-07T20:53:20.032Z",
+                    "updated_at": "2023-12-07T20:53:20.034Z",
+                    "is_deleted": false,
+                    "info": null,
+                    "name": "Meta  Solarizer",
+                    "website": "ww.meta.com",
+                    "logo": {
+                        "id": 625,
+                        "name": "partner_logo",
+                        "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"
+                    },
+                    "phone_number": "+233550751805",
+                    "email": "meta@gmail.com"
+                }
+            },
+            {
+                "id": "87776169-649b-462a-826c-a2f681e172b8",
+                "created_at": "2023-12-07T21:37:23.410Z",
+                "updated_at": "2023-12-07T21:37:23.410Z",
+                "is_deleted": false,
+                "info": null,
+                "campaign": {
+                    "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                },
+                "partner": {
+                    "id": "3d7e3e0a-6b7b-4b4d-8c9a-568a88068ce1",
+                    "created_at": "2023-12-07T20:53:32.921Z",
+                    "updated_at": "2023-12-07T20:53:32.924Z",
+                    "is_deleted": false,
+                    "info": null,
+                    "name": "Meta  Solarizer",
+                    "website": "ww.meta.com",
+                    "logo": {
+                        "id": 626,
+                        "name": "partner_logo",
+                        "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_11.28.35AM.png"
+                    },
+                    "phone_number": "+233550751805",
+                    "email": "meta@gmail.com"
+                }
+            },
+            {
+                "id": "1c8db71e-f2ec-4c71-9add-f9e5c0fc173a",
+                "created_at": "2023-12-07T21:37:38.190Z",
+                "updated_at": "2023-12-07T21:37:38.190Z",
+                "is_deleted": false,
+                "info": null,
+                "campaign": {
+                    "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+                },
+                "partner": {
+                    "id": "9ebcbeb5-488e-423d-9c85-2dfc879c5855",
+                    "created_at": "2023-12-07T20:51:13.117Z",
+                    "updated_at": "2023-12-07T20:51:13.118Z",
+                    "is_deleted": false,
+                    "info": null,
+                    "name": "MassEnergize  Solarizer",
+                    "website": "ww.me.com",
+                    "logo": {
+                        "id": 624,
+                        "name": "partner_logo",
+                        "url": "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-12-07_at_8.38.00PM.png"
+                    },
+                    "phone_number": "+233550751805",
+                    "email": "me@gmail.com"
+                }
+            }
+        ],
+        "config": {
+            "id": "08815f91-d008-44a0-b49e-a4135dcbe5eb",
+            "created_at": "2023-12-07T18:15:33.117Z",
+            "updated_at": "2023-12-07T18:15:33.117Z",
+            "is_deleted": false,
+            "info": null,
+            "campaign": {
+                "id": "ab3b98d2-f1a3-4620-86db-f48a06459b3d"
+            },
+            "theme": null,
+            "navigation": null,
+            "advert": {
+                "title": "Circular model import issue",
+                "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            }
+        }
+    },
+    "error": null,
+    "success": true,
+    "cursor": {}
+}
