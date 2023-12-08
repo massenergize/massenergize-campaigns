@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Dropdown from "../../../components/admin-components/Dropdown";
 import FileUploader from "../../../components/admin-components/FileUploader";
@@ -33,6 +33,33 @@ const Vendors = () => {
 		},
 	];
 
+	const initialState = {
+		name: "",
+		image: "",
+		description: "",
+		summary: "",
+	};
+
+	const reducer = (state, action) => {
+		switch (action.type) {
+			case "SET_FIELD_VALUE":
+				return { ...state, [action.field]: action.value };
+			default:
+				throw new Error(`Unsupported action type: ${action.type}`);
+		}
+	};
+
+	const [formData, dispatch] = useReducer(reducer, initialState);
+
+	const handleFieldChange = (field, value) => {
+		dispatch({ type: "SET_FIELD_VALUE", field, value });
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		console.log(formData);
+	};
+
 	return (
 		<div>
 			<Container>
@@ -46,6 +73,8 @@ const Vendors = () => {
 							multiple={true}
 							onItemSelect={(selectedItem, allSelected) => {
 								console.log(allSelected);
+								// handleFieldChange("name", val);
+
 								// setFormData({ ...formData, coaches: allSelected });
 							}}
 						/>

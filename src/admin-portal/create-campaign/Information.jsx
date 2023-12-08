@@ -11,21 +11,23 @@ import { motion as m } from "framer-motion";
 
 const Information = () => {
 	const [showError, setShowError] = useState(false);
-	const [loading, setLoading] = useState(false);
+	// const [loading, setLoading] = useState(false);
 
 	const initialState = {
-		isTemplate: false,
 		title: "",
-		slogan: "",
+		primary_logo: "",
+		secondary_logo: "",
+		campaign_image: "",
+		tagline: "",
 		start_date: "",
 		end_date: "",
 		description: "",
-		logo: "",
-		fullName: "",
+		campaign_account_id: "",
+		is_template: "",
+		full_name: "",
 		email: "",
-		contact: "",
-		profileImage: "",
-		tagline: "",
+		phone: "",
+		key_contact_image: "",
 	};
 
 	const reducer = (state, action) => {
@@ -45,7 +47,22 @@ const Information = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(formData);
+
+		return fetch("url", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(formData),
+		})
+			.then((data) => {
+				console.log("Success:", data);
+				return data;
+			})
+			.catch((error) => {
+				console.error("Error:", error);
+				throw error;
+			});
 	};
 
 	return (
@@ -63,7 +80,7 @@ const Information = () => {
 								id="isTemplate"
 								name="isTemplate"
 								valueExtractor={(val) => {
-									handleFieldChange("isTemplate", val);
+									handleFieldChange("is_template", val);
 								}}
 								size="big"
 							/>
@@ -109,7 +126,7 @@ const Information = () => {
 								required={false}
 								type="date"
 								onChange={(val) => {
-									handleFieldChange("startDate", val);
+									handleFieldChange("start_date", val);
 								}}
 							/>
 						</Col>
@@ -124,7 +141,22 @@ const Information = () => {
 								required={false}
 								type="date"
 								onChange={(val) => {
-									handleFieldChange("endDate", val);
+									handleFieldChange("end_date", val);
+								}}
+							/>
+						</Col>
+					</Row>
+					<Row className="py-4">
+						<Col>
+							<Input
+								id="Tagline"
+								name="Tagline"
+								label="Tagline"
+								placeholder="Enter a tagline for this campaign ..."
+								required={false}
+								type="textbox"
+								onChange={(val) => {
+									handleFieldChange("tagline", val);
 								}}
 							/>
 						</Col>
@@ -152,7 +184,7 @@ const Information = () => {
 								id="primary_logo"
 								text="Upload a primary logo"
 								valueExtractor={(val) => {
-									handleFieldChange("profileImage", val);
+									handleFieldChange("primary_logo", val);
 								}}
 							/>
 						</Col>
@@ -164,7 +196,7 @@ const Information = () => {
 								id="secondary_logo"
 								text="Upload a secondary logo"
 								valueExtractor={(val) => {
-									handleFieldChange("profileImage", val);
+									handleFieldChange("secondary_logo", val);
 								}}
 							/>
 						</Col>
@@ -176,7 +208,7 @@ const Information = () => {
 								id="campaign_image"
 								text="Add an image for the campaign(optional)"
 								valueExtractor={(val) => {
-									handleFieldChange("logo", val);
+									handleFieldChange("campaign_image", val);
 								}}
 							/>
 						</Col>
@@ -199,7 +231,7 @@ const Information = () => {
 								required={true}
 								type="textbox"
 								onChange={(val) => {
-									handleFieldChange("fullName", val);
+									handleFieldChange("full_name", val);
 								}}
 							/>
 						</Col>
@@ -229,7 +261,7 @@ const Information = () => {
 								required={true}
 								type="textbox"
 								onChange={(val) => {
-									handleFieldChange("contact", val);
+									handleFieldChange("phone", val);
 								}}
 							/>
 						</Col>
@@ -241,7 +273,7 @@ const Information = () => {
 								id="key_contact_profile"
 								text="Upload a picture of the key contact"
 								valueExtractor={(val) => {
-									handleFieldChange("profileImage", val);
+									handleFieldChange("key_contact_image", val);
 								}}
 							/>
 						</Col>

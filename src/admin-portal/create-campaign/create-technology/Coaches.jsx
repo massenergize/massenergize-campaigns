@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -12,10 +12,6 @@ import Chip from "../../../components/admin-components/Chip";
 
 const Coaches = () => {
 	const navigate = useNavigate();
-
-	const [formData, setFormData] = useState({
-		coaches: [],
-	});
 
 	const opts = [
 		{
@@ -51,7 +47,32 @@ const Coaches = () => {
 
 	const handleCoachAdd = async () => {};
 
-	const handleSubmit = async () => {};
+	const initialState = {
+		name: "",
+		image: "",
+		description: "",
+		summary: "",
+	};
+
+	const reducer = (state, action) => {
+		switch (action.type) {
+			case "SET_FIELD_VALUE":
+				return { ...state, [action.field]: action.value };
+			default:
+				throw new Error(`Unsupported action type: ${action.type}`);
+		}
+	};
+
+	const [formData, dispatch] = useReducer(reducer, initialState);
+
+	const handleFieldChange = (field, value) => {
+		dispatch({ type: "SET_FIELD_VALUE", field, value });
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		console.log(formData);
+	};
 
 	return (
 		<div>
@@ -90,7 +111,9 @@ const Coaches = () => {
 								multiple={true}
 								onItemSelect={(selectedItem, allSelected) => {
 									console.log(allSelected);
-									setFormData({ ...formData, coaches: allSelected });
+									// handleFieldChange("name", val);
+
+									// setFormData({ ...formData, coaches: allSelected });
 								}}
 							/>
 						</Col>
@@ -125,7 +148,7 @@ const Coaches = () => {
 								required={true}
 								type="textbox"
 								onChange={(val) => {
-									setFormData({ ...formData, full_name: val });
+									// setFormData({ ...formData, full_name: val });
 								}}
 							/>
 						</Col>
@@ -138,7 +161,7 @@ const Coaches = () => {
 								required={true}
 								type="textbox"
 								onChange={(val) => {
-									setFormData({ ...formData, email: val });
+									// setFormData({ ...formData, email: val });
 								}}
 							/>
 						</Col>
@@ -151,7 +174,7 @@ const Coaches = () => {
 								required={true}
 								type="textbox"
 								onChange={(val) => {
-									setFormData({ ...formData, cummunity: val });
+									// setFormData({ ...formData, cummunity: val });
 								}}
 							/>
 						</Col>
@@ -163,7 +186,7 @@ const Coaches = () => {
 								id="coach_image"
 								text="Add a profile image for the Coach"
 								valueExtractor={(val) => {
-									setFormData({ ...formData, logo: val });
+									// setFormData({ ...formData, logo: val });
 								}}
 							/>
 						</Col>

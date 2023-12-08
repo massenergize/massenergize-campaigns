@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useReducer, useRef, useState } from "react";
 import Col from "react-bootstrap/esm/Col";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
@@ -18,10 +18,6 @@ const Partners = () => {
 			element.scrollIntoView({ behavior: "smooth" });
 		}
 	};
-
-	const [formData, setFormData] = useState({
-		coaches: [],
-	});
 
 	const opts = [
 		{
@@ -142,7 +138,40 @@ const Partners = () => {
 
 	const handleCoachAdd = async () => {};
 
-	const handleSubmit = async () => {};
+	const initialState = {
+		isTemplate: false,
+		title: "",
+		slogan: "",
+		start_date: "",
+		end_date: "",
+		description: "",
+		logo: "",
+		fullName: "",
+		email: "",
+		contact: "",
+		profileImage: "",
+		tagline: "",
+	};
+
+	const reducer = (state, action) => {
+		switch (action.type) {
+			case "SET_FIELD_VALUE":
+				return { ...state, [action.field]: action.value };
+			default:
+				throw new Error(`Unsupported action type: ${action.type}`);
+		}
+	};
+
+	const [formData, dispatch] = useReducer(reducer, initialState);
+
+	const handleFieldChange = (field, value) => {
+		dispatch({ type: "SET_FIELD_VALUE", field, value });
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		console.log(formData);
+	};
 
 	return (
 		<m.div
@@ -167,7 +196,7 @@ const Partners = () => {
 							Pick out the actions you want to show up in this campaign. Or{" "}
 							<span
 								onClick={() => {
-									handleScrollTo("create-partner");
+									handleScrollTo("create-new-partner");
 								}}
 								className="theme-color text-link"
 							>
@@ -199,7 +228,7 @@ const Partners = () => {
 							multiple={true}
 							onItemSelect={(selectedItem, allSelected) => {
 								console.log(allSelected);
-								setFormData({ ...formData, coaches: allSelected });
+								handleFieldChange("technologies", allSelected);
 							}}
 						/>
 					</Col>
@@ -217,7 +246,7 @@ const Partners = () => {
 			</Container>
 
 			<Container>
-				<form>
+				<form id="create-new-partner" ref={scrollRef}>
 					<Row className="pt-4 mt-4">
 						<Col className="pt-4 mt-4">
 							<h5 className="theme-color">Create A New Partner </h5>
@@ -231,7 +260,7 @@ const Partners = () => {
 								required={true}
 								type="textbox"
 								onChange={(val) => {
-									setFormData({ ...formData, name: val });
+									handleFieldChange("name", val);
 								}}
 							/>
 						</Col>
@@ -244,7 +273,7 @@ const Partners = () => {
 								required={true}
 								type="email"
 								onChange={(val) => {
-									setFormData({ ...formData, email: val });
+									handleFieldChange("email", val);
 								}}
 							/>
 						</Col>
@@ -257,7 +286,7 @@ const Partners = () => {
 								required={false}
 								type="textbox"
 								onChange={(val) => {
-									setFormData({ ...formData, contact: val });
+									handleFieldChange("contact", val);
 								}}
 							/>
 						</Col>
@@ -270,7 +299,7 @@ const Partners = () => {
 								required={false}
 								type="textbox"
 								onChange={(val) => {
-									setFormData({ ...formData, email: val });
+									handleFieldChange("website", val);
 								}}
 							/>
 						</Col>
@@ -282,7 +311,7 @@ const Partners = () => {
 								id="partner_logo"
 								text="Upload a logo"
 								valueExtractor={(val) => {
-									// handleFieldChange("logo", val);
+									handleFieldChange("logo", val);
 								}}
 							/>
 						</Col>

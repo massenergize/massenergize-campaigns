@@ -109,3 +109,12 @@
 	padding: 0;
 	overflow: scroll;
 }
+
+.btn-fill {
+	background-color: transparent;
+	color: #6e207c;
+	font-weight: bold;
+	padding: 1rem;
+	border: solid 2px #6e207c;
+	width: 100%;
+}
