@@ -102,6 +102,6 @@ function LandingPage({ toggleModal, campaign }) {
 }
 
 const mapState = (state) => {
-  return { campaign: CAMPAIGN_DATA.data };
+  return { campaign: state.campaign };
 };
 export default connect(mapState)(LandingPage);

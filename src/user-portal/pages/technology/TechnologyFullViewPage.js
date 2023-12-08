@@ -23,7 +23,12 @@ import { relativeTimeAgo } from "../../../utils/utils";
 
 const DEFAULT_READ_HEIGHT = 190;
 const COMMENT_LENGTH = 40;
-function TechnologyFullViewPage({ toggleModal, technology }) {
+function TechnologyFullViewPage({ toggleModal, techs }) {
+  console.log("Lets see tecs", techs);
+  const id = "4c74b279-45c4-435a-b05d-11f5f3dcd69d";
+
+  const technology = (techs || {})[id];
+
   const {
     name,
     coaches,
@@ -33,6 +38,10 @@ function TechnologyFullViewPage({ toggleModal, technology }) {
     image,
     comments,
     incentives,
+    overview,
+    description,
+    deal_section,
+    more_details,
   } = technology;
   console.log("hti sis the full technology", technology);
   const [height, setHeight] = useState(DEFAULT_READ_HEIGHT);
@@ -73,30 +82,10 @@ function TechnologyFullViewPage({ toggleModal, technology }) {
                 comments={comments?.length || 0}
               />
               <p className="mt-3" style={{ textAlign: "justify" }}>
-                <span style={{ height, display: "block", overflowY: "hidden" }}>
-                  t ever since the 1500s, when an unknown printer took a galley
-                  of type and scrambled it to make a type specimen book. It has
-                  survived not only five centuries, but also the leap into
-                  electronic typesetting, remaining essentially unchanged. It
-                  was popularised in the 1960s with the release of Letraset
-                  sheets containing t ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing t ever since the
-                  1500s, when an unknown printer took a galley of type rised in
-                  the 1960s with the release of Letraset sheets containing. when
-                  an unknown printer took a galley of type rised in the 1960s
-                  with the release of Letraset sheets containing. when an
-                  unknown printer took a galley of type rised in the 1960s with
-                  the release of Letraset sheets containing. the 1960s with the
-                  release of Letraset sheets containing. when an unknown printer
-                  took a galley of type rised in the 1960s with the release of
-                  Letraset sheets containing. when an unknown printer took a
-                  galley of type rised in the 1960s with the release of Letraset
-                  sheets containing.{" "}
-                </span>
+                <span
+                  dangerouslySetInnerHTML={{ __html: description }}
+                  style={{ height, display: "block", overflowY: "hidden" }}
+                ></span>
                 <span
                   onClick={() =>
                     setHeight(readMore ? "100%" : DEFAULT_READ_HEIGHT)
@@ -304,7 +293,7 @@ function TechnologyFullViewPage({ toggleModal, technology }) {
         </OptimumWrapper>
         <WhySection
           sectionId="why-section"
-          overview={incentives}
+          overview={overview}
           campaignName={name}
         />
         <TakeActionSection sectionId="take-action-section" />
@@ -323,9 +312,9 @@ function TechnologyFullViewPage({ toggleModal, technology }) {
             })
           }
         />
-        <GetAGreatDealSection sectionId="get-a-deal" />
+        <GetAGreatDealSection data={deal_section} sectionId="get-a-deal" />
         <Vendors sectionId="vendors" />
-        <MoreDetailsSection sectionId="more-detail" />
+        <MoreDetailsSection data={more_details} sectionId="more-detail" />
       </div>
       <Footer toggleModal={toggleModal} />
     </div>
@@ -333,7 +322,7 @@ function TechnologyFullViewPage({ toggleModal, technology }) {
 }
 
 const mapState = (state) => {
-  return { comments: COMMENTS, technology: ONE_TECH_DATA.data };
+  return { comments: COMMENTS, techs: state.techs };
 };
 const mapDispatch = (dispatch) => {
   return bindActionCreators({}, dispatch);

@@ -3,7 +3,8 @@ import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
 
-function GetAGreatDealSection({ sectionId }) {
+function GetAGreatDealSection({ sectionId, data }) {
+  const { title, description, first, second, third } = data || {};
   return (
     <div
       id={sectionId}
@@ -17,19 +18,9 @@ function GetAGreatDealSection({ sectionId }) {
       }}
     >
       <OptimumWrapper>
-        <SectionTitle className="mb-3">Get A Great Deal</SectionTitle>
+        <SectionTitle className="mb-3">{title}</SectionTitle>
         <p style={{ textAlign: "justify" }} className="mb-3">
-          {" "}
-          essentially unchanged. It was popularised in the 1960s with the
-          release of Letraset sheets containing t ever since the 1500s, when an
-          unknown printer took a galley of type and scrambled it to make a type
-          specimen book. It has survived not only five centuries, but also the
-          leap into electronic typesetting, remaining essentially unchanged. It
-          was popularised in the 1960s with the release of Letraset sheets
-          containing t ever since the 1500s, when an unknown printer took a
-          galley of type rised in the 1960s with the release of Letraset sheets
-          containing. when an unknown printer took a galley of type rised in the
-          1960s with the release of Letraset
+          {description}
         </p>
         <div className="" style={{ position: "relative" }}>
           <img
@@ -49,7 +40,8 @@ function GetAGreatDealSection({ sectionId }) {
             }}
           >
             <Row>
-              {[1, 2, 3].map((item, index) => {
+              {[first, second, third].map((item, index) => {
+                if (!item) return <></>;
                 return (
                   <Col
                     className="elevate-4 touchable-opacity"
@@ -63,9 +55,10 @@ function GetAGreatDealSection({ sectionId }) {
                       alignItems: "center",
                       justifyContent: "center",
                       borderRadius: 5,
+                      textAlign: "center",
                     }}
                   >
-                    <h3 style={{ margin: 0, color: "red" }}>$4000 Rebate</h3>
+                    <h3 style={{ margin: 0, color: "red" }}>{item}</h3>
                   </Col>
                 );
               })}
