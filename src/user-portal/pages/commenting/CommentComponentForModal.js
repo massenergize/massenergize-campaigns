@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import Loading from "../../../components/pieces/Loading";
+import { relativeTimeAgo } from "../../../utils/utils";
 
 function CommentComponentForModal({ comments }) {
+
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
   return (
@@ -16,6 +18,9 @@ function CommentComponentForModal({ comments }) {
         }}
       >
         {comments?.map((com, index) => {
+          const { user, text, created_at } = com || {};
+          const message = text || "...";
+          const community = user?.community;
           return (
             <div
               className="mb-2 mt-1 pb-2"
@@ -29,14 +34,14 @@ function CommentComponentForModal({ comments }) {
                 }}
               >
                 <span style={{ color: "var(--app-deep-green)" }}>
-                  {com.name}{" "}
+                  {user?.full_name}{" "}
                 </span>{" "}
-                from{" "}
+                {community && " from "}
                 <span style={{ color: "var(--app-medium-green)" }}>
-                  {com.community}{" "}
+                  {community}{" "}
                 </span>
               </h6>
-              <small>{com?.message}</small>
+              <small>{message}</small>
               <small
                 style={{
                   width: "100%",
@@ -45,7 +50,7 @@ function CommentComponentForModal({ comments }) {
                 }}
               >
                 <span style={{ marginLeft: "auto", color: "#cbcbcb" }}>
-                  10 Seconds ago
+                  {relativeTimeAgo(created_at)}
                 </span>
               </small>
             </div>

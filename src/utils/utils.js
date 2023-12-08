@@ -1,4 +1,4 @@
-import { format, isSameDay, parseISO } from "date-fns";
+import { format, formatDistanceToNow, isSameDay, parseISO } from "date-fns";
 
 export function formatTimeRange(startDateString, endDateString) {
   const startDate = parseISO(startDateString);
@@ -16,4 +16,10 @@ export function formatTimeRange(startDateString, endDateString) {
 
     return `${formattedStartDate} - ${formattedEndDate}`;
   }
+}
+
+export function relativeTimeAgo(datetimeString) {
+  const date = parseISO(datetimeString);
+
+  return formatDistanceToNow(date, { addSuffix: true });
 }

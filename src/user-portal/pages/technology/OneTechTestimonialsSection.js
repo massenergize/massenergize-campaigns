@@ -31,7 +31,7 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
   },
 ];
-function OneTechTestimonialsSection({ sectionId }) {
+function OneTechTestimonialsSection({ sectionId, testimonials }) {
   return (
     <div
       id={sectionId}
@@ -62,10 +62,10 @@ function OneTechTestimonialsSection({ sectionId }) {
         </div>
 
         <Row style={{ overflowX: "auto", flexWrap: "nowrap" }}>
-          {dummies.map((item, index) => {
+          {testimonials.map((item, index) => {
             return (
               <Col key={index?.toString()} lg={6} className="mb-2">
-                <TestimonialBox />
+                <TestimonialBox {...item} />
               </Col>
             );
           })}

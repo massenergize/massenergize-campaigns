@@ -7,7 +7,7 @@ import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import Footer from "../footer/Footer";
 import WhySection from "./WhySection";
-import TakeAtionSetion from "./TakeActionSection";
+import TakeActionSection from "./TakeActionSection";
 import OneTechTestimonialsSection from "./OneTechTestimonialsSection";
 import OneTechMeetTheCoachesSection from "./OneTechMeetTheCoachesSetion";
 import GetAGreatDealSection from "./GetAGreatDealSection";
@@ -19,11 +19,21 @@ import GetHelpForm from "../forms/GetHelpForm";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { COMMENTS, ONE_TECH_DATA } from "../../data/user-portal-dummy-data";
+import { relativeTimeAgo } from "../../../utils/utils";
 
 const DEFAULT_READ_HEIGHT = 190;
 const COMMENT_LENGTH = 40;
-function TechnologyFullViewPage({ toggleModal, comments, technology }) {
-  const { name, coaches, testimonials, likes, views, image } = technology;
+function TechnologyFullViewPage({ toggleModal, technology }) {
+  const {
+    name,
+    coaches,
+    testimonials,
+    likes,
+    views,
+    image,
+    comments,
+    incentives,
+  } = technology;
   console.log("hti sis the full technology", technology);
   const [height, setHeight] = useState(DEFAULT_READ_HEIGHT);
   const triggerCommentBox = () => {
@@ -202,7 +212,8 @@ function TechnologyFullViewPage({ toggleModal, comments, technology }) {
                   <small style={{ color: "" }}>This is what people think</small>
                   <div className="mt-2">
                     {comments?.slice(0, 3).map((com, index) => {
-                      const message = com?.message || "...";
+                      const { user, text, created_at } = com || {};
+                      const message = text || "...";
                       return (
                         <div className="mb-1 mt-1" key={index?.toString()}>
                           <h6
@@ -211,7 +222,7 @@ function TechnologyFullViewPage({ toggleModal, comments, technology }) {
                               fontSize: 14,
                             }}
                           >
-                            {com?.name || "..."}
+                            {user?.full_name || "..."}
                           </h6>
                           <small>
                             {message.substr(0, COMMENT_LENGTH)}
@@ -240,7 +251,7 @@ function TechnologyFullViewPage({ toggleModal, comments, technology }) {
                             }}
                           >
                             <span style={{ marginLeft: "", color: "#cbcbcb" }}>
-                              10 Seconds ago
+                              {relativeTimeAgo(created_at)}
                             </span>
                           </small>
                         </div>
@@ -291,10 +302,18 @@ function TechnologyFullViewPage({ toggleModal, comments, technology }) {
             </Col>
           </Row>
         </OptimumWrapper>
-        <WhySection sectionId="why-section" />
-        <TakeAtionSetion sectionId="take-action-section" />
-        <OneTechTestimonialsSection sectionId="testimonial-section" />
+        <WhySection
+          sectionId="why-section"
+          overview={incentives}
+          campaignName={name}
+        />
+        <TakeActionSection sectionId="take-action-section" />
+        <OneTechTestimonialsSection
+          testimonials={testimonials}
+          sectionId="testimonial-section"
+        />
         <OneTechMeetTheCoachesSection
+          coaches={coaches}
           sectionId="meet-coach"
           toggleModal={() =>
             toggleModal({

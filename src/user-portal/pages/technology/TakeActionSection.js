@@ -2,6 +2,7 @@ import React from "react";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const dummies = [
   {
@@ -10,6 +11,7 @@ const dummies = [
     actionText: "Vendors",
     content:
       "1500s, when an unknown printer took a galley of type rised in the 1960s ",
+    url: "?#vendors",
   },
   {
     icon: "fa-lightbulb-o",
@@ -17,6 +19,7 @@ const dummies = [
     actionText: "Get Help",
     content:
       "1500s, when an unknown printer took a galley of type rised in the 1960s  ",
+    url: "?#meet-coach",
   },
 
   {
@@ -25,9 +28,11 @@ const dummies = [
     actionText: "Incentives",
     content:
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the re ",
+    url: "?#get-a-deal",
   },
 ];
 function TakeAtionSetion({ sectionId }) {
+  const navigator = useNavigate();
   return (
     <div
       id={sectionId}
@@ -86,6 +91,7 @@ function TakeAtionSetion({ sectionId }) {
                 </p>
 
                 <div
+                  onClick={() => navigator(item?.url)}
                   className="elevate-2 touchable-opacity"
                   style={{
                     padding: "7px 30px",
