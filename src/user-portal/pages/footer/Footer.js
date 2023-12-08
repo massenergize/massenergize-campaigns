@@ -42,7 +42,7 @@ function Footer({ toggleModal }) {
               onClick={() =>
                 toggleModal({
                   show: true,
-                  component: <JoinUsForm />,
+                  component: () => <JoinUsForm />,
                   title: "Welcome to the Wayland Energy Challenge",
                   fullControl: true,
                 })

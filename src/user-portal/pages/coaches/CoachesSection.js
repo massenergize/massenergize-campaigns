@@ -117,7 +117,7 @@ function CoachesSection({ toggleModal, sectionId }) {
                     toggleModal({
                       show: true,
                       icon: "fa-help",
-                      component: <GetHelpForm />,
+                      component: () => <GetHelpForm />,
                       title: "Get Help",
                     })
                   }

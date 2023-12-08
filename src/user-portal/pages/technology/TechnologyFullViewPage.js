@@ -16,17 +16,20 @@ import Vendors from "./Vendors";
 import CommentComponentForModal from "../commenting/CommentComponentForModal";
 import JoinUsForm from "../forms/JoinUsForm";
 import GetHelpForm from "../forms/GetHelpForm";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { COMMENTS } from "../../data/user-portal-dummy-data";
 
 const DEFAULT_READ_HEIGHT = 190;
-function TechnologyFullViewPage({ toggleModal }) {
+const COMMENT_LENGTH = 30;
+function TechnologyFullViewPage({ toggleModal, comments }) {
   const [height, setHeight] = useState(DEFAULT_READ_HEIGHT);
-  const descriptionRef = useRef();
   const triggerCommentBox = () => {
     toggleModal({
       show: true,
       title: "Add a comment",
       iconName: "fa-comment",
-      component: <CommentComponentForModal />,
+      component: () => <CommentComponentForModal comments={comments} />,
       modalNativeProps: { size: "md" },
       fullControl: true,
     });
@@ -55,10 +58,7 @@ function TechnologyFullViewPage({ toggleModal }) {
               />
               <InteractionsPanel />
               <p className="mt-3" style={{ textAlign: "justify" }}>
-                <span
-                  ref={descriptionRef}
-                  style={{ height, display: "block", overflowY: "hidden" }}
-                >
+                <span style={{ height, display: "block", overflowY: "hidden" }}>
                   t ever since the 1500s, when an unknown printer took a galley
                   of type and scrambled it to make a type specimen book. It has
                   survived not only five centuries, but also the leap into
@@ -136,7 +136,8 @@ function TechnologyFullViewPage({ toggleModal }) {
                     toggleModal({
                       show: true,
                       title: "Get updates about this technology",
-                      component: <JoinUsForm />,
+                      component: () => <JoinUsForm />,
+                      fullControl: true,
                     })
                   }
                   className="touchable-opacity"
@@ -188,16 +189,15 @@ function TechnologyFullViewPage({ toggleModal }) {
                         fontWeight: "bold",
                       }}
                     >
-                      Comments(25)
+                      Comments({comments?.length})
                     </span>
                   </p>
                 </div>
                 <div className="mt-2">
-                  <small style={{ color: "" }}>
-                    This is what people think about this action
-                  </small>
+                  <small style={{ color: "" }}>This is what people think</small>
                   <div className="mt-2">
-                    {[1, 2, 3].map((item, index) => {
+                    {comments?.slice(0, 3).map((com, index) => {
+                      const message = com?.message || "...";
                       return (
                         <div className="mb-1 mt-1" key={index?.toString()}>
                           <h6
@@ -206,20 +206,26 @@ function TechnologyFullViewPage({ toggleModal }) {
                               fontSize: 14,
                             }}
                           >
-                            Akwesi Frimpong
+                            {com?.name || "..."}
                           </h6>
                           <small>
-                            It has survived not only five was popularised
-                            <span
-                              style={{
-                                marginLeft: 5,
-                                textDecoration: "underline",
-                                color: "var(--app-deep-green)",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              See more...
-                            </span>
+                            {message.substr(0, COMMENT_LENGTH)}
+                            {message.length > COMMENT_LENGTH ? (
+                              <span
+                                className="touchable-opacity"
+                                style={{
+                                  marginLeft: 5,
+                                  textDecoration: "underline",
+                                  color: "var(--app-deep-green)",
+                                  fontWeight: "bold",
+                                }}
+                                onClick={() => triggerCommentBox()}
+                              >
+                                See more...
+                              </span>
+                            ) : (
+                              <></>
+                            )}
                           </small>
                           <small
                             style={{
@@ -290,7 +296,7 @@ function TechnologyFullViewPage({ toggleModal }) {
           toggleModal={() =>
             toggleModal({
               show: true,
-              component: <GetHelpForm />,
+              component: () => <GetHelpForm />,
               title: "Get Help",
             })
           }
@@ -304,4 +310,10 @@ function TechnologyFullViewPage({ toggleModal }) {
   );
 }
 
-export default TechnologyFullViewPage;
+const mapState = (state) => {
+  return { comments: COMMENTS };
+};
+const mapDispatch = (dispatch) => {
+  return bindActionCreators({}, dispatch);
+};
+export default connect(mapState, mapDispatch)(TechnologyFullViewPage);

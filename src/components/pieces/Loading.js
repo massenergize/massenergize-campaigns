@@ -11,7 +11,12 @@ function Loading({ text = "Loading...", fullPage }) {
         alignItems: "center",
         justifyContent: "center",
       }
-    : {};
+    : {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      };
   return (
     <div style={styles}>
       <Spinner animation="border" variant="success" />

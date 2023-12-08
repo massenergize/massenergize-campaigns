@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
+import Loading from "../../../components/pieces/Loading";
 
-function CommentComponentForModal() {
+function CommentComponentForModal({ comments }) {
+  const [name, setName] = useState("");
+  const [comment, setComment] = useState("");
   return (
-    <div style={{ maxHeight: 450, position: "relative" }}>
+    <div style={{ maxHeight: 500, position: "relative" }}>
       <div
         style={{
           padding: 20,
           overflowY: "scroll",
-          height: 450,
-          // background: "blue",
-          paddingBottom: 50,
+          height: 500,
+          paddingBottom: 130,
         }}
       >
-        {[1, 2, 34, 5, 5, 6, 7, 7, 7, 4].map((item, index) => {
+        {comments?.map((com, index) => {
           return (
             <div
               className="mb-2 mt-1 pb-2"
@@ -26,9 +28,15 @@ function CommentComponentForModal() {
                   fontSize: 14,
                 }}
               >
-                Akwesi Frimpong
+                <span style={{ color: "var(--app-deep-green)" }}>
+                  {com.name}{" "}
+                </span>{" "}
+                from{" "}
+                <span style={{ color: "var(--app-medium-green)" }}>
+                  {com.community}{" "}
+                </span>
               </h6>
-              <small>It has survived not only five was popularised</small>
+              <small>{com?.message}</small>
               <small
                 style={{
                   width: "100%",
@@ -51,15 +59,30 @@ function CommentComponentForModal() {
           width: "100%",
           padding: "10px 20px",
           background: "white",
+          borderBottomRightRadius: 5,
+          borderBottomLeftRadius: 5,
         }}
       >
+        <div>
+          <InputGroup className="mb-3">
+            <InputGroup.Text id="basic-addon1">Your Name</InputGroup.Text>
+            <Form.Control
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+              placeholder="Who is making this comment?..."
+              aria-label="text"
+              aria-describedby="basic-addon1"
+            />
+          </InputGroup>
+        </div>
         <InputGroup className="mb-3">
           <Form.Control
+            onChange={(e) => setComment(e.target.value)}
             placeholder="Type comment here..."
             aria-label="User comment"
             aria-describedby="basic-addon2"
           />
-          <Button variant="outline-secondary" id="button-addon2">
+          <Button variant="outline-success" id="button-addon2">
             Comment
           </Button>
         </InputGroup>

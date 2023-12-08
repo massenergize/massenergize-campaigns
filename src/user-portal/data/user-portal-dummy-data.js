@@ -67,4 +67,42 @@ export const COMMUNITY_LIST = [
   { key: "other", name: "Other" },
 ];
 
+export const COMMENTS = [
+  {
+    email: "lospongos@gmail.com",
+    name: "Akwesi Frimpong",
+    community: "Wayland",
+    message:
+      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+  },
+  {
+    community: "Concord",
+    email: "lospons@gmail.com",
+    name: "Daniel Kuds",
+    message:
+      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+  },
+  {
+    community: "Abode",
+    email: "ongos@gmail.com",
+    name: "Lacatell Tottenham",
+    message:
+      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+  },
+  {
+    community: "Newton",
+    email: "lpongos@gmail.com",
+    name: "Jude BellingFake",
+    message:
+      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+  },
+  {
+    community: "Ablekuma",
+    email: "lospoos@gmail.com",
+    name: "Dennis Kumatro",
+    message:
+      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+  },
+];
+
 export const CAMPAIGN_DATA = campaign_data;
