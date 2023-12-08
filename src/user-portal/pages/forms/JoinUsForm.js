@@ -3,8 +3,9 @@ import { Button, Form, InputGroup, ModalFooter } from "react-bootstrap";
 import { COMMUNITY_LIST } from "../../data/user-portal-dummy-data";
 import CommunitySelector from "./CommunitySelector";
 import Notification from "../../../components/pieces/Notification";
+import { connect } from "react-redux";
 
-function JoinUsForm() {
+function JoinUsForm({ campaign }) {
   const [option, setOption] = useState();
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
@@ -62,4 +63,8 @@ function JoinUsForm() {
   );
 }
 
-export default JoinUsForm;
+const mapState = (state) => {
+  return { campaign: state.campaign };
+};
+
+export default connect(mapState)(JoinUsForm);

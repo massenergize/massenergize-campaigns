@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { COMMUNITY_LIST } from "../../data/user-portal-dummy-data";
 import { Form, InputGroup } from "react-bootstrap";
+import { connect } from "react-redux";
 
 const OTHER = "other";
-function CommunitySelector({ selected, onChange }) {
+function CommunitySelector({ selected, onChange, communities }) {
   const [option, setOption] = useState("");
 
   const setSelectedValue = (value) => {
@@ -28,26 +29,48 @@ function CommunitySelector({ selected, onChange }) {
           setOption(value);
         }}
       >
-        {COMMUNITY_LIST.map((item) => (
-          <Form.Check inline type="radio" id={`check-api-${item.key}`}>
-            <Form.Check.Input
-              checked={option === item.key}
-              type={"radio"}
-              value={item.key}
-              isValid
-            />
-            <Form.Check.Label
-              style={{
-                textTransform: "Capitalize",
-                fontWeight: "bold",
-                color: "var(--app-deep-green)",
-                fontSize: 15,
-              }}
-            >
-              {item.name}
-            </Form.Check.Label>
-          </Form.Check>
-        ))}
+        {communities.map(({ community }) => {
+          const { id, name } = community || {};
+          return (
+            <Form.Check inline type="radio" id={`check-api-${id}`}>
+              <Form.Check.Input
+                checked={option === id}
+                type={"radio"}
+                value={id}
+                isValid
+              />
+              <Form.Check.Label
+                style={{
+                  textTransform: "Capitalize",
+                  fontWeight: "bold",
+                  color: "var(--app-deep-green)",
+                  fontSize: 15,
+                }}
+              >
+                {name}
+              </Form.Check.Label>
+            </Form.Check>
+          );
+        })}
+
+        <Form.Check inline type="radio" id={`check-api-other`}>
+          <Form.Check.Input
+            checked={option === "other"}
+            type={"radio"}
+            value={"other"}
+            isValid
+          />
+          <Form.Check.Label
+            style={{
+              textTransform: "Capitalize",
+              fontWeight: "bold",
+              color: "var(--app-deep-green)",
+              fontSize: 15,
+            }}
+          >
+            Other
+          </Form.Check.Label>
+        </Form.Check>
       </Form>
       {isOther && (
         <>
@@ -83,4 +106,8 @@ function CommunitySelector({ selected, onChange }) {
   );
 }
 
-export default CommunitySelector;
+const mapState = (state) => {
+  return { communities: state.campaign?.communities || [] };
+};
+
+export default connect(mapState)(CommunitySelector);
