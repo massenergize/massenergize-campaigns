@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { formatTimeRange } from "../../../utils/utils";
 
 function EventBox({ event }) {
   const { name, image, start_date, end_date } = event || {};
@@ -53,7 +54,8 @@ function EventBox({ event }) {
             color: "var(--app-medium-green)",
           }}
         >
-          <i className="fa fa-clock-o" /> <span> {start_date}</span>
+          <i className="fa fa-clock-o" />{" "}
+          <span> {formatTimeRange(start_date, end_date)}</span>
         </p>
       </div>
     </div>
