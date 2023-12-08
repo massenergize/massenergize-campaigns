@@ -21,7 +21,7 @@ import { connect } from "react-redux";
 import { COMMENTS } from "../../data/user-portal-dummy-data";
 
 const DEFAULT_READ_HEIGHT = 190;
-const COMMENT_LENGTH = 30;
+const COMMENT_LENGTH = 40;
 function TechnologyFullViewPage({ toggleModal, comments }) {
   const [height, setHeight] = useState(DEFAULT_READ_HEIGHT);
   const triggerCommentBox = () => {
@@ -234,9 +234,7 @@ function TechnologyFullViewPage({ toggleModal, comments }) {
                               flexDirection: "row",
                             }}
                           >
-                            <span
-                              style={{ marginLeft: "auto", color: "#cbcbcb" }}
-                            >
+                            <span style={{ marginLeft: "", color: "#cbcbcb" }}>
                               10 Seconds ago
                             </span>
                           </small>
