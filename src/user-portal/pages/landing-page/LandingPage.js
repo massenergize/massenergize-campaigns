@@ -11,10 +11,8 @@ import GettingStartedSection from "../getting-started/GettingStartedSection";
 import CoachesSection from "../coaches/CoachesSection";
 import Banner from "../banner/Banner";
 import planetB from "./../../../assets/imgs/planet-b.jpeg";
-import { CAMPAIGN_DATA } from "../../data/user-portal-dummy-data";
 import { connect } from "react-redux";
-import Loading from "../../../components/pieces/Loading";
-import { apiCall } from "../../../api/messenger";
+
 
 function LandingPage({ toggleModal, campaign }) {
   console.log("HER EIS THE campaign from redux", campaign);
