@@ -56,7 +56,7 @@ function TechnologyFullViewPage({ toggleModal, comments }) {
                   borderRadius: 10,
                 }}
               />
-              <InteractionsPanel />
+              <InteractionsPanel openCommentBox={triggerCommentBox} />
               <p className="mt-3" style={{ textAlign: "justify" }}>
                 <span style={{ height, display: "block", overflowY: "hidden" }}>
                   t ever since the 1500s, when an unknown printer took a galley
