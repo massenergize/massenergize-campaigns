@@ -2,6 +2,7 @@ import {
   CAMPAIGN_DATA,
   ONE_TECH_DATA,
 } from "../../user-portal/data/user-portal-dummy-data";
+import { LOADING } from "../../utils/Constants";
 import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
@@ -24,19 +25,13 @@ export const universalModalReducer = (
   }
   return state;
 };
-export const campaignInformationReducer = (
-  state = CAMPAIGN_DATA.data,
-  action = {}
-) => {
+export const campaignInformationReducer = (state = LOADING, action = {}) => {
   if (action.type === LOAD_CAMPAIGN_INFORMATION) {
     return action.payload;
   }
   return state;
 };
-export const fullTechnologiesReducer = (
-  state = { "4c74b279-45c4-435a-b05d-11f5f3dcd69d": ONE_TECH_DATA.data },
-  action = {}
-) => {
+export const fullTechnologiesReducer = (state = {}, action = {}) => {
   if (action.type === SET_FULL_TECH_OBJ) {
     return action.payload;
   }

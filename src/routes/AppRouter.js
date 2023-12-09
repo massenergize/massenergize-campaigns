@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import LandingPage from "../user-portal/pages/landing-page/LandingPage";
 import { bindActionCreators } from "redux";
 import {
+  appInnit,
   testReduxAction,
   toggleUniversalModal,
 } from "../redux/actions/actions";
@@ -12,7 +13,17 @@ import TechnologyFullViewPage from "../user-portal/pages/technology/TechnologyFu
 import OneEvent from "../user-portal/pages/events/OneEvent";
 import OneTestimonial from "../user-portal/pages/testimonials/OneTestimonial";
 
-function AppRouter({ test, testFunction, modalOptions, toggleModal }) {
+function AppRouter({
+  test,
+  testFunction,
+  modalOptions,
+  toggleModal,
+  appInnit,
+}) {
+  const params = useParams();
+  // useEffect(() => {
+  //   console.log("CAMPAIGN: ", params);
+  // }, []);
   return (
     <>
       <CustomModal
@@ -21,7 +32,7 @@ function AppRouter({ test, testFunction, modalOptions, toggleModal }) {
       />
       <Routes>
         <Route
-          path="/"
+          path="/:campaign_id"
           element={
             <LandingPage
               test={test}
@@ -49,7 +60,10 @@ function AppRouter({ test, testFunction, modalOptions, toggleModal }) {
 }
 
 const mapState = (state) => {
-  return { test: state.testStore, modalOptions: state.modalOptions };
+  return {
+    test: state.testStore,
+    modalOptions: state.modalOptions,
+  };
 };
 
 const mapDispatch = (dispatch) => {
@@ -58,4 +72,5 @@ const mapDispatch = (dispatch) => {
     dispatch
   );
 };
+
 export default connect(mapState, mapDispatch)(AppRouter);
