@@ -25,10 +25,10 @@ function LandingPage({ toggleModal, campaign, init }) {
   const { image, config, key_contact } = campaign || {};
 
   const technologies = campaign?.technologies || [];
-  const { campaign_id } = useParams();
+  const { campaignId } = useParams();
 
   useEffect(() => {
-    init(campaign_id);
+    init(campaignId);
   }, []);
 
   if (campaign === LOADING)

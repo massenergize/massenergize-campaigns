@@ -32,7 +32,7 @@ function AppRouter({
       />
       <Routes>
         <Route
-          path="/:campaign_id"
+          path="/:campaignId"
           element={
             <LandingPage
               test={test}
@@ -43,15 +43,15 @@ function AppRouter({
         />
 
         <Route
-          path="/technology/:tech_id"
+          path="/technology/:campaignId/:techId"
           element={<TechnologyFullViewPage toggleModal={toggleModal} />}
         />
         <Route
-          path="/technology/event/:tech_id/:event_id"
+          path="/technology/event/:techId/:eventId"
           element={<OneEvent toggleModal={toggleModal} />}
         />
         <Route
-          path="/technology/testimonial/:tech_id/:event_id"
+          path="/technology/testimonial/:techId/:eventId"
           element={<OneTestimonial toggleModal={toggleModal} />}
         />
       </Routes>

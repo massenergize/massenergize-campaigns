@@ -20,14 +20,53 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { COMMENTS, ONE_TECH_DATA } from "../../data/user-portal-dummy-data";
 import { relativeTimeAgo } from "../../../utils/utils";
+import { useParams } from "react-router-dom";
+import NotFound from "../error/404";
+import { LOADING } from "../../../utils/Constants";
+import { apiCall } from "../../../api/messenger";
+import Loading from "../../../components/pieces/Loading";
+import { updateTechnologiesAction } from "../../../redux/actions/actions";
 
 const DEFAULT_READ_HEIGHT = 190;
 const COMMENT_LENGTH = 40;
-function TechnologyFullViewPage({ toggleModal, techs }) {
-  console.log("Lets see tecs", techs);
-  const id = "4c74b279-45c4-435a-b05d-11f5f3dcd69d";
+function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
+  const [technology, setTechnology] = useState(LOADING);
+  const [height, setHeight] = useState(DEFAULT_READ_HEIGHT);
+  const [error, setError] = useState("");
+  const { techId } = useParams();
 
-  const technology = (techs || {})[id];
+  useEffect(() => {
+    const tech = (techs || {})[techId];
+    // Even if the tech is available locally, set it immediately,
+    // But still continue to fetch, so that the user has something to look at
+    // while the latest changes on the technology load up
+    if (tech) setTechnology(tech);
+    apiCall("/technologies.info", { id: techId })
+      .then((response) => {
+        if (!response || !response?.success) {
+          setTechnology(null);
+          console.log("TECH_FETCH_ERROR_BE:", response?.error);
+          return setError("Sorry, could not load the technology...");
+        }
+        const data = response?.data;
+        updateTechObjs({ ...(techs || {}), [techId]: data });
+        setTechnology(data);
+        console.log("The response dey Here ooo", response);
+      })
+      .catch((e) => {
+        setTechnology(null);
+        setError("Sorry, could not load the technology you are looking for...");
+        console.log("TECH_FETCH_ERROR_SYNT:", e.toString());
+      });
+  }, []);
+
+  if (!techId || !technology) return <NotFound>{error}</NotFound>;
+
+  if (technology === LOADING)
+    return <Loading fullPage>Fetching technology information...</Loading>;
+
+  // console.log("Lets see tecs", techs);
+  // const id = "4c74b279-45c4-435a-b05d-11f5f3dcd69d";
 
   const {
     name,
@@ -37,14 +76,13 @@ function TechnologyFullViewPage({ toggleModal, techs }) {
     views,
     image,
     comments,
-    incentives,
     overview,
     description,
     deal_section,
     more_details,
   } = technology;
-  console.log("hti sis the full technology", technology);
-  const [height, setHeight] = useState(DEFAULT_READ_HEIGHT);
+  console.log("This is the full technology", technology);
+
   const triggerCommentBox = () => {
     toggleModal({
       show: true,
@@ -200,7 +238,7 @@ function TechnologyFullViewPage({ toggleModal, techs }) {
                 <div className="mt-2">
                   <small style={{ color: "" }}>This is what people think</small>
                   <div className="mt-2">
-                    {comments?.slice(0, 3).map((com, index) => {
+                    {comments?.slice(0, 3)?.map((com, index) => {
                       const { user, text, created_at } = com || {};
                       const message = text || "...";
                       return (
@@ -325,6 +363,11 @@ const mapState = (state) => {
   return { comments: COMMENTS, techs: state.techs };
 };
 const mapDispatch = (dispatch) => {
-  return bindActionCreators({}, dispatch);
+  return bindActionCreators(
+    {
+      updateTechObjs: updateTechnologiesAction,
+    },
+    dispatch
+  );
 };
 export default connect(mapState, mapDispatch)(TechnologyFullViewPage);

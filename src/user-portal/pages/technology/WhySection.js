@@ -45,7 +45,7 @@ function WhySection({ sectionId, overview, campaignName }) {
         <SectionTitle className="mb-5">Why {campaignName}?</SectionTitle>
 
         <Row>
-          {overview.map((item, index) => {
+          {(overview || []).map((item, index) => {
             const { image, title, description } = item || {};
             return (
               <Col

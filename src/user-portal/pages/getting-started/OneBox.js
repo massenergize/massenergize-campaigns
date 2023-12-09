@@ -10,6 +10,7 @@ function OneBox({
   isImage,
   isIcon,
   image,
+  id,
 }) {
   const navigator = useNavigate();
   return (
@@ -73,13 +74,14 @@ function OneBox({
         }}
       >
         <Button
-          onClick={() => navigator("/technology/" + campaign_technology)}
+          onClick={() => navigator(`/technology/${campaign_technology}/${id}`)}
           className="tech-btn elevate-2 touchable-opacity"
           style={{ background: "var(--app-medium-green)" }}
         >
           QUOTE
         </Button>
         <Button
+          onClick={() => navigator(`/technology/${campaign_technology}/${id}`)}
           style={{ background: "var(--app-deep-green)" }}
           className="tech-btn elevate-2 touchable-opacity"
         >
