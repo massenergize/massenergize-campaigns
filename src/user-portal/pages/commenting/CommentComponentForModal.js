@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import Loading from "../../../components/pieces/Loading";
 import { relativeTimeAgo } from "../../../utils/utils";
+import Notification from "../../../components/pieces/Notification";
 
 function CommentComponentForModal({ comments }) {
-
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
+  const [error, setError] = useState("");
+
+  const sendComment = () => {
+    if (!comment.trim() || !name.trim())
+      return setError("Please provide a name and a valid comment");
+  };
   return (
     <div style={{ maxHeight: 500, position: "relative" }}>
       <div
@@ -87,10 +93,18 @@ function CommentComponentForModal({ comments }) {
             aria-label="User comment"
             aria-describedby="basic-addon2"
           />
-          <Button variant="outline-success" id="button-addon2">
+          <Button
+            variant="outline-success"
+            id="button-addon2"
+            onClick={() => sendComment()}
+          >
             Comment
           </Button>
         </InputGroup>
+
+        <Notification show={error} good={!error}>
+          {error}
+        </Notification>
       </div>
     </div>
   );

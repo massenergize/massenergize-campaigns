@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import {
   campaignInformationReducer,
   doNothingReducer,
+  eventsListReducer,
   fullTechnologiesReducer,
   universalModalReducer,
   userObjectReducer,
@@ -14,4 +15,5 @@ export default combineReducers({
   campaign: campaignInformationReducer,
   techs: fullTechnologiesReducer,
   user: userObjectReducer,
+  events: eventsListReducer,
 });

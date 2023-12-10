@@ -9,6 +9,7 @@ import {
   SET_FULL_TECH_OBJ,
   SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
+  UPDATE_EVENT_OBJ,
 } from "../redux-action-types";
 
 export const doNothingReducer = (state = [], action = {}) => {
@@ -40,6 +41,12 @@ export const fullTechnologiesReducer = (state = {}, action = {}) => {
 };
 export const userObjectReducer = (state = {}, action = {}) => {
   if (action.type === SET_USER_OBJ) {
+    return action.payload;
+  }
+  return state;
+};
+export const eventsListReducer = (state = {}, action = {}) => {
+  if (action.type === UPDATE_EVENT_OBJ) {
     return action.payload;
   }
   return state;

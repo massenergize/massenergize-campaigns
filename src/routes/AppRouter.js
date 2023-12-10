@@ -47,11 +47,11 @@ function AppRouter({
           element={<TechnologyFullViewPage toggleModal={toggleModal} />}
         />
         <Route
-          path="/technology/event/:techId/:eventId"
+          path="/technology/event/:eventId"
           element={<OneEvent toggleModal={toggleModal} />}
         />
         <Route
-          path="/technology/testimonial/:techId/:eventId"
+          path="/technology/testimonial/:testimonialId"
           element={<OneTestimonial toggleModal={toggleModal} />}
         />
       </Routes>

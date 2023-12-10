@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { formatTimeRange } from "../../../utils/utils";
 
 function EventBox({ event }) {
-  const { name, image, start_date, end_date } = event || {};
+  const { name, image, start_date, end_date, id } = event || {};
   const navigator = useNavigate();
   return (
     <div
@@ -28,7 +28,7 @@ function EventBox({ event }) {
       <div style={{ padding: "15px 15px" }}>
         <h6
           className="touchable-opacity"
-          onClick={() => navigator("/technology/event/uri/euri")}
+          onClick={() => navigator(`/technology/event/${id}`)}
           style={{ textDecoration: "underline" }}
         >
           {name || "..."}

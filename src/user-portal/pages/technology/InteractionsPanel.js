@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const interactions = [
   { icon: "fa-heart", name: "Likes", count: 1345 },
@@ -7,6 +7,8 @@ const interactions = [
   // { icon: "fa-share", name: "Shares", count: 15 },
 ];
 function InteractionsPanel({ openCommentBox, likes, views, comments }) {
+  const [hasLiked, setHasLiked] = useState(false);
+
   return (
     <div
       className="mt-3"
@@ -21,7 +23,7 @@ function InteractionsPanel({ openCommentBox, likes, views, comments }) {
     >
       <div
         // key={index?.toString()}
-
+        onClick={() => setHasLiked(!hasLiked)}
         style={{
           display: "flex",
           flexDirection: "row",
@@ -30,7 +32,7 @@ function InteractionsPanel({ openCommentBox, likes, views, comments }) {
         }}
       >
         <i
-          className={`fa fa-heart interact`}
+          className={`fa fa-heart interact ${hasLiked ? "already-liked" : ""}`}
           style={{ marginRight: 6, color: "var(--app-deep-green)" }}
         />
         <small

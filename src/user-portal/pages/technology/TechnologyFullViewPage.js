@@ -36,8 +36,6 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
   const { campaign_technology_id } = useParams();
   const id = campaign_technology_id;
 
-  console.log("thi sis the techId:", id);
-
   useEffect(() => {
     const tech = (techs || {})[id];
     // Even if the tech is available locally, set it immediately,
@@ -46,7 +44,6 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
     if (tech) setTechnology(tech);
     apiCall("/campaigns.technologies.info", { campaign_technology_id: id })
       .then((response) => {
-        console.log("Here is Le Response", response);
         if (!response || !response?.success) {
           setTechnology(null);
           console.log("TECH_FETCH_ERROR_BE:", response?.error);
@@ -55,7 +52,6 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
         const data = response?.data;
         updateTechObjs({ ...(techs || {}), [id]: data });
         setTechnology(data);
-        console.log("The response dey Here ooo", response);
       })
       .catch((e) => {
         setTechnology(null);

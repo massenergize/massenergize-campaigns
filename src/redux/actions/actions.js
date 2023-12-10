@@ -6,6 +6,7 @@ import {
   SET_FULL_TECH_OBJ,
   SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
+  UPDATE_EVENT_OBJ,
 } from "../redux-action-types";
 
 export const testReduxAction = (someValue = []) => {
@@ -23,6 +24,9 @@ export const updateTechnologiesAction = (payload) => {
 };
 export const loadUserObjAction = (payload) => {
   return { type: SET_USER_OBJ, payload };
+};
+export const updateEventsObj = (payload) => {
+  return { type: UPDATE_EVENT_OBJ, payload };
 };
 
 export const appInnitAction = (campaignId) => {

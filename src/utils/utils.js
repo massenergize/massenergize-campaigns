@@ -1,6 +1,7 @@
 import { format, formatDistanceToNow, isSameDay, parseISO } from "date-fns";
 
 export function formatTimeRange(startDateString, endDateString) {
+  if (!startDateString || !endDateString) return "";
   const startDate = parseISO(startDateString);
   const endDate = parseISO(endDateString);
 

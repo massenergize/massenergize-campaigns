@@ -24,6 +24,10 @@
 
 }
 
+.already-liked { 
+  color:var(--app-orange)  !important
+}
+
 .touchable-opacity { 
   cursor: pointer;
 }
