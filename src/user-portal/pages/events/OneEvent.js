@@ -28,12 +28,11 @@ function OneEvent({ events, updateEvents }) {
     apiCall("/events.info", { event_id: id })
       .then((response) => {
         if (!response.success) {
-          setEvent(response.error);
+          setError(response.error);
           return console.log("EVENT_FETCH_ERROR_BE:", response.error);
         }
         setEvent(response.data);
-        updateEvents(response.data);
-        console.log("Here is the event response", response);
+        updateEvents({ ...events, [id]: response.data });
       })
       .catch((e) => console.log("EVENT_ERROR_SYNT: ", e.toString()));
   }, []);

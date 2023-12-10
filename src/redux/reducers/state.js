@@ -4,6 +4,7 @@ import {
   doNothingReducer,
   eventsListReducer,
   fullTechnologiesReducer,
+  testimonialsListReducer,
   universalModalReducer,
   userObjectReducer,
 } from "./reducers";
@@ -16,4 +17,5 @@ export default combineReducers({
   techs: fullTechnologiesReducer,
   user: userObjectReducer,
   events: eventsListReducer,
+  testimonials: testimonialsListReducer,
 });

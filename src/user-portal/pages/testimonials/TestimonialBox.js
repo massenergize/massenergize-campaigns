@@ -35,11 +35,7 @@ function TestimonialBox({ title, user, image, body, campaign_technology, id }) {
       <div style={{ display: "flex", flexDirection: "row", marginTop: 10 }}>
         <p
           className="touchable-opacity"
-          onClick={() =>
-            navigator(
-              `/technology/testimonial/${campaign_technology?.id}/${id}`
-            )
-          }
+          onClick={() => navigator(`/technology/testimonial/${id}`)}
           style={{
             fontSize: 15,
             marginLeft: "auto",

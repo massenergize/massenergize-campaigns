@@ -7,6 +7,7 @@ import {
   SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
   UPDATE_EVENT_OBJ,
+  UPDATE_TESTIMONIALS_OBJ,
 } from "../redux-action-types";
 
 export const testReduxAction = (someValue = []) => {
@@ -27,6 +28,9 @@ export const loadUserObjAction = (payload) => {
 };
 export const updateEventsObj = (payload) => {
   return { type: UPDATE_EVENT_OBJ, payload };
+};
+export const updateTestimonialsObjAction = (payload) => {
+  return { type: UPDATE_TESTIMONIALS_OBJ, payload };
 };
 
 export const appInnitAction = (campaignId) => {

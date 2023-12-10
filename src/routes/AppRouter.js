@@ -51,7 +51,7 @@ function AppRouter({
           element={<OneEvent toggleModal={toggleModal} />}
         />
         <Route
-          path="/technology/testimonial/:testimonialId"
+          path="/technology/testimonial/:id"
           element={<OneTestimonial toggleModal={toggleModal} />}
         />
       </Routes>
