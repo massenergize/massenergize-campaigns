@@ -41,8 +41,9 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
     // But still continue to fetch, so that the user has something to look at
     // while the latest changes on the technology load up
     if (tech) setTechnology(tech);
-    apiCall("/technologies.info", { id: techId })
+    apiCall("/campaigns.technologies.info", { campaign_technology_id: techId })
       .then((response) => {
+        console.log("Here is Le Response", response);
         if (!response || !response?.success) {
           setTechnology(null);
           console.log("TECH_FETCH_ERROR_BE:", response?.error);

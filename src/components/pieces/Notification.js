@@ -13,7 +13,7 @@ function Notification({ show, text, children, good }) {
   return (
     <div>
       <Alert
-        vairant={good ? "success" : "danger"}
+        variant={good ? "success" : "danger"}
         onClose={() => setShow(false)}
         dismissible
       >

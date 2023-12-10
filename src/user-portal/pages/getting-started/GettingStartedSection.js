@@ -42,7 +42,7 @@ function GettingStartedSection({ sectionId, technologies }) {
             </p>
             <Row>
               {technologies?.map((box, index) => {
-                console.log("Lets see box", box)
+                
                 return (
                   <Col key={box.id} xs={3}>
                     <OneBox {...box} />

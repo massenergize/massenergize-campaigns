@@ -4,6 +4,7 @@ import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
   SET_FULL_TECH_OBJ,
+  SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
 } from "../redux-action-types";
 
@@ -19,6 +20,9 @@ export const loadCampaignInformation = (payload) => {
 };
 export const updateTechnologiesAction = (payload) => {
   return { type: SET_FULL_TECH_OBJ, payload };
+};
+export const loadUserObjAction = (payload) => {
+  return { type: SET_USER_OBJ, payload };
 };
 
 export const appInnitAction = (campaignId) => {

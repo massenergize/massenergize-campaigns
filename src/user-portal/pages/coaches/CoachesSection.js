@@ -7,8 +7,7 @@ import JoinUsForm from "../forms/JoinUsForm";
 import GetHelpForm from "../forms/GetHelpForm";
 
 function CoachesSection({ toggleModal, sectionId, technologies }) {
-  console.log("I am already in coaches section", technologies);
-
+  
   const coachesForEachTech = technologies?.map(
     ({
       campaign_technology,

@@ -3,20 +3,32 @@ import { COMMUNITY_LIST } from "../../data/user-portal-dummy-data";
 import { Form, InputGroup } from "react-bootstrap";
 import { connect } from "react-redux";
 
-const OTHER = "other";
-function CommunitySelector({ selected, onChange, communities }) {
-  const [option, setOption] = useState("");
+export const OTHER = "other";
 
-  const setSelectedValue = (value) => {
-    onChange && onChange(value);
-    setOption(value);
+function CommunitySelector({ selected, onChange, communities, data }) {
+  const [state, setState] = useState({});
+  data = data || {};
+  // const [option, setOption] = useState("");
+  // const [comName, setComName] = useState("");
+  // const [zipcode, setZipCode] = useState("");
+
+  const { zipcode, comId, valueForOther } = state || {};
+
+  const updateState = (obj) => {
+    const newValue = { ...state, ...obj };
+    setState(newValue);
+    onChange && onChange(newValue);
   };
 
-  useEffect(() => {
-    setOption(selected);
-  }, [selected]);
+  // const transfer = (obj) => {
+  //   onChange && onChange({ ...data, ...obj });
+  // };
 
-  const isOther = option === OTHER;
+  useEffect(() => {
+    setState(data);
+  }, [data]);
+
+  const isOther = comId === OTHER;
 
   return (
     <div>
@@ -26,7 +38,8 @@ function CommunitySelector({ selected, onChange, communities }) {
         className="m-2 pb-2"
         onChange={(e) => {
           const value = e.target.value;
-          setOption(value);
+          // setSelectedValue(value);
+          updateState({ comId: value });
         }}
       >
         {communities.map(({ community }) => {
@@ -34,7 +47,7 @@ function CommunitySelector({ selected, onChange, communities }) {
           return (
             <Form.Check inline type="radio" id={`check-api-${id}`}>
               <Form.Check.Input
-                checked={option === id}
+                checked={comId === id?.toString()}
                 type={"radio"}
                 value={id}
                 isValid
@@ -55,7 +68,7 @@ function CommunitySelector({ selected, onChange, communities }) {
 
         <Form.Check inline type="radio" id={`check-api-other`}>
           <Form.Check.Input
-            checked={option === "other"}
+            checked={comId === OTHER}
             type={"radio"}
             value={"other"}
             isValid
@@ -84,6 +97,11 @@ function CommunitySelector({ selected, onChange, communities }) {
                 placeholder="Tell us where you are from..."
                 aria-label="text"
                 aria-describedby="basic-addon1"
+                onChange={(e) => {
+                  const value = e.target.value;
+                  updateState({ valueForOther: value });
+                }}
+                value={valueForOther}
               />
             </InputGroup>
           </div>
@@ -97,6 +115,11 @@ function CommunitySelector({ selected, onChange, communities }) {
                 placeholder="Enter zip code here..."
                 aria-label="zipcode"
                 aria-describedby="basic-addon1"
+                onChange={(e) => {
+                  const value = e.target.value;
+                  updateState({ zipcode: value });
+                }}
+                value={zipcode}
               />
             </InputGroup>
           </div>

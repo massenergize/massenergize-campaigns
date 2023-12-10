@@ -7,6 +7,7 @@ import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
   SET_FULL_TECH_OBJ,
+  SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
 } from "../redux-action-types";
 
@@ -33,6 +34,12 @@ export const campaignInformationReducer = (state = LOADING, action = {}) => {
 };
 export const fullTechnologiesReducer = (state = {}, action = {}) => {
   if (action.type === SET_FULL_TECH_OBJ) {
+    return action.payload;
+  }
+  return state;
+};
+export const userObjectReducer = (state = {}, action = {}) => {
+  if (action.type === SET_USER_OBJ) {
     return action.payload;
   }
   return state;
