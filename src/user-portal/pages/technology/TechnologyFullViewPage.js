@@ -33,15 +33,18 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
   const [technology, setTechnology] = useState(LOADING);
   const [height, setHeight] = useState(DEFAULT_READ_HEIGHT);
   const [error, setError] = useState("");
-  const { techId } = useParams();
+  const { campaign_technology_id } = useParams();
+  const id = campaign_technology_id;
+
+  console.log("thi sis the techId:", id);
 
   useEffect(() => {
-    const tech = (techs || {})[techId];
+    const tech = (techs || {})[id];
     // Even if the tech is available locally, set it immediately,
     // But still continue to fetch, so that the user has something to look at
     // while the latest changes on the technology load up
     if (tech) setTechnology(tech);
-    apiCall("/campaigns.technologies.info", { campaign_technology_id: techId })
+    apiCall("/campaigns.technologies.info", { campaign_technology_id: id })
       .then((response) => {
         console.log("Here is Le Response", response);
         if (!response || !response?.success) {
@@ -50,7 +53,7 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
           return setError("Sorry, could not load the technology...");
         }
         const data = response?.data;
-        updateTechObjs({ ...(techs || {}), [techId]: data });
+        updateTechObjs({ ...(techs || {}), [id]: data });
         setTechnology(data);
         console.log("The response dey Here ooo", response);
       })
@@ -61,7 +64,7 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
       });
   }, []);
 
-  if (!techId || !technology) return <NotFound>{error}</NotFound>;
+  if (!id || !technology) return <NotFound>{error}</NotFound>;
 
   if (technology === LOADING)
     return <Loading fullPage>Fetching technology information...</Loading>;

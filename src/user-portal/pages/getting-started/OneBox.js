@@ -6,7 +6,7 @@ function OneBox({
   icon,
   description,
   name,
-  campaign_technology,
+  campaign_technology_id,
   isImage,
   isIcon,
   image,
@@ -57,7 +57,7 @@ function OneBox({
           {description.substring(0, 95) || "..."}
         </p>
         <a
-          href={`/technology/${campaign_technology}`}
+          href={`/technology/${campaign_technology_id}`}
           style={{ fontWeight: "bold", color: "var(--app-orange)" }}
         >
           Learn More...
@@ -74,14 +74,14 @@ function OneBox({
         }}
       >
         <Button
-          onClick={() => navigator(`/technology/${campaign_technology}/${id}`)}
+          onClick={() => navigator(`/technology/${campaign_technology_id}`)}
           className="tech-btn elevate-2 touchable-opacity"
           style={{ background: "var(--app-medium-green)" }}
         >
           QUOTE
         </Button>
         <Button
-          onClick={() => navigator(`/technology/${campaign_technology}/${id}`)}
+          onClick={() => navigator(`/technology/${campaign_technology_id}`)}
           style={{ background: "var(--app-deep-green)" }}
           className="tech-btn elevate-2 touchable-opacity"
         >

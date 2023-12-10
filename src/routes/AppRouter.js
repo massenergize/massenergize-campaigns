@@ -43,7 +43,7 @@ function AppRouter({
         />
 
         <Route
-          path="/technology/:campaignId/:techId"
+          path="/technology/:campaign_technology_id"
           element={<TechnologyFullViewPage toggleModal={toggleModal} />}
         />
         <Route
