@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { technologyPages } from "../../../utils/Constants";
-import { motion as m } from "framer-motion";
 import CreateTechnologyPageWrapper from "../PageWrapper/CreateTechnologyPageWrapper";
+import classes from "classnames";
 
 const { useReducer } = require("react");
 
@@ -104,11 +104,9 @@ export function CreateTechnology() {
 										onClick={() => setActiveTab(page?.name)}
 									>
 										<h5
-											className={
-												activeTab === page?.name
-													? "nav-tabs tab-active"
-													: "nav-tabs"
-											}
+											className={classes("nav-tabs-main tab", {
+												"tab-active": activeTab === page?.name,
+											})}
 										>
 											{page?.name}
 										</h5>

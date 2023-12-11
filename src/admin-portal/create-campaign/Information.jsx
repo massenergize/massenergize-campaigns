@@ -61,25 +61,6 @@ const Information = () => {
 			.catch((err) => {
 				console.log(err);
 			});
-
-		// return fetch(
-		// 	"https://691733fdd2482845e4c748c07bf195ae.serveo.net/api/campaigns.create",
-		// 	{
-		// 		method: "POST",
-		// 		headers: {
-		// 			"Content-Type": "application/json",
-		// 		},
-		// 		body: JSON.stringify(formData),
-		// 	}
-		// )
-		// 	.then((data) => {
-		// 		console.log("Success:", data);
-		// 		return data;
-		// 	})
-		// 	.catch((error) => {
-		// 		console.error("Error:", error);
-		// 		throw error;
-		// 	});
 	};
 
 	return (

@@ -1,7 +1,7 @@
 const BASE_DOMAIN = "https://691733fdd2482845e4c748c07bf195ae.serveo.net";
 const BASE_URL = BASE_DOMAIN + "/api/";
 
-export const apiCall = async (url, payload) => {
+export const apiCall = async (url, payload, options) => {
 	const formData = new FormData();
 	for (let name in payload) {
 		formData.append(name, payload[name]);
@@ -10,6 +10,10 @@ export const apiCall = async (url, payload) => {
 		method: "POST",
 		body: formData,
 		credentials: "include",
+		// headers: {
+		//     Authorization :
+		// }
+		...options,
 	});
 
 	const data = await res.json();
