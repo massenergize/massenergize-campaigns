@@ -114,6 +114,14 @@
 	color: #6e207c;
 }
 
+.nav-tabs-container::-webkit-scrollbar {
+	display: none;
+}
+
+.nav-tabs-main::-webkit-scrollbar {
+	display: none;
+}
+
 .btn-fill {
 	background-color: transparent;
 	color: #6e207c;
