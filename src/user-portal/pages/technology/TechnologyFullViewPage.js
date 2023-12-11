@@ -26,6 +26,7 @@ import { LOADING } from "../../../utils/Constants";
 import { apiCall } from "../../../api/messenger";
 import Loading from "../../../components/pieces/Loading";
 import { updateTechnologiesAction } from "../../../redux/actions/actions";
+import ShareBox from "../sharing/ShareBox";
 
 const DEFAULT_READ_HEIGHT = 190;
 const COMMENT_LENGTH = 40;
@@ -109,6 +110,17 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
   };
   const readMore = height !== "100%";
 
+  const openShareBox = () => {
+    toggleModal({
+      show: true,
+      title: "Take action by sharing",
+      // iconName: "fa-comment",
+      component: () => <ShareBox />,
+      modalNativeProps: { size: "md" },
+      fullControl: true,
+    });
+  };
+
   return (
     <div>
       <AppNavigationBar />
@@ -128,6 +140,7 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
                 }}
               />
               <InteractionsPanel
+                openShareBox={openShareBox}
                 openCommentBox={triggerCommentBox}
                 likes={likes}
                 views={views}

@@ -1,24 +1,45 @@
 import React, { useState } from "react";
-import { Button, Form, InputGroup, ModalFooter } from "react-bootstrap";
+import {
+  Button,
+  Form,
+  InputGroup,
+  ModalFooter,
+  Spinner,
+} from "react-bootstrap";
 import { COMMUNITY_LIST } from "../../data/user-portal-dummy-data";
 import CommunitySelector, { OTHER } from "./CommunitySelector";
 import Notification from "../../../components/pieces/Notification";
 import { connect } from "react-redux";
 import { validateEmail } from "../../../utils/utils";
+import { apiCall } from "../../../api/messenger";
+import { bindActionCreators } from "redux";
+import { loadUserObjAction } from "../../../redux/actions/actions";
 
-function JoinUsForm({ campaign, close }) {
+function JoinUsForm({ campaign, close, setUserObj, user }) {
   const [form, setForm] = useState({});
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  console.log("Now we are talkinga bout the user ", user);
+
   const joinUs = () => {
     const emailIsValid = validateEmail(email);
     if (!emailIsValid)
       return setError("Please provide a valid email address...");
     const { comId, zipcode, valueForOther } = form || {};
+    var otherContent = {};
     if (comId === OTHER) {
+      otherContent = { communityName: valueForOther, zipcode };
       if (!zipcode || valueForOther)
         return setError("Please provide the zipcode & community name...");
     }
+
+    const payload = { email, community_id: comId, ...otherContent };
+
+    console.log("THIS IS THE PAYLOAD", payload);
+    setUserObj(payload);
+    // apiCall("/campaigns.follow",{email})
     // Now pick the form items and ship it to the backend...
   };
 
@@ -63,6 +84,7 @@ function JoinUsForm({ campaign, close }) {
         </Button>
         <Button
           className="touchable-opacity"
+          onClick={() => joinUs()}
           size="lg"
           style={{
             margin: 0,
@@ -70,8 +92,12 @@ function JoinUsForm({ campaign, close }) {
             borderWidth: 0,
             background: "var(--app-deep-green)",
             borderBottomRightRadius: 5,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
           }}
         >
+          <Spinner size="sm" style={{ marginRight: 6 }}></Spinner>
           Join Us
         </Button>
       </ModalFooter>
@@ -80,7 +106,15 @@ function JoinUsForm({ campaign, close }) {
 }
 
 const mapState = (state) => {
-  return { campaign: state.campaign };
+  return { campaign: state.campaign, user: state.user };
 };
 
-export default connect(mapState)(JoinUsForm);
+const mapDispatch = (dispatch) => {
+  return bindActionCreators(
+    {
+      setUserObj: loadUserObjAction,
+    },
+    dispatch
+  );
+};
+export default connect(mapState, mapDispatch)(JoinUsForm);

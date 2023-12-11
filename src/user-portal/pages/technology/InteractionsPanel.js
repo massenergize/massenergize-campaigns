@@ -6,7 +6,13 @@ const interactions = [
   { icon: "fa-eye", name: "Views", count: 3542 },
   // { icon: "fa-share", name: "Shares", count: 15 },
 ];
-function InteractionsPanel({ openCommentBox, likes, views, comments }) {
+function InteractionsPanel({
+  openCommentBox,
+  likes,
+  views,
+  comments,
+  openShareBox,
+}) {
   const [hasLiked, setHasLiked] = useState(false);
 
   return (
@@ -86,6 +92,25 @@ function InteractionsPanel({ openCommentBox, likes, views, comments }) {
       ) : (
         <></>
       )}
+
+      <div
+        className="touchable-opacity"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          margin: "0px 10px",
+        }}
+        onClick={() => openShareBox()}
+      >
+        <i
+          className={`fa fa-share`}
+          style={{ marginRight: 6, color: "var(--app-deep-green)" }}
+        />
+        <small style={{ fontWeight: "bold", textDecoration: "underline" }}>
+          Share
+        </small>
+      </div>
 
       {/* {interactions.map((inter, index) => {
         return (
