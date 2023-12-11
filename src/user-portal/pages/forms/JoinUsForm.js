@@ -15,37 +15,69 @@ import { apiCall } from "../../../api/messenger";
 import { bindActionCreators } from "redux";
 import { loadUserObjAction } from "../../../redux/actions/actions";
 
-function JoinUsForm({ campaign, close, setUserObj, user }) {
+function JoinUsForm({
+  campaign,
+  close,
+  setUserObj,
+  user,
+  description,
+  callbackOnSubmit,
+}) {
   const [form, setForm] = useState({});
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  console.log("Now we are talkinga bout the user ", user);
+  console.log("Now we are talking about the user ", user);
+
+  useState(() => {
+    if (user) {
+      const { email, community } = user;
+      setEmail(email);
+      setForm({ ...form, comId: community?.id });
+    }
+  }, [user]);
+
+  const makeNotification = (message, good = false) => {
+    setError({ message, good });
+  };
 
   const joinUs = () => {
     const emailIsValid = validateEmail(email);
     if (!emailIsValid)
-      return setError("Please provide a valid email address...");
+      return makeNotification("Please provide a valid email address...");
     const { comId, zipcode, valueForOther } = form || {};
     var otherContent = {};
     if (comId === OTHER) {
-      otherContent = { communityName: valueForOther, zipcode };
+      otherContent = { communityName: valueForOther, zipcode, other: true };
       if (!zipcode || valueForOther)
-        return setError("Please provide the zipcode & community name...");
+        return makeNotification(
+          "Please provide the zipcode & community name..."
+        );
     }
 
+    setLoading(true);
     const payload = { email, community_id: comId, ...otherContent };
-
     console.log("THIS IS THE PAYLOAD", payload);
     setUserObj(payload);
-    // apiCall("/campaigns.follow",{email})
+    setLoading(false);
+    makeNotification("Well done, thank you for joining us!", true);
+
+    // apiCall("/campaigns.follow", { email }).then((response) => {
+    //   setLoading(false);
+    //   if (!response?.success) {
+    //     setError("Error: ", response.error);
+    //     return console.log("FOLLOW_ERROR_BE: ", response.error);
+    //   }
+    //   setUserObj(response.data);
+    // });
     // Now pick the form items and ship it to the backend...
   };
 
   return (
     <div className="">
       <div className="p-4">
+        {description && <p>{description}</p>}
         <CommunitySelector onChange={(data) => setForm(data)} data={form} />
         <div>
           <Form.Text>Join us because we are great! (Editable)</Form.Text>
@@ -64,12 +96,13 @@ function JoinUsForm({ campaign, close, setUserObj, user }) {
             />
           </InputGroup>
         </div>
-        <Notification show={error} good={!error}>
-          {error}
+        <Notification show={error.message} good={error.good}>
+          {error?.message}
         </Notification>
       </div>
       <ModalFooter style={{ padding: 0 }}>
         <Button
+          disabled={loading}
           onClick={() => close && close()}
           className="touchable-opacity"
           size="lg"
@@ -84,6 +117,7 @@ function JoinUsForm({ campaign, close, setUserObj, user }) {
         </Button>
         <Button
           className="touchable-opacity"
+          disabled={loading}
           onClick={() => joinUs()}
           size="lg"
           style={{
@@ -97,7 +131,7 @@ function JoinUsForm({ campaign, close, setUserObj, user }) {
             alignItems: "center",
           }}
         >
-          <Spinner size="sm" style={{ marginRight: 6 }}></Spinner>
+          {loading && <Spinner size="sm" style={{ marginRight: 6 }}></Spinner>}
           Join Us
         </Button>
       </ModalFooter>

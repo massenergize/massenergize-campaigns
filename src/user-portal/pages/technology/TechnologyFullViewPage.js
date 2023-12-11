@@ -19,7 +19,7 @@ import GetHelpForm from "../forms/GetHelpForm";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { COMMENTS, ONE_TECH_DATA } from "../../data/user-portal-dummy-data";
-import { relativeTimeAgo } from "../../../utils/utils";
+import { fetchUrlParams, relativeTimeAgo } from "../../../utils/utils";
 import { useParams } from "react-router-dom";
 import NotFound from "../error/404";
 import { LOADING } from "../../../utils/Constants";
@@ -31,20 +31,38 @@ import ShareBox from "../sharing/ShareBox";
 const DEFAULT_READ_HEIGHT = 190;
 const COMMENT_LENGTH = 40;
 function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
+  const [mounted, setMounted] = useState(false);
+  // const [idsToRefMap, setidsToRefMap] = useState({});
   const coachesRef = useRef();
+  const vendorsRef = useRef();
+  const incentivesRef = useRef();
+  const detailsRef = useRef();
+
+  const targetSection = fetchUrlParams("section");
+
+  const idsToRefMap = {
+    coaches: coachesRef,
+    vendors: vendorsRef,
+    incentives: incentivesRef,
+    details: detailsRef,
+  };
+
   const [technology, setTechnology] = useState(LOADING);
   const [height, setHeight] = useState(DEFAULT_READ_HEIGHT);
   const [error, setError] = useState("");
   const { campaign_technology_id } = useParams();
   const id = campaign_technology_id;
 
-  const scrollToPoint = () => {
-    // document
-    //   .getElementById("meet-coach")
-    //   .scrollIntoView({ behavior: "smooth", block: "start" });
-    if (coachesRef.current)
-      coachesRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  const scrollToSection = (id) => {
+    const ref = idsToRefMap[id];
+    if (ref?.current)
+      ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  useEffect(() => {
+    // setidsToRefMap(idsToRefMap);
+    scrollToSection(targetSection);
+  }, [mounted]);
 
   useEffect(() => {
     const tech = (techs || {})[id];
@@ -62,6 +80,8 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
         const data = response?.data;
         updateTechObjs({ ...(techs || {}), [id]: data });
         setTechnology(data);
+        setMounted(true);
+        // scrollToSection(targetSection);
       })
       .catch((e) => {
         setTechnology(null);
@@ -71,18 +91,13 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
   }, []);
 
   useEffect(() => {
-    scrollToPoint();
+    // scrollToPoint();
   }, [coachesRef.current]);
 
   if (!id || !technology) return <NotFound>{error}</NotFound>;
 
   if (technology === LOADING)
     return <Loading fullPage>Fetching technology information...</Loading>;
-
-  console.log("Thi sis the technology", technology);
-
-  // console.log("Lets see tecs", techs);
-  // const id = "4c74b279-45c4-435a-b05d-11f5f3dcd69d";
 
   const {
     name,

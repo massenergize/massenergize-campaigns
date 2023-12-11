@@ -30,3 +30,8 @@ export const validateEmail = (email) => {
 
   return emailRegex.test(email);
 };
+
+export function fetchUrlParams(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name) || "";
+}
