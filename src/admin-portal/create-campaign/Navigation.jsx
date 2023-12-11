@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import NavigationBar from "../../components/admin-components/NavigationBar";
 import Button from "../../components/admin-components/Button";
+import { motion as m } from "framer-motion";
+import CreateNavForm from "../../components/admin-components/CreateNavForm";
 
 const Navigation = () => {
+	const [showForm, setShowForm] = useState(false);
+
 	const data = [
 		{
 			id: 1,
@@ -52,7 +56,11 @@ const Navigation = () => {
 	];
 
 	return (
-		<div>
+		<m.div
+			initial={{ y: "10%" }}
+			animate={{ y: 0 }}
+			transition={{ duration: 0.3 }}
+		>
 			<Container>
 				<Row className="my-4">
 					<Col>
@@ -74,17 +82,37 @@ const Navigation = () => {
 					return (
 						<Row className="my-4">
 							<Col>
-								<NavigationBar data={datum} />
+								<NavigationBar data={datum} showDel={true} />
 							</Col>
 						</Row>
 					);
 				})}
+			</Container>
+
+			<Container>
 				<Row className="py-4 mt-4">
-					<Col className="px-4">
-						<button className=" text-center btn-fill">
-							Add A New Menu Item
-						</button>
-					</Col>
+					{showForm && (
+						<Col className="py-4 mt-4">
+							<CreateNavForm />
+						</Col>
+					)}
+				</Row>
+
+				{/* ................................................................................................ */}
+
+				<Row className="py-4 mt-4">
+					{!showForm && (
+						<Col className="px-4">
+							<button
+								onClick={() => {
+									setShowForm(true);
+								}}
+								className=" text-center btn-fill"
+							>
+								Add A New Menu Group
+							</button>
+						</Col>
+					)}
 				</Row>
 				<Row className="py-4 justify-content-end mt-4">
 					<Col className="px-4">
@@ -96,7 +124,7 @@ const Navigation = () => {
 					</Col>
 				</Row>
 			</Container>
-		</div>
+		</m.div>
 	);
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import Checkbox from "./Checkbox";
 
@@ -9,26 +9,31 @@ const Dropdown = ({
 	labelExtractor,
 	onItemSelect,
 	multiple,
+	defaultValue,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedItem, setSelectedItem] = useState([]);
+	const [nselectedItem, nsetSelectedItem] = useState([]);
+	// defaultValue ? defaultValue : []
 	const [labelShowing, setLabelShowing] = useState(displayTextToggle);
 
 	const handleToggleDropdown = () => {
 		setIsOpen(!isOpen);
 	};
 
+	const [nv, setNv] = useState([]);
+
 	const handleSelect = (value) => {
-		onItemSelect && onItemSelect(value, selectedItem);
+		// onItemSelect && onItemSelect(value, selectedItem);
 
 		if (multiple) {
-			if (selectedItem.find((item) => item.id === value?.id)) {
-				const filtered = selectedItem.filter((item) => item.id !== value?.id);
-				setSelectedItem(filtered);
-				console.log(filtered);
+			if (selectedItem?.find((item) => item?.id === value?.id)) {
+				const filtered = selectedItem?.filter((item) => item?.id !== value?.id);
+				nsetSelectedItem(filtered);
 				return filtered;
 			} else {
-				setSelectedItem([...selectedItem, value]);
+				nsetSelectedItem([...selectedItem, value]);
+				// console.log(selectedItem);
 				return selectedItem;
 			}
 		} else {
@@ -36,6 +41,14 @@ const Dropdown = ({
 			setIsOpen(false);
 		}
 	};
+
+	useEffect(() => {
+		onItemSelect && onItemSelect(nv, selectedItem);
+		setSelectedItem(nselectedItem);
+
+		// setLabelShowing();
+		console.log(nselectedItem, selectedItem);
+	}, []);
 
 	return (
 		<div className="cusdropdown-container">
@@ -91,6 +104,8 @@ const Dropdown = ({
 									value={valueExtractor && valueExtractor(datum)}
 									onItemSelect={(val) => {
 										handleSelect(val);
+										setNv(val);
+										console.log(nv);
 									}}
 								/>
 							</div>

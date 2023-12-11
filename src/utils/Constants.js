@@ -19,10 +19,10 @@ export const campaignPages = [
 		name: "Technologies",
 		component: ActionSelect,
 	},
-	{
-		name: "Goal & Focus",
-		component: Goal,
-	},
+	// {
+	// 	name: "Goal & Focus",
+	// 	component: Goal,
+	// },
 	{
 		name: "Managers",
 		component: CampaignCoaches,

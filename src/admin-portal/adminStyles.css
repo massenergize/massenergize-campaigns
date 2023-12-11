@@ -68,7 +68,7 @@
 /*  .................. Navigation tabs  ........................ */
 
 .tab-active {
-	color: white;
+	color: white !important;
 	background-color: #6e207c;
 }
 
@@ -78,11 +78,19 @@
 	cursor: pointer;
 	border-width: 0.1px;
 	border: solid;
+	border-color: #6e207c;
+	color: #6e207c;
 	width: 100%;
 	white-space: pre;
 	transition-property: all;
 	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 	transition-duration: 300ms;
+}
+
+.nav-tabs:hover {
+	background-color: #be63ce;
+	border-color: #be63ce;
+	color: white;
 }
 
 .nav-tabs-main {

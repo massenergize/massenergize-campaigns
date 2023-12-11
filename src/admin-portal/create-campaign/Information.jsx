@@ -8,6 +8,7 @@ import FileUploader from "../../components/admin-components/FileUploader";
 import Button from "../../components/admin-components/Button";
 import "../adminStyles.css";
 import { motion as m } from "framer-motion";
+import { apiCall } from "../../utils/api_call";
 
 const Information = () => {
 	const [showError, setShowError] = useState(false);
@@ -22,13 +23,15 @@ const Information = () => {
 		start_date: "",
 		end_date: "",
 		description: "",
-		campaign_account_id: "",
-		is_template: "",
+		campaign_account_id: "583c96c5-7fb4-488f-ac54-2558252ae535",
+		is_template: false,
 		full_name: "",
 		email: "",
-		phone: "",
+		phone_number: "",
 		key_contact_image: "",
 	};
+
+	// http://127.0.0.1:8000/admin/apps__campaigns/campaignaccount/583c96c5-7fb4-488f-ac54-2558252ae535/change/
 
 	const reducer = (state, action) => {
 		switch (action.type) {
@@ -48,21 +51,35 @@ const Information = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		return fetch("url", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(formData),
-		})
-			.then((data) => {
-				console.log("Success:", data);
-				return data;
+		console.log(formData);
+
+		apiCall("campaigns.create", formData)
+			.then((res) => {
+				// localStorage.setItem("campaign_id", res?.data?.id);
+				console.log(res?.data);
 			})
-			.catch((error) => {
-				console.error("Error:", error);
-				throw error;
+			.catch((err) => {
+				console.log(err);
 			});
+
+		// return fetch(
+		// 	"https://691733fdd2482845e4c748c07bf195ae.serveo.net/api/campaigns.create",
+		// 	{
+		// 		method: "POST",
+		// 		headers: {
+		// 			"Content-Type": "application/json",
+		// 		},
+		// 		body: JSON.stringify(formData),
+		// 	}
+		// )
+		// 	.then((data) => {
+		// 		console.log("Success:", data);
+		// 		return data;
+		// 	})
+		// 	.catch((error) => {
+		// 		console.error("Error:", error);
+		// 		throw error;
+		// 	});
 	};
 
 	return (
@@ -101,7 +118,7 @@ const Information = () => {
 							/>
 						</Col>
 					</Row>
-					<Row className="py-4">
+					{/* <Row className="py-4">
 						<Col>
 							<Input
 								id="slogan"
@@ -115,7 +132,7 @@ const Information = () => {
 								}}
 							/>
 						</Col>
-					</Row>
+					</Row> */}
 					<Row className="py-4">
 						<Col>
 							<Input
@@ -261,7 +278,7 @@ const Information = () => {
 								required={true}
 								type="textbox"
 								onChange={(val) => {
-									handleFieldChange("phone", val);
+									handleFieldChange("phone_number", val);
 								}}
 							/>
 						</Col>

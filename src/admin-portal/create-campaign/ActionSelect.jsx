@@ -42,24 +42,14 @@ const ActionSelect = () => {
 		},
 	];
 
-	// console.log(formData);
-
 	const navigate = useNavigate();
 
 	const initialState = {
-		isTemplate: false,
-		title: "",
-		slogan: "",
-		start_date: "",
-		end_date: "",
-		description: "",
-		logo: "",
-		fullName: "",
-		email: "",
-		contact: "",
-		profileImage: "",
-		tagline: "",
+		campaign_id: "",
+		technology_id: "",
 	};
+
+	const [choice, setChoice] = useState([]);
 
 	const reducer = (state, action) => {
 		switch (action.type) {
@@ -81,7 +71,10 @@ const ActionSelect = () => {
 		console.log(formData);
 	};
 
-	useEffect(() => {}, [formData]);
+	useEffect(() => {
+		handleFieldChange("technologies", choice);
+		console.log(formData);
+	}, [choice]);
 
 	return (
 		<m.div
@@ -115,8 +108,11 @@ const ActionSelect = () => {
 								multiple={true}
 								onItemSelect={(selectedItem, allSelected) => {
 									console.log(allSelected);
-									handleFieldChange("technologies", allSelected);
+									// handleFieldChange("technologies", choice);
+
+									setChoice(allSelected);
 								}}
+								// defaultValue={formData?.technologies || []}
 							/>
 						</Col>
 					</Row>

@@ -76,7 +76,7 @@ const Goal = () => {
 			animate={{ y: 0 }}
 			transition={{ duration: 0.3 }}
 		>
-			<Container className="border-dashed my-4">
+			{/* <Container className="border-dashed my-4">
 				<form>
 					<Row>
 						<Col>
@@ -127,7 +127,7 @@ const Goal = () => {
 						</Col>
 					</Row>
 				</form>
-			</Container>
+			</Container> */}
 
 			<Container className="border-dashed mt-4">
 				<Row className="my-4 ">
