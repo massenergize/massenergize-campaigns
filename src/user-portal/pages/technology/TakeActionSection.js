@@ -9,8 +9,7 @@ const dummies = [
     icon: "fa-globe",
     title: "Find A Vendor",
     actionText: "Vendors",
-    content:
-      "1500s, when an unknown printer took a galley of type rised in the 1960s ",
+    content: "Get in touch with vendors the vendors!",
     url: "?#vendors",
   },
   {
@@ -18,16 +17,15 @@ const dummies = [
     title: "Ask A Question ",
     actionText: "Get Help",
     content:
-      "1500s, when an unknown printer took a galley of type rised in the 1960s  ",
+      "Get to know the coaches, and ask all the questions you need to get started!",
     url: "?#meet-coach",
   },
 
   {
-    icon: "fa-cog",
+    icon: "fa-money",
     title: "Show Me The Money",
     actionText: "Incentives",
-    content:
-      "1500s, when an unknown printer took a galley of type rised in the 1960s with the re ",
+    content: "It gets better! See all the incentives available to you.",
     url: "?#get-a-deal",
   },
 ];

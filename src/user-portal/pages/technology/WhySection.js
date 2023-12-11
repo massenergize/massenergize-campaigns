@@ -57,6 +57,7 @@ function WhySection({ sectionId, overview, campaignName }) {
                 }}
                 key={index?.toString()}
                 lg={6}
+                gap={3}
               >
                 <img
                   src={image?.url}

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import PageWrapper from "../wrappers/PageWrapper";
 import carPhoto from "./../../../assets/imgs/car.jpeg";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import InteractionsPanel from "./InteractionsPanel";
 import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
@@ -30,11 +30,20 @@ import { updateTechnologiesAction } from "../../../redux/actions/actions";
 const DEFAULT_READ_HEIGHT = 190;
 const COMMENT_LENGTH = 40;
 function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
+  const coachesRef = useRef();
   const [technology, setTechnology] = useState(LOADING);
   const [height, setHeight] = useState(DEFAULT_READ_HEIGHT);
   const [error, setError] = useState("");
   const { campaign_technology_id } = useParams();
   const id = campaign_technology_id;
+
+  const scrollToPoint = () => {
+    // document
+    //   .getElementById("meet-coach")
+    //   .scrollIntoView({ behavior: "smooth", block: "start" });
+    if (coachesRef.current)
+      coachesRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   useEffect(() => {
     const tech = (techs || {})[id];
@@ -59,6 +68,10 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
         console.log("TECH_FETCH_ERROR_SYNT:", e.toString());
       });
   }, []);
+
+  useEffect(() => {
+    scrollToPoint();
+  }, [coachesRef.current]);
 
   if (!id || !technology) return <NotFound>{error}</NotFound>;
 
@@ -340,17 +353,19 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
           testimonials={testimonials}
           sectionId="testimonial-section"
         />
-        <OneTechMeetTheCoachesSection
-          coaches={coaches}
-          sectionId="meet-coach"
-          toggleModal={() =>
-            toggleModal({
-              show: true,
-              component: () => <GetHelpForm />,
-              title: "Get Help",
-            })
-          }
-        />
+        <div ref={coachesRef}>
+          <OneTechMeetTheCoachesSection
+            coaches={coaches}
+            sectionId="meet-coach"
+            toggleModal={() =>
+              toggleModal({
+                show: true,
+                component: () => <GetHelpForm />,
+                title: "Get Help",
+              })
+            }
+          />
+        </div>
         <GetAGreatDealSection data={deal_section} sectionId="get-a-deal" />
         <Vendors sectionId="vendors" />
         <MoreDetailsSection data={more_details} sectionId="more-detail" />
