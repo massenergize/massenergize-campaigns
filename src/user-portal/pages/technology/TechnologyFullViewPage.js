@@ -65,6 +65,8 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
   if (technology === LOADING)
     return <Loading fullPage>Fetching technology information...</Loading>;
 
+  console.log("Thi sis the technology", technology);
+
   // console.log("Lets see tecs", techs);
   // const id = "4c74b279-45c4-435a-b05d-11f5f3dcd69d";
 
@@ -81,7 +83,6 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
     deal_section,
     more_details,
   } = technology;
-  console.log("This is the full technology", technology);
 
   const triggerCommentBox = () => {
     toggleModal({

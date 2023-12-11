@@ -54,7 +54,7 @@ function OneBox({
         )}
         <h5 style={{ color: "var(--app-medium-green)" }}>{name}</h5>
         <p style={{ textAlign: "center", fontSize: 14 }}>
-          {description.substring(0, 95) || "..."}
+          {description.substring(0, 90) || "..."}
         </p>
         <a
           href={`/technology/${campaign_technology_id}`}

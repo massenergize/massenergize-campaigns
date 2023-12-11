@@ -11,18 +11,35 @@ import { updateTestimonialsObjAction } from "../../../redux/actions/actions";
 import NotFound from "../error/404";
 import Loading from "../../../components/pieces/Loading";
 import { apiCall } from "../../../api/messenger";
-function OneTestimonial({ testimonials, updateTestimonials }) {
+
+function OneTestimonial({ testimonials, updateTestimonials, campaign }) {
   const [testimonial, setTestimonial] = useState(LOADING);
   const [error, setError] = useState("");
   const { id } = useParams();
 
-  const { title, body, file } = testimonial || {};
+  const navigator = useNavigate();
+  const { title, body, image } = testimonial || {};
+  const technologies = campaign?.technologies;
+
+  const groupTestimonials = () => {
+    const together = (technologies || []).map((tech) => tech.testimonials);
+    return together.reduce((merged, currentArray) => {
+      // Filter out objects with the excluded id
+      const filteredObjects = currentArray.filter((obj) => obj.id !== id);
+      // Concatenate the filtered objects to the merged array
+      return merged.concat(filteredObjects);
+    }, []);
+  };
+
+  const otherTestimonials = groupTestimonials();
+
   useEffect(() => {
     var testim = (testimonials || {})[id];
     if (testim) setTestimonial(testim);
+    else setTestimonial(LOADING);
 
     // still fetch event form API to get up-to-date content
-    apiCall("/testimonials.info", { id })
+    apiCall("/campaigns.technologies.testimonials.info", { id })
       .then((response) => {
         console.log("LEts seee RESPONSE", response);
         if (!response.success) {
@@ -33,7 +50,7 @@ function OneTestimonial({ testimonials, updateTestimonials }) {
         updateTestimonials({ ...testimonials, [id]: response.data });
       })
       .catch((e) => console.log("TESTIMONIAL_ERROR_SYNT: ", e.toString()));
-  }, []);
+  }, [id]);
 
   if (!id || !testimonial) return <NotFound>{error}</NotFound>;
 
@@ -47,9 +64,7 @@ function OneTestimonial({ testimonials, updateTestimonials }) {
         <Col lg={9}>
           <img
             className="elevate-float-pro mt-3"
-            src={
-              "https://massenergize-prod-files.s3.amazonaws.com/media/new_image-231024-210048"
-            }
+            src={image?.url}
             style={{
               width: "100%",
               height: 420,
@@ -91,12 +106,16 @@ function OneTestimonial({ testimonials, updateTestimonials }) {
               padding: "15px 15px",
               border: "solid 1px green",
               listStyle: "none",
-          
             }}
           >
-            {[2, 3, 4, 3, 2, 2, 3, 4, 5, 5, 5].map((item, index) => {
+            {otherTestimonials?.map((item, index) => {
               return (
                 <li
+                  key={index?.toString()}
+                  onClick={() =>
+                    navigator(`/technology/testimonial/${item?.id}`)
+                  }
+                  className="touchable-opacity"
                   style={{
                     color: "var(--app-medium-green)",
 
@@ -106,7 +125,7 @@ function OneTestimonial({ testimonials, updateTestimonials }) {
                     marginBottom: 8,
                   }}
                 >
-                  Testimonial Number - {index}
+                  {item?.title || "..."}
                 </li>
               );
             })}
@@ -118,7 +137,7 @@ function OneTestimonial({ testimonials, updateTestimonials }) {
 }
 
 const mapState = (state) => {
-  return { testimonials: state.testimonials };
+  return { testimonials: state.testimonials, campaign: state.campaign };
 };
 const mapDispatch = (dispatch) => {
   return bindActionCreators(

@@ -64,7 +64,7 @@ function OneTechTestimonialsSection({ sectionId, testimonials }) {
         <Row style={{ overflowX: "auto", flexWrap: "nowrap" }}>
           {testimonials.map((item, index) => {
             return (
-              <Col key={index?.toString()} lg={6} className="mb-2">
+              <Col key={index?.toString()} lg={4} className="mb-2">
                 <TestimonialBox {...item} />
               </Col>
             );

@@ -25,9 +25,8 @@ function Footer({ toggleModal }) {
           <Col lg={{ span: 6, offset: 3 }}>
             <h4 style={{ color: "white" }}>FOLLOW</h4>
             <p style={{ color: "white" }}>
-              centuries, but also the leap into electronic typesetting,
-              remaining essentially unchanged. It was popularised in the 1960s
-              with the release of Letraset she remaining essen
+              Unlock all the exclusive deals from our vendors, and stay updated
+              with all actions you can take to help save the planet!
             </p>
             <Button
               className="elevate-float-pro touchable-opacity"
