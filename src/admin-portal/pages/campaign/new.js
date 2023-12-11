@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import CreateCampaignPageWrapper from "../PageWrapper/CreateCampaignPageWrapper";
 import { campaignPages } from "../../../utils/Constants";
+import classes from "classnames";
 import { motion as m } from "framer-motion";
 
 const { useReducer } = require("react");
@@ -100,16 +101,10 @@ export function NewCampaign() {
 								{campaignPages?.map((page) => (
 									<div
 										key={page?.name}
-										className="nav-tabs-main"
+										className={classes("nav-tabs-main tab",{ "tab-active" : activeTab === page?.name})}
 										onClick={() => setActiveTab(page?.name)}
 									>
-										<h5
-											className={
-												activeTab === page?.name
-													? "nav-tabs tab-active"
-													: "nav-tabs"
-											}
-										>
+										<h5 className={classes("nav-tabs", )}>
 											{page?.name}
 										</h5>
 									</div>
