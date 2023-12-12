@@ -205,48 +205,49 @@ const DataTable = ({
 					</thead>
 				)}
 
-				<tbody {...getTableBodyProps()}>
-					{page.map((row) => {
-						prepareRow(row);
-						return (
-							<Fragment key={row.getRowProps().key}>
-								<tr>
-									{row.cells.map((cell, cKey) => {
-										return (
-											<td
-												key={cKey}
-												// Return an array of prop objects and react-table will merge them appropriately
-												{...cell.getCellProps([
-													{
-														className: cell.column.className,
-														style: cell.column.style,
-													},
-													getColumnProps(cell.column),
-													getCellProps(cell),
-												])}
-											>
-												{cell.render("Cell")}
-											</td>
-										);
-									})}
-								</tr>
-								{row.isExpanded && (
-									<tr className={"expanded"}>
-										<td
-											className={classes({
-												"border-bottom-0 border-top-0": row.isExpanded,
-											})}
-											colSpan={visibleColumns.length}
-										>
-											{renderRowSubComponent(row)}
-										</td>
-									</tr>
-								)}
-							</Fragment>
-						);
-					})}
-				</tbody>
-			</Table>
+        <tbody {...getTableBodyProps()}>
+        {
+          page.map((row) => {
+            prepareRow(row);
+            return (
+              <Fragment key={row.getRowProps().key}>
+                <tr>
+                  {row.cells.map((cell, cKey) => {
+                    return (
+                      <td key={cKey}
+                        // Return an array of prop objects and react-table will merge them appropriately
+                        {
+                          ...cell.getCellProps([
+                            {
+                              className : cell.column.className,
+                              style : cell.column.style,
+                            },
+                            getColumnProps(cell.column),
+                            getCellProps(cell),
+                          ])
+                        }>
+                        {cell.render('Cell')}
+                      </td>
+                    );
+                  })}
+
+                </tr>
+                {
+                  row.isExpanded && (
+                    <tr className={'expanded'}>
+                      <td className={classes({ 'border-bottom-0 border-top-0' : row.isExpanded })}
+                          colSpan={visibleColumns.length}>
+                        {renderRowSubComponent(row)}
+                      </td>
+                    </tr>
+                  )
+                }
+              </Fragment>
+            );
+          })
+        }
+        </tbody>
+      </Table>
 
 			{pagination && (
 				<Row

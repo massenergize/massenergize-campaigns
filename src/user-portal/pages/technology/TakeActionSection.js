@@ -2,32 +2,35 @@ import React from "react";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const dummies = [
   {
     icon: "fa-globe",
     title: "Find A Vendor",
     actionText: "Vendors",
-    content:
-      "1500s, when an unknown printer took a galley of type rised in the 1960s ",
+    content: "Get in touch with vendors the vendors!",
+    url: "?#vendors",
   },
   {
     icon: "fa-lightbulb-o",
     title: "Ask A Question ",
     actionText: "Get Help",
     content:
-      "1500s, when an unknown printer took a galley of type rised in the 1960s  ",
+      "Get to know the coaches, and ask all the questions you need to get started!",
+    url: "?#meet-coach",
   },
 
   {
-    icon: "fa-cog",
+    icon: "fa-money",
     title: "Show Me The Money",
     actionText: "Incentives",
-    content:
-      "1500s, when an unknown printer took a galley of type rised in the 1960s with the re ",
+    content: "It gets better! See all the incentives available to you.",
+    url: "?#get-a-deal",
   },
 ];
 function TakeAtionSetion({ sectionId }) {
+  const navigator = useNavigate();
   return (
     <div
       id={sectionId}
@@ -86,6 +89,7 @@ function TakeAtionSetion({ sectionId }) {
                 </p>
 
                 <div
+                  onClick={() => navigator(item?.url)}
                   className="elevate-2 touchable-opacity"
                   style={{
                     padding: "7px 30px",

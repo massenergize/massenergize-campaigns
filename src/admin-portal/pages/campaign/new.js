@@ -3,6 +3,8 @@ import { Col, Container, Row } from "react-bootstrap";
 import CreateCampaignPageWrapper from "../PageWrapper/CreateCampaignPageWrapper";
 import { campaignPages } from "../../../utils/Constants";
 import classes from "classnames";
+import { motion as m } from "framer-motion";
+import { AdminLayout } from "../../../layouts/admin-layout";
 
 const { useReducer } = require("react");
 
@@ -83,52 +85,48 @@ export function NewCampaign() {
 	};
 
 	return (
-		<div
-			style={{
-				padding: "1rem",
-			}}
-		>
-			<CreateCampaignPageWrapper>
-				<Container>
-					{/*region Header*/}
-					<Row
-						lg={{ gutter: 0 }}
-						className="pb-4 overflow-scroll gap-0 no-gutters g"
-					>
-						<Col>
-							<div className="nav-tabs-container">
-								{campaignPages?.map((page) => (
-									<div
-										key={page?.name}
-										className={classes("nav-tabs-main tab", {
-											"tab-active": activeTab === page?.name,
-										})}
-										onClick={() => setActiveTab(page?.name)}
-									>
-										<h5 className={classes("nav-tabs")}>{page?.name}</h5>
-									</div>
-								))}
-							</div>
-						</Col>
-					</Row>
-					{/*endregion*/}
+		<AdminLayout>
+			<div style={{ padding: "1rem", }}>
+				<CreateCampaignPageWrapper>
+					<Container>
+						{/*region Header*/}
+						<Row lg={{ gutter: 0 }} className="pb-4 overflow-scroll gap-0 no-gutters g">
+							<Col>
+								<div className="nav-tabs-container">
+									{campaignPages?.map((page) => (
+										<div
+											key={page?.name}
+											className={classes("nav-tabs-main tab", { "tab-active": activeTab === page?.name })}
+											onClick={() => setActiveTab(page?.name)}
+										>
+											<h5 className={classes("nav-tabs",)}>
+												{page?.name}
+											</h5>
+										</div>
+									))}
+								</div>
+							</Col>
+						</Row>
+						{/*endregion*/}
 
-					{/*region Body: Content goes here*/}
-					<Row className="mt-4 pt-4">
-						<Col>
-							{campaignPages?.map((tab) => {
-								return (
-									activeTab === tab?.name && <tab.component key={tab?.name} />
-								);
-							})}
-						</Col>
-					</Row>
-					{/*endregion*/}
+						{/*region Body: Content goes here*/}
+						<Row className="mt-4 pt-4">
+							<Col>
+								{campaignPages?.map((tab) => {
+									return (
+										activeTab === tab?.name && <tab.component key={tab?.name}/>
+									);
+								})}
+							</Col>
+						</Row>
+						{/*endregion*/}
 
-					{/*region Footer*/}
-					{/*endregion*/}
-				</Container>
-			</CreateCampaignPageWrapper>
-		</div>
+						{/*region Footer*/}
+
+						{/*endregion*/}
+					</Container>
+				</CreateCampaignPageWrapper>
+			</div>
+		</AdminLayout>
 	);
 }

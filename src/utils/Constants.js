@@ -272,3 +272,4 @@ export const comments = [
 		country: "Germany",
 	},
 ];
+export const LOADING = "LOADING";

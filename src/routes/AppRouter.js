@@ -1,10 +1,11 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useParams } from "react-router-dom";
 import LandingPage from "../user-portal/pages/landing-page/LandingPage";
 import { bindActionCreators } from "redux";
 import {
-	testReduxAction,
-	toggleUniversalModal,
+  appInnit,
+  testReduxAction,
+  toggleUniversalModal,
 } from "../redux/actions/actions";
 import { connect } from "react-redux";
 import CustomModal from "../components/modal/CustomModal";
@@ -12,21 +13,29 @@ import TechnologyFullViewPage from "../user-portal/pages/technology/TechnologyFu
 import OneEvent from "../user-portal/pages/events/OneEvent";
 import AllComponents from "../admin-portal/pages/AllComponents";
 import { NewCampaign } from "../admin-portal/pages/campaign/new";
+import { AllCampaigns } from "../admin-portal/pages/campaign/all";
 import { CreateTechnology } from "../admin-portal/pages/technology/new";
+import OneTestimonial from "../user-portal/pages/testimonials/OneTestimonial";
 import CreateCampaignAccount from "../admin-portal/pages/campaign-account/CreateCampaignAccount";
 import PreviewCampaign from "../admin-portal/create-campaign/PreviewCampaign";
 
 const ROUTE_TABLE = [
 	{
-		path: "/technology/:tech_id",
+		path: "/technology/:campaign_technology_id",
 		component: TechnologyFullViewPage,
 		addToggleModal: true,
 	},
 	{
-		path: "/technology/event/:tech_id/:event_id",
+		path: "/technology/event/:eventId",
 		component: OneEvent,
 		addToggleModal: true,
 	},
+  {
+		path: "/technology/testimonial/:id",
+		component: OneTestimonial,
+		addToggleModal: true,
+	},
+
 	{
 		path: "/admin/campaign/new",
 		component: NewCampaign,
@@ -39,18 +48,20 @@ const ROUTE_TABLE = [
 		path: "/admin/campaign/new/preview",
 		component: AllComponents,
 	},
+
 	{
 		path: "/admin/campaign/edit/:id",
 		component: AllComponents,
 	},
 	{
 		path: "/admin/campaign/all",
-		component: AllComponents,
+		component: AllCampaigns,
 	},
 	{
 		path: "/admin/campaign/preview",
 		component: AllComponents,
 	},
+
 	{
 		path: "/admin/campaign-account/new",
 		component: CreateCampaignAccount,
@@ -65,8 +76,9 @@ const ROUTE_TABLE = [
 	},
 ];
 
-function AppRouter({ test, testFunction, modalOptions, toggleModal }) {
-	return (
+function AppRouter({ test, testFunction, modalOptions, toggleModal, appInnit, }) {
+  const params = useParams();
+  return (
 		<>
 			<CustomModal
 				close={() => toggleModal({ show: false, component: <></> })}
@@ -74,7 +86,7 @@ function AppRouter({ test, testFunction, modalOptions, toggleModal }) {
 			/>
 			<Routes>
 				<Route
-					path="/"
+					path="/:campaignId"
 					element={
 						<LandingPage
 							test={test}
@@ -102,7 +114,7 @@ function AppRouter({ test, testFunction, modalOptions, toggleModal }) {
 }
 
 const mapState = (state) => {
-	return { test: state.testStore, modalOptions: state.modalOptions };
+  return { test: state.testStore, modalOptions: state.modalOptions };
 };
 
 const mapDispatch = (dispatch) => {
@@ -111,4 +123,5 @@ const mapDispatch = (dispatch) => {
 		dispatch
 	);
 };
+
 export default connect(mapState, mapDispatch)(AppRouter);

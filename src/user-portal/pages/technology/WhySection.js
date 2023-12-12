@@ -29,7 +29,7 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
   },
 ];
-function WhySection({ sectionId }) {
+function WhySection({ sectionId, overview, campaignName }) {
   return (
     <div
       id={sectionId}
@@ -42,10 +42,11 @@ function WhySection({ sectionId }) {
       }}
     >
       <OptimumWrapper>
-        <SectionTitle className="mb-5">Why Heat Pumps?</SectionTitle>
+        <SectionTitle className="mb-5">Why {campaignName}?</SectionTitle>
 
         <Row>
-          {dummies.map((item, index) => {
+          {(overview || []).map((item, index) => {
+            const { image, title, description } = item || {};
             return (
               <Col
                 style={{
@@ -56,20 +57,26 @@ function WhySection({ sectionId }) {
                 }}
                 key={index?.toString()}
                 lg={6}
+                gap={3}
               >
-                <i
+                <img
+                  src={image?.url}
+                  style={{ height: 70, width: 70, objectFit: "contain" }}
+                />
+                {/* <i
                   className={`fa ${item.icon} mb-1 mt-2`}
                   style={{ fontSize: 70, color: "var(--app-medium-green)" }}
-                />
+                /> */}
                 <h6
                   className="mt-2 mb-2"
-                  style={{ color: "var(--app-medium-green)" }}
+                  style={{
+                    color: "var(--app-medium-green)",
+                    textTransform: "uppercase",
+                  }}
                 >
-                  {item.title}
+                  {title || {}}
                 </h6>
-                <p style={{ textAlign: "justify" }}>
-                  {item.content} {item.content}
-                </p>
+                <p style={{ textAlign: "justify" }}>{description}</p>
               </Col>
             );
           })}

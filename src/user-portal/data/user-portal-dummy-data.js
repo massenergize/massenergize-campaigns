@@ -1,3 +1,6 @@
+import campaignData from "./home-page-data.json";
+import oneTechData from "./one-tech.json";
+
 const children = [
   { key: "heat-pump", url: "#coaches-section", text: "Heat Pump" },
   { key: "community-solar", url: "#", text: "Community Solar" },
@@ -6,8 +9,19 @@ const children = [
 
 export const NAVIGATION_MENU = [
   { key: "home", url: "/", text: "Home", icon: "fa-home" },
-  { key: "questions", url: "#testimonial-section", text: "Questions", icon: "fa-question-circle" },
-  { key: "coaches", url: "#coaches-section", text: "Coaches", icon: "fa-users", children },
+  {
+    key: "questions",
+    url: "#testimonial-section",
+    text: "Questions",
+    icon: "fa-question-circle",
+  },
+  {
+    key: "coaches",
+    url: "#coaches-section",
+    text: "Coaches",
+    icon: "fa-users",
+    children,
+  },
 
   {
     key: "vendors",
@@ -53,3 +67,44 @@ export const COMMUNITY_LIST = [
   { key: "abode", name: "Abode" },
   { key: "other", name: "Other" },
 ];
+
+export const COMMENTS = [
+  {
+    email: "lospongos@gmail.com",
+    name: "Akwesi Frimpong",
+    community: "Wayland",
+    message:
+      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+  },
+  {
+    community: "Concord",
+    email: "lospons@gmail.com",
+    name: "Daniel Kuds",
+    message:
+      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+  },
+  {
+    community: "Abode",
+    email: "ongos@gmail.com",
+    name: "Lacatell Tottenham",
+    message:
+      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+  },
+  {
+    community: "Newton",
+    email: "lpongos@gmail.com",
+    name: "Jude BellingFake",
+    message:
+      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+  },
+  {
+    community: "Ablekuma",
+    email: "lospoos@gmail.com",
+    name: "Dennis Kumatro",
+    message:
+      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+  },
+];
+
+export const CAMPAIGN_DATA = campaignData;
+export const ONE_TECH_DATA = oneTechData;

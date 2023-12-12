@@ -37,6 +37,33 @@ export function TableFooter ({
   return <Row className={'justify-content-between w-100 mx-0'} style={{ textAlign : 'center' }}>
     <div className={"col-md-auto col-sm-12"}>
       <Row className={"justify-content-between mb-s-3 mb-md-0"}>
+
+      </Row>
+    </div>
+
+    <div className={"col-sm-12 col-md-auto border-top-s border-top-md-0 pt-sm-3 pt-md-0"}>
+      <div className={'row pagination-controls justify-content-s-center justify-content-md-end'}>
+        <div className={'col-auto'}>
+          <label htmlFor="{'page-size-select'}">
+            Rows per page
+          </label>
+          <select
+            className={'form-control'}
+            id={'page-size-select'}
+            value={pageSize}
+            onChange={onChangeInSelect}>
+            {'>'}
+            {
+              ITEMS_PER_PAGE_LIST.map((perPage, index) => (
+                <option key={`per_page_${perPage}_${index}`} value={perPage}>
+                  {perPage}
+                </option>
+              ))
+            }
+          </select>
+
+        </div>
+        <div className="col-sm-auto px-0 col-md-auto border-right _d-sm-none"/>
         <div className={' col-auto'}>
           {
             pagesCount > 1 ?
@@ -47,7 +74,7 @@ export function TableFooter ({
                   <input
                     type='number'
                     min={1}
-                    style={{ width : 70 }}
+                    style={{ width: 70 }}
                     // max={pageOptions.length}
                     defaultValue={pageIndex + 1}
                     onChange={onChangeCurrentPage}
@@ -63,32 +90,7 @@ export function TableFooter ({
           }
 
         </div>
-        <div className="col-sm-auto px-0 col-md-auto border-right _d-sm-none"/>
-        <div className={'col-auto'}>
-          <label htmlFor="{'page-size-select'}">
-            Rows per page
-            <select
-            className={'form-control'}
-            id={'page-size-select'}
-            value={pageSize}
-            onChange={onChangeInSelect}>
-            {'>'}
-            {
-              ITEMS_PER_PAGE_LIST.map((perPage, index) => (
-                <option key={`per_page_${perPage}_${index}`} value={perPage}>
-                  {perPage}
-                </option>
-              ))
-            }
-          </select>
-          </label>
 
-        </div>
-      </Row>
-    </div>
-
-    <div className={"col-sm-12 col-md-auto border-top-s border-top-md-0 pt-sm-3 pt-md-0"}>
-      <div className={'row pagination-controls justify-content-s-center justify-content-md-end'}>
         <div className={'col-auto'}>
           {(pagesCount > 5) &&
             <Button color='' onClick={() => gotoPage(0)} disabled={!canGotoPreviousPage}>First</Button>}
@@ -96,11 +98,9 @@ export function TableFooter ({
             <span className={'text-primary'}>{'<'}</span> Prev
           </Button>
         </div>
-
         <div className={'col-auto'}>
           {paginationLinks}
         </div>
-
         <div className={'col-auto'}>
           <Button color='' onClick={nextPage} disabled={!canGotoNextPage}>Next <span
             className={'text-primary'}>{'>'}</span> </Button>

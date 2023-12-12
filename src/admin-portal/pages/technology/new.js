@@ -3,6 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { technologyPages } from "../../../utils/Constants";
 import CreateTechnologyPageWrapper from "../PageWrapper/CreateTechnologyPageWrapper";
 import classes from "classnames";
+import { apiCall } from "../../../api/messenger";
 
 const { useReducer } = require("react");
 
@@ -32,6 +33,8 @@ const reducer = (state, action) => {
 export function CreateTechnology() {
 	const [showError, setShowError] = useState(false);
 	const [activeTab, setActiveTab] = useState(technologyPages[0].name);
+
+	const [technologyInfo, setTechnologyInfo] = useState({});
 
 	const [campaignDetails, dispatch] = useReducer(reducer, initialState);
 
@@ -77,6 +80,10 @@ export function CreateTechnology() {
 		try {
 			// TODO: validate campaign details
 			// TODO: submit campaign details
+
+			// apiCall("campaign/create", campaignDetails).then((res) => {
+			// 	console.log("==== res ====", res);
+			// });
 		} catch (e) {
 			throw Error("Error submitting campaign"); //FIXME chnage this to a more appropriate error message or even a mor detailed error object
 		}
@@ -118,7 +125,7 @@ export function CreateTechnology() {
 						<Col>
 							{technologyPages?.map((tab) => {
 								return (
-									activeTab === tab?.name && <tab.component key={tab?.name} />
+									activeTab === tab?.name && <tab.component key={tab?.name}  technologyInfo={technologyInfo} setTechnologyInfo ={setTechnologyInfo} setActiveTab={setActiveTab}/>
 								);
 							})}
 						</Col>
