@@ -13,6 +13,7 @@ import TechnologyFullViewPage from "../user-portal/pages/technology/TechnologyFu
 import OneEvent from "../user-portal/pages/events/OneEvent";
 import AllComponents from "../admin-portal/pages/AllComponents";
 import { NewCampaign } from "../admin-portal/pages/campaign/new";
+import { AllCampaigns } from "../admin-portal/pages/campaign/all";
 import { CreateTechnology } from "../admin-portal/pages/technology/new";
 import OneTestimonial from "../user-portal/pages/testimonials/OneTestimonial";
 
@@ -45,18 +46,20 @@ const ROUTE_TABLE = [
 		path: "/admin/campaign/new/preview",
 		component: AllComponents,
 	},
+
 	{
 		path: "/admin/campaign/edit/:id",
 		component: AllComponents,
 	},
 	{
 		path: "/admin/campaign/all",
-		component: AllComponents,
+		component: AllCampaigns,
 	},
 	{
 		path: "/admin/campaign/preview",
 		component: AllComponents,
 	},
+
 	{
 		path: "/components",
 		component: AllComponents,
