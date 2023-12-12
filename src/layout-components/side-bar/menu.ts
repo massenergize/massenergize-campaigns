@@ -3,11 +3,12 @@ export const MENU = [
     id : "home",
     disabled : false,
     title: "Home",
-    href: "/home",
+    href: "/admin/campaign/all",
     icon: "home"
   },
   {
-    id : "",
+    id : "campaigns",
+    href: "#",
     disabled : false,
     title: "Campaigns",
     children: [
@@ -15,18 +16,20 @@ export const MENU = [
         id : "view_campaigns",
         disabled : false,
         title: "View All",
-        href: "/campaigns/view",
+        href: "/admin/campaign/all",
       },
       {
         id : "create_campaigns",
         disabled : false,
         title: "Create Campaign",
-        href: "/campaigns/create",
+        href: "/admin/campaign/new",
       }
-    ]
+    ],
+    show : false
   },
   {
     id : "technologies",
+    href: "#",
     disabled : false,
     title : "Technologies",
     children: [
@@ -34,14 +37,17 @@ export const MENU = [
         id : "view_technologies",
         disabled : false,
         title: "View All",
-        href: "/technologies/view",
+        href: "/admin/technologies/all",
       },
       {
         id : "create_technologies",
         disabled : false,
         title: "Create Technology",
-        href: "/technologies/create",
+        href: "/admin/technologies/create",
       }
-    ]
+    ],
+    show : false
   }
 ]
+
+
