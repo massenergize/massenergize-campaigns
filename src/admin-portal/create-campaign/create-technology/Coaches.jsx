@@ -10,7 +10,7 @@ import Dropdown from "../../../components/admin-components/Dropdown";
 import { useNavigate } from "react-router-dom";
 import Chip from "../../../components/admin-components/Chip";
 
-const Coaches = () => {
+const Coaches = ({setTechnologyInfo, technologyInfo,setCurrentTab }) => {
 	const navigate = useNavigate();
 
 	const opts = [
@@ -80,35 +80,11 @@ const Coaches = () => {
 
 	return (
 		<div>
-			<Container>
-				<form>
-					<Row className="py-4">
-						<Col>
-							<p>
-								Please include details of the new coaches of this campaign. Or{" "}
-								<span onClick={() => navigate("")} className="theme-color">
-									Add campaign coaches from existing user
-								</span>
-							</p>
-						</Col>
-					</Row>
-
-					<Row className="py-4 mt-4 justify-content-end">
-						<Col>
-							<Button
-								text="Save Changes"
-								onSubmit={handleSubmit}
-								rounded={false}
-							/>
-						</Col>
-					</Row>
-				</form>
-			</Container>
 
 			<Container>
-				<form onsu>
-					<Row className="mt-4 pt-4">
-						<Col className="mt-4 pt-4">
+				<form >
+					<Row>
+						<Col>
 							<h5 className="theme-color">Create A New Coach</h5>
 							<p className="my-4">
 								Please include details of the new Coach of this technology

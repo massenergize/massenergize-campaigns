@@ -7,6 +7,8 @@ import { RowActions } from "./row-actions";
 import { ROW_ACTIONS_MENU } from "./menu";
 import { useNamedState } from "../hooks/useNamedState";
 import { fetchAllCampaigns } from "../hooks/requests";
+import useSWR from "swr";
+
 
 const DUMMY_DATA = [
   {
@@ -232,30 +234,30 @@ export function AllCampaignsView ({}) {
   );
 }
 
-return (
-  <div>
-    <DataTable
-      className={"table-responsive-sm table"}
-      columns={columns}
-      data={data}
-      size={pageSize}
-      skipPageReset={skipPageReset}
-      updateMyData={updateMyData}
-      renderRowSubComponent={null}
-    />
-    <TableFooter
-      pageIndex={pageIndex}
-      pagesCount={pagesCount}
-      pageSize={pageSize}
-      setPageSize={setPageSize}
-      nextPage={nextPage}
-      previousPage={previousPage}
-      canGotoPreviousPage={canGotoPreviousPage}
-      canGotoNextPage={canGotoNextPage}
-      gotoPage={gotoPage}
-      setPageIndex={setPageIndex}
-      fetchData={fetchData}
-    />
-  </div>
-);
-}
+// return (
+//   <div>
+//     <DataTable
+//       className={"table-responsive-sm table"}
+//       columns={columns}
+//       data={data}
+//       size={pageSize}
+//       skipPageReset={skipPageReset}
+//       updateMyData={updateMyData}
+//       renderRowSubComponent={null}
+//     />
+//     <TableFooter
+//       pageIndex={pageIndex}
+//       pagesCount={pagesCount}
+//       pageSize={pageSize}
+//       setPageSize={setPageSize}
+//       nextPage={nextPage}
+//       previousPage={previousPage}
+//       canGotoPreviousPage={canGotoPreviousPage}
+//       canGotoNextPage={canGotoNextPage}
+//       gotoPage={gotoPage}
+//       setPageIndex={setPageIndex}
+//       fetchData={fetchData}
+//     />
+//   </div>
+// );
+// }
