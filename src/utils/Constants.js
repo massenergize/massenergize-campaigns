@@ -59,3 +59,5 @@ export const technologyPages = [
 		component: Incentives,
 	},
 ];
+
+export const LOADING = "LOADING"
