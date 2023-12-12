@@ -46,7 +46,7 @@ const ActionSelect = () => {
 
 	const initialState = {
 		campaign_id: "",
-		technology_id: "",
+		technology_id: [],
 	};
 
 	const [choice, setChoice] = useState([]);
@@ -71,10 +71,19 @@ const ActionSelect = () => {
 		console.log(formData);
 	};
 
-	useEffect(() => {
-		handleFieldChange("technologies", choice);
+	const handleRemove = (data) => {
+		const filtered = formData?.technology_id?.filter((tech) => {
+			return tech?.id !== data?.id;
+		});
+
+		handleFieldChange("technology_id", filtered);
 		console.log(formData);
-	}, [choice]);
+	};
+
+	useEffect(() => {
+		// handleFieldChange("technologies", choice);
+		console.log(formData);
+	}, [formData]);
 
 	return (
 		<m.div
@@ -108,9 +117,9 @@ const ActionSelect = () => {
 								multiple={true}
 								onItemSelect={(selectedItem, allSelected) => {
 									console.log(allSelected);
-									// handleFieldChange("technologies", choice);
+									handleFieldChange("technology_id", allSelected);
 
-									setChoice(allSelected);
+									// setChoice(allSelected);
 								}}
 								// defaultValue={formData?.technologies || []}
 							/>
@@ -127,11 +136,16 @@ const ActionSelect = () => {
 					<Row className="mb-4 pb-4">
 						<Col>
 							<div className="smallimages-container-wrapper">
-								{formData?.technologies?.map((tech) => {
+								{formData?.technology_id?.map((tech) => {
 									return (
 										<div className="small-image-container" key={tech?.id}>
 											<img className="small-image" src={tech?.image} alt="" />
-											<span className="image-close-btn">
+											<span
+												onClick={() => {
+													handleRemove(tech);
+												}}
+												className="image-close-btn"
+											>
 												<FontAwesomeIcon icon={faClose} />
 											</span>
 											<p className="text-center pb-3 small-image-text light-gray-back rounded">
