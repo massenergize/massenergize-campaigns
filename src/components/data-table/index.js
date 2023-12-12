@@ -210,6 +210,7 @@ const DataTable = ({
                       </td>
                     );
                   })}
+
                 </tr>
                 {
                   row.isExpanded && (
