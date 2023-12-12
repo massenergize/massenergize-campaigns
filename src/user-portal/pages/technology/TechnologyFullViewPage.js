@@ -25,12 +25,21 @@ import NotFound from "../error/404";
 import { LOADING } from "../../../utils/Constants";
 import { apiCall } from "../../../api/messenger";
 import Loading from "../../../components/pieces/Loading";
-import { updateTechnologiesAction } from "../../../redux/actions/actions";
+import {
+  appInnitAction,
+  updateTechnologiesAction,
+} from "../../../redux/actions/actions";
 import ShareBox from "../sharing/ShareBox";
 
 const DEFAULT_READ_HEIGHT = 190;
 const COMMENT_LENGTH = 40;
-function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
+function TechnologyFullViewPage({
+  toggleModal,
+  techs,
+  updateTechObjs,
+  campaign,
+  init,
+}) {
   const [mounted, setMounted] = useState(false);
   // const [idsToRefMap, setidsToRefMap] = useState({});
   const coachesRef = useRef();
@@ -50,8 +59,9 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
   const [technology, setTechnology] = useState(LOADING);
   const [height, setHeight] = useState(DEFAULT_READ_HEIGHT);
   const [error, setError] = useState("");
-  const { campaign_technology_id } = useParams();
+  const { campaign_technology_id, campaign_id } = useParams();
   const id = campaign_technology_id;
+
 
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
@@ -60,11 +70,14 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
   };
 
   useEffect(() => {
-    // setidsToRefMap(idsToRefMap);
     scrollToSection(targetSection);
   }, [mounted]);
 
+  const campaignExists = campaign && campaign !== LOADING;
+
   useEffect(() => {
+    if (!campaignExists) init(campaign_id);
+
     const tech = (techs || {})[id];
     // Even if the tech is available locally, set it immediately,
     // But still continue to fetch, so that the user has something to look at
@@ -404,12 +417,13 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
 }
 
 const mapState = (state) => {
-  return { comments: COMMENTS, techs: state.techs };
+  return { comments: COMMENTS, techs: state.techs, campaign: state.campaign };
 };
 const mapDispatch = (dispatch) => {
   return bindActionCreators(
     {
       updateTechObjs: updateTechnologiesAction,
+      init: appInnitAction,
     },
     dispatch
   );

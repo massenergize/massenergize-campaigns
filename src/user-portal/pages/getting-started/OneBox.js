@@ -11,8 +11,13 @@ function OneBox({
   isIcon,
   image,
   id,
+  campaign_id,
 }) {
   const navigator = useNavigate();
+
+  const route = `/campaign/${campaign_id}/technology/${campaign_technology_id}`;
+  console.log("THE ROUTE: ", route);
+
   return (
     <div
       className="elevate-float-pro"
@@ -57,7 +62,8 @@ function OneBox({
           {description.substring(0, 90) || "..."}
         </p>
         <a
-          href={`/technology/${campaign_technology_id}`}
+          // href={`/technology/${campaign_technology_id}`}
+          href={route}
           style={{ fontWeight: "bold", color: "var(--app-orange)" }}
         >
           Learn More...
@@ -74,18 +80,14 @@ function OneBox({
         }}
       >
         <Button
-          onClick={() =>
-            navigator(`/technology/${campaign_technology_id}?section=quote`)
-          }
+          onClick={() => navigator(`${route}?section=quote`)}
           className="tech-btn elevate-2 touchable-opacity"
           style={{ background: "var(--app-medium-green)" }}
         >
           QUOTE
         </Button>
         <Button
-          onClick={() =>
-            navigator(`/technology/${campaign_technology_id}?section=coaches`)
-          }
+          onClick={() => navigator(`${route}?section=coaches`)}
           style={{ background: "var(--app-deep-green)" }}
           className="tech-btn elevate-2 touchable-opacity"
         >

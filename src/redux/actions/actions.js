@@ -41,7 +41,12 @@ export const appInnitAction = (campaignId) => {
     Promise.all([apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId })])
       .then((response) => {
         const [campaignInformation] = response;
-        dispatch(loadCampaignInformation(campaignInformation.data));
+        const data = campaignInformation.data;
+        // console.log("INSIDE INNIT", data, campaignId);
+        dispatch(loadCampaignInformation(data));
+        if (data) {
+          dispatch(setNavigationMenuAction(data?.navigation || []));
+        }
       })
       .catch((e) => console.log("ERROR_IN_INNIT:", e?.toString()));
   };

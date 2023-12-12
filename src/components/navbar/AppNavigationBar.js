@@ -3,8 +3,10 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NAVIGATION_MENU } from "../../user-portal/data/user-portal-dummy-data";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
-function AppNavigationBar() {
+function AppNavigationBar({ menu }) {
   return (
     <Navbar
       variant="dark"
@@ -18,7 +20,7 @@ function AppNavigationBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto mx-auto">
-            {NAVIGATION_MENU.map((menu) => {
+            {menu?.map((menu) => {
               if (!menu?.children)
                 return (
                   <Nav.Link
@@ -43,12 +45,12 @@ function AppNavigationBar() {
                         className={`fa ${menu.icon}`}
                         style={{ marginRight: 6 }}
                       ></i>
-                      <span>{menu.text}</span>
+                      <span>{menu?.text}</span>
                     </span>
                   }
                   id="basic-nav-dropdown"
                 >
-                  {menu.children.map((child) => {
+                  {menu?.children?.map((child) => {
                     return (
                       <NavDropdown.Item
                         style={{ textTransform: "uppercase" }}
@@ -93,4 +95,12 @@ function AppNavigationBar() {
   );
 }
 
-export default AppNavigationBar;
+const mapState = (state) => {
+  return { menu: state.navigation };
+};
+
+const mapDispatch = (dispatch) => {
+  return bindActionCreators({}, dispatch);
+};
+
+export default connect(mapState)(AppNavigationBar);

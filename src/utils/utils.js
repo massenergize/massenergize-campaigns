@@ -35,3 +35,14 @@ export function fetchUrlParams(name) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(name) || "";
 }
+
+export function getLastSegmentFromUrl(url) {
+  const parsedUrl = new URL(url);
+  const pathnameSegments = parsedUrl.pathname.split("/").filter(Boolean); 
+
+  if (pathnameSegments.length > 0) {
+    return pathnameSegments[pathnameSegments.length - 1];
+  }
+
+  return null; // Return null if no segments are found
+}

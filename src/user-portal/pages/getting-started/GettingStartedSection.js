@@ -23,7 +23,7 @@ const dummies = [
   },
 ];
 function GettingStartedSection({ sectionId, technologies }) {
-  console.log("these are the technologies", technologies);
+  // console.log("these are the technologies", technologies);
   return (
     <div
       id={sectionId}
@@ -42,7 +42,6 @@ function GettingStartedSection({ sectionId, technologies }) {
             </p>
             <Row>
               {technologies?.map((box, index) => {
-                
                 return (
                   <Col key={box.id} xs={3}>
                     <OneBox {...box} />

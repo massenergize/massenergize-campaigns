@@ -32,7 +32,9 @@ const tabs = [
     component: <h1> this is the community solar my geee</h1>,
   },
 ];
-function CustomTabView({ data = tabs, defaultTab }) {
+
+
+function CustomTabView({ data = [], defaultTab }) {
   const [key, setKey] = useState(defaultTab);
   const pageContent = data?.map((tab) => (
     <Tab eventKey={tab.key} title={tab.title}>

@@ -7,10 +7,10 @@ import { bindActionCreators } from "redux";
 import { toggleUniversalModal } from "../../../redux/actions/actions";
 import { connect } from "react-redux";
 
-function PageWrapper({ children, toggleModal }) {
+function PageWrapper({ children, toggleModal, menu }) {
   return (
     <div style={{}}>
-      <AppNavigationBar />
+      <AppNavigationBar menu={menu} />
 
       <OptimumWrapper style={{ minHeight: "85vh", marginTop: 90 }}>
         {children}
@@ -21,7 +21,7 @@ function PageWrapper({ children, toggleModal }) {
 }
 
 const mapState = (state) => {
-  return {};
+  return { menu: state.navigation };
 };
 const mapDispatch = (dispatch) => {
   return bindActionCreators(
