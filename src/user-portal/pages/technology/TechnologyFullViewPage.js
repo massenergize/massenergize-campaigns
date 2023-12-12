@@ -39,7 +39,9 @@ function TechnologyFullViewPage({
   updateTechObjs,
   campaign,
   init,
+  user,
 }) {
+  const authUser = user;
   const [mounted, setMounted] = useState(false);
   // const [idsToRefMap, setidsToRefMap] = useState({});
   const coachesRef = useRef();
@@ -127,7 +129,28 @@ function TechnologyFullViewPage({
     more_details,
   } = technology;
 
-  const triggerCommentBox = () => {
+  const triggerRegistration = () => {
+    toggleModal({
+      show: true,
+      title: "Tell us where you are from, before commenting",
+      iconName: "fa-comment",
+      component: ({ close }) => (
+        <JoinUsForm
+          close={close}
+          callbackOnSubmit={({ user }) => {
+            console.log("I dont think I can run this meerhn");
+            close && close();
+            triggerCommentBox(user);
+          }}
+        />
+      ),
+      // modalNativeProps: { size: "md" },
+      fullControl: true,
+    });
+  };
+  const triggerCommentBox = (user) => {
+    console.log("This is what user looks like", user);
+    if (!user) return triggerRegistration();
     toggleModal({
       show: true,
       title: "Add a comment",
@@ -170,7 +193,7 @@ function TechnologyFullViewPage({
               />
               <InteractionsPanel
                 openShareBox={openShareBox}
-                openCommentBox={triggerCommentBox}
+                openCommentBox={() => triggerCommentBox(user)}
                 likes={likes}
                 views={views}
                 comments={comments?.length || 0}
@@ -318,7 +341,7 @@ function TechnologyFullViewPage({
                                   color: "var(--app-deep-green)",
                                   fontWeight: "bold",
                                 }}
-                                onClick={() => triggerCommentBox()}
+                                onClick={() => triggerCommentBox(authUser)}
                               >
                                 See more...
                               </span>
@@ -352,7 +375,7 @@ function TechnologyFullViewPage({
                     justifyContent: "center",
                     alignItems: "center",
                   }}
-                  onClick={() => triggerCommentBox()}
+                  onClick={() => triggerCommentBox(authUser)}
                 >
                   <p
                     style={{
@@ -376,7 +399,7 @@ function TechnologyFullViewPage({
                     padding: 10,
                     color: "white",
                   }}
-                  onClick={() => triggerCommentBox()}
+                  onClick={() => triggerCommentBox(user)}
                 >
                   <i className=" fa fa-plus" style={{ marginRight: 4 }}></i>
                   <p style={{ margin: 0, fontWeight: "bold" }}>Add a Comment</p>
@@ -391,10 +414,12 @@ function TechnologyFullViewPage({
           campaignName={name}
         />
         <TakeActionSection sectionId="take-action-section" />
-        <OneTechTestimonialsSection
-          testimonials={testimonials}
-          sectionId="testimonial-section"
-        />
+        <div ref={testimonialsRef}>
+          <OneTechTestimonialsSection
+            testimonials={testimonials}
+            sectionId="testimonial-section"
+          />
+        </div>
         <div ref={coachesRef}>
           <OneTechMeetTheCoachesSection
             coaches={coaches}
@@ -408,7 +433,9 @@ function TechnologyFullViewPage({
             }
           />
         </div>
-        <GetAGreatDealSection data={deal_section} sectionId="get-a-deal" />
+        <div ref={incentivesRef}>
+          <GetAGreatDealSection data={deal_section} sectionId="get-a-deal" />
+        </div>
         <Vendors sectionId="vendors" />
         <MoreDetailsSection data={more_details} sectionId="more-detail" />
       </div>
@@ -418,7 +445,12 @@ function TechnologyFullViewPage({
 }
 
 const mapState = (state) => {
-  return { comments: COMMENTS, techs: state.techs, campaign: state.campaign };
+  return {
+    comments: COMMENTS,
+    techs: state.techs,
+    campaign: state.campaign,
+    user: state.user,
+  };
 };
 const mapDispatch = (dispatch) => {
   return bindActionCreators(

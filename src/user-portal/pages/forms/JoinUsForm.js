@@ -19,7 +19,7 @@ function JoinUsForm({
   campaign,
   close,
   setUserObj,
-  user,
+  authUser,
   description,
   callbackOnSubmit,
 }) {
@@ -28,15 +28,14 @@ function JoinUsForm({
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  console.log("Now we are talking about the user ", user);
-
   useState(() => {
-    if (user) {
-      const { email, community } = user;
+    if (authUser) {
+      const { user, community } = authUser || {};
+      const { email } = user;
       setEmail(email);
-      setForm({ ...form, comId: community?.id });
+      setForm({ ...form, comId: community?.id?.toString() });
     }
-  }, [user]);
+  }, [authUser]);
 
   const makeNotification = (message, good = false) => {
     setError({ message, good });
@@ -49,29 +48,33 @@ function JoinUsForm({
     const { comId, zipcode, valueForOther } = form || {};
     var otherContent = {};
     if (comId === OTHER) {
-      otherContent = { communityName: valueForOther, zipcode, other: true };
-      if (!zipcode || valueForOther)
+      otherContent = { community_name: valueForOther, zipcode, is_other: true };
+      if (!zipcode || !valueForOther)
         return makeNotification(
           "Please provide the zipcode & community name..."
         );
     }
 
     setLoading(true);
-    const payload = { email, community_id: comId, ...otherContent };
-    console.log("THIS IS THE PAYLOAD", payload);
+    const payload = {
+      email,
+      campaign_id: campaign?.id,
+      community_id: comId,
+      ...otherContent,
+    };
     setUserObj(payload);
-    setLoading(false);
     makeNotification("Well done, thank you for joining us!", true);
+    apiCall("/campaigns.follow", payload).then((response) => {
+      setLoading(false);
+      if (!response?.success) {
+        setError("Error: ", response.error);
+        return console.log("FOLLOW_ERROR_BE: ", response.error);
+      }
+      console.log("this is the follow response", response, close);
 
-    // apiCall("/campaigns.follow", { email }).then((response) => {
-    //   setLoading(false);
-    //   if (!response?.success) {
-    //     setError("Error: ", response.error);
-    //     return console.log("FOLLOW_ERROR_BE: ", response.error);
-    //   }
-    //   setUserObj(response.data);
-    // });
-    // Now pick the form items and ship it to the backend...
+      callbackOnSubmit && callbackOnSubmit({ close, user: response.data });
+      setUserObj(response.data);
+    });
   };
 
   return (
@@ -140,7 +143,7 @@ function JoinUsForm({
 }
 
 const mapState = (state) => {
-  return { campaign: state.campaign, user: state.user };
+  return { campaign: state.campaign, authUser: state.user };
 };
 
 const mapDispatch = (dispatch) => {

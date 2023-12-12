@@ -11,6 +11,7 @@ import {
   UPDATE_TESTIMONIALS_OBJ,
 } from "../redux-action-types";
 
+const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
 export const testReduxAction = (someValue = []) => {
   return { type: DO_NOTHING, payload: someValue };
 };
@@ -24,6 +25,7 @@ export const updateTechnologiesAction = (payload) => {
   return { type: SET_FULL_TECH_OBJ, payload };
 };
 export const loadUserObjAction = (payload) => {
+  localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(payload));
   return { type: SET_USER_OBJ, payload };
 };
 export const updateEventsObj = (payload) => {
@@ -37,7 +39,12 @@ export const setNavigationMenuAction = (payload) => {
 };
 
 export const appInnitAction = (campaignId) => {
+  let savedUser = localStorage.getItem(USER_STORAGE_KEY);
+  savedUser = JSON.parse(savedUser);
+
   return (dispatch) => {
+    dispatch(loadUserObjAction(savedUser)); // use saved user to run a request to bring in the most recent changes to the user
+
     Promise.all([apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId })])
       .then((response) => {
         const [campaignInformation] = response;
