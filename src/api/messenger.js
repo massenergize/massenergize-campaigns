@@ -16,11 +16,7 @@ export const SESSION_EXPIRED = "session_expired";
  * @param { String } dataToSend
  * @param { String } relocationPage
  */
-export async function apiCall(
-  destinationUrl,
-  dataToSend = {},
-  relocationPage = null
-) {
+export async function apiCall(destinationUrl, dataToSend = {}, relocationPage = null) {
   // add some meta data for context in backend
   const data = {
     // __is_prod: IS_PROD || IS_CANARY,
@@ -55,13 +51,13 @@ export async function apiCall(
   destinationUrl = `${host}/${destinationUrl}`;
   console.log("LETS SEE URL", destinationUrl);
 
-  const response = await fetch(destinationUrl, {
+  try {
+    const response = await fetch(destinationUrl, {
     credentials: "include",
     method: "POST",
     body: formData,
   });
 
-  try {
     const contentType = response.headers.get("content-type");
     if (contentType && contentType.indexOf("application/json") !== -1) {
       const json = await response.json();
