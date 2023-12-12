@@ -78,9 +78,9 @@ const Navigation = () => {
 						</p>
 					</Col>
 				</Row>
-				{data?.map((datum) => {
+				{data?.map((datum, index) => {
 					return (
-						<Row className="my-4">
+						<Row key={index} className="my-4">
 							<Col>
 								<NavigationBar data={datum} showDel={true} />
 							</Col>

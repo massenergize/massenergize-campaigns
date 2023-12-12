@@ -197,7 +197,7 @@ const CreateNavForm = () => {
 						<Row className="py-4 justify-content-end">
 							<Col className="px-4">
 								<Button
-									text="Save Changes"
+									text="Add New Menu Item"
 									onSubmit={handleUpdate}
 									rounded={false}
 								/>
