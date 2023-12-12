@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+	faArrowRight,
 	faBan,
 	faBullhorn,
 	faChartLine,
 	faComment,
+	faDownload,
 	faEye,
 	faHeart,
 	faPenToSquare,
@@ -93,6 +95,18 @@ const PreviewCampaign = () => {
 							</div>
 						</Col>
 					</Row>
+					<Row>
+						<Col className="mt-4">
+							<div className="d-flex gap-5">
+								<p className="campaign-page-link">
+									Visit Campaign Page{" "}
+									<span>
+										<FontAwesomeIcon icon={faArrowRight} />
+									</span>{" "}
+								</p>
+							</div>
+						</Col>
+					</Row>
 				</Container>
 
 				<Container className="stats-cont">
@@ -104,6 +118,14 @@ const PreviewCampaign = () => {
 									<FontAwesomeIcon icon={faChartLine} />
 								</span>
 							</h3>
+							<div className="d-all-file">
+								<Button
+									text="Download Data File"
+									// onSubmit={handleClick}
+									rounded={false}
+									icon={faDownload}
+								/>
+							</div>
 							<div className="statss-con-div">
 								{statistics?.map((data, index) => {
 									return (
@@ -112,14 +134,6 @@ const PreviewCampaign = () => {
 										</div>
 									);
 								})}
-							</div>
-							<div>
-								<Button
-									text="Download Data File"
-									// onSubmit={handleClick}
-									rounded={false}
-									// icon={faPlus}
-								/>{" "}
 							</div>
 						</Col>
 					</Row>
