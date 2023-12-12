@@ -65,3 +65,9 @@ export const navigationMenuReducer = (state = [], action = {}) => {
   }
   return state;
 };
+export const commentsListReducer = (state = {}, action = {}) => {
+  if (action.type === SET_NAVIGATION_MENU) {
+    return action.payload;
+  }
+  return state;
+};

@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import {
   campaignInformationReducer,
+  commentsListReducer,
   doNothingReducer,
   eventsListReducer,
   fullTechnologiesReducer,
@@ -20,4 +21,5 @@ export default combineReducers({
   events: eventsListReducer,
   testimonials: testimonialsListReducer,
   navigation: navigationMenuReducer,
+  comments: commentsListReducer
 });

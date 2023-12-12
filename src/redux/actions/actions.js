@@ -3,6 +3,7 @@ import { CAMPAIGN_INFORMATION_URL } from "../../api/urls";
 import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
+  SET_COMMENTS,
   SET_FULL_TECH_OBJ,
   SET_NAVIGATION_MENU,
   SET_USER_OBJ,
@@ -36,6 +37,21 @@ export const updateTestimonialsObjAction = (payload) => {
 };
 export const setNavigationMenuAction = (payload) => {
   return { type: SET_NAVIGATION_MENU, payload };
+};
+export const setCommentsAction = (payload) => {
+  return { type: SET_COMMENTS, payload };
+};
+
+export const updateUserAction = (payload, cb) => {
+  return (dispatch) => {
+    apiCall("/users.update.loosedUser", payload).then((response) => {
+      if (!response || !response.success) {
+        console.log("ERROR_UPDATING_USER:", response.data);
+      }
+      dispatch(loadUserObjAction(response.data));
+      cb && cb(response.data);
+    });
+  };
 };
 
 export const appInnitAction = (campaignId) => {

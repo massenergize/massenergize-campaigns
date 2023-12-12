@@ -27,7 +27,9 @@ import { apiCall } from "../../../api/messenger";
 import Loading from "../../../components/pieces/Loading";
 import {
   appInnitAction,
+  setCommentsAction,
   updateTechnologiesAction,
+  updateUserAction,
 } from "../../../redux/actions/actions";
 import ShareBox from "../sharing/ShareBox";
 
@@ -40,6 +42,9 @@ function TechnologyFullViewPage({
   campaign,
   init,
   user,
+  updateUser,
+  updateCommentList,
+  commentsList,
 }) {
   const authUser = user;
   const [mounted, setMounted] = useState(false);
@@ -78,6 +83,10 @@ function TechnologyFullViewPage({
 
   const campaignExists = campaign && campaign !== LOADING;
 
+  const updateTechList = (data, id) => {
+    updateTechObjs({ ...(techs || {}), [id]: data });
+  };
+
   useEffect(() => {
     if (!campaignExists) init(campaign_id);
 
@@ -94,7 +103,8 @@ function TechnologyFullViewPage({
           return setError("Sorry, could not load the technology...");
         }
         const data = response?.data;
-        updateTechObjs({ ...(techs || {}), [id]: data });
+        // updateTechObjs({ ...(techs || {}), [id]: data });
+        updateTechList(data, id);
         setTechnology(data);
         setMounted(true);
         // scrollToSection(targetSection);
@@ -104,11 +114,7 @@ function TechnologyFullViewPage({
         setError("Sorry, could not load the technology you are looking for...");
         console.log("TECH_FETCH_ERROR_SYNT:", e.toString());
       });
-  }, [campaign_technology_id, campaign_id]);
-
-  // useEffect(() => {
-  //   // scrollToPoint();
-  // }, [coachesRef.current]);
+  }, [id, campaign_id]);
 
   if (!id || !technology) return <NotFound>{error}</NotFound>;
 
@@ -138,7 +144,6 @@ function TechnologyFullViewPage({
         <JoinUsForm
           close={close}
           callbackOnSubmit={({ user }) => {
-            console.log("I dont think I can run this meerhn");
             close && close();
             triggerCommentBox(user);
           }}
@@ -149,13 +154,24 @@ function TechnologyFullViewPage({
     });
   };
   const triggerCommentBox = (user) => {
-    console.log("This is what user looks like", user);
+    // console.log("This is what user looks like", user);
     if (!user) return triggerRegistration();
     toggleModal({
       show: true,
       title: "Add a comment",
       iconName: "fa-comment",
-      component: () => <CommentComponentForModal comments={comments} />,
+      component: () => (
+        <CommentComponentForModal
+          comments={[...comments]}
+          authUser={user}
+          updateUser={updateUser}
+          technology={technology}
+          updateTechList={(data) => {
+            setTechnology(data);
+            updateTechList(data, technology?.id);
+          }}
+        />
+      ),
       modalNativeProps: { size: "md" },
       fullControl: true,
     });
@@ -450,6 +466,7 @@ const mapState = (state) => {
     techs: state.techs,
     campaign: state.campaign,
     user: state.user,
+    commentsList: state.comments,
   };
 };
 const mapDispatch = (dispatch) => {
@@ -457,6 +474,8 @@ const mapDispatch = (dispatch) => {
     {
       updateTechObjs: updateTechnologiesAction,
       init: appInnitAction,
+      updateUser: updateUserAction,
+      updateCommentList: setCommentsAction,
     },
     dispatch
   );

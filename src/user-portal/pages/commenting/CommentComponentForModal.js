@@ -1,18 +1,77 @@
-import React, { useState } from "react";
-import { Button, Form, InputGroup } from "react-bootstrap";
+import React, { useEffect, useRef, useState } from "react";
+import { Button, Form, InputGroup, Spinner } from "react-bootstrap";
 import Loading from "../../../components/pieces/Loading";
 import { relativeTimeAgo } from "../../../utils/utils";
 import Notification from "../../../components/pieces/Notification";
+import { apiCall } from "../../../api/messenger";
 
-function CommentComponentForModal({ comments }) {
+function CommentComponentForModal({
+  comments,
+  authUser,
+  updateUser,
+  camp_tech_id,
+  technology,
+  updateTechList,
+}) {
+  const [commentItems, setCommentItems] = useState([]);
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const comBox = useRef();
+  // comments = comments?.reverse();
+
+  const { user } = authUser || {};
+
+  useEffect(() => {
+    setName(user?.full_name || "");
+  }, []);
+  useEffect(() => {
+    // Scroll to the bottom whenever messages change
+    const ref = comBox;
+    if (ref.current) {
+      ref.current.scrollTop = ref.current.scrollHeight;
+    }
+  }, [comments]);
+
+  useEffect(() => {
+    setCommentItems(comments?.reverse());
+  }, [comments]);
+
+  const data = commentItems;
 
   const sendComment = () => {
-    if (!comment.trim() || !name.trim())
+    setError("");
+    if (!comment.trim() || !name?.trim())
       return setError("Please provide a name and a valid comment");
+
+    const doesNotHaveName = !user?.full_name;
+    setLoading(true);
+    if (doesNotHaveName) {
+      updateUser({ id: user?.id, full_name: name }, () =>
+        sendCommentToBackend()
+      );
+    } else sendCommentToBackend();
   };
+
+  const sendCommentToBackend = () => {
+    apiCall("/campaigns.technologies.comments.create", {
+      campaign_technology_id: technology?.campaign_technology_id,
+      text: comment,
+      user_id: user?.id,
+    }).then((response) => {
+      setLoading(false);
+      if (!response || !response.success) return setError(response.error);
+      const latestComments = response.data;
+      const updated = { ...(technology || {}), comments: latestComments };
+      setCommentItems(latestComments.reverse());
+      updateTechList(updated);
+      setComment("");
+
+      // updatecommentList({ ...commentsList, [camp_tech_id]: latestComments });
+    });
+  };
+
   return (
     <div style={{ maxHeight: 500, position: "relative" }}>
       <div
@@ -22,8 +81,9 @@ function CommentComponentForModal({ comments }) {
           height: 500,
           paddingBottom: 130,
         }}
+        ref={comBox}
       >
-        {comments?.map((com, index) => {
+        {data?.map((com, index) => {
           const { user, text, created_at } = com || {};
           const message = text || "...";
           const community = user?.community;
@@ -78,6 +138,7 @@ function CommentComponentForModal({ comments }) {
           <InputGroup className="mb-3">
             <InputGroup.Text id="basic-addon1">Your Name</InputGroup.Text>
             <Form.Control
+              value={name}
               onChange={(e) => setName(e.target.value)}
               type="text"
               placeholder="Who is making this comment?..."
@@ -88,6 +149,7 @@ function CommentComponentForModal({ comments }) {
         </div>
         <InputGroup className="mb-3">
           <Form.Control
+            value={comment}
             onChange={(e) => setComment(e.target.value)}
             placeholder="Type comment here..."
             aria-label="User comment"
@@ -98,6 +160,7 @@ function CommentComponentForModal({ comments }) {
             id="button-addon2"
             onClick={() => sendComment()}
           >
+            {loading && <Spinner size="sm" style={{ marginRight: 5 }} />}
             Comment
           </Button>
         </InputGroup>
