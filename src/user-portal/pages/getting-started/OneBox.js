@@ -74,14 +74,18 @@ function OneBox({
         }}
       >
         <Button
-          onClick={() => navigator(`/technology/${campaign_technology_id}`)}
+          onClick={() =>
+            navigator(`/technology/${campaign_technology_id}?section=quote`)
+          }
           className="tech-btn elevate-2 touchable-opacity"
           style={{ background: "var(--app-medium-green)" }}
         >
           QUOTE
         </Button>
         <Button
-          onClick={() => navigator(`/technology/${campaign_technology_id}`)}
+          onClick={() =>
+            navigator(`/technology/${campaign_technology_id}?section=coaches`)
+          }
           style={{ background: "var(--app-deep-green)" }}
           className="tech-btn elevate-2 touchable-opacity"
         >

@@ -7,6 +7,7 @@ import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
   SET_FULL_TECH_OBJ,
+  SET_NAVIGATION_MENU,
   SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
   UPDATE_EVENT_OBJ,
@@ -54,6 +55,12 @@ export const eventsListReducer = (state = {}, action = {}) => {
 };
 export const testimonialsListReducer = (state = {}, action = {}) => {
   if (action.type === UPDATE_TESTIMONIALS_OBJ) {
+    return action.payload;
+  }
+  return state;
+};
+export const navigationMenuReducer = (state = {}, action = {}) => {
+  if (action.type === SET_NAVIGATION_MENU) {
     return action.payload;
   }
   return state;

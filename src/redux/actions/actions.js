@@ -4,6 +4,7 @@ import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
   SET_FULL_TECH_OBJ,
+  SET_NAVIGATION_MENU,
   SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
   UPDATE_EVENT_OBJ,
@@ -16,7 +17,6 @@ export const testReduxAction = (someValue = []) => {
 export const toggleUniversalModal = (payload) => {
   return { type: TOGGLE_UNIVERSAL_MODAL, payload };
 };
-
 export const loadCampaignInformation = (payload) => {
   return { type: LOAD_CAMPAIGN_INFORMATION, payload };
 };
@@ -31,6 +31,9 @@ export const updateEventsObj = (payload) => {
 };
 export const updateTestimonialsObjAction = (payload) => {
   return { type: UPDATE_TESTIMONIALS_OBJ, payload };
+};
+export const setNavigationMenuAction = (payload) => {
+  return { type: SET_NAVIGATION_MENU, payload };
 };
 
 export const appInnitAction = (campaignId) => {

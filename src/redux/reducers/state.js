@@ -4,6 +4,7 @@ import {
   doNothingReducer,
   eventsListReducer,
   fullTechnologiesReducer,
+  navigationMenuReducer,
   testimonialsListReducer,
   universalModalReducer,
   userObjectReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
   user: userObjectReducer,
   events: eventsListReducer,
   testimonials: testimonialsListReducer,
+  navigation: navigationMenuReducer,
 });
