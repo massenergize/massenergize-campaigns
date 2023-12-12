@@ -6,14 +6,18 @@ import Input from "../../../components/admin-components/Input";
 import FileUploader from "../../../components/admin-components/FileUploader";
 import Button from "../../../components/admin-components/Button";
 import "../../adminStyles.css";
+import { apiCall } from "../../../utils/api_call";
+import { set } from "date-fns";
 
-const Info = () => {
+const Info = ({technologyInfo, setTechnologyInfo, setActiveTab}) => {
 	const initialState = {
 		name: "",
 		image: "",
 		description: "",
 		summary: "",
 	};
+
+
 
 	const reducer = (state, action) => {
 		switch (action.type) {
@@ -32,7 +36,12 @@ const Info = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(formData);
+		apiCall("technologies.create", formData).then((res) => {
+			if (res?.success){
+				setTechnologyInfo({...technologyInfo,...res?.data})
+				setActiveTab("Coaches");
+			}
+		});
 	};
 
 	return (

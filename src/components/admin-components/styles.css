@@ -566,3 +566,122 @@
 	/* padding: 0.5rem 1rem; */
 	border-top: 1px solid gray;
 }
+
+/* ............................ Statistics Card .......................... */
+
+.stat-card {
+	width: 250px;
+	height: 150px;
+	background-color: rgb(88, 222, 255);
+	border-radius: 10px;
+	padding: 1rem;
+	color: white;
+}
+
+.stat-type {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.stat-icon {
+	width: 40px;
+	height: 40px;
+	border-radius: 500px;
+	/* background-color: rgb(106, 255, 225); */
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 25px;
+}
+
+.bg-one {
+	background-color: rgb(88, 222, 255);
+}
+
+.bg-two {
+	background-color: rgb(88, 222, 255);
+}
+
+.bg-three {
+	background-color: rgb(88, 222, 255);
+}
+
+.bg-four {
+	background-color: rgb(88, 222, 255);
+}
+
+.bg-five {
+	background-color: rgb(88, 222, 255);
+}
+
+.bg-six {
+	background-color: rgb(88, 222, 255);
+}
+
+.bg-cyan-400 {
+	background-color: #22d3ee;
+}
+
+.bg-lime-400 {
+	background-color: #84cc16;
+}
+
+.bg-pink-400 {
+	background-color: #f43f5e;
+}
+
+.bg-indigo-400 {
+	background-color: #6366f1;
+}
+.bg-violet-400 {
+	background-color: #7c3aed;
+}
+
+.bg-green-400 {
+	background-color: #22c55e;
+}
+
+.bg-teal-400 {
+	background-color: #38b2ac;
+}
+
+.bg-rose-400 {
+	background-color: #f43f5e;
+}
+
+/* bg-cyan-400, bg-lime-400, bg-pink-400, bg-indigo-400 */
+
+.stat-type h5 {
+	text-transform: capitalize;
+}
+
+.comment-card-con {
+	display: flex;
+	gap: 30px;
+	flex-wrap: wrap;
+}
+
+.comment-card {
+	width: 300px;
+	height: 150px;
+	border-radius: 10px;
+	padding: 1rem;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+		0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	/* background-color: rgb(255, 244, 246); */
+	background-color: #f7f0ff;
+}
+
+.comment-text {
+	color: rgb(43, 43, 43);
+	margin: 1rem 0;
+}
+
+.comment-date {
+	display: flex;
+	justify-content: end;
+	align-content: center;
+	color: rgb(209, 209, 209);
+}
