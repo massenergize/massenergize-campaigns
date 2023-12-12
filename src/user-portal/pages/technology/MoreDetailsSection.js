@@ -5,6 +5,7 @@ import { Col, Row } from "react-bootstrap";
 
 function MoreDetailsSection({ sectionId, data }) {
   const { title, description } = data || {};
+
   return (
     <div
       id={sectionId}
@@ -24,7 +25,7 @@ function MoreDetailsSection({ sectionId, data }) {
           className="mb-4"
         ></p>
 
-        <img
+        {/* <img
           style={{
             width: "100%",
             height: 350,
@@ -32,7 +33,7 @@ function MoreDetailsSection({ sectionId, data }) {
             borderRadius: 10,
           }}
           src="https://picsum.photos/id/870/300/300?grayscale&blur=2"
-        />
+        /> */}
       </OptimumWrapper>
     </div>
   );

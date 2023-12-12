@@ -10,7 +10,7 @@ const dummies = [
     title: "Find A Vendor",
     actionText: "Vendors",
     content: "Get in touch with vendors the vendors!",
-    url: "?#vendors",
+    url: "vendors",
   },
   {
     icon: "fa-lightbulb-o",
@@ -18,7 +18,7 @@ const dummies = [
     actionText: "Get Help",
     content:
       "Get to know the coaches, and ask all the questions you need to get started!",
-    url: "?#meet-coach",
+    url: "coaches",
   },
 
   {
@@ -26,10 +26,10 @@ const dummies = [
     title: "Show Me The Money",
     actionText: "Incentives",
     content: "It gets better! See all the incentives available to you.",
-    url: "?#get-a-deal",
+    url: "incentives",
   },
 ];
-function TakeAtionSetion({ sectionId }) {
+function TakeAtionSetion({ sectionId, scrollToSection }) {
   const navigator = useNavigate();
   return (
     <div
@@ -89,7 +89,7 @@ function TakeAtionSetion({ sectionId }) {
                 </p>
 
                 <div
-                  onClick={() => navigator(item?.url)}
+                  onClick={() => scrollToSection(item.url)}
                   className="elevate-2 touchable-opacity"
                   style={{
                     padding: "7px 30px",

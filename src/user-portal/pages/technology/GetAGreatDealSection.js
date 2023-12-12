@@ -3,8 +3,9 @@ import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
 
-function GetAGreatDealSection({ sectionId, data }) {
-  const { title, description, first, second, third } = data || {};
+function GetAGreatDealSection({ sectionId, data, image }) {
+  const { title, description, first_deal, second_deal, third_deal } =
+    data || {};
   return (
     <div
       id={sectionId}
@@ -30,7 +31,10 @@ function GetAGreatDealSection({ sectionId, data }) {
               objectFit: "cover",
               borderRadius: 10,
             }}
-            src="https://picsum.photos/id/870/300/300?grayscale&blur=2"
+            src={
+              image?.url ||
+              "https://picsum.photos/id/870/300/300?grayscale&blur=2"
+            }
           />
           <div
             style={{
@@ -40,7 +44,7 @@ function GetAGreatDealSection({ sectionId, data }) {
             }}
           >
             <Row>
-              {[first, second, third].map((item, index) => {
+              {[first_deal, second_deal, third_deal].map((item, index) => {
                 if (!item) return <></>;
                 return (
                   <Col

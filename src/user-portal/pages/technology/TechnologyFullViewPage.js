@@ -148,7 +148,10 @@ function TechnologyFullViewPage({
     overview,
     description,
     deal_section,
-    more_details,
+    more_info_section,
+    deal_section_image,
+    vendors_section,
+    vendors,
   } = technology;
 
   const like = (user) => {
@@ -156,12 +159,13 @@ function TechnologyFullViewPage({
     apiCall("/campaigns.technology.like", {
       campaign_technology_id: technology?.campaign_technology_id,
       user_id: user?.id,
+      email: user?.email,
     }).then((response) => {
-      if (!response || !response.success)
-        return console.log("ERROR_LIKING: ", response.error);
+      if (!response || !response?.success)
+        return console.log("ERROR_LIKING: ", response?.error);
 
-      console.log("This is the response after liking", response.data);
-      updateTechList(response.data);
+      console.log("This is the response after liking", response?.data);
+      updateTechList(response?.data);
     });
   };
 
@@ -237,6 +241,8 @@ function TechnologyFullViewPage({
     });
   };
 
+  const isReallyLong = description.length > 1000; // This is not a good way of checking, change it later
+
   return (
     <div>
       <AppNavigationBar />
@@ -269,19 +275,21 @@ function TechnologyFullViewPage({
                   dangerouslySetInnerHTML={{ __html: description }}
                   style={{ height, display: "block", overflowY: "hidden" }}
                 ></span>
-                <span
-                  onClick={() =>
-                    setHeight(readMore ? "100%" : DEFAULT_READ_HEIGHT)
-                  }
-                  className="touchable-opacity"
-                  style={{
-                    fontWeight: "bold",
-                    color: "var(--app-orange)",
-                    textDecoration: "underline",
-                  }}
-                >
-                  {readMore ? "Read More..." : "Hide"}
-                </span>
+                {isReallyLong && (
+                  <span
+                    onClick={() =>
+                      setHeight(readMore ? "100%" : DEFAULT_READ_HEIGHT)
+                    }
+                    className="touchable-opacity"
+                    style={{
+                      fontWeight: "bold",
+                      color: "var(--app-orange)",
+                      textDecoration: "underline",
+                    }}
+                  >
+                    {readMore ? "Read More..." : "Hide"}
+                  </span>
+                )}
               </p>
             </Col>
             <Col lg={3}>
@@ -478,8 +486,12 @@ function TechnologyFullViewPage({
           sectionId="why-section"
           overview={overview}
           campaignName={name}
+          overview_title={technology?.overview_title}
         />
-        <TakeActionSection sectionId="take-action-section" />
+        <TakeActionSection
+          sectionId="take-action-section"
+          scrollToSection={scrollToSection}
+        />
         <div ref={testimonialsRef}>
           <OneTechTestimonialsSection
             testimonials={testimonials}
@@ -500,10 +512,21 @@ function TechnologyFullViewPage({
           />
         </div>
         <div ref={incentivesRef}>
-          <GetAGreatDealSection data={deal_section} sectionId="get-a-deal" />
+          <GetAGreatDealSection
+            image={deal_section_image}
+            data={deal_section}
+            sectionId="get-a-deal"
+          />
         </div>
-        <Vendors sectionId="vendors" />
-        <MoreDetailsSection data={more_details} sectionId="more-detail" />
+        <div ref={vendorsRef}>
+          <Vendors
+            sectionId="vendors"
+            data={vendors_section || {}}
+            vendors={vendors}
+          />
+        </div>
+
+        <MoreDetailsSection data={more_info_section} sectionId="more-detail" />
       </div>
       <Footer toggleModal={toggleModal} />
     </div>

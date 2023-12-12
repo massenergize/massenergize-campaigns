@@ -29,7 +29,7 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
   },
 ];
-function WhySection({ sectionId, overview, campaignName }) {
+function WhySection({ sectionId, overview, campaignName, overview_title }) {
   return (
     <div
       id={sectionId}
@@ -42,7 +42,9 @@ function WhySection({ sectionId, overview, campaignName }) {
       }}
     >
       <OptimumWrapper>
-        <SectionTitle className="mb-5">Why {campaignName}?</SectionTitle>
+        <SectionTitle className="mb-5">
+          {overview_title || `Why ${campaignName}?`}
+        </SectionTitle>
 
         <Row>
           {(overview || []).map((item, index) => {

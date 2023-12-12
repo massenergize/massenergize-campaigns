@@ -3,7 +3,8 @@ import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Row } from "react-bootstrap";
 
-function Vendors({ sectionId }) {
+function Vendors({ sectionId, data, vendors }) {
+  const { title, description } = data;
   return (
     <div
       id={sectionId}
@@ -16,27 +17,14 @@ function Vendors({ sectionId }) {
       }}
     >
       <OptimumWrapper>
-        <SectionTitle className="mb-3">Vendors</SectionTitle>
+        <SectionTitle className="mb-3">{title}</SectionTitle>
         <p style={{ textAlign: "justify" }} className="mb-4">
-          {" "}
-          essentially unchanged. It was popularised in the 1960s with the
-          release of Letraset sheets containing t ever since the 1500s, when an
-          unknown printer took a galley of type and scrambled it to make a type
-          specimen book. It has survived not only five centuries, but also the
-          leap into electronic typesetting, remaining essentially unchanged. It
-          was popularised in the 1960s with the release of Letraset sheets
-          containing t ever since the 1500s, when an unknown printer took a
-          galley of type rised in the 1960s with the release of Letraset sheets
-          containing. when an unknown printer took a galley of type rised in the
-          1960s with the release of Letraset
+          {description}
         </p>
 
         <Row>
           <ul style={{ display: "flex", flexWrap: "wrap" }}>
-            {[
-              1, 2, 3, 4, 5, 5, 6, 7, 6, 54, 43, 3, 33, 3, 2, 2, 2, 3, 4, 5, 5,
-              6, 6,
-            ].map((item, index) => {
+            {vendors?.map(({ vendor }, index) => {
               return (
                 <li
                   style={{
@@ -46,9 +34,9 @@ function Vendors({ sectionId }) {
                     textDecoration: "underline",
                     color: "black",
                   }}
-                  key={index?.toString()}
+                  key={vendor?.id?.toString()}
                 >
-                  Vendor Number - {index}
+                  {vendor?.name || "..."}
                 </li>
               );
             })}

@@ -17,7 +17,6 @@ function OneBox({
 
   const route = `/campaign/${campaign_id}/technology/${campaign_technology_id}`;
 
-
   return (
     <div
       className="elevate-float-pro"
@@ -62,8 +61,9 @@ function OneBox({
           {description.substring(0, 90) || "..."}
         </p>
         <a
+          className="touchable-opacity"
           // href={`/technology/${campaign_technology_id}`}
-          href={route}
+          onClick={() => navigator(route)}
           style={{ fontWeight: "bold", color: "var(--app-orange)" }}
         >
           Learn More...
