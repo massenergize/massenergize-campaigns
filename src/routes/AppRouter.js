@@ -15,6 +15,7 @@ import AllComponents from "../admin-portal/pages/AllComponents";
 import { NewCampaign } from "../admin-portal/pages/campaign/new";
 import { AllCampaigns } from "../admin-portal/pages/campaign/all";
 import { CreateTechnology } from "../admin-portal/pages/technology/new";
+import { AllTechnologies } from "../admin-portal/pages/technology/all";
 import OneTestimonial from "../user-portal/pages/testimonials/OneTestimonial";
 import CreateCampaignAccount from "../admin-portal/pages/campaign-account/CreateCampaignAccount";
 
@@ -65,6 +66,17 @@ const ROUTE_TABLE = [
 		path: "/admin/campaign-account/new",
 		component: CreateCampaignAccount,
 	},
+
+	{
+		path: "/admin/technology/new",
+		component: CreateTechnology,
+	},
+
+	{
+		path: "/admin/technology/all",
+		component: AllTechnologies,
+	},
+
 	{
 		path: "/components",
 		component: AllComponents,

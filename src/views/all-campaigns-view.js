@@ -112,6 +112,8 @@ export function AllCampaignsView ({}) {
     setSelectedRow(id);
   };
 
+  const [rowSelection, setRowSelection] = React.useState({})
+
   const columns = useMemo(
     () => [
       {
@@ -291,6 +293,8 @@ export function AllCampaignsView ({}) {
   };
   // endregion
 
+
+
   let {
     data: campaigns,
   } = useSWR(`campaigns.list`, fetchAllCampaigns, {
@@ -319,6 +323,7 @@ export function AllCampaignsView ({}) {
         columns={columns}
         data={patched || []}
         size={pageSize}
+        rowSelect={false}
         skipPageReset={skipPageReset}
         updateMyData={updateMyData}
         renderRowSubComponent={null}
