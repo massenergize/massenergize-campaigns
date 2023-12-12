@@ -20,6 +20,7 @@ import { statsData } from "../../utils/Constants";
 import Comments from "../../components/admin-components/Comments";
 import Testimonials from "../../components/admin-components/Testimonials";
 import classes from "classnames";
+import Button from "../../components/admin-components/Button";
 
 const PreviewCampaign = () => {
 	const data = statsData;
@@ -111,6 +112,14 @@ const PreviewCampaign = () => {
 										</div>
 									);
 								})}
+							</div>
+							<div>
+								<Button
+									text="Download Data File"
+									// onSubmit={handleClick}
+									rounded={false}
+									// icon={faPlus}
+								/>{" "}
 							</div>
 						</Col>
 					</Row>
