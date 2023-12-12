@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import PageWrapper from "../wrappers/PageWrapper";
 import carPhoto from "./../../../assets/imgs/car.jpeg";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import InteractionsPanel from "./InteractionsPanel";
 import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import Footer from "../footer/Footer";
 import WhySection from "./WhySection";
-import TakeAtionSetion from "./TakeActionSection";
+import TakeActionSection from "./TakeActionSection";
 import OneTechTestimonialsSection from "./OneTechTestimonialsSection";
 import OneTechMeetTheCoachesSection from "./OneTechMeetTheCoachesSetion";
 import GetAGreatDealSection from "./GetAGreatDealSection";
@@ -16,17 +16,93 @@ import Vendors from "./Vendors";
 import CommentComponentForModal from "../commenting/CommentComponentForModal";
 import JoinUsForm from "../forms/JoinUsForm";
 import GetHelpForm from "../forms/GetHelpForm";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { COMMENTS, ONE_TECH_DATA } from "../../data/user-portal-dummy-data";
+import { relativeTimeAgo } from "../../../utils/utils";
+import { useParams } from "react-router-dom";
+import NotFound from "../error/404";
+import { LOADING } from "../../../utils/Constants";
+import { apiCall } from "../../../api/messenger";
+import Loading from "../../../components/pieces/Loading";
+import { updateTechnologiesAction } from "../../../redux/actions/actions";
 
 const DEFAULT_READ_HEIGHT = 190;
-function TechnologyFullViewPage({ toggleModal }) {
+const COMMENT_LENGTH = 40;
+function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
+  const coachesRef = useRef();
+  const [technology, setTechnology] = useState(LOADING);
   const [height, setHeight] = useState(DEFAULT_READ_HEIGHT);
-  const descriptionRef = useRef();
+  const [error, setError] = useState("");
+  const { campaign_technology_id } = useParams();
+  const id = campaign_technology_id;
+
+  const scrollToPoint = () => {
+    // document
+    //   .getElementById("meet-coach")
+    //   .scrollIntoView({ behavior: "smooth", block: "start" });
+    if (coachesRef.current)
+      coachesRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  useEffect(() => {
+    const tech = (techs || {})[id];
+    // Even if the tech is available locally, set it immediately,
+    // But still continue to fetch, so that the user has something to look at
+    // while the latest changes on the technology load up
+    if (tech) setTechnology(tech);
+    apiCall("/campaigns.technologies.info", { campaign_technology_id: id })
+      .then((response) => {
+        if (!response || !response?.success) {
+          setTechnology(null);
+          console.log("TECH_FETCH_ERROR_BE:", response?.error);
+          return setError("Sorry, could not load the technology...");
+        }
+        const data = response?.data;
+        updateTechObjs({ ...(techs || {}), [id]: data });
+        setTechnology(data);
+      })
+      .catch((e) => {
+        setTechnology(null);
+        setError("Sorry, could not load the technology you are looking for...");
+        console.log("TECH_FETCH_ERROR_SYNT:", e.toString());
+      });
+  }, []);
+
+  useEffect(() => {
+    scrollToPoint();
+  }, [coachesRef.current]);
+
+  if (!id || !technology) return <NotFound>{error}</NotFound>;
+
+  if (technology === LOADING)
+    return <Loading fullPage>Fetching technology information...</Loading>;
+
+  console.log("Thi sis the technology", technology);
+
+  // console.log("Lets see tecs", techs);
+  // const id = "4c74b279-45c4-435a-b05d-11f5f3dcd69d";
+
+  const {
+    name,
+    coaches,
+    testimonials,
+    likes,
+    views,
+    image,
+    comments,
+    overview,
+    description,
+    deal_section,
+    more_details,
+  } = technology;
+
   const triggerCommentBox = () => {
     toggleModal({
       show: true,
       title: "Add a comment",
       iconName: "fa-comment",
-      component: <CommentComponentForModal />,
+      component: () => <CommentComponentForModal comments={comments} />,
       modalNativeProps: { size: "md" },
       fullControl: true,
     });
@@ -38,50 +114,30 @@ function TechnologyFullViewPage({ toggleModal }) {
       <AppNavigationBar />
       <div style={{ marginTop: 100 }}>
         <OptimumWrapper>
-          <h2 style={{ color: "var(--app-deep-green)" }}>
-            Drive Electric Cars
-          </h2>
+          <h2 style={{ color: "var(--app-deep-green)" }}>{name || "..."}</h2>
           <Row>
             <Col lg={9}>
               <img
                 className="elevate-float-pro mt-2"
-                src={carPhoto}
+                src={image?.url || carPhoto}
                 style={{
                   width: "100%",
                   height: 420,
-                  objectFit: "cover",
+                  objectFit: "contain",
                   borderRadius: 10,
                 }}
               />
-              <InteractionsPanel />
+              <InteractionsPanel
+                openCommentBox={triggerCommentBox}
+                likes={likes}
+                views={views}
+                comments={comments?.length || 0}
+              />
               <p className="mt-3" style={{ textAlign: "justify" }}>
                 <span
-                  ref={descriptionRef}
+                  dangerouslySetInnerHTML={{ __html: description }}
                   style={{ height, display: "block", overflowY: "hidden" }}
-                >
-                  t ever since the 1500s, when an unknown printer took a galley
-                  of type and scrambled it to make a type specimen book. It has
-                  survived not only five centuries, but also the leap into
-                  electronic typesetting, remaining essentially unchanged. It
-                  was popularised in the 1960s with the release of Letraset
-                  sheets containing t ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing t ever since the
-                  1500s, when an unknown printer took a galley of type rised in
-                  the 1960s with the release of Letraset sheets containing. when
-                  an unknown printer took a galley of type rised in the 1960s
-                  with the release of Letraset sheets containing. when an
-                  unknown printer took a galley of type rised in the 1960s with
-                  the release of Letraset sheets containing. the 1960s with the
-                  release of Letraset sheets containing. when an unknown printer
-                  took a galley of type rised in the 1960s with the release of
-                  Letraset sheets containing. when an unknown printer took a
-                  galley of type rised in the 1960s with the release of Letraset
-                  sheets containing.{" "}
-                </span>
+                ></span>
                 <span
                   onClick={() =>
                     setHeight(readMore ? "100%" : DEFAULT_READ_HEIGHT)
@@ -136,7 +192,8 @@ function TechnologyFullViewPage({ toggleModal }) {
                     toggleModal({
                       show: true,
                       title: "Get updates about this technology",
-                      component: <JoinUsForm />,
+                      component: () => <JoinUsForm />,
+                      fullControl: true,
                     })
                   }
                   className="touchable-opacity"
@@ -188,16 +245,16 @@ function TechnologyFullViewPage({ toggleModal }) {
                         fontWeight: "bold",
                       }}
                     >
-                      Comments(25)
+                      Comments({comments?.length})
                     </span>
                   </p>
                 </div>
                 <div className="mt-2">
-                  <small style={{ color: "" }}>
-                    This is what people think about this action
-                  </small>
+                  <small style={{ color: "" }}>This is what people think</small>
                   <div className="mt-2">
-                    {[1, 2, 3].map((item, index) => {
+                    {comments?.slice(0, 3)?.map((com, index) => {
+                      const { user, text, created_at } = com || {};
+                      const message = text || "...";
                       return (
                         <div className="mb-1 mt-1" key={index?.toString()}>
                           <h6
@@ -206,20 +263,26 @@ function TechnologyFullViewPage({ toggleModal }) {
                               fontSize: 14,
                             }}
                           >
-                            Akwesi Frimpong
+                            {user?.full_name || "..."}
                           </h6>
                           <small>
-                            It has survived not only five was popularised
-                            <span
-                              style={{
-                                marginLeft: 5,
-                                textDecoration: "underline",
-                                color: "var(--app-deep-green)",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              See more...
-                            </span>
+                            {message.substr(0, COMMENT_LENGTH)}
+                            {message.length > COMMENT_LENGTH ? (
+                              <span
+                                className="touchable-opacity"
+                                style={{
+                                  marginLeft: 5,
+                                  textDecoration: "underline",
+                                  color: "var(--app-deep-green)",
+                                  fontWeight: "bold",
+                                }}
+                                onClick={() => triggerCommentBox()}
+                              >
+                                See more...
+                              </span>
+                            ) : (
+                              <></>
+                            )}
                           </small>
                           <small
                             style={{
@@ -228,10 +291,8 @@ function TechnologyFullViewPage({ toggleModal }) {
                               flexDirection: "row",
                             }}
                           >
-                            <span
-                              style={{ marginLeft: "auto", color: "#cbcbcb" }}
-                            >
-                              10 Seconds ago
+                            <span style={{ marginLeft: "", color: "#cbcbcb" }}>
+                              {relativeTimeAgo(created_at)}
                             </span>
                           </small>
                         </div>
@@ -282,26 +343,47 @@ function TechnologyFullViewPage({ toggleModal }) {
             </Col>
           </Row>
         </OptimumWrapper>
-        <WhySection sectionId="why-section" />
-        <TakeAtionSetion sectionId="take-action-section" />
-        <OneTechTestimonialsSection sectionId="testimonial-section" />
-        <OneTechMeetTheCoachesSection
-          sectionId="meet-coach"
-          toggleModal={() =>
-            toggleModal({
-              show: true,
-              component: <GetHelpForm />,
-              title: "Get Help",
-            })
-          }
+        <WhySection
+          sectionId="why-section"
+          overview={overview}
+          campaignName={name}
         />
-        <GetAGreatDealSection sectionId="get-a-deal" />
+        <TakeActionSection sectionId="take-action-section" />
+        <OneTechTestimonialsSection
+          testimonials={testimonials}
+          sectionId="testimonial-section"
+        />
+        <div ref={coachesRef}>
+          <OneTechMeetTheCoachesSection
+            coaches={coaches}
+            sectionId="meet-coach"
+            toggleModal={() =>
+              toggleModal({
+                show: true,
+                component: () => <GetHelpForm />,
+                title: "Get Help",
+              })
+            }
+          />
+        </div>
+        <GetAGreatDealSection data={deal_section} sectionId="get-a-deal" />
         <Vendors sectionId="vendors" />
-        <MoreDetailsSection sectionId="more-detail" />
+        <MoreDetailsSection data={more_details} sectionId="more-detail" />
       </div>
       <Footer toggleModal={toggleModal} />
     </div>
   );
 }
 
-export default TechnologyFullViewPage;
+const mapState = (state) => {
+  return { comments: COMMENTS, techs: state.techs };
+};
+const mapDispatch = (dispatch) => {
+  return bindActionCreators(
+    {
+      updateTechObjs: updateTechnologiesAction,
+    },
+    dispatch
+  );
+};
+export default connect(mapState, mapDispatch)(TechnologyFullViewPage);

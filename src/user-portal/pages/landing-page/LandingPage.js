@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
 
-import { Container } from "react-bootstrap";
+import { Alert, Container } from "react-bootstrap";
 import RoamingBox from "./RoamingBox";
 import Footer from "../footer/Footer";
 import TestimonialSection from "../testimonials/TestimonialSection";
@@ -11,17 +11,40 @@ import GettingStartedSection from "../getting-started/GettingStartedSection";
 import CoachesSection from "../coaches/CoachesSection";
 import Banner from "../banner/Banner";
 import planetB from "./../../../assets/imgs/planet-b.jpeg";
+import { connect } from "react-redux";
+import { apiCall } from "../../../api/messenger";
+import { useParams } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { appInnitAction } from "../../../redux/actions/actions";
+import { LOADING } from "../../../utils/Constants";
+import Loading from "../../../components/pieces/Loading";
+import NotFound from "../error/404";
 
-function LandingPage({ toggleModal }) {
+function LandingPage({ toggleModal, campaign, init }) {
+  console.log("HER EIS THE campaign from redux", campaign);
+  const { image, config, key_contact } = campaign || {};
+
+  const technologies = campaign?.technologies || [];
+  const { campaignId } = useParams();
+
+  useEffect(() => {
+    init(campaignId);
+  }, []);
+
+  if (campaign === LOADING)
+    return <Loading fullPage>Fetching campaign details...</Loading>;
+
+  if (!campaign) return <NotFound></NotFound>;
+
   return (
     <div style={{}}>
       <AppNavigationBar />
       <Container>
-        <Banner />
+        <Banner {...campaign} />
         <Container>
           <img
             className="elevate-float-pro"
-            src={planetB}
+            src={image?.url || planetB}
             style={{
               width: "80%",
               margin: "0px 10%",
@@ -32,20 +55,46 @@ function LandingPage({ toggleModal }) {
             }}
           />
         </Container>
-        <RoamingBox id="roaming-box" />
+        <RoamingBox
+          id="roaming-box"
+          advert={config?.advert}
+          keyContact={key_contact}
+        />
       </Container>
-      <GettingStartedSection sectionId="getting-started-section" />
+      <GettingStartedSection
+        technologies={technologies}
+        sectionId="getting-started-section"
+      />
 
-      <TestimonialSection sectionId="testimonial-section" />
+      <TestimonialSection
+        technologies={technologies}
+        sectionId="testimonial-section"
+      />
       <br />
 
-      <EventsSection sectionId="event-section" />
+      <EventsSection technologies={technologies} sectionId="event-section" />
 
-      <CoachesSection toggleModal={toggleModal} sectionId="coaches-section" />
+      <CoachesSection
+        technologies={technologies}
+        toggleModal={toggleModal}
+        sectionId="coaches-section"
+      />
 
       <Footer toggleModal={toggleModal} />
     </div>
   );
 }
 
-export default LandingPage;
+const mapState = (state) => {
+  return { campaign: state.campaign };
+};
+
+const mapDispatch = (dispatch) => {
+  return bindActionCreators(
+    {
+      init: appInnitAction,
+    },
+    dispatch
+  );
+};
+export default connect(mapState, mapDispatch)(LandingPage);

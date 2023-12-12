@@ -5,7 +5,7 @@ function OptimumWrapper({ children, style }) {
   return (
     <Container style={style || {}}>
       <Row>
-        <Col lg={{ span: 8, offset: 2 }}>{children}</Col>
+        <Col lg={{ span: 10, offset: 1 }}>{children}</Col>
       </Row>
     </Container>
   );

@@ -1,12 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PageWrapper from "../wrappers/PageWrapper";
 import carPhoto from "./../../../assets/imgs/car.jpeg";
 import { Col, Container, Row } from "react-bootstrap";
 import SectionTitle from "../../../components/pieces/SectionTitle";
-function OneEvent() {
+import { useParams } from "react-router-dom";
+import { LOADING } from "../../../utils/Constants";
+import NotFound from "../error/404";
+import Loading from "../../../components/pieces/Loading";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { apiCall } from "../../../api/messenger";
+import { updateEventsObj } from "../../../redux/actions/actions";
+import { formatTimeRange } from "../../../utils/utils";
+function OneEvent({ events, updateEvents }) {
+  const [event, setEvent] = useState(LOADING);
+  const [error, setError] = useState("");
+  const { eventId } = useParams();
+  const id = eventId;
+
+  const { name, start_date_and_time, description, end_date_and_time } =
+    event || {};
+  useEffect(() => {
+    var ev = (events || {})[id];
+    if (ev) setEvent(ev);
+
+    // still fetch event form API to get up-to-date content
+    apiCall("/events.info", { event_id: id })
+      .then((response) => {
+        if (!response.success) {
+          setError(response.error);
+          return console.log("EVENT_FETCH_ERROR_BE:", response.error);
+        }
+        setEvent(response.data);
+        updateEvents({ ...events, [id]: response.data });
+      })
+      .catch((e) => console.log("EVENT_ERROR_SYNT: ", e.toString()));
+  }, []);
+
+  if (!id || !event) return <NotFound>{error}</NotFound>;
+
+  if (event === LOADING)
+    return <Loading fullPage>Fetching event information...</Loading>;
+
   return (
     <PageWrapper>
-      <SectionTitle>One Event of Technology</SectionTitle>
+      <SectionTitle>{name || "..."}</SectionTitle>
       <Row>
         <Col lg={9}>
           <img
@@ -23,29 +61,10 @@ function OneEvent() {
           />
 
           <p className="mt-4" style={{ textAlign: "justify" }}>
-            <span style={{ display: "block", overflowY: "hidden" }}>
-              t ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing t ever since the 1500s, when an unknown printer took a
-              galley of type and scrambled it to make a type specimen book. It
-              has survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing t ever since the 1500s, when an unknown printer took a
-              galley of type rised in the 1960s with the release of Letraset
-              sheets containing. when an unknown printer took a galley of type
-              rised in the 1960s with the release of Letraset sheets containing.
-              when an unknown printer took a galley of type rised in the 1960s
-              with the release of Letraset sheets containing. the 1960s with the
-              release of Letraset sheets containing. when an unknown printer
-              took a galley of type rised in the 1960s with the release of
-              Letraset sheets containing. when an unknown printer took a galley
-              of type rised in the 1960s with the release of Letraset sheets
-              containing.{" "}
-            </span>
+            <span
+              dangerouslySetInnerHTML={{ __html: description }}
+              style={{ display: "block", overflowY: "hidden" }}
+            ></span>
             {/* <span
               //   onClick={() => setHeight(readMore ? "100%" : 100)}
               className="touchable-opacity"
@@ -66,7 +85,9 @@ function OneEvent() {
             >
               Date
             </h6>
-            <small>September 27th 2023, 4:00 pm-5:00 pm</small>
+            <small>
+              {formatTimeRange(start_date_and_time, end_date_and_time)}
+            </small>
           </div>
 
           <div
@@ -87,4 +108,12 @@ function OneEvent() {
   );
 }
 
-export default OneEvent;
+const mapState = (state) => {
+  return { events: state.events };
+};
+
+const mapDispatch = (dispatch) => {
+  return bindActionCreators({ updateEvents: updateEventsObj }, dispatch);
+};
+
+export default connect(mapState, mapDispatch)(OneEvent);

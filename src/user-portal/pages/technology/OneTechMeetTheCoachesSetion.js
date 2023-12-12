@@ -30,9 +30,15 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
   },
 ];
-function OneTechMeetTheCoachesSection({ toggleModal, sectionId }) {
+function OneTechMeetTheCoachesSection({
+  toggleModal,
+  sectionId,
+  coaches,
+  ref,
+}) {
   return (
     <div
+      ref={ref}
       id={sectionId}
       className="mt-5 elevate-float-pro"
       style={{
@@ -48,10 +54,10 @@ function OneTechMeetTheCoachesSection({ toggleModal, sectionId }) {
         </SectionTitle>
 
         <Row style={{ marginTop: 50 }}>
-          {[1, 3, 4].map((item, index) => {
+          {coaches?.map((coach, index) => {
             return (
               <Col key={index?.toString()} xs={4}>
-                <OneCoach />
+                <OneCoach {...coach} />
               </Col>
             );
           })}
