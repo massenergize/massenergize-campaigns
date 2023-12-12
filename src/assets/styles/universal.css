@@ -18,6 +18,7 @@
   --app-kicking-yellow: #FFD66D;
   --kicking-background: #FFF5DD;
   --app-antique-white: antiquewhite;
+}
 
 .already-liked {
   color:var(--app-orange)  !important
