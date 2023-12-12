@@ -71,15 +71,30 @@ function TechnologyFullViewPage({
   const { campaign_technology_id, campaign_id } = useParams();
   const id = campaign_technology_id;
 
+  console.log("TECHNOLOGY", technology);
+
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
     if (ref?.current)
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  const recorderAView = () => {
+    apiCall("/campaigns.technology.view", {
+      campaign_technology_id: technology?.campaign_technology_id,
+    }).then((response) => {
+      if (!response || !response.success)
+        return console.log("ERROR_RECORDING_A_VIEW: ", response.error);
+    });
+  };
+
   useEffect(() => {
     scrollToSection(targetSection);
   }, [mounted]);
+
+  useEffect(() => {
+    if (technology?.campaign_technology_id) recorderAView();
+  }, [technology?.campaign_technology_id]);
 
   const campaignExists = campaign && campaign !== LOADING;
 
@@ -136,7 +151,6 @@ function TechnologyFullViewPage({
     more_details,
   } = technology;
 
-  console.log("Here we go again", technology);
   const like = (user) => {
     if (!user) return triggerRegistrationForLike();
     apiCall("/campaigns.technology.like", {
@@ -244,6 +258,7 @@ function TechnologyFullViewPage({
               <InteractionsPanel
                 openShareBox={openShareBox}
                 openCommentBox={() => triggerCommentBox(user)}
+                liked={technology?.has_liked}
                 likes={likes}
                 like={() => like(authUser)}
                 views={views}

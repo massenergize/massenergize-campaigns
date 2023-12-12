@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const interactions = [
   { icon: "fa-heart", name: "Likes", count: 1345 },
@@ -13,8 +13,21 @@ function InteractionsPanel({
   comments,
   openShareBox,
   like,
+  liked,
 }) {
   const [hasLiked, setHasLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+
+  useEffect(() => {
+    setHasLiked(liked);
+    setLikeCount(likes);
+  }, [likes, liked]);
+
+  const doLike = () => {
+    setLikeCount(hasLiked ? likeCount - 1 : likeCount + 1);
+    setHasLiked(!hasLiked);
+    like();
+  };
 
   return (
     <div
@@ -31,8 +44,8 @@ function InteractionsPanel({
       <div
         // key={index?.toString()}
         onClick={() => {
-          setHasLiked(!hasLiked); // Just for immediate reflection
-          like();
+          // setHasLiked(!hasLiked); // Just for immediate reflection
+          doLike();
         }}
         style={{
           display: "flex",
@@ -50,8 +63,8 @@ function InteractionsPanel({
           // style={{ fontWeight: "bold", textDecoration: "underline" }}
           style={{ fontWeight: "bold" }}
         >
-          {`${likes ? likes : ""} ${
-            !likes || likes === 1 ? " Like" : " Likes"
+          {`${likeCount ? likeCount : ""} ${
+            !likeCount || likeCount === 1 ? " Like" : " Likes"
           }`}
         </small>
       </div>
