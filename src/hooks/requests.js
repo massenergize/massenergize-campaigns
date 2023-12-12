@@ -1,9 +1,9 @@
 import { apiCall } from "../api/messenger";
 
-export async function fetchAllCampaigns () {
+export async function fetchAllCampaigns (url) {
   try {
-    const response = await apiCall("all-campaigns", {}, null);
-    return  await response.json();
+    const response = await apiCall(url, {}, null);
+    return  response.data;
   } catch (error) {
     console.log(error);
     throw error;

@@ -6,7 +6,7 @@ import {formatDebugValue} from "../helpers/utils";
  * The label and value are displayed in the React DevTools.
  * @param label
  * @param initialState
- * @returns {[unknown, React.Dispatch<React.SetStateAction<unknown>>]}
+ * @returns {[any, React.Dispatch<React.SetStateAction<unknown>>]}
  */
 export const useNamedState = (label, initialState) => {
   const states = useState(initialState);
