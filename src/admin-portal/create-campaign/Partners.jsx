@@ -139,19 +139,17 @@ const Partners = () => {
 	const handleCoachAdd = async () => {};
 
 	const initialState = {
-		isTemplate: false,
-		title: "",
-		slogan: "",
-		start_date: "",
-		end_date: "",
-		description: "",
+		name: "",
 		logo: "",
-		fullName: "",
+		phone_number: "",
 		email: "",
-		contact: "",
-		profileImage: "",
-		tagline: "",
+		website: "",
 	};
+
+	const [partners, setPartners] = useState({
+		campaign_id: "",
+		partner_id: [],
+	});
 
 	const reducer = (state, action) => {
 		switch (action.type) {
@@ -221,14 +219,14 @@ const Partners = () => {
 				<Row className="mt-4">
 					<Col>
 						<Dropdown
-							displayTextToggle="Select technologies for this campaign"
+							displayTextToggle="Select Partners for this campaign"
 							data={opts}
 							valueExtractor={(item) => item}
 							labelExtractor={(item) => item?.name}
 							multiple={true}
 							onItemSelect={(selectedItem, allSelected) => {
 								console.log(allSelected);
-								handleFieldChange("technologies", allSelected);
+								setPartners({ ...partners, partner_id: allSelected });
 							}}
 						/>
 					</Col>
@@ -286,7 +284,7 @@ const Partners = () => {
 								required={false}
 								type="textbox"
 								onChange={(val) => {
-									handleFieldChange("contact", val);
+									handleFieldChange("phone_number", val);
 								}}
 							/>
 						</Col>

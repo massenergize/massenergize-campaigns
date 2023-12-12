@@ -1,10 +1,11 @@
-import React, { useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { motion as m } from "framer-motion";
 import { Col, Container, Row } from "react-bootstrap";
 import Dropdown from "../../components/admin-components/Dropdown";
 import Button from "../../components/admin-components/Button";
 import Chip from "../../components/admin-components/Chip";
 const CampaignCoaches = () => {
+	const [count, setCount] = useState([]);
 	const opts = [
 		{
 			id: 1,
@@ -33,25 +34,9 @@ const CampaignCoaches = () => {
 		},
 	];
 
-	const handleRemove = (data) => {
-		console.log(data);
-	};
-
-	const handleCoachAdd = async () => {};
-
 	const initialState = {
-		isTemplate: false,
-		title: "",
-		slogan: "",
-		start_date: "",
-		end_date: "",
-		description: "",
-		logo: "",
-		fullName: "",
-		email: "",
-		contact: "",
-		profileImage: "",
-		tagline: "",
+		user_ids: [],
+		campaign_id: [],
 	};
 
 	const reducer = (state, action) => {
@@ -69,10 +54,26 @@ const CampaignCoaches = () => {
 		dispatch({ type: "SET_FIELD_VALUE", field, value });
 	};
 
+	const handleRemove = (data) => {
+		const filtered = formData?.user_ids?.filter(
+			(coach) => coach?.id !== data?.id
+		);
+
+		handleFieldChange("user_ids", filtered);
+
+		// dispatch({ type: "SET_FIELD_VALUE", 'user_ids', filtered })
+	};
+
+	const handleCoachAdd = async () => {};
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log(formData);
 	};
+
+	useEffect(() => {
+		handleFieldChange("user_ids", count);
+	}, [count]);
 
 	return (
 		<m.div
@@ -81,7 +82,11 @@ const CampaignCoaches = () => {
 			transition={{ duration: 0.3 }}
 		>
 			<Container>
-				<form>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+					}}
+				>
 					<Row className="py-4">
 						<Col>
 							<p>
@@ -95,9 +100,15 @@ const CampaignCoaches = () => {
 					<Row className="py-4">
 						<Col>
 							<div className="smallimages-container-wrapper">
-								{formData?.coaches?.map((coach) => {
+								{formData?.user_ids?.map((coach) => {
 									return (
-										<div className="" key={coach?.id} onClick={handleRemove}>
+										<div
+											className=""
+											key={coach?.id}
+											onClick={() => {
+												handleRemove(coach);
+											}}
+										>
 											<Chip text={coach?.first_name} />
 										</div>
 									);
@@ -114,8 +125,10 @@ const CampaignCoaches = () => {
 								labelExtractor={(item) => item?.first_name}
 								multiple={true}
 								onItemSelect={(selectedItem, allSelected) => {
-									handleFieldChange("coaches", allSelected);
+									setCount(allSelected);
+									handleFieldChange("user_ids", allSelected);
 								}}
+								defaultValue={formData?.user_ids}
 							/>
 						</Col>
 					</Row>

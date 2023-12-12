@@ -37,10 +37,10 @@ const Incentives = () => {
 	];
 
 	const initialState = {
-		name: "",
-		image: "",
+		technology_id: "",
+		title: "",
 		description: "",
-		summary: "",
+		image: "",
 	};
 
 	const reducer = (state, action) => {
@@ -62,6 +62,8 @@ const Incentives = () => {
 		e.preventDefault();
 		console.log(formData);
 	};
+
+	// https://691733fdd2482845e4c748c07bf195ae.serveo.net/
 
 	return (
 		<div>

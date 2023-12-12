@@ -1,8 +1,11 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import PageWrapper from "./PageWrapper";
+import CampaignStatsPopup from "../../../components/admin-components/CampaignStatsPopup";
 
 const CreateTechnologyPageWrapper = ({ children }) => {
 	return (
+		// <PageWrapper>
 		<div className="p-4">
 			<Container>
 				<Row className="py-4">
@@ -23,6 +26,7 @@ const CreateTechnologyPageWrapper = ({ children }) => {
 					</Col>
 				</Row>
 			</Container>
+			<div>{/* <CampaignStatsPopup /> */}</div>
 			<div className="mb-4 pb-4">{children}</div>
 		</div>
 	);

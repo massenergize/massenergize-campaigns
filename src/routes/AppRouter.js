@@ -16,6 +16,7 @@ import { NewCampaign } from "../admin-portal/pages/campaign/new";
 import { AllCampaigns } from "../admin-portal/pages/campaign/all";
 import { CreateTechnology } from "../admin-portal/pages/technology/new";
 import OneTestimonial from "../user-portal/pages/testimonials/OneTestimonial";
+import CreateCampaignAccount from "../admin-portal/pages/campaign-account/CreateCampaignAccount";
 
 const ROUTE_TABLE = [
 	{
@@ -60,6 +61,10 @@ const ROUTE_TABLE = [
 		component: AllComponents,
 	},
 
+	{
+		path: "/admin/campaign-account/new",
+		component: CreateCampaignAccount,
+	},
 	{
 		path: "/components",
 		component: AllComponents,

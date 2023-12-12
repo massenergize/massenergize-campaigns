@@ -50,11 +50,19 @@
 	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5),
 		0 4px 6px -2px rgba(0, 0, 0, 0.05);
 	cursor: pointer;
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 300ms;
 }
 
 .small-image-text {
 	margin-top: -1.2rem;
 	padding-top: 2rem;
+}
+
+.image-close-btn:hover {
+	background-color: #ff6565;
+	color: white;
 }
 
 /* ................. goals page ...................... */
@@ -68,31 +76,34 @@
 /*  .................. Navigation tabs  ........................ */
 
 .tab-active {
-	color: white;
+	color: white !important;
 	background-color: #6e207c;
 }
 
 .nav-tabs {
 	text-align: center;
-	cursor: pointer;
 	width: 100%;
 	white-space: pre;
-	transition-property: all;
-	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-	transition-duration: 300ms;
-
 	margin-bottom: 0;
 	border-bottom: none;
 }
 
+.nav-tabs-main:hover {
+	background-color: #be63ce;
+	border-color: #be63ce;
+	color: white;
+}
+
 .nav-tabs-main {
-	/*border-width: 0.1px;*/
 	padding: 1rem;
 	display: flex;
 	width: 100% !important;
-
 	border: 1px solid #6e207c;
 	border-right: none;
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 300ms;
+	cursor: pointer;
 }
 
 .nav-tabs-main:last-child {
@@ -104,10 +115,16 @@
 	justify-content: space-between;
 	align-items: center;
 	align-content: center;
-	/* border: solid;
-	border-width: 1px; */
 	padding: 0;
-	overflow: scroll;
+	color: #6e207c;
+}
+
+.nav-tabs-container::-webkit-scrollbar {
+	display: none;
+}
+
+.nav-tabs-main::-webkit-scrollbar {
+	display: none;
 }
 
 .btn-fill {
@@ -117,4 +134,18 @@
 	padding: 1rem;
 	border: solid 2px #6e207c;
 	width: 100%;
+}
+
+/* .....................  sidebar  ............................   */
+
+.sidebar-con {
+	height: 100vh;
+	width: 20%;
+}
+
+.sidebar-container-main {
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+	gap: 20px;
 }

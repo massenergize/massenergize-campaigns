@@ -5,16 +5,76 @@ import dayjs from "dayjs";
 import { SelectColumnFilter } from "../../components/data-table/filters";
 import { TableFooter } from "../../components/data-table/TableFooter";
 const DUMMY_DATA = [
-	{ logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png", name: "Name1", createdAt: "2023-12-01T00:00:00Z", updatedAt: "2023-12-01T00:00:00Z", category: "Category1" },
-	{ logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png", name: "Name2", createdAt: "2023-12-02T00:00:00Z", updatedAt: "2023-12-02T00:00:00Z", category: "Category2" },
-	{ logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png", name: "Name3", createdAt: "2023-12-03T00:00:00Z", updatedAt: "2023-12-03T00:00:00Z", category: "Category3" },
-	{ logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png", name: "Name4", createdAt: "2023-12-04T00:00:00Z", updatedAt: "2023-12-04T00:00:00Z", category: "Category4" },
-	{ logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png", name: "Name5", createdAt: "2023-12-05T00:00:00Z", updatedAt: "2023-12-05T00:00:00Z", category: "Category5" },
-	{ logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png", name: "Name6", createdAt: "2023-12-06T00:00:00Z", updatedAt: "2023-12-06T00:00:00Z", category: "Category6" },
-	{ logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png", name: "Name7", createdAt: "2023-12-07T00:00:00Z", updatedAt: "2023-12-07T00:00:00Z", category: "Category7" },
-	{ logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png", name: "Name8", createdAt: "2023-12-08T00:00:00Z", updatedAt: "2023-12-08T00:00:00Z", category: "Category8" },
-	{ logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png", name: "Name9", createdAt: "2023-12-09T00:00:00Z", updatedAt: "2023-12-09T00:00:00Z", category: "Category9" },
-	{ logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png", name: "Name10", createdAt: "2023-12-10T00:00:00Z", updatedAt: "2023-12-10T00:00:00Z", category: "Category10" },
+	{
+		logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
+		name: "Name1",
+		createdAt: "2023-12-01T00:00:00Z",
+		updatedAt: "2023-12-01T00:00:00Z",
+		category: "Category1",
+	},
+	{
+		logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
+		name: "Name2",
+		createdAt: "2023-12-02T00:00:00Z",
+		updatedAt: "2023-12-02T00:00:00Z",
+		category: "Category2",
+	},
+	{
+		logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
+		name: "Name3",
+		createdAt: "2023-12-03T00:00:00Z",
+		updatedAt: "2023-12-03T00:00:00Z",
+		category: "Category3",
+	},
+	{
+		logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
+		name: "Name4",
+		createdAt: "2023-12-04T00:00:00Z",
+		updatedAt: "2023-12-04T00:00:00Z",
+		category: "Category4",
+	},
+	{
+		logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
+		name: "Name5",
+		createdAt: "2023-12-05T00:00:00Z",
+		updatedAt: "2023-12-05T00:00:00Z",
+		category: "Category5",
+	},
+	{
+		logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
+		name: "Name6",
+		createdAt: "2023-12-06T00:00:00Z",
+		updatedAt: "2023-12-06T00:00:00Z",
+		category: "Category6",
+	},
+	{
+		logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
+		name: "Name7",
+		createdAt: "2023-12-07T00:00:00Z",
+		updatedAt: "2023-12-07T00:00:00Z",
+		category: "Category7",
+	},
+	{
+		logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
+		name: "Name8",
+		createdAt: "2023-12-08T00:00:00Z",
+		updatedAt: "2023-12-08T00:00:00Z",
+		category: "Category8",
+	},
+	{
+		logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
+		name: "Name9",
+		createdAt: "2023-12-09T00:00:00Z",
+		updatedAt: "2023-12-09T00:00:00Z",
+		category: "Category9",
+	},
+	{
+		logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
+		name: "Name10",
+		createdAt: "2023-12-10T00:00:00Z",
+		updatedAt: "2023-12-10T00:00:00Z",
+		category: "Category10",
+	},
 ];
 
 const Events = () => {
@@ -23,84 +83,86 @@ const Events = () => {
 	const columns = useMemo(
 		() => [
 			{
-				id : "logo",
-				Header : () => null,
-				accessor : (values) => {
+				id: "logo",
+				Header: () => null,
+				accessor: (values) => {
 					const { logo } = values;
 					return (
 						<div>
-							<img src={logo} alt="logo" style={{ width: "40px", height: "40px" }} />
+							<img
+								src={logo}
+								alt="logo"
+								style={{ width: "40px", height: "40px" }}
+							/>
 						</div>
 					);
 				},
-				className : "text-left",
-				filter : "equals",
+				className: "text-left",
+				filter: "equals",
 
-				style : {
-					textAlign : "left"
-				}
+				style: {
+					textAlign: "left",
+				},
 			},
 			{
-				Filter : SelectColumnFilter,
-				Header : "Name",
-				accessor : "name",
-				className : "text-left",
-				filter : "equals",
-				id : "name",
-				style : {
-					textAlign : "left",
-				}
+				Filter: SelectColumnFilter,
+				Header: "Name",
+				accessor: "name",
+				className: "text-left",
+				filter: "equals",
+				id: "name",
+				style: {
+					textAlign: "left",
+				},
 			},
 			{
-				Filter : SelectColumnFilter,
-				Header : "Date",
-				accessor : (values) => {
+				Filter: SelectColumnFilter,
+				Header: "Date",
+				accessor: (values) => {
 					const { createdAt } = values;
 					return dayjs(createdAt).format("MM-DD-YYYY");
 				},
-				disableSortBy : true,
-				filter : "equals",
-				id : "createdAt",
-				style : {
-					textAlign : "center"
-				}
+				disableSortBy: true,
+				filter: "equals",
+				id: "createdAt",
+				style: {
+					textAlign: "center",
+				},
 			},
 
 			{
-				Header : "Category",
-				accessor : (values) => {
+				Header: "Category",
+				accessor: (values) => {
 					const { category } = values;
 					return <span>{category}</span>;
 				},
-				id : "category",
-				style : {
-					textAlign : "center"
-				}
+				id: "category",
+				style: {
+					textAlign: "center",
+				},
 			},
 		],
 		[]
 	);
 
-	const [ pagesCount, setPagesCount ] = useState(1);
-	const [ pageIndex, setPageIndex ] = useState(0);
-	const [ pageSize, setPageSize ] = useState(10);
+	const [pagesCount, setPagesCount] = useState(1);
+	const [pageIndex, setPageIndex] = useState(0);
+	const [pageSize, setPageSize] = useState(10);
 
-
-	const [ skipPageReset, setSkipPageReset ] = React.useState(false);
+	const [skipPageReset, setSkipPageReset] = React.useState(false);
 	const updateMyData = (rowIndex, columnId, value) => {
 		setSkipPageReset(true);
 	};
 
-	let [ canGotoPreviousPage, setCanPreviousPage ] = useState(false);
-	let [ canGotoNextPage, setCanGotoNextPage ] = useState(false);
+	let [canGotoPreviousPage, setCanPreviousPage] = useState(false);
+	let [canGotoNextPage, setCanGotoNextPage] = useState(false);
 
 	const fetchData = async function (pageIndex, pageSize) {
 		try {
-
 		} catch (e) {
 			console.log(e);
 		}
-	}
+	};
 
 	// region Pagination
 	const gotoPage = async function (next) {
@@ -143,7 +205,11 @@ const Events = () => {
 	// endregion
 
 	return (
-		<m.div initial={{ y: " 10%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
+		<m.div
+			initial={{ y: " 10%" }}
+			animate={{ y: 0 }}
+			transition={{ duration: 0.3 }}
+		>
 			<DataTable
 				className={"table-responsive-sm table"}
 				columns={columns}

@@ -1,34 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./styles.css";
 import Checkbox from "./Checkbox";
 
 const Dropdown = ({
-	displayTextToggle,
-	data,
-	valueExtractor,
-	labelExtractor,
-	onItemSelect,
-	multiple,
+  displayTextToggle,
+  data,
+  valueExtractor,
+  labelExtractor,
+  onItemSelect,
+  multiple,
+  defaultValue,
+  label,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedItem, setSelectedItem] = useState([]);
+	// const [nselectedItem, nsetSelectedItem] = useState([]);
+	const ref = useRef();
+	// defaultValue ? defaultValue : []
 	const [labelShowing, setLabelShowing] = useState(displayTextToggle);
 
-	const handleToggleDropdown = () => {
-		setIsOpen(!isOpen);
-	};
+  const handleToggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const [nv, setNv] = useState([]);
 
 	const handleSelect = (value) => {
 		onItemSelect && onItemSelect(value, selectedItem);
 
 		if (multiple) {
-			if (selectedItem.find((item) => item.id === value?.id)) {
-				const filtered = selectedItem.filter((item) => item.id !== value?.id);
+			if (selectedItem?.find((item) => item?.id === value?.id)) {
+				const filtered = selectedItem?.filter((item) => item?.id !== value?.id);
 				setSelectedItem(filtered);
-				console.log(filtered);
 				return filtered;
 			} else {
 				setSelectedItem([...selectedItem, value]);
+				// console.log(selectedItem);
 				return selectedItem;
 			}
 		} else {
@@ -37,8 +44,29 @@ const Dropdown = ({
 		}
 	};
 
+	// useEffect(() => {
+	// 	onItemSelect && onItemSelect(nv, selectedItem);
+	// 	setSelectedItem(nselectedItem);
+
+	// 	// setLabelShowing();
+	// 	console.log(nselectedItem, selectedItem);
+	// }, []);
+
+	useEffect(() => {
+		function handleClickOutside(event) {
+			if (ref.current && !ref.current.contains(event.target)) {
+				setIsOpen(false);
+			}
+		}
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [ref]);
+
 	return (
-		<div className="cusdropdown-container">
+		<div ref={ref} className="cusdropdown-container">
 			<div
 				className={`cusdropdown ${isOpen && "open"}`}
 				onClick={handleToggleDropdown}
@@ -91,6 +119,8 @@ const Dropdown = ({
 									value={valueExtractor && valueExtractor(datum)}
 									onItemSelect={(val) => {
 										handleSelect(val);
+										setNv(val);
+										console.log(nv);
 									}}
 								/>
 							</div>

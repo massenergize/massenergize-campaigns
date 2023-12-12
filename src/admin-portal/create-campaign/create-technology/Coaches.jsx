@@ -45,13 +45,12 @@ const Coaches = () => {
 		console.log(data);
 	};
 
-	const handleCoachAdd = async () => {};
-
 	const initialState = {
-		name: "",
+		technology_id: "",
+		full_name: "",
+		community: "",
 		image: "",
-		description: "",
-		summary: "",
+		phone_number: "",
 	};
 
 	const reducer = (state, action) => {
@@ -67,6 +66,11 @@ const Coaches = () => {
 
 	const handleFieldChange = (field, value) => {
 		dispatch({ type: "SET_FIELD_VALUE", field, value });
+	};
+
+	const handleCoachAdd = async (e) => {
+		e.preventDefault();
+		console.log(formData);
 	};
 
 	const handleSubmit = async (e) => {
@@ -88,36 +92,7 @@ const Coaches = () => {
 							</p>
 						</Col>
 					</Row>
-					<Row className="py-4">
-						<Col>
-							<div className="smallimages-container-wrapper">
-								{formData?.coaches?.map((coach) => {
-									return (
-										<div className="" key={coach?.id} onClick={handleRemove}>
-											<Chip text={coach?.first_name} />
-										</div>
-									);
-								})}
-							</div>
-						</Col>
-					</Row>
-					<Row className="mt-4">
-						<Col>
-							<Dropdown
-								displayTextToggle="Select technologies for this campaign"
-								data={opts}
-								valueExtractor={(item) => item}
-								labelExtractor={(item) => item?.first_name}
-								multiple={true}
-								onItemSelect={(selectedItem, allSelected) => {
-									console.log(allSelected);
-									// handleFieldChange("name", val);
 
-									// setFormData({ ...formData, coaches: allSelected });
-								}}
-							/>
-						</Col>
-					</Row>
 					<Row className="py-4 mt-4 justify-content-end">
 						<Col>
 							<Button
@@ -131,7 +106,7 @@ const Coaches = () => {
 			</Container>
 
 			<Container>
-				<form>
+				<form onsu>
 					<Row className="mt-4 pt-4">
 						<Col className="mt-4 pt-4">
 							<h5 className="theme-color">Create A New Coach</h5>
@@ -148,7 +123,7 @@ const Coaches = () => {
 								required={true}
 								type="textbox"
 								onChange={(val) => {
-									// setFormData({ ...formData, full_name: val });
+									handleFieldChange("full_name", val);
 								}}
 							/>
 						</Col>
@@ -156,12 +131,12 @@ const Coaches = () => {
 					<Row className="py-4">
 						<Col>
 							<Input
-								label="Email of contact"
+								label="Email / Contact"
 								placeholder="Enter email here..."
 								required={true}
 								type="textbox"
 								onChange={(val) => {
-									// setFormData({ ...formData, email: val });
+									handleFieldChange("phone_number", val);
 								}}
 							/>
 						</Col>
@@ -174,7 +149,7 @@ const Coaches = () => {
 								required={true}
 								type="textbox"
 								onChange={(val) => {
-									// setFormData({ ...formData, cummunity: val });
+									handleFieldChange("community", val);
 								}}
 							/>
 						</Col>
@@ -186,7 +161,7 @@ const Coaches = () => {
 								id="coach_image"
 								text="Add a profile image for the Coach"
 								valueExtractor={(val) => {
-									// setFormData({ ...formData, logo: val });
+									handleFieldChange("image", val);
 								}}
 							/>
 						</Col>

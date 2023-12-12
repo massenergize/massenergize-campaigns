@@ -1,8 +1,10 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import PageWrapper from "./PageWrapper";
 
 const CreateCampaignPageWrapper = ({ children }) => {
 	return (
+		// <PageWrapper>
 		<div className="p-4">
 			<Container>
 				<Row className="py-4">

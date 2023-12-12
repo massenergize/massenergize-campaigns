@@ -34,10 +34,8 @@ const Vendors = () => {
 	];
 
 	const initialState = {
-		name: "",
-		image: "",
-		description: "",
-		summary: "",
+		technology_id: "",
+		vendor_id: [],
 	};
 
 	const reducer = (state, action) => {
@@ -80,7 +78,24 @@ const Vendors = () => {
 						/>
 					</Col>
 				</Row>
-				<Row className="py-4">
+				<Row className="justify-content-end">
+					<Col className="mt-4 py-4">
+						<Button
+							text="Save Changes"
+							// onSubmit={handleSubmit}
+							rounded={false}
+						/>
+					</Col>
+				</Row>
+			</Container>
+
+			<Container className="py-4 my-4">
+				<Row className="pt-4 mt-4">
+					<Col>
+						<h6>You can upload a .csv file of vendors if you have one</h6>
+					</Col>
+				</Row>
+				<Row className="py-4 my-4">
 					<Col>
 						<FileUploader
 							required={false}
@@ -96,7 +111,7 @@ const Vendors = () => {
 				<Row className="mt-4 py-4 justify-content-end">
 					<Col className="mt-4 py-4">
 						<Button
-							text="Save Changes"
+							text="Submit File"
 							// onSubmit={handleSubmit}
 							rounded={false}
 						/>

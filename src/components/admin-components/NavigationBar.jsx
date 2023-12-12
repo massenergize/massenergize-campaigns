@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import { useReducer, useState } from "react";
 import Col from "react-bootstrap/esm/Col";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
@@ -7,22 +7,47 @@ import Input from "./Input";
 import Button from "./Button";
 import Checkbox from "./Checkbox";
 
-const NavigationBar = ({ data }) => {
+const NavigationBar = ({ data, showDel }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [selectedItem, setSelectedItem] = useState([]);
-	const [labelShowing, setLabelShowing] = useState();
 
 	const handleToggleDropdown = () => {
 		setIsOpen(!isOpen);
 	};
 
-	const [formData, setFormData] = useState({
-		description: "",
+	const initialState = {
+		isTemplate: false,
 		title: "",
-		icon: "",
-	});
+		slogan: "",
+		start_date: "",
+		end_date: "",
+		description: "",
+		logo: "",
+		fullName: "",
+		email: "",
+		contact: "",
+		profileImage: "",
+		tagline: "",
+	};
 
-	const handleSelect = (value) => {};
+	const reducer = (state, action) => {
+		switch (action.type) {
+			case "SET_FIELD_VALUE":
+				return { ...state, [action.field]: action.value };
+			default:
+				throw new Error(`Unsupported action type: ${action.type}`);
+		}
+	};
+
+	const [formData, dispatch] = useReducer(reducer, initialState);
+
+	const handleFieldChange = (field, value) => {
+		dispatch({ type: "SET_FIELD_VALUE", field, value });
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		console.log(formData);
+	};
 
 	const handleUpdate = async () => {};
 
@@ -85,17 +110,19 @@ const NavigationBar = ({ data }) => {
 									value={data?.live}
 								/>
 							</Col>
-							<Col className="px-4">
-								<h6
-									style={{
-										color: "red",
-										letterSpacing: "1px",
-										cursor: "pointer",
-									}}
-								>
-									Delete Menu Group
-								</h6>
-							</Col>
+							{showDel && (
+								<Col className="px-4">
+									<h6
+										style={{
+											color: "red",
+											letterSpacing: "1px",
+											cursor: "pointer",
+										}}
+									>
+										Delete Menu Group
+									</h6>
+								</Col>
+							)}
 						</Row>
 						<Row className="py-4">
 							<Col className="px-4">
@@ -105,7 +132,7 @@ const NavigationBar = ({ data }) => {
 									required={false}
 									type="textbox"
 									onChange={(val) => {
-										setFormData({ ...formData, description: val });
+										// setFormData({ ...formData, description: val });
 									}}
 									value={data?.name}
 								/>
@@ -119,7 +146,7 @@ const NavigationBar = ({ data }) => {
 									required={false}
 									type="textbox"
 									onChange={(val) => {
-										setFormData({ ...formData, description: val });
+										// setFormData({ ...formData, description: val });
 									}}
 									value={data?.url}
 								/>
@@ -200,7 +227,7 @@ const NavigationBar = ({ data }) => {
 										required={true}
 										type="textbox"
 										onChange={(val) => {
-											setFormData({ ...formData, description: val });
+											// setFormData({ ...formData, description: val });
 										}}
 										value={data?.description}
 									/>
@@ -214,7 +241,7 @@ const NavigationBar = ({ data }) => {
 										required={false}
 										type="textbox"
 										onChange={(val) => {
-											setFormData({ ...formData, description: val });
+											// setFormData({ ...formData, description: val });
 										}}
 										value={data?.description}
 									/>

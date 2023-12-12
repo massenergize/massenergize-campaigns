@@ -1,0 +1,22 @@
+.title{
+    color:#6E207C;
+    text-align:center;
+}
+.description{
+    color:grey;
+    text-align:center;
+}
+
+.campaign-account-main{
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+}
+  
+.campaign-account-root{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}

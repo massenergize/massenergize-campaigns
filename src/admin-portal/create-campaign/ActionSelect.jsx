@@ -42,24 +42,14 @@ const ActionSelect = () => {
 		},
 	];
 
-	// console.log(formData);
-
 	const navigate = useNavigate();
 
 	const initialState = {
-		isTemplate: false,
-		title: "",
-		slogan: "",
-		start_date: "",
-		end_date: "",
-		description: "",
-		logo: "",
-		fullName: "",
-		email: "",
-		contact: "",
-		profileImage: "",
-		tagline: "",
+		campaign_id: "",
+		technology_id: [],
 	};
+
+	const [choice, setChoice] = useState([]);
 
 	const reducer = (state, action) => {
 		switch (action.type) {
@@ -81,7 +71,19 @@ const ActionSelect = () => {
 		console.log(formData);
 	};
 
-	useEffect(() => {}, [formData]);
+	const handleRemove = (data) => {
+		const filtered = formData?.technology_id?.filter((tech) => {
+			return tech?.id !== data?.id;
+		});
+
+		handleFieldChange("technology_id", filtered);
+		console.log(formData);
+	};
+
+	useEffect(() => {
+		// handleFieldChange("technologies", choice);
+		console.log(formData);
+	}, [formData]);
 
 	return (
 		<m.div
@@ -115,8 +117,11 @@ const ActionSelect = () => {
 								multiple={true}
 								onItemSelect={(selectedItem, allSelected) => {
 									console.log(allSelected);
-									handleFieldChange("technologies", allSelected);
+									handleFieldChange("technology_id", allSelected);
+
+									// setChoice(allSelected);
 								}}
+								// defaultValue={formData?.technologies || []}
 							/>
 						</Col>
 					</Row>
@@ -131,11 +136,16 @@ const ActionSelect = () => {
 					<Row className="mb-4 pb-4">
 						<Col>
 							<div className="smallimages-container-wrapper">
-								{formData?.technologies?.map((tech) => {
+								{formData?.technology_id?.map((tech) => {
 									return (
 										<div className="small-image-container" key={tech?.id}>
 											<img className="small-image" src={tech?.image} alt="" />
-											<span className="image-close-btn">
+											<span
+												onClick={() => {
+													handleRemove(tech);
+												}}
+												className="image-close-btn"
+											>
 												<FontAwesomeIcon icon={faClose} />
 											</span>
 											<p className="text-center pb-3 small-image-text light-gray-back rounded">
