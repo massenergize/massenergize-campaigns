@@ -53,7 +53,7 @@ export async function apiCall(
   //     destinationUrl = "api/" + destinationUrl;
   //   }
   destinationUrl = `${host}/${destinationUrl}`;
-  console.log("LETS SEE URL", destinationUrl);
+ 
 
   const response = await fetch(destinationUrl, {
     credentials: "include",

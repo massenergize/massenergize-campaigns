@@ -7,15 +7,18 @@ import { useNavigate, useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { LOADING } from "../../../utils/Constants";
-import { updateTestimonialsObjAction } from "../../../redux/actions/actions";
+import {
+  appInnitAction,
+  updateTestimonialsObjAction,
+} from "../../../redux/actions/actions";
 import NotFound from "../error/404";
 import Loading from "../../../components/pieces/Loading";
 import { apiCall } from "../../../api/messenger";
 
-function OneTestimonial({ testimonials, updateTestimonials, campaign }) {
+function OneTestimonial({ testimonials, updateTestimonials, campaign, init }) {
   const [testimonial, setTestimonial] = useState(LOADING);
   const [error, setError] = useState("");
-  const { id } = useParams();
+  const { id, campaign_id } = useParams();
 
   const navigator = useNavigate();
   const { title, body, image } = testimonial || {};
@@ -33,7 +36,11 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign }) {
 
   const otherTestimonials = groupTestimonials();
 
+  const campaignExists = campaign && campaign !== LOADING;
+
   useEffect(() => {
+    if (!campaignExists) init(campaign_id);
+
     var testim = (testimonials || {})[id];
     if (testim) setTestimonial(testim);
     else setTestimonial(LOADING);
@@ -41,7 +48,6 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign }) {
     // still fetch event form API to get up-to-date content
     apiCall("/campaigns.technologies.testimonials.info", { id })
       .then((response) => {
-        console.log("LEts seee RESPONSE", response);
         if (!response.success) {
           setError(response.error);
           return console.log("TESTIMONIAL_FETCH_ERROR_BE:", response.error);
@@ -113,7 +119,9 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign }) {
                 <li
                   key={index?.toString()}
                   onClick={() =>
-                    navigator(`/technology/testimonial/${item?.id}`)
+                    navigator(
+                      `/campaign/${item?.campaign?.id}/technology/testimonial/${item?.id}`
+                    )
                   }
                   className="touchable-opacity"
                   style={{
@@ -141,7 +149,7 @@ const mapState = (state) => {
 };
 const mapDispatch = (dispatch) => {
   return bindActionCreators(
-    { updateTestimonials: updateTestimonialsObjAction },
+    { updateTestimonials: updateTestimonialsObjAction, init: appInnitAction },
     dispatch
   );
 };

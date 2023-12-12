@@ -10,20 +10,26 @@ import Loading from "../../../components/pieces/Loading";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { apiCall } from "../../../api/messenger";
-import { updateEventsObj } from "../../../redux/actions/actions";
+import {
+  appInnitAction,
+  updateEventsObj,
+} from "../../../redux/actions/actions";
 import { formatTimeRange } from "../../../utils/utils";
-function OneEvent({ events, updateEvents }) {
+function OneEvent({ events, updateEvents, init, campaign }) {
   const [event, setEvent] = useState(LOADING);
   const [error, setError] = useState("");
-  const { eventId } = useParams();
+  const { eventId, campaign_id } = useParams();
   const id = eventId;
 
   const { name, start_date_and_time, description, end_date_and_time } =
     event || {};
+
+  const campaignExists = campaign && campaign !== LOADING;
   useEffect(() => {
+    if (!campaignExists) init(campaign_id);
+
     var ev = (events || {})[id];
     if (ev) setEvent(ev);
-
     // still fetch event form API to get up-to-date content
     apiCall("/events.info", { event_id: id })
       .then((response) => {
@@ -35,7 +41,7 @@ function OneEvent({ events, updateEvents }) {
         updateEvents({ ...events, [id]: response.data });
       })
       .catch((e) => console.log("EVENT_ERROR_SYNT: ", e.toString()));
-  }, []);
+  }, [campaign_id]);
 
   if (!id || !event) return <NotFound>{error}</NotFound>;
 
@@ -109,7 +115,11 @@ function OneEvent({ events, updateEvents }) {
 }
 
 const mapState = (state) => {
-  return { events: state.events };
+  return {
+    events: state.events,
+    init: appInnitAction,
+    campaign: state.campaign,
+  };
 };
 
 const mapDispatch = (dispatch) => {

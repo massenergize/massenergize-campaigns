@@ -46,6 +46,7 @@ function TechnologyFullViewPage({
   const vendorsRef = useRef();
   const incentivesRef = useRef();
   const detailsRef = useRef();
+  const testimonialsRef = useRef();
 
   const targetSection = fetchUrlParams("section");
 
@@ -54,6 +55,7 @@ function TechnologyFullViewPage({
     vendors: vendorsRef,
     incentives: incentivesRef,
     details: detailsRef,
+    testimonials: testimonialsRef,
   };
 
   const [technology, setTechnology] = useState(LOADING);
@@ -61,7 +63,6 @@ function TechnologyFullViewPage({
   const [error, setError] = useState("");
   const { campaign_technology_id, campaign_id } = useParams();
   const id = campaign_technology_id;
-
 
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
@@ -101,11 +102,11 @@ function TechnologyFullViewPage({
         setError("Sorry, could not load the technology you are looking for...");
         console.log("TECH_FETCH_ERROR_SYNT:", e.toString());
       });
-  }, []);
+  }, [campaign_technology_id, campaign_id]);
 
-  useEffect(() => {
-    // scrollToPoint();
-  }, [coachesRef.current]);
+  // useEffect(() => {
+  //   // scrollToPoint();
+  // }, [coachesRef.current]);
 
   if (!id || !technology) return <NotFound>{error}</NotFound>;
 

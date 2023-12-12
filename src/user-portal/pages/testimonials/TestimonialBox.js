@@ -1,9 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function TestimonialBox({ title, user, image, body, campaign_technology, id }) {
+function TestimonialBox({
+  title,
+  user,
+  image,
+  body,
+  campaign_technology,
+  campaign,
+  id,
+}) {
   const preview = body?.substr(0, 130);
   const navigator = useNavigate();
+
+  const route = `/campaign/${campaign?.id}/technology/testimonial/${id}`;
   return (
     <div style={{ border: "solid 1px #E4E4E4", padding: 20, borderRadius: 5 }}>
       <h5 style={{ color: "var(--app-medium-green)", fontSize: "1.07rem" }}>
@@ -14,7 +24,7 @@ function TestimonialBox({ title, user, image, body, campaign_technology, id }) {
         {preview}
         <a
           className="touchable-opacity"
-          href="/technology/testimonial/sdfkjl/sdkfjlsd"
+          href={route}
           style={{ marginLeft: 10, color: "var(--app-medium-green)" }}
         >
           Read More...
@@ -35,7 +45,7 @@ function TestimonialBox({ title, user, image, body, campaign_technology, id }) {
       <div style={{ display: "flex", flexDirection: "row", marginTop: 10 }}>
         <p
           className="touchable-opacity"
-          onClick={() => navigator(`/technology/testimonial/${id}`)}
+          onClick={() => navigator(route)}
           style={{
             fontSize: 15,
             marginLeft: "auto",

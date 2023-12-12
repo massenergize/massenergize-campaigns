@@ -59,7 +59,7 @@ export const testimonialsListReducer = (state = {}, action = {}) => {
   }
   return state;
 };
-export const navigationMenuReducer = (state = {}, action = {}) => {
+export const navigationMenuReducer = (state = [], action = {}) => {
   if (action.type === SET_NAVIGATION_MENU) {
     return action.payload;
   }

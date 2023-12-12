@@ -10,8 +10,7 @@ import { connect } from "react-redux";
 function PageWrapper({ children, toggleModal, menu }) {
   return (
     <div style={{}}>
-      <AppNavigationBar menu={menu} />
-
+      <AppNavigationBar />
       <OptimumWrapper style={{ minHeight: "85vh", marginTop: 90 }}>
         {children}
       </OptimumWrapper>

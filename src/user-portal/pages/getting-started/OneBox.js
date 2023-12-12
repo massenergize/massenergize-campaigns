@@ -16,7 +16,7 @@ function OneBox({
   const navigator = useNavigate();
 
   const route = `/campaign/${campaign_id}/technology/${campaign_technology_id}`;
-  console.log("THE ROUTE: ", route);
+
 
   return (
     <div

@@ -5,8 +5,10 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { NAVIGATION_MENU } from "../../user-portal/data/user-portal-dummy-data";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function AppNavigationBar({ menu }) {
+  const navigator = useNavigate();
   return (
     <Navbar
       variant="dark"
@@ -21,11 +23,13 @@ function AppNavigationBar({ menu }) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto mx-auto">
             {menu?.map((menu) => {
+              // console.log("Lets see key", menu.key);
               if (!menu?.children)
                 return (
                   <Nav.Link
+                    key={menu?.key}
                     style={{ textTransform: "uppercase" }}
-                    href={menu.url || "#"}
+                    onClick={() => navigator(menu.url || "#")}
                   >
                     <span>
                       <i
@@ -51,11 +55,12 @@ function AppNavigationBar({ menu }) {
                   id="basic-nav-dropdown"
                 >
                   {menu?.children?.map((child) => {
+                    // console.log("Into the cildren", child.key);
                     return (
                       <NavDropdown.Item
                         style={{ textTransform: "uppercase" }}
-                        key={child.key}
-                        href={child.url}
+                        key={child?.key}
+                        onClick={() => navigator(child.url || "#")}
                       >
                         {child.text}
                       </NavDropdown.Item>

@@ -46,7 +46,6 @@ function TestimonialSection({ sectionId, technologies }) {
       component: (
         <Row style={{ marginTop: 50 }}>
           {testimonials?.map((item) => {
-           
             return (
               <Col key={item.id} xs={3}>
                 <TestimonialBox {...item} />

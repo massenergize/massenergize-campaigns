@@ -61,11 +61,11 @@ function AppRouter({
           }
         />
         <Route
-          path="/technology/event/:eventId"
+          path="/campaign/:campaign_id/technology/event/:eventId"
           element={<OneEvent toggleModal={toggleModal} />}
         />
         <Route
-          path="/technology/testimonial/:id"
+          path="/campaign/:campaign_id/technology/testimonial/:id"
           element={<OneTestimonial toggleModal={toggleModal} />}
         />
       </Routes>

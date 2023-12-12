@@ -21,7 +21,6 @@ import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
 
 function LandingPage({ toggleModal, campaign, init, menu }) {
-  console.log("HER EIS THE campaign from redux", campaign);
   const { image, config, key_contact } = campaign || {};
 
   const technologies = campaign?.technologies || [];
@@ -29,7 +28,7 @@ function LandingPage({ toggleModal, campaign, init, menu }) {
 
   useEffect(() => {
     init(campaignId);
-  }, []);
+  }, [campaignId]);
 
   if (campaign === LOADING)
     return <Loading fullPage>Fetching campaign details...</Loading>;
