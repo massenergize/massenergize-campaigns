@@ -23,6 +23,7 @@ import Comments from "../../components/admin-components/Comments";
 import Testimonials from "../../components/admin-components/Testimonials";
 import classes from "classnames";
 import Button from "../../components/admin-components/Button";
+import { useNavigate } from "react-router-dom";
 
 const PreviewCampaign = () => {
 	const data = statsData;
@@ -39,6 +40,8 @@ const PreviewCampaign = () => {
 			component: Testimonials,
 		},
 	];
+
+	const navigate = useNavigate();
 
 	const [activeTab, setActiveTab] = useState(tabs[0]?.name);
 	return (
@@ -63,7 +66,12 @@ const PreviewCampaign = () => {
 				<Container className="title--container">
 					<Row>
 						<Col className="update-btn-con">
-							<button className="update-btn">
+							<button
+								onClick={() => {
+									navigate("/admin/campaign/new");
+								}}
+								className="update-btn"
+							>
 								<FontAwesomeIcon icon={faPenToSquare} /> Update
 							</button>
 						</Col>

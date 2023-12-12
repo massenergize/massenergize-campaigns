@@ -86,22 +86,25 @@ export function NewCampaign() {
 
 	return (
 		<AdminLayout>
-			<div style={{ padding: "1rem", }}>
+			<div style={{ padding: "1rem" }}>
 				<CreateCampaignPageWrapper>
 					<Container>
 						{/*region Header*/}
-						<Row lg={{ gutter: 0 }} className="pb-4 overflow-scroll gap-0 no-gutters g">
+						<Row
+							lg={{ gutter: 0 }}
+							className="pb-4 overflow-scroll gap-0 no-gutters g"
+						>
 							<Col>
 								<div className="nav-tabs-container">
 									{campaignPages?.map((page) => (
 										<div
 											key={page?.name}
-											className={classes("nav-tabs-main tab", { "tab-active": activeTab === page?.name })}
+											className={classes("nav-tabs-main tab", {
+												"tab-active": activeTab === page?.name,
+											})}
 											onClick={() => setActiveTab(page?.name)}
 										>
-											<h5 className={classes("nav-tabs",)}>
-												{page?.name}
-											</h5>
+											<h5 className={classes("nav-tabs")}>{page?.name}</h5>
 										</div>
 									))}
 								</div>
@@ -114,7 +117,7 @@ export function NewCampaign() {
 							<Col>
 								{campaignPages?.map((tab) => {
 									return (
-										activeTab === tab?.name && <tab.component key={tab?.name}/>
+										activeTab === tab?.name && <tab.component key={tab?.name} />
 									);
 								})}
 							</Col>
