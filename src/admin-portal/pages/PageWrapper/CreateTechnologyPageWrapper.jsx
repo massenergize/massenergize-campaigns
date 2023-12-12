@@ -26,10 +26,17 @@ const CreateTechnologyPageWrapper = ({ children }) => {
 					</Col>
 				</Row>
 			</Container>
-			<div>{/* <CampaignStatsPopup /> */}</div>
+			<div>
+				<CampaignStatsPopup />
+			</div>
 			<div className="mb-4 pb-4">{children}</div>
 		</div>
 	);
 };
 
 export default CreateTechnologyPageWrapper;
+// dashboard
+// create campaign
+// create technology
+// dashboard
+// dashboard

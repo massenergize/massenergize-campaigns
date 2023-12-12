@@ -159,3 +159,116 @@ export const menus = [
 		link: "contact",
 	},
 ];
+
+export const statsData = {
+	data: {
+		shares: [
+			{
+				utm_medium: "email",
+				count: 1,
+			},
+			{
+				utm_medium: "Whatsapp",
+				count: 2,
+			},
+		],
+		likes: [
+			{
+				technology: "Community Solar",
+				count: 1,
+			},
+			{
+				technology: "Heat Pump",
+				count: 1,
+			},
+		],
+		views: [
+			{
+				technology: "Change Name",
+				count: 1,
+			},
+			{
+				technology: "Community Solar",
+				count: 2,
+			},
+		],
+		followers: [
+			{
+				community: 24,
+				count: 5,
+			},
+		],
+		comments: [
+			{
+				technology: "Community Solar",
+				count: 2,
+			},
+		],
+		testimonials: [
+			{
+				technology: "Change Name",
+				count: 4,
+			},
+			{
+				technology: "Community Solar",
+				count: 4,
+			},
+			{
+				technology: "Heat Pump",
+				count: 3,
+			},
+		],
+	},
+	error: null,
+	success: true,
+	cursor: {},
+};
+
+export const comments = [
+	{
+		id: 1,
+		email: "example1@example.com",
+		first_name: "John",
+		last_name: "Doe",
+		comment: "Great campaign! Really enjoyed participating.",
+		date: "20130623T13:22-0500",
+		country: "United States",
+	},
+	{
+		id: 2,
+		email: "example2@example.com",
+		first_name: "Jane",
+		last_name: "Smith",
+		comment:
+			"Enjoyed connecting with like-minded people through this campaign.",
+		date: "20130623T13:22-0500",
+		country: "Canada",
+	},
+	{
+		id: 3,
+		email: "example3@example.com",
+		first_name: "Alice",
+		last_name: "Johnson",
+		comment: "Impressed by the creativity and innovation in this campaign.",
+		date: "20130623T13:22-0500",
+		country: "Australia",
+	},
+	{
+		id: 4,
+		email: "example4@example.com",
+		first_name: "Bob",
+		last_name: "Williams",
+		comment: "Interesting concept. Can't wait to see the results.",
+		date: "20130623T13:22-0500",
+		country: "United Kingdom",
+	},
+	{
+		id: 5,
+		email: "example5@example.com",
+		first_name: "Eve",
+		last_name: "Brown",
+		comment: "Loved being a part of this. Keep up the good work.",
+		date: "20130623T13:22-0500",
+		country: "Germany",
+	},
+];
