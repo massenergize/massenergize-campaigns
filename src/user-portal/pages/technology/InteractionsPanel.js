@@ -12,6 +12,7 @@ function InteractionsPanel({
   views,
   comments,
   openShareBox,
+  like,
 }) {
   const [hasLiked, setHasLiked] = useState(false);
 
@@ -29,7 +30,10 @@ function InteractionsPanel({
     >
       <div
         // key={index?.toString()}
-        onClick={() => setHasLiked(!hasLiked)}
+        onClick={() => {
+          setHasLiked(!hasLiked); // Just for immediate reflection
+          like();
+        }}
         style={{
           display: "flex",
           flexDirection: "row",

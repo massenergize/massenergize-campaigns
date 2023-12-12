@@ -95,7 +95,10 @@ function TechnologyFullViewPage({
     // But still continue to fetch, so that the user has something to look at
     // while the latest changes on the technology load up
     if (tech) setTechnology(tech);
-    apiCall("/campaigns.technologies.info", { campaign_technology_id: id })
+    apiCall("/campaigns.technologies.info", {
+      campaign_technology_id: id,
+      email: authUser?.email,
+    })
       .then((response) => {
         if (!response || !response?.success) {
           setTechnology(null);
@@ -103,11 +106,9 @@ function TechnologyFullViewPage({
           return setError("Sorry, could not load the technology...");
         }
         const data = response?.data;
-        // updateTechObjs({ ...(techs || {}), [id]: data });
         updateTechList(data, id);
         setTechnology(data);
         setMounted(true);
-        // scrollToSection(targetSection);
       })
       .catch((e) => {
         setTechnology(null);
@@ -135,10 +136,26 @@ function TechnologyFullViewPage({
     more_details,
   } = technology;
 
+  console.log("Here we go again", technology);
+  const like = (user) => {
+    if (!user) return triggerRegistrationForLike();
+    apiCall("/campaigns.technology.like", {
+      campaign_technology_id: technology?.campaign_technology_id,
+      user_id: user?.id,
+    }).then((response) => {
+      if (!response || !response.success)
+        return console.log("ERROR_LIKING: ", response.error);
+
+      console.log("This is the response after liking", response.data);
+      updateTechList(response.data);
+    });
+  };
+
+  // NB: Dont worry, I will merge the two trigger fxns into one, when there is more time
   const triggerRegistration = () => {
     toggleModal({
       show: true,
-      title: "Tell us where you are from, before commenting",
+      title: `Tell us where you are from, before commenting`,
       iconName: "fa-comment",
       component: ({ close }) => (
         <JoinUsForm
@@ -146,6 +163,23 @@ function TechnologyFullViewPage({
           callbackOnSubmit={({ user }) => {
             close && close();
             triggerCommentBox(user);
+          }}
+        />
+      ),
+      // modalNativeProps: { size: "md" },
+      fullControl: true,
+    });
+  };
+  const triggerRegistrationForLike = () => {
+    toggleModal({
+      show: true,
+      title: `Tell us where you are from, before you like`,
+      iconName: "fa-thumbs-up",
+      component: ({ close }) => (
+        <JoinUsForm
+          close={close}
+          callbackOnSubmit={({ user }) => {
+            like(user);
           }}
         />
       ),
@@ -211,6 +245,7 @@ function TechnologyFullViewPage({
                 openShareBox={openShareBox}
                 openCommentBox={() => triggerCommentBox(user)}
                 likes={likes}
+                like={() => like(authUser)}
                 views={views}
                 comments={comments?.length || 0}
               />
