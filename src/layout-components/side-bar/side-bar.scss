@@ -1,0 +1,38 @@
+.nav.main {
+  .nav-link {
+    color: #b216ca;
+
+    .chevron {
+      transform: rotate(0deg);
+    }
+
+    &.show {
+      .chevron {
+        transform: rotate(180deg);
+      }
+    }
+
+    &:hover {
+      color: #3e0c46;
+    }
+
+    a {
+      color: #b216ca;
+
+      &:hover {
+        color: #3e0c46;
+      }
+    }
+  }
+}
+
+.nav-item {
+  .nav {
+    padding-left: 15px;
+    display: none;
+
+    &.show {
+      display: flex;
+    }
+  }
+}
