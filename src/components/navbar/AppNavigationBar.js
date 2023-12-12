@@ -6,9 +6,11 @@ import { NAVIGATION_MENU } from "../../user-portal/data/user-portal-dummy-data";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { addUrlParams } from "../../utils/utils";
 
 function AppNavigationBar({ menu }) {
   const navigator = useNavigate();
+ 
   return (
     <Navbar
       variant="dark"
@@ -55,12 +57,18 @@ function AppNavigationBar({ menu }) {
                   id="basic-nav-dropdown"
                 >
                   {menu?.children?.map((child) => {
-                    // console.log("Into the cildren", child.key);
+                    const params = {
+                      section: menu.key,
+                      tab: child.key,
+                    };
+                    const route = addUrlParams(window.location.href, params);
+
                     return (
                       <NavDropdown.Item
                         style={{ textTransform: "uppercase" }}
                         key={child?.key}
                         onClick={() => navigator(child.url || "#")}
+                        // onClick={() => navigator(`${route}`)}
                       >
                         {child.text}
                       </NavDropdown.Item>

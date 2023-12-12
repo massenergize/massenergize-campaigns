@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
@@ -40,6 +40,9 @@ function CustomTabView({ data = [], defaultTab }) {
       {tab.component}
     </Tab>
   ));
+  useEffect(() => {
+    setKey(defaultTab);
+  }, [defaultTab]);
 
   return (
     <Tabs

@@ -71,7 +71,7 @@ function TechnologyFullViewPage({
   const { campaign_technology_id, campaign_id } = useParams();
   const id = campaign_technology_id;
 
-  console.log("TECHNOLOGY", technology);
+
 
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
@@ -163,8 +163,6 @@ function TechnologyFullViewPage({
     }).then((response) => {
       if (!response || !response?.success)
         return console.log("ERROR_LIKING: ", response?.error);
-
-      console.log("This is the response after liking", response?.data);
       updateTechList(response?.data);
     });
   };

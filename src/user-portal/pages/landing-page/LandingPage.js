@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
 
@@ -19,12 +19,44 @@ import { appInnitAction } from "../../../redux/actions/actions";
 import { LOADING } from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
+import { fetchUrlParams } from "../../../utils/utils";
 
 function LandingPage({ toggleModal, campaign, init, menu }) {
+  const coachesRef = useRef();
+  const eventsRef = useRef();
+  const incentivesRef = useRef();
+  const testimonialsRef = useRef();
+
+  const idsToRefMap = {
+    coaches: coachesRef,
+    incentives: incentivesRef,
+    events: eventsRef,
+    testimonial: testimonialsRef,
+  };
+
+  // const [activeTab, setActiveTab] = useState("");
+
   const { image, config, key_contact } = campaign || {};
 
   const technologies = campaign?.technologies || [];
   const { campaignId } = useParams();
+
+  // const section = fetchUrlParams("section");
+  // const tab = fetchUrlParams("tab");
+
+  // const scrollToSection = (id) => {
+  //   const ref = idsToRefMap[id];
+  //   if (ref?.current)
+  //     ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  // };
+
+  // useEffect(() => {
+  //   setActiveTab(tab);
+  //   console.log("HERE ARE THE TABS", tab);
+  // }, [tab]);
+  // useEffect(() => {
+  //   scrollToSection(section);
+  // }, [section]);
 
   useEffect(() => {
     init(campaignId);
@@ -65,19 +97,26 @@ function LandingPage({ toggleModal, campaign, init, menu }) {
         sectionId="getting-started-section"
       />
 
-      <TestimonialSection
-        technologies={technologies}
-        sectionId="testimonial-section"
-      />
+      <div ref={testimonialsRef}>
+        <TestimonialSection
+          // defaultTab={activeTab}
+          technologies={technologies}
+          sectionId="testimonial-section"
+        />
+      </div>
       <br />
 
-      <EventsSection technologies={technologies} sectionId="event-section" />
+      <div ref={eventsRef}>
+        <EventsSection technologies={technologies} sectionId="event-section" />
+      </div>
 
-      <CoachesSection
-        technologies={technologies}
-        toggleModal={toggleModal}
-        sectionId="coaches-section"
-      />
+      <div ref={coachesRef}>
+        <CoachesSection
+          technologies={technologies}
+          toggleModal={toggleModal}
+          sectionId="coaches-section"
+        />
+      </div>
 
       <Footer toggleModal={toggleModal} />
     </div>

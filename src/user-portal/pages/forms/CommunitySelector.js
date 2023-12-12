@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 export const OTHER = "other";
 
-function CommunitySelector({ selected, onChange, communities, data }) {
+function CommunitySelector({ onChange, communities, data }) {
   const [state, setState] = useState({});
   data = data || {};
   // const [option, setOption] = useState("");
