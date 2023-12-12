@@ -7,7 +7,7 @@
 }
 
 .light-red-background {
-	background-color: rgb(255, 157, 157) (237, 129, 129);
+	background-color: rgb(255, 157, 157);
 }
 
 /* .......................................  input styles  ................................... */
@@ -200,7 +200,7 @@
 .checkbox-icon {
 	position: absolute;
 	top: 0;
-	left: -2;
+	left: -2px;
 	width: 20px;
 	height: 20px;
 	border: 2px solid #000;
