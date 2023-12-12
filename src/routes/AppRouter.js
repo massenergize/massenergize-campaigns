@@ -13,6 +13,7 @@ import OneEvent from "../user-portal/pages/events/OneEvent";
 import AllComponents from "../admin-portal/pages/AllComponents";
 import { NewCampaign } from "../admin-portal/pages/campaign/new";
 import { CreateTechnology } from "../admin-portal/pages/technology/new";
+import CreateCampaignAccount from "../admin-portal/pages/campaign-account/CreateCampaignAccount";
 
 const ROUTE_TABLE = [
 	{
@@ -48,6 +49,10 @@ const ROUTE_TABLE = [
 	{
 		path: "/admin/campaign/preview",
 		component: AllComponents,
+	},
+	{
+		path: "/admin/campaign-account/new",
+		component: CreateCampaignAccount,
 	},
 	{
 		path: "/components",

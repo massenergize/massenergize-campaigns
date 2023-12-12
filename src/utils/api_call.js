@@ -1,4 +1,4 @@
-const BASE_DOMAIN = "https://691733fdd2482845e4c748c07bf195ae.serveo.net";
+const BASE_DOMAIN = "http://127.0.0.1:8000";
 const BASE_URL = BASE_DOMAIN + "/api/";
 
 export const apiCall = async (url, payload, options) => {
@@ -10,9 +10,6 @@ export const apiCall = async (url, payload, options) => {
 		method: "POST",
 		body: formData,
 		credentials: "include",
-		// headers: {
-		//     Authorization :
-		// }
 		...options,
 	});
 
