@@ -41,7 +41,7 @@ const ROUTE_TABLE = [
 		component: NewCampaign,
 	},
 	{
-		path: "/admin/campaign/create-technology",
+		path: "/admin/technology/new",
 		component: CreateTechnology,
 	},
 	{

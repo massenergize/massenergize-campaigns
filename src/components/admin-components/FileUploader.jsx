@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const FileUploader = ({ text, valueExtractor, required, id, accept }) => {
+const FileUploader = ({ text, valueExtractor, required, id, accept, defaultValue }) => {
 	const [previewUrl, setPreviewUrl] = useState(null);
 
 	const handleFileChange = (event) => {
