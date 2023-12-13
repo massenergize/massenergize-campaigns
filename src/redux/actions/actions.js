@@ -6,6 +6,7 @@ import {
   SET_COMMENTS,
   SET_FULL_TECH_OBJ,
   SET_NAVIGATION_MENU,
+  SET_TESTIMONIALS,
   SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
   UPDATE_EVENT_OBJ,
@@ -15,6 +16,9 @@ import {
 const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
 export const testReduxAction = (someValue = []) => {
   return { type: DO_NOTHING, payload: someValue };
+};
+export const setTestimonialsActions = (payload) => {
+  return { type: SET_TESTIMONIALS, payload };
 };
 export const toggleUniversalModal = (payload) => {
   return { type: TOGGLE_UNIVERSAL_MODAL, payload };
@@ -57,13 +61,14 @@ export const updateUserAction = (payload, cb) => {
 export const appInnitAction = (campaignId) => {
   let savedUser = localStorage.getItem(USER_STORAGE_KEY);
   savedUser = JSON.parse(savedUser);
-
-  console.log("DID YOU FIND USER", savedUser);
+  const { user } = savedUser || {};
 
   return (dispatch) => {
     dispatch(loadUserObjAction(savedUser)); // use saved user to run a request to bring in the most recent changes to the user
-
-    Promise.all([apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId })])
+    const userContent = user?.email ? { email: user.email } : {};
+    Promise.all([
+      apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
+    ])
       .then((response) => {
         const [campaignInformation] = response;
         const data = campaignInformation.data;
@@ -71,6 +76,7 @@ export const appInnitAction = (campaignId) => {
         dispatch(loadCampaignInformation(data));
         if (data) {
           dispatch(setNavigationMenuAction(data?.navigation || []));
+          dispatch(setTestimonialsActions(data?.my_testimonials || []));
         }
       })
       .catch((e) => console.log("ERROR_IN_INNIT:", e?.toString()));

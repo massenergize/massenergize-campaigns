@@ -7,6 +7,7 @@ import {
   fullTechnologiesReducer,
   navigationMenuReducer,
   testimonialsListReducer,
+  testimonialsReducer,
   universalModalReducer,
   userObjectReducer,
 } from "./reducers";
@@ -21,5 +22,6 @@ export default combineReducers({
   events: eventsListReducer,
   testimonials: testimonialsListReducer,
   navigation: navigationMenuReducer,
-  comments: commentsListReducer
+  comments: commentsListReducer,
+  testimonials: testimonialsReducer,
 });

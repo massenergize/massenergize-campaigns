@@ -4,11 +4,8 @@ import { Alert } from "react-bootstrap";
 function Notification({ show, text, children, good }) {
   const [_show, setShow] = useState(false);
 
-  console.log("Make I see show", _show)
-
   useEffect(() => {
     setShow(show);
-    console.log("Now it is in the show", show)
   }, [show]);
 
   if (!_show) return <></>;

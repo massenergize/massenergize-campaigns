@@ -147,23 +147,25 @@ function CommentComponentForModal({
             />
           </InputGroup>
         </div>
-        <InputGroup className="mb-3">
-          <Form.Control
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            placeholder="Type comment here..."
-            aria-label="User comment"
-            aria-describedby="basic-addon2"
-          />
-          <Button
-            variant="outline-success"
-            id="button-addon2"
-            onClick={() => sendComment()}
-          >
-            {loading && <Spinner size="sm" style={{ marginRight: 5 }} />}
-            Comment
-          </Button>
-        </InputGroup>
+        <div>
+          <InputGroup className="mb-3">
+            <Form.Control
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Type comment here..."
+              aria-label="User comment"
+              aria-describedby="basic-addon2"
+            />
+            <Button
+              variant="outline-success"
+              id="button-addon2"
+              onClick={() => sendComment()}
+            >
+              {loading && <Spinner size="sm" style={{ marginRight: 5 }} />}
+              Comment
+            </Button>
+          </InputGroup>
+        </div>
 
         <Notification show={error} good={!error}>
           {error}
