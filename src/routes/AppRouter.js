@@ -3,9 +3,9 @@ import { Route, Routes, useParams } from "react-router-dom";
 import LandingPage from "../user-portal/pages/landing-page/LandingPage";
 import { bindActionCreators } from "redux";
 import {
-  appInnit,
-  testReduxAction,
-  toggleUniversalModal,
+	appInnit,
+	testReduxAction,
+	toggleUniversalModal,
 } from "../redux/actions/actions";
 import { connect } from "react-redux";
 import CustomModal from "../components/modal/CustomModal";
@@ -30,7 +30,7 @@ const ROUTE_TABLE = [
 		component: OneEvent,
 		addToggleModal: true,
 	},
-  {
+	{
 		path: "/technology/testimonial/:id",
 		component: OneTestimonial,
 		addToggleModal: true,
@@ -76,9 +76,15 @@ const ROUTE_TABLE = [
 	},
 ];
 
-function AppRouter({ test, testFunction, modalOptions, toggleModal, appInnit, }) {
-  const params = useParams();
-  return (
+function AppRouter({
+	test,
+	testFunction,
+	modalOptions,
+	toggleModal,
+	appInnit,
+}) {
+	const params = useParams();
+	return (
 		<>
 			<CustomModal
 				close={() => toggleModal({ show: false, component: <></> })}
@@ -114,7 +120,7 @@ function AppRouter({ test, testFunction, modalOptions, toggleModal, appInnit, })
 }
 
 const mapState = (state) => {
-  return { test: state.testStore, modalOptions: state.modalOptions };
+	return { test: state.testStore, modalOptions: state.modalOptions };
 };
 
 const mapDispatch = (dispatch) => {

@@ -267,7 +267,8 @@ export const comments = [
 		email: "example5@example.com",
 		first_name: "Eve",
 		last_name: "Brown",
-		comment: "Loved being a part of this. Keep up the good work.",
+		comment:
+			"Loved being a part of this. Keep up the good work.Loved being a part of this. Keep up the good work.Loved being a part of this. Keep up the good work.Loved being a part of this. Keep up the good work.Loved being a part of this. Keep up the good work.Loved being a part of this. Keep up the good work.",
 		date: "20130623T13:22-0500",
 		country: "Germany",
 	},

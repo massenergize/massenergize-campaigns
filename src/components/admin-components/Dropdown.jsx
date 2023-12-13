@@ -3,14 +3,14 @@ import "./styles.css";
 import Checkbox from "./Checkbox";
 
 const Dropdown = ({
-  displayTextToggle,
-  data,
-  valueExtractor,
-  labelExtractor,
-  onItemSelect,
-  multiple,
-  defaultValue,
-  label,
+	displayTextToggle,
+	data,
+	valueExtractor,
+	labelExtractor,
+	onItemSelect,
+	multiple,
+	defaultValue,
+	label,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedItem, setSelectedItem] = useState([]);
@@ -19,11 +19,11 @@ const Dropdown = ({
 	// defaultValue ? defaultValue : []
 	const [labelShowing, setLabelShowing] = useState(displayTextToggle);
 
-  const handleToggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+	const handleToggleDropdown = () => {
+		setIsOpen(!isOpen);
+	};
 
-  const [nv, setNv] = useState([]);
+	const [nv, setNv] = useState([]);
 
 	const handleSelect = (value) => {
 		onItemSelect && onItemSelect(value, selectedItem);

@@ -44,7 +44,7 @@ const Input = ({
 					placeholder={placeholder}
 					className="input-textarea"
 					required={required ? true : false}
-					minLength={800}
+					// minLength={800}
 					onChange={(e) => {
 						onChange(e.target.value);
 					}}
