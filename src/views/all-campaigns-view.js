@@ -8,7 +8,7 @@ import { ROW_ACTIONS_MENU } from "./menu";
 import { useNamedState } from "../hooks/useNamedState";
 import { fetchAllCampaigns } from "../hooks/requests";
 import useSWR from "swr";
-
+import { useNavigate } from "react-router-dom";
 
 const DUMMY_DATA = [
   {
@@ -107,6 +107,8 @@ export function AllCampaignsView ({}) {
 
   const [SELECTED_ROW, setSelectedRow] = useNamedState("SELECTED_ROW", null);
 
+  const navigate = useNavigate();
+
   const handleRowActionsClick = (id, row) => {
     console.log({ id, row });
     setSelectedRow(id);
@@ -114,8 +116,7 @@ export function AllCampaignsView ({}) {
 
   const [rowSelection, setRowSelection] = React.useState({})
 
-  const columns = useMemo(
-    () => [
+  const columns =  [
       {
         id: "logo",
         Header: () => null,
@@ -186,9 +187,9 @@ export function AllCampaignsView ({}) {
           return <span
             style={{
               backgroundColor: is_published ? '#9fea9f' : '#e6c0a6',
-              paddingBlock : "1px",
-              paddingInline : "10px",
-              borderRadius : "12px",
+              paddingBlock: "1px",
+              paddingInline: "10px",
+              borderRadius: "12px",
             }}>{is_published ? 'Yes' : 'No'}</span>;
         },
         id: "is_published",
@@ -203,9 +204,9 @@ export function AllCampaignsView ({}) {
           return <span
             style={{
               backgroundColor: is_template ? '#9fea9f' : '#e6c0a6',
-              paddingBlock : "1px",
-              paddingInline : "10px",
-              borderRadius : "12px",
+              paddingBlock: "1px",
+              paddingInline: "10px",
+              borderRadius: "12px",
             }}>{is_template ? 'Yes' : 'No'}</span>;
         },
         id: "is_template",
@@ -227,12 +228,131 @@ export function AllCampaignsView ({}) {
 
           return <RowActions rowActions={rowMenu} id={id} row={values} onRowActionsClick={() => {
             handleRowActionsClick(id, values);
+            navigate("/admin/campaign/preview");
           }}/>
         },
       },
-    ],
-    []
-  );
+    ];
+
+/*  useMemo(() => (
+    [
+      {
+        id: "logo",
+        Header: () => null,
+        accessor: (values) => {
+          const { logo } = values;
+          let src = logo;
+          return (
+            <div>
+              <img src={src} alt="logo" style={{ width: "40px", height: "40px" }}
+                   onError={() => {
+                     src = "/fallback-img.png";
+                   }}
+              />
+            </div>
+          );
+        },
+        className: "text-left",
+        filter: "equals",
+
+        style: {
+          textAlign: "left"
+        }
+      },
+      {
+        Filter: SelectColumnFilter,
+        Header: "Title",
+        accessor: "title",
+        className: "text-left",
+        filter: "equals",
+        id: "title",
+        style: {
+          textAlign: "left",
+        }
+      },
+      {
+        Filter: SelectColumnFilter,
+        Header: "Creator",
+        accessor: (value) => {
+          const { creator, owner } = value;
+          return creator;
+        },
+        className: "text-left",
+        filter: "equals",
+        id: "creator",
+        style: {
+          textAlign: "left",
+        }
+      },
+      {
+        Filter: SelectColumnFilter,
+        Header: "Date",
+        accessor: (values) => {
+          const { created_at } = values;
+          return dayjs(created_at).format("MM-DD-YYYY");
+        },
+        disableSortBy: true,
+        filter: "equals",
+        id: "created_at",
+        style: {
+          textAlign: "center"
+        }
+      },
+
+      {
+        Header: "Live",
+        accessor: (values) => {
+          const { is_published } = values;
+          return <span
+            style={{
+              backgroundColor: is_published ? '#9fea9f' : '#e6c0a6',
+              paddingBlock: "1px",
+              paddingInline: "10px",
+              borderRadius: "12px",
+            }}>{is_published ? 'Yes' : 'No'}</span>;
+        },
+        id: "is_published",
+        style: {
+          textAlign: "center"
+        }
+      },
+      {
+        Header: "Template",
+        accessor: (values) => {
+          const { is_template } = values;
+          return <span
+            style={{
+              backgroundColor: is_template ? '#9fea9f' : '#e6c0a6',
+              paddingBlock: "1px",
+              paddingInline: "10px",
+              borderRadius: "12px",
+            }}>{is_template ? 'Yes' : 'No'}</span>;
+        },
+        id: "is_template",
+        style: {
+          textAlign: "center"
+        }
+      },
+      {
+        Header: () => null,
+        id: 'actions',
+        accessor: (values) => {
+          const { id } = values;
+
+          return id;
+        },
+        disableSortBy: true,
+        Cell: ({ cell }) => {
+          const { value, row: { id, values }, row } = cell;
+
+          return <RowActions rowActions={rowMenu} id={id} row={values} onRowActionsClick={() => {
+            handleRowActionsClick(id, values);
+            navigate("/admin/campaign/preview");
+          }}/>
+        },
+      },
+    ]
+  ), []);*/
 
   const [pagesCount, setPagesCount] = useState(1);
   const [pageIndex, setPageIndex] = useState(0);
@@ -294,7 +414,6 @@ export function AllCampaignsView ({}) {
   // endregion
 
 
-
   let {
     data: campaigns,
   } = useSWR(`campaigns.list`, fetchAllCampaigns, {
@@ -323,7 +442,7 @@ export function AllCampaignsView ({}) {
         columns={columns}
         data={patched || []}
         size={pageSize}
-        rowSelect={false}
+        rowSelect={true}
         skipPageReset={skipPageReset}
         updateMyData={updateMyData}
         renderRowSubComponent={null}

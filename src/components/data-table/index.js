@@ -1,5 +1,7 @@
-import React, { Fragment } from "react";
-import * as classes from "classnames";
+import React, { Fragment, useMemo } from "react";
+import classes from "classnames";
+import "./data-table.scss"
+
 
 import { useExpanded, useFilters, usePagination, useRowSelect, useSortBy, useTable, } from "react-table";
 import { DefaultColumnFilter } from "./filters";
@@ -47,7 +49,7 @@ const IndeterminateCheckbox = React.forwardRef(
 
     return (
       <>
-        <input type="checkbox" ref={resolvedRef} {...rest} />
+        <input type="checkbox" className="" ref={resolvedRef} {...rest} />
       </>
     )
   }
@@ -77,7 +79,8 @@ const defaultPropGetter = () => ({});
  * @constructor
  */
 const DataTable = ({
-                     columns,
+                     // columns,
+                     columns : COLUMNS,
                      data,
                      className = "",
                      // defaultFilter = '',
@@ -99,42 +102,12 @@ const DataTable = ({
     Filter: DefaultColumnFilter,
   };
 
-  // eslint-disable-next-line react/display-name
-  /*  const IndeterminateCheckbox = React.forwardRef(
-    ({ indeterminate, ...rest }, ref) => {
-      const defaultRef = React.useRef()
-      const resolvedRef = ref || defaultRef
-
-      React.useEffect(() => {
-        resolvedRef.current.indeterminate = indeterminate
-      }, [ resolvedRef, indeterminate ])
-
-      return <input type="checkbox" ref={resolvedRef} {...rest} />
-    }
-  )*/
+  const columns = useMemo(() => (
+    COLUMNS
+  ), []);
 
   if (rowSelect) {
-    columns = [
-      // Let's make a column for selection
-      {
-        id: 'selection',
-        // The header can use the table's getToggleAllRowsSelectedProps method
-        // to render a checkbox
-        Header: ({ getToggleAllRowsSelectedProps }) => (
-          <div>
-            <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-          </div>
-        ),
-        // The cell can use the individual row's getToggleRowSelectedProps method
-        // to the render a checkbox
-        Cell: ({ row }) => (
-          <div>
-            <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-          </div>
-        ),
-      },
-      ...columns,
-    ];
+
   }
 
   const {
@@ -165,12 +138,36 @@ const DataTable = ({
       initialState: { pageIndex: 0, pageSize: size },
       updateMyData,
     },
-
     useFilters,
     useSortBy,
     useExpanded,
     usePagination,
     useRowSelect,
+    hooks => {
+      hooks.visibleColumns.push(columns => [
+        // Let's make a column for selection if needed
+        ...(rowSelect ? [
+          {
+            id: 'selection',
+            // The header can use the table's getToggleAllRowsSelectedProps method
+            // to render a checkbox
+            Header: ({ getToggleAllRowsSelectedProps }) => (
+              <div>
+                <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+              </div>
+            ),
+            // The cell can use the individual row's getToggleRowSelectedProps method
+            // to the render a checkbox
+            Cell: ({ row }) => (
+              <div>
+                <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+              </div>
+            ),
+          },
+        ] : []),
+        ...columns,
+      ])
+    }
   );
 
   let pagesLength = pageOptions.length;
@@ -215,7 +212,7 @@ const DataTable = ({
 
   return (
     <Fragment>
-      <Table hover className={className} {...getTableProps()}>
+      <Table hover className={classes("data-table", className)} {...getTableProps()}>
         {showHead && (
           <thead>
           {headerGroups.map((headerGroup, hgKey) => (

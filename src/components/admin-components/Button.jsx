@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./styles.css";
+import "./styles.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Button = ({ text, onSubmit, rounded, icon }) => {

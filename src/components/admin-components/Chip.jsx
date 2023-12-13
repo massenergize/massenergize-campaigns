@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles.css";
+import "./styles.scss";
 
 const Chip = ({ text, icon, id }) => {
 	return (

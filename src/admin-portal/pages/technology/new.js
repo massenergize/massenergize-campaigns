@@ -4,6 +4,7 @@ import { technologyPages } from "../../../utils/Constants";
 import CreateTechnologyPageWrapper from "../PageWrapper/CreateTechnologyPageWrapper";
 import classes from "classnames";
 import { apiCall } from "../../../api/messenger";
+import { AdminLayout } from "../../../layouts/admin-layout";
 
 const { useReducer } = require("react");
 
@@ -95,8 +96,7 @@ export function CreateTechnology() {
 				padding: "1rem",
 			}}
 		>
-			<CreateTechnologyPageWrapper>
-				<Container>
+			<AdminLayout>
 					{/*region Header*/}
 					<Row
 						lg={{ gutter: 0 }}
@@ -134,8 +134,7 @@ export function CreateTechnology() {
 
 					{/*region Footer*/}
 					{/*endregion*/}
-				</Container>
-			</CreateTechnologyPageWrapper>
+			</AdminLayout>
 		</div>
 	);
 }

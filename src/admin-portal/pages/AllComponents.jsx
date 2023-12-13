@@ -20,7 +20,7 @@ const AllComponents = () => {
 				}}
 			>
 				{/* <Information />
-				<ActionSelect />
+				<Technologies />
 				<Info /> */}
 				{/* <Coaches /> */}
 				{/* <Incentives /> */}

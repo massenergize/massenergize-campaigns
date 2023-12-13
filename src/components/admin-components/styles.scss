@@ -288,18 +288,20 @@
 }
 
 .cusdropdown-menu {
+	position: absolute;
+	top: 100%;
 	width: 100%;
 	display: block;
 	overflow-y: scroll;
 	background-color: white;
 	/* position: absolute; */
-	top: 2rem;
+	//top: 2rem;
 	height: 0;
-	z-index: 0;
 	left: 0;
 	transition-property: all;
 	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 	transition-duration: 300ms;
+	z-index: 1000;
 }
 
 .cusdropdown-menu-close {
@@ -684,4 +686,12 @@
 	justify-content: end;
 	align-content: center;
 	color: rgb(209, 209, 209);
+}
+
+.side-bar-container {
+	width: 270px;
+
+	&.shrink {
+		width: 70px;
+	}
 }

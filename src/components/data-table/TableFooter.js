@@ -35,13 +35,8 @@ export function TableFooter ({
   };
 
   return <Row className={'justify-content-between w-100 mx-0'} style={{ textAlign : 'center' }}>
-    <div className={"col-md-auto col-sm-12"}>
-      <Row className={"justify-content-between mb-s-3 mb-md-0"}>
 
-      </Row>
-    </div>
-
-    <div className={"col-sm-12 col-md-auto border-top-s border-top-md-0 pt-sm-3 pt-md-0"}>
+    <div className={"col border-top-s border-top-md-0 pt-sm-3 pt-md-0"}>
       <div className={'row pagination-controls justify-content-s-center justify-content-md-end'}>
         <div className={'col-auto'}>
           <label htmlFor="{'page-size-select'}">

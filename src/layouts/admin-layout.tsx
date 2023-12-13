@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { Sidebar } from "@kehillahglobal/ui";
 
 import { SIDE_BAR_MENU } from "../layout-components/sidebarMenu";
+import { useState } from "react";
+import classes from "classnames";
 
 interface AdminLayoutProps {
 	children: React.ReactNode;
@@ -13,15 +15,17 @@ interface AdminLayoutProps {
 
 export function AdminLayout(props: AdminLayoutProps) {
 	const { children } = props;
+	const [shrink, setShrink] = useState(true);
 
 	const navigate = useNavigate();
 
 	const userInfo = {};
 	return (
-		<SWRConfig value={{ dedupingInterval: 5000, fetcher: fetchData }}>
+		<SWRConfig value={{ dedupingInterval: 500000, fetcher: fetchData }}>
 			<Row>
-				<Col md={"auto"}>
+				<Col md={"auto"} className={classes(" side-bar-container", {shrink})}>
 					<Sidebar
+						header={"Kehillah Global"}
 						menu={SIDE_BAR_MENU}
 						bottomMenu={[]}
 						userDetails={userInfo}
@@ -29,8 +33,12 @@ export function AdminLayout(props: AdminLayoutProps) {
 						onTabItemClick={(e, { link, name }) => {
 							navigate(link);
 						}}
-						// onShrinkBtnClick={() => setSideRatio(SHRINK_SIDE_RATIO)}
-						// onStateChange={handleSidebarStateChange}
+						onShrinkBtnClick={(data) => {
+							console.log("Shrink button clicked", data);
+						}}
+						onStateChange={({ shrink }) => {
+							setShrink(shrink);
+						}}
 					/>
 				</Col>
 				<Col>{children}</Col>

@@ -1,13 +1,13 @@
 import { Col, Row } from "reactstrap";
 import moment from "moment";
 import React, { useState } from "react";
-import { contains } from "../../../helpers/utils/string";
-import { isEmpty } from "../../../helpers/utils";
+import { contains } from "../../helpers/utils/string";
+import { isEmpty } from "../../helpers/utils";
 import debounce from "lodash/debounce";
-import { downloadTransactionsHistory } from "../duck";
-import ProgressButton from "../../../components/LoadingButton";
-import { StatementDownloadModal } from "../StatementDownloadModal";
-import { notify } from "../../../components/notify";
+import { downloadTransactionsHistory } from "duck";
+import ProgressButton from "../../components/LoadingButton";
+import { StatementDownloadModal } from "StatementDownloadModal";
+import { notify } from "../../components/notify";
 
 /**
  * @function TableFilters

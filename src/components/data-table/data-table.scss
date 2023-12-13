@@ -1,0 +1,12 @@
+$check-box-size : 18px;
+
+.data-table {
+  input[type=checkbox] {
+    width: $check-box-size;
+    height: $check-box-size
+  }
+
+  td {
+    vertical-align: middle;
+  }
+}
