@@ -32,6 +32,7 @@ function RoamingBox({ advert, keyContact }) {
                   </p>
                   <div style={{ display: "flex", padding: "20px 35px" }}>
                     <Button
+                      onClick={() => window.open("http://google.com", "_blank")}
                       style={{
                         marginLeft: "auto",
                         borderRadius: 100,

@@ -27,6 +27,10 @@ function Vendors({ sectionId, data, vendors }) {
             {vendors?.map(({ vendor }, index) => {
               return (
                 <li
+                  onClick={() => {
+                    window.open("http://www.google.com", "_blank");
+                  }}
+                  className="touchable-opacity"
                   style={{
                     flexBasis: "calc(33.33% - 10px)",
                     margin: "5px",

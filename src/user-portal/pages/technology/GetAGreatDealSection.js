@@ -40,7 +40,7 @@ function GetAGreatDealSection({ sectionId, data, image }) {
             style={{
               zIndex: 2,
               marginTop: -240,
-              marginLeft: -90,
+              marginLeft: -102,
             }}
           >
             <Row>

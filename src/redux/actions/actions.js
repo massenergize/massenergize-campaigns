@@ -58,6 +58,8 @@ export const appInnitAction = (campaignId) => {
   let savedUser = localStorage.getItem(USER_STORAGE_KEY);
   savedUser = JSON.parse(savedUser);
 
+  console.log("DID YOU FIND USER", savedUser);
+
   return (dispatch) => {
     dispatch(loadUserObjAction(savedUser)); // use saved user to run a request to bring in the most recent changes to the user
 

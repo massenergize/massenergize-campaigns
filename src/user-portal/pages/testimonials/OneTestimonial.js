@@ -9,13 +9,20 @@ import { connect } from "react-redux";
 import { LOADING } from "../../../utils/Constants";
 import {
   appInnitAction,
+  toggleUniversalModal,
   updateTestimonialsObjAction,
 } from "../../../redux/actions/actions";
 import NotFound from "../error/404";
 import Loading from "../../../components/pieces/Loading";
 import { apiCall } from "../../../api/messenger";
 
-function OneTestimonial({ testimonials, updateTestimonials, campaign, init }) {
+function OneTestimonial({
+  testimonials,
+  updateTestimonials,
+  campaign,
+  init,
+  toggleModal,
+}) {
   const [testimonial, setTestimonial] = useState(LOADING);
   const [error, setError] = useState("");
   const { id, campaign_id } = useParams();
@@ -138,6 +145,18 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init }) {
               );
             })}
           </ul>
+          <div
+            className="mt-2 touchable-opacity"
+            style={{
+              background: "var(--app-medium-green)",
+              padding: 10,
+              color: "white",
+              textAlign: "center",
+              borderRadius: 5,
+            }}
+          >
+            <p style={{ margin: 0, fontWeight: "bold" }}>Add Testimonial</p>
+          </div>
         </Col>
       </Row>
     </PageWrapper>
@@ -149,7 +168,11 @@ const mapState = (state) => {
 };
 const mapDispatch = (dispatch) => {
   return bindActionCreators(
-    { updateTestimonials: updateTestimonialsObjAction, init: appInnitAction },
+    {
+      updateTestimonials: updateTestimonialsObjAction,
+      init: appInnitAction,
+      toggleModal: toggleUniversalModal,
+    },
     dispatch
   );
 };
