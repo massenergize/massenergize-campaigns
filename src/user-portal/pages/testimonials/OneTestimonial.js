@@ -15,6 +15,8 @@ import {
 import NotFound from "../error/404";
 import Loading from "../../../components/pieces/Loading";
 import { apiCall } from "../../../api/messenger";
+import JoinUsForm from "../forms/JoinUsForm";
+import NewTestimonialForm from "./NewTestimonialForm";
 
 function OneTestimonial({
   testimonials,
@@ -22,6 +24,7 @@ function OneTestimonial({
   campaign,
   init,
   toggleModal,
+  authUser,
 }) {
   const [testimonial, setTestimonial] = useState(LOADING);
   const [error, setError] = useState("");
@@ -30,6 +33,9 @@ function OneTestimonial({
   const navigator = useNavigate();
   const { title, body, image } = testimonial || {};
   const technologies = campaign?.technologies;
+
+  const { user } = authUser || {};
+
 
   const groupTestimonials = () => {
     const together = (technologies || []).map((tech) => tech.testimonials);
@@ -41,6 +47,30 @@ function OneTestimonial({
     }, []);
   };
 
+  const initiateTestimonialCreation = () => {
+    if (!user) return triggerRegistration();
+    toggleModal({
+      show: true,
+      title: `Add your testimonial`,
+      iconName: "fa-message",
+      component: ({ close }) => <NewTestimonialForm close={close} />,
+      // modalNativeProps: { size: "md" },
+      fullControl: true,
+    });
+  };
+
+  const triggerRegistration = () => {
+    toggleModal({
+      show: true,
+      title: `Tell us where you are from, before you add a testimonial`,
+      iconName: "fa-thumbs-up",
+      component: ({ close }) => (
+        <JoinUsForm close={close} callbackOnSubmit={({ user }) => {}} />
+      ),
+
+      fullControl: true,
+    });
+  };
   const otherTestimonials = groupTestimonials();
 
   const campaignExists = campaign && campaign !== LOADING;
@@ -146,6 +176,7 @@ function OneTestimonial({
             })}
           </ul>
           <div
+            onClick={() => initiateTestimonialCreation()}
             className="mt-2 touchable-opacity"
             style={{
               background: "var(--app-medium-green)",
@@ -164,7 +195,11 @@ function OneTestimonial({
 }
 
 const mapState = (state) => {
-  return { testimonials: state.testimonials, campaign: state.campaign };
+  return {
+    testimonials: state.testimonials,
+    campaign: state.campaign,
+    authUser: state.user,
+  };
 };
 const mapDispatch = (dispatch) => {
   return bindActionCreators(
