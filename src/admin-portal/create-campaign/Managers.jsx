@@ -4,7 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import Dropdown from "../../components/admin-components/Dropdown";
 import Button from "../../components/admin-components/Button";
 import Chip from "../../components/admin-components/Chip";
-const CampaignCoaches = () => {
+const Managers = () => {
 	const [count, setCount] = useState([]);
 	const opts = [
 		{
@@ -147,4 +147,4 @@ const CampaignCoaches = () => {
 	);
 };
 
-export default CampaignCoaches;
+export default Managers;

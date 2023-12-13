@@ -1,5 +1,5 @@
-import ActionSelect from "../admin-portal/create-campaign/ActionSelect";
-import CampaignCoaches from "../admin-portal/create-campaign/CampaignCoaches";
+import Technologies from "../admin-portal/create-campaign/Technologies";
+import Managers from "../admin-portal/create-campaign/Managers";
 import Events from "../admin-portal/create-campaign/Events";
 import Goal from "../admin-portal/create-campaign/Goal";
 import Information from "../admin-portal/create-campaign/Information";
@@ -17,7 +17,7 @@ export const campaignPages = [
 	},
 	{
 		name: "Technologies",
-		component: ActionSelect,
+		component: Technologies,
 	},
 	// {
 	// 	name: "Goal & Focus",
@@ -25,7 +25,7 @@ export const campaignPages = [
 	// },
 	{
 		name: "Managers",
-		component: CampaignCoaches,
+		component: Managers,
 	},
 	{
 		name: "Events",
@@ -35,10 +35,10 @@ export const campaignPages = [
 		name: "Partners",
 		component: Partners,
 	},
-	{
-		name: "Navigation",
-		component: Navigation,
-	},
+	// {
+	// 	name: "Navigation",
+	// 	component: Navigation,
+	// },
 ];
 
 export const technologyPages = [

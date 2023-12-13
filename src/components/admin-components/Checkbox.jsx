@@ -1,31 +1,25 @@
 import React, { useState } from "react";
-import "./styles.css";
+import "./styles.scss";
 
 const Checkbox = ({
 	label,
 	size,
 	icon,
 	id,
+	name,
 	valueExtractor,
 	labelExtractor,
 	value,
 	onItemSelect,
 }) => {
 	return (
-		<label
-			for={id}
-			className={
-				size === "big"
-					? "custom-checkbox checkbox-big"
-					: "custom-checkbox checkbox-small"
-			}
-		>
+		<label htmlFor={id} className={size === "big" ? "custom-checkbox checkbox-big" : "custom-checkbox checkbox-small"}>
 			<input
 				type="checkbox"
 				id={id}
 				onChange={(e) => {
 					valueExtractor && valueExtractor(value ? value : e.target.checked);
-					onItemSelect && onItemSelect(value);
+					typeof onItemSelect === 'function' && onItemSelect(value);
 				}}
 			/>
 			<span className="checkbox-icon"></span>

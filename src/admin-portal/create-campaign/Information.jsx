@@ -10,7 +10,7 @@ import "../adminStyles.css";
 import { motion as m } from "framer-motion";
 import { apiCall } from "../../utils/api_call";
 
-const Information = () => {
+const Information = ({campaignDetails, setCampaignDetails}) => {
 	const [showError, setShowError] = useState(false);
 	// const [loading, setLoading] = useState(false);
 
@@ -31,21 +31,20 @@ const Information = () => {
 		key_contact_image: "",
 	};
 
-	// http://127.0.0.1:8000/admin/apps__campaigns/campaignaccount/583c96c5-7fb4-488f-ac54-2558252ae535/change/
-
 	const reducer = (state, action) => {
-		switch (action.type) {
+		let { type, payload } = action;
+		switch (type) {
 			case "SET_FIELD_VALUE":
-				return { ...state, [action.field]: action.value };
+				return { ...state, [payload.field]: payload.value };
 			default:
-				throw new Error(`Unsupported action type: ${action.type}`);
+				throw new Error(`Unsupported action type: ${type}`);
 		}
 	};
 
 	const [formData, dispatch] = useReducer(reducer, initialState);
 
 	const handleFieldChange = (field, value) => {
-		dispatch({ type: "SET_FIELD_VALUE", field, value });
+		dispatch({ type: "SET_FIELD_VALUE", payload : { field, value } });
 	};
 
 	const handleSubmit = async (e) => {
@@ -64,11 +63,7 @@ const Information = () => {
 	};
 
 	return (
-		<m.div
-			initial={{ y: " 10%" }}
-			animate={{ y: 0 }}
-			transition={{ duration: 0.3 }}
-		>
+		<m.div initial={{ y: " 10%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
 			<Container>
 				<form>
 					<Row className="py-4">
@@ -93,6 +88,7 @@ const Information = () => {
 								placeholder="Enter a Title for this campaign ..."
 								required={true}
 								type="textbox"
+								value={campaignDetails?.title}
 								onChange={(val) => {
 									handleFieldChange("title", val);
 								}}

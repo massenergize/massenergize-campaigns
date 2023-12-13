@@ -9,8 +9,11 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/admin-components/Button";
 import Dropdown from "../../components/admin-components/Dropdown";
 import { motion as m } from "framer-motion";
+import { apiCall } from "../../utils/api_call";
 
-const ActionSelect = () => {
+const Technologies = ({campaignDetails, setCampaignDetails}) => {
+	const {technologies} = campaignDetails;
+
 	const opts = [
 		{
 			id: 1,
@@ -63,12 +66,7 @@ const ActionSelect = () => {
 	const [formData, dispatch] = useReducer(reducer, initialState);
 
 	const handleFieldChange = (field, value) => {
-		dispatch({ type: "SET_FIELD_VALUE", field, value });
-	};
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		console.log(formData);
+		setCampaignDetails(field,  campaignDetails[field])
 	};
 
 	const handleRemove = (data) => {
@@ -85,12 +83,23 @@ const ActionSelect = () => {
 		console.log(formData);
 	}, [formData]);
 
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		console.log(formData);
+
+		apiCall("campaigns.create", formData)
+			.then((res) => {
+				// localStorage.setItem("campaign_id", res?.data?.id);
+				console.log(res?.data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
 	return (
-		<m.div
-			initial={{ y: " 10%" }}
-			animate={{ y: 0 }}
-			transition={{ duration: 0.3 }}
-		>
+		<m.div initial={{ y: " 10%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
 			<Container>
 				<form>
 					<Row>
@@ -102,7 +111,7 @@ const ActionSelect = () => {
 									onClick={() => navigate("/admin/campaign/create-technology")}
 									className="theme-color text-link"
 								>
-									Create a new technolgy
+									Create a new technology
 								</span>
 							</p>
 						</Col>
@@ -112,16 +121,14 @@ const ActionSelect = () => {
 							<Dropdown
 								displayTextToggle="Select technologies for this campaign"
 								data={opts}
+								defaultValue={technologies}
+								value={technologies}
 								valueExtractor={(item) => item}
 								labelExtractor={(item) => item?.name}
 								multiple={true}
 								onItemSelect={(selectedItem, allSelected) => {
-									console.log(allSelected);
-									handleFieldChange("technology_id", allSelected);
-
-									// setChoice(allSelected);
+									setCampaignDetails("technologies", allSelected)
 								}}
-								// defaultValue={formData?.technologies || []}
 							/>
 						</Col>
 					</Row>
@@ -136,7 +143,8 @@ const ActionSelect = () => {
 					<Row className="mb-4 pb-4">
 						<Col>
 							<div className="smallimages-container-wrapper">
-								{formData?.technology_id?.map((tech) => {
+								{
+									technologies.map((tech) => {
 									return (
 										<div className="small-image-container" key={tech?.id}>
 											<img className="small-image" src={tech?.image} alt="" />
@@ -172,4 +180,4 @@ const ActionSelect = () => {
 	);
 };
 
-export default ActionSelect;
+export default Technologies;
