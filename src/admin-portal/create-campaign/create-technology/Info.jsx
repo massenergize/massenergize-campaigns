@@ -9,15 +9,13 @@ import "../../adminStyles.css";
 import { apiCall } from "../../../utils/api_call";
 import { set } from "date-fns";
 
-const Info = ({technologyInfo, setTechnologyInfo, setActiveTab}) => {
+const Info = ({ technologyInfo, setTechnologyInfo, setActiveTab }) => {
 	const initialState = {
 		name: "",
 		image: "",
 		description: "",
 		summary: "",
 	};
-
-
 
 	const reducer = (state, action) => {
 		switch (action.type) {
@@ -37,8 +35,8 @@ const Info = ({technologyInfo, setTechnologyInfo, setActiveTab}) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		apiCall("technologies.create", formData).then((res) => {
-			if (res?.success){
-				setTechnologyInfo({...technologyInfo,...res?.data})
+			if (res?.success) {
+				setTechnologyInfo({ ...technologyInfo, ...res?.data });
 				setActiveTab("Coaches");
 			}
 		});
@@ -84,7 +82,7 @@ const Info = ({technologyInfo, setTechnologyInfo, setActiveTab}) => {
 								onChange={(val) => {
 									handleFieldChange("description", val);
 								}}
-								maxLength="100"
+								maxLength={100}
 							/>
 						</Col>
 					</Row>

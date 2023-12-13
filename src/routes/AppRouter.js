@@ -2,7 +2,11 @@ import React from "react";
 import { Route, Routes, useParams } from "react-router-dom";
 import LandingPage from "../user-portal/pages/landing-page/LandingPage";
 import { bindActionCreators } from "redux";
-import { testReduxAction, toggleUniversalModal, } from "../redux/actions/actions";
+import {
+  appInnit,
+  testReduxAction,
+  toggleUniversalModal,
+} from "../redux/actions/actions";
 import { connect } from "react-redux";
 import CustomModal from "../components/modal/CustomModal";
 import TechnologyFullViewPage from "../user-portal/pages/technology/TechnologyFullViewPage";
@@ -123,7 +127,7 @@ function AppRouter ({ test, testFunction, modalOptions, toggleModal, appInnit, }
 }
 
 const mapState = (state) => {
-  return { test: state.testStore, modalOptions: state.modalOptions };
+	return { test: state.testStore, modalOptions: state.modalOptions };
 };
 
 const mapDispatch = (dispatch) => {

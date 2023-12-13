@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+	faArrowRight,
 	faBan,
 	faBullhorn,
 	faChartLine,
 	faComment,
+	faDownload,
 	faEye,
 	faHeart,
 	faPenToSquare,
@@ -21,6 +23,7 @@ import Comments from "../../components/admin-components/Comments";
 import Testimonials from "../../components/admin-components/Testimonials";
 import classes from "classnames";
 import Button from "../../components/admin-components/Button";
+import { useNavigate } from "react-router-dom";
 
 const PreviewCampaign = () => {
 	const data = statsData;
@@ -37,6 +40,8 @@ const PreviewCampaign = () => {
 			component: Testimonials,
 		},
 	];
+
+	const navigate = useNavigate();
 
 	const [activeTab, setActiveTab] = useState(tabs[0]?.name);
 	return (
@@ -61,7 +66,12 @@ const PreviewCampaign = () => {
 				<Container className="title--container">
 					<Row>
 						<Col className="update-btn-con">
-							<button className="update-btn">
+							<button
+								onClick={() => {
+									navigate("/admin/campaign/new");
+								}}
+								className="update-btn"
+							>
 								<FontAwesomeIcon icon={faPenToSquare} /> Update
 							</button>
 						</Col>
@@ -93,6 +103,18 @@ const PreviewCampaign = () => {
 							</div>
 						</Col>
 					</Row>
+					<Row>
+						<Col className="mt-4">
+							<div className="d-flex gap-5">
+								<p className="campaign-page-link">
+									Visit Campaign Page{" "}
+									<span>
+										<FontAwesomeIcon icon={faArrowRight} />
+									</span>{" "}
+								</p>
+							</div>
+						</Col>
+					</Row>
 				</Container>
 
 				<Container className="stats-cont">
@@ -104,6 +126,14 @@ const PreviewCampaign = () => {
 									<FontAwesomeIcon icon={faChartLine} />
 								</span>
 							</h3>
+							<div className="d-all-file">
+								<Button
+									text="Download Data File"
+									// onSubmit={handleClick}
+									rounded={false}
+									icon={faDownload}
+								/>
+							</div>
 							<div className="statss-con-div">
 								{statistics?.map((data, index) => {
 									return (
@@ -112,14 +142,6 @@ const PreviewCampaign = () => {
 										</div>
 									);
 								})}
-							</div>
-							<div>
-								<Button
-									text="Download Data File"
-									// onSubmit={handleClick}
-									rounded={false}
-									// icon={faPlus}
-								/>{" "}
 							</div>
 						</Col>
 					</Row>
