@@ -35,7 +35,7 @@ const Vendors = () => {
 
 	const initialState = {
 		technology_id: "",
-		vendor_id: [],
+		vendor_id: opts?.slice(0, 3),
 	};
 
 	const reducer = (state, action) => {
@@ -71,10 +71,9 @@ const Vendors = () => {
 							multiple={true}
 							onItemSelect={(selectedItem, allSelected) => {
 								console.log(allSelected);
-								// handleFieldChange("name", val);
-
-								// setFormData({ ...formData, coaches: allSelected });
+								handleFieldChange("vendor_id", allSelected);
 							}}
+							selectedValues={formData?.vendor_id}
 						/>
 					</Col>
 				</Row>

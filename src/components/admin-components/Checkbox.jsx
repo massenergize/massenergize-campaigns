@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../assets/styles/styles.scss";
 
 const Checkbox = ({
@@ -13,7 +13,11 @@ const Checkbox = ({
 	onItemSelect,
 	selectedValues,
 }) => {
-	const isChecked = selectedValues && selectedValues.includes(value);
+	const [isChecked, setIsChecked] = useState(
+		selectedValues && selectedValues.includes(value)
+	);
+
+	// const [selectedOpt, setSelectedOpt] = useState(false);
 
 	return (
 		<label
@@ -26,10 +30,21 @@ const Checkbox = ({
 				type="checkbox"
 				id={id}
 				onChange={(e) => {
-					valueExtractor && valueExtractor(value ? value : e.target.checked);
-					typeof onItemSelect === "function" && onItemSelect(value);
+					// valueExtractor && valueExtractor(value ? value : e.target.checked);
+					// typeof onItemSelect === "function" && onItemSelect(value);
+					const newValue = value ? value : e.target.checked;
+					valueExtractor && valueExtractor(newValue);
+
+					if (newValue) {
+						typeof onItemSelect === "function" && onItemSelect(value);
+					} else {
+						typeof onItemSelect === "function" && onItemSelect(null);
+					}
+
+					setIsChecked(newValue);
+					setIsChecked(e.target.checked);
 				}}
-				checked={isChecked}
+				checked={isChecked ? true : false}
 			/>
 			<span className="checkbox-icon"></span>
 			<span className="text">
