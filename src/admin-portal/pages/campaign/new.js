@@ -4,7 +4,7 @@ import CreateCampaignPageWrapper from "../PageWrapper/CreateCampaignPageWrapper"
 import { campaignPages } from "../../../utils/Constants";
 import classes from "classnames";
 import { AdminLayout } from "../../../layouts/admin-layout";
-import {StartCampaign} from "../../create-campaign/start-campaign";
+import { StartCampaign } from "../../create-campaign/start-campaign";
 
 const { useReducer } = require("react");
 
@@ -23,7 +23,7 @@ const initialState = {
   tagline: "One Tree at a Time",
   start_date: "15/12/2023",
   end_date: "15/12/2024",
-  is_published : false,
+  is_published: false,
   campaign_account_id: "583c96c5-7fb4-488f-ac54-2558252ae535",
   is_template: true,
   full_name: "John Doe",
@@ -52,7 +52,7 @@ const reducer = (state, action) => {
   }
 };
 
-export function NewCampaign ({props}) {
+export function NewCampaign ({ props }) {
   const [showError, setShowError] = useState(false);
   const [activeTab, setActiveTab] = useState(campaignPages[0].name);
 
@@ -110,51 +110,56 @@ export function NewCampaign ({props}) {
   return (
     <AdminLayout>
       <div style={{ padding: "1rem", }}>
-        <CreateCampaignPageWrapper>
-          <Container>
-            {/*region Header*/}
-            <Row lg={{ gutter: 0 }} className="pb-4 overflow-scroll gap-0 no-gutters g">
-              <Col>
-                <div className="nav-tabs-container">
-                  {campaignPages?.map((page) => (
-                    <div
-                      key={page?.name}
-                      className={classes("nav-tabs-main tab", { "tab-active": activeTab === page?.name })}
-                      onClick={() => setActiveTab(page?.name)}
-                    >
-                      <h5 className={classes("nav-tabs",)}>
-                        {page?.name}
-                      </h5>
+        {
+          STEP === "START" ?
+            <StartCampaign campaignDetails={campaignDetails} setCampaignDetails={handleCampaignDetailsChange}/>
+            :
+            <CreateCampaignPageWrapper>
+              <Container>
+                {/*region Header*/}
+                <Row lg={{ gutter: 0 }} className="pb-4 overflow-scroll gap-0 no-gutters g">
+                  <Col>
+                    <div className="nav-tabs-container">
+                      {campaignPages?.map((page) => (
+                        <div
+                          key={page?.name}
+                          className={classes("nav-tabs-main tab", { "tab-active": activeTab === page?.name })}
+                          onClick={() => setActiveTab(page?.name)}
+                        >
+                          <h5 className={classes("nav-tabs",)}>
+                            {page?.name}
+                          </h5>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </Col>
-            </Row>
-            {/*endregion*/}
+                  </Col>
+                </Row>
+                {/*endregion*/}
 
-            {/*region Body: Content goes here*/}
-            <Row className="mt-4 pt-4">
-              <Col>
-                {
-                  campaignPages?.map((tab) => {
-                  return (
-                    activeTab === tab?.name && (
-                      <tab.component
-                        key={tab?.name}
-                        campaignDetails={campaignDetails}
-                        setCampaignDetails={handleCampaignDetailsChange}/>
-                    )
-                  );
-                })}
-              </Col>
-            </Row>
-            {/*endregion*/}
+                {/*region Body: Content goes here*/}
+                <Row className="mt-4 pt-4">
+                  <Col>
+                    {
+                      campaignPages?.map((tab) => {
+                        return (
+                          activeTab === tab?.name && (
+                            <tab.component
+                              key={tab?.name}
+                              campaignDetails={campaignDetails}
+                              setCampaignDetails={handleCampaignDetailsChange}/>
+                          )
+                        );
+                      })}
+                  </Col>
+                </Row>
+                {/*endregion*/}
 
-            {/*region Footer*/}
+                {/*region Footer*/}
 
-            {/*endregion*/}
-          </Container>
-        </CreateCampaignPageWrapper>
+                {/*endregion*/}
+              </Container>
+            </CreateCampaignPageWrapper>
+        }
       </div>
     </AdminLayout>
   );

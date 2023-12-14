@@ -24,6 +24,7 @@
     "dayjs": "^1.11.10",
     "framer-motion": "^10.16.15",
     "libphonenumber-js": "^1.10.51",
+    "nprogress": "^0.2.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",

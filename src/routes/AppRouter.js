@@ -18,7 +18,7 @@ import { CreateTechnology } from "../admin-portal/pages/technology/new";
 import { AllTechnologies } from "../admin-portal/pages/technology/all";
 import OneTestimonial from "../user-portal/pages/testimonials/OneTestimonial";
 import CreateCampaignAccount from "../admin-portal/pages/campaign-account/CreateCampaignAccount";
-import { PreviewCampaign } from "../admin-portal/pages/campaign/preview-campaign";
+import { CampaignStatistics } from "../admin-portal/pages/campaign/campaign-statistics/campaign-statistics";
 
 const ROUTE_TABLE = [
   {
@@ -60,8 +60,8 @@ const ROUTE_TABLE = [
   },
 
   {
-    path: "/admin/campaign/preview",
-    component: PreviewCampaign,
+    path: "/admin/campaign/:id/stats/",
+    component: CampaignStatistics,
   },
 
   {
@@ -81,7 +81,7 @@ const ROUTE_TABLE = [
 
   {
     path: "/admin/campaign-preview/:id",
-    component: PreviewCampaign,
+    component: CampaignStatistics,
   },
   {
     path: "/components",

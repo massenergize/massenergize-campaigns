@@ -6,9 +6,10 @@ import { TableFooter } from "../components/data-table/TableFooter";
 import { RowActions } from "./row-actions";
 import { ROW_ACTIONS_MENU } from "./menu";
 import { useNamedState } from "../hooks/useNamedState";
-import { fetchAllCampaigns } from "../hooks/requests";
 import useSWR from "swr";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, ButtonGroup, Dropdown } from "react-bootstrap";
+import { fetchAllCampaigns } from "../requests/campaign-requests";
 
 const DUMMY_DATA = [
   {
@@ -226,133 +227,18 @@ export function AllCampaignsView ({}) {
         Cell: ({ cell }) => {
           const { value, row: { id, values }, row } = cell;
 
-          return <RowActions rowActions={rowMenu} id={id} row={values} onRowActionsClick={() => {
-            handleRowActionsClick(id, values);
-            navigate("/admin/campaign/preview");
-          }}/>
+          return <Dropdown as={ButtonGroup}>
+            <Link to={`/admin/campaign/${value}/stats`} className={'btn btn-primary'}>View Stats</Link>
+
+            <Dropdown.Toggle split variant="primary" id="dropdown-split-basic" />
+
+            <Dropdown.Menu>
+              <Dropdown.Item href="#/action-1">Preview</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         },
       },
     ];
-
-/*  useMemo(() => (
-    [
-      {
-        id: "logo",
-        Header: () => null,
-        accessor: (values) => {
-          const { logo } = values;
-          let src = logo;
-          return (
-            <div>
-              <img src={src} alt="logo" style={{ width: "40px", height: "40px" }}
-                   onError={() => {
-                     src = "/fallback-img.png";
-                   }}
-              />
-            </div>
-          );
-        },
-        className: "text-left",
-        filter: "equals",
-
-        style: {
-          textAlign: "left"
-        }
-      },
-      {
-        Filter: SelectColumnFilter,
-        Header: "Title",
-        accessor: "title",
-        className: "text-left",
-        filter: "equals",
-        id: "title",
-        style: {
-          textAlign: "left",
-        }
-      },
-      {
-        Filter: SelectColumnFilter,
-        Header: "Creator",
-        accessor: (value) => {
-          const { creator, owner } = value;
-          return creator;
-        },
-        className: "text-left",
-        filter: "equals",
-        id: "creator",
-        style: {
-          textAlign: "left",
-        }
-      },
-      {
-        Filter: SelectColumnFilter,
-        Header: "Date",
-        accessor: (values) => {
-          const { created_at } = values;
-          return dayjs(created_at).format("MM-DD-YYYY");
-        },
-        disableSortBy: true,
-        filter: "equals",
-        id: "created_at",
-        style: {
-          textAlign: "center"
-        }
-      },
-
-      {
-        Header: "Live",
-        accessor: (values) => {
-          const { is_published } = values;
-          return <span
-            style={{
-              backgroundColor: is_published ? '#9fea9f' : '#e6c0a6',
-              paddingBlock: "1px",
-              paddingInline: "10px",
-              borderRadius: "12px",
-            }}>{is_published ? 'Yes' : 'No'}</span>;
-        },
-        id: "is_published",
-        style: {
-          textAlign: "center"
-        }
-      },
-      {
-        Header: "Template",
-        accessor: (values) => {
-          const { is_template } = values;
-          return <span
-            style={{
-              backgroundColor: is_template ? '#9fea9f' : '#e6c0a6',
-              paddingBlock: "1px",
-              paddingInline: "10px",
-              borderRadius: "12px",
-            }}>{is_template ? 'Yes' : 'No'}</span>;
-        },
-        id: "is_template",
-        style: {
-          textAlign: "center"
-        }
-      },
-      {
-        Header: () => null,
-        id: 'actions',
-        accessor: (values) => {
-          const { id } = values;
-
-          return id;
-        },
-        disableSortBy: true,
-        Cell: ({ cell }) => {
-          const { value, row: { id, values }, row } = cell;
-
-          return <RowActions rowActions={rowMenu} id={id} row={values} onRowActionsClick={() => {
-            handleRowActionsClick(id, values);
-            navigate("/admin/campaign/preview");
-          }}/>
-        },
-      },
-    ]
-  ), []);*/
 
   const [pagesCount, setPagesCount] = useState(1);
   const [pageIndex, setPageIndex] = useState(0);
@@ -423,6 +309,8 @@ export function AllCampaignsView ({}) {
     }
   );
 
+  console.log({ campaigns })
+
   const patched = campaigns?.map((campaign, i) => {
     return {
       ...campaign,
@@ -430,7 +318,8 @@ export function AllCampaignsView ({}) {
       // creator: campaign.owner || DUMMY_CAMPAIGN_OWNERS[i],
       creator: DUMMY_CAMPAIGN_OWNERS[i],
       logo: campaign.secondary_logo?.url || "http://localhost:3000/img/fallback-img.png",
-      logo_alt: campaign.primary_logo?.name
+      logo_alt: campaign.primary_logo?.name,
+      show : true,
     }
   })
 

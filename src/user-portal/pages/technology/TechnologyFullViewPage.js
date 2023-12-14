@@ -134,10 +134,7 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
                 comments={comments?.length || 0}
               />
               <p className="mt-3" style={{ textAlign: "justify" }}>
-                <span
-                  dangerouslySetInnerHTML={{ __html: description }}
-                  style={{ height, display: "block", overflowY: "hidden" }}
-                ></span>
+                <span dangerouslySetInnerHTML={{ __html: description }} style={{ height, display: "block", overflowY: "hidden" }}/>
                 <span
                   onClick={() =>
                     setHeight(readMore ? "100%" : DEFAULT_READ_HEIGHT)

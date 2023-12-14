@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./styles.scss";
+import "../../assets/styles/styles.scss";
 import Checkbox from "./Checkbox";
 
 const Dropdown = ({
@@ -53,7 +53,6 @@ const Dropdown = ({
   // useEffect(() => {
   // 	onItemSelect && onItemSelect(nv, selectedItems);
   // 	setSelectedItem(nselectedItem);
-
   // 	// setLabelShowing();
   // 	console.log(nselectedItem, selectedItems);
   // }, []);

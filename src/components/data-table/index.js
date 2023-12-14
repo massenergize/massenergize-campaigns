@@ -48,9 +48,7 @@ const IndeterminateCheckbox = React.forwardRef(
     }, [resolvedRef, indeterminate])
 
     return (
-      <>
-        <input type="checkbox" className="" ref={resolvedRef} {...rest} />
-      </>
+     <input type="checkbox" className="" ref={resolvedRef} {...rest} />
     )
   }
 )
@@ -152,17 +150,16 @@ const DataTable = ({
             // The header can use the table's getToggleAllRowsSelectedProps method
             // to render a checkbox
             Header: ({ getToggleAllRowsSelectedProps }) => (
-              <div>
                 <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-              </div>
             ),
             // The cell can use the individual row's getToggleRowSelectedProps method
             // to the render a checkbox
             Cell: ({ row }) => (
-              <div>
                 <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-              </div>
             ),
+            style: {
+              textAlign: "center"
+            }
           },
         ] : []),
         ...columns,

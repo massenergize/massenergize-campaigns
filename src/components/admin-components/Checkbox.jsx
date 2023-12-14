@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./styles.scss";
+import "../../assets/styles/styles.scss";
 
 const Checkbox = ({
 	label,
