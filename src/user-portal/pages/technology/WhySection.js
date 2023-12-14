@@ -70,7 +70,7 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
                   style={{ fontSize: 70, color: "var(--app-medium-green)" }}
                 /> */}
                 <h6
-                  className="mt-2 mb-2"
+                  className="mt-3 mb-3"
                   style={{
                     color: "var(--app-medium-green)",
                     textTransform: "uppercase",
@@ -78,7 +78,9 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
                 >
                   {title || {}}
                 </h6>
-                <p style={{ textAlign: "justify" }}>{description}</p>
+                <p style={{ textAlign: "justify", lineHeight: "1.9" }}>
+                  {description}
+                </p>
               </Col>
             );
           })}

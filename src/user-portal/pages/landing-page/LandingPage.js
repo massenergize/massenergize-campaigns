@@ -84,8 +84,41 @@ function LandingPage({ toggleModal, campaign, init, menu }) {
 
   if (!campaign) return <NotFound></NotFound>;
 
+  let previewMode = fetchUrlParams("preview");
+  previewMode = previewMode?.trim() === "true" ? true : false;
+
   return (
     <div style={{}}>
+      {previewMode && (
+        <p
+          className="elevate-3"
+          style={{
+            background: "var(--app-orange)",
+            padding: "20px 40px",
+            position: "fixed",
+            right: 0,
+            top: 100,
+            zIndex: 10,
+            fontWeight: "bold",
+            color: "white",
+            borderTopLeftRadius: 55,
+            borderBottomLeftRadius: 55,
+          }}
+        >
+          <span>PREVIEW MODE</span>
+          {/* <a
+            onClick={(e) => {
+              e.preventDefault();
+              window.close();
+            }}
+            href="#"
+            className="touchable-opacity"
+            style={{ marginLeft: 5, color: "white" }}
+          >
+            (Go Back)
+          </a> */}
+        </p>
+      )}
       <AppNavigationBar menu={menu} />
       <Container>
         <Banner {...campaign} />

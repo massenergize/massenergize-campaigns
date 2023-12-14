@@ -17,7 +17,7 @@ function Vendors({ sectionId, data, vendors }) {
       }}
     >
       <OptimumWrapper>
-        <SectionTitle className="mb-3">{title}</SectionTitle>
+        <SectionTitle className="mb-3">{title || "Vendors"}</SectionTitle>
         <p style={{ textAlign: "justify" }} className="mb-4">
           {description}
         </p>

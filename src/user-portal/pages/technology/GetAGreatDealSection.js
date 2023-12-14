@@ -61,7 +61,7 @@ function GetAGreatDealSection({ sectionId, data, image }) {
             <Row style={{ margin: "50px 0px" }}>
               {/* {[first_deal, second_deal, third_deal].map((item, index) => { */}
               {(boxes || []).map((item, index) => {
-                if (!item) return <></>;
+                if (!item || !item?.text) return <></>;
                 return (
                   <Col
                     onClick={() => window.open(item?.link, "_blank")}

@@ -20,16 +20,27 @@ function TestimonialBox({
         {user?.preferred_name || " AMIE POWELKA"}
       </h5>
       <h6 style={{ fontSize: 15 }}>{title || "..."}</h6>
-      <p style={{ fontSize: 14 }}>
-        {preview}
-        <a
-          className="touchable-opacity"
-          href={route}
-          style={{ marginLeft: 10, color: "var(--app-medium-green)" }}
-        >
-          Read More...
-        </a>
-      </p>
+      <div
+        style={{ fontSize: 14, maxHeight: 70, height: 70, margin: 0 }}
+        dangerouslySetInnerHTML={{ __html: preview }}
+      >
+        {/* {preview} */}
+      </div>
+      <a
+        className="touchable-opacity"
+        onClick={(e) => {
+          e.preventDefault();
+          navigator(route);
+        }}
+        style={{
+          marginLeft: 10,
+          color: "var(--app-medium-green)",
+          fontSize: 14,
+          // margin: "30px 0px",
+        }}
+      >
+        Read More...
+      </a>
 
       <img
         style={{

@@ -71,6 +71,7 @@ function TechnologyFullViewPage({
   const { campaign_technology_id, campaign_id } = useParams();
   const id = campaign_technology_id;
 
+  console.log("TECH PAGE", technology);
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
     if (ref?.current)
@@ -149,6 +150,7 @@ function TechnologyFullViewPage({
     more_info_section,
     deal_section_image,
     vendors_section,
+    coaches_section,
     vendors,
   } = technology;
 
@@ -498,6 +500,7 @@ function TechnologyFullViewPage({
           <OneTechMeetTheCoachesSection
             coaches={coaches}
             sectionId="meet-coach"
+            data={coaches_section}
             toggleModal={() =>
               toggleModal({
                 show: true,

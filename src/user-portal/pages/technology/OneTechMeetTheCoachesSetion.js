@@ -34,8 +34,10 @@ function OneTechMeetTheCoachesSection({
   toggleModal,
   sectionId,
   coaches,
+  data,
   ref,
 }) {
+  const { title, description } = data || {};
   return (
     <div
       ref={ref}
@@ -50,7 +52,7 @@ function OneTechMeetTheCoachesSection({
     >
       <OptimumWrapper>
         <SectionTitle className="mb-5" style={{ color: "black" }}>
-          Meet the Coaches
+          {title || "Meet the Coaches"}
         </SectionTitle>
 
         <Row style={{ marginTop: 50 }}>
@@ -63,15 +65,8 @@ function OneTechMeetTheCoachesSection({
           })}
         </Row>
 
-        <div style={{}}>
-          <p>
-            In publishing and graphic design, Lorem ipsum is a placeholder text
-            commonly used to demonstrate the visual form of a document or a
-            typeface without relying on meaningful content. Lorem ipsum may be
-            used as a placeholder before final copy is availa a typeface without
-            relying on meaningful content. Lorem ipsum may be used as a
-            placeholder before final copy is availa
-          </p>
+        <div style={{ textTransform: "justify", marginTop: 20 }}>
+          <p>{description}</p>
           <div
             style={{
               display: "flex",
