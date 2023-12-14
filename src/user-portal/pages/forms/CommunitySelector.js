@@ -8,9 +8,6 @@ export const OTHER = "other";
 function CommunitySelector({ onChange, communities, data }) {
   const [state, setState] = useState({});
   data = data || {};
-  // const [option, setOption] = useState("");
-  // const [comName, setComName] = useState("");
-  // const [zipcode, setZipCode] = useState("");
 
   const { zipcode, comId, valueForOther } = state || {};
 
@@ -20,9 +17,6 @@ function CommunitySelector({ onChange, communities, data }) {
     onChange && onChange(newValue);
   };
 
-  // const transfer = (obj) => {
-  //   onChange && onChange({ ...data, ...obj });
-  // };
 
   useEffect(() => {
     setState(data);

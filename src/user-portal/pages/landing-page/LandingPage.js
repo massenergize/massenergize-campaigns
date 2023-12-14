@@ -51,7 +51,7 @@ function LandingPage({ toggleModal, campaign, init, menu }) {
   const target = fetchUrlParams("section");
 
   useEffect(() => {
-    scrollToSection(target);
+    scrollToSection(target?.trim());
   }, [mounted, target]);
 
   useEffect(() => {

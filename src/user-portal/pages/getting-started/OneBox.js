@@ -80,7 +80,7 @@ function OneBox({
         }}
       >
         <Button
-          onClick={() => navigator(`${route}?section=quote`)}
+          onClick={() => navigator(`${route}?section=vendors`)}
           className="tech-btn elevate-2 touchable-opacity"
           style={{ background: "var(--app-medium-green)" }}
         >

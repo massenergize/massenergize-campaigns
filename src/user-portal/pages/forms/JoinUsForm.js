@@ -30,10 +30,18 @@ function JoinUsForm({
 
   useState(() => {
     if (authUser) {
-      const { user, community } = authUser || {};
+      const { user, community, zipcode } = authUser || {};
       const { email } = user || {};
       setEmail(email);
-      setForm({ ...form, comId: community?.id?.toString() });
+      console.log("This is the authUser", authUser);
+      const isOther = community?.name === "Other";
+      setForm({
+        ...form,
+        comId: isOther ? OTHER : community?.id?.toString(),
+        zipcode,
+        name: community?.name,
+        valueForOther: isOther ? authUser?.community_name : "",
+      });
     }
   }, [authUser]);
 
@@ -42,6 +50,7 @@ function JoinUsForm({
   };
 
   const joinUs = () => {
+    if (authUser) return alert("You've already followed. Thank you very much!");
     const emailIsValid = validateEmail(email);
     if (!emailIsValid)
       return makeNotification("Please provide a valid email address...");
@@ -70,8 +79,6 @@ function JoinUsForm({
         setError("Error: ", response.error);
         return console.log("FOLLOW_ERROR_BE: ", response.error);
       }
-      console.log("this is the follow response", response, close);
-
       callbackOnSubmit && callbackOnSubmit({ close, user: response.data });
       setUserObj(response.data);
     });
@@ -120,7 +127,7 @@ function JoinUsForm({
         </Button>
         <Button
           className="touchable-opacity"
-          disabled={loading}
+          disabled={loading || authUser}
           onClick={() => joinUs()}
           size="lg"
           style={{

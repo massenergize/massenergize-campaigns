@@ -22,7 +22,6 @@ function NewTestimonialForm({
   updateTestimonials,
   testimonials,
 }) {
-  console.log("LEts see the campaign", campaign);
   const { user, community } = authUser || {};
   const [notification, setNotification] = useState({});
   const [form, setForm] = useState({});
@@ -59,7 +58,7 @@ function NewTestimonialForm({
 
   const reset = () => {
     setForm({});
-    editorRef.setContent("");
+    editorRef?.current?.setContent("");
   };
   const submitTestimonial = () => {
     const { name, title, campaign_technology_id } = form || {};
@@ -88,6 +87,10 @@ function NewTestimonialForm({
         reset();
         // console.log("Data after testimonial", data);
         updateTestimonials([data, ...testimonials]);
+        notify(
+          "Thanks for leaving a testimonial! Our admins will review & publish it as soon as possible!",
+          true
+        );
       })
       .catch((e) => {
         setLoading(false);

@@ -8,9 +8,10 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addUrlParams } from "../../utils/utils";
 
+const EXCLUDE_FROM_NAV = ["communities"];
 function AppNavigationBar({ menu }) {
   const navigator = useNavigate();
- 
+
   return (
     <Navbar
       variant="dark"
@@ -25,7 +26,10 @@ function AppNavigationBar({ menu }) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto mx-auto">
             {menu?.map((menu) => {
-              // console.log("Lets see key", menu.key);
+              const excluded = EXCLUDE_FROM_NAV.includes(
+                menu?.key?.toLowerCase()
+              );
+              if (excluded) return <></>;
               if (!menu?.children)
                 return (
                   <Nav.Link

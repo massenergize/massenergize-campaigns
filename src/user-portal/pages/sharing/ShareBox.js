@@ -10,7 +10,7 @@ const items = [
   { key: "other", text: "Other", icon: "" },
 ];
 function ShareBox({ data, onChange, campaign, authUser }) {
-  const [copied, setCopied] = useState(true);
+  const [copied, setCopied] = useState(false);
   const [state, setState] = useState({});
   const [error, setError] = useState({});
   const [link, setLink] = useState("");
