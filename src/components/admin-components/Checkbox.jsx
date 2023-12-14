@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import "../../assets/styles/styles.scss";
 
 const Checkbox = ({
@@ -17,8 +17,6 @@ const Checkbox = ({
 		selectedValues && selectedValues.includes(value)
 	);
 
-	// const [selectedOpt, setSelectedOpt] = useState(false);
-
 	return (
 		<label
 			htmlFor={id}
@@ -30,8 +28,6 @@ const Checkbox = ({
 				type="checkbox"
 				id={id}
 				onChange={(e) => {
-					// valueExtractor && valueExtractor(value ? value : e.target.checked);
-					// typeof onItemSelect === "function" && onItemSelect(value);
 					const newValue = value ? value : e.target.checked;
 					valueExtractor && valueExtractor(newValue);
 
