@@ -7,7 +7,7 @@ import FileUploader from "../../../components/admin-components/FileUploader";
 import Button from "../../../components/admin-components/Button";
 import "../../adminStyles.css";
 import { apiCall } from "../../../utils/api_call";
-import { set } from "date-fns";
+import MERichText from "../../../components/admin-components/RichText";
 
 const Info = ({ technologyInfo, setTechnologyInfo, setActiveTab }) => {
 	const initialState = {
@@ -69,21 +69,23 @@ const Info = ({ technologyInfo, setTechnologyInfo, setActiveTab }) => {
 								onChange={(val) => {
 									handleFieldChange("summary", val);
 								}}
+								maxLength="100"
 							/>
 						</Col>
 					</Row>
 					<Row className="py-4">
 						<Col>
-							<Input
-								label="Description"
-								placeholder="Add more description for this focus......."
-								required={true}
-								type="textarea"
-								onChange={(val) => {
-									handleFieldChange("description", val);
-								}}
-								maxLength={100}
-							/>
+                         <MERichText
+						 label="Description"
+						 placeholder="Add more description for this technology......."	
+						 required={true}
+						 onEditorChange = {(val, _) => {
+							 handleFieldChange("description", val);
+						 }}	
+						 value={formData?.description}
+
+
+						 />
 						</Col>
 					</Row>
 					<Row className="py-4">

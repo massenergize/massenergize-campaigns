@@ -9,13 +9,9 @@ const Button = ({ text, onSubmit, rounded, icon }) => {
 			onClick={onSubmit && onSubmit}
 			className={rounded ? `btn-rounded btn-n ` : `btn-fixed btn-n`}
 		>
-			<FontAwesomeIcon icon={icon} /> {text}
-			{/* !load && */}
+			<span> {icon && <FontAwesomeIcon icon={icon} />} </span> {text}
 		</button>
 	);
 };
-
-//  ${load && "loader"}
-//  ${load && "loader"}
 
 export default Button;

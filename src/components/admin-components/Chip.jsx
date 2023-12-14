@@ -1,9 +1,9 @@
 import React from "react";
 import "../../assets/styles/styles.scss";
 
-const Chip = ({ text, icon, id }) => {
+const Chip = ({ text, icon, id, className, onClick }) => {
 	return (
-		<button className="chip">
+		<button className={`chip ${className}`} onClick={()=> onClick && onClick()}>
 			{icon} {text}{" "}
 			<span>
 				<svg
