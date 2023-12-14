@@ -31,7 +31,6 @@ function JoinUsForm({
   useState(() => {
     if (authUser) {
       const { user, community } = authUser || {};
-      console.log("here we are with the auth user", user);
       const { email } = user || {};
       setEmail(email);
       setForm({ ...form, comId: community?.id?.toString() });

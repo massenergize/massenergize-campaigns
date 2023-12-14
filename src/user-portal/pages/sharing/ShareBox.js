@@ -48,7 +48,9 @@ function ShareBox({ data, onChange, campaign, authUser }) {
   };
 
   useEffect(() => {
-    setState({ platform: "other" }); // First time of opening, it should always choose "other"
+    const initObj = { platform: "other" };
+    setState(initObj); // First time of opening, it should always choose "other"
+    generateLink(initObj);
   }, []);
 
   const { platform } = state;
