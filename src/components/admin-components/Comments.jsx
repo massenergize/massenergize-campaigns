@@ -113,6 +113,7 @@ const Comments = ({ campaign }) => {
 												console.log(selectedItem);
 												handleFieldChange("community", selectedItem);
 											}}
+											selectedValues={[]}
 										/>
 									</Col>
 								</Row>

@@ -11,6 +11,7 @@ const Dropdown = ({
 	multiple,
 	defaultValue,
 	label,
+	selectedValues,
 }) => {
 	const ref = useRef();
 
@@ -56,12 +57,9 @@ const Dropdown = ({
 		}
 	};
 
-	// useEffect(() => {
-	// 	onItemSelect && onItemSelect(nv, selectedItems);
-	// 	setSelectedItem(nselectedItem);
-	// 	// setLabelShowing();
-	// 	console.log(nselectedItem, selectedItems);
-	// }, []);
+	useEffect(() => {
+		setSelectedItems(selectedValues || []);
+	}, [selectedValues]);
 
 	useEffect(() => {
 		function handleClickOutside(event) {
@@ -132,6 +130,7 @@ const Dropdown = ({
 										handleSelect(val);
 										setNv(val);
 									}}
+									selectedValues={selectedValues}
 								/>
 							</div>
 						) : (

@@ -11,16 +11,25 @@ const Checkbox = ({
 	labelExtractor,
 	value,
 	onItemSelect,
+	selectedValues,
 }) => {
+	const isChecked = selectedValues && selectedValues.includes(value);
+
 	return (
-		<label htmlFor={id} className={size === "big" ? "custom-checkbox checkbox-big" : "custom-checkbox checkbox-small"}>
+		<label
+			htmlFor={id}
+			className={`${
+				size === "big" ? "checkbox-big" : " checkbox-small"
+			} custom-checkbox`}
+		>
 			<input
 				type="checkbox"
 				id={id}
 				onChange={(e) => {
 					valueExtractor && valueExtractor(value ? value : e.target.checked);
-					typeof onItemSelect === 'function' && onItemSelect(value);
+					typeof onItemSelect === "function" && onItemSelect(value);
 				}}
+				checked={isChecked}
 			/>
 			<span className="checkbox-icon"></span>
 			<span className="text">
