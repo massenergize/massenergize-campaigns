@@ -1,38 +1,44 @@
 import React, { useReducer, useState } from "react";
-import { comments } from "../../utils/Constants";
+// import { comments } from "../../utils/Constants";
 import Button from "./Button";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { AnimatePresence, motion as m } from "framer-motion";
 import { Col, Container, Row } from "react-bootstrap";
 import Input from "./Input";
+import classes from "classnames";
 import Dropdown from "./Dropdown";
 
-const Comments = () => {
-	const data = comments;
+const Comments = ({ campaign }) => {
+	const commentsData = campaign?.technologies;
+	const communities = campaign?.communities;
+	const technologies = campaign?.technologies;
 
 	const handleClick = () => {};
 
-	function timeAgo(date) {
-		const seconds = Math.floor((new Date() - date) / 1000);
+	const timeAgo = (date) => {
+		const currentDate = new Date();
+		const inputDate = new Date(date);
 
-		const intervals = {
-			year: 31536000,
-			month: 2592000,
-			week: 604800,
-			day: 86400,
-			hour: 3600,
-			minute: 60,
-		};
+		const diffInSeconds = Math.floor((currentDate - inputDate) / 1000);
 
-		for (const [intervalName, intervalSeconds] of Object.entries(intervals)) {
-			const count = Math.floor(seconds / intervalSeconds);
-			if (count >= 1) {
-				return `${count} ${intervalName}${count > 1 ? "s" : ""} ago`;
-			}
+		if (diffInSeconds < 60) {
+			return "Just now";
+		} else if (diffInSeconds < 3600) {
+			const minutes = Math.floor(diffInSeconds / 60);
+			return `${minutes} minutes ago`;
+		} else if (diffInSeconds < 86400) {
+			const hours = Math.floor(diffInSeconds / 3600);
+			return `${hours} hours ago`;
+		} else if (diffInSeconds < 604800) {
+			const days = Math.floor(diffInSeconds / 86400);
+			return `${days} days ago`;
+		} else if (diffInSeconds < 2592000) {
+			const weeks = Math.floor(diffInSeconds / 604800);
+			return `${weeks} weeks ago`;
+		} else {
+			return "More than a month ago";
 		}
-
-		return "Just now";
-	}
+	};
 
 	const [selectedId, setSelectedId] = useState(null);
 	const [btnName, setBtnName] = useState("Create New Comment");
@@ -43,6 +49,7 @@ const Comments = () => {
 		email: "",
 		comment: "",
 		community: "",
+		technologies: "",
 	};
 
 	const reducer = (state, action) => {
@@ -79,6 +86,8 @@ const Comments = () => {
 		},
 	];
 
+	const [activeTab, setActiveTab] = useState(commentsData[0]?.name);
+
 	return (
 		<m.div
 			initial={{ y: "15%" }}
@@ -86,10 +95,9 @@ const Comments = () => {
 			transition={{ duration: 0.3 }}
 		>
 			<div>
-				<h3>
-					Comments <span>( {data?.length} )</span>{" "}
-				</h3>
-				<div className="mt-4">
+				<div className="">
+					{/* <h3>Comments</h3> */}
+
 					{btnName === "Save Changes" ? (
 						<Container className="border-dashed">
 							<form>
@@ -97,15 +105,29 @@ const Comments = () => {
 									<Col>
 										<Dropdown
 											displayTextToggle="Select the Community "
-											data={opts}
-											valueExtractor={(item) => item}
+											data={communities}
+											valueExtractor={(item) => item?.community?.id}
+											labelExtractor={(item) => item?.community?.name}
+											multiple={false}
+											onItemSelect={(selectedItem, allSelected) => {
+												console.log(selectedItem);
+												handleFieldChange("community", selectedItem);
+											}}
+										/>
+									</Col>
+								</Row>
+								<Row className="my-4 py-4">
+									<Col>
+										<Dropdown
+											displayTextToggle="Select the Technology "
+											data={technologies}
+											valueExtractor={(item) => item?.id}
 											labelExtractor={(item) => item?.name}
 											multiple={false}
 											onItemSelect={(selectedItem, allSelected) => {
-												console.log(allSelected);
-												handleFieldChange("community", allSelected);
+												console.log(selectedItem);
+												handleFieldChange("technologies", selectedItem);
 											}}
-											// defaultValue={formData?.technologies || []}
 										/>
 									</Col>
 								</Row>
@@ -175,65 +197,82 @@ const Comments = () => {
 					)}
 				</div>
 			</div>
-			<div className="mt-4 comment-card-con">
-				{data?.map((comment) => {
-					return (
-						<m.div
-							layoutId={comment.id}
-							key={comment?.id}
-							className={
-								selectedId === comment?.id
-									? "comment-card-expand"
-									: "comment-card"
-							}
-							onClick={() => {
-								setSelectedId(comment?.id);
-							}}
-						>
-							<m.h6 className="text-xl">
-								{comment?.first_name} from {comment?.country}
-							</m.h6>
-							<m.p className="comment-text">
-								{comment?.comment?.length > 60 && selectedId !== comment?.id
-									? `${comment?.comment?.slice(0, 60)}...`
-									: comment?.comment}
-								{comment?.comment?.length > 60 &&
-									!selectedId === comment?.id && <span> Read More</span>}
-							</m.p>
-							<m.div className="comment-date">
-								<m.p>{timeAgo(comment?.date)}</m.p>
-							</m.div>
-						</m.div>
-					);
-				})}
-			</div>
-			{/* {selectedId && <div className="black-bg"></div>} */}
-			{/* <AnimatePresence>
-				{selectedId && (
-					<m.div layoutId={selectedId}>
-						<m.h6 className="text-xl">
-							{selectedData?.first_name} from {selectedData?.country}
-						</m.h6>
-						<m.p className="comment-text">{selectedData?.comment}</m.p>
-						<m.div className="comment-date">
-							<m.p>{timeAgo(selectedData?.date)}</m.p>
-						</m.div>
-						<m.button onClick={() => setSelectedId(null)} />
-					</m.div>
-				)}
-			</AnimatePresence> */}
+
+			<Container className="my-4 comm-tabs">
+				<Row className="mt-4">
+					<div className="nav-tabs-container mt-4">
+						{commentsData?.map((tab) => (
+							<div
+								key={tab?.name}
+								className={classes("nav-tabs-main tab", {
+									"tab-active": activeTab === tab?.name,
+								})}
+								onClick={() => setActiveTab(tab?.name)}
+							>
+								<h5 className={classes("nav-tabs")}>{tab?.name}</h5>
+							</div>
+						))}
+					</div>
+					<Col className="mt-4"></Col>
+				</Row>
+			</Container>
+
+			<Container>
+				<Row className="">
+					<Col>
+						<h3>Comments</h3>
+						<div className=" comment-card-con border-dashed">
+							{commentsData?.map((tech) => {
+								return (
+									<m.div className="per-tech-comment">
+										<div className="comments-con">
+											{tech?.comments?.map((comment) => {
+												return (
+													activeTab === tech?.name && (
+														<m.div
+															layoutId={comment.id}
+															key={comment?.id}
+															className={
+																selectedId === comment?.id
+																	? "comment-card-expand"
+																	: "comment-card"
+															}
+															onClick={() => {
+																setSelectedId(comment?.id);
+															}}
+														>
+															<m.h6 style={{ textDecoration: "underline" }}>
+																{comment?.user?.preferred_name
+																	? comment?.user?.preferred_name
+																	: comment?.user?.full_name}
+															</m.h6>
+															<m.p className="comment-text">
+																{comment?.text?.length > 60 &&
+																selectedId !== comment?.id
+																	? `${comment?.text?.slice(0, 60)}...`
+																	: comment?.text}
+																{comment?.text?.length > 60 &&
+																	!selectedId === comment?.id && (
+																		<span> Read More</span>
+																	)}
+															</m.p>
+															<m.div className="comment-date">
+																<m.p>{timeAgo(comment?.created_at)}</m.p>
+															</m.div>
+														</m.div>
+													)
+												);
+											})}
+										</div>
+									</m.div>
+								);
+							})}
+						</div>
+					</Col>
+				</Row>
+			</Container>
 		</m.div>
 	);
 };
 
 export default Comments;
-// const [selectedId, setSelectedId] = useState(null);
-
-// {
-// 	items.map((item) => (
-// 		<motion.div layoutId={item.id} onClick={() => setSelectedId(item.id)}>
-// 			<motion.h5>{item.subtitle}</motion.h5>
-// 			<motion.h2>{item.title}</motion.h2>
-// 		</motion.div>
-// 	));
-// }

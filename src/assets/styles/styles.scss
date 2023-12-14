@@ -658,38 +658,76 @@
 .stat-type h5 {
 	text-transform: capitalize;
 }
+// .......................................... comment card .....................................
 
 .comment-card-con {
 	display: flex;
+	flex-direction: column;
 	gap: 30px;
+	width: 100%;
+	margin-top: 50px;
+}
+
+.per-tech-comment {
+	margin-bottom: 40px;
+	// display: flex;
+	// flex-direction: column;
+	// gap: 50px;
+	// flex-wrap: wrap;
+	// width: 100%;
+
+	.h4 {
+		margin-bottom: 20px;
+	}
+}
+
+.comm-tabs {
+	display: flex;
+	margin-top: 50px;
+
+	.p {
+		padding: 1rem 2rem;
+	}
+}
+
+.comments-con {
+	display: flex;
+	gap: 10px;
 	flex-wrap: wrap;
+	width: 100%;
 }
 
 .comment-card {
-	width: 300px;
+	width: 350px;
 	height: 150px;
-	border-radius: 10px;
+	border-radius: 5px;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
 	padding: 1rem;
-	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-		0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	border: 0.5px solid rgb(221, 221, 221)
+	// box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+	// 	0 2px 4px -1px rgba(0, 0, 0, 0.06);
 	/* background-color: rgb(255, 244, 246); */
-	background-color: #f7f0ff;
+	// background-color: #f7f0ff;
 }
 
 .comment-card-expand {
-	width: 300px;
+	width: 350px;
 	height: fit-content;
 	border-radius: 10px;
 	padding: 1rem;
 	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
 		0 2px 4px -1px rgba(0, 0, 0, 0.06);
-	background-color: #f7f0ff;
+	// background-color: #f7f0ff;
 	/* position: absolute;
 	--transform-translate-x: -50%;
 	--transform-translate-y: -50%;
 	left: 50%;
 	top: 50%; */
 }
+
+// .......................................... comment card .....................................
 
 .black-bg {
 	width: 100vh !important;
@@ -711,7 +749,7 @@
 	display: flex;
 	justify-content: end;
 	align-content: center;
-	color: rgb(209, 209, 209);
+	color: rgb(186, 186, 186);
 }
 
 .side-bar-container {
@@ -725,4 +763,3 @@
 .vh-100 {
 	height: 100vh;
 }
-
