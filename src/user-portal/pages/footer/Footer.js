@@ -93,7 +93,7 @@ function Footer({ toggleModal, campaign }) {
                         padding: "10px 20px",
                         // color: "var(--app-medium-green)",
                         color: "white",
-                        fontSize: 18,
+                        fontSize: 17,
                         textDecoration: "underline",
                       }}
                       key={key}

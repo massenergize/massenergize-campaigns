@@ -20,6 +20,7 @@ import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
 import { fetchUrlParams } from "../../../utils/utils";
 import RoamingModalSheet from "./RoamingModalSheet";
+import DoMore from "./DoMore";
 
 function LandingPage({ toggleModal, campaign, init, menu }) {
   const [mounted, setMounted] = useState(false);
@@ -27,12 +28,14 @@ function LandingPage({ toggleModal, campaign, init, menu }) {
   const eventsRef = useRef();
   const incentivesRef = useRef();
   const testimonialsRef = useRef();
+  const communitiesRef = useRef();
 
   const idsToRefMap = {
     coaches: coachesRef,
     incentives: incentivesRef,
     events: eventsRef,
     testimonial: testimonialsRef,
+    communities: communitiesRef,
   };
 
   const { image, config, key_contact } = campaign || {};
@@ -108,6 +111,7 @@ function LandingPage({ toggleModal, campaign, init, menu }) {
         />
       </Container>
       <GettingStartedSection
+        scrollToCommunities={() => scrollToSection("communities")}
         technologies={technologies}
         sectionId="getting-started-section"
       />
@@ -131,6 +135,9 @@ function LandingPage({ toggleModal, campaign, init, menu }) {
           toggleModal={toggleModal}
           sectionId="coaches-section"
         />
+      </div>
+      <div ref={communitiesRef}>
+        <DoMore campaign={campaign} />
       </div>
 
       <Footer toggleModal={toggleModal} />

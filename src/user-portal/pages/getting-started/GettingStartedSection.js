@@ -22,7 +22,12 @@ const dummies = [
     title: "Community Solar",
   },
 ];
-function GettingStartedSection({ sectionId, technologies }) {
+
+function GettingStartedSection({
+  sectionId,
+  technologies,
+  scrollToCommunities,
+}) {
   // console.log("these are the technologies", technologies);
   return (
     <div
@@ -49,6 +54,24 @@ function GettingStartedSection({ sectionId, technologies }) {
                 );
               })}
             </Row>
+
+            <div>
+              <h5
+                onClick={() => scrollToCommunities && scrollToCommunities()}
+                className="touchable-opacity"
+                style={{
+                  padding: "20px 0px",
+                  textDecoration: "underline",
+                  display: "inline-block",
+                  color: "white",
+
+                  marginTop: 20,
+                }}
+              >
+                Want to do more? Check out other things you can do on our
+                community sites!
+              </h5>
+            </div>
           </Col>
         </Row>
       </Container>
