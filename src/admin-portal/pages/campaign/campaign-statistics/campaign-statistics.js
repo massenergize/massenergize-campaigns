@@ -12,6 +12,7 @@ import useSWR from "swr";
 import { fetchCampaign } from "../../../../requests/campaign-requests";
 import { useParams } from "react-router-dom";
 import NProgress from 'nprogress';
+import { AdminLayout } from "../../../../layouts/admin-layout";
 
 export function CampaignStatistics ({}) {
   const { id } = useParams();
@@ -116,12 +117,12 @@ export function CampaignStatistics ({}) {
   console.log({ CAMPAIGN })
 
   return (
-    <div>
-      <Container fluid className={"px-0"}>
+    <AdminLayout>
+      <Container fluid className={""}>
         <Row>
           {/*region campaign content*/}
           {
-            !campaignLoading && campaignError ? (
+            !campaignLoading && !campaignError ? (
               <Col>
                 <div className="gradient-bg">
                   <Container>
@@ -262,6 +263,6 @@ export function CampaignStatistics ({}) {
           }
         </Row>
       </Container>
-    </div>
+    </AdminLayout>
   );
 }
