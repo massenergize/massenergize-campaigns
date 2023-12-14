@@ -21,12 +21,12 @@ function TestimonialBox({
       </h5>
       <h6 style={{ fontSize: 15 }}>{title || "..."}</h6>
       <div
-        style={{ fontSize: 14, maxHeight: 70, height: 70, margin: 0 }}
+        style={{ fontSize: 14, maxHeight: 60, height: 60, margin: 0 }}
         dangerouslySetInnerHTML={{ __html: preview }}
       >
         {/* {preview} */}
       </div>
-      <a
+      {/* <a
         className="touchable-opacity"
         onClick={(e) => {
           e.preventDefault();
@@ -40,7 +40,7 @@ function TestimonialBox({
         }}
       >
         Read More...
-      </a>
+      </a> */}
 
       <img
         style={{
@@ -48,6 +48,7 @@ function TestimonialBox({
           height: 140,
           objectFit: "cover",
           borderRadius: 5,
+          marginTop: 7,
         }}
         src={
           image?.url || "https://picsum.photos/id/870/300/300?grayscale&blur=2"
