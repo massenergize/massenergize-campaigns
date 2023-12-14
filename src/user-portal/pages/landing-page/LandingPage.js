@@ -12,7 +12,6 @@ import CoachesSection from "../coaches/CoachesSection";
 import Banner from "../banner/Banner";
 import planetB from "./../../../assets/imgs/planet-b.jpeg";
 import { connect } from "react-redux";
-import { apiCall } from "../../../api/messenger";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { appInnitAction } from "../../../redux/actions/actions";
@@ -20,8 +19,10 @@ import { LOADING } from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
 import { fetchUrlParams } from "../../../utils/utils";
+import RoamingModalSheet from "./RoamingModalSheet";
 
 function LandingPage({ toggleModal, campaign, init, menu }) {
+  const [mounted, setMounted] = useState(false);
   const coachesRef = useRef();
   const eventsRef = useRef();
   const incentivesRef = useRef();
@@ -34,33 +35,46 @@ function LandingPage({ toggleModal, campaign, init, menu }) {
     testimonial: testimonialsRef,
   };
 
-  // const [activeTab, setActiveTab] = useState("");
-
   const { image, config, key_contact } = campaign || {};
 
   const technologies = campaign?.technologies || [];
   const { campaignId } = useParams();
 
-  // const section = fetchUrlParams("section");
-  // const tab = fetchUrlParams("tab");
-
-  // const scrollToSection = (id) => {
-  //   const ref = idsToRefMap[id];
-  //   if (ref?.current)
-  //     ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
-  // };
-
-  // useEffect(() => {
-  //   setActiveTab(tab);
-  //   console.log("HERE ARE THE TABS", tab);
-  // }, [tab]);
-  // useEffect(() => {
-  //   scrollToSection(section);
-  // }, [section]);
+  const scrollToSection = (id) => {
+    const ref = idsToRefMap[id];
+    if (ref?.current)
+      ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  const target = fetchUrlParams("section");
 
   useEffect(() => {
-    init(campaignId);
+    scrollToSection(target);
+  }, [mounted, target]);
+
+  useEffect(() => {
+    init(campaignId, () => setMounted(true));
   }, [campaignId]);
+
+  const showMoreAboutAdvert = () => {
+    const data = config?.advert || {};
+    toggleModal({
+      show: true,
+      title: data?.title || {},
+      // iconName: "fa-comment",
+      component: ({ close }) => (
+        <RoamingModalSheet
+          close={close}
+          data={data}
+          // callbackOnSubmit={({ user }) => {
+          //   close && close();
+          //   triggerCommentBox(user);
+          // }}
+        />
+      ),
+      // modalNativeProps: { size: "md" },
+      fullControl: true,
+    });
+  };
 
   if (campaign === LOADING)
     return <Loading fullPage>Fetching campaign details...</Loading>;
@@ -90,6 +104,7 @@ function LandingPage({ toggleModal, campaign, init, menu }) {
           id="roaming-box"
           advert={config?.advert}
           keyContact={key_contact}
+          showMore={showMoreAboutAdvert}
         />
       </Container>
       <GettingStartedSection

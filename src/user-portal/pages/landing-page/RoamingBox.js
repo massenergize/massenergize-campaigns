@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 
-function RoamingBox({ advert, keyContact }) {
+function RoamingBox({ advert, keyContact, showMore }) {
   const preview = advert?.description?.substr(0, 250);
   return (
     <div style={{ margin: "100px 0px" }}>
@@ -32,7 +32,7 @@ function RoamingBox({ advert, keyContact }) {
                   </p>
                   <div style={{ display: "flex", padding: "20px 35px" }}>
                     <Button
-                      onClick={() => window.open("http://google.com", "_blank")}
+                      onClick={() => showMore && showMore()}
                       style={{
                         marginLeft: "auto",
                         borderRadius: 100,

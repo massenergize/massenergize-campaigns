@@ -71,8 +71,6 @@ function TechnologyFullViewPage({
   const { campaign_technology_id, campaign_id } = useParams();
   const id = campaign_technology_id;
 
-
-
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
     if (ref?.current)
@@ -213,7 +211,7 @@ function TechnologyFullViewPage({
       component: () => (
         <CommentComponentForModal
           comments={[...comments]}
-          authUser={user}
+          authUser={authUser}
           updateUser={updateUser}
           technology={technology}
           updateTechList={(data) => {
@@ -231,10 +229,10 @@ function TechnologyFullViewPage({
   const openShareBox = () => {
     toggleModal({
       show: true,
-      title: "Take action by sharing",
+      title: "Share",
       // iconName: "fa-comment",
-      component: () => <ShareBox />,
-      modalNativeProps: { size: "md" },
+      component: () => <ShareBox campaign={campaign} authUser={authUser} />,
+      modalNativeProps: { size: "lg" },
       fullControl: true,
     });
   };

@@ -164,6 +164,7 @@ function CoachesSection({ toggleModal, sectionId, technologies }) {
                 }}
               >
                 <Button
+              
                   onClick={() =>
                     toggleModal({
                       show: true,
@@ -172,7 +173,7 @@ function CoachesSection({ toggleModal, sectionId, technologies }) {
                       title: "Get Help",
                     })
                   }
-                  className="touchable-opacity elevate-2 mt-2"
+                  className="touchable-opacity elevate-2 mt-5"
                   style={{
                     borderRadius: 55,
                     padding: "8px 27px",

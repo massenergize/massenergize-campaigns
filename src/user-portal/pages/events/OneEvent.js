@@ -21,8 +21,14 @@ function OneEvent({ events, updateEvents, init, campaign }) {
   const { eventId, campaign_id } = useParams();
   const id = eventId;
 
-  const { name, start_date_and_time, description, end_date_and_time } =
-    event || {};
+  const {
+    name,
+    start_date_and_time,
+    description,
+    end_date_and_time,
+    image,
+    external_link,
+  } = event || {};
 
   const campaignExists = campaign && campaign !== LOADING;
   useEffect(() => {
@@ -56,7 +62,8 @@ function OneEvent({ events, updateEvents, init, campaign }) {
           <img
             className="elevate-float-pro mt-3"
             src={
-              "https://massenergize-prod-files.s3.amazonaws.com/media/new_image-231024-210048"
+              image?.url
+              // "https://massenergize-prod-files.s3.amazonaws.com/media/new_image-231024-210048"
             }
             style={{
               width: "100%",
@@ -97,6 +104,10 @@ function OneEvent({ events, updateEvents, init, campaign }) {
           </div>
 
           <div
+            onClick={(e) => {
+              e.preventDefault();
+              window.open(external_link || "#", "_blank");
+            }}
             className="mt-2 touchable-opacity"
             style={{
               background: "var(--app-medium-green)",
@@ -106,7 +117,7 @@ function OneEvent({ events, updateEvents, init, campaign }) {
               borderRadius: 5,
             }}
           >
-            <p style={{ margin: 0 }}>Register</p>
+            <p style={{ margin: 0 }}>Register / Join</p>
           </div>
         </Col>
       </Row>

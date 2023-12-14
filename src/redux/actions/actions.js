@@ -58,7 +58,7 @@ export const updateUserAction = (payload, cb) => {
   };
 };
 
-export const appInnitAction = (campaignId) => {
+export const appInnitAction = (campaignId, cb) => {
   let savedUser = localStorage.getItem(USER_STORAGE_KEY);
   savedUser = JSON.parse(savedUser);
   const { user } = savedUser || {};
@@ -70,6 +70,7 @@ export const appInnitAction = (campaignId) => {
       apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
     ])
       .then((response) => {
+        cb && cb(response);
         const [campaignInformation] = response;
         const data = campaignInformation.data;
         // console.log("INSIDE INNIT", data, campaignId);

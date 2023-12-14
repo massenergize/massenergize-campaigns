@@ -81,7 +81,7 @@ function OneTechMeetTheCoachesSection({
             }}
           >
             <Button
-              className="touchable-opacity elevate-2"
+              className="touchable-opacity elevate-2 mt-5"
               style={{
                 borderRadius: 55,
                 padding: "8px 20px",
