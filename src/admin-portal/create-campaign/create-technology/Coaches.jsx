@@ -84,7 +84,7 @@ const Coaches = ({ setTechnologyInfo, technologyInfo, setCurrentTab }) => {
                 className="mr-6"
                 key={index}
                 text={item?.full_name}
-                onDelete={() => {
+                onDismiss={() => {
                   let items = [...coaches];
                   items.splice(index, 1);
                   setCoaches(items);

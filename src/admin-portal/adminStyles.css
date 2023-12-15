@@ -29,9 +29,13 @@
 
 .small-image-container {
 	width: 200px;
-	height: 200px;
+	height: 100px;
 	position: relative;
-	margin-bottom: 60px;
+	/*margin-bottom: 60px;*/
+
+	img {
+		height: 100px
+	}
 }
 
 .small-image {

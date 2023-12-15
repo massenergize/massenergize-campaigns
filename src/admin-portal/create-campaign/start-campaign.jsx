@@ -1,14 +1,19 @@
 import React, { useReducer, useState } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Alert, Button, Col, Container, Row } from "react-bootstrap";
 import Input from "../../components/admin-components/Input";
 import { apiCall } from "../../utils/api_call";
 import "../adminStyles.css";
 import Dropdown from "../../components/admin-components/Dropdown";
 import useSWR from "swr";
-import { fetchCommunitiesForCommunityAdmins } from "../../requests/community-routes";
+import { fetchCommunitiesList } from "../../requests/community-routes";
+import { isEmpty } from "../../helpers/utils/string";
+import Chip from "../../components/admin-components/Chip";
+import { createCampaign, createCampaignFromTemplate } from "../../requests/campaign-requests";
+import { ProgressButton } from "../../components/progress-button";
 
-export function StartCampaign ({ campaignDetails, setCampaignDetails, setStep }) {
+export function StartCampaign ({ campaignDetails, setCampaignDetails, setStep, lists }) {
   const [showError, setShowError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const initialState = {
     title: "",
@@ -38,39 +43,46 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, setStep })
 
   const [formData, dispatch] = useReducer(reducer, initialState);
 
-  const handleFieldChange = (field, value) => {
-    dispatch({ type: "SET_FIELD_VALUE", payload: { field, value } });
-  };
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    try {
+      const payload = {
+        title: campaignDetails?.title,
+        communities: campaignDetails?.communities?.map((community) => community?.id),
+      }
+      const response = await createCampaignFromTemplate(campaignDetails);
 
-    console.log(formData);
-
-    apiCall("campaigns.create", formData)
-      .then((res) => {
-        // localStorage.setItem("campaign_id", res?.data?.id);
-        console.log(res?.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      if (response?.status === 200) {
+        setStep(2);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const [community, setCommunity] = useState(null);
 
   const {
-    initialData: communitiesInitialData,
-    data: communities,
-    error: communitiesError,
-    isValidating: communitiesIsValidating,
-    isLoading: communitiesIsLoading,
-  } = useSWR("communities.listForCommunityAdmin", fetchCommunitiesForCommunityAdmins);
+    allPartners,
+    allManagers,
+    allTechnologies,
+    allCommunities,
+  } = lists
+
+  // const {
+  //   initialData: allCommunitiesInitialData,
+  //   data: allCommunities,
+  //   error: allCommunitiesError,
+  //   isValidating: allCommunitiesIsValidating,
+  //   isLoading: allCommunitiesIsLoading,
+  // } = useSWR("communities.list", fetchCommunitiesList);
+
+  // console.log(allCommunities)
 
   return (
     <Container className={" flex-col"}>
       <Row className={"justify-content-center"}>
         {
-          communitiesIsLoading && (
+          allCommunities.isLoading && (
             <Col md={6} className={"d-flex vh-100"}>
               <div className="d-flex justify-content-center align-items-center w-100 h-100">
                 <div className="spinner-border" role="status">
@@ -81,7 +93,7 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, setStep })
           )
         }
         {
-          (!communitiesIsLoading && !communitiesError) ? (
+          (!allCommunities.isLoading && !allCommunities.error) ? (
             <Col md={6} className={"d-flex vh-100"}>
               <form className={"my-auto w-100"}>
                 <Row className="py-4">
@@ -101,7 +113,7 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, setStep })
                       type="textbox"
                       value={campaignDetails?.title}
                       onChange={(val) => {
-                        handleFieldChange("title", val);
+                        setCampaignDetails("title", val);
                       }}
                     />
                   </Col>
@@ -109,35 +121,71 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, setStep })
                 <Row className="py-4">
                   <Col>
                     <Dropdown
-                      displayTextToggle="Select technologies for this campaign"
-                      data={communities}
-                      defaultValue={community}
-                      value={community}
+                      displayTextToggle={
+                       campaignDetails?.communities?.length > 0 ? "Add more communities this campaign" : "Select one more communities for this campaign"
+                      }
+                      data={(allCommunities?.data || []).map((campaign) => {
+                        return { ...campaign, value: campaign?.id, }
+                      })}
+                      defaultValue={campaignDetails?.communities}
+                      value={campaignDetails?.communities}
                       valueExtractor={(item) => item}
                       labelExtractor={(item) => item?.name}
                       multiple={true}
+
                       onItemSelect={(selectedItem, allSelected) => {
-                        setCampaignDetails("technologies", allSelected)
+                        setCampaignDetails("communities", allSelected)
                       }}
                     />
                   </Col>
                 </Row>
 
-                <Row className="py-4 justify-content-end">
-                  <Col>
-                    <Button
-                      text="Save & Continue"
-                      onSubmit={handleSubmit}
-                      rounded={false}
-                    />
+                <Row>
+                  <Col className={"d-"}>
+                    <Row>
+                      {
+                        campaignDetails?.communities?.map((community) => {
+
+                          return (
+                            <Col sm={"auto mb-2"}>
+                              <Chip
+                                text={community?.name}
+                                icon={community?.icon}
+                                id={community?.id}
+                                size={"sm"}
+                                className="mr-2"
+                                onDismiss={(id, text) => {
+                                  setCampaignDetails("communities", campaignDetails?.communities?.filter((community) => community?.id !== id))
+                                }}
+                              />
+                            </Col>
+                          )
+                        })
+                      }
+                    </Row>
                   </Col>
                 </Row>
+
+
+                <Row className="py-4 justify-content-end">
+                  <Col>
+                    <ProgressButton
+                      loading={loading}
+                      disabled={isEmpty(campaignDetails?.title) || campaignDetails?.communities?.length < 1}
+                      onClick={() => {
+                        setStep("COMPLETE");
+                        // handleSubmit();
+                      }}
+                      >
+                      Create Campaign
+                    </ProgressButton>
+                  </Col>
+                </Row>
+
                 <Row className="py-4 my-4">
                   {showError && (
                     <Col>
-                      <p className="text-center py-3 light-red-background">
-
-                      </p>
+                      <Alert><p>{allCommunities.error?.message}</p></Alert>
                     </Col>
                   )}
                 </Row>
@@ -146,7 +194,7 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, setStep })
           ) : null
         }
         {
-          (!communitiesIsLoading && communitiesError) && (
+          (!allCommunities.isLoading && allCommunities.error) && (
             <Col md={6} className={"d-flex vh-100"}>
               <div className="d-flex justify-content-center align-items-center w-100 h-100">
                 <div className="text-center">

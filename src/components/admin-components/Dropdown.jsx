@@ -100,6 +100,7 @@ const Dropdown = ({
           flexDirection: "column",
           gap: multiple && 20,
           padding: "0 1.125rem 2rem 1.125rem",
+          maxHeight : 250
         }}>
           {data.map((datum, index) =>
             multiple ? (
@@ -118,7 +119,7 @@ const Dropdown = ({
                 />
               </div>
             ) : (
-              <div key={index}>
+              <div key={index} style={{}}>
                 <p
                   onClick={() => {
                     handleSelect(valueExtractor && valueExtractor(datum));

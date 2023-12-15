@@ -6,6 +6,7 @@ import Button from "../../components/admin-components/Button";
 import Chip from "../../components/admin-components/Chip";
 const Managers = () => {
 	const [count, setCount] = useState([]);
+
 	const opts = [
 		{
 			id: 1,
@@ -38,6 +39,7 @@ const Managers = () => {
 		user_ids: [],
 		campaign_id: [],
 	};
+	// don't allow selection of more than 5 managers
 
 	const reducer = (state, action) => {
 		switch (action.type) {
@@ -90,7 +92,7 @@ const Managers = () => {
 					<Row className="py-4">
 						<Col>
 							<p>
-								Please include details of the new coaches of this campaign. Or{" "}
+								Please include details of the new managers of this campaign. Or{" "}
 								<span className="theme-color">
 									Add campaign coaches from existing user
 								</span>

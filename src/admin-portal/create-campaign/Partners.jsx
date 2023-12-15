@@ -9,7 +9,9 @@ import Chip from "../../components/admin-components/Chip";
 import Input from "../../components/admin-components/Input";
 import FileUploader from "../../components/admin-components/FileUploader";
 import { motion as m } from "framer-motion";
-const Partners = () => {
+
+
+const Partners = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
 	const scrollRef = useRef(null);
 
 	const handleScrollTo = (id) => {
@@ -18,119 +20,6 @@ const Partners = () => {
 			element.scrollIntoView({ behavior: "smooth" });
 		}
 	};
-
-	const opts = [
-		{
-			id: 1,
-			name: "Brad",
-			icon: (
-				<svg
-					stroke="currentColor"
-					fill="currentColor"
-					stroke-width="0"
-					version="1"
-					viewBox="0 0 48 48"
-					enable-background="new 0 0 48 48"
-					height="1em"
-					width="1em"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<path
-						fill="#FFCDD2"
-						d="M34,9c-4.2,0-7.9,2.1-10,5.4C21.9,11.1,18.2,9,14,9C7.4,9,2,14.4,2,21c0,11.9,22,24,22,24s22-12,22-24 C46,14.4,40.6,9,34,9z"
-					></path>
-				</svg>
-			),
-		},
-		{
-			id: 2,
-			name: "Tahiru",
-			icon: (
-				<svg
-					stroke="currentColor"
-					fill="currentColor"
-					stroke-width="0"
-					version="1"
-					viewBox="0 0 48 48"
-					enable-background="new 0 0 48 48"
-					height="1em"
-					width="1em"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<path
-						fill="#FFCDD2"
-						d="M34,9c-4.2,0-7.9,2.1-10,5.4C21.9,11.1,18.2,9,14,9C7.4,9,2,14.4,2,21c0,11.9,22,24,22,24s22-12,22-24 C46,14.4,40.6,9,34,9z"
-					></path>
-				</svg>
-			),
-		},
-		{
-			id: 3,
-			name: "Sam",
-			icon: (
-				<svg
-					stroke="currentColor"
-					fill="currentColor"
-					stroke-width="0"
-					version="1"
-					viewBox="0 0 48 48"
-					enable-background="new 0 0 48 48"
-					height="1em"
-					width="1em"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<path
-						fill="#FFCDD2"
-						d="M34,9c-4.2,0-7.9,2.1-10,5.4C21.9,11.1,18.2,9,14,9C7.4,9,2,14.4,2,21c0,11.9,22,24,22,24s22-12,22-24 C46,14.4,40.6,9,34,9z"
-					></path>
-				</svg>
-			),
-		},
-		{
-			id: 4,
-			name: "Cobbie",
-			icon: (
-				<svg
-					stroke="currentColor"
-					fill="currentColor"
-					stroke-width="0"
-					version="1"
-					viewBox="0 0 48 48"
-					enable-background="new 0 0 48 48"
-					height="1em"
-					width="1em"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<path
-						fill="#FFCDD2"
-						d="M34,9c-4.2,0-7.9,2.1-10,5.4C21.9,11.1,18.2,9,14,9C7.4,9,2,14.4,2,21c0,11.9,22,24,22,24s22-12,22-24 C46,14.4,40.6,9,34,9z"
-					></path>
-				</svg>
-			),
-		},
-		{
-			id: 5,
-			name: "Frimps",
-			icon: (
-				<svg
-					stroke="currentColor"
-					fill="currentColor"
-					stroke-width="0"
-					version="1"
-					viewBox="0 0 48 48"
-					enable-background="new 0 0 48 48"
-					height="1em"
-					width="1em"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<path
-						fill="#FFCDD2"
-						d="M34,9c-4.2,0-7.9,2.1-10,5.4C21.9,11.1,18.2,9,14,9C7.4,9,2,14.4,2,21c0,11.9,22,24,22,24s22-12,22-24 C46,14.4,40.6,9,34,9z"
-					></path>
-				</svg>
-			),
-		},
-	];
 
 	const handleRemove = (data) => {
 		console.log(data);
@@ -171,12 +60,16 @@ const Partners = () => {
 		console.log(formData);
 	};
 
+
+	const {
+		allPartners,
+		allManagers,
+		allTechnologies,
+		allCommunities,
+	} = lists;
+
 	return (
-		<m.div
-			initial={{ y: " 10%" }}
-			animate={{ y: 0 }}
-			transition={{ duration: 0.3 }}
-		>
+		<m.div initial={{ y: " 10%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
 			<Container>
 				{/* <form> */}
 				<Row className="my-4">
@@ -185,6 +78,9 @@ const Partners = () => {
 							label="Disable the Partner's section"
 							id="Disable the Partner's section"
 							size="big"
+							checked={campaignDetails?.disable_partners_section}
+							value={campaignDetails?.disable_partners_section}
+							labelOnRight={false}
 						/>
 					</Col>
 				</Row>
@@ -192,12 +88,7 @@ const Partners = () => {
 					<Col>
 						<p>
 							Pick out the actions you want to show up in this campaign. Or{" "}
-							<span
-								onClick={() => {
-									handleScrollTo("create-new-partner");
-								}}
-								className="theme-color text-link"
-							>
+							<span onClick={() => {handleScrollTo("create-new-partner");}} className="theme-color text-link">
 								Create a new partner
 							</span>
 						</p>
@@ -220,7 +111,13 @@ const Partners = () => {
 					<Col>
 						<Dropdown
 							displayTextToggle="Select Partners for this campaign"
-							data={opts}
+							data={allPartners?.data.map((partner) => {
+								return {
+									...partner,
+									value: partner.name || "",
+									label: partner.name || "",
+								};
+							})}
 							valueExtractor={(item) => item}
 							labelExtractor={(item) => item?.name}
 							multiple={true}
