@@ -24,7 +24,7 @@ const Input = ({
 					onChange={(e) => {
 						onChange(e.target.value);
 					}}
-					maxlength={maxLength}
+					maxLength={maxLength}
 					value={value}
 				/>
 			) : type === "email" ? (
@@ -36,7 +36,7 @@ const Input = ({
 					onChange={(e) => {
 						onChange(e.target.value);
 					}}
-					maxlength={maxLength}
+					maxLength={maxLength}
 					value={value}
 				/>
 			) : type === "textarea" ? (
@@ -48,7 +48,7 @@ const Input = ({
 					onChange={(e) => {
 						onChange(e.target.value);
 					}}
-					maxlength={maxLength}
+					maxLength={maxLength}
 					value={value}
 				/>
 			) : (

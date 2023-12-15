@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../../assets/styles/styles.scss";
 
 function CheckboxLabel({ label, icon }) {
@@ -19,8 +19,14 @@ const Checkbox = ({
 	onChange,
 	checked,
 	labelOnRight = true,
+	valueExtractor,
+	labelExtractor,
+	onItemSelect,
+	selectedValues,
 }) => {
-
+	const [isChecked, setIsChecked] = useState(
+		selectedValues && selectedValues.includes(value)
+	);
 
 	return (
 		<label htmlFor={id} className={size === "big" ? "custom-checkbox checkbox-big" : "custom-checkbox checkbox-small"}>

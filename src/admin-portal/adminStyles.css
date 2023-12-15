@@ -77,6 +77,12 @@
 	border-color: rgb(212, 212, 212);
 }
 
+.border-no-dash {
+	border-style: solid;
+	padding: 2rem 1rem;
+	border-color: rgb(212, 212, 212);
+}
+
 /*  .................. Navigation tabs  ........................ */
 
 .tab-active {
@@ -159,8 +165,8 @@
 	/* background-image: linear-gradient(to right, #80b1ff, #ffa2fd); */
 	width: 100%;
 	height: 25rem;
-	background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-		url("https://admin.risingkashmir.com/Source/News/29447324-0b29-4a35-94b8-424c1a3d6971.jpeg");
+	/* background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+		url("https://admin.risingkashmir.com/Source/News/29447324-0b29-4a35-94b8-424c1a3d6971.jpeg"); */
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -171,6 +177,7 @@
 	height: 330px;
 	color: white;
 	padding: 2rem;
+	width: 95%;
 }
 
 .campaign-page-link {
@@ -197,7 +204,30 @@
 .update-btn-con {
 	display: flex;
 	align-items: center;
-	justify-content: end;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.update-btn-con .active {
+	color: rgb(79, 255, 91);
+	text-transform: uppercase;
+	text-decoration: underline;
+	font-style: italic;
+	letter-spacing: 2px;
+	font-size: 1.2rem;
+	font-weight: bolder;
+	background-color: transparent;
+}
+
+.update-btn-con .inactive {
+	color: rgb(255, 88, 79);
+	text-transform: uppercase;
+	text-decoration: underline;
+	font-style: italic;
+	letter-spacing: 2px;
+	font-size: 1.2rem;
+	font-weight: bolder;
+	background-color: transparent;
 }
 
 .disable-btn {
@@ -216,6 +246,7 @@
 
 .title-txt {
 	letter-spacing: 1px;
+	text-transform: uppercase;
 }
 
 .camp-date {
