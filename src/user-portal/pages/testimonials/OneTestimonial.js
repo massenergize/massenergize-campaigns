@@ -36,9 +36,11 @@ function OneTestimonial({
 
   const { user } = authUser || {};
 
-
   const groupTestimonials = () => {
-    const together = (technologies || []).map((tech) => tech.testimonials);
+    const together = (technologies || []).map((tech) => {
+      const items = tech?.testimonials || [];
+      return items?.map((t) => ({ ...(t || {}), tech_name: tech?.name }));
+    });
     return together.reduce((merged, currentArray) => {
       // Filter out objects with the excluded id
       const filteredObjects = currentArray.filter((obj) => obj.id !== id);
@@ -149,9 +151,13 @@ function OneTestimonial({
               padding: "15px 15px",
               border: "solid 1px green",
               listStyle: "none",
+              borderBottomRightRadius: 6,
+              borderBottomLeftRadius: 6,
             }}
           >
             {otherTestimonials?.map((item, index) => {
+              var title = item?.title;
+              title = title ? `${title} (${item?.tech_name})` : "...";
               return (
                 <li
                   key={index?.toString()}
@@ -162,7 +168,7 @@ function OneTestimonial({
                   }
                   className="touchable-opacity"
                   style={{
-                    color: "var(--app-medium-green)",
+                    color: "var(--app-deep-green)",
 
                     fontWeight: "bold",
                     fontSize: 14,
@@ -170,7 +176,14 @@ function OneTestimonial({
                     marginBottom: 8,
                   }}
                 >
-                  {item?.title || "..."}
+                  <span>
+                    {index + 1}. {item?.title || "..."}
+                  </span>
+                  <span
+                    style={{ color: "var(--app-medium-green)", marginLeft: 5 }}
+                  >
+                    ({item?.tech_name})
+                  </span>
                 </li>
               );
             })}

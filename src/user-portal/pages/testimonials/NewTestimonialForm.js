@@ -85,7 +85,7 @@ function NewTestimonialForm({
           console.log("ERROR_CREATING_TESTIMONIAL_BE:", error);
         }
         reset();
-        // console.log("Data after testimonial", data);
+
         updateTestimonials([data, ...testimonials]);
         notify(
           "Thanks for leaving a testimonial! Our admins will review & publish it as soon as possible!",
@@ -151,6 +151,21 @@ function NewTestimonialForm({
             }}
           />
         </InputGroup>
+
+        <Form.Group controlId="formFileMultiple" className="mb-3">
+          <Form.Text>Include an image in your testimonial</Form.Text>
+          <Form.Control
+            className="mt-2"
+            type="file"
+            onChange={(e) => {
+              const files = e?.target.files || [];
+              const value = files[0];
+
+              setState("image", value);
+            }}
+          />
+        </Form.Group>
+
         <div style={{ marginBottom: 15 }}>
           <Form.Select
             value={getValue("campaign_technology_id") || ""}
