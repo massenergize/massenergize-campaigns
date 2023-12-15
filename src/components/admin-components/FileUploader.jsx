@@ -8,7 +8,9 @@ const FileUploader = ({
 	accept,
 	defaultValue,
 }) => {
-	const [previewUrl, setPreviewUrl] = useState(null);
+	const [previewUrl, setPreviewUrl] = useState(
+		defaultValue ? defaultValue : null
+	);
 
 	const handleFileChange = (event) => {
 		const selectedFile = event.target.files[0];
