@@ -5,9 +5,10 @@ import { Col, Container, Row } from "react-bootstrap";
 function DoMore({ campaign }) {
   const { communities } = campaign || {};
 
+  console.log("LE COMMUNITIES", communities);
   const COMMUNITY_PORTAL_URL = "https://communities.massenergize.org/";
   return (
-    <div style={{ padding: "70px 0px" }}>
+    <div style={{ padding: "20vh 0px" }}>
       <CenteredWrapper>
         <Container>
           <h2
@@ -17,8 +18,16 @@ function DoMore({ campaign }) {
               marginBottom: 20,
             }}
           >
-            Communities
+            Do More In Your Community (Editable)
           </h2>
+          <p>
+            (Editable) There are many variations of passages of Lorem Ipsum
+            available, but the majority have suffered alteration in some form,
+            by injected humour, or randomised words which don't look even
+            slightly believable. If you are going to use a passage of Lorem
+            Ipsum, you need to be sure there isn't anything embarrassing hidden
+            in the middle of text.
+          </p>
           <Row>
             {(communities || []).map(({ community, id }, index) => {
               return (

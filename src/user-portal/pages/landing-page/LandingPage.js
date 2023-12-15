@@ -14,7 +14,7 @@ import planetB from "./../../../assets/imgs/planet-b.jpeg";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { appInnitAction } from "../../../redux/actions/actions";
+import { appInnitAction, trackActivity } from "../../../redux/actions/actions";
 import { LOADING } from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
@@ -22,7 +22,14 @@ import { fetchUrlParams } from "../../../utils/utils";
 import RoamingModalSheet from "./RoamingModalSheet";
 import DoMore from "./DoMore";
 
-function LandingPage({ toggleModal, campaign, init, menu }) {
+function LandingPage({
+  toggleModal,
+  campaign,
+  init,
+  menu,
+  trackActivity,
+  authUser,
+}) {
   const [mounted, setMounted] = useState(false);
   const coachesRef = useRef();
   const eventsRef = useRef();
@@ -147,6 +154,8 @@ function LandingPage({ toggleModal, campaign, init, menu }) {
         scrollToCommunities={() => scrollToSection("communities")}
         technologies={technologies}
         sectionId="getting-started-section"
+        trackActivity={trackActivity}
+        authUser={authUser}
       />
 
       <div ref={testimonialsRef}>
@@ -179,13 +188,14 @@ function LandingPage({ toggleModal, campaign, init, menu }) {
 }
 
 const mapState = (state) => {
-  return { campaign: state.campaign };
+  return { campaign: state.campaign, authUser: state.user };
 };
 
 const mapDispatch = (dispatch) => {
   return bindActionCreators(
     {
       init: appInnitAction,
+      trackActivity,
     },
     dispatch
   );

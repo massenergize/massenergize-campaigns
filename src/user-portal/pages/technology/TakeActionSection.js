@@ -3,6 +3,7 @@ import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { FULL_TECHNOLOGY } from "../../../utils/Constants";
 
 const dummies = [
   {
@@ -11,6 +12,7 @@ const dummies = [
     actionText: "Vendors",
     content: "Get in touch with vendors the vendors!",
     url: "vendors",
+    type: "vendors",
   },
   {
     icon: "fa-lightbulb-o",
@@ -19,6 +21,7 @@ const dummies = [
     content:
       "Get to know the coaches, and ask all the questions you need to get started!",
     url: "coaches",
+    type: "help",
   },
 
   {
@@ -27,10 +30,25 @@ const dummies = [
     actionText: "Incentives",
     content: "It gets better! See all the incentives available to you.",
     url: "incentives",
+    type: "incentives",
   },
 ];
-function TakeAtionSetion({ sectionId, scrollToSection }) {
+function TakeAtionSetion({
+  sectionId,
+  scrollToSection,
+  authUser,
+  trackActivity,
+  campaign,
+}) {
   const navigator = useNavigate();
+  const { user } = authUser || {};
+  const common = {
+    campaign_id: campaign?.id,
+    source: FULL_TECHNOLOGY,
+    // target: name,
+    email: user?.email,
+  };
+
   return (
     <div
       id={sectionId}
@@ -89,7 +107,14 @@ function TakeAtionSetion({ sectionId, scrollToSection }) {
                 </p>
 
                 <div
-                  onClick={() => scrollToSection(item.url)}
+                  onClick={() => {
+                    trackActivity({
+                      ...common,
+                      target: item?.actionText,
+                      button_type: item?.type,
+                    });
+                    scrollToSection(item.url);
+                  }}
                   className="elevate-2 touchable-opacity"
                   style={{
                     padding: "7px 30px",

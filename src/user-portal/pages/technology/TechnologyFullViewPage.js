@@ -28,6 +28,7 @@ import Loading from "../../../components/pieces/Loading";
 import {
   appInnitAction,
   setCommentsAction,
+  trackActivity,
   updateTechnologiesAction,
   updateUserAction,
 } from "../../../redux/actions/actions";
@@ -45,6 +46,7 @@ function TechnologyFullViewPage({
   updateUser,
   updateCommentList,
   commentsList,
+  trackActivity,
 }) {
   const authUser = user;
   const [mounted, setMounted] = useState(false);
@@ -71,7 +73,6 @@ function TechnologyFullViewPage({
   const { campaign_technology_id, campaign_id } = useParams();
   const id = campaign_technology_id;
 
-  console.log("TECH PAGE", technology);
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
     if (ref?.current)
@@ -487,8 +488,11 @@ function TechnologyFullViewPage({
           overview_title={technology?.overview_title}
         />
         <TakeActionSection
+          campaign={campaign}
           sectionId="take-action-section"
           scrollToSection={scrollToSection}
+          trackActivity={trackActivity}
+          authUser={authUser}
         />
         <div ref={testimonialsRef}>
           <OneTechTestimonialsSection
@@ -548,6 +552,7 @@ const mapDispatch = (dispatch) => {
       init: appInnitAction,
       updateUser: updateUserAction,
       updateCommentList: setCommentsAction,
+      trackActivity,
     },
     dispatch
   );

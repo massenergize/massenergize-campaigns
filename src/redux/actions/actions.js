@@ -46,6 +46,18 @@ export const setCommentsAction = (payload) => {
   return { type: SET_COMMENTS, payload };
 };
 
+export const trackActivity = (payload, cb) => {
+  return () => {
+    apiCall("/campaigns.activities.track", payload).then((response) => {
+      if (!response || !response.success) {
+        console.log("ERROR_UPDATING_USER:", response.data);
+      }
+      // dispatch(loadUserObjAction(response.data));
+      // console.log("RESPONSE AFTER TRACKING", response);
+      cb && cb(response.data);
+    });
+  };
+};
 export const updateUserAction = (payload, cb) => {
   return (dispatch) => {
     apiCall("/users.update.loosedUser", payload).then((response) => {
