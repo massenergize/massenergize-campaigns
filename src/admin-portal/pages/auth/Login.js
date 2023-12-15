@@ -14,6 +14,8 @@ import MERichText from "../../../components/admin-components/RichText";
 import Input from "../../../components/admin-components/Input";
 import { validateEmail } from "../../../utils/utils";
 import Notification from "../../../components/pieces/Notification";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../firebase/admin/fire-config";
 
 function Login({}) {
   const [email, setEmail] = useState("");
@@ -21,12 +23,30 @@ function Login({}) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+
+
+  
+  const fetchMeUser = (payload) => { 
+    
+  }
+
   const submit = () => {
     const emailIsValid = validateEmail(email?.trim());
     if (!emailIsValid)
       return setError("Please include a valid email and password");
+    setError("");
+    setLoading(true);
 
-    
+    signInWithEmailAndPassword(auth, email, password)
+      .then((response) => {
+        setLoading(false);
+        console.log("This is the response you see", response);
+      })
+      .catch((e) => {
+        setLoading(false);
+        setError(e?.toString());
+        console.log("ERROR_FIREBASE_SIGN_IN", e?.toString());
+      });
   };
 
   return (
@@ -100,6 +120,7 @@ function Login({}) {
                 Use Gmail Instead
               </Button>
               <Button
+                onClick={() => submit()}
                 disabled={loading || !email || !password}
                 className="touchable-opacity"
                 style={{
