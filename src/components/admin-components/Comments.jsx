@@ -199,7 +199,7 @@ const Comments = ({ campaign }) => {
 				</div>
 			</div>
 
-			<Container className="my-4 comm-tabs">
+			{/* <Container className="my-4 comm-tabs">
 				<Row className="mt-4">
 					<div className="nav-tabs-container mt-4">
 						{commentsData?.map((tab) => (
@@ -216,9 +216,62 @@ const Comments = ({ campaign }) => {
 					</div>
 					<Col className="mt-4"></Col>
 				</Row>
-			</Container>
+			</Container> */}
 
 			<Container>
+				<Row className="mt-4 pt-4">
+					<Col>
+						<h3>Comments</h3>
+						<div className=" comment-card-con border-dashed">
+							{commentsData?.map((tech) => {
+								return (
+									<m.div className="per-tech-comment">
+										<h5 className="theme-color"> {tech?.name} </h5>
+										<div className="comments-con">
+											{tech?.comments?.map((comment) => {
+												return (
+													<m.div
+														layoutId={comment.id}
+														key={comment?.id}
+														className={
+															selectedId === comment?.id
+																? "comment-card-expand"
+																: "comment-card"
+														}
+														onClick={() => {
+															setSelectedId(comment?.id);
+														}}
+													>
+														<m.h6 style={{ textDecoration: "underline" }}>
+															{comment?.user?.preferred_name
+																? comment?.user?.preferred_name
+																: comment?.user?.full_name}
+														</m.h6>
+														<m.p className="comment-text">
+															{comment?.text?.length > 60 &&
+															selectedId !== comment?.id
+																? `${comment?.text?.slice(0, 60)}...`
+																: comment?.text}
+															{comment?.text?.length > 60 &&
+																!selectedId === comment?.id && (
+																	<span> Read More</span>
+																)}
+														</m.p>
+														<m.div className="comment-date">
+															<m.p>{timeAgo(comment?.created_at)}</m.p>
+														</m.div>
+													</m.div>
+												);
+											})}
+										</div>
+									</m.div>
+								);
+							})}
+						</div>
+					</Col>
+				</Row>
+			</Container>
+			{/* <Container>
 				<Row className="">
 					<Col>
 						<h3>Comments</h3>
@@ -226,6 +279,7 @@ const Comments = ({ campaign }) => {
 							{commentsData?.map((tech) => {
 								return (
 									<m.div className="per-tech-comment">
+										<h5> {tech?.name} </h5>
 										<div className="comments-con">
 											{tech?.comments?.map((comment) => {
 												return (
@@ -271,7 +325,7 @@ const Comments = ({ campaign }) => {
 						</div>
 					</Col>
 				</Row>
-			</Container>
+			</Container> */}
 		</m.div>
 	);
 };

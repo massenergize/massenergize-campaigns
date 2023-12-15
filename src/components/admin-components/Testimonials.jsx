@@ -6,6 +6,7 @@ import { AnimatePresence, motion as m } from "framer-motion";
 import { Col, Container, Row } from "react-bootstrap";
 import Input from "./Input";
 import Dropdown from "./Dropdown";
+import FileUploader from "./FileUploader";
 
 const Testimonials = ({ testimonials }) => {
 	const timeAgo = (date) => {
@@ -33,7 +34,82 @@ const Testimonials = ({ testimonials }) => {
 		}
 	};
 
+	const communityData = [
+		{
+			id: 1,
+			name: "Wayland Community",
+		},
+		{
+			id: 2,
+			name: "Swiss Community",
+		},
+		{
+			id: 3,
+			name: "Tongrow Community",
+		},
+	];
+
+	const techData = [
+		{
+			id: 1,
+			name: "heat Pump",
+		},
+		{
+			id: 2,
+			name: "Solar Panels",
+		},
+		{
+			id: 3,
+			name: "Agro Fertitilizer",
+		},
+	];
+	const users = [
+		{
+			id: 1,
+			name: "Chris Tom",
+		},
+		{
+			id: 2,
+			name: "Dwayne Simon",
+		},
+		{
+			id: 3,
+			name: "Cecil Thomas",
+		},
+	];
+
 	const [readMore, setReadMore] = useState();
+	const [communities, setCommunities] = useState(communityData);
+	const [technologies, setTechnologies] = useState(techData);
+	const [btnName, setBtnName] = useState("Create New Testimonial");
+
+	const initialState = {
+		campaign_technology_id: 1,
+		body: "test",
+		title: "test",
+		image: "",
+		commnity_id: 1,
+		user_id: 1,
+	};
+
+	const reducer = (state, action) => {
+		switch (action.type) {
+			case "SET_FIELD_VALUE":
+				return { ...state, [action.field]: action.value };
+			default:
+				throw new Error(`Unsupported action type: ${action.type}`);
+		}
+	};
+
+	const [formData, dispatch] = useReducer(reducer, initialState);
+
+	const handleFieldChange = (field, value) => {
+		dispatch({ type: "SET_FIELD_VALUE", field, value });
+	};
+
+	const handleClick = () => {};
+
+	// {, body, , , , }
 
 	return (
 		<m.div
@@ -41,6 +117,108 @@ const Testimonials = ({ testimonials }) => {
 			animate={{ y: 0 }}
 			transition={{ duration: 0.3 }}
 		>
+			<m.div className="mb-4 pb-4">
+				{btnName === "Save Changes" ? (
+					<Container className="border-dashed">
+						<form>
+							<Row className="py-4">
+								<Col>
+									<Input
+										label="Title"
+										placeholder="Enter name of partner here..."
+										required={true}
+										type="textbox"
+										onChange={(val) => {
+											handleFieldChange("title", val);
+										}}
+									/>
+								</Col>
+							</Row>
+							<Row className="my-4">
+								<Col>
+									<Dropdown
+										displayTextToggle="Select the Community "
+										data={communities}
+										valueExtractor={(item) => item?.id}
+										labelExtractor={(item) => item?.name}
+										multiple={false}
+										onItemSelect={(selectedItem, allSelected) => {
+											console.log(selectedItem);
+											handleFieldChange("commnity_id", selectedItem);
+										}}
+										selectedValues={[]}
+									/>
+								</Col>
+							</Row>
+							<Row className="my-4 pt-4">
+								<Col>
+									<Dropdown
+										displayTextToggle="Select the Technology "
+										data={technologies}
+										valueExtractor={(item) => item?.id}
+										labelExtractor={(item) => item?.name}
+										multiple={false}
+										onItemSelect={(selectedItem, allSelected) => {
+											console.log(selectedItem);
+											handleFieldChange("campaign_technology_id", selectedItem);
+										}}
+									/>
+								</Col>
+							</Row>
+							<Row className="my-4 pt-4">
+								<Col>
+									<Dropdown
+										displayTextToggle="Select the User "
+										data={users}
+										valueExtractor={(item) => item?.id}
+										labelExtractor={(item) => item?.name}
+										multiple={false}
+										onItemSelect={(selectedItem, allSelected) => {
+											console.log(selectedItem);
+											handleFieldChange("user_id", selectedItem);
+										}}
+									/>
+								</Col>
+							</Row>
+							<Row className="py-4">
+								<Col>
+									<FileUploader
+										required={false}
+										id="testimonial_image"
+										text="Upload an image"
+										valueExtractor={(val) => {
+											handleFieldChange("image", val);
+										}}
+									/>
+								</Col>
+							</Row>
+							<Row className="py-4">
+								<Col>
+									<div>
+										<Button
+											text={btnName}
+											onSubmit={handleClick}
+											rounded={false}
+										/>
+									</div>
+								</Col>
+							</Row>
+						</form>
+					</Container>
+				) : (
+					<div>
+						<Button
+							text={btnName}
+							onSubmit={() => {
+								setBtnName("Save Changes");
+							}}
+							rounded={false}
+							icon={faPlus}
+						/>
+					</div>
+				)}
+			</m.div>
+
 			<h3 className="mb-4">Testimonials</h3>
 
 			<div
