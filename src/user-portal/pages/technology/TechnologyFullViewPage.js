@@ -78,10 +78,11 @@ function TechnologyFullViewPage({
     if (ref?.current)
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
-
   const recorderAView = () => {
     apiCall("/campaigns.technology.view", {
       campaign_technology_id: technology?.campaign_technology_id,
+      link: window.location.href,
+      email: user?.email,
     }).then((response) => {
       if (!response || !response.success)
         return console.log("ERROR_RECORDING_A_VIEW: ", response.error);

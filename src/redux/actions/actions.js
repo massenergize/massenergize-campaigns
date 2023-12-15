@@ -46,6 +46,17 @@ export const setCommentsAction = (payload) => {
   return { type: SET_COMMENTS, payload };
 };
 
+// export const recorderAView = () => {
+//   apiCall("/campaigns.technology.view", {
+//     campaign_technology_id: technology?.campaign_technology_id,
+//     link: window.location.href, 
+    
+//   }).then((response) => {
+//     if (!response || !response.success)
+//       return console.log("ERROR_RECORDING_A_VIEW: ", response.error);
+//   });
+// };
+
 export const trackActivity = (payload, cb) => {
   return () => {
     apiCall("/campaigns.activities.track", payload).then((response) => {
