@@ -20,7 +20,7 @@ import { LOADING } from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
 
-function LandingPage({ toggleModal, campaign, init }) {
+function LandingPage({ toggleModal, campaign, init, preview }) {
   console.log("HER EIS THE campaign from redux", campaign);
   const { image, config, key_contact } = campaign || {};
 
@@ -28,17 +28,17 @@ function LandingPage({ toggleModal, campaign, init }) {
   const { campaignId } = useParams();
 
   useEffect(() => {
-    init(campaignId);
+    if(!preview) init(campaignId);
   }, []);
 
-  if (campaign === LOADING)
+  if (campaign === LOADING && !preview)
     return <Loading fullPage>Fetching campaign details...</Loading>;
 
   if (!campaign) return <NotFound></NotFound>;
 
   return (
-    <div style={{}}>
-      <AppNavigationBar />
+    <div style={{}} className={"position-relative"}>
+      {!preview && <AppNavigationBar />}
       <Container>
         <Banner {...campaign} />
         <Container>
@@ -53,13 +53,10 @@ function LandingPage({ toggleModal, campaign, init }) {
               marginTop: 20,
               objectFit: "cover",
             }}
+            alt={"campaign banner"}
           />
         </Container>
-        <RoamingBox
-          id="roaming-box"
-          advert={config?.advert}
-          keyContact={key_contact}
-        />
+        <RoamingBox id="roaming-box" advert={config?.advert} keyContact={key_contact}/>
       </Container>
       <GettingStartedSection
         technologies={technologies}
