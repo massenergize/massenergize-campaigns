@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 
@@ -32,13 +32,17 @@ const tabs = [
     component: <h1> this is the community solar my geee</h1>,
   },
 ];
-function CustomTabView({ data = tabs, defaultTab }) {
+
+function CustomTabView({ data = [], defaultTab }) {
   const [key, setKey] = useState(defaultTab);
   const pageContent = data?.map((tab) => (
-    <Tab eventKey={tab.key} title={tab.title}>
+    <Tab eventKey={tab.key} key={tab?.key} title={tab.title}>
       {tab.component}
     </Tab>
   ));
+  useEffect(() => {
+    setKey(defaultTab);
+  }, [defaultTab]);
 
   return (
     <Tabs

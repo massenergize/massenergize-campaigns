@@ -2,9 +2,15 @@ import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 
 function CustomModal(props) {
-  const { show, component, modalNativeProps, fullControl, style } = props || {};
+  const { show, component, modalNativeProps, fullControl, style, close } =
+    props || {};
   if (!show) return <></>;
   const styles = { ...(style || {}), ...(fullControl ? { padding: 0 } : {}) };
+
+  const renderComponent = () => {
+    if (!component) return <></>;
+    return component({ close });
+  };
   return (
     <Modal
       show={show}
@@ -15,10 +21,10 @@ function CustomModal(props) {
     >
       <SmartHeader {...props} />
       {fullControl ? (
-        <Modal.Body style={{ padding: 0 }}>{component}</Modal.Body>
+        <Modal.Body style={{ padding: 0 }}>{renderComponent()}</Modal.Body>
       ) : (
         <>
-          <Modal.Body>{component}</Modal.Body>
+          <Modal.Body>{renderComponent()}</Modal.Body>
           <SmartFooter {...props} />
         </>
       )}
@@ -113,7 +119,7 @@ const SmartFooter = ({ renderFooter, close }) => {
           style={{
             color: "white",
             margin: 0,
-            padding: "7px 30px",
+            padding: "7px 20px",
           }}
         >
           CLOSE
@@ -128,15 +134,16 @@ const SmartFooter = ({ renderFooter, close }) => {
           margin: 0,
           borderBottomRightRadius: 5,
         }}
+        onClick={() => window.open("http://google.com", "_blank")}
       >
         <p
           style={{
             color: "white",
             margin: 0,
-            padding: "7px 30px",
+            padding: "7px 20px",
           }}
         >
-          JOIN US
+          GO
         </p>
       </div>
     </Modal.Footer>

@@ -1,4 +1,5 @@
-import campaign_data from "./home-page-data.json";
+import campaignData from "./home-page-data.json";
+import oneTechData from "./one-tech.json";
 
 const children = [
   { key: "heat-pump", url: "#coaches-section", text: "Heat Pump" },
@@ -50,12 +51,12 @@ export const NAVIGATION_MENU = [
     children,
     icon: "fa-comment",
   },
-  {
-    key: "contact-us",
-    url: "#",
-    text: "Contact Us",
-    icon: "fa-phone",
-  },
+  // {
+  //   key: "contact-us",
+  //   url: "#",
+  //   text: "Contact Us",
+  //   icon: "fa-phone",
+  // },
 ];
 
 export const COMMUNITY_LIST = [
@@ -67,4 +68,43 @@ export const COMMUNITY_LIST = [
   { key: "other", name: "Other" },
 ];
 
-export const CAMPAIGN_DATA = campaign_data;
+export const COMMENTS = [
+  {
+    email: "lospongos@gmail.com",
+    name: "Akwesi Frimpong",
+    community: "Wayland",
+    message:
+      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+  },
+  {
+    community: "Concord",
+    email: "lospons@gmail.com",
+    name: "Daniel Kuds",
+    message:
+      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+  },
+  {
+    community: "Abode",
+    email: "ongos@gmail.com",
+    name: "Lacatell Tottenham",
+    message:
+      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+  },
+  {
+    community: "Newton",
+    email: "lpongos@gmail.com",
+    name: "Jude BellingFake",
+    message:
+      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+  },
+  {
+    community: "Ablekuma",
+    email: "lospoos@gmail.com",
+    name: "Dennis Kumatro",
+    message:
+      "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate",
+  },
+];
+
+export const CAMPAIGN_DATA = campaignData;
+export const ONE_TECH_DATA = oneTechData;
