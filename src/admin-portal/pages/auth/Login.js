@@ -23,12 +23,7 @@ function Login({}) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-
-
-  
-  const fetchMeUser = (payload) => { 
-    
-  }
+  const fetchMeUser = (payload) => {};
 
   const submit = () => {
     const emailIsValid = validateEmail(email?.trim());
@@ -40,7 +35,6 @@ function Login({}) {
     signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
         setLoading(false);
-        console.log("This is the response you see", response);
       })
       .catch((e) => {
         setLoading(false);

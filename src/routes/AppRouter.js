@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes, useParams } from "react-router-dom";
 import LandingPage from "../user-portal/pages/landing-page/LandingPage";
 import { bindActionCreators } from "redux";
 import {
   appInnit,
+  fetchMeUser,
+  logUserOut,
+  setAuthUserAction,
   testReduxAction,
   toggleUniversalModal,
 } from "../redux/actions/actions";
@@ -20,6 +23,8 @@ import OneTestimonial from "../user-portal/pages/testimonials/OneTestimonial";
 import CreateCampaignAccount from "../admin-portal/pages/campaign-account/CreateCampaignAccount";
 import { CampaignStatistics } from "../admin-portal/pages/campaign/campaign-statistics/campaign-statistics";
 import Login from "../admin-portal/pages/auth/Login";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/admin/fire-config";
 
 const ROUTE_TABLE = [
   {
@@ -100,8 +105,20 @@ function AppRouter({
   modalOptions,
   toggleModal,
   appInnit,
+  fetchMassenergizeUser,
+  logUserOut,
 }) {
-  const params = useParams();
+  // const params = useParams();
+
+  useEffect(() => {
+    // logUserOut();
+    onAuthStateChanged(auth, (user) => {
+      const userIsNotAuthenticated = !user;
+      if (userIsNotAuthenticated)
+        return console.log("SORRY, WE DONT KNOW YOU!");
+      fetchMassenergizeUser({ idToken: user?.accessToken });
+    });
+  }, []);
   return (
     <>
       <CustomModal
@@ -143,7 +160,13 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return bindActionCreators(
-    { testFunction: testReduxAction, toggleModal: toggleUniversalModal },
+    {
+      testFunction: testReduxAction,
+      toggleModal: toggleUniversalModal,
+      fetchMassenergizeUser: fetchMeUser,
+      putUserInRedux: setAuthUserAction,
+      logUserOut,
+    },
     dispatch
   );
 };
