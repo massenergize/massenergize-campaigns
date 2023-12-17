@@ -123,7 +123,7 @@ export async function unpublishCampaign (url = "campaigns.info", id) {
   }
 }
 
-export async function fetchCampaignManagers (url = "campaigns.managers.list", id) {
+export async function fetchCampaignManagers (id, url = "campaigns.managers.list",) {
   try {
     const response = await apiCall(url, {campaign_id : id}, null);
 
@@ -193,7 +193,6 @@ export async function fetchAllEvents (url = "campaigns.events.info", id) {
   }
 }
 
-
 export async function fetchAllPartners (url = "campaigns.partners.list", id) {
   try {
     const response = await apiCall(url, {id}, null);
@@ -205,5 +204,19 @@ export async function fetchAllPartners (url = "campaigns.partners.list", id) {
     return response?.data;
   } catch (e) {
     handleRequestError(e, "FETCH_ALL_PARTNERS_ERROR");
+  }
+}
+
+export async function removeCampaignManager (url = "campaigns.managers.remove", campaign_manager_id) {
+  try {
+    const response = await apiCall(url, {campaign_manager_id}, null);
+
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "REMOVE_CAMPAIGN_MANAGER_ERROR_BE");
+    }
+
+    return response?.data;
+  } catch (e) {
+    handleRequestError(e, "REMOVE_CAMPAIGN_MANAGER_ERROR");
   }
 }
