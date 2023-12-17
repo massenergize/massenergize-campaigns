@@ -14,18 +14,54 @@ import MERichText from "../../../components/admin-components/RichText";
 import Input from "../../../components/admin-components/Input";
 import { validateEmail } from "../../../utils/utils";
 import Notification from "../../../components/pieces/Notification";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebase/admin/fire-config";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "../../../firebase/admin/fire-config";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import {
+  fetchMeUser,
+  logUserOut,
+  setAuthAdminAction,
+  setFirebaseAuthAction,
+} from "../../../redux/actions/actions";
 
-function Login({}) {
+const GOOGLE = "GOOGLE";
+const EMAIL = "EMAIL";
+function Login({
+  logUserOut,
+  putAdminInRedux,
+  fetchMassenergizeUser,
+  putFirebaseAuthInRedux,
+}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [authType, setAuthType] = useState();
 
-  const fetchMeUser = (payload) => {};
+  // -------------------------------------------------------------------------------
+  const authenticateWithGoogle = () => {
+    setAuthType(GOOGLE);
+    setLoading(true);
+    signInWithPopup(auth, googleProvider)
+      .then((response) => {
+        setLoading(false);
+        if (!response)
+          return setError("Sorry, we could not sign you in. Please try again!");
+        const { user } = response;
+        putFirebaseAuthInRedux(user);
+        fetchMassenergizeUser({ idToken: user?.accessToken });
+      })
+      .catch((e) => {
+        setLoading(false);
+        const error = e?.toString();
+        console.log("FIRE_GOOGLE_AUTH_ERROR: ", error);
+        setError("Sorry we could not sign you in: ", error);
+      });
+  };
 
   const submit = () => {
+    setAuthType(EMAIL);
     const emailIsValid = validateEmail(email?.trim());
     if (!emailIsValid)
       return setError("Please include a valid email and password");
@@ -35,14 +71,20 @@ function Login({}) {
     signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
         setLoading(false);
+        const user = response.user;
+        putFirebaseAuthInRedux(user);
+        fetchMassenergizeUser({ idToken: user?.accessToken });
       })
       .catch((e) => {
         setLoading(false);
-        setError(e?.toString());
+        setError("Sorry, could not sign you in: " + e?.toString());
         console.log("ERROR_FIREBASE_SIGN_IN", e?.toString());
       });
   };
 
+  const isGoogleAuth = authType === GOOGLE;
+  const isEmailAndPass = authType === EMAIL;
+  // -------------------------------------------------------------------------------
   return (
     <Container
       className="d-flex align-items-center justify-content-center"
@@ -101,9 +143,12 @@ function Login({}) {
               padding: "0px 20px",
             }}
           >
+            {/* <Button onClick={() => logUserOut()}>Sign Out</Button> */}
             <div style={{ display: "inline-block", marginLeft: "auto" }}>
               <Button
+                onClick={() => authenticateWithGoogle()}
                 className="touchable-opacity"
+                disabled={loading}
                 style={{
                   marginRight: 10,
                   background: "#ee0c0c",
@@ -111,7 +156,10 @@ function Login({}) {
                   borderWidth: 0,
                 }}
               >
-                Use Gmail Instead
+                {loading && isGoogleAuth && (
+                  <Spinner size="sm" style={{ marginRight: 5 }}></Spinner>
+                )}
+                <span> Use Gmail Instead </span>
               </Button>
               <Button
                 onClick={() => submit()}
@@ -123,7 +171,7 @@ function Login({}) {
                   borderWidth: 0,
                 }}
               >
-                {loading && (
+                {loading && isEmailAndPass && (
                   <Spinner size="sm" style={{ marginRight: 5 }}></Spinner>
                 )}
                 <span>Submit</span>
@@ -173,4 +221,19 @@ function Login({}) {
   );
 }
 
-export default Login;
+// const mapState = () => {
+//   return ({})
+// }
+
+const mapDispatch = (dispatch) => {
+  return bindActionCreators(
+    {
+      logUserOut,
+      putAdminInRedux: setAuthAdminAction,
+      fetchMassenergizeUser: fetchMeUser,
+      putFirebaseAuthInRedux: setFirebaseAuthAction,
+    },
+    dispatch
+  );
+};
+export default connect(null, mapDispatch)(Login);

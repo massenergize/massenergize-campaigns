@@ -5,6 +5,7 @@ import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
   SET_AUTH_USER,
+  SET_FIRE_AUTH,
   SET_FULL_TECH_OBJ,
   SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
@@ -35,8 +36,11 @@ export const updateEventsObj = (payload) => {
 export const updateTestimonialsObjAction = (payload) => {
   return { type: UPDATE_TESTIMONIALS_OBJ, payload };
 };
-export const setAuthUserAction = (payload) => {
+export const setAuthAdminAction = (payload) => {
   return { type: SET_AUTH_USER, payload };
+};
+export const setFirebaseAuthAction = (payload) => {
+  return { type: SET_FIRE_AUTH, payload };
 };
 
 export const appInnitAction = (campaignId) => {
@@ -61,13 +65,17 @@ export const fetchMeUser = (payload, cb) => {
       }
       cb && cb(data, null);
       console.log("THIS IS THE ME USER", data);
-      dispatch(setAuthUserAction(data));
+      dispatch(setAuthAdminAction(data));
     });
 };
 
 export const logUserOut = () => {
-  signOut(auth).then(() => {
-    console.log("You are successfully signed out!");
-    // Redirect to login page or something
-  });
+  return (dispatch) =>
+    signOut(auth).then(() => {
+      console.log("You are successfully signed out!");
+      // Redirect to login page or something
+      dispatch(setAuthAdminAction(null));
+      dispatch(setFirebaseAuthAction(null));
+      // dispatch(s(null))
+    });
 };

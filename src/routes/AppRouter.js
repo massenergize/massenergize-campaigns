@@ -25,6 +25,7 @@ import { CampaignStatistics } from "../admin-portal/pages/campaign/campaign-stat
 import Login from "../admin-portal/pages/auth/Login";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/admin/fire-config";
+import Dummy from "../admin-portal/pages/auth/Dummy";
 
 const ROUTE_TABLE = [
   {
@@ -97,6 +98,10 @@ const ROUTE_TABLE = [
     path: "/login",
     component: Login,
   },
+  {
+    path: "/dummy-for-auth",
+    component: Dummy,
+  },
 ];
 
 function AppRouter({
@@ -110,15 +115,15 @@ function AppRouter({
 }) {
   // const params = useParams();
 
-  useEffect(() => {
-    // logUserOut();
-    onAuthStateChanged(auth, (user) => {
-      const userIsNotAuthenticated = !user;
-      if (userIsNotAuthenticated)
-        return console.log("SORRY, WE DONT KNOW YOU!");
-      fetchMassenergizeUser({ idToken: user?.accessToken });
-    });
-  }, []);
+  // useEffect(() => {
+  //   // logUserOut();
+  //   onAuthStateChanged(auth, (user) => {
+  //     const userIsNotAuthenticated = !user;
+  //     if (userIsNotAuthenticated)
+  //       return console.log("ADMIN_IS_NOT_AUTHENTICATED");
+  //     fetchMassenergizeUser({ idToken: user?.accessToken });
+  //   });
+  // }, []);
   return (
     <>
       <CustomModal
@@ -164,7 +169,7 @@ const mapDispatch = (dispatch) => {
       testFunction: testReduxAction,
       toggleModal: toggleUniversalModal,
       fetchMassenergizeUser: fetchMeUser,
-      putUserInRedux: setAuthUserAction,
+      // putUserInRedux: setAuth,
       logUserOut,
     },
     dispatch
