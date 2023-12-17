@@ -1,0 +1,142 @@
+$disabled-bg: #eee !important;
+$disabled-fg: #d4d4d4 !important;
+$disabled-border-color: #e2e3e4 !important;
+$disabled-text-shadow: 1px 1px 0 #fff;
+$divider-color: #d7e0e0;
+
+$accent-color: purple;
+$input-border-radius: 4px;
+
+:root {
+  --input-background: #fff;
+  --accent-color: $accent-color;
+}
+
+.input-group-alternative {
+  border: 1px solid $accent-color;
+  box-shadow: none;
+  -webkit-border-radius: $input-border-radius;
+  -moz-border-radius: $input-border-radius;
+  border-radius: $input-border-radius;
+
+  input.form-control {
+    //color: #666;
+    border-color: transparent;
+    border: none;
+    max-width: calc(100% - 35px);
+    &:focus {
+      //border: 1px solid transparentize($oa-gold, .7);
+    }
+  }
+}
+.Combobox {
+  // Vars
+
+  // Support
+  .input-group-alternative {
+    //border: 1px solid $input-border-color;
+    box-shadow: none;
+    -webkit-border-radius: $input-border-radius;
+    -moz-border-radius: $input-border-radius;
+    border-radius: $input-border-radius;
+  }
+
+  // Module
+  & {
+    .focus {
+      border-bottom: none ;
+    }
+  }
+
+  // Facets
+
+
+  .combo-btn {
+    padding: 3px 2px;
+    cursor: pointer;
+    flex: 0 0 35px;
+    max-width: 35px;
+    background: var(--input-background);
+    svg {
+      fill: purple;
+      opacity: .4;
+      pointer-events: none;
+      max-height: 22px;
+    }
+
+    &:hover {
+      svg { opacity: .8; }
+      box-shadow: none !important;
+    }
+  }
+
+  .combo-list-items {
+    width: 100%;
+    max-height: 329px;
+    overflow-y: auto;
+    margin: 0;
+    z-index: 900;
+    border: 1px solid var(--accent-color);
+    box-shadow: rgba(98, 98, 98, 0.25) 0 2px 4px;
+
+    &:not(.at-top) {
+      border-top: none;
+    }
+
+    div {
+      padding: 0;
+    }
+  }
+
+  // States
+  .disabled{
+    background-color: $disabled-bg;
+    color: $disabled-fg;
+    border: 1px solid $disabled-border-color;
+    text-shadow: $disabled-text-shadow;
+    pointer-events: none;
+    .d-chevron {
+      opacity: .9;
+      pointer-events: none;
+    }
+  }
+
+  img, svg {
+    &.disabled {
+      filter: grayscale(1);
+      opacity: .5;
+    }
+  }
+
+  &.loading-failed {
+    border: 1px solid var(--accent-color);
+  }
+}
+
+.input-group {
+  input.combo-box-input {
+    padding-left: 30px;
+    margin-left: 0 !important;
+    border-radius: 4px !important;
+  }
+}
+
+
+.search-icon {
+  position: absolute;
+  left: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 99999;
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.combo-list-item {
+  &:hover {
+    background-color: #e6e9ec;
+  }
+}

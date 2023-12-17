@@ -1,14 +1,21 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, InputGroup, Row, Button, Card } from "react-bootstrap";
 import Dropdown from "../../components/admin-components/Dropdown";
-import Button from "../../components/admin-components/Button";
 import Chip from "../../components/admin-components/Chip";
 import useSWR from "swr";
-import { fetchCampaignManagers } from "../../requests/campaign-requests";
+import { fetchAllCampaignManagers, fetchCampaignManagers } from "../../requests/campaign-requests";
 import { CampaignManagersView } from "./campaign-managers-view";
+import ComboBox from "../../components/combo-box/combo-box";
+import debounce from 'lodash/debounce';
+import {CAMPAIGN_MANAGERS} from "../../mocks/campaign";
+
 
 const Managers = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
   const [count, setCount] = useState([]);
+
+  const [pagesCount, setPagesCount] = useState(1);
+  const [pageIndex, setPageIndex] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
 
   const opts = [
     {
@@ -69,16 +76,16 @@ const Managers = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
     // dispatch({ type: "SET_FIELD_VALUE", 'user_ids', filtered })
   };
 
-  const handleCoachAdd = async () => {};
+  const handleAddCoach = async () => {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
   };
 
-  useEffect(() => {
-    handleFieldChange("user_ids", count);
-  }, [count]);
+  // useEffect(() => {
+  //   handleFieldChange("user_ids", count);
+  // }, [count]);
 
 	const {
     data: campaignManagers,
@@ -87,26 +94,136 @@ const Managers = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
     return await fetchCampaignManagers(campaignDetails?.id);
   });
 
+  // region Pagination
+
+  let [canGotoPreviousPage, setCanPreviousPage] = useState(false);
+  let [canGotoNextPage, setCanGotoNextPage] = useState(false);
+
+  const gotoPage = async function (next) {
+    if (next !== pageIndex) {
+      if (next < pageIndex) {
+        if (canGotoPreviousPage) {
+          // await fetchData(next, pageSize);
+        }
+      } else if (next > pageIndex) {
+        if (canGotoNextPage) {
+          // let data = await fetchData(next, pageSize);
+
+          // if (data) {
+          //   // console.log({ pi : pageIndex + 1, pagesCount });
+          //   if (pageIndex + 1 >= pagesCount) {
+          //     setCanGotoNextPage(false);
+          //   }
+          //
+          //   if (!canGotoPreviousPage && pagesCount > 1) {
+          //     setCanGotoNextPage(true);
+          //   }
+          // }
+        }
+      }
+    }
+  };
+
+  const previousPage = async function () {
+    if (canGotoPreviousPage) {
+      // return await fetchData(pageIndex - 1, pageSize);
+    }
+  };
+
+  const nextPage = async function () {
+    if (canGotoNextPage) {
+      // return await fetchData(pageIndex + 1, pageSize);
+    }
+  };
+  //endregion
+
+
+  const [search, setSearch] = useState("");
+
+  /**
+   * Slows down the execution of the event handler by 300ms
+   * by which time more would have been typed. instead of doing so on every keystroke
+   * @returns {undefined|void}
+   */
+  const debounceMatches = function () {
+    return debounce(() => {
+      // do the search call here
+      // in this implementation, we are just setting the search term
+      // updating the search term will trigger swr to revalidate
+      setSearch(search);
+    }, 300, { trailing: true })()
+  }
+
+  const {
+    data: allManagers,
+    error: allManagersError,
+    isLoading: allManagersLoading,
+    isValidating: allManagersValidating,
+  } = useSWR(() => "campaigns.managers.list" + search, async () => {
+    return await fetchAllCampaignManagers(campaignDetails?.id, search);
+  }, {
+    fallbackData: CAMPAIGN_MANAGERS,
+  });
+
   return (
-    <Container>
+    // <Container>
       <form onSubmit={(e) => {e.preventDefault();}}>
         <Row className="py-4">
           <Col>
-            <p>
-              Please include details of the new managers of this campaign. Or{" "}
-              <span className="theme-color">
-									Add campaign coaches from existing user
-								</span>
-            </p>
+          </Col>
+
+          <Col md={"auto"}>
+            <Button variant={"success"}>Add Manager</Button>
           </Col>
         </Row>
         <Row className="py-4">
           <Col>
-            <CampaignManagersView managers={campaignManagers?.data} />
+            <CampaignManagersView managers={campaignManagers?.data} pagination {
+              ...{
+                pageIndex,
+                pageSize,
+                pagesCount,
+                canGotoPreviousPage,
+                canGotoNextPage,
+                gotoPage,
+                previousPage,
+                nextPage,
+              }
+            } />
           </Col>
         </Row>
         <Row className="mt-4">
           <Col>
+            <Card>
+              <Card.Body>
+                <Row>
+                  <Col>
+                    <ComboBox
+                      id={"search"}
+                      name={"search"}
+                      items={(allManagers?.data || CAMPAIGN_MANAGERS || []).map((manager) => {
+                      // items={(CAMPAIGN_MANAGERS).map((manager) => {
+                        return {
+                          ...manager,
+                          value: manager.full_name,
+                          label: manager.full_name,
+                        };
+                      })}
+                      label="Search for a manager"
+                      placeholder="Search for a manager"
+                      value={search}
+                      onTextInputChange={(name, value) => {
+                        console.log(name, value);
+                      }}
+                      onChange={(name, val) => {
+
+                        setSearch(val);
+                      }}
+                    />
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
             {/*<Dropdown*/}
             {/*  displayTextToggle="Select technologies for this campaign"*/}
             {/*  data={opts}*/}
@@ -121,6 +238,16 @@ const Managers = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
             {/*/>*/}
           </Col>
         </Row>
+        <Row className="py-4">
+          <Col>
+            <p>
+              Please include details of the new managers of this campaign. Or{" "}
+              <span className="theme-color">
+									Add campaign coaches from existing user
+								</span>
+            </p>
+          </Col>
+        </Row>
         <Row className="py-4 mt-4 justify-content-end">
           <Col>
             <Button
@@ -131,7 +258,7 @@ const Managers = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
           </Col>
         </Row>
       </form>
-    </Container>
+    // </Container>
   );
 };
 

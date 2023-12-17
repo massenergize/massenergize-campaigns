@@ -158,7 +158,8 @@ const DataTable = ({
                 <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
             ),
             style: {
-              textAlign: "center"
+              textAlign: "center",
+              width : "40px"
             }
           },
         ] : []),

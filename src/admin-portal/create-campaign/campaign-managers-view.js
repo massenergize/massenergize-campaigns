@@ -3,45 +3,17 @@ import { TableFooter } from "../../components/data-table/TableFooter";
 import React, { useMemo, useState } from "react";
 import { SelectColumnFilter } from "../../components/data-table/filters";
 import dayjs from "dayjs";
-import { ButtonGroup, Dropdown } from "react-bootstrap";
+import { Button, ButtonGroup, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-const DUMMY_DATA = [
-  {
-    image: {
-      url : "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png" },
-    name: "Name1",
-    createdAt: "2023-12-01T00:00:00Z",
-    updatedAt: "2023-12-01T00:00:00Z",
-    category: "Category1",
-    role : "Campaign Manager"
-  },
-  {
-    image: {
-      url : "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png" },
-    name: "Name2",
-    createdAt: "2023-12-02T00:00:00Z",
-    updatedAt: "2023-12-02T00:00:00Z",
-    category: "Category2",
-    role : "Campaign Manager"
-  },
-  {
-    image: {
-      url : "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png" },
-    name: "Name3",
-    createdAt: "2023-12-03T00:00:00Z",
-    updatedAt: "2023-12-03T00:00:00Z",
-    category: "Category3",
-    role : "Campaign Manager"
-  },
-];
+import {CAMPAIGN_MANAGERS} from "../../mocks/campaign";
 
 const removeCampaignManager = async function (id) {
 
 }
 
 
-export function CampaignManagersView ({ events = DUMMY_DATA }) {
-  const [data, setData] = useState(DUMMY_DATA);
+export function CampaignManagersView ({ events = CAMPAIGN_MANAGERS }) {
+  const [data, setData] = useState(CAMPAIGN_MANAGERS);
 
   const columns = useMemo(
     () => [
@@ -49,10 +21,15 @@ export function CampaignManagersView ({ events = DUMMY_DATA }) {
         id: "image",
         Header: () => null,
         accessor: (values) => {
-          const { logo } = values;
+          const { image } = values;
+          let src = image?.url;
           return (
             <div>
-              <img src={logo} alt="logo" style={{ width: "40px", height: "40px" }}/>
+              <img src={src} alt="logo" style={{ width: "40px", height: "40px" }}
+              onError={() => {
+                src = "/img/fallback-img.png"
+              }}
+              />
             </div>
           );
         },
@@ -61,6 +38,7 @@ export function CampaignManagersView ({ events = DUMMY_DATA }) {
 
         style: {
           textAlign: "left",
+          width: "50px"
         },
       },
       {
@@ -70,8 +48,8 @@ export function CampaignManagersView ({ events = DUMMY_DATA }) {
           const { full_name, email } = values;
           return (
             <div>
-              <h6>{full_name}</h6>
-              <p>{email}</p>
+              <h6 className={"mb-0 fw-bold"}>{full_name}</h6>
+              <p className={"text-muted"}>{email}</p>
             </div>
           );
         },
@@ -90,12 +68,16 @@ export function CampaignManagersView ({ events = DUMMY_DATA }) {
 
           return id;
         },
+        style: {
+          textAlign: "left",
+          width : "100px"
+        },
         disableSortBy: true,
         Cell: ({ cell }) => {
           const { value, row: { id, values }, row } = cell;
 
           return (
-            <Button variant"link-dark">Remove</Button>
+            <Button className={"link"}>Remove</Button>
           )
         },
       },
@@ -115,43 +97,6 @@ export function CampaignManagersView ({ events = DUMMY_DATA }) {
   let [canGotoPreviousPage, setCanPreviousPage] = useState(false);
   let [canGotoNextPage, setCanGotoNextPage] = useState(false);
 
-  // region Pagination
-  const gotoPage = async function (next) {
-    if (next !== pageIndex) {
-      if (next < pageIndex) {
-        if (canGotoPreviousPage) {
-          await fetchData(next, pageSize);
-        }
-      } else if (next > pageIndex) {
-        if (canGotoNextPage) {
-          let data = await fetchData(next, pageSize);
-
-          if (data) {
-            // console.log({ pi : pageIndex + 1, pagesCount });
-            if (pageIndex + 1 >= pagesCount) {
-              setCanGotoNextPage(false);
-            }
-
-            if (!canGotoPreviousPage && pagesCount > 1) {
-              setCanGotoNextPage(true);
-            }
-          }
-        }
-      }
-    }
-  };
-
-  const previousPage = async function () {
-    if (canGotoPreviousPage) {
-      return await fetchData(pageIndex - 1, pageSize);
-    }
-  };
-
-  const nextPage = async function () {
-    if (canGotoNextPage) {
-      return await fetchData(pageIndex + 1, pageSize);
-    }
-  };
 
   // endregion
   return (
