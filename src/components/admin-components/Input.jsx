@@ -5,7 +5,7 @@ const Input = ({
 	label,
 	placeholder,
 	required,
-	type,
+	type ="textbox",
 	onChange,
 	maxLength,
 	value,
