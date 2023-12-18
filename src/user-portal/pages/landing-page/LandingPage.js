@@ -90,7 +90,7 @@ function LandingPage({
     const data = config?.advert || {};
     toggleModal({
       show: true,
-      title: data?.title || {},
+      title: data?.title || "...",
       // iconName: "fa-comment",
       component: ({ close }) => (
         <RoamingModalSheet
