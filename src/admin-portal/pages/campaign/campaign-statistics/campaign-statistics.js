@@ -21,7 +21,8 @@ import { fetchCampaign } from "../../../../requests/campaign-requests";
 import { useParams } from "react-router-dom";
 import NProgress from "nprogress";
 import { AdminLayout } from "../../../../layouts/admin-layout";
-import { apiCall } from "../../../../api/messenger";
+import {apiCall} from "../../../../api/messenger";
+import CustomToast from "../../../../components/admin-components/CustomToast";
 
 export function CampaignStatistics({}) {
 	const { id } = useParams();
@@ -47,7 +48,12 @@ export function CampaignStatistics({}) {
 		},
 	];
 
+	console.log("=== id ==", id)
+
 	const [activeTab, setActiveTab] = useState(tabs[0]?.name);
+	const [showToast, setShowToast] = useState(false);
+
+
 
 	return (
 		<AdminLayout>
@@ -162,16 +168,10 @@ export function CampaignStatistics({}) {
 											})}
 										</div>
 										<div>
-											{/* <Button
-												text="Download Data File"
-												// onSubmit={handleClick}
-												rounded={false}
-												// icon={faPlus}
-											/>{" "} */}
 											<Button
 												className="btn-success mr-3"
 												onClick={() => {
-													apiCall("/downloads.campaigns.follows",{"campaign_id":"39f587da-264f-4d3d-89e3-93b5388c19c6"} ).then(res=> console.log("==== res ====", res))
+													window.history.back();
 												}}
 											>
 												<FontAwesomeIcon icon={faDownload} /> Download Data File
@@ -218,7 +218,7 @@ export function CampaignStatistics({}) {
 					{/*region error and loader*/}
 					{!campaignLoading && campaignError ? (
 						<Col>
-							<h5>An error occured</h5>
+							<h5>An error occurred</h5>
 						</Col>
 					) : null}
 

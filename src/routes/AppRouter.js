@@ -26,6 +26,7 @@ import Login from "../admin-portal/pages/auth/Login";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/admin/fire-config";
 import Dummy from "../admin-portal/pages/auth/Dummy";
+import CustomToast from "../components/admin-components/CustomToast";
 
 const ROUTE_TABLE = [
   {
@@ -65,7 +66,10 @@ const ROUTE_TABLE = [
     path: "/admin/campaign/all",
     component: AllCampaigns,
   },
-
+  {
+    path: "/admin/home",
+    component: AllCampaigns,
+  },
   {
     path: "/admin/campaign/:id/stats/",
     component: CampaignStatistics,

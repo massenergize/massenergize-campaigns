@@ -7,6 +7,7 @@ import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import Input from "../../../components/admin-components/Input";
 import Button from "../../../components/admin-components/Button";
 import IncentivesBar from "../../../components/admin-components/IncentivesBar";
+import IconPicker from "../../../components/admin-components/IconPicker";
 
 const Incentives = () => {
 	const data = [
@@ -128,7 +129,7 @@ const Incentives = () => {
 					<Row className="py-4">
 						<Col>
 							<p>Pick an Icon</p>
-							<h4>THIS IS A SPACE FOR THE ICON PICKER</h4>
+							<IconPicker />
 						</Col>
 					</Row>
 					<Row className="py-4 justify-content-end">
