@@ -35,6 +35,11 @@ function CommentComponentForModal({
   }, [comments]);
 
   useEffect(() => {
+    const { user } = authUser || {};
+    setName(user?.full_name || user?.preferred_name || "");
+  }, [authUser]);
+
+  useEffect(() => {
     setCommentItems(comments?.reverse());
   }, [comments]);
 

@@ -181,7 +181,7 @@ function TechnologyFullViewPage({
   const triggerRegistration = () => {
     toggleModal({
       show: true,
-      title: `Tell us where you are from, before commenting`,
+      title: `Tell us where you are from`,
       iconName: "fa-comment",
       component: ({ close }) => (
         <JoinUsForm
@@ -199,7 +199,7 @@ function TechnologyFullViewPage({
   const triggerRegistrationForLike = () => {
     toggleModal({
       show: true,
-      title: `Tell us where you are from, before you like`,
+      title: `Tell us where you are from`,
       iconName: "fa-thumbs-up",
       component: ({ close }) => (
         <JoinUsForm
@@ -214,7 +214,6 @@ function TechnologyFullViewPage({
     });
   };
   const triggerCommentBox = (user) => {
-    // console.log("This is what user looks like", user);
     if (!user) return triggerRegistration();
     toggleModal({
       show: true,
@@ -223,7 +222,7 @@ function TechnologyFullViewPage({
       component: () => (
         <CommentComponentForModal
           comments={[...comments]}
-          authUser={authUser}
+          authUser={user}
           updateUser={updateUser}
           technology={technology}
           updateTechList={(data) => {
@@ -271,7 +270,7 @@ function TechnologyFullViewPage({
               />
               <InteractionsPanel
                 openShareBox={openShareBox}
-                openCommentBox={() => triggerCommentBox(user)}
+                openCommentBox={() => triggerCommentBox(authUser)}
                 liked={technology?.has_liked}
                 likes={likes}
                 like={() => like(authUser?.user)}
@@ -481,7 +480,7 @@ function TechnologyFullViewPage({
                     padding: 10,
                     color: "white",
                   }}
-                  onClick={() => triggerCommentBox(user)}
+                  onClick={() => triggerCommentBox(authUser)}
                 >
                   <i className=" fa fa-plus" style={{ marginRight: 4 }}></i>
                   <p style={{ margin: 0, fontWeight: "bold" }}>Add a Comment</p>

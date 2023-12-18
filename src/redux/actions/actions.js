@@ -73,8 +73,9 @@ export const updateUserAction = (payload, cb) => {
   return (dispatch) => {
     apiCall("/users.update.loosedUser", payload).then((response) => {
       if (!response || !response.success) {
-        console.log("ERROR_UPDATING_USER:", response.data);
+        return console.log("ERROR_UPDATING_USER:", response.data);
       }
+
       dispatch(loadUserObjAction(response.data));
       cb && cb(response.data);
     });
