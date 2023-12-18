@@ -5,6 +5,7 @@ import { Col, Container, Row } from "react-bootstrap";
 function DoMore({ campaign }) {
   const { communities, communities_section } = campaign || {};
   const { title, description } = communities_section || {};
+  console.log("HERe is the campaign", campaign);
 
   const COMMUNITY_PORTAL_URL = "https://communities.massenergize.org/";
   return (
@@ -45,7 +46,7 @@ function DoMore({ campaign }) {
                       marginRight: 10,
                       objectFit: "contain",
                     }}
-                    src={communities?.logo?.url}
+                    src={community?.logo?.url}
                   />
                   <h6
                     onClick={() => {
