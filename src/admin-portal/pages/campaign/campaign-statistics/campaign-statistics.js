@@ -21,6 +21,8 @@ import { fetchCampaign } from "../../../../requests/campaign-requests";
 import { useParams } from "react-router-dom";
 import NProgress from "nprogress";
 import { AdminLayout } from "../../../../layouts/admin-layout";
+import {apiCall} from "../../../../api/messenger";
+import CustomToast from "../../../../components/admin-components/CustomToast";
 
 export function CampaignStatistics({}) {
 	const { id } = useParams();
@@ -45,7 +47,12 @@ export function CampaignStatistics({}) {
 		},
 	];
 
+	console.log("=== id ==", id)
+
 	const [activeTab, setActiveTab] = useState(tabs[0]?.name);
+	const [showToast, setShowToast] = useState(false);
+
+
 
 	return (
 		<AdminLayout>
@@ -163,8 +170,13 @@ export function CampaignStatistics({}) {
 											<Button
 												className="btn-success mr-3"
 												onClick={() => {
-													// download data
-													window.history.back();
+													apiCall("/downloads.campaigns.performance", {campaign_id:id}).then(
+														res=>{
+															if(res?.success){
+															// 	show a message asking user to check email
+															}
+														}
+													)
 												}}
 											>
 												<FontAwesomeIcon icon={faDownload} /> Download Data File
