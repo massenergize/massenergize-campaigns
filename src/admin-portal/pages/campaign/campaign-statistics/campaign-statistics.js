@@ -21,95 +21,13 @@ import { fetchCampaign } from "../../../../requests/campaign-requests";
 import { useParams } from "react-router-dom";
 import NProgress from "nprogress";
 import { AdminLayout } from "../../../../layouts/admin-layout";
+import { apiCall } from "../../../../api/messenger";
 
 export function CampaignStatistics({}) {
 	const { id } = useParams();
 
-	const campData = campaignData;
-
-	// const {
-	// 	data: campaign,
-	// 	error: campaignError,
-	// 	isValidating: campaignValidating,
-	// 	isLoading: campaignLoading,
-	// } = useSWR(`campaigns.info/${id}`, async () => {
-	// 	return await fetchCampaign("campaigns.info", id);
-	// });
-
-	// useEffect(() => {
-	// 	NProgress.configure({ showSpinner: false });
-
-	// 	if (campaignLoading) {
-	// 		NProgress.start();
-	// 	} else {
-	// 		NProgress.done();
-	// 	}
-	// }, [campaignLoading]);
 
 	const CAMPAIGN = campaignData
-		? // ? {
-		  // 		stats: {
-		  // 			shares: [
-		  // 				{
-		  // 					utm_medium: "email",
-		  // 					count: 1,
-		  // 				},
-		  // 				{
-		  // 					utm_medium: "Whatsapp",
-		  // 					count: 2,
-		  // 				},
-		  // 			],
-		  // 			likes: [
-		  // 				{
-		  // 					technology: "Community Solar",
-		  // 					count: 1,
-		  // 				},
-		  // 				{
-		  // 					technology: "Heat Pump",
-		  // 					count: 1,
-		  // 				},
-		  // 			],
-		  // 			views: [
-		  // 				{
-		  // 					technology: "Change Name",
-		  // 					count: 1,
-		  // 				},
-		  // 				{
-		  // 					technology: "Community Solar",
-		  // 					count: 2,
-		  // 				},
-		  // 			],
-		  // 			followers: [
-		  // 				{
-		  // 					community: 24,
-		  // 					count: 5,
-		  // 				},
-		  // 			],
-		  // 			comments: [
-		  // 				{
-		  // 					technology: "Community Solar",
-		  // 					count: 2,
-		  // 				},
-		  // 			],
-		  // 			testimonials: [
-		  // 				{
-		  // 					technology: "Change Name",
-		  // 					count: 4,
-		  // 				},
-		  // 				{
-		  // 					technology: "Community Solar",
-		  // 					count: 4,
-		  // 				},
-		  // 				{
-		  // 					technology: "Heat Pump",
-		  // 					count: 3,
-		  // 				},
-		  // 			],
-		  // 		},
-		  // 		...campaign,
-		  // }
-		  campaignData
-		: null;
 
 	const campaignLoading = false;
 	const campaignError = false;
@@ -142,7 +60,7 @@ export function CampaignStatistics({}) {
 								className="gradient-bg"
 								style={{
 									backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-		url(${CAMPAIGN?.image?.url})`,
+		              url(${CAMPAIGN?.image?.url})`,
 								}}
 							>
 								<Container>
@@ -253,7 +171,7 @@ export function CampaignStatistics({}) {
 											<Button
 												className="btn-success mr-3"
 												onClick={() => {
-													window.history.back();
+													apiCall("/downloads.campaigns.follows",{"campaign_id":"39f587da-264f-4d3d-89e3-93b5388c19c6"} ).then(res=> console.log("==== res ====", res))
 												}}
 											>
 												<FontAwesomeIcon icon={faDownload} /> Download Data File
