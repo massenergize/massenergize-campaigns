@@ -1,14 +1,10 @@
 import React, { useReducer, useState } from "react";
-import { Alert, Button, Col, Container, Row, Toast, ToastContainer } from "react-bootstrap";
+import { Alert, Button, Col, Container, FormLabel, Row } from "react-bootstrap";
 import Input from "../../components/admin-components/Input";
-import { apiCall } from "../../utils/api_call";
 import "../adminStyles.css";
-import Dropdown from "../../components/admin-components/Dropdown";
-import useSWR from "swr";
-import { fetchCommunitiesList } from "../../requests/community-routes";
 import { isEmpty } from "../../helpers/utils/string";
 import Chip from "../../components/admin-components/Chip";
-import { createCampaign, createCampaignFromTemplate } from "../../requests/campaign-requests";
+import { createCampaignFromTemplate } from "../../requests/campaign-requests";
 import { ProgressButton } from "../../components/progress-button/progress-button";
 import { MultiSelect } from "react-multi-select-component";
 import { useBubblyBalloons } from "../../components/bubbly-balloon/use-bubbly-balloons";
@@ -42,7 +38,7 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCamp
         throw new Error(`Unsupported action type: ${type}`);
     }
   };
-  const {blow, pop} = useBubblyBalloons();
+  const { blow, pop } = useBubblyBalloons();
   const [formData, dispatch] = useReducer(reducer, initialState);
 
   const [submitButton, setSubmitButton] = useState({
@@ -98,7 +94,7 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCamp
               label: partner?.name
             }
           }),
-          events : campaign?.events?.map((event) => {
+          events: campaign?.events?.map((event) => {
             return {
               ...event,
               value: event?.id,
@@ -177,6 +173,7 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCamp
                 </Row>
                 <Row className="py-4">
                   <Col>
+                    <FormLabel>Choose one or more communities for your campaign from the dropdown below.</FormLabel>
                     <MultiSelect
                       options={(allCommunities?.data || []).map((campaign) => {
                         return {
@@ -191,8 +188,6 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCamp
                       }}
                       labelledBy="Select"
                     />
-
-
                   </Col>
                 </Row>
 
