@@ -79,9 +79,10 @@ function TechnologyFullViewPage({
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   const recorderAView = () => {
+    const { user } = authUser;
     apiCall("/campaigns.technology.view", {
       campaign_technology_id: technology?.campaign_technology_id,
-      link: window.location.href,
+      url: window.location.href,
       email: user?.email,
     }).then((response) => {
       if (!response || !response.success)
@@ -158,10 +159,15 @@ function TechnologyFullViewPage({
 
   const like = (user) => {
     if (!user) return triggerRegistrationForLike();
+    const { community } = authUser;
+
     apiCall("/campaigns.technology.like", {
       campaign_technology_id: technology?.campaign_technology_id,
       user_id: user?.id,
       email: user?.email,
+      zipcode: authUser?.zipcode,
+      community_id: community?.id,
+      community_name: authUser?.community_name || community?.name,
     }).then((response) => {
       if (!response || !response?.success)
         return console.log("ERROR_LIKING: ", response?.error);
@@ -509,7 +515,8 @@ function TechnologyFullViewPage({
             toggleModal={() =>
               toggleModal({
                 show: true,
-                component: () => <GetHelpForm />,
+                component: (props) => <GetHelpForm {...props} />,
+                fullControl: true,
                 title: "Get Help",
               })
             }

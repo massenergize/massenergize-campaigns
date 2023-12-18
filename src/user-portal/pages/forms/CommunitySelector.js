@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 export const OTHER = "other";
 
-function CommunitySelector({ onChange, communities, data }) {
+function CommunitySelector({ onChange, communities, data, readOnly }) {
   const [state, setState] = useState({});
   data = data || {};
 
@@ -17,7 +17,6 @@ function CommunitySelector({ onChange, communities, data }) {
     onChange && onChange(newValue);
   };
 
-
   useEffect(() => {
     setState(data);
   }, [data]);
@@ -26,7 +25,7 @@ function CommunitySelector({ onChange, communities, data }) {
 
   return (
     <div>
-      <Form.Text>Please tell us where you are from (Editable)</Form.Text>
+      <Form.Text>Please tell us where you are from</Form.Text>
       {/* <p>Please tell us where you are from (Editable)</p> */}
       <Form
         className="m-2 pb-2"
@@ -79,7 +78,7 @@ function CommunitySelector({ onChange, communities, data }) {
           </Form.Check.Label>
         </Form.Check>
       </Form>
-      {isOther && (
+      {isOther && !readOnly && (
         <>
           <div>
             <InputGroup className="mb-3">

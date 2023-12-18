@@ -108,6 +108,7 @@ function CoachesSection({ toggleModal, sectionId, technologies }) {
                       show: true,
                       icon: "fa-help",
                       component: () => <GetHelpForm />,
+                      fullControl:true,
                       title: "Get Help",
                     })
                   }

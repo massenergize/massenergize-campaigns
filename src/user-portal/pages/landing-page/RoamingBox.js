@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-
+import phone_call from "./../../../assets/imgs/phone_call.png";
 function RoamingBox({ advert, keyContact, showMore }) {
   const preview = advert?.description?.substr(0, 250);
   return (
@@ -60,8 +60,13 @@ function RoamingBox({ advert, keyContact, showMore }) {
             >
               <img
                 className="mb-2"
-                src={keyContact?.image?.url || "https://i.pravatar.cc/300"}
-                style={{ borderRadius: "100%", width: 120, height: 120 }}
+                src={keyContact?.image?.url || phone_call}
+                style={{
+                  borderRadius: "100%",
+                  width: 120,
+                  height: 120,
+                  objectFit: "cover",
+                }}
               ></img>
               <span className="mb-1" style={{ fontSize: 12, color: "#c8c8c8" }}>
                 KEY CONTACT
