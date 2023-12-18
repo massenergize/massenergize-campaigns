@@ -159,16 +159,18 @@ function TechnologyFullViewPage({
 
   const like = (user) => {
     if (!user) return triggerRegistrationForLike();
-    const { community } = authUser;
+    const { community } = authUser || {};
 
-    apiCall("/campaigns.technology.like", {
+    const payload = {
       campaign_technology_id: technology?.campaign_technology_id,
       user_id: user?.id,
       email: user?.email,
       zipcode: authUser?.zipcode,
       community_id: community?.id,
       community_name: authUser?.community_name || community?.name,
-    }).then((response) => {
+    };
+    // console.log("LETS SEE LIKE PAYLOAD", )
+    apiCall("/campaigns.technology.like", payload).then((response) => {
       if (!response || !response?.success)
         return console.log("ERROR_LIKING: ", response?.error);
       updateTechList(response?.data);
@@ -272,7 +274,7 @@ function TechnologyFullViewPage({
                 openCommentBox={() => triggerCommentBox(user)}
                 liked={technology?.has_liked}
                 likes={likes}
-                like={() => like(authUser)}
+                like={() => like(authUser?.user)}
                 views={views}
                 comments={comments?.length || 0}
               />
