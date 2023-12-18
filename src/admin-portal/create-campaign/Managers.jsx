@@ -1,16 +1,16 @@
-import React, { useEffect, useReducer, useState } from "react";
-import { Col, Container, InputGroup, Row, Button, Card } from "react-bootstrap";
-import Dropdown from "../../components/admin-components/Dropdown";
-import Chip from "../../components/admin-components/Chip";
+import React, { useReducer, useState } from "react";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import useSWR from "swr";
-import { fetchAllCampaignManagers, fetchCampaignManagers } from "../../requests/campaign-requests";
+import { fetchAllUsersBySuperAdminManagers, fetchCampaignManagers } from "../../requests/campaign-requests";
 import { CampaignManagersView } from "./campaign-managers-view";
 import ComboBox from "../../components/combo-box/combo-box";
 import debounce from 'lodash/debounce';
-import {CAMPAIGN_MANAGERS} from "../../mocks/campaign";
+import { CAMPAIGN_MANAGERS } from "../../mocks/campaign";
+import { ProgressButton } from "../../components/progress-button/progress-button";
+import Modal from "react-bootstrap/Modal";
 
 
-const Managers = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
+const Managers = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
   const [count, setCount] = useState([]);
 
   const [pagesCount, setPagesCount] = useState(1);
@@ -76,7 +76,8 @@ const Managers = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
     // dispatch({ type: "SET_FIELD_VALUE", 'user_ids', filtered })
   };
 
-  const handleAddCoach = async () => {};
+  const handleAddCoach = async () => {
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -87,7 +88,7 @@ const Managers = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
   //   handleFieldChange("user_ids", count);
   // }, [count]);
 
-	const {
+  const {
     data: campaignManagers,
     error: campaignManagersError,
   } = useSWR(`campaigns.managers.list/${campaignDetails?.id}`, async () => {
@@ -138,7 +139,12 @@ const Managers = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
   //endregion
 
 
+  const [showSearchModal, setShowSearchModal] = useState(true);
   const [search, setSearch] = useState("");
+
+  const handleClose = () => {
+    setShowSearchModal(false);
+  }
 
   /**
    * Slows down the execution of the event handler by 300ms
@@ -159,106 +165,146 @@ const Managers = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
     error: allManagersError,
     isLoading: allManagersLoading,
     isValidating: allManagersValidating,
-  } = useSWR(() => "campaigns.managers.list" + search, async () => {
-    return await fetchAllCampaignManagers(campaignDetails?.id, search);
+  } = useSWR(() => "users.listForCommunityAdmin/" + search, async () => {
+    return await fetchAllUsersBySuperAdminManagers("users.listForCommunityAdmin", { "params": { "search_text": search } });
   }, {
     fallbackData: CAMPAIGN_MANAGERS,
   });
 
   return (
-    // <Container>
-      <form onSubmit={(e) => {e.preventDefault();}}>
-        <Row className="py-4">
-          <Col>
-          </Col>
+    <div>
+      <Row className="">
+        <Col></Col>
+        <Col md={"auto"}>
+          <Button variant={"success"} onClick={() => {
+            setShowSearchModal(true);
+          }}>Add Manager</Button>
+        </Col>
+      </Row>
 
-          <Col md={"auto"}>
-            <Button variant={"success"}>Add Manager</Button>
-          </Col>
-        </Row>
-        <Row className="py-4">
-          <Col>
-            <CampaignManagersView managers={campaignManagers?.data} pagination {
-              ...{
-                pageIndex,
-                pageSize,
-                pagesCount,
-                canGotoPreviousPage,
-                canGotoNextPage,
-                gotoPage,
-                previousPage,
-                nextPage,
-              }
-            } />
-          </Col>
-        </Row>
-        <Row className="mt-4">
-          <Col>
-            <Card>
-              <Card.Body>
-                <Row>
-                  <Col>
-                    <ComboBox
-                      id={"search"}
-                      name={"search"}
-                      items={(allManagers?.data || CAMPAIGN_MANAGERS || []).map((manager) => {
+      <Row className="py-4">
+        <Col>
+          <CampaignManagersView managers={campaignManagers?.data} pagination {
+            ...{
+              pageIndex,
+              pageSize,
+              pagesCount,
+              canGotoPreviousPage,
+              canGotoNextPage,
+              gotoPage,
+              previousPage,
+              nextPage,
+            }
+          } />
+        </Col>
+      </Row>
+      {/*<Row className="mt-4">
+        <Col>
+          <Card>
+            <Card.Body>
+              <Row>
+                <Col>
+                  <ComboBox
+                    id={"search"}
+                    name={"search"}
+                    items={(allManagers?.data || CAMPAIGN_MANAGERS || []).map((manager) => {
                       // items={(CAMPAIGN_MANAGERS).map((manager) => {
-                        return {
-                          ...manager,
-                          value: manager.full_name,
-                          label: manager.full_name,
-                        };
-                      })}
-                      label="Search for a manager"
-                      placeholder="Search for a manager"
-                      value={search}
-                      onTextInputChange={(name, value) => {
-                        console.log(name, value);
-                      }}
-                      onChange={(name, val) => {
+                      return {
+                        ...manager,
+                        value: manager.full_name,
+                        label: manager.full_name,
+                      };
+                    })}
+                    label="Search for a manager"
+                    placeholder="Search for a manager"
+                    value={search}
+                    onTextInputChange={(name, value) => {
+                      console.log(name, value);
+                    }}
+                    onChange={(name, val) => {
 
-                        setSearch(val);
-                      }}
-                    />
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
-            {/*<Dropdown*/}
-            {/*  displayTextToggle="Select technologies for this campaign"*/}
-            {/*  data={opts}*/}
-            {/*  valueExtractor={(item) => item}*/}
-            {/*  labelExtractor={(item) => item?.first_name}*/}
-            {/*  multiple={true}*/}
-            {/*  onItemSelect={(selectedItem, allSelected) => {*/}
-            {/*    setCount(allSelected);*/}
-            {/*    handleFieldChange("user_ids", allSelected);*/}
-            {/*  }}*/}
-            {/*  defaultValue={formData?.user_ids}*/}
-            {/*/>*/}
-          </Col>
-        </Row>
-        <Row className="py-4">
-          <Col>
-            <p>
-              Please include details of the new managers of this campaign. Or{" "}
-              <span className="theme-color">
+                      setSearch(val);
+                    }}
+                  />
+                </Col>
+              </Row>
+            </Card.Body>
+          </Card>
+          <Dropdown
+            displayTextToggle="Select technologies for this campaign"
+            data={opts}
+            valueExtractor={(item) => item}
+            labelExtractor={(item) => item?.first_name}
+            multiple={true}
+            onItemSelect={(selectedItem, allSelected) => {
+              setCount(allSelected);
+              handleFieldChange("user_ids", allSelected);
+            }}
+            defaultValue={formData?.user_ids}
+          />
+        </Col>
+      </Row>*/}
+      {/*<Row className="py-4">
+        <Col>
+          <p>
+            Please include details of the new managers of this campaign. Or{" "}
+            <span className="theme-color">
 									Add campaign coaches from existing user
 								</span>
-            </p>
-          </Col>
-        </Row>
-        <Row className="py-4 mt-4 justify-content-end">
-          <Col>
-            <Button
-              text="Save Changes"
-              onSubmit={handleSubmit}
-              rounded={false}
-            />
-          </Col>
-        </Row>
-      </form>
-    // </Container>
+          </p>
+        </Col>
+      </Row>*/}
+      <Row className="py-4 mt-4 justify-content-end">
+        <Col>
+          <ProgressButton onSubmit={handleSubmit} rounded={false}>Save Changes</ProgressButton>
+        </Col>
+      </Row>
+
+      <Modal size={"lg"} show={showSearchModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className={"text-sm"}>
+            Search for a manager
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Row>
+            <Col >
+              <ComboBox
+                id={"search"}
+                name={"search"}
+                floatList={true}
+                items={(allManagers?.data || CAMPAIGN_MANAGERS || []).map((manager) => {
+                  // items={(CAMPAIGN_MANAGERS).map((manager) => {
+                  return {
+                    ...manager,
+                    value: manager.full_name,
+                    label: manager.full_name,
+                  };
+                })}
+                label="Search for a manager"
+                placeholder="Search for a manager"
+                value={search}
+                onTextInputChange={(name, value) => {
+                  console.log(name, value);
+                }}
+                onChange={(name, val) => {
+
+                  setSearch(val);
+                }}
+              />
+            </Col>
+          </Row>
+        </Modal.Body>
+        <Modal.Footer>
+          {/*<Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>*/}
+          <Button variant="primary" onClick={handleClose}>
+            Add Manager
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
   );
 };
 

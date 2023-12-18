@@ -63,9 +63,12 @@ export const fetchMeUser = (payload, cb) => {
         cb && cb(data, error);
         return console.log("ERROR_FETCHING_ME_USER: ", error?.toString());
       }
+
+
       cb && cb(data, null);
       console.log("THIS IS THE ME USER", data);
       dispatch(setAuthAdminAction(data));
+
     });
 };
 

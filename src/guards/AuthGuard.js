@@ -7,13 +7,18 @@ import { auth } from "../firebase/admin/fire-config";
 import { fetchMeUser, setFirebaseAuthAction } from "../redux/actions/actions";
 import { LOADING } from "../utils/Constants";
 import Loading from "../components/pieces/Loading";
-function AuthGuard({
-  children,
-  fetchMassenergizeUser,
-  fireAuth,
-  admin,
-  putFirebaseAuthInRedux,
-}) {
+
+/**
+ *
+ * @param fetchMassenergizeUser
+ * @param fireAuth
+ * @param admin
+ * @param putFirebaseAuthInRedux
+ * @param props
+ * @returns {React.JSX.Element|void}
+ * @constructor
+ */
+function AuthGuard({ fetchMassenergizeUser, fireAuth, admin, putFirebaseAuthInRedux, ...props }) {
   const navigator = useNavigate();
 
   useEffect(() => {
@@ -43,7 +48,7 @@ function AuthGuard({
     return console.log("Sorry, you are not an admin!");
   }
 
-  return <div>{children}</div>;
+  return <div>{props.children}</div>;
 }
 
 const mapState = (state) => {

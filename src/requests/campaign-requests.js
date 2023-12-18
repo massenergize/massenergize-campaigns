@@ -2,7 +2,7 @@ import { apiCall } from "../api/messenger";
 import { handleRequestError } from "../helpers/utils/http";
 
 
-export async function createCampaignFromTemplate (url = "campaigns.createFromTemplate", data) {
+export async function createCampaignFromTemplate (data, url = "campaigns.createFromTemplate") {
   try {
     const response = await apiCall(url, data, null);
     if (!response || !response?.success) {
@@ -28,7 +28,7 @@ export async function createCampaign (url = "campaigns.create", data) {
   }
 }
 
-export async function updateCampaign (url = "campaigns.update", data) {
+export async function updateCampaign (data, url = "campaigns.update", ) {
   try {
     const response = await apiCall(url, data, null);
     if (!response || !response?.success) {
@@ -86,7 +86,7 @@ export async function fetchAllTechnologies (url = "technologies.list") {
     const response = await apiCall(url, { }, null);
 
     if (!response || !response?.success) {
-      handleRequestError(response?.error, "FETCH_CAMPAIGN_TECH_ERROR_BE");
+      handleRequestError(response?.error, "FETCH_ALL_TECH_ERROR_BE");
     }
 
     return response?.data;
@@ -137,9 +137,23 @@ export async function fetchCampaignManagers (id, url = "campaigns.managers.list"
   }
 }
 
-export async function fetchAllCampaignManagers (url = "campaigns.managers.list", id) {
+export async function fetchAllUsersBySuperAdminManagers (url = "users.listForCommunityAdmin", options = {}) {
   try {
-    const response = await apiCall(url, {}, null);
+    const response = await apiCall(url, options, null);
+
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "FETCH_ALL_USERS_FOR_SUPER_ADMIN_ERROR_BE");
+    }
+
+    return response?.data;
+  } catch (e) {
+    handleRequestError(e, "FETCH_ALL_USERS_FOR_SUPER_ADMIN_ERROR");
+  }
+}
+
+export async function fetchAllCampaignManagers (url = "users.listForCommunityAdmin", options = {}) {
+  try {
+    const response = await apiCall(url, options, null);
 
     if (!response || !response?.success) {
       handleRequestError(response?.error, "FETCH_ALL_CAMPAIGN_MANAGERS_ERROR_BE");
@@ -151,7 +165,7 @@ export async function fetchAllCampaignManagers (url = "campaigns.managers.list",
   }
 }
 
-export async function fetchCampaignTechnologies (url = "campaigns.technologies.list", id) {
+export async function fetchCampaignTechnologies (id, url = "campaigns.technologies.list", ) {
   try {
     const response = await apiCall(url, {campaign_id : id}, null);
 
@@ -165,7 +179,21 @@ export async function fetchCampaignTechnologies (url = "campaigns.technologies.l
   }
 }
 
-export async function fetchCampaignEvents (url = "campaigns.events.list", id) {
+export async function fetchAllCampaignEventsBySuperAdmins (url = "events.listForCommunityAdmin", ) {
+  try {
+    const response = await apiCall(url, {}, null);
+
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "FETCH_CAMPAIGN_EVENTS_ERROR_BE");
+    }
+
+    return response?.data;
+  } catch (e) {
+    handleRequestError(e, "FETCH_CAMPAIGN_EVENTS_ERROR");
+  }
+}
+
+export async function fetchCampaignEvents (id, url = "campaigns.events.list", ) {
   try {
     const response = await apiCall(url, {campaign_id : id }, null);
 
@@ -193,7 +221,21 @@ export async function fetchAllEvents (url = "campaigns.events.info", id) {
   }
 }
 
-export async function fetchAllPartners (url = "campaigns.partners.list", id) {
+export async function fetchAllPartners (url = "partners.list", id) {
+  try {
+    const response = await apiCall(url, {id}, null);
+
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "FETCH_ALL_PARTNERS_ERROR_BE");
+    }
+
+    return response?.data;
+  } catch (e) {
+    handleRequestError(e, "FETCH_ALL_PARTNERS_ERROR");
+  }
+}
+
+export async function fetchCampaignPartners (id, url = "campaigns.partners.list") {
   try {
     const response = await apiCall(url, {id}, null);
 

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { campaignPages } from "../../utils/Constants";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, ButtonGroup, Col, Row } from "react-bootstrap";
 import classes from "classnames";
 import LandingPage from "../../user-portal/pages/landing-page/LandingPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faExternalLink, faEye, faLink } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 export function CampaignDetailsAndPreview ({ campaignDetails, setCampaignDetails, setStep, lists }) {
   const [activeTab, setActiveTab] = useState(campaignPages[0].name);
@@ -17,11 +18,20 @@ export function CampaignDetailsAndPreview ({ campaignDetails, setCampaignDetails
           <h4 className="mb-0">Campaign Details</h4>
         </Col>
         <div className="text-right col-auto">
-          {/*<Link to={`/${campaignDetails.id}?preview=true`} >*/}
-          <Button variant="primary" onClick={() => setPreview(!preview)}>
-            <FontAwesomeIcon icon={faEye}/> {preview ? "Hide Preview" : "Show Preview"}
-          </Button>
-          {/*</Link>*/}
+
+          <ButtonGroup className="mr-2">
+            <Button variant="primary" onClick={() => setPreview(!preview)}>
+              <FontAwesomeIcon icon={faEye}/> {preview ? "Hide Preview" : "Show Preview"}
+            </Button>
+            {/*<Link to={`/${campaignDetails.id}?preview=true`} target={"_blank"}>*/}
+            <Button variant="primary" onClick={() => {
+              window.open(`/${campaignDetails.id}?preview=true`, "_blank")
+            }}>
+              <FontAwesomeIcon icon={faExternalLink}/>
+            </Button>
+            {/*</Link>*/}
+          </ButtonGroup>
+
         </div>
       </Row>
       <Row>

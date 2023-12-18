@@ -8,7 +8,7 @@ import FileUploader from "../../components/admin-components/FileUploader";
 import "../adminStyles.css";
 import { motion as m } from "framer-motion";
 import { apiCall } from "../../utils/api_call";
-import { ProgressButton } from "../../components/progress-button";
+import { ProgressButton } from "../../components/progress-button/progress-button";
 import dayjs from "dayjs";
 
 const Information = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
@@ -64,7 +64,7 @@ const Information = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
 	};
 
 	return (
-		<m.div initial={{ y: " 10%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
+		// <m.div initial={{ y: " 10%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
 			<Container>
 				<form>
 					{/*<Row className="py-4">
@@ -311,7 +311,7 @@ const Information = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
 					</Row>
 				</form>
 			</Container>
-		</m.div>
+		// </m.div>
 	);
 };
 

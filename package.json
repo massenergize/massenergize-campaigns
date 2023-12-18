@@ -31,6 +31,7 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",
+    "react-multi-select-component": "^4.3.4",
     "react-redux": "^9.0.0",
     "react-router-dom": "^6.20.1",
     "react-scripts": "^5.0.1",

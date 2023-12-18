@@ -1,38 +1,17 @@
 import React, { useState } from "react";
-import {
-  Card,
-  Form,
-  Button,
-  Container,
-  Row,
-  Col,
-  InputGroup,
-  ModalFooter,
-  Spinner,
-} from "react-bootstrap";
-import MERichText from "../../../components/admin-components/RichText";
-import Input from "../../../components/admin-components/Input";
+import { Button, Container, Form, FormGroup, FormLabel, Spinner, } from "react-bootstrap";
 import { validateEmail } from "../../../utils/utils";
 import Notification from "../../../components/pieces/Notification";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../../firebase/admin/fire-config";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import {
-  fetchMeUser,
-  logUserOut,
-  setAuthAdminAction,
-  setFirebaseAuthAction,
-} from "../../../redux/actions/actions";
+import { fetchMeUser, logUserOut, setAuthAdminAction, setFirebaseAuthAction, } from "../../../redux/actions/actions";
 
 const GOOGLE = "GOOGLE";
 const EMAIL = "EMAIL";
-function Login({
-  logUserOut,
-  putAdminInRedux,
-  fetchMassenergizeUser,
-  putFirebaseAuthInRedux,
-}) {
+
+function Login ({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux, }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -43,14 +22,21 @@ function Login({
   const authenticateWithGoogle = () => {
     setAuthType(GOOGLE);
     setLoading(true);
+
     signInWithPopup(auth, googleProvider)
       .then((response) => {
         setLoading(false);
-        if (!response)
+
+        if (!response) {
           return setError("Sorry, we could not sign you in. Please try again!");
+        }
+
         const { user } = response;
+
         putFirebaseAuthInRedux(user);
-        fetchMassenergizeUser({ idToken: user?.accessToken });
+        fetchMassenergizeUser({ idToken: user?.accessToken }, () => {
+          window.location.href = "/admin/home";
+        });
       })
       .catch((e) => {
         setLoading(false);
@@ -73,7 +59,9 @@ function Login({
         setLoading(false);
         const user = response.user;
         putFirebaseAuthInRedux(user);
-        fetchMassenergizeUser({ idToken: user?.accessToken });
+        fetchMassenergizeUser({ idToken: user?.accessToken }, () => {
+          window.location.href = "/admin/home";
+        });
       })
       .catch((e) => {
         setLoading(false);
@@ -100,58 +88,20 @@ function Login({
         }}
       >
         <div style={{ padding: 30 }}>
-          <div style={{ textAlign: "center" }}>
-            <h3 style={{ color: "var(--admin-theme-color)" }}>
-              Admin Campaign Authentication
-            </h3>
-            <p>Sign in as a campaign administrator to manage your campaigns</p>
-          </div>
-          <div style={{ padding: "10px 20px" }}>
-            <InputGroup className="mb-3">
-              <InputGroup.Text style={{ fontWeight: "bold" }} id="basic-addon1">
-                Email{" "}
-              </InputGroup.Text>
-              <Form.Control
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email"
-                placeholder="Enter email here..."
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
-            </InputGroup>
-            <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon1" style={{ fontWeight: "bold" }}>
-                Password{" "}
-              </InputGroup.Text>
-              <Form.Control
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                placeholder="Enter password here..."
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
-            </InputGroup>
-            <Notification show={error}>{error}</Notification>
-          </div>
+          <div style={{ textAlign: "center" }} className={"mb-4 border-bottom pb-4"}>
+            <h3 style={{ color: "var(--admin-theme-color)" }}>Login</h3>
+            <small className={"text-center"}>Sign in to manage your campaigns</small>
+            {/*<small>Sign in as a campaign administrator to manage your campaigns</small>*/}
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              padding: "0px 20px",
-            }}
-          >
-            {/* <Button onClick={() => logUserOut()}>Sign Out</Button> */}
-            <div style={{ display: "inline-block", marginLeft: "auto" }}>
+            <div>
               <Button
                 onClick={() => authenticateWithGoogle()}
-                className="touchable-opacity"
+                className="touchable-opacity px-4 py-2 mt-3 block"
                 disabled={loading}
+                variant={"dark"}
                 style={{
                   marginRight: 10,
-                  background: "#ee0c0c",
+                  // background: "#ee0c0c",
                   fontWeight: "bold",
                   borderWidth: 0,
                 }}
@@ -159,16 +109,49 @@ function Login({
                 {loading && isGoogleAuth && (
                   <Spinner size="sm" style={{ marginRight: 5 }}></Spinner>
                 )}
-                <span> Use Gmail Instead </span>
+                <span>
+                <img src="/img/google.svg" alt="Google Logo" className={"mr-3"}/> Login With Google </span>
               </Button>
+            </div>
+          </div>
+          <div style={{ textAlign: "center" }} className={"mb-4"}>
+
+          </div>
+          <div style={{ padding: "10px 20px" }}>
+            <FormGroup className="mb-3">
+              <FormLabel style={{ marginLeft: 5 }}>Email</FormLabel>
+              <Form.Control
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="abc@efg.xyz"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </FormGroup>
+            <FormGroup className="mb-3">
+              <FormLabel style={{ marginLeft: 5 }}>Password</FormLabel>
+              <Form.Control
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                placeholder="Password"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </FormGroup>
+            <Notification show={error}>{error}</Notification>
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "row", padding: "0px 20px", }}>
+            {/* <Button onClick={() => logUserOut()}>Sign Out</Button> */}
+            <div style={{ display: "inline-block", marginLeft: "auto" }}>
               <Button
                 onClick={() => submit()}
                 disabled={loading || !email || !password}
                 className="touchable-opacity"
                 style={{
-                  fontWeight: "bold",
-                  background: "var(--admin-theme-color)",
-                  borderWidth: 0,
+                  fontWeight: "bold", background: "var(--admin-theme-color)", borderWidth: 0,
                 }}
               >
                 {loading && isEmailAndPass && (
@@ -226,8 +209,7 @@ function Login({
 // }
 
 const mapDispatch = (dispatch) => {
-  return bindActionCreators(
-    {
+  return bindActionCreators({
       logUserOut,
       putAdminInRedux: setAuthAdminAction,
       fetchMassenergizeUser: fetchMeUser,

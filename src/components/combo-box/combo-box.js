@@ -383,7 +383,9 @@ class ComboBox extends Component {
         </FormGroup>
 
         <Row ref={this.listContainer}
-             className={classnames("position-absolute combo-list-items rounded-bottom", { "d-none": !showingMatches })}
+             className={classnames("combo-list-items rounded-bottom",
+               { "d-none": !showingMatches, },
+               this.props.floatList === true ? "position-relative" : "position-relative" )}
              onMouseOver={() => {
                if (keyboardSelection > -1) {
                  this.setState({ keyboardSelection: -1 })
@@ -393,7 +395,6 @@ class ComboBox extends Component {
             <ListGroup style={{ borderRadius: "0" }}>{comboList}</ListGroup>
           </Col>
         </Row>
-
       </EventOutsideNotifier>
     )
   }
@@ -407,6 +408,7 @@ ComboBox.defaultProps = {
   labelPropName: 'label',
   preloaded: false,
   tabIndex: null,
+  floatList: true,
   /**
    * The name of the property whose value contains the list of items
    *  as the call to the API where the list of items will return extra data
@@ -425,6 +427,7 @@ ComboBox.propTypes = {
   disabled: PropTypes.bool,
   id: PropTypes.string,
   items: PropTypes.array.isRequired,
+  floatList: PropTypes.bool,
   /**
    * Boolean that determine whether the combo list items is preloaded on component mount or
    * fetching takes place every few keystrokes.
