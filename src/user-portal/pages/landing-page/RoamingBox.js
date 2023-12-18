@@ -1,8 +1,11 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import phone_call from "./../../../assets/imgs/phone_call.png";
+const LEN = 250;
 function RoamingBox({ advert, keyContact, showMore }) {
-  const preview = advert?.description?.substr(0, 250);
+  const desc = advert?.description;
+  const preview = desc?.substr(0, LEN);
+  const isLong = desc?.length > LEN;
   return (
     <div style={{ margin: "100px 0px" }}>
       <Container>
@@ -28,7 +31,8 @@ function RoamingBox({ advert, keyContact, showMore }) {
                   }}
                 >
                   <p style={{ padding: "15px 25px", fontSize: 18 }}>
-                    {preview}...
+                    {preview}
+                    {isLong ? "..." : ""}
                   </p>
                   <div style={{ display: "flex", padding: "20px 35px" }}>
                     <Button
