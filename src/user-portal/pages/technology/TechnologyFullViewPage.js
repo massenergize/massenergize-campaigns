@@ -79,7 +79,7 @@ function TechnologyFullViewPage({
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   const recorderAView = () => {
-    const { user } = authUser;
+    const { user } = authUser || {};
     apiCall("/campaigns.technology.view", {
       campaign_technology_id: technology?.campaign_technology_id,
       url: window.location.href,
