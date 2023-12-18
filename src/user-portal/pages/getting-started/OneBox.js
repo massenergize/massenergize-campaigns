@@ -32,7 +32,7 @@ function OneBox({
       className="elevate-float-pro"
       style={{
         width: "100%",
-        minHeight: 320,
+        minHeight: 390,
         borderRadius: 5,
         display: "flex",
         flexDirection: "column",
