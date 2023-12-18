@@ -13,7 +13,7 @@ import {
   UPDATE_TESTIMONIALS_OBJ,
 } from "../redux-action-types";
 
-const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
+export const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
 export const testReduxAction = (someValue = []) => {
   return { type: DO_NOTHING, payload: someValue };
 };
@@ -49,8 +49,8 @@ export const setCommentsAction = (payload) => {
 // export const recorderAView = () => {
 //   apiCall("/campaigns.technology.view", {
 //     campaign_technology_id: technology?.campaign_technology_id,
-//     link: window.location.href, 
-    
+//     link: window.location.href,
+
 //   }).then((response) => {
 //     if (!response || !response.success)
 //       return console.log("ERROR_RECORDING_A_VIEW: ", response.error);
@@ -93,7 +93,6 @@ export const appInnitAction = (campaignId, cb) => {
       apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
     ])
       .then((response) => {
-        cb && cb(response);
         const [campaignInformation] = response;
         const data = campaignInformation.data;
         // console.log("INSIDE INNIT", data, campaignId);
@@ -101,6 +100,7 @@ export const appInnitAction = (campaignId, cb) => {
         if (data) {
           dispatch(setNavigationMenuAction(data?.navigation || []));
           dispatch(setTestimonialsActions(data?.my_testimonials || []));
+          cb && cb(response, campaignInformation?.success);
         }
       })
       .catch((e) => console.log("ERROR_IN_INNIT:", e?.toString()));

@@ -31,6 +31,7 @@ function AppRouter({
   }, []);
 
   // console.log("The campaign boss nankasa dey here", campaign);
+  
 
   return (
     <>

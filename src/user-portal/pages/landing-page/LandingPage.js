@@ -14,13 +14,18 @@ import planetB from "./../../../assets/imgs/planet-b.jpeg";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { appInnitAction, trackActivity } from "../../../redux/actions/actions";
+import {
+  USER_STORAGE_KEY,
+  appInnitAction,
+  trackActivity,
+} from "../../../redux/actions/actions";
 import { LOADING } from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
 import { fetchUrlParams } from "../../../utils/utils";
 import RoamingModalSheet from "./RoamingModalSheet";
 import DoMore from "./DoMore";
+import JoinUsForm from "../forms/JoinUsForm";
 
 function LandingPage({
   toggleModal,
@@ -62,9 +67,25 @@ function LandingPage({
   }, [mounted, target]);
 
   useEffect(() => {
-    init(campaignId, () => setMounted(true));
+    init(campaignId, (_, passed) => {
+      if (passed) tellUsWhereYouAreFrom();
+      setMounted(true);
+    });
   }, [campaignId]);
 
+  const tellUsWhereYouAreFrom = () => {
+    const user = localStorage.getItem(USER_STORAGE_KEY);
+    const firstTime = !user || user === "null";
+
+    if (!firstTime) return;
+    toggleModal({
+      show: true,
+      title: `Please tell us where you are from`,
+      component: ({ close }) => <JoinUsForm close={close} />,
+      // modalNativeProps: { size: "md" },
+      fullControl: true,
+    });
+  };
   const showMoreAboutAdvert = () => {
     const data = config?.advert || {};
     toggleModal({
@@ -126,7 +147,7 @@ function LandingPage({
           </a> */}
         </p>
       )}
-      <AppNavigationBar menu={menu} />
+      {!previewMode && <AppNavigationBar menu={menu} />}
       <Container>
         <Banner {...campaign} />
         <Container>

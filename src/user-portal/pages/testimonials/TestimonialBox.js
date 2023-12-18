@@ -17,7 +17,7 @@ function TestimonialBox({
   return (
     <div style={{ border: "solid 1px #E4E4E4", padding: 20, borderRadius: 5 }}>
       <h5 style={{ color: "var(--app-medium-green)", fontSize: "1.07rem" }}>
-        {user?.preferred_name || " AMIE POWELKA"}
+        {user?.preferred_name || user?.full_name || "...."}
       </h5>
       <h6 style={{ fontSize: 15 }}>{title || "..."}</h6>
       <div
