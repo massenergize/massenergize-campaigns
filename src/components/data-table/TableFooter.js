@@ -38,7 +38,7 @@ export function TableFooter ({
 
     <div className={"col border-top-s border-top-md-0 pt-sm-3 pt-md-0"}>
       <div className={'row pagination-controls justify-content-s-center justify-content-md-end'}>
-        <div className={'col-auto'}>
+       {/* <div className={'col-auto'}>
           <label htmlFor="{'page-size-select'}">
             Rows per page
           </label>
@@ -57,9 +57,9 @@ export function TableFooter ({
             }
           </select>
 
-        </div>
+        </div>*/}
         <div className="col-sm-auto px-0 col-md-auto border-right _d-sm-none"/>
-        <div className={' col-auto'}>
+        <div className={' col-auto d-flex'}>
           {
             pagesCount > 1 ?
               <Row className={"justify-content-between"}>
@@ -80,7 +80,7 @@ export function TableFooter ({
                 </div>
               </Row> :
               <p
-                className={'m-0 text-left'}>Page <strong>{pagesCount > 0 ? pageIndex + 1 : 0}</strong> of <strong>{pagesCount}</strong>
+                className={'m-0 text-left my-auto'}>Page <strong>{pagesCount > 0 ? pageIndex + 1 : 0}</strong> of <strong>{pagesCount}</strong>
               </p>
           }
 

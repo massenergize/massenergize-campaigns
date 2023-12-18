@@ -223,11 +223,14 @@ export function AllCampaignsView ({}) {
 
           return id;
         },
+        style: {
+          width: "70px",
+        },
         disableSortBy: true,
         Cell: ({ cell }) => {
           const { value, row: { id, values }, row } = cell;
 
-          return <Dropdown as={ButtonGroup}>
+/*          return <Dropdown as={ButtonGroup}>
             <Link to={`/admin/campaign/${value}/stats`} className={'btn btn-primary'}>View Stats</Link>
 
             <Dropdown.Toggle split variant="primary" id="dropdown-split-basic" />
@@ -235,7 +238,11 @@ export function AllCampaignsView ({}) {
             <Dropdown.Menu>
               <Dropdown.Item href="#/action-1">Preview</Dropdown.Item>
             </Dropdown.Menu>
-          </Dropdown>
+          </Dropdown>*/
+
+          return <Link to={`/admin/campaign/${value}/stats`} className={'btn btn-primary'}>
+            Stats
+          </Link>
         },
       },
     ];
