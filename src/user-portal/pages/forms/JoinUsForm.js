@@ -33,7 +33,6 @@ function JoinUsForm({
       const { user, community, zipcode } = authUser || {};
       const { email } = user || {};
       setEmail(email);
-      console.log("This is the authUser", authUser);
       const isOther = community?.name === "Other";
       setForm({
         ...form,
@@ -71,7 +70,6 @@ function JoinUsForm({
       community_id: comId,
       ...otherContent,
     };
-    setUserObj(payload);
     makeNotification("Well done, thank you for joining us!", true);
     apiCall("/campaigns.follow", payload).then((response) => {
       setLoading(false);
