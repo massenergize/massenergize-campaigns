@@ -392,7 +392,7 @@ function TechnologyFullViewPage({
                         fontWeight: "bold",
                       }}
                     >
-                      Comments({comments?.length})
+                      Comments {comments?.length ? `(${comments?.length})` : ""}
                     </span>
                   </p>
                 </div>

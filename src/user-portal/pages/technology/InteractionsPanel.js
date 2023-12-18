@@ -104,7 +104,9 @@ function InteractionsPanel({
             className={`fa fa-eye`}
             style={{ marginRight: 6, color: "var(--app-deep-green)" }}
           />
-          <small style={{ fontWeight: "bold" }}>{views} Views</small>
+          <small style={{ fontWeight: "bold" }}>
+            {views} {views === 1 ? " View" : "Views"}
+          </small>
         </div>
       ) : (
         <></>
