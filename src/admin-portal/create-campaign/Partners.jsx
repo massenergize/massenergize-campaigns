@@ -115,7 +115,7 @@ const Partners = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
           <Col>
             <Dropdown
               displayTextToggle="Select Partners for this campaign"
-              data={allPartners?.data.map((partner) => {
+              data={(allPartners?.data || []).map((partner) => {
                 return {
                   ...partner,
                   value: partner.name || "",
