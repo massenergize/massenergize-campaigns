@@ -1,12 +1,11 @@
 import React, { useReducer, useState } from "react";
-// import { comments } from "../../utils/Constants";
-import Button from "./Button";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { AnimatePresence, motion as m } from "framer-motion";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Button } from "react-bootstrap";
 import Input from "./Input";
 import classes from "classnames";
 import Dropdown from "./Dropdown";
+// import Dropdown from "./Dropdown";
 
 const Comments = ({ campaign }) => {
 	const commentsData = campaign?.technologies;
@@ -41,7 +40,7 @@ const Comments = ({ campaign }) => {
 	};
 
 	const [selectedId, setSelectedId] = useState(null);
-	const [btnName, setBtnName] = useState("Create New Comment");
+	const [openCreateForm, setOpenCreateForm] = useState(false);
 
 	const initialState = {
 		first_name: "",
@@ -98,7 +97,7 @@ const Comments = ({ campaign }) => {
 				<div className="">
 					{/* <h3>Comments</h3> */}
 
-					{btnName === "Save Changes" ? (
+					{openCreateForm ? (
 						<Container className="border-dashed">
 							<form>
 								<Row className="my-4">
@@ -175,10 +174,20 @@ const Comments = ({ campaign }) => {
 									<Col>
 										<div>
 											<Button
-												text={btnName}
 												onSubmit={handleClick}
 												rounded={false}
-											/>
+											>
+												<span>Create Comment</span>
+											</Button>
+
+											<Button
+												style={{marginLeft:10}}
+												onClick={()=> setOpenCreateForm(false)}
+												variant="danger"
+
+											>
+												<span>Cancel</span>
+											</Button>
 										</div>
 									</Col>
 								</Row>
@@ -187,36 +196,19 @@ const Comments = ({ campaign }) => {
 					) : (
 						<div>
 							<Button
-								text={btnName}
-								onSubmit={() => {
-									setBtnName("Save Changes");
+								onClick={() => {
+									setOpenCreateForm(true);
 								}}
 								rounded={false}
 								icon={faPlus}
-							/>
+							>
+								<span>Create New Comment</span>
+							</Button>
+
 						</div>
 					)}
 				</div>
 			</div>
-
-			{/* <Container className="my-4 comm-tabs">
-				<Row className="mt-4">
-					<div className="nav-tabs-container mt-4">
-						{commentsData?.map((tab) => (
-							<div
-								key={tab?.name}
-								className={classes("nav-tabs-main tab", {
-									"tab-active": activeTab === tab?.name,
-								})}
-								onClick={() => setActiveTab(tab?.name)}
-							>
-								<h5 className={classes("nav-tabs")}>{tab?.name}</h5>
-							</div>
-						))}
-					</div>
-					<Col className="mt-4"></Col>
-				</Row>
-			</Container> */}
 
 			<Container>
 				<Row className="mt-4 pt-4">
@@ -271,61 +263,6 @@ const Comments = ({ campaign }) => {
 					</Col>
 				</Row>
 			</Container>
-			{/* <Container>
-				<Row className="">
-					<Col>
-						<h3>Comments</h3>
-						<div className=" comment-card-con border-dashed">
-							{commentsData?.map((tech) => {
-								return (
-									<m.div className="per-tech-comment">
-										<h5> {tech?.name} </h5>
-										<div className="comments-con">
-											{tech?.comments?.map((comment) => {
-												return (
-													activeTab === tech?.name && (
-														<m.div
-															layoutId={comment.id}
-															key={comment?.id}
-															className={
-																selectedId === comment?.id
-																	? "comment-card-expand"
-																	: "comment-card"
-															}
-															onClick={() => {
-																setSelectedId(comment?.id);
-															}}
-														>
-															<m.h6 style={{ textDecoration: "underline" }}>
-																{comment?.user?.preferred_name
-																	? comment?.user?.preferred_name
-																	: comment?.user?.full_name}
-															</m.h6>
-															<m.p className="comment-text">
-																{comment?.text?.length > 60 &&
-																selectedId !== comment?.id
-																	? `${comment?.text?.slice(0, 60)}...`
-																	: comment?.text}
-																{comment?.text?.length > 60 &&
-																	!selectedId === comment?.id && (
-																		<span> Read More</span>
-																	)}
-															</m.p>
-															<m.div className="comment-date">
-																<m.p>{timeAgo(comment?.created_at)}</m.p>
-															</m.div>
-														</m.div>
-													)
-												);
-											})}
-										</div>
-									</m.div>
-								);
-							})}
-						</div>
-					</Col>
-				</Row>
-			</Container> */}
 		</m.div>
 	);
 };

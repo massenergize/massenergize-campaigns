@@ -1,9 +1,8 @@
 import React, { useReducer, useState } from "react";
 import { comments } from "../../utils/Constants";
-import Button from "./Button";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { AnimatePresence, motion as m } from "framer-motion";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Button } from "react-bootstrap";
 import Input from "./Input";
 import Dropdown from "./Dropdown";
 import FileUploader from "./FileUploader";
@@ -81,7 +80,7 @@ const Testimonials = ({ testimonials }) => {
 	const [readMore, setReadMore] = useState();
 	const [communities, setCommunities] = useState(communityData);
 	const [technologies, setTechnologies] = useState(techData);
-	const [btnName, setBtnName] = useState("Create New Testimonial");
+	const [openCreateForm, setOpenCreateForm] = useState(false);
 
 	const initialState = {
 		campaign_technology_id: 1,
@@ -118,7 +117,7 @@ const Testimonials = ({ testimonials }) => {
 			transition={{ duration: 0.3 }}
 		>
 			<m.div className="mb-4 pb-4">
-				{btnName === "Save Changes" ? (
+				{openCreateForm? (
 					<Container className="border-dashed">
 						<form>
 							<Row className="py-4">
@@ -196,10 +195,19 @@ const Testimonials = ({ testimonials }) => {
 								<Col>
 									<div>
 										<Button
-											text={btnName}
 											onSubmit={handleClick}
 											rounded={false}
-										/>
+										>
+											<span>Create Testimonial</span>
+										</Button>
+										<Button
+											style={{marginLeft:10}}
+											onClick={()=> setOpenCreateForm(false)}
+											variant="danger"
+
+										>
+											<span>Cancel</span>
+										</Button>
 									</div>
 								</Col>
 							</Row>
@@ -208,13 +216,14 @@ const Testimonials = ({ testimonials }) => {
 				) : (
 					<div>
 						<Button
-							text={btnName}
-							onSubmit={() => {
-								setBtnName("Save Changes");
+							onClick={() => {
+								setOpenCreateForm(true);
 							}}
 							rounded={false}
 							icon={faPlus}
-						/>
+						>
+							<span>Create New Testimonial</span>
+						</Button>
 					</div>
 				)}
 			</m.div>

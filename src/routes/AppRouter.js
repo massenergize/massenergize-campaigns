@@ -65,7 +65,10 @@ const ROUTE_TABLE = [
     path: "/admin/campaign/all",
     component: AllCampaigns,
   },
-
+  {
+    path: "/admin/home",
+    component: AllCampaigns,
+  },
   {
     path: "/admin/campaign/:id/stats/",
     component: CampaignStatistics,

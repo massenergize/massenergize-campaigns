@@ -1136,7 +1136,7 @@ export function NewCampaign ({ props }) {
     dispatch({ type: "SET_FIELD_VALUE", payload: { field: name, value } });
   };
 
-  const [STEP, setStep] = useNamedState("STEP", "COMPLETE"); // START, DETAILS, MANAGERS, TECHNOLOGIES, EVENTS, REVIEW, SUBMIT
+  const [STEP, setStep] = useNamedState("STEP", "START"); // START, DETAILS, MANAGERS, TECHNOLOGIES, EVENTS, REVIEW, SUBMIT
 
   const dedupingInterval = 3_600_000;
   const {
