@@ -6,7 +6,6 @@ function DoMore({ campaign }) {
   const { communities, communities_section } = campaign || {};
   const { title, description } = communities_section || {};
 
-  console.log("LE COMMUNITIES", communities);
   const COMMUNITY_PORTAL_URL = "https://communities.massenergize.org/";
   return (
     <div style={{ padding: "20vh 0px" }}>
