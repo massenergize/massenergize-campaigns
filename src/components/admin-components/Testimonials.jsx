@@ -1,8 +1,7 @@
-import React, { useReducer, useState } from "react";
-import { comments } from "../../utils/Constants";
+import { useReducer, useState } from "react";
 import Button from "./Button";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { AnimatePresence, motion as m } from "framer-motion";
+import { motion as m } from "framer-motion";
 import { Col, Container, Row } from "react-bootstrap";
 import Input from "./Input";
 import Dropdown from "./Dropdown";
@@ -66,15 +65,15 @@ const Testimonials = ({ testimonials }) => {
 	const users = [
 		{
 			id: 1,
-			name: "Chris Tom",
+			name: "Brad",
 		},
 		{
 			id: 2,
-			name: "Dwayne Simon",
+			name: "Ellen",
 		},
 		{
 			id: 3,
-			name: "Cecil Thomas",
+			name: "Frimpong",
 		},
 	];
 
