@@ -49,6 +49,7 @@ function TechnologyFullViewPage({
   trackActivity,
 }) {
   const authUser = user;
+  const hasUser = authUser?.user;
   const [mounted, setMounted] = useState(false);
   // const [idsToRefMap, setidsToRefMap] = useState({});
   const coachesRef = useRef();
@@ -157,9 +158,9 @@ function TechnologyFullViewPage({
     vendors,
   } = technology;
 
-  const like = (user) => {
+  const like = (userObject) => {
+    const { community, user } = userObject || {};
     if (!user) return triggerRegistrationForLike();
-    const { community } = authUser || {};
 
     const payload = {
       campaign_technology_id: technology?.campaign_technology_id,
@@ -181,7 +182,7 @@ function TechnologyFullViewPage({
   const triggerRegistration = () => {
     toggleModal({
       show: true,
-      title: `Before you continue, tell us where you are from`,
+      title: `Before you continue, we would like to know you`,
       iconName: "fa-comment",
       component: ({ close }) => (
         <JoinUsForm
@@ -213,7 +214,8 @@ function TechnologyFullViewPage({
       fullControl: true,
     });
   };
-  const triggerCommentBox = (user) => {
+  const triggerCommentBox = (userObject) => {
+    const { community, user } = userObject || {};
     if (!user) return triggerRegistration();
     toggleModal({
       show: true,
@@ -338,7 +340,9 @@ function TechnologyFullViewPage({
                     toggleModal({
                       show: true,
                       title: `Get updates on ${technology?.name || "..."}`,
-                      component: () => <JoinUsForm />,
+                      component: ({ close }) => (
+                        <JoinUsForm close={close} confirmText="Get Updates" />
+                      ),
                       fullControl: true,
                     })
                   }

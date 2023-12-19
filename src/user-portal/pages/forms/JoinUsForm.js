@@ -132,7 +132,7 @@ function JoinUsForm({
         </Button>
         <Button
           className="touchable-opacity"
-          disabled={loading || authUser}
+          disabled={loading}
           onClick={() => joinUs()}
           size="lg"
           style={{

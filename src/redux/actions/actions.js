@@ -115,7 +115,7 @@ export const appInnitAction = (campaignId, cb) => {
         if (data) {
           dispatch(setNavigationMenuAction(data?.navigation || []));
           dispatch(setTestimonialsActions(data?.my_testimonials || []));
-          cb && cb(response, campaignInformation?.success);
+          cb && cb(data, campaignInformation?.success);
         }
       })
       .catch((e) => console.log("ERROR_IN_INNIT:", e?.toString()));

@@ -48,7 +48,11 @@ function Footer({ toggleModal, campaign }) {
                 toggleModal({
                   show: true,
                   component: (props) => (
-                    <JoinUsForm {...(props || {})} confirmText="Follow" />
+                    <JoinUsForm
+                      {...(props || {})}
+                      confirmText="Follow"
+                      callbackOnSubmit={({ close }) => close && close()}
+                    />
                   ),
                   title: `Follow ${campaign?.title}` || "...",
                   fullControl: true,

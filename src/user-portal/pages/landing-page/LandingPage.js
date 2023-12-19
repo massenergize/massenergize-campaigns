@@ -17,6 +17,7 @@ import { bindActionCreators } from "redux";
 import {
   USER_STORAGE_KEY,
   appInnitAction,
+  loadUserObjAction,
   toggleUserInfoModal,
   trackActivity,
 } from "../../../redux/actions/actions";
@@ -27,6 +28,7 @@ import { fetchUrlParams } from "../../../utils/utils";
 import RoamingModalSheet from "./RoamingModalSheet";
 import DoMore from "./DoMore";
 import JoinUsForm from "../forms/JoinUsForm";
+import { OTHER, OTHER_JSON } from "../forms/CommunitySelector";
 
 function LandingPage({
   toggleModal,
@@ -36,6 +38,7 @@ function LandingPage({
   trackActivity,
   authUser,
   whereIsUserFrom,
+  updateUserInRedux,
 }) {
   const [mounted, setMounted] = useState(false);
   const coachesRef = useRef();
@@ -69,14 +72,26 @@ function LandingPage({
   }, [mounted, target]);
 
   useEffect(() => {
-    init(campaignId, (_, passed) => {
-      if (passed) tellUsWhereYouAreFrom();
+    init(campaignId, (justLoadedCampaign, passed) => {
+      if (passed) tellUsWhereYouAreFrom(justLoadedCampaign);
       setMounted(true);
     });
   }, [campaignId]);
 
-  const tellUsWhereYouAreFrom = () => {
-    const user = localStorage.getItem(USER_STORAGE_KEY);
+  const stashUserCommunity = ({ data, close, campaign }) => {
+    let communities = campaign?.communities || [];
+    communities = communities?.map((com) => com.community);
+    const id = data?.comId;
+    let community = communities?.find(
+      (com) => com?.id?.toString() === id?.toString()
+    );
+
+    if (id === OTHER) community = OTHER_JSON;
+    if (community) updateUserInRedux({ ...(authUser || {}), community });
+    close && close();
+  };
+  const tellUsWhereYouAreFrom = (justLoadedCampaign) => {
+    const user = authUser || localStorage.getItem(USER_STORAGE_KEY);
     const firstTime = !user || user === "null";
 
     if (!firstTime) return;
@@ -95,7 +110,9 @@ function LandingPage({
           confirmText="Okay, Done!"
           cancelText="NO"
           noForm
-          onConfirm={() => console.log("ONYAE!")}
+          onConfirm={(props) =>
+            stashUserCommunity({ ...props, campaign: justLoadedCampaign })
+          }
         />
       ),
       // modalNativeProps: { size: "md" },
@@ -233,6 +250,7 @@ const mapDispatch = (dispatch) => {
     {
       init: appInnitAction,
       trackActivity,
+      updateUserInRedux: loadUserObjAction,
       // whereIsUserFrom: toggleUserInfoModal,
     },
     dispatch
