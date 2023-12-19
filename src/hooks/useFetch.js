@@ -30,12 +30,13 @@ export default function useFetch (url, fetcher, options = {}) {
     if (!url) {
       return;
     }
+    console.log({ url, options })
 
     const getData = async () => {
       try {
         setLoading(true);
         setIsValidating(true);
-        let data = await fetcher(url);
+        let data = await fetcher(url, options.data, options.errorCode, options.handlers);
 
         if (data) {
           setLoading(false)

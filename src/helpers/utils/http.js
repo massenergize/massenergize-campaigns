@@ -5,16 +5,19 @@ export function handleRequestError (error, code, handlers = {}) {
   throw Error(error);
 }
 
-export async function fetchData (url) {
+export async function fetchData (url, data, errorCode, handlers = {}) {
   try {
-    const response = await apiCall(url, {}, null);
+    console.log({data})
+    const response = await apiCall(url, data, null);
 
     if (!response || response?.success !== false) {
-      return response.data;
+      return response?.data;
     } else {
-      throw response.data;
+      handleRequestError(response?.error, errorCode, handlers)
     }
   } catch (error) {
-    throw error;
+    handleRequestError(error, errorCode, handlers)
   }
 }
+
+

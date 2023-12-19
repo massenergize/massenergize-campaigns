@@ -17,6 +17,7 @@ import TechnologyFullViewPage from "../user-portal/pages/technology/TechnologyFu
 import OneEvent from "../user-portal/pages/events/OneEvent";
 import AllComponents from "../admin-portal/pages/AllComponents";
 import { NewCampaign } from "../admin-portal/pages/campaign/new";
+import { EditCampaign } from "../admin-portal/pages/campaign/edit";
 import { AllCampaigns } from "../admin-portal/pages/campaign/all";
 import { CreateTechnology } from "../admin-portal/pages/technology/new";
 import { AllTechnologies } from "../admin-portal/pages/technology/all";
@@ -46,9 +47,12 @@ const ROUTE_TABLE = [
     component: OneTestimonial,
     addToggleModal: true,
   },
-
   {
     path: "/admin/campaign/new",
+    component: NewCampaign,
+  },
+  {
+    path: "/admin/campaign/:id",
     component: NewCampaign,
   },
   {
@@ -59,10 +63,13 @@ const ROUTE_TABLE = [
     path: "/admin/campaign/new/preview",
     component: AllComponents,
   },
-
   {
     path: "/admin/campaign/edit/:id",
-    component: AllComponents,
+    component: EditCampaign,
+  },
+  {
+    path: "/admin/campaign/:id/edit",
+    component: EditCampaign,
   },
   {
     path: "/admin/campaign/all",
