@@ -248,7 +248,7 @@ export function AllCampaignsView ({}) {
               Stats
             </Button>
             <Button variant="primary" onClick={() => {
-              navigate(`/admin/campaign/edit/${value}`)
+              navigate(`/admin/campaign/${value}/edit`)
             }}>
               <FontAwesomeIcon icon={faFileEdit}/>
             </Button>
