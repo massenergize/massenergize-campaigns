@@ -1,10 +1,13 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-
-function RoamingBox({ advert, keyContact }) {
-  const preview = advert?.description?.substr(0, 250);
+import phone_call from "./../../../assets/imgs/phone_call.png";
+const LEN = 250;
+function RoamingBox({ advert, keyContact, showMore }) {
+  const desc = advert?.description;
+  const preview = desc?.substring(0, LEN);
+  const isLong = desc?.length > LEN;
   return (
-    <div className="mt-5">
+    <div style={{ margin: "100px 0px" }}>
       <Container>
         <Col lg={{ span: 9, offset: 1 }}>
           <Row>
@@ -28,10 +31,12 @@ function RoamingBox({ advert, keyContact }) {
                   }}
                 >
                   <p style={{ padding: "15px 25px", fontSize: 18 }}>
-                    {preview}...
+                    {preview}
+                    {isLong ? "..." : ""}
                   </p>
                   <div style={{ display: "flex", padding: "20px 35px" }}>
                     <Button
+                      onClick={() => showMore && showMore()}
                       style={{
                         marginLeft: "auto",
                         borderRadius: 100,
@@ -59,9 +64,14 @@ function RoamingBox({ advert, keyContact }) {
             >
               <img
                 className="mb-2"
-                src={keyContact?.image?.url || "https://i.pravatar.cc/300"}
-                style={{ borderRadius: "100%", width: 120, height: 120 }}
                 alt="key contact"
+                src={keyContact?.image?.url || phone_call}
+                style={{
+                  borderRadius: "100%",
+                  width: 120,
+                  height: 120,
+                  objectFit: "cover",
+                }}
               ></img>
               <span className="mb-1" style={{ fontSize: 12, color: "#c8c8c8" }}>
                 KEY CONTACT
@@ -86,11 +96,11 @@ function RoamingBox({ advert, keyContact }) {
                   alignItems: "center",
                 }}
               >
-                <i className=" fa fa-envelope" style={{ marginRight: 6 }} />
+                <i className=" fa fa-envelope" style={{ marginRight: 6 }}/>
                 <span> {keyContact?.email}</span>
               </p>
               <p>
-                <i className="fa fa-phone" />{" "}
+                <i className="fa fa-phone"/>{" "}
                 <span>{keyContact?.phone_number}</span>
               </p>
             </Col>

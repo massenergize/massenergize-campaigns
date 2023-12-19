@@ -51,12 +51,12 @@ export const NAVIGATION_MENU = [
     children,
     icon: "fa-comment",
   },
-  {
-    key: "contact-us",
-    url: "#",
-    text: "Contact Us",
-    icon: "fa-phone",
-  },
+  // {
+  //   key: "contact-us",
+  //   url: "#",
+  //   text: "Contact Us",
+  //   icon: "fa-phone",
+  // },
 ];
 
 export const COMMUNITY_LIST = [

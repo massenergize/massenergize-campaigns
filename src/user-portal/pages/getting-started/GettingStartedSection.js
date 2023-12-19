@@ -1,7 +1,7 @@
 import React from "react";
 import OneBox from "./OneBox";
-import { Col, Container, Row } from "react-bootstrap";
-
+import { Button, Col, Container, Row } from "react-bootstrap";
+import people from "./../../../assets/imgs/g_people.png";
 const dummies = [
   {
     key: "heat-pump",
@@ -22,8 +22,15 @@ const dummies = [
     title: "Community Solar",
   },
 ];
-function GettingStartedSection({ sectionId, technologies }) {
-  console.log("these are the technologies", technologies);
+
+function GettingStartedSection({
+  sectionId,
+  technologies,
+  scrollToCommunities,
+  trackActivity,
+  authUser 
+}) {
+  // console.log("these are the technologies", technologies);
   return (
     <div
       id={sectionId}
@@ -32,7 +39,7 @@ function GettingStartedSection({ sectionId, technologies }) {
     >
       <Container>
         <Row>
-          <Col lg={{ span: 12, offset: 1 }}>
+          <Col lg={{ span: 12 }}>
             <h2 style={{ color: "white", fontWeight: "bold" }}>
               Getting Started
             </h2>
@@ -40,16 +47,51 @@ function GettingStartedSection({ sectionId, technologies }) {
               Explore the actions we have under these technologies and get
               started right away!
             </p>
-            <Row>
+            <Row
+              style={{
+                marginLeft: 0,
+                // overflowX: "scroll",
+                // width: "100%",
+                // flexWrap: "nowrap",
+              }}
+            >
               {technologies?.map((box, index) => {
-                
                 return (
-                  <Col key={box.id} xs={3}>
-                    <OneBox {...box} />
+                  <Col key={box.id} lg={3} xs={3}>
+                    <OneBox
+                      {...box}
+                      trackActivity={trackActivity}
+                      authUser={authUser}
+                    />
                   </Col>
                 );
               })}
+              <Col lg={3} xs={3}>
+                <DoMoreBox
+                  scrollToCommunities={() =>
+                    scrollToCommunities && scrollToCommunities()
+                  }
+                />
+              </Col>
             </Row>
+
+            {/* <div>
+              <h5
+                onClick={() => scrollToCommunities && scrollToCommunities()}
+                className="touchable-opacity"
+                style={{
+                  padding: "20px 0px",
+                  textDecoration: "underline",
+                  display: "inline-block",
+                  color: "white",
+
+                  marginTop: 20,
+                }}
+              >
+                Want to do more? Check out other things you can do on our
+                community sites!
+              </h5>
+            </div> */}
           </Col>
         </Row>
       </Container>
@@ -58,3 +100,79 @@ function GettingStartedSection({ sectionId, technologies }) {
 }
 
 export default GettingStartedSection;
+
+const DoMoreBox = ({ scrollToCommunities }) => {
+  return (
+    <div
+      className="elevate-float-pro"
+      style={{
+        width: "100%",
+        minHeight: 320,
+        borderRadius: 5,
+        display: "flex",
+        flexDirection: "column",
+        background: "white",
+        minHeight: 390,
+      }}
+    >
+      <div
+        style={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: 5,
+          padding: "40px 40px 10px 40px",
+        }}
+      >
+        <img
+          // src={"https://placehold.co/100x100"}
+          src={people}
+          style={{
+            height: 100,
+            width: 100,
+            objectFit: "contain",
+            // marginBottom: 10,
+          }}
+        />
+        <h5 style={{ color: "var(--app-medium-green)" }}>Do More</h5>
+        <p style={{ textAlign: "center", fontSize: 14 }}>
+          Want to do more? Check out other actions you can take on our community
+          sites!
+        </p>
+        <a
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToCommunities();
+          }}
+          className="touchable-opacity"
+          // href={`/technology/${campaign_technology_id}`}
+          // onClick={() => navigator()}
+          style={{ fontWeight: "bold", color: "var(--app-orange)" }}
+        >
+          Our Communities
+        </a>
+      </div>
+
+      <div
+        style={{
+          marginTop: "auto",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 30,
+        }}
+      >
+        <Button
+          onClick={() => scrollToCommunities()}
+          style={{ background: "var(--app-medium-green)" }}
+          className="tech-btn elevate-2 touchable-opacity"
+        >
+          DO MORE!
+        </Button>
+      </div>
+    </div>
+  );
+};

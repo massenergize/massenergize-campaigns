@@ -9,6 +9,8 @@ import {
   SET_AUTH_USER,
   SET_FIRE_AUTH,
   SET_FULL_TECH_OBJ,
+  SET_NAVIGATION_MENU,
+  SET_TESTIMONIALS,
   SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
   UPDATE_EVENT_OBJ,
@@ -68,6 +70,24 @@ export const firebaseAuthObjReducer = (state = LOADING, action = {}) => {
 };
 export const authenticatedAdminReducer = (state = LOADING, action = {}) => {
   if (action.type === SET_AUTH_USER) {
+    return action.payload;
+  }
+  return state;
+};
+export const navigationMenuReducer = (state = [], action = {}) => {
+  if (action.type === SET_NAVIGATION_MENU) {
+    return action.payload;
+  }
+  return state;
+};
+export const commentsListReducer = (state = {}, action = {}) => {
+  if (action.type === SET_NAVIGATION_MENU) {
+    return action.payload;
+  }
+  return state;
+};
+export const testimonialsReducer = (state = [], action = {}) => {
+  if (action.type === SET_TESTIMONIALS) {
     return action.payload;
   }
   return state;

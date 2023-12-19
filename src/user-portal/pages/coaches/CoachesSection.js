@@ -7,7 +7,6 @@ import JoinUsForm from "../forms/JoinUsForm";
 import GetHelpForm from "../forms/GetHelpForm";
 
 function CoachesSection({ toggleModal, sectionId, technologies }) {
-  
   const coachesForEachTech = technologies?.map(
     ({
       campaign_technology,
@@ -84,66 +83,6 @@ function CoachesSection({ toggleModal, sectionId, technologies }) {
             <CustomTabView
               defaultTab={firstOne?.id}
               data={intoTabs}
-              // data={[
-              //   {
-              //     title: (
-              //       <span
-              //         style={{
-              //           color: "var(--app-deep-green)",
-              //           fontWeight: "bold",
-              //         }}
-              //       >
-              //         <span>
-              //           <i className=" fa fa-heat" /> Heat Pump
-              //         </span>
-              //       </span>
-              //     ),
-              //     key: "heat-pump",
-              //     component: <h1> this bruddah is short as hell</h1>,
-              //   },
-              //   {
-              //     title: (
-              //       <span
-              //         style={{
-              //           color: "var(--app-deep-green)",
-              //           fontWeight: "bold",
-              //         }}
-              //       >
-              //         <span>
-              //           <i className=" fa fa-sun-o" /> Home Solar
-              //         </span>
-              //       </span>
-              //     ),
-              //     key: "home-solar",
-              //     component: (
-              //       <Row style={{ marginTop: 50 }}>
-              //         {[1, 3, 4].map((item, index) => {
-              //           return (
-              //             <Col key={index?.toString()} xs={3}>
-              //               <OneCoach />
-              //             </Col>
-              //           );
-              //         })}
-              //       </Row>
-              //     ),
-              //   },
-              //   {
-              //     title: (
-              //       <span
-              //         style={{
-              //           color: "var(--app-deep-green)",
-              //           fontWeight: "bold",
-              //         }}
-              //       >
-              //         <span>
-              //           <i className=" fa fa-home" /> Community Solar
-              //         </span>
-              //       </span>
-              //     ),
-              //     key: "community-solar",
-              //     component: <h1> this is the community solar my geee</h1>,
-              //   },
-              // ]}
             ></CustomTabView>
 
             <div style={{ width: "80%" }}>
@@ -169,10 +108,11 @@ function CoachesSection({ toggleModal, sectionId, technologies }) {
                       show: true,
                       icon: "fa-help",
                       component: () => <GetHelpForm />,
+                      fullControl:true,
                       title: "Get Help",
                     })
                   }
-                  className="touchable-opacity elevate-2 mt-2"
+                  className="touchable-opacity elevate-2 mt-5"
                   style={{
                     borderRadius: 55,
                     padding: "8px 27px",

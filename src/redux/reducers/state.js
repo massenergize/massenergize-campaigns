@@ -2,11 +2,14 @@ import { combineReducers } from "redux";
 import {
   authenticatedAdminReducer,
   campaignInformationReducer,
+  commentsListReducer,
   doNothingReducer,
   eventsListReducer,
   firebaseAuthObjReducer,
   fullTechnologiesReducer,
+  navigationMenuReducer,
   testimonialsListReducer,
+  testimonialsReducer,
   universalModalReducer,
   userObjectReducer,
 } from "./reducers";
@@ -22,4 +25,6 @@ export default combineReducers({
   testimonials: testimonialsListReducer,
   fireAuth: firebaseAuthObjReducer,
   authAdmin: authenticatedAdminReducer,
+  navigation: navigationMenuReducer,
+  comments: commentsListReducer,
 });

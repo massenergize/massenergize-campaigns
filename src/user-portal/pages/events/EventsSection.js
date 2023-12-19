@@ -45,6 +45,7 @@ function EventsSection({ sectionId, technologies }) {
     component: (
       <Row style={{ marginTop: 50 }}>
         {events?.map((item) => {
+       
           return (
             <Col key={item.id} xs={3}>
               <EventBox {...item} />

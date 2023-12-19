@@ -119,7 +119,7 @@ const SmartFooter = ({ renderFooter, close }) => {
           style={{
             color: "white",
             margin: 0,
-            padding: "7px 30px",
+            padding: "7px 20px",
           }}
         >
           CLOSE
@@ -134,15 +134,16 @@ const SmartFooter = ({ renderFooter, close }) => {
           margin: 0,
           borderBottomRightRadius: 5,
         }}
+        onClick={() => window.open("http://google.com", "_blank")}
       >
         <p
           style={{
             color: "white",
             margin: 0,
-            padding: "7px 30px",
+            padding: "7px 20px",
           }}
         >
-          JOIN US
+          GO
         </p>
       </div>
     </Modal.Footer>

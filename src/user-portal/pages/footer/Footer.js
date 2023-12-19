@@ -1,8 +1,14 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import JoinUsForm from "../forms/JoinUsForm";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-function Footer({ toggleModal }) {
+const EXCLUDED_FOOTER_MENU_KEYS = ["incentives", "vendors"];
+function Footer({ toggleModal, campaign }) {
+  const navigator = useNavigate();
+  const { navigation } = campaign || {};
+
   return (
     <div
       style={{
@@ -10,7 +16,6 @@ function Footer({ toggleModal }) {
         width: "100%",
         height: 310,
         marginTop: 40,
-        // padding: 50,
         display: "flex",
         flexDirection: "row",
       }}
@@ -35,8 +40,9 @@ function Footer({ toggleModal }) {
                 borderWidth: 0,
                 padding: "8px 30px",
                 marginTop: 15,
-                borderRadius: 500,
+                borderRadius: 5,
                 fontWeight: "bold",
+                width: "100%",
               }}
               onClick={() =>
                 toggleModal({
@@ -71,22 +77,28 @@ function Footer({ toggleModal }) {
                   maxHeight: 200,
                   fontWeight: "bold",
                   display: "flex",
-                  flexDirection: "row",
+                  flexDirection: "column",
                   flexWrap: "wrap",
                   paddingLeft: 0,
                 }}
               >
-                {[2, 3, 3, 4, 4, 5, 5, 5, 64, 7, 8, 10].map((item, index) => {
+                {(navigation || []).map(({ text, key, url }, index) => {
+                  const isExcluded = EXCLUDED_FOOTER_MENU_KEYS.includes(key);
+                  if (isExcluded) return <></>;
                   return (
                     <li
+                      className="touchable-opacity"
+                      onClick={() => navigator(url)}
                       style={{
                         padding: "10px 20px",
+                        // color: "var(--app-medium-green)",
                         color: "white",
+                        fontSize: 17,
                         textDecoration: "underline",
                       }}
-                      key={index?.toString()}
+                      key={key}
                     >
-                      Menu Item - {item}
+                      {text}
                     </li>
                   );
                 })}
@@ -99,4 +111,7 @@ function Footer({ toggleModal }) {
   );
 }
 
-export default Footer;
+const mapState = (state) => {
+  return { campaign: state.campaign };
+};
+export default connect(mapState)(Footer);

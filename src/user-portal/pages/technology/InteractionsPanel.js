@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const interactions = [
   { icon: "fa-heart", name: "Likes", count: 1345 },
@@ -6,8 +6,28 @@ const interactions = [
   { icon: "fa-eye", name: "Views", count: 3542 },
   // { icon: "fa-share", name: "Shares", count: 15 },
 ];
-function InteractionsPanel({ openCommentBox, likes, views, comments }) {
+function InteractionsPanel({
+  openCommentBox,
+  likes,
+  views,
+  comments,
+  openShareBox,
+  like,
+  liked,
+}) {
   const [hasLiked, setHasLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+
+  useEffect(() => {
+    setHasLiked(liked);
+    setLikeCount(likes);
+  }, [likes, liked]);
+
+  const doLike = () => {
+    setLikeCount(hasLiked ? likeCount - 1 : likeCount + 1);
+    setHasLiked(!hasLiked);
+    like();
+  };
 
   return (
     <div
@@ -23,7 +43,10 @@ function InteractionsPanel({ openCommentBox, likes, views, comments }) {
     >
       <div
         // key={index?.toString()}
-        onClick={() => setHasLiked(!hasLiked)}
+        onClick={() => {
+          // setHasLiked(!hasLiked); // Just for immediate reflection
+          doLike();
+        }}
         style={{
           display: "flex",
           flexDirection: "row",
@@ -40,8 +63,8 @@ function InteractionsPanel({ openCommentBox, likes, views, comments }) {
           // style={{ fontWeight: "bold", textDecoration: "underline" }}
           style={{ fontWeight: "bold" }}
         >
-          {`${likes ? likes : ""} ${
-            !likes || likes === 1 ? " Like" : " Likes"
+          {`${likeCount ? likeCount : ""} ${
+            !likeCount || likeCount === 1 ? " Like" : " Likes"
           }`}
         </small>
       </div>
@@ -81,11 +104,32 @@ function InteractionsPanel({ openCommentBox, likes, views, comments }) {
             className={`fa fa-eye`}
             style={{ marginRight: 6, color: "var(--app-deep-green)" }}
           />
-          <small style={{ fontWeight: "bold" }}>{views} Views</small>
+          <small style={{ fontWeight: "bold" }}>
+            {views} {views === 1 ? " View" : "Views"}
+          </small>
         </div>
       ) : (
         <></>
       )}
+
+      <div
+        className="touchable-opacity"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          margin: "0px 10px",
+        }}
+        onClick={() => openShareBox()}
+      >
+        <i
+          className={`fa fa-share`}
+          style={{ marginRight: 6, color: "var(--app-deep-green)" }}
+        />
+        <small style={{ fontWeight: "bold", textDecoration: "underline" }}>
+          Share
+        </small>
+      </div>
 
       {/* {interactions.map((inter, index) => {
         return (

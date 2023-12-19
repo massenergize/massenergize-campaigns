@@ -57,7 +57,7 @@ function OneTechTestimonialsSection({ sectionId, testimonials }) {
           <SectionTitle style={{ margin: 0 }}>Testimonials</SectionTitle>
 
           <div style={{ marginLeft: "auto" }}>
-            <ArrowButtons />
+            {/* <ArrowButtons /> */}
           </div>
         </div>
 
