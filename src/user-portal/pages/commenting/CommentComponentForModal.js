@@ -56,7 +56,7 @@ function CommentComponentForModal({
     setLoading(true);
     if (doesNotHaveName) {
       updateUser(
-        { id: user?.id || null, full_name: name },
+        { id: user?.id || null, full_name: name, follow_id: authUser?.id },
         (userObj, passed, error) => {
           console.log("This is the returned user", userObj);
           if (!passed) {
@@ -67,14 +67,14 @@ function CommentComponentForModal({
           sendCommentToBackend(userObj?.user);
         }
       );
-    } else sendCommentToBackend();
+    } else sendCommentToBackend(authUser?.user);
   };
 
   const sendCommentToBackend = (user) => {
     apiCall("/campaigns.technologies.comments.create", {
       campaign_technology_id: technology?.campaign_technology_id,
       text: comment,
-      user_id: user?.id,
+      user_id: user?.id || null,
     }).then((response) => {
       setLoading(false);
       if (!response || !response.success) return setError(response.error);

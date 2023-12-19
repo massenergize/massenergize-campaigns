@@ -220,6 +220,7 @@ function TechnologyFullViewPage({
   // };
   const triggerCommentBox = (userObject) => {
     const { community, user } = userObject || {};
+    console.log("I am triggering comment box", userObject);
     if (!user) return triggerRegistration();
     toggleModal({
       show: true,
@@ -229,7 +230,7 @@ function TechnologyFullViewPage({
         <CommentComponentForModal
           updateUserInRedux={updateUserInRedux}
           comments={[...comments]}
-          authUser={user}
+          authUser={userObject}
           updateUser={updateUser}
           technology={technology}
           updateTechList={(data) => {
