@@ -184,12 +184,12 @@ export async function fetchAllCampaignEventsBySuperAdmins (url = "events.listFor
     const response = await apiCall(url, {}, null);
 
     if (!response || !response?.success) {
-      handleRequestError(response?.error, "FETCH_CAMPAIGN_EVENTS_ERROR_BE");
+      handleRequestError(response?.error, "FETCH_EVENTS_BY_SUPER_ADMIN_ERROR_BE");
     }
 
     return response?.data;
   } catch (e) {
-    handleRequestError(e, "FETCH_CAMPAIGN_EVENTS_ERROR");
+    handleRequestError(e, "FETCH_CAMPAIGN_EVENTS_BY_SUPER_ADMIN_ERROR");
   }
 }
 

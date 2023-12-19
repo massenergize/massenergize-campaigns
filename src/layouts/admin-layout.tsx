@@ -10,7 +10,6 @@ import { useState } from "react";
 import classes from "classnames";
 import {logUserOut} from "../redux/actions/actions";
 import {apiCall} from "../api/messenger";
-import AuthGuard from "../guards/AuthGuard";
 import { BubblyBalloonProvider } from "../components/bubbly-balloon/bubbly-balloon-context";
 
 interface AdminLayoutProps {

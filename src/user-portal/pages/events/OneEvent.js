@@ -10,20 +10,32 @@ import Loading from "../../../components/pieces/Loading";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { apiCall } from "../../../api/messenger";
-import { updateEventsObj } from "../../../redux/actions/actions";
+import {
+  appInnitAction,
+  updateEventsObj,
+} from "../../../redux/actions/actions";
 import { formatTimeRange } from "../../../utils/utils";
-function OneEvent({ events, updateEvents }) {
+function OneEvent({ events, updateEvents, init, campaign }) {
   const [event, setEvent] = useState(LOADING);
   const [error, setError] = useState("");
-  const { eventId } = useParams();
+  const { eventId, campaign_id } = useParams();
   const id = eventId;
 
-  const { name, start_date_and_time, description, end_date_and_time } =
-    event || {};
+  const {
+    name,
+    start_date_and_time,
+    description,
+    end_date_and_time,
+    image,
+    external_link,
+  } = event || {};
+
+  const campaignExists = campaign && campaign !== LOADING;
   useEffect(() => {
+    if (!campaignExists) init(campaign_id);
+
     var ev = (events || {})[id];
     if (ev) setEvent(ev);
-
     // still fetch event form API to get up-to-date content
     apiCall("/events.info", { event_id: id })
       .then((response) => {
@@ -35,7 +47,7 @@ function OneEvent({ events, updateEvents }) {
         updateEvents({ ...events, [id]: response.data });
       })
       .catch((e) => console.log("EVENT_ERROR_SYNT: ", e.toString()));
-  }, []);
+  }, [campaign_id]);
 
   if (!id || !event) return <NotFound>{error}</NotFound>;
 
@@ -50,7 +62,8 @@ function OneEvent({ events, updateEvents }) {
           <img
             className="elevate-float-pro mt-3"
             src={
-              "https://massenergize-prod-files.s3.amazonaws.com/media/new_image-231024-210048"
+              image?.url
+              // "https://massenergize-prod-files.s3.amazonaws.com/media/new_image-231024-210048"
             }
             style={{
               width: "100%",
@@ -91,6 +104,10 @@ function OneEvent({ events, updateEvents }) {
           </div>
 
           <div
+            onClick={(e) => {
+              e.preventDefault();
+              window.open(external_link || "#", "_blank");
+            }}
             className="mt-2 touchable-opacity"
             style={{
               background: "var(--app-medium-green)",
@@ -100,7 +117,7 @@ function OneEvent({ events, updateEvents }) {
               borderRadius: 5,
             }}
           >
-            <p style={{ margin: 0 }}>Register</p>
+            <p style={{ margin: 0 }}>Register / Join</p>
           </div>
         </Col>
       </Row>
@@ -109,7 +126,11 @@ function OneEvent({ events, updateEvents }) {
 }
 
 const mapState = (state) => {
-  return { events: state.events };
+  return {
+    events: state.events,
+    init: appInnitAction,
+    campaign: state.campaign,
+  };
 };
 
 const mapDispatch = (dispatch) => {

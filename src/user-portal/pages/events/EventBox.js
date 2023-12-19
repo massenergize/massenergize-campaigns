@@ -2,9 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { formatTimeRange } from "../../../utils/utils";
 
-function EventBox({ event }) {
+function EventBox({ event, campaign }) {
   const { name, image, start_date, end_date, id } = event || {};
   const navigator = useNavigate();
+
   return (
     <div
       className="elevate-float-pro"
@@ -28,7 +29,9 @@ function EventBox({ event }) {
       <div style={{ padding: "15px 15px" }}>
         <h6
           className="touchable-opacity"
-          onClick={() => navigator(`/technology/event/${id}`)}
+          onClick={() =>
+            navigator(`/campaign/${campaign?.id}/technology/event/${id}`)
+          }
           style={{ textDecoration: "underline" }}
         >
           {name || "..."}

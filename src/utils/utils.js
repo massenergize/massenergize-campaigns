@@ -30,3 +30,30 @@ export const validateEmail = (email) => {
 
   return emailRegex.test(email);
 };
+
+export function fetchUrlParams(name) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name) || "";
+}
+
+export function getLastSegmentFromUrl(url) {
+  const parsedUrl = new URL(url);
+  const pathnameSegments = parsedUrl.pathname.split("/").filter(Boolean);
+
+  if (pathnameSegments.length > 0) {
+    return pathnameSegments[pathnameSegments.length - 1];
+  }
+
+  return null; // Return null if no segments are found
+}
+
+export function addUrlParams(currentUrl, params) {
+  const url = new URL(currentUrl);
+  const searchParams = new URLSearchParams(url.search);
+
+  Object.keys(params).forEach((key) => {
+    searchParams.set(key, params[key]);
+  });
+
+  return url.pathname + "?" + searchParams.toString();
+}

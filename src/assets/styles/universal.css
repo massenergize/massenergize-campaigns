@@ -11,6 +11,9 @@
   margin: 0;
   padding: 0;
 }
+body{ 
+  overflow-x: hidden;
+}
 
 :root {
   --app-deep-green: #3c5b11;

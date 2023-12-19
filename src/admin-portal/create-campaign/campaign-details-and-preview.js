@@ -4,8 +4,7 @@ import { Button, ButtonGroup, Col, Row } from "react-bootstrap";
 import classes from "classnames";
 import LandingPage from "../../user-portal/pages/landing-page/LandingPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLink, faEye, faLink } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { faExternalLink, faEye } from "@fortawesome/free-solid-svg-icons";
 
 export function CampaignDetailsAndPreview ({ campaignDetails, setCampaignDetails, setStep, lists }) {
   const [activeTab, setActiveTab] = useState(campaignPages[0].name);
@@ -41,17 +40,18 @@ export function CampaignDetailsAndPreview ({ campaignDetails, setCampaignDetails
           <Row className="pb-2 overflow-scroll">
             <Col>
               <div className="nav-tabs-container">
-                {campaignPages?.map((page) => (
-                  <div
-                    key={page?.name}
-                    className={classes("nav-tabs-main tab", { "tab-active": activeTab === page?.name })}
-                    onClick={() => setActiveTab(page?.name)}
-                  >
-                    <h5 className={classes("nav-tabs",)}>
-                      {page?.name}
-                    </h5>
-                  </div>
-                ))}
+                {
+                  campaignPages?.map((page) => (
+                    <div
+                      key={page?.name}
+                      className={classes("nav-tabs-main tab", { "tab-active": activeTab === page?.name })}
+                      onClick={() => setActiveTab(page?.name)}
+                    >
+                      <h5 className={classes("nav-tabs",)}>
+                        {page?.name}
+                      </h5>
+                    </div>
+                  ))}
               </div>
             </Col>
           </Row>

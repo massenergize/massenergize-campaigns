@@ -10,6 +10,9 @@ import useSWR from "swr";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, ButtonGroup, Dropdown } from "react-bootstrap";
 import { fetchAllCampaigns } from "../requests/campaign-requests";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExternalLink, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faFileEdit } from "@fortawesome/free-solid-svg-icons/faFileEdit";
 
 const DUMMY_DATA = [
   {
@@ -240,9 +243,16 @@ export function AllCampaignsView ({}) {
             </Dropdown.Menu>
           </Dropdown>*/
 
-          return <Link to={`/admin/campaign/${value}/stats`} className={'btn btn-primary'}>
-            Stats
-          </Link>
+          return <ButtonGroup className="mr-2">
+            <Button variant="primary" onClick={() => {navigate(`/admin/campaign/${value}/stats`)}}>
+              Stats
+            </Button>
+            <Button variant="primary" onClick={() => {
+              navigate(`/admin/campaign/${value}/edit`)
+            }}>
+              <FontAwesomeIcon icon={faFileEdit}/>
+            </Button>
+          </ButtonGroup>
         },
       },
     ];

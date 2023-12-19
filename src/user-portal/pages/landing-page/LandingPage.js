@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
 
@@ -15,30 +15,142 @@ import { connect } from "react-redux";
 import { apiCall } from "../../../api/messenger";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { appInnitAction } from "../../../redux/actions/actions";
+import { appInnitAction, trackActivity, USER_STORAGE_KEY } from "../../../redux/actions/actions";
 import { LOADING } from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
+import { fetchUrlParams } from "../../../utils/utils";
+import RoamingModalSheet from "./RoamingModalSheet";
+import DoMore from "./DoMore";
+import JoinUsForm from "../forms/JoinUsForm";
 
-function LandingPage({ toggleModal, campaign, init, preview }) {
-  console.log("HER EIS THE campaign from redux", campaign);
+function LandingPage({
+  toggleModal,
+  campaign,
+  init,
+  menu,
+  trackActivity,
+  authUser,
+  preview
+                     }) {
+  const [mounted, setMounted] = useState(false);
+  const coachesRef = useRef();
+  const eventsRef = useRef();
+  const incentivesRef = useRef();
+  const testimonialsRef = useRef();
+  const communitiesRef = useRef();
+
+  const idsToRefMap = {
+    coaches: coachesRef,
+    incentives: incentivesRef,
+    events: eventsRef,
+    testimonial: testimonialsRef,
+    communities: communitiesRef,
+  };
+
   const { image, config, key_contact } = campaign || {};
 
   const technologies = campaign?.technologies || [];
   const { campaignId } = useParams();
 
+  const scrollToSection = (id) => {
+    const ref = idsToRefMap[id];
+    if (ref?.current)
+      ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  const target = fetchUrlParams("section");
+
+  useEffect(() => {
+    scrollToSection(target?.trim());
+  }, [mounted, target]);
+
+  useEffect(() => {
+    init(campaignId, (_, passed) => {
+      if (passed) tellUsWhereYouAreFrom();
+      setMounted(true);
+    });
+  }, [campaignId]);
+
   useEffect(() => {
     if(!preview) init(campaignId);
   }, []);
+
+  const tellUsWhereYouAreFrom = () => {
+    const user = localStorage.getItem(USER_STORAGE_KEY);
+    const firstTime = !user || user === "null";
+
+    if (!firstTime) return;
+    toggleModal({
+      show: true,
+      title: `Please tell us where you are from`,
+      component: ({ close }) => <JoinUsForm close={close} />,
+      // modalNativeProps: { size: "md" },
+      fullControl: true,
+    });
+  };
+
+  const showMoreAboutAdvert = () => {
+    const data = config?.advert || {};
+    toggleModal({
+      show: true,
+      title: data?.title || "...",
+      // iconName: "fa-comment",
+      component: ({ close }) => (
+        <RoamingModalSheet
+          close={close}
+          data={data}
+          // callbackOnSubmit={({ user }) => {
+          //   close && close();
+          //   triggerCommentBox(user);
+          // }}
+        />
+      ),
+      // modalNativeProps: { size: "md" },
+      fullControl: true,
+    });
+  };
 
   if (campaign === LOADING && !preview)
     return <Loading fullPage>Fetching campaign details...</Loading>;
 
   if (!campaign) return <NotFound></NotFound>;
 
+  let previewMode = fetchUrlParams("preview");
+  previewMode = previewMode?.trim() === "true";
+
   return (
-    <div style={{}} className={"position-relative"}>
-      {!preview && <AppNavigationBar />}
+    <div style={{}}>
+      {previewMode && (
+        <p
+          className="elevate-3"
+          style={{
+            background: "var(--app-orange)",
+            padding: "20px 40px",
+            position: "fixed",
+            right: 0,
+            top: 100,
+            zIndex: 10,
+            fontWeight: "bold",
+            color: "white",
+            borderTopLeftRadius: 55,
+            borderBottomLeftRadius: 55,
+          }}
+        >
+          <span>PREVIEW MODE</span>
+          {/* <a
+            onClick={(e) => {
+              e.preventDefault();
+              window.close();
+            }}
+            href="#"
+            className="touchable-opacity"
+            style={{ marginLeft: 5, color: "white" }}
+          >
+            (Go Back)
+          </a> */}
+        </p>
+      )}
+      {!previewMode && <AppNavigationBar menu={menu} />}
       <Container>
         <Banner {...campaign} />
         <Container>
@@ -56,26 +168,44 @@ function LandingPage({ toggleModal, campaign, init, preview }) {
             alt={"campaign banner"}
           />
         </Container>
-        <RoamingBox id="roaming-box" advert={config?.advert} keyContact={key_contact}/>
+        <RoamingBox
+          id="roaming-box"
+          advert={config?.advert}
+          keyContact={key_contact}
+          showMore={showMoreAboutAdvert}
+        />
       </Container>
       <GettingStartedSection
+        scrollToCommunities={() => scrollToSection("communities")}
         technologies={technologies}
         sectionId="getting-started-section"
+        trackActivity={trackActivity}
+        authUser={authUser}
       />
 
-      <TestimonialSection
-        technologies={technologies}
-        sectionId="testimonial-section"
-      />
+      <div ref={testimonialsRef}>
+        <TestimonialSection
+          // defaultTab={activeTab}
+          technologies={technologies}
+          sectionId="testimonial-section"
+        />
+      </div>
       <br />
 
-      <EventsSection technologies={technologies} sectionId="event-section" />
+      <div ref={eventsRef}>
+        <EventsSection technologies={technologies} sectionId="event-section" />
+      </div>
 
-      <CoachesSection
-        technologies={technologies}
-        toggleModal={toggleModal}
-        sectionId="coaches-section"
-      />
+      <div ref={coachesRef}>
+        <CoachesSection
+          technologies={technologies}
+          toggleModal={toggleModal}
+          sectionId="coaches-section"
+        />
+      </div>
+      <div ref={communitiesRef}>
+        <DoMore campaign={campaign} />
+      </div>
 
       <Footer toggleModal={toggleModal} />
     </div>
@@ -83,13 +213,14 @@ function LandingPage({ toggleModal, campaign, init, preview }) {
 }
 
 const mapState = (state) => {
-  return { campaign: state.campaign };
+  return { campaign: state.campaign, authUser: state.user };
 };
 
 const mapDispatch = (dispatch) => {
   return bindActionCreators(
     {
       init: appInnitAction,
+      trackActivity,
     },
     dispatch
   );
