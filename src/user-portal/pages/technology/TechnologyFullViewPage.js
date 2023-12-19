@@ -169,7 +169,7 @@ function TechnologyFullViewPage({
       community_id: community?.id,
       community_name: authUser?.community_name || community?.name,
     };
-    // console.log("LETS SEE LIKE PAYLOAD", )
+
     apiCall("/campaigns.technology.like", payload).then((response) => {
       if (!response || !response?.success)
         return console.log("ERROR_LIKING: ", response?.error);
@@ -181,7 +181,7 @@ function TechnologyFullViewPage({
   const triggerRegistration = () => {
     toggleModal({
       show: true,
-      title: `Tell us where you are from`,
+      title: `Before you continue, tell us where you are from`,
       iconName: "fa-comment",
       component: ({ close }) => (
         <JoinUsForm
@@ -337,7 +337,7 @@ function TechnologyFullViewPage({
                   onClick={() =>
                     toggleModal({
                       show: true,
-                      title: "Get updates about this technology",
+                      title: `Get updates on ${technology?.name || "..."}`,
                       component: () => <JoinUsForm />,
                       fullControl: true,
                     })

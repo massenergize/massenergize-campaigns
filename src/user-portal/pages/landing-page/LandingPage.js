@@ -17,6 +17,7 @@ import { bindActionCreators } from "redux";
 import {
   USER_STORAGE_KEY,
   appInnitAction,
+  toggleUserInfoModal,
   trackActivity,
 } from "../../../redux/actions/actions";
 import { LOADING } from "../../../utils/Constants";
@@ -34,6 +35,7 @@ function LandingPage({
   menu,
   trackActivity,
   authUser,
+  whereIsUserFrom,
 }) {
   const [mounted, setMounted] = useState(false);
   const coachesRef = useRef();
@@ -78,10 +80,24 @@ function LandingPage({
     const firstTime = !user || user === "null";
 
     if (!firstTime) return;
+    // console.log("DID YOU RUN THIS THING?");
+    // whereIsUserFrom({
+    //   show: true,
+    //   title: "Please tell us where you are from",
+    //   componentProps: { noForm: true, okText: "Okay, Done!" },
+    // });
     toggleModal({
       show: true,
       title: `Please tell us where you are from`,
-      component: ({ close }) => <JoinUsForm close={close} />,
+      component: ({ close }) => (
+        <JoinUsForm
+          close={close}
+          confirmText="Okay, Done!"
+          cancelText="NO"
+          noForm
+          onConfirm={() => console.log("ONYAE!")}
+        />
+      ),
       // modalNativeProps: { size: "md" },
       fullControl: true,
     });
@@ -217,6 +233,7 @@ const mapDispatch = (dispatch) => {
     {
       init: appInnitAction,
       trackActivity,
+      // whereIsUserFrom: toggleUserInfoModal,
     },
     dispatch
   );

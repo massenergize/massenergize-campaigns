@@ -1,3 +1,4 @@
+import { Tooltip } from "bootstrap";
 import React, { useEffect, useState } from "react";
 
 const interactions = [
@@ -58,6 +59,7 @@ function InteractionsPanel({
           className={`fa fa-heart interact ${hasLiked ? "already-liked" : ""}`}
           style={{ marginRight: 6, color: "var(--app-deep-green)" }}
         />
+
         <small
           className="touchable-opacity"
           // style={{ fontWeight: "bold", textDecoration: "underline" }}

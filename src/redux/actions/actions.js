@@ -1,5 +1,6 @@
 import { apiCall } from "../../api/messenger";
 import { CAMPAIGN_INFORMATION_URL } from "../../api/urls";
+import JoinUsForm from "../../user-portal/pages/forms/JoinUsForm";
 import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
@@ -55,6 +56,19 @@ export const setCommentsAction = (payload) => {
 //     if (!response || !response.success)
 //       return console.log("ERROR_RECORDING_A_VIEW: ", response.error);
 //   });
+// };
+
+// export const toggleUserInfoModal = (props, cb) => (dispatch) => {
+//   // const component = props?.component;
+//   const componentProps = props?.componentProps || {};
+//   // return (dispatch) =>
+//   // dispatch(
+//   toggleUniversalModal({
+//     fullControl: true,
+//     ...props,
+//     component: (_props) => <JoinUsForm {..._props} {...componentProps} />,
+//   });
+//   // );
 // };
 
 export const trackActivity = (payload, cb) => {
