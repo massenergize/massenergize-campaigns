@@ -160,15 +160,15 @@ function TechnologyFullViewPage({
 
   const like = (userObject) => {
     const { community, user } = userObject || {};
-    if (!user) return triggerRegistrationForLike();
+    // if (!user) return triggerRegistrationForLike();
 
     const payload = {
       campaign_technology_id: technology?.campaign_technology_id,
-      user_id: user?.id,
-      email: user?.email,
-      zipcode: authUser?.zipcode,
-      community_id: community?.id,
-      community_name: authUser?.community_name || community?.name,
+      // user_id: user?.id,
+      // email: user?.email,
+      // zipcode: authUser?.zipcode,
+      // community_id: community?.id,
+      // community_name: authUser?.community_name || community?.name,
     };
 
     apiCall("/campaigns.technology.like", payload).then((response) => {
@@ -187,6 +187,7 @@ function TechnologyFullViewPage({
       component: ({ close }) => (
         <JoinUsForm
           close={close}
+          confirmText="Continue"
           callbackOnSubmit={({ user }) => {
             close && close();
             triggerCommentBox(user);
@@ -197,23 +198,23 @@ function TechnologyFullViewPage({
       fullControl: true,
     });
   };
-  const triggerRegistrationForLike = () => {
-    toggleModal({
-      show: true,
-      title: `Tell us where you are from`,
-      iconName: "fa-thumbs-up",
-      component: ({ close }) => (
-        <JoinUsForm
-          close={close}
-          callbackOnSubmit={({ user }) => {
-            like(user);
-          }}
-        />
-      ),
-      // modalNativeProps: { size: "md" },
-      fullControl: true,
-    });
-  };
+  // const triggerRegistrationForLike = () => {
+  //   toggleModal({
+  //     show: true,
+  //     title: `Tell us where you are from`,
+  //     iconName: "fa-thumbs-up",
+  //     component: ({ close }) => (
+  //       <JoinUsForm
+  //         close={close}
+  //         callbackOnSubmit={({ user }) => {
+  //           like(user);
+  //         }}
+  //       />
+  //     ),
+  //     // modalNativeProps: { size: "md" },
+  //     fullControl: true,
+  //   });
+  // };
   const triggerCommentBox = (userObject) => {
     const { community, user } = userObject || {};
     if (!user) return triggerRegistration();
@@ -341,7 +342,11 @@ function TechnologyFullViewPage({
                       show: true,
                       title: `Get updates on ${technology?.name || "..."}`,
                       component: ({ close }) => (
-                        <JoinUsForm close={close} confirmText="Get Updates" />
+                        <JoinUsForm
+                          close={close}
+                          confirmText="Get Updates"
+                          callbackOnSubmit={({ close }) => close && close()}
+                        />
                       ),
                       fullControl: true,
                     })

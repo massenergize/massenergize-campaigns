@@ -53,7 +53,7 @@ function CommentComponentForModal({
     const doesNotHaveName = !user?.full_name;
     setLoading(true);
     if (doesNotHaveName) {
-      updateUser({ id: user?.id, full_name: name }, () =>
+      updateUser({ id: user?.id || null, full_name: name }, () =>
         sendCommentToBackend()
       );
     } else sendCommentToBackend();
