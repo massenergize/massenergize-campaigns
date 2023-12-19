@@ -27,6 +27,7 @@ import { apiCall } from "../../../api/messenger";
 import Loading from "../../../components/pieces/Loading";
 import {
   appInnitAction,
+  loadUserObjAction,
   setCommentsAction,
   trackActivity,
   updateTechnologiesAction,
@@ -47,6 +48,7 @@ function TechnologyFullViewPage({
   updateCommentList,
   commentsList,
   trackActivity,
+  updateUserInRedux,
 }) {
   const authUser = user;
   const hasUser = authUser?.user;
@@ -189,6 +191,7 @@ function TechnologyFullViewPage({
           close={close}
           confirmText="Continue"
           callbackOnSubmit={({ user }) => {
+            console.log("USER AFTER REGISTRATION", user);
             close && close();
             triggerCommentBox(user);
           }}
@@ -224,6 +227,7 @@ function TechnologyFullViewPage({
       iconName: "fa-comment",
       component: () => (
         <CommentComponentForModal
+          updateUserInRedux={updateUserInRedux}
           comments={[...comments]}
           authUser={user}
           updateUser={updateUser}
@@ -571,6 +575,7 @@ const mapDispatch = (dispatch) => {
       updateUser: updateUserAction,
       updateCommentList: setCommentsAction,
       trackActivity,
+      updateUserInRedux: loadUserObjAction,
     },
     dispatch
   );

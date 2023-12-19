@@ -12,6 +12,7 @@ function CommentComponentForModal({
   camp_tech_id,
   technology,
   updateTechList,
+  updateUserInRedux,
 }) {
   const [commentItems, setCommentItems] = useState([]);
   const [name, setName] = useState("");
@@ -50,16 +51,26 @@ function CommentComponentForModal({
     if (!comment.trim() || !name?.trim())
       return setError("Please provide a name and a valid comment");
 
+    console.log("Before you send anything this is the user --> ", user);
     const doesNotHaveName = !user?.full_name;
     setLoading(true);
     if (doesNotHaveName) {
-      updateUser({ id: user?.id || null, full_name: name }, () =>
-        sendCommentToBackend()
+      updateUser(
+        { id: user?.id || null, full_name: name },
+        (userObj, passed, error) => {
+          console.log("This is the returned user", userObj);
+          if (!passed) {
+            setLoading(false);
+            return setError(error);
+          }
+          updateUserInRedux(userObj);
+          sendCommentToBackend(userObj?.user);
+        }
       );
     } else sendCommentToBackend();
   };
 
-  const sendCommentToBackend = () => {
+  const sendCommentToBackend = (user) => {
     apiCall("/campaigns.technologies.comments.create", {
       campaign_technology_id: technology?.campaign_technology_id,
       text: comment,
