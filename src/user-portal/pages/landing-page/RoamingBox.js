@@ -61,6 +61,7 @@ function RoamingBox({ advert, keyContact }) {
                 className="mb-2"
                 src={keyContact?.image?.url || "https://i.pravatar.cc/300"}
                 style={{ borderRadius: "100%", width: 120, height: 120 }}
+                alt="key contact"
               ></img>
               <span className="mb-1" style={{ fontSize: 12, color: "#c8c8c8" }}>
                 KEY CONTACT

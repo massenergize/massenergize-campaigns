@@ -158,8 +158,8 @@
 /* .......................................  Chip styles   ................................... */
 
 .chip {
-	padding-left: 1.5rem;
-	padding-right: 0.2rem;
+	padding-left: 10px;
+	padding-right: 4px;
 	background-color: #f3f3f3;
 	color: black;
 	padding-top: 0.2rem;
@@ -169,19 +169,26 @@
 	line-height: 1.25rem;
 	letter-spacing: 0.05em;
 	font-weight: 500;
-	border: none;
 	transition-property: all;
 	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 	transition-duration: 300ms;
-	border-width: 3px;
-	border-style: solid;
-	border-color: #f3f3f3;
+	border: 2px solid #f3f3f3;
+
+	button {
+		background-color: transparent;
+	}
 }
 
 .chip:hover {
-	border-width: 3px;
 	border-color: #f87171;
-	border-style: solid;
+
+	button {
+		background-color: transparent;
+
+		svg {
+			fill: #1f2937;
+		}
+	}
 }
 
 /* .......................................  checkbox styles   ................................... */
@@ -552,16 +559,6 @@
 	color: white;
 }
 
-//.col {
-//	padding-left: 0;
-//	padding-right: 0;
-//}
-//
-//.row {
-//	margin-left: 0;
-//	margin-right: 0;
-//}
-
 .btn-cont-borders {
 	/* margin-bottom: 30px; */
 	padding-top: 30px;
@@ -762,4 +759,8 @@
 
 .vh-100 {
 	height: 100vh;
+}
+
+.cursor-pointer {
+	cursor: pointer;
 }

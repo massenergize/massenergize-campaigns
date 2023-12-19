@@ -23,4 +23,21 @@ export async function fetchCommunitiesForCommunityAdmins (url = "communities.lis
   }
 }
 
+export async function fetchCommunitiesList (url = "communities.list", noPagination = true) {
+  try {
+    const response = await apiCall(url, { no_pagination : noPagination });
+
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "FETCH_COMMUNITIES_LIST_ERROR_BE");
+    }
+
+    return response?.data;
+  } catch (error) {
+    handleRequestError(error, "FETCH_COMMUNITIES_LIST_ADMIN_ERROR");
+  }
+}
+
+
+
+
 

@@ -1,15 +1,26 @@
 import { useState } from "react";
 import "../../assets/styles/styles.scss";
 
+function CheckboxLabel({ label, icon }) {
+	return (
+		<span className="text">
+				<span>{icon}</span> {label}
+			</span>
+	);
+}
+
 const Checkbox = ({
-	label,
-	size,
-	icon,
-	id,
-	name,
+										label,
+										size,
+										icon,
+										id,
+										name,
+										value,
+	onChange,
+	checked,
+	labelOnRight = true,
 	valueExtractor,
 	labelExtractor,
-	value,
 	onItemSelect,
 	selectedValues,
 }) => {
@@ -18,34 +29,21 @@ const Checkbox = ({
 	);
 
 	return (
-		<label
-			htmlFor={id}
-			className={`${
-				size === "big" ? "checkbox-big" : " checkbox-small"
-			} custom-checkbox`}
-		>
+		<label htmlFor={id} className={size === "big" ? "custom-checkbox checkbox-big" : "custom-checkbox checkbox-small"}>
+			{
+				labelOnRight === false ? (<CheckboxLabel label={label} icon={icon}/>) : null
+			}
 			<input
 				type="checkbox"
 				id={id}
-				onChange={(e) => {
-					const newValue = value ? value : e.target.checked;
-					valueExtractor && valueExtractor(newValue);
-
-					if (newValue) {
-						typeof onItemSelect === "function" && onItemSelect(value);
-					} else {
-						typeof onItemSelect === "function" && onItemSelect(null);
-					}
-
-					setIsChecked(newValue);
-					setIsChecked(e.target.checked);
-				}}
-				checked={isChecked ? true : false}
+				checked={checked}
+				value={value}
+				onChange={(e) => {typeof onChange === "function" && onChange(e.target.checked, e.target.value, name)}}
 			/>
 			<span className="checkbox-icon"></span>
-			<span className="text">
-				<span>{icon}</span> {label ? label : labelExtractor()}
-			</span>
+			{
+				labelOnRight ? (<CheckboxLabel label={label} icon={icon}/>) : null
+			}
 		</label>
 	);
 };

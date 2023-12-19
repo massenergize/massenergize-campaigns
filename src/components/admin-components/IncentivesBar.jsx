@@ -5,6 +5,7 @@ import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Input from "./Input";
 import Button from "./Button";
+import IconPicker from "./IconPicker";
 
 const IncentivesBar = ({ data }) => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -102,7 +103,7 @@ const IncentivesBar = ({ data }) => {
 						<Row className="py-4">
 							<Col className="px-4">
 								<p>Pick an Icon</p>
-								<h4>THIS IS A SPACE FOR THE ICON PICKER</h4>
+								<IconPicker />
 							</Col>
 						</Row>
 						<Row className="py-4 justify-content-end">

@@ -49,7 +49,6 @@ export async function apiCall(destinationUrl, dataToSend = {}, relocationPage = 
   //     destinationUrl = "api/" + destinationUrl;
   //   }
   destinationUrl = `${host}/${destinationUrl}`;
-  console.log("LETS SEE URL", destinationUrl);
 
   try {
     const response = await fetch(destinationUrl, {

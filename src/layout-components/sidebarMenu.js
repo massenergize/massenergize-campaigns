@@ -10,6 +10,8 @@ import {
   faPen,
   faPlus,
   faSheetPlastic,
+  faArrowRightFromBracket,
+  faHeadset
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -66,5 +68,20 @@ export const SIDE_BAR_MENU = [
         ],
       },
     ],
+  },
+];
+
+
+export const BOTTOM_MENU = [
+  {
+    id: "sign-out",
+    name: "SignOut",
+    icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
+  },
+  {
+    id: "help",
+    name: "Ask for help",
+    link: "/contact",
+    icon: <FontAwesomeIcon icon={faHeadset} />,
   },
 ];

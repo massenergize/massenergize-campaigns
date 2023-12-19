@@ -5,14 +5,15 @@ import Col from "react-bootstrap/Col";
 import Checkbox from "../../components/admin-components/Checkbox";
 import Input from "../../components/admin-components/Input";
 import FileUploader from "../../components/admin-components/FileUploader";
-import Button from "../../components/admin-components/Button";
 import "../adminStyles.css";
 import { motion as m } from "framer-motion";
 import { apiCall } from "../../utils/api_call";
+import { ProgressButton } from "../../components/progress-button/progress-button";
+import dayjs from "dayjs";
 
-const Information = ({campaignDetails, setCampaignDetails}) => {
+const Information = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
 	const [showError, setShowError] = useState(false);
-	// const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const initialState = {
 		title: "",
@@ -44,7 +45,7 @@ const Information = ({campaignDetails, setCampaignDetails}) => {
 	const [formData, dispatch] = useReducer(reducer, initialState);
 
 	const handleFieldChange = (field, value) => {
-		dispatch({ type: "SET_FIELD_VALUE", payload : { field, value } });
+		setCampaignDetails(field, value);
 	};
 
 	const handleSubmit = async (e) => {
@@ -63,10 +64,10 @@ const Information = ({campaignDetails, setCampaignDetails}) => {
 	};
 
 	return (
-		<m.div initial={{ y: " 10%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
+		// <m.div initial={{ y: " 10%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
 			<Container>
 				<form>
-					<Row className="py-4">
+					{/*<Row className="py-4">
 						<Col>
 							<Checkbox
 								label="Is this Campaign a template ?"
@@ -78,7 +79,7 @@ const Information = ({campaignDetails, setCampaignDetails}) => {
 								size="big"
 							/>
 						</Col>
-					</Row>
+					</Row>*/}
 					<Row className="py-4">
 						<Col>
 							<Input
@@ -116,9 +117,11 @@ const Information = ({campaignDetails, setCampaignDetails}) => {
 								id="startDate"
 								name="startDate"
 								label="Start Date"
-								placeholder="Enter a slogan for this campaign ..."
+								placeholder="mm/dd/yyyy"
 								required={false}
 								type="date"
+								format="mm/dd/yyyy"
+								value={campaignDetails?.start_date ? dayjs(campaignDetails?.start_date).format("MM/DD/YYYY") : ""}
 								onChange={(val) => {
 									handleFieldChange("start_date", val);
 								}}
@@ -131,9 +134,11 @@ const Information = ({campaignDetails, setCampaignDetails}) => {
 								id="endDate"
 								name="endDate"
 								label="End Date"
-								placeholder="Enter a slogan for this campaign ..."
+								placeholder="mm/dd/yyyy"
 								required={false}
 								type="date"
+								format="mm/dd/yyyy"
+								value={campaignDetails?.end_date ? dayjs(campaignDetails?.end_date).format("MM/DD/YYYY") : ""}
 								onChange={(val) => {
 									handleFieldChange("end_date", val);
 								}}
@@ -149,6 +154,7 @@ const Information = ({campaignDetails, setCampaignDetails}) => {
 								placeholder="Enter a tagline for this campaign ..."
 								required={false}
 								type="textbox"
+								value={campaignDetails?.tagline}
 								onChange={(val) => {
 									handleFieldChange("tagline", val);
 								}}
@@ -164,6 +170,7 @@ const Information = ({campaignDetails, setCampaignDetails}) => {
 								placeholder="Add a more detailed description of your campaign..."
 								required={false}
 								type="textarea"
+								value={campaignDetails?.description}
 								onChange={(val) => {
 									handleFieldChange("description", val);
 								}}
@@ -224,8 +231,13 @@ const Information = ({campaignDetails, setCampaignDetails}) => {
 								placeholder="Enter full name here ..."
 								required={true}
 								type="textbox"
+								value={campaignDetails?.key_contact?.name}
 								onChange={(val) => {
 									handleFieldChange("full_name", val);
+									handleFieldChange("key_contact", {
+										...campaignDetails.key_contact,
+										name : val
+									})
 								}}
 							/>
 						</Col>
@@ -241,6 +253,10 @@ const Information = ({campaignDetails, setCampaignDetails}) => {
 								type="email"
 								onChange={(val) => {
 									handleFieldChange("email", val);
+									handleFieldChange("key_contact", {
+										...campaignDetails.key_contact,
+										email : val
+									})
 								}}
 							/>
 						</Col>
@@ -256,6 +272,10 @@ const Information = ({campaignDetails, setCampaignDetails}) => {
 								type="textbox"
 								onChange={(val) => {
 									handleFieldChange("phone_number", val);
+									handleFieldChange("phone_number", {
+										...campaignDetails.key_contact,
+										phone_number : val
+									})
 								}}
 							/>
 						</Col>
@@ -274,11 +294,9 @@ const Information = ({campaignDetails, setCampaignDetails}) => {
 					</Row>
 					<Row className="py-4 justify-content-end">
 						<Col>
-							<Button
-								text="Save & Continue"
-								onSubmit={handleSubmit}
-								rounded={false}
-							/>
+							<ProgressButton loading={loading}>
+								Save and Continue
+							</ProgressButton>
 						</Col>
 					</Row>
 					<Row className="py-4 my-4">
@@ -293,7 +311,7 @@ const Information = ({campaignDetails, setCampaignDetails}) => {
 					</Row>
 				</form>
 			</Container>
-		</m.div>
+		// </m.div>
 	);
 };
 

@@ -56,11 +56,11 @@ const StatsCard = ({ data, index }) => {
 			<div>
 				<h1>{total}</h1>
 			</div>
-			<div className="d-flex items-center justify-content-end">
-				<span>
-					<FontAwesomeIcon icon={faDownload} />
-				</span>
-			</div>
+			{/*<div className="d-flex items-center justify-content-end">*/}
+			{/*	<span>*/}
+			{/*		<FontAwesomeIcon icon={faDownload} />*/}
+			{/*	</span>*/}
+			{/*</div>*/}
 		</div>
 	);
 };
