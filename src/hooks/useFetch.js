@@ -30,7 +30,6 @@ export default function useFetch (url, fetcher, options = {}) {
     if (!url) {
       return;
     }
-    console.log({ url, options })
 
     const getData = async () => {
       try {

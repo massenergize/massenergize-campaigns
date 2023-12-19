@@ -7,7 +7,6 @@ export function handleRequestError (error, code, handlers = {}) {
 
 export async function fetchData (url, data, errorCode, handlers = {}) {
   try {
-    console.log({data})
     const response = await apiCall(url, data, null);
 
     if (!response || response?.success !== false) {

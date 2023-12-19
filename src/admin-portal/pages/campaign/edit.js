@@ -56,9 +56,7 @@ export function EditCampaign ({ props }) {
   }
 
   const [STEP, setStep] = useNamedState("STEP", "START"); // START, DETAILS, MANAGERS, TECHNOLOGIES, EVENTS, REVIEW, SUBMIT
-  const { id, ...rest } = useParams();
-
-  console.log({ id, rest })
+  const { id, } = useParams();
 
   const dedupingInterval = 3_600_000;
   const revalidateInterval = 3_600_000;
@@ -73,7 +71,7 @@ export function EditCampaign ({ props }) {
     data: { id },
     errorCode: "FETCH_CAMPAIGN_ERROR",
     onSuccess: (data) => {
-      console.log({ data })
+      console.log("dfsdfsdfsdfrverbre", data)
       updateCampaignDetails(data);
     }
   })
@@ -202,8 +200,10 @@ export function EditCampaign ({ props }) {
           ) : null
         }
         {
-          !campaignIsLoading && campaignError ? (
+          !campaignIsLoading && !campaignError ? (
             <CampaignDetailsAndPreview
+              setStep={setStep}
+              step={STEP}
               campaignDetails={campaignDetails}
               setCampaignDetails={handleCampaignDetailsChange}
               lists={lists}
