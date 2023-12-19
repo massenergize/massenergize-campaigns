@@ -18,51 +18,57 @@ import Loading from "../components/pieces/Loading";
  * @returns {React.JSX.Element|void}
  * @constructor
  */
-function AuthGuard({ fetchMassenergizeUser, fireAuth, admin, putFirebaseAuthInRedux, ...props }) {
-  const navigator = useNavigate();
+function AuthGuard({
+	fetchMassenergizeUser,
+	fireAuth,
+	admin,
+	putFirebaseAuthInRedux,
+	...props
+}) {
+	const navigator = useNavigate();
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      const userIsNotAuthenticated = !user;
-      if (userIsNotAuthenticated) {
-        navigator("/login");
-        return console.log("ADMIN_IS_NOT_AUTHENTICATED");
-      }
-      putFirebaseAuthInRedux(user);
-      fetchMassenergizeUser({ idToken: user?.accessToken });
-    });
-  }, []);
+	useEffect(() => {
+		onAuthStateChanged(auth, (user) => {
+			const userIsNotAuthenticated = !user;
+			if (userIsNotAuthenticated) {
+				navigator("/login");
+				return console.log("ADMIN_IS_NOT_AUTHENTICATED");
+			}
+			putFirebaseAuthInRedux(user);
+			fetchMassenergizeUser({ idToken: user?.accessToken });
+		});
+	}, []);
 
-  const isLoadingFirebaseUser = fireAuth === LOADING;
-  const isLoadingMassenergizeUser = admin === LOADING;
+	const isLoadingFirebaseUser = fireAuth === LOADING;
+	const isLoadingMassenergizeUser = admin === LOADING;
 
-  if (isLoadingFirebaseUser || isLoadingMassenergizeUser)
-    return (
-      <Loading spinnerStyle={{ color: "var(--admin-theme-color)" }} fullPage>
-        Almost there...
-      </Loading>
-    );
+	if (isLoadingFirebaseUser || isLoadingMassenergizeUser)
+		return (
+			<Loading spinnerStyle={{ color: "var(--admin-theme-color)" }} fullPage>
+				Almost there...
+			</Loading>
+		);
 
-  if (!admin) {
-    alert("Sorry, you are not an admin...");
-    return console.log("Sorry, you are not an admin!");
-  }
+	if (!admin) {
+		alert("Sorry, you are not an admin...");
+		return console.log("Sorry, you are not an admin!");
+	}
 
-  return <div>{props.children}</div>;
+	return <div>{props.children}</div>;
 }
 
 const mapState = (state) => {
-  return { fireAuth: state.fireAuth, admin: state.authAdmin };
+	return { fireAuth: state.fireAuth, admin: state.authAdmin };
 };
 
 const mapDispatch = (dispatch) => {
-  return bindActionCreators(
-    {
-      fetchMassenergizeUser: fetchMeUser,
-      putFirebaseAuthInRedux: setFirebaseAuthAction,
-    },
-    dispatch
-  );
+	return bindActionCreators(
+		{
+			fetchMassenergizeUser: fetchMeUser,
+			putFirebaseAuthInRedux: setFirebaseAuthAction,
+		},
+		dispatch
+	);
 };
 
 export default connect(mapState, mapDispatch)(AuthGuard);
