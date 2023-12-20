@@ -175,11 +175,11 @@ export function EditCampaign ({ props }) {
           ) : null
         }
         {
-          !campaignIsLoading && !campaignError && campaignData ? (
+          !campaignIsLoading && !campaignError ? (
             <CampaignDetailsAndPreview
               setStep={setStep}
               step={STEP}
-              campaignDetails={campaignData}
+              campaignDetails={campaignDetails}
               setCampaignDetails={handleCampaignDetailsChange}
               lists={lists}
             />) : null
