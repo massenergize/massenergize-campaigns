@@ -97,8 +97,9 @@ function TechnologyFullViewPage({
   };
 
   useEffect(() => {
+    console.log(campaign_technology_id, campaign_id);
     scrollToSection(targetSection);
-  }, [mounted]);
+  }, [mounted, campaign_technology_id, campaign_id]);
 
   useEffect(() => {
     if (technology?.campaign_technology_id) recorderAView();

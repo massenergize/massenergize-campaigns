@@ -35,7 +35,9 @@ function AppNavigationBar({ menu }) {
                   <Nav.Link
                     key={menu?.key}
                     style={{ textTransform: "uppercase" }}
-                    onClick={() => navigator(menu.url || "#")}
+                    onClick={() => {
+                      navigator(menu.url || "#");
+                    }}
                   >
                     <span>
                       <i
@@ -71,7 +73,9 @@ function AppNavigationBar({ menu }) {
                       <NavDropdown.Item
                         style={{ textTransform: "uppercase" }}
                         key={child?.key}
-                        onClick={() => navigator(child.url || "#")}
+                        onClick={() => {
+                          navigator(child.url || "#");
+                        }}
                         // onClick={() => navigator(`${route}`)}
                       >
                         {child.text}
