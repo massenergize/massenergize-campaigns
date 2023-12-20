@@ -57,9 +57,14 @@ export function EditCampaign ({ props }) {
   const [STEP, setStep] = useNamedState("STEP", "START"); // START, DETAILS, MANAGERS, TECHNOLOGIES, EVENTS, REVIEW, SUBMIT
   const { id, } = useParams();
 
-  const dedupingInterval = 3_600_000;
-  const revalidateInterval = 3_600_000;
-  const refreshInterval = 3_600_000;
+  const SWRConfig = {
+    dedupingInterval : 3_600_000,
+    revalidateInterval : 3_600_000,
+    refreshInterval :3_600_000,
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  }
 
   const {
     data: campaignData,
@@ -83,28 +88,14 @@ export function EditCampaign ({ props }) {
     isLoading: allCommunitiesIsLoading,
   } = useSWR("communities.list", async () => {
     return await fetchCommunitiesList("communities.list")
-  }, {
-    dedupingInterval,
-    revalidateInterval,
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    refreshInterval
-  });
+  }, { ...SWRConfig, });
 
   const {
     data: allTechnologies,
     isLoading: allTechnologiesLoading,
   } = useSWR(`technologies.list`, async () => {
     return await fetchAllTechnologies();
-  }, {
-    dedupingInterval,
-    revalidateInterval,
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    refreshInterval
-  });
+  }, {...SWRConfig,});
 
   const {
     // initialData: allPartnersInitialData,
@@ -114,14 +105,7 @@ export function EditCampaign ({ props }) {
     isLoading: allPartnersIsLoading,
   } = useSWR("partners.list", async () => {
     await fetchAllPartners("partners.list")
-  }, {
-    dedupingInterval,
-    revalidateInterval,
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    refreshInterval
-  });
+  }, {...SWRConfig,});
 
   const {
     data: allEvents,
@@ -130,15 +114,7 @@ export function EditCampaign ({ props }) {
     error: allEventsError,
   } = useSWR(`events.listForCommunityAdmin`, async () => {
       return await fetchAllCampaignEventsBySuperAdmins();
-    },
-    {
-      dedupingInterval,
-      revalidateInterval,
-      refreshInterval,
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false
-    });
+    }, {...SWRConfig,});
 
   // const {
   //   // initialData: allManagersInitialData,
@@ -199,11 +175,11 @@ export function EditCampaign ({ props }) {
           ) : null
         }
         {
-          !campaignIsLoading && !campaignError ? (
+          !campaignIsLoading && !campaignError && campaignData ? (
             <CampaignDetailsAndPreview
               setStep={setStep}
               step={STEP}
-              campaignDetails={campaignDetails}
+              campaignDetails={campaignData}
               setCampaignDetails={handleCampaignDetailsChange}
               lists={lists}
             />) : null

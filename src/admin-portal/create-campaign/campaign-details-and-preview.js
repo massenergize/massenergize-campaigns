@@ -18,14 +18,14 @@ export function CampaignDetailsAndPreview ({ campaignDetails, setCampaignDetails
         </Col>
         <div className="text-right col-auto px-4">
           <ButtonGroup className="mr-2">
-            <Button variant="primary" onClick={() => setPreview(!preview)}>
+            {/*<Button variant="primary" onClick={() => setPreview(!preview)}>
               <FontAwesomeIcon icon={faEye}/> {preview ? "Hide Preview" : "Show Preview"}
-            </Button>
+            </Button>*/}
             {/*<Link to={`/${campaignDetails.id}?preview=true`} target={"_blank"}>*/}
             <Button variant="primary" onClick={() => {
               window.open(`/${campaignDetails.id}?preview=true`, "_blank")
             }}>
-              <FontAwesomeIcon icon={faExternalLink}/>
+              Preview <FontAwesomeIcon icon={faExternalLink}/>
             </Button>
             {/*</Link>*/}
           </ButtonGroup>
@@ -35,7 +35,7 @@ export function CampaignDetailsAndPreview ({ campaignDetails, setCampaignDetails
         <Col md={preview ? 5 : 12}>
           {/*<Container>*/}
           {/*region Header*/}
-          <Row className="pb-2 overflow-scroll">
+          <Row className="pb-2 overflow-x-auto">
             <Col className={"px-4"}>
               <div className="nav-tabs-container">
                 {
