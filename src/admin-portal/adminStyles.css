@@ -34,7 +34,7 @@
 	/*margin-bottom: 60px;*/
 
 	img {
-		height: 100px
+		height: 100px;
 	}
 }
 
@@ -294,4 +294,8 @@
 .tabs-con {
 	display: flex;
 	gap: 20px;
+}
+
+.bg-green {
+	background-color: rgb(14, 60, 15);
 }

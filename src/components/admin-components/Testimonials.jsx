@@ -1,7 +1,9 @@
-import React, { useReducer, useState } from "react";
-import { comments } from "../../utils/Constants";
+// import { useReducer, useState } from "react";
+// import Button from "./Button";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { AnimatePresence, motion as m } from "framer-motion";
+import { motion as m } from "framer-motion";
+import React, { useReducer, useState } from "react";
+// import { comments } from "../../utils/Constants";
 import { Col, Container, Row, Button } from "react-bootstrap";
 import Input from "./Input";
 import Dropdown from "./Dropdown";
@@ -65,15 +67,15 @@ const Testimonials = ({ testimonials }) => {
 	const users = [
 		{
 			id: 1,
-			name: "Chris Tom",
+			name: "Brad",
 		},
 		{
 			id: 2,
-			name: "Dwayne Simon",
+			name: "Ellen",
 		},
 		{
 			id: 3,
-			name: "Cecil Thomas",
+			name: "Frimpong",
 		},
 	];
 
@@ -117,7 +119,7 @@ const Testimonials = ({ testimonials }) => {
 			transition={{ duration: 0.3 }}
 		>
 			<m.div className="mb-4 pb-4">
-				{openCreateForm? (
+				{openCreateForm ? (
 					<Container className="border-dashed">
 						<form>
 							<Row className="py-4">
@@ -194,17 +196,13 @@ const Testimonials = ({ testimonials }) => {
 							<Row className="py-4">
 								<Col>
 									<div>
-										<Button
-											onSubmit={handleClick}
-											rounded={false}
-										>
+										<Button onSubmit={handleClick} rounded={false}>
 											<span>Create Testimonial</span>
 										</Button>
 										<Button
-											style={{marginLeft:10}}
-											onClick={()=> setOpenCreateForm(false)}
+											style={{ marginLeft: 10 }}
+											onClick={() => setOpenCreateForm(false)}
 											variant="danger"
-
 										>
 											<span>Cancel</span>
 										</Button>
