@@ -32,8 +32,9 @@ function CommentComponentForModal({
     const ref = comBox;
     if (ref.current) {
       ref.current.scrollTop = ref.current.scrollHeight;
+      console.log("It changed, and I scrolled");
     }
-  }, [comments]);
+  }, [commentItems]);
 
   useEffect(() => {
     const { user } = authUser || {};
@@ -51,14 +52,12 @@ function CommentComponentForModal({
     if (!comment.trim() || !name?.trim())
       return setError("Please provide a name and a valid comment");
 
-    console.log("Before you send anything this is the user --> ", user);
     const doesNotHaveName = !user?.full_name;
     setLoading(true);
     if (doesNotHaveName) {
       updateUser(
         { id: user?.id || null, full_name: name, follow_id: authUser?.id },
         (userObj, passed, error) => {
-          console.log("This is the returned user", userObj);
           if (!passed) {
             setLoading(false);
             return setError(error);
@@ -80,7 +79,7 @@ function CommentComponentForModal({
       if (!response || !response.success) return setError(response.error);
       const latestComments = response.data;
       const updated = { ...(technology || {}), comments: latestComments };
-      setCommentItems(latestComments.reverse());
+      setCommentItems([...latestComments].reverse());
       updateTechList(updated);
       setComment("");
 
@@ -145,7 +144,7 @@ function CommentComponentForModal({
           bottom: 0,
           width: "100%",
           padding: "10px 20px",
-          background: "white",
+          background: "#e8f0ea",
           borderBottomRightRadius: 5,
           borderBottomLeftRadius: 5,
         }}

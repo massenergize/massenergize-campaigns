@@ -76,6 +76,8 @@ function TechnologyFullViewPage({
   const { campaign_technology_id, campaign_id } = useParams();
   const id = campaign_technology_id;
 
+  console.log("This is the campaign", campaign);
+
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
     if (ref?.current)
@@ -224,7 +226,7 @@ function TechnologyFullViewPage({
     if (!user) return triggerRegistration();
     toggleModal({
       show: true,
-      title: "Add a comment",
+      title: "Read comments or add yours",
       iconName: "fa-comment",
       component: () => (
         <CommentComponentForModal
