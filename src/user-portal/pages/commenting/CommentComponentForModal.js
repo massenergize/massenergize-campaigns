@@ -44,7 +44,6 @@ function CommentComponentForModal({
   }, [authUser]);
 
   useEffect(() => {
-    console.log("The comments changed ooo", comments);
     setCommentItems(comments?.reverse());
   }, [comments]);
 

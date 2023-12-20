@@ -52,7 +52,7 @@ function TechnologyFullViewPage({
   updateUserInRedux,
 }) {
   const authUser = user;
-  const hasUser = authUser?.user;
+  // const hasUser = authUser?.user;
   const [mounted, setMounted] = useState(false);
   // const [idsToRefMap, setidsToRefMap] = useState({});
   const coachesRef = useRef();
@@ -76,8 +76,6 @@ function TechnologyFullViewPage({
   const [error, setError] = useState("");
   const { campaign_technology_id, campaign_id } = useParams();
   const id = campaign_technology_id;
-
-  console.log("This is the campaign", campaign);
 
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
