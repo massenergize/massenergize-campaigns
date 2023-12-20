@@ -1,72 +1,49 @@
 import React from "react";
 import "../../assets/styles/styles.scss";
+import classes from "classnames";
 
 const Input = ({
-	label,
-	placeholder,
-	required,
-	type ="textbox",
-	onChange,
-	maxLength,
-	value,
-}) => {
-	return (
-		<div className="input-container">
-			<label for={type === "textarea" ? "textarea" : "input"} className="text">
-				{label} {required && "*"}
-			</label>
-			{type === "textbox" ? (
-				<input
-					type="text"
-					placeholder={placeholder}
-					className="input"
-					required={required ? true : false}
-					onChange={(e) => {
-						onChange(e.target.value);
-					}}
-					maxLength={maxLength}
-					value={value}
-				/>
-			) : type === "email" ? (
-				<input
-					type="email"
-					placeholder={placeholder}
-					className="input"
-					required={required ? true : false}
-					onChange={(e) => {
-						onChange(e.target.value);
-					}}
-					maxLength={maxLength}
-					value={value}
-				/>
-			) : type === "textarea" ? (
-				<textarea
-					placeholder={placeholder}
-					className="input-textarea"
-					required={required ? true : false}
-					// minLength={800}
-					onChange={(e) => {
-						onChange(e.target.value);
-					}}
-					maxLength={maxLength}
-					value={value}
-				/>
-			) : (
-				type === "date" && (
-					<input
-						type="date"
-						placeholder={placeholder}
-						className="date-input"
-						required={required ? true : false}
-						onChange={(e) => {
-							onChange(e.target.value);
-						}}
-						// value={value}
-					/>
-				)
-			)}
-		</div>
-	);
+                 id,
+                 name,
+                 label,
+                 placeholder,
+                 required,
+                 type = "text",
+                 onChange,
+                 maxLength,
+                 value,
+               }) => {
+  return (
+    <div className="input-container">
+      <label htmlFor={id} className="text">
+        {label} {required && "*"}
+      </label>
+      {
+        type === "textarea" ? (
+          <textarea
+            id={id || name}
+            name={name || id}
+            placeholder={placeholder}
+            className="input-textarea"
+            required={required}
+            onChange={(e) => {onChange(e.target.value);}}
+            maxLength={maxLength}
+            value={value}
+          />
+        ) : <input
+          id={id || name}
+          name={name || id}
+          type={type === "textbox" ? "text" : type}
+          placeholder={placeholder}
+          className={classes(type === "date" ? "date-input" : "input")}
+          required={required}
+          onChange={(e) => {onChange(e.target.value);}}
+          maxLength={maxLength}
+          value={value}
+        />
+      }
+    </div>
+  );
 };
 
 export default Input;

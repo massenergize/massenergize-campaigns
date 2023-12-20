@@ -7,7 +7,6 @@ import {
   fetchAllCampaignEventsBySuperAdmins,
   fetchAllPartners,
   fetchAllTechnologies,
-  fetchCampaign
 } from "../../../requests/campaign-requests";
 import { fetchCommunitiesList } from "../../../requests/community-routes";
 import { CAMPAIGN } from "../../../mocks/campaign";
@@ -186,7 +185,7 @@ export function EditCampaign ({ props }) {
 
   return (
     <AdminLayout>
-      <div className={"px-3"}>
+      <div className={""}>
         {
           campaignIsLoading ? (
             <Loading/>

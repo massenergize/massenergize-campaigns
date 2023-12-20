@@ -70,8 +70,9 @@ const Partners = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
   } = lists;
 
   return (
-    <m.div initial={{ y: " 10%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
-      <Container>
+    // <m.div initial={{ y: " 10%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
+    <>
+    <Container>
         {/* <form> */}
         <Row className="my-4">
           <Col>
@@ -222,7 +223,8 @@ const Partners = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
           </Row>
         </form>
       </Container>
-    </m.div>
+    </>
+    // </m.div>
   );
 };
 

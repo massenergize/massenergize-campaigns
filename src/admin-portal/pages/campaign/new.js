@@ -168,7 +168,7 @@ export function NewCampaign ({ props }) {
 
   return (
     <AdminLayout>
-      <div className={"px-3"}>
+      <div className={""}>
         {
           STEP === "START" ? (
             <StartCampaign

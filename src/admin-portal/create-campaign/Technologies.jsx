@@ -15,47 +15,7 @@ import { Button, Card } from "react-bootstrap";
 const Technologies = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
   const { technologies } = campaignDetails;
 
-  const opts = [
-    {
-      id: 1,
-      image: {
-        url:
-          "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg",
-      },
-      name: "Heat Pump",
-      value: "Heat Pump",
-    },
-    {
-      id: 2,
-      image: {
-        url:
-          "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg",
-      },
-      name: "Solar Community",
-      value: "Solar Community",
-    },
-    {
-      id: 3,
-      image: {
-        url:
-          "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg",
-      },
-      name: "Home Solar",
-      value: "Home Solar",
-    },
-    {
-      id: 4,
-      image: {
-        url:
-          "https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg",
-      },
-      name: "Lighting",
-      value: "Lighting",
-    },
-  ];
-
   const navigate = useNavigate();
-
 
   const {
     allPartners,
@@ -77,7 +37,7 @@ const Technologies = ({ campaignDetails, setCampaignDetails, setStep, lists }) =
   }
 
   return (
-    <m.div initial={{ y: " 10%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
+    // <m.div initial={{ y: " 10%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
       <Container>
         <form>
           <Row>
@@ -114,10 +74,10 @@ const Technologies = ({ campaignDetails, setCampaignDetails, setStep, lists }) =
               let image = tech?.image?.url;
               const { id, name, } = tech;
               return (
-                <Col md={4} className={"mb-3"}>
-                 {/* <Card style={{ width: '18rem' }} className={"position-relative"}>
-                    <Card.Img variant="top" src={image}/>
+                <Col className={"mb-3 h-100"} style={{height : 300}}>
+                  <Card style={{ width: '18rem' }} className={"position-relative"}>
                     <Card.Body>
+                      <Card.Img variant="top" src={image}/>
                       <Card.Title>{name}</Card.Title>
                       <Card.Text>{name}</Card.Text>
                     </Card.Body>
@@ -127,10 +87,10 @@ const Technologies = ({ campaignDetails, setCampaignDetails, setStep, lists }) =
                     }} className="image-close-btn">
                     <FontAwesomeIcon icon={faClose}/>
                   </span>
-                  </Card>*/}
+                  </Card>
 
 
-                  <div key={tech?.id} className={"border rounded position-relative"}>
+                  {/*<div key={tech?.id} className={"border rounded position-relative"}>
                     <div className="small-image-container rounded" style={{
                       backgroundImage: `url(${image})`,
                       backgroundSize: "cover",
@@ -150,7 +110,7 @@ const Technologies = ({ campaignDetails, setCampaignDetails, setStep, lists }) =
                     }} className="image-close-btn">
                     <FontAwesomeIcon icon={faClose}/>
                   </span>
-                  </div>
+                  </div>*/}
                 </Col>);
             })}
           </Row>
@@ -165,7 +125,7 @@ const Technologies = ({ campaignDetails, setCampaignDetails, setStep, lists }) =
           </Row>
         </form>
       </Container>
-    </m.div>
+    // </m.div>
   );
 };
 

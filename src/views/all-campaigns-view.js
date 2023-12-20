@@ -227,21 +227,11 @@ export function AllCampaignsView ({}) {
           return id;
         },
         style: {
-          width: "70px",
+          width: "100px",
         },
         disableSortBy: true,
         Cell: ({ cell }) => {
           const { value, row: { id, values }, row } = cell;
-
-/*          return <Dropdown as={ButtonGroup}>
-            <Link to={`/admin/campaign/${value}/stats`} className={'btn btn-primary'}>View Stats</Link>
-
-            <Dropdown.Toggle split variant="primary" id="dropdown-split-basic" />
-
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">Preview</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>*/
 
           return <ButtonGroup className="mr-2">
             <Button variant="primary" onClick={() => {navigate(`/admin/campaign/${value}/stats`)}}>
@@ -251,6 +241,11 @@ export function AllCampaignsView ({}) {
               navigate(`/admin/campaign/${value}/edit`)
             }}>
               <FontAwesomeIcon icon={faFileEdit}/>
+            </Button>
+            <Button variant="primary" onClick={() => {
+              navigate(`/${value}`)
+            }}>
+              <FontAwesomeIcon icon={faEye}/>
             </Button>
           </ButtonGroup>
         },

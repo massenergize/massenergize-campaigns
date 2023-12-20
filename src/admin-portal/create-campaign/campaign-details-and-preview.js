@@ -12,12 +12,11 @@ export function CampaignDetailsAndPreview ({ campaignDetails, setCampaignDetails
 
   return (
     <>
-      <Row className="justify-content-between mb-2">
-        <Col>
-          <h4 className="mb-0">Campaign Details</h4>
+      <Row className="justify-content-between mb-4 mt-4">
+        <Col className={"px-4"}>
+          <h4 className="mb-0">{campaignDetails.title}</h4>
         </Col>
-        <div className="text-right col-auto">
-
+        <div className="text-right col-auto px-4">
           <ButtonGroup className="mr-2">
             <Button variant="primary" onClick={() => setPreview(!preview)}>
               <FontAwesomeIcon icon={faEye}/> {preview ? "Hide Preview" : "Show Preview"}
@@ -30,7 +29,6 @@ export function CampaignDetailsAndPreview ({ campaignDetails, setCampaignDetails
             </Button>
             {/*</Link>*/}
           </ButtonGroup>
-
         </div>
       </Row>
       <Row>
@@ -38,7 +36,7 @@ export function CampaignDetailsAndPreview ({ campaignDetails, setCampaignDetails
           {/*<Container>*/}
           {/*region Header*/}
           <Row className="pb-2 overflow-scroll">
-            <Col>
+            <Col className={"px-4"}>
               <div className="nav-tabs-container">
                 {
                   campaignPages?.map((page) => (
