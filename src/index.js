@@ -9,13 +9,16 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import AppRouter from "./routes/AppRouter";
 import "@kehillahglobal/ui/dist/index.css";
+import BubblyBalloonProvider from "./components/bubbly-balloon/bubbly-balloon-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
+    <BubblyBalloonProvider>
     <BrowserRouter>
       <AppRouter />
     </BrowserRouter>
+    </BubblyBalloonProvider>
   </Provider>
 );
 
