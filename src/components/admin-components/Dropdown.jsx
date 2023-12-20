@@ -50,13 +50,6 @@ const Dropdown = ({
     }
   };
 
-  // useEffect(() => {
-  // 	onItemSelect && onItemSelect(nv, selectedItems);
-  // 	setSelectedItem(nselectedItem);
-  // 	// setLabelShowing();
-  // 	console.log(nselectedItem, selectedItems);
-  // }, []);
-
   useEffect(() => {
     function handleClickOutside (event) {
       if (ref.current && !ref.current.contains(event.target)) {
