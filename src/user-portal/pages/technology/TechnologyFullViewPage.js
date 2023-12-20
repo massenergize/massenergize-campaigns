@@ -147,7 +147,7 @@ function TechnologyFullViewPage({
     coaches,
     testimonials,
     likes,
-    views,
+    campaign_technology_views,
     image,
     comments,
     overview,
@@ -256,6 +256,7 @@ function TechnologyFullViewPage({
     });
   };
 
+  const finaliseGetUpdates = ({}) => {};
   const isReallyLong = description.length > 1000; // This is not a good way of checking, change it later
 
   return (
@@ -282,7 +283,7 @@ function TechnologyFullViewPage({
                 liked={technology?.has_liked}
                 likes={likes}
                 like={() => like(authUser?.user)}
-                views={views}
+                views={campaign_technology_views}
                 comments={comments?.length || 0}
               />
               <p className="mt-3" style={{ textAlign: "justify" }}>
@@ -350,7 +351,18 @@ function TechnologyFullViewPage({
                         <JoinUsForm
                           close={close}
                           confirmText="Get Updates"
+                          apiURL="/campaigns.technology.follow"
+                          processPayload={(payload) => {
+                            const data = {
+                              ...(payload || {}),
+                              campaign_technology_id,
+                            };
+
+                            delete data?.campaign_id;
+                            return data;
+                          }}
                           callbackOnSubmit={({ close }) => close && close()}
+                          // onConfirm={finaliseGetUpdates}
                         />
                       ),
                       fullControl: true,

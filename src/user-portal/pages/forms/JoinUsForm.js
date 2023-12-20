@@ -26,6 +26,8 @@ function JoinUsForm({
   confirmText,
   cancelText,
   noForm,
+  apiURL,
+  processPayload,
 }) {
   const [form, setForm] = useState({});
   const [email, setEmail] = useState("");
@@ -69,14 +71,15 @@ function JoinUsForm({
     }
 
     setLoading(true);
-    const payload = {
+    let payload = {
       email,
       campaign_id: campaign?.id,
       community_id: comId,
       ...otherContent,
     };
+    payload = processPayload ? processPayload(payload) : payload;
     makeNotification("Well done, thank you for joining us!", true);
-    apiCall("/campaigns.follow", payload).then((response) => {
+    apiCall(apiURL || "/campaigns.follow", payload).then((response) => {
       setLoading(false);
       if (!response?.success) {
         setError("Error: ", response.error);

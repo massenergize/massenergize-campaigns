@@ -1,5 +1,5 @@
 import { apiCall } from "../../api/messenger";
-import { CAMPAIGN_INFORMATION_URL } from "../../api/urls";
+import { CAMPAIGN_INFORMATION_URL, CAMPAIGN_VIEW_URL } from "../../api/urls";
 import JoinUsForm from "../../user-portal/pages/forms/JoinUsForm";
 import {
   DO_NOTHING,
@@ -107,9 +107,10 @@ export const appInnitAction = (campaignId, cb) => {
     const userContent = user?.email ? { email: user.email } : {};
     Promise.all([
       apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
+      apiCall(CAMPAIGN_VIEW_URL, { campaign_id: campaignId }),
     ])
       .then((response) => {
-        const [campaignInformation] = response;
+        const [campaignInformation, campaignViewResponse] = response;
         const data = campaignInformation.data;
         // console.log("INSIDE INNIT", data, campaignId);
         dispatch(loadCampaignInformation(data));
@@ -118,6 +119,8 @@ export const appInnitAction = (campaignId, cb) => {
           dispatch(setTestimonialsActions(data?.my_testimonials || []));
           cb && cb(data, campaignInformation?.success);
         }
+
+        console.log("CAMPAIGN VIEW RESPONSE", campaignViewResponse);
       })
       .catch((e) => console.log("ERROR_IN_INNIT:", e?.toString()));
   };
