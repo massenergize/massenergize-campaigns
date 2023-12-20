@@ -107,7 +107,10 @@ export const appInnitAction = (campaignId, cb) => {
     const userContent = user?.email ? { email: user.email } : {};
     Promise.all([
       apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
-      apiCall(CAMPAIGN_VIEW_URL, { campaign_id: campaignId }),
+      apiCall(CAMPAIGN_VIEW_URL, {
+        campaign_id: campaignId,
+        url: window.location.href,
+      }),
     ])
       .then((response) => {
         const [campaignInformation, campaignViewResponse] = response;
@@ -119,8 +122,6 @@ export const appInnitAction = (campaignId, cb) => {
           dispatch(setTestimonialsActions(data?.my_testimonials || []));
           cb && cb(data, campaignInformation?.success);
         }
-
-        console.log("CAMPAIGN VIEW RESPONSE", campaignViewResponse);
       })
       .catch((e) => console.log("ERROR_IN_INNIT:", e?.toString()));
   };

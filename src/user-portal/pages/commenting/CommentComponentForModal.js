@@ -4,6 +4,7 @@ import Loading from "../../../components/pieces/Loading";
 import { relativeTimeAgo } from "../../../utils/utils";
 import Notification from "../../../components/pieces/Notification";
 import { apiCall } from "../../../api/messenger";
+import CommentDeleteConfirmation from "../technology/CommentDeleteConfirmation";
 
 function CommentComponentForModal({
   comments,
@@ -13,6 +14,8 @@ function CommentComponentForModal({
   technology,
   updateTechList,
   updateUserInRedux,
+  commentIsForUser,
+  onDelete,
 }) {
   const [commentItems, setCommentItems] = useState([]);
   const [name, setName] = useState("");
@@ -32,7 +35,6 @@ function CommentComponentForModal({
     const ref = comBox;
     if (ref.current) {
       ref.current.scrollTop = ref.current.scrollHeight;
-      console.log("It changed, and I scrolled");
     }
   }, [commentItems]);
 
@@ -42,6 +44,7 @@ function CommentComponentForModal({
   }, [authUser]);
 
   useEffect(() => {
+    console.log("The comments changed ooo", comments);
     setCommentItems(comments?.reverse());
   }, [comments]);
 
@@ -102,20 +105,27 @@ function CommentComponentForModal({
           const { user, text, created_at } = com || {};
           const message = text || "...";
           const community = user?.community;
+
+          const isForCurrentUser = commentIsForUser(com, authUser);
           return (
             <div
               className="mb-2 mt-1 pb-2"
               style={{ border: "solid 0px #f5f5f5", borderBottomWidth: 1 }}
-              key={index?.toString()}
+              key={com?.id}
             >
               <h6
                 style={{
-                  textDecoration: "underline",
+                  // textDecoration: "underline",
                   fontSize: 14,
+                  fontWeight: "bold",
+                  color: isForCurrentUser
+                    ? "var(--app-medium-green)"
+                    : "var(--app-deep-green)",
                 }}
               >
-                <span style={{ color: "var(--app-deep-green)" }}>
-                  {user?.full_name}{" "}
+                <span style={{}}>
+                  {user?.full_name || "..."}{" "}
+                  {isForCurrentUser ? " (Yours)" : ""}{" "}
                 </span>{" "}
                 {community && " from "}
                 <span style={{ color: "var(--app-medium-green)" }}>
@@ -130,6 +140,27 @@ function CommentComponentForModal({
                   flexDirection: "row",
                 }}
               >
+                <CommentDeleteConfirmation
+                  show={isForCurrentUser}
+                  onDelete={() =>
+                    onDelete &&
+                    onDelete(com, (rem) =>
+                      setCommentItems([...(rem || [])].reverse())
+                    )
+                  }
+                />
+                {/* <span
+                  onClick={() => prompt("Nation One")}
+                  className="touchable-opacity"
+                  style={{
+                    textDecoration: "underline",
+                    color: "#a52424",
+                    // marginLeft: 10,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Delete{" "}
+                </span> */}
                 <span style={{ marginLeft: "auto", color: "#cbcbcb" }}>
                   {relativeTimeAgo(created_at)}
                 </span>

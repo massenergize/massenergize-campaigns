@@ -34,6 +34,7 @@ import {
   updateUserAction,
 } from "../../../redux/actions/actions";
 import ShareBox from "../sharing/ShareBox";
+import CommentDeleteConfirmation from "./CommentDeleteConfirmation";
 
 const DEFAULT_READ_HEIGHT = 190;
 const COMMENT_LENGTH = 40;
@@ -106,6 +107,7 @@ function TechnologyFullViewPage({
   const campaignExists = campaign && campaign !== LOADING;
 
   const updateTechList = (data, id) => {
+    setTechnology(data);
     updateTechObjs({ ...(techs || {}), [id]: data });
   };
 
@@ -129,7 +131,7 @@ function TechnologyFullViewPage({
         }
         const data = response?.data;
         updateTechList(data, id);
-        setTechnology(data);
+        // setTechnology(data);
         setMounted(true);
       })
       .catch((e) => {
@@ -178,7 +180,7 @@ function TechnologyFullViewPage({
     apiCall("/campaigns.technology.like", payload).then((response) => {
       if (!response || !response?.success)
         return console.log("ERROR_LIKING: ", response?.error);
-      updateTechList(response?.data);
+      updateTechList(response?.data, id);
     });
   };
 
@@ -193,7 +195,6 @@ function TechnologyFullViewPage({
           close={close}
           confirmText="Continue"
           callbackOnSubmit={({ user }) => {
-            console.log("USER AFTER REGISTRATION", user);
             close && close();
             triggerCommentBox(user);
           }}
@@ -222,7 +223,6 @@ function TechnologyFullViewPage({
   // };
   const triggerCommentBox = (userObject) => {
     const { community, user } = userObject || {};
-    console.log("I am triggering comment box", userObject);
     if (!user) return triggerRegistration();
     toggleModal({
       show: true,
@@ -235,9 +235,11 @@ function TechnologyFullViewPage({
           authUser={userObject}
           updateUser={updateUser}
           technology={technology}
+          commentIsForUser={commentIsForUser}
+          onDelete={deleteComment}
           updateTechList={(data) => {
-            setTechnology(data);
-            updateTechList(data, technology?.id);
+            // setTechnology(data);
+            updateTechList(data, id);
           }}
         />
       ),
@@ -258,7 +260,37 @@ function TechnologyFullViewPage({
     });
   };
 
-  const finaliseGetUpdates = ({}) => {};
+  const commentIsForUser = (comment, userFromAuth) => {
+    const { user } = userFromAuth || {};
+    // console.log("AUTH USER, COMMENT USER", user, comment);
+
+    if (!user) return false;
+
+    return comment?.user?.id === user?.id;
+  };
+
+  const deleteComment = (comment, cb) => {
+    let comments = technology?.comments || [];
+    comments = comments.filter((c) => c.id !== comment?.id);
+    const updated = { ...(technology || {}), comments };
+    updateTechList(updated, id);
+    cb && cb(comments); // KULULU: lets us send the remaining comments back to the modal  to give a quick deletion feel, before the api req runs
+    // return;
+    apiCall("/campaigns.technologies.comments.delete", {
+      id: comment?.id || null,
+      user_id: comment?.user?.id || null,
+    })
+      .then((response) => {
+        const { data, error, success } = response || {};
+        if (!success) return console.log("COMMENT_DELETION_ERROR_BE:", error);
+        updateTechList({ ...(technology || {}), comments: data }, id);
+        cb && cb(data);
+      })
+      .catch((e) =>
+        console.log("COMMENT_DELETION_ERROR_SYNT: ", e?.toString())
+      );
+  };
+
   const isReallyLong = description.length > 1000; // This is not a good way of checking, change it later
 
   return (
@@ -427,17 +459,32 @@ function TechnologyFullViewPage({
                   <small style={{ color: "" }}>This is what people think</small>
                   <div className="mt-2">
                     {comments?.slice(0, 3)?.map((com, index) => {
+                      const isForCurrentUser = commentIsForUser(com, authUser);
+
                       const { user, text, created_at } = com || {};
                       const message = text || "...";
                       return (
-                        <div className="mb-1 mt-1" key={index?.toString()}>
+                        <div
+                          className="mb-1 mt-1"
+                          style={{
+                            border: "solid 0px #eae9e9",
+                            borderBottomWidth: 1,
+                            paddingBottom: 10,
+                          }}
+                          key={com?.id}
+                        >
                           <h6
                             style={{
-                              textDecoration: "underline",
+                              // textDecoration: "underline",
                               fontSize: 14,
+                              fontWeight: "bold",
+                              color: isForCurrentUser
+                                ? "var(--app-medium-green)"
+                                : "var(--app-deep-green)",
                             }}
                           >
-                            {user?.full_name || "..."}
+                            {user?.full_name || "..."}{" "}
+                            {isForCurrentUser ? " (Yours)" : ""}
                           </h6>
                           <small>
                             {message.substr(0, COMMENT_LENGTH)}
@@ -458,6 +505,7 @@ function TechnologyFullViewPage({
                               <></>
                             )}
                           </small>
+
                           <small
                             style={{
                               width: "100%",
@@ -465,7 +513,19 @@ function TechnologyFullViewPage({
                               flexDirection: "row",
                             }}
                           >
-                            <span style={{ marginLeft: "", color: "#cbcbcb" }}>
+                            <CommentDeleteConfirmation
+                              show={isForCurrentUser}
+                              onDelete={() => deleteComment(com)}
+                            />
+                            <span
+                              style={{
+                                marginLeft: "",
+                                color: "#cbcbcb",
+                                // marginRight: 10,
+                                marginLeft: "auto",
+                                fontSize: 12,
+                              }}
+                            >
                               {relativeTimeAgo(created_at)}
                             </span>
                           </small>
