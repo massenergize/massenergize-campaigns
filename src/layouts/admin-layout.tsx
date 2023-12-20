@@ -12,6 +12,8 @@ import {logUserOut} from "../redux/actions/actions";
 import {apiCall} from "../api/messenger";
 import AuthGuard from "../guards/AuthGuard";
 import { BubblyBalloonProvider } from "../components/bubbly-balloon/bubbly-balloon-context";
+import {useDispatch} from "react-redux";
+
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -22,8 +24,13 @@ export function AdminLayout (props: AdminLayoutProps) {
   const [shrink, setShrink] = useState(true);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-	const userInfo = {};
+	const userInfo = {
+		name: "Kehillah Global",
+		avatar: "https://i.pravatar.cc/150?img=3",
+		email: "abd@gmail.com",
+	};
 	return (
 		<BubblyBalloonProvider>
 		<SWRConfig value={{ dedupingInterval: 500000, fetcher: fetchData }}>
@@ -43,8 +50,9 @@ export function AdminLayout (props: AdminLayoutProps) {
 								if (iAmSureIWantToLogOut) {
 									apiCall("/auth.logout", ).then((res) => {
 										if (res.success) {
-											logUserOut()
-											// window.location.href = "/login";
+											// @ts-ignore
+											dispatch(logUserOut());
+											window.location.href = "/login";
 										}
 									});
 								}
