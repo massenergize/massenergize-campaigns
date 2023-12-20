@@ -8,6 +8,8 @@ import debounce from 'lodash/debounce';
 import { CAMPAIGN_MANAGERS } from "../../mocks/campaign";
 import { ProgressButton } from "../../components/progress-button/progress-button";
 import Modal from "react-bootstrap/Modal";
+import Input from "../../components/admin-components/Input";
+import FileUploader from "../../components/admin-components/FileUploader";
 
 
 const Managers = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
@@ -260,7 +262,90 @@ const Managers = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
         </Col>
       </Row>
 
-      <Modal size={"lg"} show={showSearchModal} onHide={handleClose}>
+      <Row>
+        <Col>
+          <Row className="pt-4 mt-4">
+            <Col className="pt-4 mt-4">
+              <h5 className="theme-color">KEY CONTACT </h5>
+              <p className="custom-letter-spacing-p mt-3">
+                Please include details of the key contact of this campaign
+              </p>
+            </Col>
+          </Row>
+          <Row className="py-4">
+            <Col>
+              <Input
+                id="fullName"
+                name="fullName"
+                label="Full Name"
+                placeholder="Enter full name here ..."
+                required={true}
+                type="textbox"
+                value={campaignDetails?.key_contact?.name}
+                onChange={(val) => {
+                  handleFieldChange("full_name", val);
+                  handleFieldChange("key_contact", {
+                    ...campaignDetails.key_contact,
+                    name : val
+                  })
+                }}
+              />
+            </Col>
+          </Row>
+          <Row className="py-4">
+            <Col>
+              <Input
+                id="email"
+                name="email"
+                label="Email of Contact"
+                placeholder="Enter email here ..."
+                required={true}
+                type="email"
+                onChange={(val) => {
+                  handleFieldChange("email", val);
+                  handleFieldChange("key_contact", {
+                    ...campaignDetails.key_contact,
+                    email : val
+                  })
+                }}
+              />
+            </Col>
+          </Row>
+          <Row className="py-4">
+            <Col>
+              <Input
+                id="contact"
+                name="contact"
+                label="Phone Number"
+                placeholder="Enter Phone Number here...."
+                required={true}
+                type="textbox"
+                onChange={(val) => {
+                  handleFieldChange("phone_number", val);
+                  handleFieldChange("phone_number", {
+                    ...campaignDetails.key_contact,
+                    phone_number : val
+                  })
+                }}
+              />
+            </Col>
+          </Row>
+          <Row className="py-4">
+            <Col>
+              <FileUploader
+                required={false}
+                id="key_contact_profile"
+                text="Upload a picture of the key contact"
+                valueExtractor={(val) => {
+                  handleFieldChange("key_contact_image", val);
+                }}
+              />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+
+      <Modal size={"lg"} show={showSearchModal} centered onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title className={"text-sm"}>
             Search for a manager

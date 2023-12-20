@@ -163,7 +163,7 @@
 /* ................... Preview Campaigns ................ */
 .gradient-bg {
 	/* background-image: linear-gradient(to right, #80b1ff, #ffa2fd); */
-	width: 100%;
+	/*width: 100%;*/
 	height: 25rem;
 	/* background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
 		url("https://admin.risingkashmir.com/Source/News/29447324-0b29-4a35-94b8-424c1a3d6971.jpeg"); */
@@ -177,7 +177,7 @@
 	height: 330px;
 	color: white;
 	padding: 2rem;
-	width: 95%;
+	/*width: 95%;*/
 }
 
 .campaign-page-link {

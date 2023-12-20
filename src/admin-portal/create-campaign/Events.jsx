@@ -20,13 +20,9 @@ const Events = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
 	console.log({ allEvents })
 
 	return (
-		<m.div
-			initial={{ y: " 10%" }}
-			animate={{ y: 0 }}
-			transition={{ duration: 0.3 }}
-		>
+		// <m.div initial={{ y: " 10%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
 			<CampaignEventsView events={allEvents}/>
-		</m.div>
+		// </m.div>
 	);
 };
 
