@@ -35,6 +35,8 @@ import {
 } from "../../../redux/actions/actions";
 import ShareBox from "../sharing/ShareBox";
 import CommentDeleteConfirmation from "./CommentDeleteConfirmation";
+import DoMore from "../landing-page/DoMore";
+import OneTechEventSection from "./OneTechEventSection";
 
 const DEFAULT_READ_HEIGHT = 190;
 const COMMENT_LENGTH = 40;
@@ -60,6 +62,8 @@ function TechnologyFullViewPage({
   const incentivesRef = useRef();
   const detailsRef = useRef();
   const testimonialsRef = useRef();
+  const communitiesRef = useRef();
+  const eventsRef = useRef();
 
   const targetSection = fetchUrlParams("section");
   const salt = fetchUrlParams("salt");
@@ -70,6 +74,8 @@ function TechnologyFullViewPage({
     incentives: incentivesRef,
     details: detailsRef,
     testimonials: testimonialsRef,
+    communities: communitiesRef,
+    events: eventsRef,
   };
 
   const [technology, setTechnology] = useState(LOADING);
@@ -96,7 +102,6 @@ function TechnologyFullViewPage({
   };
 
   useEffect(() => {
-    console.log("SALT", salt);
     scrollToSection(targetSection);
   }, [mounted, campaign_technology_id, campaign_id, salt]);
 
@@ -162,7 +167,9 @@ function TechnologyFullViewPage({
     vendors_section,
     coaches_section,
     vendors,
+    events,
   } = technology;
+
 
   const like = (userObject) => {
     const { community, user } = userObject || {};
@@ -627,6 +634,15 @@ function TechnologyFullViewPage({
         </div>
 
         <MoreDetailsSection data={more_info_section} sectionId="more-detail" />
+
+        <div ref={eventsRef}>
+          <OneTechEventSection
+            style={{ background: "white" }}
+            wrapperStyle={{ padding: 24 }}
+            events={events}
+          />
+        </div>
+        {/* <div ref={communitiesRef}><DoMore campaign={campaign} /></div> */}
       </div>
       <Footer toggleModal={toggleModal} />
     </div>

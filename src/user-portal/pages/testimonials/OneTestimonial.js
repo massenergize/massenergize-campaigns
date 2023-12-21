@@ -49,7 +49,8 @@ function OneTestimonial({
     }, []);
   };
 
-  const initiateTestimonialCreation = () => {
+  const initiateTestimonialCreation = (userObject) => {
+    const { user } = userObject || {};
     if (!user) return triggerRegistration();
     toggleModal({
       show: true,
@@ -64,10 +65,19 @@ function OneTestimonial({
   const triggerRegistration = () => {
     toggleModal({
       show: true,
-      title: `Tell us where you are from, before you add a testimonial`,
-      iconName: "fa-thumbs-up",
+      title: `Before you add a testimonial, we would like to know you`,
+      // iconName: "fa-thumbs-up",
+
       component: ({ close }) => (
-        <JoinUsForm close={close} callbackOnSubmit={({ user }) => {}} />
+        <JoinUsForm
+          close={close}
+          callbackOnSubmit={({ user }) => {
+            close && close();
+            console.log("USER AFTER CALL ON SUBMIT: ", user);
+            initiateTestimonialCreation(user);
+          }}
+          confirmText="Continue"
+        />
       ),
 
       fullControl: true,
@@ -107,16 +117,18 @@ function OneTestimonial({
       <SectionTitle>{title || "..."}</SectionTitle>
       <Row>
         <Col lg={9}>
-          <img
-            className="elevate-float-pro mt-3"
-            src={image?.url}
-            style={{
-              width: "100%",
-              height: 420,
-              objectFit: "cover",
-              borderRadius: 10,
-            }}
-          />
+          {image?.url && (
+            <img
+              className="elevate-float-pro mt-3"
+              src={image?.url}
+              style={{
+                width: "100%",
+                height: 420,
+                objectFit: "cover",
+                borderRadius: 10,
+              }}
+            />
+          )}
 
           <p className="mt-4" style={{ textAlign: "justify" }}>
             <span
@@ -189,7 +201,7 @@ function OneTestimonial({
             })}
           </ul>
           <div
-            onClick={() => initiateTestimonialCreation()}
+            onClick={() => initiateTestimonialCreation(authUser)}
             className="mt-2 touchable-opacity"
             style={{
               background: "var(--app-medium-green)",

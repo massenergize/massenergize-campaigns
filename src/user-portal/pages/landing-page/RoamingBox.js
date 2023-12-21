@@ -30,7 +30,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
                     background: "antiquewhite",
                   }}
                 >
-                  <p style={{ padding: "15px 25px", fontSize: 18 }}>
+                  <p style={{ padding: "15px 25px" }}>
                     {preview}
                     {isLong ? "..." : ""}
                   </p>
@@ -88,17 +88,27 @@ function RoamingBox({ advert, keyContact, showMore }) {
                 <span>{keyContact?.name || "..."}</span>
               </h6>
               <p
-                className="mb-1"
+                onClick={() => {
+                  window.open(`mailto:${keyContact?.email}`, "_blank");
+                }}
+                className="mb-1 touchable-opacity"
                 style={{
                   display: "flex",
                   flexDirection: "row",
+                  textDecoration: "underline",
                   alignItems: "center",
                 }}
               >
                 <i className=" fa fa-envelope" style={{ marginRight: 6 }} />
                 <span> {keyContact?.email}</span>
               </p>
-              <p>
+              <p
+                className="touchable-opacity"
+                onClick={() => {
+                  window.open(`tel:${keyContact?.phone_number}`, "_blank");
+                }}
+                style={{ textDecoration: "underline" }}
+              >
                 <i className="fa fa-phone" />{" "}
                 <span>{keyContact?.phone_number}</span>
               </p>

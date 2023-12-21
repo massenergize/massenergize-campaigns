@@ -157,6 +157,7 @@ function NewTestimonialForm({
           <Form.Control
             className="mt-2"
             type="file"
+            accept="image/*"
             onChange={(e) => {
               const files = e?.target.files || [];
               const value = files[0];
