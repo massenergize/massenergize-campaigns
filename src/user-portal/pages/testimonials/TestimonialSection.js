@@ -5,7 +5,6 @@ import CenteredWrapper from "../wrappers/CenteredWrapper";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
 
 function TestimonialSection({ sectionId, technologies, defaultTab }) {
- 
   const testimonialsOfEachTech = technologies?.map(
     ({
       campaign_technology,
@@ -58,7 +57,6 @@ function TestimonialSection({ sectionId, technologies, defaultTab }) {
     })
   );
 
-
   return (
     <div
       id={sectionId}
@@ -82,6 +80,9 @@ function TestimonialSection({ sectionId, technologies, defaultTab }) {
             >
               Testimonials
             </h2>
+            <p>
+              Click on any of the tabs to see testimonials under each technology
+            </p>
           </div>
 
           <CustomTabView

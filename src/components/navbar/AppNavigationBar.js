@@ -6,7 +6,7 @@ import { NAVIGATION_MENU } from "../../user-portal/data/user-portal-dummy-data";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addUrlParams } from "../../utils/utils";
+import { addUrlParams, generateUniqueRandomString } from "../../utils/utils";
 
 const EXCLUDE_FROM_NAV = ["communities"];
 function AppNavigationBar({ menu }) {
@@ -63,6 +63,7 @@ function AppNavigationBar({ menu }) {
                   id="basic-nav-dropdown"
                 >
                   {menu?.children?.map((child) => {
+                    const salt = generateUniqueRandomString(6);
                     const params = {
                       section: menu.key,
                       tab: child.key,
@@ -74,7 +75,7 @@ function AppNavigationBar({ menu }) {
                         style={{ textTransform: "uppercase" }}
                         key={child?.key}
                         onClick={() => {
-                          navigator(child.url || "#");
+                          navigator(`${child.url}&salt=${salt}` || "#");
                         }}
                         // onClick={() => navigator(`${route}`)}
                       >

@@ -28,7 +28,7 @@ function Footer({ toggleModal, campaign }) {
       >
         <Container>
           <Col lg={{ span: 6, offset: 3 }}>
-            <h4 style={{ color: "white" }}>FOLLOW</h4>
+            <h4 style={{ color: "white" }}>NEWSLETTER</h4>
             <p style={{ color: "white" }}>
               Unlock all the exclusive deals from our vendors, and stay updated
               with all actions you can take to help save the planet!

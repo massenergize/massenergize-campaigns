@@ -62,6 +62,7 @@ function TechnologyFullViewPage({
   const testimonialsRef = useRef();
 
   const targetSection = fetchUrlParams("section");
+  const salt = fetchUrlParams("salt");
 
   const idsToRefMap = {
     coaches: coachesRef,
@@ -95,9 +96,9 @@ function TechnologyFullViewPage({
   };
 
   useEffect(() => {
-    console.log(campaign_technology_id, campaign_id);
+    console.log("SALT", salt);
     scrollToSection(targetSection);
-  }, [mounted, campaign_technology_id, campaign_id]);
+  }, [mounted, campaign_technology_id, campaign_id, salt]);
 
   useEffect(() => {
     if (technology?.campaign_technology_id) recorderAView();

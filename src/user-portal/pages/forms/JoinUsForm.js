@@ -39,7 +39,7 @@ function JoinUsForm({
       const { user, community, zipcode } = authUser || {};
       const { email } = user || {};
       setEmail(email);
-      const isOther = community?.name === "Other";
+      const isOther = community?.name?.toLowerCase() === OTHER;
       setForm({
         ...form,
         comId: isOther ? OTHER : community?.id?.toString(),
