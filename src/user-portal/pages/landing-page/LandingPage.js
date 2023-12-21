@@ -186,7 +186,7 @@ function LandingPage({
           </a> */}
         </p>
       )}
-      {!previewMode && <AppNavigationBar menu={menu} />}
+      {!previewMode && <AppNavigationBar menu={menu} campaign={campaign} />}
       <Container>
         <Banner {...campaign} />
         <Container>

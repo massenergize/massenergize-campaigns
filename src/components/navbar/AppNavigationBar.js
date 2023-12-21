@@ -9,8 +9,11 @@ import { useNavigate } from "react-router-dom";
 import { addUrlParams, generateUniqueRandomString } from "../../utils/utils";
 
 const EXCLUDE_FROM_NAV = ["communities"];
-function AppNavigationBar({ menu }) {
+function AppNavigationBar({ menu, campaign }) {
   const navigator = useNavigate();
+  const { secondary_logo, primary_logo } = campaign || {};
+
+  console.log("Campaign stuff", campaign);
 
   return (
     <Navbar
@@ -24,7 +27,20 @@ function AppNavigationBar({ menu }) {
         {/* <Navbar.Brand href="#home">MassEnergize Campaigns</Navbar.Brand> */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto mx-auto">
+          <Nav className="me-auto mx-auto" style={{ alignItems: "center" }}>
+            {/* <Nav.Link> */}
+            {primary_logo?.url && (
+              <img
+                src={primary_logo?.url}
+                style={{
+                  height: 45,
+                  width: 45,
+                  objectFit: "contain",
+                  marginRight: 5,
+                }}
+              />
+            )}
+            {/* </Nav.Link> */}
             {menu?.map((menu) => {
               const excluded = EXCLUDE_FROM_NAV.includes(
                 menu?.key?.toLowerCase()
@@ -110,6 +126,18 @@ function AppNavigationBar({ menu }) {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown> */}
+
+            {secondary_logo?.url && (
+              <img
+                src={secondary_logo?.url}
+                style={{
+                  height: 45,
+                  width: 45,
+                  objectFit: "contain",
+                  marginLeft: 5,
+                }}
+              />
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
