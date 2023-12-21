@@ -53,7 +53,7 @@ export async function fetchAllCampaigns (url = "campaigns.list") {
   }
 }
 
-export async function fetchCampaign (url = "campaigns.info", id) {
+export async function fetchCampaign (id, url = "campaigns.info", ) {
   try {
     const response = await apiCall(url, {id}, null);
 
@@ -184,12 +184,12 @@ export async function fetchAllCampaignEventsBySuperAdmins (url = "events.listFor
     const response = await apiCall(url, {}, null);
 
     if (!response || !response?.success) {
-      handleRequestError(response?.error, "FETCH_CAMPAIGN_EVENTS_ERROR_BE");
+      handleRequestError(response?.error, "FETCH_EVENTS_BY_SUPER_ADMIN_ERROR_BE");
     }
 
     return response?.data;
   } catch (e) {
-    handleRequestError(e, "FETCH_CAMPAIGN_EVENTS_ERROR");
+    handleRequestError(e, "FETCH_CAMPAIGN_EVENTS_BY_SUPER_ADMIN_ERROR");
   }
 }
 
@@ -260,5 +260,19 @@ export async function removeCampaignManager (url = "campaigns.managers.remove", 
     return response?.data;
   } catch (e) {
     handleRequestError(e, "REMOVE_CAMPAIGN_MANAGER_ERROR");
+  }
+}
+
+export async function updateCampaignInformation (data, url = "campaigns.update", ) {
+  try {
+    const response = await apiCall(url, data, null);
+
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "UPDATE_CAMPAIGN_INFORMATION_ERROR_BE");
+    }
+
+    return response?.data;
+  } catch (e) {
+    handleRequestError(e, "UPDATE_CAMPAIGN_INFORMATION_ERROR");
   }
 }

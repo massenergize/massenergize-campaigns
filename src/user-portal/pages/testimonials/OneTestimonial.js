@@ -7,22 +7,40 @@ import { useNavigate, useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { LOADING } from "../../../utils/Constants";
-import { updateTestimonialsObjAction } from "../../../redux/actions/actions";
+import {
+  appInnitAction,
+  toggleUniversalModal,
+  updateTestimonialsObjAction,
+} from "../../../redux/actions/actions";
 import NotFound from "../error/404";
 import Loading from "../../../components/pieces/Loading";
 import { apiCall } from "../../../api/messenger";
+import JoinUsForm from "../forms/JoinUsForm";
+import NewTestimonialForm from "./NewTestimonialForm";
 
-function OneTestimonial({ testimonials, updateTestimonials, campaign }) {
+function OneTestimonial({
+  testimonials,
+  updateTestimonials,
+  campaign,
+  init,
+  toggleModal,
+  authUser,
+}) {
   const [testimonial, setTestimonial] = useState(LOADING);
   const [error, setError] = useState("");
-  const { id } = useParams();
+  const { id, campaign_id } = useParams();
 
   const navigator = useNavigate();
   const { title, body, image } = testimonial || {};
   const technologies = campaign?.technologies;
 
+  const { user } = authUser || {};
+
   const groupTestimonials = () => {
-    const together = (technologies || []).map((tech) => tech.testimonials);
+    const together = (technologies || []).map((tech) => {
+      const items = tech?.testimonials || [];
+      return items?.map((t) => ({ ...(t || {}), tech_name: tech?.name }));
+    });
     return together.reduce((merged, currentArray) => {
       // Filter out objects with the excluded id
       const filteredObjects = currentArray.filter((obj) => obj.id !== id);
@@ -31,9 +49,37 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign }) {
     }, []);
   };
 
+  const initiateTestimonialCreation = () => {
+    if (!user) return triggerRegistration();
+    toggleModal({
+      show: true,
+      title: `Add your testimonial`,
+      iconName: "fa-message",
+      component: ({ close }) => <NewTestimonialForm close={close} />,
+      // modalNativeProps: { size: "md" },
+      fullControl: true,
+    });
+  };
+
+  const triggerRegistration = () => {
+    toggleModal({
+      show: true,
+      title: `Tell us where you are from, before you add a testimonial`,
+      iconName: "fa-thumbs-up",
+      component: ({ close }) => (
+        <JoinUsForm close={close} callbackOnSubmit={({ user }) => {}} />
+      ),
+
+      fullControl: true,
+    });
+  };
   const otherTestimonials = groupTestimonials();
 
+  const campaignExists = campaign && campaign !== LOADING;
+
   useEffect(() => {
+    if (!campaignExists) init(campaign_id);
+
     var testim = (testimonials || {})[id];
     if (testim) setTestimonial(testim);
     else setTestimonial(LOADING);
@@ -41,7 +87,6 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign }) {
     // still fetch event form API to get up-to-date content
     apiCall("/campaigns.technologies.testimonials.info", { id })
       .then((response) => {
-        console.log("LEts seee RESPONSE", response);
         if (!response.success) {
           setError(response.error);
           return console.log("TESTIMONIAL_FETCH_ERROR_BE:", response.error);
@@ -106,18 +151,24 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign }) {
               padding: "15px 15px",
               border: "solid 1px green",
               listStyle: "none",
+              borderBottomRightRadius: 6,
+              borderBottomLeftRadius: 6,
             }}
           >
             {otherTestimonials?.map((item, index) => {
+              var title = item?.title;
+              title = title ? `${title} (${item?.tech_name})` : "...";
               return (
                 <li
                   key={index?.toString()}
                   onClick={() =>
-                    navigator(`/technology/testimonial/${item?.id}`)
+                    navigator(
+                      `/campaign/${item?.campaign?.id}/technology/testimonial/${item?.id}`
+                    )
                   }
                   className="touchable-opacity"
                   style={{
-                    color: "var(--app-medium-green)",
+                    color: "var(--app-deep-green)",
 
                     fontWeight: "bold",
                     fontSize: 14,
@@ -125,11 +176,31 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign }) {
                     marginBottom: 8,
                   }}
                 >
-                  {item?.title || "..."}
+                  <span>
+                    {index + 1}. {item?.title || "..."}
+                  </span>
+                  <span
+                    style={{ color: "var(--app-medium-green)", marginLeft: 5 }}
+                  >
+                    ({item?.tech_name})
+                  </span>
                 </li>
               );
             })}
           </ul>
+          <div
+            onClick={() => initiateTestimonialCreation()}
+            className="mt-2 touchable-opacity"
+            style={{
+              background: "var(--app-medium-green)",
+              padding: 10,
+              color: "white",
+              textAlign: "center",
+              borderRadius: 5,
+            }}
+          >
+            <p style={{ margin: 0, fontWeight: "bold" }}>Add Testimonial</p>
+          </div>
         </Col>
       </Row>
     </PageWrapper>
@@ -137,11 +208,19 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign }) {
 }
 
 const mapState = (state) => {
-  return { testimonials: state.testimonials, campaign: state.campaign };
+  return {
+    testimonials: state.testimonials,
+    campaign: state.campaign,
+    authUser: state.user,
+  };
 };
 const mapDispatch = (dispatch) => {
   return bindActionCreators(
-    { updateTestimonials: updateTestimonialsObjAction },
+    {
+      updateTestimonials: updateTestimonialsObjAction,
+      init: appInnitAction,
+      toggleModal: toggleUniversalModal,
+    },
     dispatch
   );
 };

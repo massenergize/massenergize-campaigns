@@ -4,7 +4,8 @@ import { Col, Container, Row } from "react-bootstrap";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
 
-function TestimonialSection({ sectionId, technologies }) {
+function TestimonialSection({ sectionId, technologies, defaultTab }) {
+ 
   const testimonialsOfEachTech = technologies?.map(
     ({
       campaign_technology,
@@ -46,7 +47,6 @@ function TestimonialSection({ sectionId, technologies }) {
       component: (
         <Row style={{ marginTop: 50 }}>
           {testimonials?.map((item) => {
-           
             return (
               <Col key={item.id} xs={3}>
                 <TestimonialBox {...item} />
@@ -57,6 +57,7 @@ function TestimonialSection({ sectionId, technologies }) {
       ),
     })
   );
+
 
   return (
     <div
@@ -84,7 +85,7 @@ function TestimonialSection({ sectionId, technologies }) {
           </div>
 
           <CustomTabView
-            defaultTab={firstOne?.id}
+            defaultTab={defaultTab || firstOne?.id}
             data={intoTabs}
           ></CustomTabView>
         </Container>

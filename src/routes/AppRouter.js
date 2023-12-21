@@ -7,6 +7,7 @@ import {
   fetchMeUser,
   logUserOut,
   setAuthUserAction,
+  appInnitAction,
   testReduxAction,
   toggleUniversalModal,
 } from "../redux/actions/actions";
@@ -16,10 +17,12 @@ import TechnologyFullViewPage from "../user-portal/pages/technology/TechnologyFu
 import OneEvent from "../user-portal/pages/events/OneEvent";
 import AllComponents from "../admin-portal/pages/AllComponents";
 import { NewCampaign } from "../admin-portal/pages/campaign/new";
+import { EditCampaign } from "../admin-portal/pages/campaign/edit";
 import { AllCampaigns } from "../admin-portal/pages/campaign/all";
 import { CreateTechnology } from "../admin-portal/pages/technology/new";
 import { AllTechnologies } from "../admin-portal/pages/technology/all";
 import OneTestimonial from "../user-portal/pages/testimonials/OneTestimonial";
+import { getLastSegmentFromUrl } from "../utils/utils";
 import CreateCampaignAccount from "../admin-portal/pages/campaign-account/CreateCampaignAccount";
 import { CampaignStatistics } from "../admin-portal/pages/campaign/campaign-statistics/campaign-statistics";
 import Login from "../admin-portal/pages/auth/Login";
@@ -44,9 +47,12 @@ const ROUTE_TABLE = [
     component: OneTestimonial,
     addToggleModal: true,
   },
-
   {
     path: "/admin/campaign/new",
+    component: NewCampaign,
+  },
+  {
+    path: "/admin/campaign/:id",
     component: NewCampaign,
   },
   {
@@ -57,10 +63,13 @@ const ROUTE_TABLE = [
     path: "/admin/campaign/new/preview",
     component: AllComponents,
   },
-
   {
     path: "/admin/campaign/edit/:id",
-    component: AllComponents,
+    component: EditCampaign,
+  },
+  {
+    path: "/admin/campaign/:id/edit",
+    component: EditCampaign,
   },
   {
     path: "/admin/campaign/all",
@@ -116,17 +125,13 @@ function AppRouter({
   appInnit,
   fetchMassenergizeUser,
   logUserOut,
+  init,
+  campaign,
+  // navigation,
 }) {
-  // const params = useParams();
-
+  const params = useParams();
   // useEffect(() => {
-  //   // logUserOut();
-  //   onAuthStateChanged(auth, (user) => {
-  //     const userIsNotAuthenticated = !user;
-  //     if (userIsNotAuthenticated)
-  //       return console.log("ADMIN_IS_NOT_AUTHENTICATED");
-  //     fetchMassenergizeUser({ idToken: user?.accessToken });
-  //   });
+  //   console.log("CAMPAIGN: ", params);
   // }, []);
   return (
     <>
@@ -142,6 +147,7 @@ function AppRouter({
               test={test}
               testFunction={testFunction}
               toggleModal={toggleModal}
+              // menu={navigation}
             />
           }
         />
@@ -158,13 +164,35 @@ function AppRouter({
           };
           return <Route key={index} {...routeProps} />;
         })}
+
+        <Route
+          path={`/campaign/:campaign_id/technology/:campaign_technology_id`}
+          element={
+            <TechnologyFullViewPage
+              toggleModal={toggleModal}
+              // menu={navigation}
+            />
+          }
+        />
+        <Route
+          path="/campaign/:campaign_id/technology/event/:eventId"
+          element={<OneEvent toggleModal={toggleModal} />}
+        />
+        <Route
+          path="/campaign/:campaign_id/technology/testimonial/:id"
+          element={<OneTestimonial toggleModal={toggleModal} />}
+        />
       </Routes>
     </>
   );
 }
 
 const mapState = (state) => {
-  return { test: state.testStore, modalOptions: state.modalOptions };
+  return {
+    test: state.testStore,
+    modalOptions: state.modalOptions,
+    campaign: state.campaign,
+  };
 };
 
 const mapDispatch = (dispatch) => {
@@ -174,6 +202,7 @@ const mapDispatch = (dispatch) => {
       toggleModal: toggleUniversalModal,
       fetchMassenergizeUser: fetchMeUser,
       // putUserInRedux: setAuth,
+      init: appInnitAction,
       logUserOut,
     },
     dispatch

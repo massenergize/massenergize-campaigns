@@ -35,7 +35,7 @@ export default function useFetch (url, fetcher, options = {}) {
       try {
         setLoading(true);
         setIsValidating(true);
-        let data = await fetcher(url);
+        let data = await fetcher(url, options.data, options.errorCode, options.handlers);
 
         if (data) {
           setLoading(false)

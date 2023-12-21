@@ -19,39 +19,103 @@ import GetHelpForm from "../forms/GetHelpForm";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { COMMENTS, ONE_TECH_DATA } from "../../data/user-portal-dummy-data";
-import { relativeTimeAgo } from "../../../utils/utils";
+import { fetchUrlParams, relativeTimeAgo } from "../../../utils/utils";
 import { useParams } from "react-router-dom";
 import NotFound from "../error/404";
 import { LOADING } from "../../../utils/Constants";
 import { apiCall } from "../../../api/messenger";
 import Loading from "../../../components/pieces/Loading";
-import { updateTechnologiesAction } from "../../../redux/actions/actions";
+import {
+  appInnitAction,
+  setCommentsAction,
+  trackActivity,
+  updateTechnologiesAction,
+  updateUserAction,
+} from "../../../redux/actions/actions";
+import ShareBox from "../sharing/ShareBox";
 
 const DEFAULT_READ_HEIGHT = 190;
 const COMMENT_LENGTH = 40;
-function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
+function TechnologyFullViewPage({
+  toggleModal,
+  techs,
+  updateTechObjs,
+  campaign,
+  init,
+  user,
+  updateUser,
+  updateCommentList,
+  commentsList,
+  trackActivity,
+}) {
+  const authUser = user;
+  const [mounted, setMounted] = useState(false);
+  // const [idsToRefMap, setidsToRefMap] = useState({});
   const coachesRef = useRef();
+  const vendorsRef = useRef();
+  const incentivesRef = useRef();
+  const detailsRef = useRef();
+  const testimonialsRef = useRef();
+
+  const targetSection = fetchUrlParams("section");
+
+  const idsToRefMap = {
+    coaches: coachesRef,
+    vendors: vendorsRef,
+    incentives: incentivesRef,
+    details: detailsRef,
+    testimonials: testimonialsRef,
+  };
+
   const [technology, setTechnology] = useState(LOADING);
   const [height, setHeight] = useState(DEFAULT_READ_HEIGHT);
   const [error, setError] = useState("");
-  const { campaign_technology_id } = useParams();
+  const { campaign_technology_id, campaign_id } = useParams();
   const id = campaign_technology_id;
 
-  const scrollToPoint = () => {
-    // document
-    //   .getElementById("meet-coach")
-    //   .scrollIntoView({ behavior: "smooth", block: "start" });
-    if (coachesRef.current)
-      coachesRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  const scrollToSection = (id) => {
+    const ref = idsToRefMap[id];
+    if (ref?.current)
+      ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  const recorderAView = () => {
+    const { user } = authUser || {};
+    apiCall("/campaigns.technology.view", {
+      campaign_technology_id: technology?.campaign_technology_id,
+      url: window.location.href,
+      email: user?.email,
+    }).then((response) => {
+      if (!response || !response.success)
+        return console.log("ERROR_RECORDING_A_VIEW: ", response.error);
+    });
   };
 
   useEffect(() => {
+    scrollToSection(targetSection);
+  }, [mounted]);
+
+  useEffect(() => {
+    if (technology?.campaign_technology_id) recorderAView();
+  }, [technology?.campaign_technology_id]);
+
+  const campaignExists = campaign && campaign !== LOADING;
+
+  const updateTechList = (data, id) => {
+    updateTechObjs({ ...(techs || {}), [id]: data });
+  };
+
+  useEffect(() => {
+    if (!campaignExists) init(campaign_id);
+
     const tech = (techs || {})[id];
     // Even if the tech is available locally, set it immediately,
     // But still continue to fetch, so that the user has something to look at
     // while the latest changes on the technology load up
     if (tech) setTechnology(tech);
-    apiCall("/campaigns.technologies.info", { campaign_technology_id: id })
+    apiCall("/campaigns.technologies.info", {
+      campaign_technology_id: id,
+      email: authUser?.email,
+    })
       .then((response) => {
         if (!response || !response?.success) {
           setTechnology(null);
@@ -59,29 +123,21 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
           return setError("Sorry, could not load the technology...");
         }
         const data = response?.data;
-        updateTechObjs({ ...(techs || {}), [id]: data });
+        updateTechList(data, id);
         setTechnology(data);
+        setMounted(true);
       })
       .catch((e) => {
         setTechnology(null);
         setError("Sorry, could not load the technology you are looking for...");
         console.log("TECH_FETCH_ERROR_SYNT:", e.toString());
       });
-  }, []);
-
-  useEffect(() => {
-    scrollToPoint();
-  }, [coachesRef.current]);
+  }, [id, campaign_id]);
 
   if (!id || !technology) return <NotFound>{error}</NotFound>;
 
   if (technology === LOADING)
     return <Loading fullPage>Fetching technology information...</Loading>;
-
-  console.log("Thi sis the technology", technology);
-
-  // console.log("Lets see tecs", techs);
-  // const id = "4c74b279-45c4-435a-b05d-11f5f3dcd69d";
 
   const {
     name,
@@ -94,20 +150,105 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
     overview,
     description,
     deal_section,
-    more_details,
+    more_info_section,
+    deal_section_image,
+    vendors_section,
+    coaches_section,
+    vendors,
   } = technology;
 
-  const triggerCommentBox = () => {
+  const like = (user) => {
+    if (!user) return triggerRegistrationForLike();
+    const { community } = authUser || {};
+
+    const payload = {
+      campaign_technology_id: technology?.campaign_technology_id,
+      user_id: user?.id,
+      email: user?.email,
+      zipcode: authUser?.zipcode,
+      community_id: community?.id,
+      community_name: authUser?.community_name || community?.name,
+    };
+    // console.log("LETS SEE LIKE PAYLOAD", )
+    apiCall("/campaigns.technology.like", payload).then((response) => {
+      if (!response || !response?.success)
+        return console.log("ERROR_LIKING: ", response?.error);
+      updateTechList(response?.data);
+    });
+  };
+
+  // NB: Dont worry, I will merge the two trigger fxns into one, when there is more time
+  const triggerRegistration = () => {
+    toggleModal({
+      show: true,
+      title: `Tell us where you are from`,
+      iconName: "fa-comment",
+      component: ({ close }) => (
+        <JoinUsForm
+          close={close}
+          callbackOnSubmit={({ user }) => {
+            close && close();
+            triggerCommentBox(user);
+          }}
+        />
+      ),
+      // modalNativeProps: { size: "md" },
+      fullControl: true,
+    });
+  };
+  const triggerRegistrationForLike = () => {
+    toggleModal({
+      show: true,
+      title: `Tell us where you are from`,
+      iconName: "fa-thumbs-up",
+      component: ({ close }) => (
+        <JoinUsForm
+          close={close}
+          callbackOnSubmit={({ user }) => {
+            like(user);
+          }}
+        />
+      ),
+      // modalNativeProps: { size: "md" },
+      fullControl: true,
+    });
+  };
+  const triggerCommentBox = (user) => {
+    if (!user) return triggerRegistration();
     toggleModal({
       show: true,
       title: "Add a comment",
       iconName: "fa-comment",
-      component: () => <CommentComponentForModal comments={comments} />,
+      component: () => (
+        <CommentComponentForModal
+          comments={[...comments]}
+          authUser={user}
+          updateUser={updateUser}
+          technology={technology}
+          updateTechList={(data) => {
+            setTechnology(data);
+            updateTechList(data, technology?.id);
+          }}
+        />
+      ),
       modalNativeProps: { size: "md" },
       fullControl: true,
     });
   };
   const readMore = height !== "100%";
+
+  const openShareBox = () => {
+    toggleModal({
+      show: true,
+      title: "Share",
+      // iconName: "fa-comment",
+      component: () => <ShareBox campaign={campaign} authUser={authUser} />,
+      modalNativeProps: { size: "lg" },
+      fullControl: true,
+    });
+  };
+
+  const isReallyLong = description.length > 1000; // This is not a good way of checking, change it later
 
   return (
     <div>
@@ -128,13 +269,20 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
                 }}
               />
               <InteractionsPanel
-                openCommentBox={triggerCommentBox}
+                openShareBox={openShareBox}
+                openCommentBox={() => triggerCommentBox(authUser)}
+                liked={technology?.has_liked}
                 likes={likes}
+                like={() => like(authUser?.user)}
                 views={views}
                 comments={comments?.length || 0}
               />
               <p className="mt-3" style={{ textAlign: "justify" }}>
-                <span dangerouslySetInnerHTML={{ __html: description }} style={{ height, display: "block", overflowY: "hidden" }}/>
+                <span
+                  dangerouslySetInnerHTML={{ __html: description }}
+                  style={{ height, display: "block", overflowY: "hidden" }}
+                ></span>
+                {isReallyLong && (
                 <span
                   onClick={() =>
                     setHeight(readMore ? "100%" : DEFAULT_READ_HEIGHT)
@@ -148,6 +296,7 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
                 >
                   {readMore ? "Read More..." : "Hide"}
                 </span>
+                )}
               </p>
             </Col>
             <Col lg={3}>
@@ -242,7 +391,7 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
                         fontWeight: "bold",
                       }}
                     >
-                      Comments({comments?.length})
+                      Comments {comments?.length ? `(${comments?.length})` : ""}
                     </span>
                   </p>
                 </div>
@@ -273,7 +422,7 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
                                   color: "var(--app-deep-green)",
                                   fontWeight: "bold",
                                 }}
-                                onClick={() => triggerCommentBox()}
+                                onClick={() => triggerCommentBox(authUser)}
                               >
                                 See more...
                               </span>
@@ -307,7 +456,7 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
                     justifyContent: "center",
                     alignItems: "center",
                   }}
-                  onClick={() => triggerCommentBox()}
+                  onClick={() => triggerCommentBox(authUser)}
                 >
                   <p
                     style={{
@@ -331,7 +480,7 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
                     padding: 10,
                     color: "white",
                   }}
-                  onClick={() => triggerCommentBox()}
+                  onClick={() => triggerCommentBox(authUser)}
                 >
                   <i className=" fa fa-plus" style={{ marginRight: 4 }}></i>
                   <p style={{ margin: 0, fontWeight: "bold" }}>Add a Comment</p>
@@ -344,28 +493,52 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
           sectionId="why-section"
           overview={overview}
           campaignName={name}
+          overview_title={technology?.overview_title}
         />
-        <TakeActionSection sectionId="take-action-section" />
-        <OneTechTestimonialsSection
-          testimonials={testimonials}
-          sectionId="testimonial-section"
+        <TakeActionSection
+          campaign={campaign}
+          sectionId="take-action-section"
+          scrollToSection={scrollToSection}
+          trackActivity={trackActivity}
+          authUser={authUser}
         />
+        <div ref={testimonialsRef}>
+          <OneTechTestimonialsSection
+            testimonials={testimonials}
+            sectionId="testimonial-section"
+          />
+        </div>
         <div ref={coachesRef}>
           <OneTechMeetTheCoachesSection
             coaches={coaches}
             sectionId="meet-coach"
+            data={coaches_section}
             toggleModal={() =>
               toggleModal({
                 show: true,
-                component: () => <GetHelpForm />,
+                component: (props) => <GetHelpForm {...props} />,
+                fullControl: true,
                 title: "Get Help",
               })
             }
           />
         </div>
-        <GetAGreatDealSection data={deal_section} sectionId="get-a-deal" />
-        <Vendors sectionId="vendors" />
-        <MoreDetailsSection data={more_details} sectionId="more-detail" />
+        <div ref={incentivesRef}>
+          <GetAGreatDealSection
+            image={deal_section_image}
+            data={deal_section}
+            sectionId="get-a-deal"
+          />
+        </div>
+        <div ref={vendorsRef}>
+          <Vendors
+            sectionId="vendors"
+            data={vendors_section || {}}
+            vendors={vendors}
+          />
+        </div>
+
+        <MoreDetailsSection data={more_info_section} sectionId="more-detail" />
       </div>
       <Footer toggleModal={toggleModal} />
     </div>
@@ -373,12 +546,22 @@ function TechnologyFullViewPage({ toggleModal, techs, updateTechObjs }) {
 }
 
 const mapState = (state) => {
-  return { comments: COMMENTS, techs: state.techs };
+  return {
+    comments: COMMENTS,
+    techs: state.techs,
+    campaign: state.campaign,
+    user: state.user,
+    commentsList: state.comments,
+  };
 };
 const mapDispatch = (dispatch) => {
   return bindActionCreators(
     {
       updateTechObjs: updateTechnologiesAction,
+      init: appInnitAction,
+      updateUser: updateUserAction,
+      updateCommentList: setCommentsAction,
+      trackActivity,
     },
     dispatch
   );

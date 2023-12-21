@@ -5,12 +5,11 @@ import { fetchData } from "../helpers/utils/http";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "@kehillahglobal/ui";
 
-import {BOTTOM_MENU, SIDE_BAR_MENU} from "../layout-components/sidebarMenu";
+import { BOTTOM_MENU, SIDE_BAR_MENU } from "../layout-components/sidebarMenu";
 import { useState } from "react";
 import classes from "classnames";
-import {logUserOut} from "../redux/actions/actions";
-import {apiCall} from "../api/messenger";
-import AuthGuard from "../guards/AuthGuard";
+import { logUserOut } from "../redux/actions/actions";
+import { apiCall } from "../api/messenger";
 import { BubblyBalloonProvider } from "../components/bubbly-balloon/bubbly-balloon-context";
 import {useDispatch} from "react-redux";
 

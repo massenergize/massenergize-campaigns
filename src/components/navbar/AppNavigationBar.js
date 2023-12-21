@@ -3,8 +3,15 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NAVIGATION_MENU } from "../../user-portal/data/user-portal-dummy-data";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addUrlParams } from "../../utils/utils";
 
-function AppNavigationBar() {
+const EXCLUDE_FROM_NAV = ["communities"];
+function AppNavigationBar({ menu }) {
+  const navigator = useNavigate();
+
   return (
     <Navbar
       variant="dark"
@@ -18,12 +25,17 @@ function AppNavigationBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto mx-auto">
-            {NAVIGATION_MENU.map((menu) => {
+            {menu?.map((menu) => {
+              const excluded = EXCLUDE_FROM_NAV.includes(
+                menu?.key?.toLowerCase()
+              );
+              if (excluded) return <></>;
               if (!menu?.children)
                 return (
                   <Nav.Link
+                    key={menu?.key}
                     style={{ textTransform: "uppercase" }}
-                    href={menu.url || "#"}
+                    onClick={() => navigator(menu.url || "#")}
                   >
                     <span>
                       <i
@@ -43,17 +55,24 @@ function AppNavigationBar() {
                         className={`fa ${menu.icon}`}
                         style={{ marginRight: 6 }}
                       ></i>
-                      <span>{menu.text}</span>
+                      <span>{menu?.text}</span>
                     </span>
                   }
                   id="basic-nav-dropdown"
                 >
-                  {menu.children.map((child) => {
+                  {menu?.children?.map((child) => {
+                    const params = {
+                      section: menu.key,
+                      tab: child.key,
+                    };
+                    const route = addUrlParams(window.location.href, params);
+
                     return (
                       <NavDropdown.Item
                         style={{ textTransform: "uppercase" }}
-                        key={child.key}
-                        href={child.url}
+                        key={child?.key}
+                        onClick={() => navigator(child.url || "#")}
+                        // onClick={() => navigator(`${route}`)}
                       >
                         {child.text}
                       </NavDropdown.Item>
@@ -93,4 +112,12 @@ function AppNavigationBar() {
   );
 }
 
-export default AppNavigationBar;
+const mapState = (state) => {
+  return { menu: state.navigation };
+};
+
+const mapDispatch = (dispatch) => {
+  return bindActionCreators({}, dispatch);
+};
+
+export default connect(mapState)(AppNavigationBar);
