@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useContext, useReducer, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -9,6 +9,9 @@ import { ProgressButton } from "../../components/progress-button/progress-button
 import dayjs from "dayjs";
 import { updateCampaign } from "../../requests/campaign-requests";
 import { useBubblyBalloons } from "../../components/bubbly-balloon/use-bubbly-balloons";
+import { useNamedState } from "../../hooks/useNamedState";
+import { isEmpty } from "../../helpers/utils/string";
+import { BubblyBalloonContext } from "../../components/bubbly-balloon/bubbly-balloon-context";
 
 const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
   const [showError, setShowError] = useState(false);
@@ -30,19 +33,10 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
     phone_number: "",
     key_contact_image: "",
   };
+
   const { blow, pop } = useBubblyBalloons();
 
-  const reducer = (state, action) => {
-    let { type, payload } = action;
-    switch (type) {
-      case "SET_FIELD_VALUE":
-        return { ...state, [payload.field]: payload.value };
-      default:
-        throw new Error(`Unsupported action type: ${type}`);
-    }
-  };
-
-  const [formData, dispatch] = useReducer(reducer, initialState);
+  const [errors, setErrors] = useNamedState("Error", {});
 
   const handleFieldChange = (field, value) => {
     setCampaignDetails(field, value);
@@ -52,18 +46,28 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
     try {
       e.preventDefault();
       setLoading(true);
-      let response = await updateCampaign({
-        ...campaignDetails,
+      setShowError(false);
+
+      const payload = {
+        // ...campaignDetails,
+        id : campaignDetails.id,
         title: campaignDetails.title,
         tagline: campaignDetails.tagline,
         description: campaignDetails.description,
-        start_date: dayjs(campaignDetails.start_date).format("YYYY-MM-DD"),
-        end_date: dayjs(campaignDetails.end_date).format("YYYY-MM-DD"),
-      });
 
-      if (response.success) {
+        ...(campaignDetails.start_date && { start_date: dayjs(campaignDetails.start_date).format("YYYY-MM-DD") }),
+        ...(campaignDetails.end_date && { end_date: dayjs(campaignDetails.end_date).format("YYYY-MM-DD") }),
+        ...(typeof campaignDetails?.primary_logo?.url !== "undefined"  ? {} : ({ primary_logo: campaignDetails.primary_logo })),
+        ...(typeof campaignDetails?.secondary_logo?.url !== "undefined" ? {} : { secondary_logo: campaignDetails.secondary_logo }),
+        ...(typeof campaignDetails?.campaign_image?.url !== "undefined" ? {} : (
+          typeof campaignDetails?.campaign_image !== "undefined" ? { campaign_image: campaignDetails.campaign_image } : {})),
+      };
+
+      let response = await updateCampaign(payload);
+
+      if (response) {
         setLoading(false);
-
+        console.log({ response })
         const balloon = blow({
           title: "Success",
           message: "Campaign information saved successfully",
@@ -73,6 +77,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
       }
 
     } catch (e) {
+      console.log(e);
       setLoading(false);
       setShowError(true);
     }
@@ -89,6 +94,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               label="Campaign Title"
               placeholder="Enter a Title for this campaign ..."
               required={true}
+              error={errors?.title}
               type="textbox"
               value={campaignDetails?.title}
               onChange={(val) => {
@@ -103,6 +109,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               id="Tagline"
               name="Tagline"
               label="Tagline"
+              error={errors?.title}
               placeholder="Enter a tagline for this campaign ..."
               required={false}
               type="textbox"
@@ -134,16 +141,21 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               id="startDate"
               name="startDate"
               label="Start Date"
-              placeholder="mm/dd/yyyy"
+              placeholder="MM-DD-YYYY"
               required={false}
               type="date"
-              format="mm/dd/yyyy"
-              value={campaignDetails?.start_date ? dayjs(campaignDetails?.start_date).format("MM/DD/YYYY") : ""}
+              error={errors?.start_date}
+              format="mm-dd-yyyy"
+              value={campaignDetails?.start_date}
               onChange={(val) => {
                 // startDate cannot be before today
                 if (dayjs(val).isBefore(dayjs())) {
+                  setErrors({ ...errors, start_date: "Start date cannot be before today" });
+                  handleFieldChange("start_date", "");
+                  handleFieldChange("end_date", "");
                 } else {
                   handleFieldChange("start_date", val);
+                  setErrors({ ...errors, start_date: null })
                 }
               }}
             />
@@ -153,13 +165,21 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               id="endDate"
               name="endDate"
               label="End Date"
-              placeholder="mm/dd/yyyy"
+              placeholder="mm-dd-yyyy"
               required={false}
               type="date"
-              format="mm/dd/yyyy"
-              value={campaignDetails?.end_date ? dayjs(campaignDetails?.end_date).format("MM/DD/YYYY") : ""}
+              disabled={isEmpty(campaignDetails?.start_date)}
+              error={errors?.end_date}
+              format="mm-dd-yyyy"
+              value={campaignDetails?.end_date}
               onChange={(val) => {
-                handleFieldChange("end_date", val);
+                if (dayjs(val).isBefore(campaignDetails?.start_date)) {
+                  setErrors({ ...errors, end_date: "End date cannot be before start date" });
+                  handleFieldChange("end_date", "");
+                } else {
+                  handleFieldChange("end_date", val);
+                  setErrors({ ...errors, end_date: null })
+                }
               }}
             />
           </Col>
@@ -173,6 +193,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               placeholder="Add a more detailed description of your campaign..."
               required={false}
               type="textarea"
+              error={errors?.title}
               value={campaignDetails?.description}
               onChange={(val) => {
                 handleFieldChange("description", val);
@@ -186,8 +207,10 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               required={false}
               id="primary_logo"
               text="Upload a primary logo"
-              valueExtractor={(val) => {
-                handleFieldChange("primary_logo", val);
+              onChange={async (val) => {
+                if (val) {
+                  handleFieldChange("primary_logo", val);
+                }
               }}
             />
           </Col>
@@ -196,8 +219,10 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               required={false}
               id="secondary_logo"
               text="Upload a secondary logo"
-              valueExtractor={(val) => {
-                handleFieldChange("secondary_logo", val);
+              onChange={async (val) => {
+                if (val) {
+                  handleFieldChange("secondary_logo", val);
+                }
               }}
             />
           </Col>
@@ -208,25 +233,27 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               required={false}
               id="campaign_image"
               text="Add an image for the campaign(optional)"
-              valueExtractor={(val) => {
-                handleFieldChange("campaign_image", val);
+              onChange={async (val) => {
+                if (val) {
+                  handleFieldChange("campaign_image", val);
+                }
               }}
             />
           </Col>
         </Row>
         <Row className="mt-4 justify-content-end">
           <Col>
-            <ProgressButton loading={loading} onClick={handleSubmit}>
-              Save and Continue
-            </ProgressButton>
+            <ProgressButton
+              loading={loading}
+              disabled={loading}
+              onClick={handleSubmit}>Save</ProgressButton>
           </Col>
         </Row>
         <Row className="mt-3 ">
           {showError && (
             <Col>
               <p className="text-center py-3 light-red-background">
-                Sorry, you got an error while saving. Please check your key
-                contact information
+                Sorry, you got an error while saving. Please try again.
               </p>
             </Col>
           )}

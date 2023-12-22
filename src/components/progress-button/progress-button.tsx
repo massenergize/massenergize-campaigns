@@ -1,5 +1,6 @@
 import { Button, ButtonProps } from "react-bootstrap";
 import "./progress-button.scss";
+import classes from "classnames";
 
 interface ProgressButtonProps extends ButtonProps {
   loading?: boolean;
@@ -9,7 +10,7 @@ interface ProgressButtonProps extends ButtonProps {
 
 export function ProgressButton ({ loading = false, progressRingSize = 20, progressRingColor = "#fff", ...props }: ProgressButtonProps) {
   return (
-    <Button {...props}>
+    <Button {...props} className={classes(props.className, "py-2 px-3")}>
       {!loading ? props.children : null}
       {/* {loading && (img src="/img/oval.svg" alt="loading spinner"/>)} */}
 

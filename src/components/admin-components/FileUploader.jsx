@@ -14,7 +14,7 @@ const FileUploader = ({
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
-    typeof onChange === "function" && onChange(selectedFile);
+    typeof onChange === "function" && onChange(selectedFile, selectedFile.type);
 
     if (selectedFile) {
       const fileReader = new FileReader();

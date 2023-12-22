@@ -10,9 +10,6 @@ import { useState } from "react";
 import classes from "classnames";
 import { logUserOut } from "../redux/actions/actions";
 import { apiCall } from "../api/messenger";
-import { BubblyBalloonProvider } from "../components/bubbly-balloon/bubbly-balloon-context";
-import {useDispatch} from "react-redux";
-
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -23,52 +20,44 @@ export function AdminLayout (props: AdminLayoutProps) {
   const [shrink, setShrink] = useState(true);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-	const userInfo = {
-		name: "Kehillah Global",
-		avatar: "https://i.pravatar.cc/150?img=3",
-		email: "abd@gmail.com",
-	};
-	return (
-		<BubblyBalloonProvider>
-		<SWRConfig value={{ dedupingInterval: 500000, fetcher: fetchData }}>
-			<Row>
-				<Col md={"auto"} className={classes(" side-bar-container", {shrink})}>
-					<Sidebar
-						header={"Kehillah Global"}
-						menu={SIDE_BAR_MENU}
-						bottomMenu={BOTTOM_MENU}
-						userDetails={userInfo}
-						dark={true}
-						onTabItemClick={(e, { link, name }) => {
-							if (!link && name === "SignOut") {
-								const iAmSureIWantToLogOut = window.confirm(
-									"Are you sure you want to sign out?"
-								);
-								if (iAmSureIWantToLogOut) {
-									apiCall("/auth.logout", ).then((res) => {
-										if (res.success) {
-											// @ts-ignore
-											dispatch(logUserOut());
-											window.location.href = "/login";
-										}
-									});
-								}
-							}
-							navigate(link);
-						}}
-						onShrinkBtnClick={(data) => {
-							console.log("Shrink button clicked", data);
-						}}
-						onStateChange={({ shrink }) => {
-							setShrink(shrink);
-						}}
-					/>
-				</Col>
-				<Col>{children}</Col>
-			</Row>
-		</SWRConfig>
-		</BubblyBalloonProvider>
-	);
+  const userInfo = {};
+  return (
+    <SWRConfig value={{ dedupingInterval: 500000, fetcher: fetchData }}>
+      <Row className={"overflow-hidden mx-0"}>
+        <Col md={"auto"} className={classes(" side-bar-container position-relative px-0", { shrink })}>
+          <Sidebar
+            header={"Kehillah Global"}
+            menu={SIDE_BAR_MENU}
+            bottomMenu={BOTTOM_MENU}
+            userDetails={userInfo}
+            dark={true}
+            onTabItemClick={(e, { link, name }) => {
+              if (!link && name === "SignOut") {
+                const iAmSureIWantToLogOut = window.confirm(
+                  "Are you sure you want to sign out?"
+                );
+                if (iAmSureIWantToLogOut) {
+                  apiCall("/auth.logout",).then((res) => {
+                    if (res.success) {
+                      logUserOut()
+                      // window.location.href = "/login";
+                    }
+                  });
+                }
+              }
+              navigate(link);
+            }}
+            onShrinkBtnClick={(data) => {
+              console.log("Shrink button clicked", data);
+            }}
+            onStateChange={({ shrink }) => {
+              setShrink(shrink);
+            }}
+          />
+        </Col>
+        <Col>{children}</Col>
+      </Row>
+    </SWRConfig>
+  );
 }
