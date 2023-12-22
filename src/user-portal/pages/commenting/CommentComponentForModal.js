@@ -58,7 +58,11 @@ function CommentComponentForModal({
     setLoading(true);
     if (doesNotHaveName) {
       updateUser(
-        { id: user?.id || null, full_name: name, follow_id: authUser?.id },
+        {
+          id: user?.id || null,
+          full_name: name,
+          follow_id: authUser?.id || null,
+        },
         (userObj, passed, error) => {
           if (!passed) {
             setLoading(false);

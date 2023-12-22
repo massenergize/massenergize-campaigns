@@ -45,7 +45,6 @@ function EventsSection({ sectionId, technologies }) {
     component: (
       <Row style={{ marginTop: 50 }}>
         {events?.map((item) => {
-       
           return (
             <Col key={item.id} xs={3}>
               <EventBox {...item} />
@@ -77,6 +76,7 @@ function EventsSection({ sectionId, technologies }) {
             >
               Featured Events
             </h2>
+            <p>Click on any of the tabs to see events under each technology</p>
 
             <CustomTabView
               defaultTab={firstOne?.id}

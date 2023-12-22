@@ -70,7 +70,7 @@ function OneBox({
           {name}
         </h5>
         <p style={{ textAlign: "center", fontSize: 14 }}>
-          {description.substring(0, 90) || "..."}
+          {description.substring(0, 80) || "..."}
         </p>
         <a
           className="touchable-opacity"

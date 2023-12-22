@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { apiCall } from "../../../api/messenger";
 import copy from "clipboard-copy";
-import { API_HOST } from "../../../api/urls";
+import URLS, { API_HOST } from "../../../api/urls";
 const items = [
   { key: "facebook", text: "acebook", icon: "fa-facebook", alias: "facebook" },
   { key: "twitter", text: "Twitter", icon: "fa-twitter", alias: "twitter" },
@@ -20,7 +20,8 @@ function ShareBox({ data, onChange, campaign, authUser }) {
   const { user } = authUser || {};
   const generateLink = (obj) => {
     const path = new URL(window.location.href);
-    let backendVersionOfURL = `${API_HOST}${path?.pathname}`;
+    const SHARE_HOST = URLS.SHARE;
+    let backendVersionOfURL = `${SHARE_HOST}${path?.pathname}`;
     backendVersionOfURL = backendVersionOfURL?.split("api/").join("");
     const payload = {
       campaign_id: campaign?.id,

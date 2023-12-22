@@ -78,7 +78,7 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
                 >
                   {title || {}}
                 </h6>
-                <p style={{ textAlign: "justify", lineHeight: "1.9" }}>
+                <p style={{ textAlign: "justify", lineHeight: "1.5" }}>
                   {description}
                 </p>
               </Col>

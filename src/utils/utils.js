@@ -57,3 +57,20 @@ export function addUrlParams(currentUrl, params) {
 
   return url.pathname + "?" + searchParams.toString();
 }
+
+export function generateUniqueRandomString(length) {
+  const characters =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let result = "";
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters.charAt(randomIndex);
+  }
+
+  // Adding a timestamp to make it more unique
+  const timestamp = new Date().getTime();
+  result += timestamp.toString();
+
+  return result;
+}

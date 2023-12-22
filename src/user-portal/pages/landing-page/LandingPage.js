@@ -81,15 +81,21 @@ function LandingPage({
   }, [campaignId]);
 
   const stashUserCommunity = ({ data, close, campaign }) => {
+    // return console.log("THIS IS THE DATA", data)
     let communities = campaign?.communities || [];
     communities = communities?.map((com) => com.community);
     const id = data?.comId;
     let community = communities?.find(
       (com) => com?.id?.toString() === id?.toString()
     );
+    let json = { ...(authUser || {}), community };
 
-    if (id === OTHER) community = OTHER_JSON;
-    if (community) updateUserInRedux({ ...(authUser || {}), community });
+    if (id === OTHER) {
+      community = OTHER_JSON;
+      const { valueForOther, zipcode } = data || {};
+      json = { ...json, community, community_name: valueForOther, zipcode };
+    }
+    if (community) updateUserInRedux(json);
     close && close();
   };
   const tellUsWhereYouAreFrom = (justLoadedCampaign) => {
@@ -187,7 +193,7 @@ function LandingPage({
           </a> */}
         </p>
       )}
-      {!previewMode && <AppNavigationBar menu={menu} />}
+      {!previewMode && <AppNavigationBar menu={menu} campaign={campaign} />}
       <Container>
         <Banner {...campaign} />
         <Container>

@@ -15,6 +15,7 @@ function GetAGreatDealSection({ sectionId, data, image }) {
     second_link,
     third_link,
   } = data || {};
+  if (!Object.keys(data || {}).length) return <></>;
 
   const boxes = [
     { text: first_deal, link: first_link },

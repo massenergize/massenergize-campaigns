@@ -103,22 +103,24 @@ function OneEvent({ events, updateEvents, init, campaign }) {
             </small>
           </div>
 
-          <div
-            onClick={(e) => {
-              e.preventDefault();
-              window.open(external_link || "#", "_blank");
-            }}
-            className="mt-2 touchable-opacity"
-            style={{
-              background: "var(--app-medium-green)",
-              padding: 10,
-              color: "white",
-              textAlign: "center",
-              borderRadius: 5,
-            }}
-          >
-            <p style={{ margin: 0 }}>Register / Join</p>
-          </div>
+          {external_link && (
+            <div
+              onClick={(e) => {
+                e.preventDefault();
+                window.open(external_link || "#", "_blank");
+              }}
+              className="mt-2 touchable-opacity"
+              style={{
+                background: "var(--app-medium-green)",
+                padding: 10,
+                color: "white",
+                textAlign: "center",
+                borderRadius: 5,
+              }}
+            >
+              <p style={{ margin: 0 }}>Register / Join</p>
+            </div>
+          )}
         </Col>
       </Row>
     </PageWrapper>

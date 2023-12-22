@@ -39,7 +39,7 @@ function JoinUsForm({
       const { user, community, zipcode } = authUser || {};
       const { email } = user || {};
       setEmail(email);
-      const isOther = community?.name === "Other";
+      const isOther = community?.name?.toLowerCase() === OTHER;
       setForm({
         ...form,
         comId: isOther ? OTHER : community?.id?.toString(),
@@ -78,15 +78,22 @@ function JoinUsForm({
       ...otherContent,
     };
     payload = processPayload ? processPayload(payload) : payload;
-    makeNotification("Well done, thank you for joining us!", true);
+    makeNotification(
+      "Well done, thank you for joining us! (This modal will close shortly)",
+      true
+    );
     apiCall(apiURL || "/campaigns.follow", payload).then((response) => {
       setLoading(false);
       if (!response?.success) {
         setError("Error: ", response.error);
         return console.log("FOLLOW_ERROR_BE: ", response.error);
       }
-      callbackOnSubmit && callbackOnSubmit({ close, user: response.data });
-      setUserObj(response.data);
+      setTimeout(() => {
+        //Just so that closing the modal holds off a few seconds for the user to ready the
+        //success message
+        callbackOnSubmit && callbackOnSubmit({ close, user: response.data });
+        setUserObj(response.data);
+      }, 2000);
     });
   };
 

@@ -5,6 +5,7 @@ import { Col, Row } from "react-bootstrap";
 
 function MoreDetailsSection({ sectionId, data }) {
   const { title, description } = data || {};
+  if (!title && !description) return <></>;
 
   return (
     <div

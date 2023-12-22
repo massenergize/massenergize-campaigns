@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 // import partnerLogo from "./../../../assets/imgs/me-logo.png";
 import partnerLogo from "./../../../assets/imgs/me-round-logo.png";
 
-function Banner({ title, secondary_logo, primary_logo }) {
+function Banner({ title, secondary_logo, primary_logo, tagline }) {
   return (
     <Container style={{ marginTop: 70 }}>
       <Row>
@@ -47,9 +47,20 @@ function Banner({ title, secondary_logo, primary_logo }) {
           >
             {title}
           </h1>
-          <h5 style={{ fontWeight: "400", color: "var(--app-medium-green)" }}>
-            A CAMPAIGN TO GUIDE CLIMATE ACTION
-          </h5>
+          {tagline && (
+            <h5
+              style={{
+                fontWeight: "400",
+                color: "var(--app-medium-green)",
+                textAlign: "center",
+                textTransform: "capitalize",
+                lineHeight: "1.5",
+                width: "85%",
+              }}
+            >
+              {tagline}
+            </h5>
+          )}
         </Col>
         <Col
           lg={3}
