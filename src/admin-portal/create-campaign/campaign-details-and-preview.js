@@ -21,7 +21,7 @@ export function CampaignDetailsAndPreview ({ campaignDetails, setCampaignDetails
             {/*<Button variant="primary" onClick={() => setPreview(!preview)}>
               <FontAwesomeIcon icon={faEye}/> {preview ? "Hide Preview" : "Show Preview"}
             </Button>*/}
-            {/*<Link to={`/${campaignDetails.id}?preview=true`} target={"_blank"}>*/}
+            {/*<Link to={`/campaign/${campaignDetails.id}?preview=true`} target={"_blank"}>*/}
             <Button variant="primary" onClick={() => {
               window.open(`/campaign/${campaignDetails.id}?preview=true`, "_blank")
             }}>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes, useParams } from "react-router-dom";
+import { Route, Routes, useParams, Navigate,  generatePath } from "react-router-dom";
 import LandingPage from "../user-portal/pages/landing-page/LandingPage";
 import { bindActionCreators } from "redux";
 import {
@@ -26,12 +26,20 @@ import { getLastSegmentFromUrl } from "../utils/utils";
 import CreateCampaignAccount from "../admin-portal/pages/campaign-account/CreateCampaignAccount";
 import { CampaignStatistics } from "../admin-portal/pages/campaign/campaign-statistics/campaign-statistics";
 import Login from "../admin-portal/pages/auth/Login";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase/admin/fire-config";
 import Dummy from "../admin-portal/pages/auth/Dummy";
-import CustomToast from "../components/admin-components/CustomToast";
+
+export const NavigateWithParams = ({ to, ...props }) => {
+  const params = useParams();
+  return <Navigate {...props} to={generatePath(to, params)} />;
+};
 
 const ROUTE_TABLE = [
+  {
+    path: "/",
+    redirectTo: "/campaign/:campaignId",
+    replace: true,
+    component: Login,
+  },
   {
     path: "/technology/:campaign_technology_id",
     component: TechnologyFullViewPage,
@@ -73,6 +81,14 @@ const ROUTE_TABLE = [
   },
   {
     path: "/admin/campaign/all",
+    component: AllCampaigns,
+  },
+  {
+    path: "/admin",
+    component: AllCampaigns,
+  },
+  {
+    path: "/admin/campaign",
     component: AllCampaigns,
   },
   {
@@ -153,15 +169,18 @@ function AppRouter({
         />
 
         {ROUTE_TABLE.map((route, index) => {
-          const { path, addToggleModal } = route;
+          const { path, addToggleModal, replace } = route;
+
           const routeProps = {
             path,
+            ...(replace && { replace: true }),
             element: (
               <route.component
                 toggleModal={addToggleModal ? toggleModal : null}
               />
             ),
           };
+
           return <Route key={index} {...routeProps} />;
         })}
 
