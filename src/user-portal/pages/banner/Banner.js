@@ -20,7 +20,7 @@ function Banner({ title, secondary_logo, primary_logo, tagline }) {
           <img
             src={primary_logo?.url}
             style={{
-              borderRadius: "100%",
+              // borderRadius: "100%",
               width: 190,
               height: 190,
               marginBlock: 10,
@@ -78,7 +78,7 @@ function Banner({ title, secondary_logo, primary_logo, tagline }) {
               "https://massenergize-prod-files.s3.amazonaws.com/media/MassEnergize-logo-231130-142610.png"
             }
             style={{
-              borderRadius: "100%",
+              // borderRadius: "100%",
               width: 190,
               height: 190,
               marginBlock: 10,
