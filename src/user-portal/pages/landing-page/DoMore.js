@@ -18,7 +18,7 @@ function DoMore({ campaign }) {
               marginBottom: 20,
             }}
           >
-            {title || " Do More In Your Community"}
+            {title || " Participating Communities"}
           </h2>
           <p style={{ width: "80%" }}>{description}</p>
           <Row>

@@ -18,7 +18,9 @@ body{
 
 :root {
   --app-deep-green: #3C5B11; 
+  /* --app-deep-green: #3030d0;  */
   --app-medium-green: #8BB256;
+  /* --app-medium-green: #ffc501; */
   --app-kicking-yellow: #FFD66D; 
   --kicking-background: #FFF5DD
   --app-antique-white: antiquewhite;

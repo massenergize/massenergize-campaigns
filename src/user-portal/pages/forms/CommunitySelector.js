@@ -105,10 +105,11 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
             <InputGroup className="mb-3 mt-2">
               <InputGroup.Text id="basic-addon1">Zip Code</InputGroup.Text>
               <Form.Control
-                type="number"
+                type="text"
                 placeholder="Enter zip code here..."
                 aria-label="zipcode"
                 aria-describedby="basic-addon1"
+                maxLength={5}
                 onChange={(e) => {
                   const value = e.target.value;
                   updateState({ zipcode: value });

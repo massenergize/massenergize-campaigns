@@ -5,6 +5,8 @@ import { Row } from "react-bootstrap";
 
 function Vendors({ sectionId, data, vendors }) {
   const { title, description } = data;
+
+  // if(!vendors?.length)
   return (
     <div
       id={sectionId}
