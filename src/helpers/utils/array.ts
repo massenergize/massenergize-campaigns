@@ -1,4 +1,5 @@
 import { isEmpty } from "./index";
+import { AnyObject } from "./types";
 
 interface BinarySearch {
   (array: number[], target: number): number;
@@ -51,6 +52,42 @@ export const binarySearch: BinarySearch = function (array, target) {
 export function someEmpty<T> (array: T[]): boolean {
   return array.some((item) => {
     return isEmpty(item);
+  });
+}
+
+/**
+ *
+ * @param array
+ * @param labelKey
+ * @param valueKey
+ */
+export function addLabelsAndValues<T> (array: T[], labelKey = "name", valueKey = "id"): T[] {
+  return array.map((item) => {
+    return {
+      ...item,
+      label: item[labelKey],
+      value: item[valueKey]
+    };
+  });
+}
+
+type Comparator = (array1: Array<AnyObject>, array2: Array<Object>) => void;
+
+interface DiffArray {
+  (array1: Array<any>, array2: Array<AnyObject>, comparator : Comparator): any;
+}
+
+export const diffArray: DiffArray = function (array1, array2, comparator ) {
+  return comparator(array1, array2)
+}
+
+export function hasSameValues<T> (array1: T[], array2: T[], comparator : Comparator): boolean {
+  if (array1.length !== array2.length) {
+    return false;
+  }
+
+  return array1.every((item) => {
+    return array2.includes(item);
   });
 }
 

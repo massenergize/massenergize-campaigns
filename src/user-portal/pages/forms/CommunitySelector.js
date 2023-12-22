@@ -4,6 +4,7 @@ import { Form, InputGroup } from "react-bootstrap";
 import { connect } from "react-redux";
 
 export const OTHER = "other";
+export const OTHER_JSON = { name: OTHER, id: OTHER };
 
 function CommunitySelector({ onChange, communities, data, readOnly }) {
   const [state, setState] = useState({});
@@ -63,7 +64,7 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
           <Form.Check.Input
             checked={comId === OTHER}
             type={"radio"}
-            value={"other"}
+            value={OTHER}
             isValid
           />
           <Form.Check.Label
@@ -74,7 +75,7 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
               fontSize: 15,
             }}
           >
-            Other
+            {OTHER}
           </Form.Check.Label>
         </Form.Check>
       </Form>

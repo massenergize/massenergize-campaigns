@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Input from "../../../components/admin-components/Input";
 import FileUploader from "../../../components/admin-components/FileUploader";
 import Button from "../../../components/admin-components/Button";
-import "../../adminStyles.css";
+import "../../../assets/styles/admin-styles.scss";
 import { apiCall } from "../../../utils/api_call";
 import MERichText from "../../../components/admin-components/RichText";
 
@@ -77,11 +77,11 @@ const Info = ({ technologyInfo, setTechnologyInfo, setActiveTab }) => {
 						<Col>
                          <MERichText
 						 label="Description"
-						 placeholder="Add more description for this technology......."	
+						 placeholder="Add more description for this technology......."
 						 required={true}
 						 onEditorChange = {(val, _) => {
 							 handleFieldChange("description", val);
-						 }}	
+						 }}
 						 value={formData?.description}
 
 

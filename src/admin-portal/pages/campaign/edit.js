@@ -13,6 +13,7 @@ import { CAMPAIGN } from "../../../mocks/campaign";
 import { useParams } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
 import Loading from "../../../components/pieces/Loading";
+import { addLabelsAndValues } from "../../../helpers/utils/array";
 
 const { useReducer } = require("react");
 
@@ -58,9 +59,9 @@ export function EditCampaign ({ props }) {
   const { id, } = useParams();
 
   const SWRConfig = {
-    dedupingInterval : 3_600_000,
-    revalidateInterval : 3_600_000,
-    refreshInterval :3_600_000,
+    dedupingInterval: 3_600_000,
+    revalidateInterval: 3_600_000,
+    refreshInterval: 3_600_000,
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -95,7 +96,7 @@ export function EditCampaign ({ props }) {
     isLoading: allTechnologiesLoading,
   } = useSWR(`technologies.list`, async () => {
     return await fetchAllTechnologies();
-  }, {...SWRConfig,});
+  }, { ...SWRConfig, });
 
   const {
     // initialData: allPartnersInitialData,
@@ -105,7 +106,7 @@ export function EditCampaign ({ props }) {
     isLoading: allPartnersIsLoading,
   } = useSWR("partners.list", async () => {
     await fetchAllPartners("partners.list")
-  }, {...SWRConfig,});
+  }, { ...SWRConfig, });
 
   const {
     data: allEvents,
@@ -113,8 +114,8 @@ export function EditCampaign ({ props }) {
     isValidating: allEventsIsValidating,
     error: allEventsError,
   } = useSWR(`events.listForCommunityAdmin`, async () => {
-      return await fetchAllCampaignEventsBySuperAdmins();
-    }, {...SWRConfig,});
+    return await fetchAllCampaignEventsBySuperAdmins();
+  }, { ...SWRConfig, });
 
   // const {
   //   // initialData: allManagersInitialData,
@@ -130,7 +131,7 @@ export function EditCampaign ({ props }) {
 
   const lists = {
     allPartners: {
-      data: allPartners,
+      data: addLabelsAndValues(allPartners || []),
       error: allPartnersError,
       isValidating: allPartnersIsValidating,
       isLoading: allPartnersIsLoading,
@@ -142,17 +143,17 @@ export function EditCampaign ({ props }) {
       // isLoading: allManagersIsLoading,
     },
     allTechnologies: {
-      data: allTechnologies,
+      data: addLabelsAndValues(allTechnologies || []),
       isLoading: allTechnologiesLoading,
     },
     allCommunities: {
-      data: allCommunities,
+      data: addLabelsAndValues(allCommunities || []),
       error: allCommunitiesError,
       isValidating: allCommunitiesIsValidating,
       isLoading: allCommunitiesIsLoading,
     },
     allEvents: {
-      data: allEvents,
+      data: addLabelsAndValues(allEvents || []),
       isLoading: allEventsLoading,
       error: allEventsError,
       isValidating: allEventsIsValidating,
@@ -163,9 +164,7 @@ export function EditCampaign ({ props }) {
     <AdminLayout>
       <div className={""}>
         {
-          campaignIsLoading ? (
-            <Loading/>
-          ) : null
+          campaignIsLoading ? (<Loading/>) : null
         }
         {
           campaignError ? (

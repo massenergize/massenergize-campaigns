@@ -2,7 +2,7 @@ import React, { useReducer, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import "../../adminStyles.css";
+import "../../../assets/styles/admin-styles.scss";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import Input from "../../../components/admin-components/Input";
 import Button from "../../../components/admin-components/Button";

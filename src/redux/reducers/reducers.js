@@ -44,7 +44,7 @@ export const fullTechnologiesReducer = (state = {}, action = {}) => {
   }
   return state;
 };
-export const userObjectReducer = (state = {}, action = {}) => {
+export const userObjectReducer = (state = null, action = {}) => {
   if (action.type === SET_USER_OBJ) {
     return action.payload;
   }

@@ -270,7 +270,7 @@ export function AllCampaignsView({}) {
 						<Button
 							variant="primary"
 							onClick={() => {
-								navigate(`/${value}`);
+								navigate(`/campaign/${value}`);
 							}}
 						>
 							<FontAwesomeIcon icon={faEye} />

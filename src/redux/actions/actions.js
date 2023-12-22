@@ -1,6 +1,7 @@
 import { apiCall } from "../../api/messenger";
-import { CAMPAIGN_INFORMATION_URL } from "../../api/urls";
 import { auth } from "../../firebase/admin/fire-config";
+import { CAMPAIGN_INFORMATION_URL, CAMPAIGN_VIEW_URL } from "../../api/urls";
+import JoinUsForm from "../../user-portal/pages/forms/JoinUsForm";
 import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
@@ -67,6 +68,19 @@ export const setCommentsAction = (payload) => {
 //   });
 // };
 
+// export const toggleUserInfoModal = (props, cb) => (dispatch) => {
+//   // const component = props?.component;
+//   const componentProps = props?.componentProps || {};
+//   // return (dispatch) =>
+//   // dispatch(
+//   toggleUniversalModal({
+//     fullControl: true,
+//     ...props,
+//     component: (_props) => <JoinUsForm {..._props} {...componentProps} />,
+//   });
+//   // );
+// };
+
 export const trackActivity = (payload, cb) => {
   return () => {
     apiCall("/campaigns.activities.track", payload).then((response) => {
@@ -83,11 +97,12 @@ export const updateUserAction = (payload, cb) => {
   return (dispatch) => {
     apiCall("/users.update.loosedUser", payload).then((response) => {
       if (!response || !response.success) {
+        cb && cb(null, false, response.error);
         return console.log("ERROR_UPDATING_USER:", response.data);
       }
 
       dispatch(loadUserObjAction(response.data));
-      cb && cb(response.data);
+      cb && cb(response.data, response.success, response.error);
     });
   };
 };
@@ -102,16 +117,20 @@ export const appInnitAction = (campaignId, cb) => {
     const userContent = user?.email ? { email: user.email } : {};
     Promise.all([
       apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
+      apiCall(CAMPAIGN_VIEW_URL, {
+        campaign_id: campaignId,
+        url: window.location.href,
+      }),
     ])
       .then((response) => {
-        const [campaignInformation] = response;
+        const [campaignInformation, campaignViewResponse] = response;
         const data = campaignInformation.data;
         // console.log("INSIDE INNIT", data, campaignId);
         dispatch(loadCampaignInformation(data));
         if (data) {
           dispatch(setNavigationMenuAction(data?.navigation || []));
           dispatch(setTestimonialsActions(data?.my_testimonials || []));
-          cb && cb(response, campaignInformation?.success);
+          cb && cb(data, campaignInformation?.success);
         }
       })
       .catch((e) => console.log("ERROR_IN_INNIT:", e?.toString()));

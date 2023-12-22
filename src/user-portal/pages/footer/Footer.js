@@ -47,8 +47,14 @@ function Footer({ toggleModal, campaign }) {
               onClick={() =>
                 toggleModal({
                   show: true,
-                  component: (props) => <JoinUsForm {...(props || {})} />,
-                  title: "Welcome to the Wayland Energy Challenge",
+                  component: (props) => (
+                    <JoinUsForm
+                      {...(props || {})}
+                      confirmText="Follow"
+                      callbackOnSubmit={({ close }) => close && close()}
+                    />
+                  ),
+                  title: `Follow ${campaign?.title}` || "...",
                   fullControl: true,
                 })
               }
@@ -91,7 +97,6 @@ function Footer({ toggleModal, campaign }) {
                       onClick={() => navigator(url)}
                       style={{
                         padding: "10px 20px",
-                        // color: "var(--app-medium-green)",
                         color: "white",
                         fontSize: 17,
                         textDecoration: "underline",

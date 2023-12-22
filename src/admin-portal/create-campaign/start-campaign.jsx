@@ -1,7 +1,7 @@
 import React, { useReducer, useState } from "react";
 import { Alert, Button, Col, Container, FormLabel, Row } from "react-bootstrap";
 import Input from "../../components/admin-components/Input";
-import "../adminStyles.css";
+import "../../assets/styles/admin-styles.scss";
 import { isEmpty } from "../../helpers/utils/string";
 import Chip from "../../components/admin-components/Chip";
 import { createCampaignFromTemplate } from "../../requests/campaign-requests";

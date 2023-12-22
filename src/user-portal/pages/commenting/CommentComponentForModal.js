@@ -4,6 +4,7 @@ import Loading from "../../../components/pieces/Loading";
 import { relativeTimeAgo } from "../../../utils/utils";
 import Notification from "../../../components/pieces/Notification";
 import { apiCall } from "../../../api/messenger";
+import CommentDeleteConfirmation from "../technology/CommentDeleteConfirmation";
 
 function CommentComponentForModal({
   comments,
@@ -12,6 +13,9 @@ function CommentComponentForModal({
   camp_tech_id,
   technology,
   updateTechList,
+  updateUserInRedux,
+  commentIsForUser,
+  onDelete,
 }) {
   const [commentItems, setCommentItems] = useState([]);
   const [name, setName] = useState("");
@@ -32,7 +36,7 @@ function CommentComponentForModal({
     if (ref.current) {
       ref.current.scrollTop = ref.current.scrollHeight;
     }
-  }, [comments]);
+  }, [commentItems]);
 
   useEffect(() => {
     const { user } = authUser || {};
@@ -53,23 +57,31 @@ function CommentComponentForModal({
     const doesNotHaveName = !user?.full_name;
     setLoading(true);
     if (doesNotHaveName) {
-      updateUser({ id: user?.id, full_name: name }, () =>
-        sendCommentToBackend()
+      updateUser(
+        { id: user?.id || null, full_name: name, follow_id: authUser?.id },
+        (userObj, passed, error) => {
+          if (!passed) {
+            setLoading(false);
+            return setError(error);
+          }
+          updateUserInRedux(userObj);
+          sendCommentToBackend(userObj?.user);
+        }
       );
-    } else sendCommentToBackend();
+    } else sendCommentToBackend(authUser?.user);
   };
 
-  const sendCommentToBackend = () => {
+  const sendCommentToBackend = (user) => {
     apiCall("/campaigns.technologies.comments.create", {
       campaign_technology_id: technology?.campaign_technology_id,
       text: comment,
-      user_id: user?.id,
+      user_id: user?.id || null,
     }).then((response) => {
       setLoading(false);
       if (!response || !response.success) return setError(response.error);
       const latestComments = response.data;
       const updated = { ...(technology || {}), comments: latestComments };
-      setCommentItems(latestComments.reverse());
+      setCommentItems([...latestComments].reverse());
       updateTechList(updated);
       setComment("");
 
@@ -92,20 +104,27 @@ function CommentComponentForModal({
           const { user, text, created_at } = com || {};
           const message = text || "...";
           const community = user?.community;
+
+          const isForCurrentUser = commentIsForUser(com, authUser);
           return (
             <div
               className="mb-2 mt-1 pb-2"
               style={{ border: "solid 0px #f5f5f5", borderBottomWidth: 1 }}
-              key={index?.toString()}
+              key={com?.id}
             >
               <h6
                 style={{
-                  textDecoration: "underline",
+                  // textDecoration: "underline",
                   fontSize: 14,
+                  fontWeight: "bold",
+                  color: isForCurrentUser
+                    ? "var(--app-medium-green)"
+                    : "var(--app-deep-green)",
                 }}
               >
-                <span style={{ color: "var(--app-deep-green)" }}>
-                  {user?.full_name}{" "}
+                <span style={{}}>
+                  {user?.full_name || "..."}{" "}
+                  {isForCurrentUser ? " (Yours)" : ""}{" "}
                 </span>{" "}
                 {community && " from "}
                 <span style={{ color: "var(--app-medium-green)" }}>
@@ -120,6 +139,27 @@ function CommentComponentForModal({
                   flexDirection: "row",
                 }}
               >
+                <CommentDeleteConfirmation
+                  show={isForCurrentUser}
+                  onDelete={() =>
+                    onDelete &&
+                    onDelete(com, (rem) =>
+                      setCommentItems([...(rem || [])].reverse())
+                    )
+                  }
+                />
+                {/* <span
+                  onClick={() => prompt("Nation One")}
+                  className="touchable-opacity"
+                  style={{
+                    textDecoration: "underline",
+                    color: "#a52424",
+                    // marginLeft: 10,
+                    fontWeight: "bold",
+                  }}
+                >
+                  Delete{" "}
+                </span> */}
                 <span style={{ marginLeft: "auto", color: "#cbcbcb" }}>
                   {relativeTimeAgo(created_at)}
                 </span>
@@ -134,7 +174,7 @@ function CommentComponentForModal({
           bottom: 0,
           width: "100%",
           padding: "10px 20px",
-          background: "white",
+          background: "#e8f0ea",
           borderBottomRightRadius: 5,
           borderBottomLeftRadius: 5,
         }}

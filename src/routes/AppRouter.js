@@ -141,7 +141,7 @@ function AppRouter({
       />
       <Routes>
         <Route
-          path="/:campaignId"
+          path="/campaign/:campaignId"
           element={
             <LandingPage
               test={test}
