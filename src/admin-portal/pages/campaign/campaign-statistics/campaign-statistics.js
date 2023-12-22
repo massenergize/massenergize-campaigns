@@ -24,11 +24,16 @@ import NProgress from "nprogress";
 import { apiCall } from "../../../../api/messenger";
 import CustomToast from "../../../../components/admin-components/CustomToast";
 import Loading from "../../../../components/pieces/Loading";
+import { useBubblyBalloons } from "../../../../components/bubbly-balloon/use-bubbly-balloons";
 
 export function CampaignStatistics({}) {
 	const { id } = useParams();
 
 	const [showToast, setShowToast] = useState(false);
+
+	const {
+		blow
+	} = useBubblyBalloons();
 
 	const {
 		data: campaign,
@@ -173,10 +178,31 @@ export function CampaignStatistics({}) {
 										})}
 									</div>
 									<div>
-										<Button
+										{/*<Button
 											className="btn-success mr-3"
 											onClick={() => {
 												window.history.back();
+											}}
+										>
+											<FontAwesomeIcon icon={faDownload} /> Download Data File
+										</Button>*/}
+
+										<Button
+											className="btn-success mr-3"
+											onClick={() => {
+												apiCall("/downloads.campaigns.performance", {campaign_id:id}).then(
+													res=>{
+														if(res?.success){
+															// 	show a message asking user to check email
+															blow({
+																title: "Success",
+																message: "File sent to your email. Please check your email",
+																type: "success",
+																timeout : false
+															})
+														}
+													}
+												)
 											}}
 										>
 											<FontAwesomeIcon icon={faDownload} /> Download Data File

@@ -46,7 +46,7 @@ export const SIDE_BAR_MENU = [
           },
         ],
       },
-      {
+     /* {
         id: "technologies",
         name: "Technologies",
         icon: <FontAwesomeIcon icon={faBullseye} />,
@@ -66,7 +66,7 @@ export const SIDE_BAR_MENU = [
             icon: <FontAwesomeIcon icon={faPen} />,
           },
         ],
-      },
+      },*/
     ],
   },
 ];
