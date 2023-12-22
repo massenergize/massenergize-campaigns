@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { apiCall } from "../../../api/messenger";
 import copy from "clipboard-copy";
+import { API_HOST } from "../../../api/urls";
 const items = [
-  { key: "facebook", text: "acebook", icon: "fa-facebook" },
-  { key: "twitter", text: "Twitter", icon: "fa-twitter" },
-  { key: "email", text: "Email", icon: "fa-envelope" },
-  { key: "whatsapp", text: "Whatsapp", icon: "fa-whatsapp" },
-  { key: "other", text: "Other", icon: "" },
+  { key: "facebook", text: "acebook", icon: "fa-facebook", alias: "facebook" },
+  { key: "twitter", text: "Twitter", icon: "fa-twitter", alias: "twitter" },
+  { key: "email", text: "Email", icon: "fa-envelope", alias: "email" },
+  { key: "whatsapp", text: "Whatsapp", icon: "fa-whatsapp", alias: "whatsapp" },
+  { key: "other", text: "Other", icon: "", alias: "" },
 ];
 function ShareBox({ data, onChange, campaign, authUser }) {
   const [copied, setCopied] = useState(false);
@@ -19,12 +20,13 @@ function ShareBox({ data, onChange, campaign, authUser }) {
   const { user } = authUser || {};
   const generateLink = (obj) => {
     const path = new URL(window.location.href);
-
+    let backendVersionOfURL = `${API_HOST}${path?.pathname}`;
+    backendVersionOfURL = backendVersionOfURL?.split("api/").join("");
     const payload = {
       campaign_id: campaign?.id,
       email: user?.email,
       utm_source: campaign?.account?.subdomain || "unknown",
-      url: path?.href,
+      url: backendVersionOfURL,
       utm_medium: obj.platform,
     };
 
@@ -141,6 +143,10 @@ function ShareBox({ data, onChange, campaign, authUser }) {
               {copied ? "Copied!" : "Copy Link"}
             </Button>
           </InputGroup>
+          <Form.Text>
+            You can copy the link and share it{" "}
+            {state?.platform === "other" ? "" : ` on ${state.platform}`}
+          </Form.Text>
         </div>
       </div>
     </div>

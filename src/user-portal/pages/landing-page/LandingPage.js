@@ -12,10 +12,15 @@ import CoachesSection from "../coaches/CoachesSection";
 import Banner from "../banner/Banner";
 import planetB from "./../../../assets/imgs/planet-b.jpeg";
 import { connect } from "react-redux";
-import { apiCall } from "../../../api/messenger";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { appInnitAction, trackActivity, USER_STORAGE_KEY } from "../../../redux/actions/actions";
+import {
+  USER_STORAGE_KEY,
+  appInnitAction,
+  loadUserObjAction,
+  toggleUserInfoModal,
+  trackActivity,
+} from "../../../redux/actions/actions";
 import { LOADING } from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
@@ -23,6 +28,7 @@ import { fetchUrlParams } from "../../../utils/utils";
 import RoamingModalSheet from "./RoamingModalSheet";
 import DoMore from "./DoMore";
 import JoinUsForm from "../forms/JoinUsForm";
+import { OTHER, OTHER_JSON } from "../forms/CommunitySelector";
 
 function LandingPage({
   toggleModal,
@@ -31,8 +37,9 @@ function LandingPage({
   menu,
   trackActivity,
   authUser,
-  preview
-                     }) {
+  whereIsUserFrom,
+  updateUserInRedux,
+}) {
   const [mounted, setMounted] = useState(false);
   const coachesRef = useRef();
   const eventsRef = useRef();
@@ -65,30 +72,53 @@ function LandingPage({
   }, [mounted, target]);
 
   useEffect(() => {
-    init(campaignId, (_, passed) => {
-      if (passed) tellUsWhereYouAreFrom();
+    init(campaignId, (justLoadedCampaign, passed) => {
+      if (passed) tellUsWhereYouAreFrom(justLoadedCampaign);
       setMounted(true);
     });
   }, [campaignId]);
 
-  useEffect(() => {
-    if(!preview) init(campaignId);
-  }, []);
+  const stashUserCommunity = ({ data, close, campaign }) => {
+    let communities = campaign?.communities || [];
+    communities = communities?.map((com) => com.community);
+    const id = data?.comId;
+    let community = communities?.find(
+      (com) => com?.id?.toString() === id?.toString()
+    );
 
-  const tellUsWhereYouAreFrom = () => {
-    const user = localStorage.getItem(USER_STORAGE_KEY);
+    if (id === OTHER) community = OTHER_JSON;
+    if (community) updateUserInRedux({ ...(authUser || {}), community });
+    close && close();
+  };
+  const tellUsWhereYouAreFrom = (justLoadedCampaign) => {
+    const user = authUser || localStorage.getItem(USER_STORAGE_KEY);
     const firstTime = !user || user === "null";
 
     if (!firstTime) return;
+    // console.log("DID YOU RUN THIS THING?");
+    // whereIsUserFrom({
+    //   show: true,
+    //   title: "Please tell us where you are from",
+    //   componentProps: { noForm: true, okText: "Okay, Done!" },
+    // });
     toggleModal({
       show: true,
       title: `Please tell us where you are from`,
-      component: ({ close }) => <JoinUsForm close={close} />,
+      component: ({ close }) => (
+        <JoinUsForm
+          close={close}
+          confirmText="Okay, Done!"
+          cancelText="NO"
+          noForm
+          onConfirm={(props) =>
+            stashUserCommunity({ ...props, campaign: justLoadedCampaign })
+          }
+        />
+      ),
       // modalNativeProps: { size: "md" },
       fullControl: true,
     });
   };
-
   const showMoreAboutAdvert = () => {
     const data = config?.advert || {};
     toggleModal({
@@ -110,13 +140,13 @@ function LandingPage({
     });
   };
 
-  if (campaign === LOADING && !preview)
+  if (campaign === LOADING)
     return <Loading fullPage>Fetching campaign details...</Loading>;
 
   if (!campaign) return <NotFound></NotFound>;
 
   let previewMode = fetchUrlParams("preview");
-  previewMode = previewMode?.trim() === "true";
+  previewMode = previewMode?.trim() === "true" ? true : false;
 
   return (
     <div style={{}}>
@@ -165,7 +195,6 @@ function LandingPage({
               marginTop: 20,
               objectFit: "cover",
             }}
-            alt={"campaign banner"}
           />
         </Container>
         <RoamingBox
@@ -221,6 +250,8 @@ const mapDispatch = (dispatch) => {
     {
       init: appInnitAction,
       trackActivity,
+      updateUserInRedux: loadUserObjAction,
+      // whereIsUserFrom: toggleUserInfoModal,
     },
     dispatch
   );

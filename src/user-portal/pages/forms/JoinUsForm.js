@@ -22,6 +22,12 @@ function JoinUsForm({
   authUser,
   description,
   callbackOnSubmit,
+  onConfirm,
+  confirmText,
+  cancelText,
+  noForm,
+  apiURL,
+  processPayload,
 }) {
   const [form, setForm] = useState({});
   const [email, setEmail] = useState("");
@@ -49,7 +55,8 @@ function JoinUsForm({
   };
 
   const joinUs = () => {
-    if (authUser) return alert("You've already followed. Thank you very much!");
+    if (onConfirm) return onConfirm({ data: form, close });
+    // if (authUser) return alert("You've already followed. Thank you very much!");
     const emailIsValid = validateEmail(email);
     if (!emailIsValid)
       return makeNotification("Please provide a valid email address...");
@@ -64,14 +71,15 @@ function JoinUsForm({
     }
 
     setLoading(true);
-    const payload = {
+    let payload = {
       email,
       campaign_id: campaign?.id,
       community_id: comId,
       ...otherContent,
     };
+    payload = processPayload ? processPayload(payload) : payload;
     makeNotification("Well done, thank you for joining us!", true);
-    apiCall("/campaigns.follow", payload).then((response) => {
+    apiCall(apiURL || "/campaigns.follow", payload).then((response) => {
       setLoading(false);
       if (!response?.success) {
         setError("Error: ", response.error);
@@ -87,23 +95,25 @@ function JoinUsForm({
       <div className="p-4">
         {description && <p>{description}</p>}
         <CommunitySelector onChange={(data) => setForm(data)} data={form} />
-        <div>
-          <Form.Text>Join us because we are great! (Editable)</Form.Text>
-          <InputGroup className="mb-3 mt-2">
-            <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
-            <Form.Control
-              value={email}
-              type="email"
-              placeholder="Enter Email Here..."
-              aria-label="email"
-              aria-describedby="basic-addon1"
-              onChange={(e) => {
-                const value = e.target.value;
-                setEmail(value);
-              }}
-            />
-          </InputGroup>
-        </div>
+        {!noForm && (
+          <div>
+            <Form.Text>Join us because we are great!</Form.Text>
+            <InputGroup className="mb-3 mt-2">
+              <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
+              <Form.Control
+                value={email}
+                type="email"
+                placeholder="Enter Email Here..."
+                aria-label="email"
+                aria-describedby="basic-addon1"
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setEmail(value);
+                }}
+              />
+            </InputGroup>
+          </div>
+        )}
         <Notification show={error.message} good={error.good}>
           {error?.message}
         </Notification>
@@ -121,11 +131,11 @@ function JoinUsForm({
             background: "#d53939",
           }}
         >
-          Cancel
+          {cancelText || "Cancel"}
         </Button>
         <Button
           className="touchable-opacity"
-          disabled={loading || authUser}
+          disabled={loading}
           onClick={() => joinUs()}
           size="lg"
           style={{
@@ -140,7 +150,7 @@ function JoinUsForm({
           }}
         >
           {loading && <Spinner size="sm" style={{ marginRight: 6 }}></Spinner>}
-          Join Us
+          {confirmText || "Join Us"}
         </Button>
       </ModalFooter>
     </div>

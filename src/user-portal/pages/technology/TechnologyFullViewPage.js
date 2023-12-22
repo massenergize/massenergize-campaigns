@@ -27,12 +27,14 @@ import { apiCall } from "../../../api/messenger";
 import Loading from "../../../components/pieces/Loading";
 import {
   appInnitAction,
+  loadUserObjAction,
   setCommentsAction,
   trackActivity,
   updateTechnologiesAction,
   updateUserAction,
 } from "../../../redux/actions/actions";
 import ShareBox from "../sharing/ShareBox";
+import CommentDeleteConfirmation from "./CommentDeleteConfirmation";
 
 const DEFAULT_READ_HEIGHT = 190;
 const COMMENT_LENGTH = 40;
@@ -47,8 +49,10 @@ function TechnologyFullViewPage({
   updateCommentList,
   commentsList,
   trackActivity,
+  updateUserInRedux,
 }) {
   const authUser = user;
+  // const hasUser = authUser?.user;
   const [mounted, setMounted] = useState(false);
   // const [idsToRefMap, setidsToRefMap] = useState({});
   const coachesRef = useRef();
@@ -91,8 +95,9 @@ function TechnologyFullViewPage({
   };
 
   useEffect(() => {
+    console.log(campaign_technology_id, campaign_id);
     scrollToSection(targetSection);
-  }, [mounted]);
+  }, [mounted, campaign_technology_id, campaign_id]);
 
   useEffect(() => {
     if (technology?.campaign_technology_id) recorderAView();
@@ -101,6 +106,7 @@ function TechnologyFullViewPage({
   const campaignExists = campaign && campaign !== LOADING;
 
   const updateTechList = (data, id) => {
+    setTechnology(data);
     updateTechObjs({ ...(techs || {}), [id]: data });
   };
 
@@ -124,7 +130,7 @@ function TechnologyFullViewPage({
         }
         const data = response?.data;
         updateTechList(data, id);
-        setTechnology(data);
+        // setTechnology(data);
         setMounted(true);
       })
       .catch((e) => {
@@ -144,7 +150,7 @@ function TechnologyFullViewPage({
     coaches,
     testimonials,
     likes,
-    views,
+    campaign_technology_views,
     image,
     comments,
     overview,
@@ -157,23 +163,23 @@ function TechnologyFullViewPage({
     vendors,
   } = technology;
 
-  const like = (user) => {
-    if (!user) return triggerRegistrationForLike();
-    const { community } = authUser || {};
+  const like = (userObject) => {
+    const { community, user } = userObject || {};
+    // if (!user) return triggerRegistrationForLike();
 
     const payload = {
       campaign_technology_id: technology?.campaign_technology_id,
-      user_id: user?.id,
-      email: user?.email,
-      zipcode: authUser?.zipcode,
-      community_id: community?.id,
-      community_name: authUser?.community_name || community?.name,
+      // user_id: user?.id,
+      // email: user?.email,
+      // zipcode: authUser?.zipcode,
+      // community_id: community?.id,
+      // community_name: authUser?.community_name || community?.name,
     };
-    // console.log("LETS SEE LIKE PAYLOAD", )
+
     apiCall("/campaigns.technology.like", payload).then((response) => {
       if (!response || !response?.success)
         return console.log("ERROR_LIKING: ", response?.error);
-      updateTechList(response?.data);
+      updateTechList(response?.data, id);
     });
   };
 
@@ -181,11 +187,12 @@ function TechnologyFullViewPage({
   const triggerRegistration = () => {
     toggleModal({
       show: true,
-      title: `Tell us where you are from`,
+      title: `Before you continue, we would like to know you`,
       iconName: "fa-comment",
       component: ({ close }) => (
         <JoinUsForm
           close={close}
+          confirmText="Continue"
           callbackOnSubmit={({ user }) => {
             close && close();
             triggerCommentBox(user);
@@ -196,38 +203,42 @@ function TechnologyFullViewPage({
       fullControl: true,
     });
   };
-  const triggerRegistrationForLike = () => {
-    toggleModal({
-      show: true,
-      title: `Tell us where you are from`,
-      iconName: "fa-thumbs-up",
-      component: ({ close }) => (
-        <JoinUsForm
-          close={close}
-          callbackOnSubmit={({ user }) => {
-            like(user);
-          }}
-        />
-      ),
-      // modalNativeProps: { size: "md" },
-      fullControl: true,
-    });
-  };
-  const triggerCommentBox = (user) => {
+  // const triggerRegistrationForLike = () => {
+  //   toggleModal({
+  //     show: true,
+  //     title: `Tell us where you are from`,
+  //     iconName: "fa-thumbs-up",
+  //     component: ({ close }) => (
+  //       <JoinUsForm
+  //         close={close}
+  //         callbackOnSubmit={({ user }) => {
+  //           like(user);
+  //         }}
+  //       />
+  //     ),
+  //     // modalNativeProps: { size: "md" },
+  //     fullControl: true,
+  //   });
+  // };
+  const triggerCommentBox = (userObject) => {
+    const { community, user } = userObject || {};
     if (!user) return triggerRegistration();
     toggleModal({
       show: true,
-      title: "Add a comment",
+      title: "Read comments or add yours",
       iconName: "fa-comment",
       component: () => (
         <CommentComponentForModal
+          updateUserInRedux={updateUserInRedux}
           comments={[...comments]}
-          authUser={user}
+          authUser={userObject}
           updateUser={updateUser}
           technology={technology}
+          commentIsForUser={commentIsForUser}
+          onDelete={deleteComment}
           updateTechList={(data) => {
-            setTechnology(data);
-            updateTechList(data, technology?.id);
+            // setTechnology(data);
+            updateTechList(data, id);
           }}
         />
       ),
@@ -246,6 +257,37 @@ function TechnologyFullViewPage({
       modalNativeProps: { size: "lg" },
       fullControl: true,
     });
+  };
+
+  const commentIsForUser = (comment, userFromAuth) => {
+    const { user } = userFromAuth || {};
+    // console.log("AUTH USER, COMMENT USER", user, comment);
+
+    if (!user) return false;
+
+    return comment?.user?.id === user?.id;
+  };
+
+  const deleteComment = (comment, cb) => {
+    let comments = technology?.comments || [];
+    comments = comments.filter((c) => c.id !== comment?.id);
+    const updated = { ...(technology || {}), comments };
+    updateTechList(updated, id);
+    cb && cb(comments); // KULULU: lets us send the remaining comments back to the modal  to give a quick deletion feel, before the api req runs
+    // return;
+    apiCall("/campaigns.technologies.comments.delete", {
+      id: comment?.id || null,
+      user_id: comment?.user?.id || null,
+    })
+      .then((response) => {
+        const { data, error, success } = response || {};
+        if (!success) return console.log("COMMENT_DELETION_ERROR_BE:", error);
+        updateTechList({ ...(technology || {}), comments: data }, id);
+        cb && cb(data);
+      })
+      .catch((e) =>
+        console.log("COMMENT_DELETION_ERROR_SYNT: ", e?.toString())
+      );
   };
 
   const isReallyLong = description.length > 1000; // This is not a good way of checking, change it later
@@ -274,7 +316,7 @@ function TechnologyFullViewPage({
                 liked={technology?.has_liked}
                 likes={likes}
                 like={() => like(authUser?.user)}
-                views={views}
+                views={campaign_technology_views}
                 comments={comments?.length || 0}
               />
               <p className="mt-3" style={{ textAlign: "justify" }}>
@@ -337,8 +379,25 @@ function TechnologyFullViewPage({
                   onClick={() =>
                     toggleModal({
                       show: true,
-                      title: "Get updates about this technology",
-                      component: () => <JoinUsForm />,
+                      title: `Get updates on ${technology?.name || "..."}`,
+                      component: ({ close }) => (
+                        <JoinUsForm
+                          close={close}
+                          confirmText="Get Updates"
+                          apiURL="/campaigns.technology.follow"
+                          processPayload={(payload) => {
+                            const data = {
+                              ...(payload || {}),
+                              campaign_technology_id,
+                            };
+
+                            delete data?.campaign_id;
+                            return data;
+                          }}
+                          callbackOnSubmit={({ close }) => close && close()}
+                          // onConfirm={finaliseGetUpdates}
+                        />
+                      ),
                       fullControl: true,
                     })
                   }
@@ -399,17 +458,32 @@ function TechnologyFullViewPage({
                   <small style={{ color: "" }}>This is what people think</small>
                   <div className="mt-2">
                     {comments?.slice(0, 3)?.map((com, index) => {
+                      const isForCurrentUser = commentIsForUser(com, authUser);
+
                       const { user, text, created_at } = com || {};
                       const message = text || "...";
                       return (
-                        <div className="mb-1 mt-1" key={index?.toString()}>
+                        <div
+                          className="mb-1 mt-1"
+                          style={{
+                            border: "solid 0px #eae9e9",
+                            borderBottomWidth: 1,
+                            paddingBottom: 10,
+                          }}
+                          key={com?.id}
+                        >
                           <h6
                             style={{
-                              textDecoration: "underline",
+                              // textDecoration: "underline",
                               fontSize: 14,
+                              fontWeight: "bold",
+                              color: isForCurrentUser
+                                ? "var(--app-medium-green)"
+                                : "var(--app-deep-green)",
                             }}
                           >
-                            {user?.full_name || "..."}
+                            {user?.full_name || "..."}{" "}
+                            {isForCurrentUser ? " (Yours)" : ""}
                           </h6>
                           <small>
                             {message.substr(0, COMMENT_LENGTH)}
@@ -430,6 +504,7 @@ function TechnologyFullViewPage({
                               <></>
                             )}
                           </small>
+
                           <small
                             style={{
                               width: "100%",
@@ -437,7 +512,19 @@ function TechnologyFullViewPage({
                               flexDirection: "row",
                             }}
                           >
-                            <span style={{ marginLeft: "", color: "#cbcbcb" }}>
+                            <CommentDeleteConfirmation
+                              show={isForCurrentUser}
+                              onDelete={() => deleteComment(com)}
+                            />
+                            <span
+                              style={{
+                                marginLeft: "",
+                                color: "#cbcbcb",
+                                // marginRight: 10,
+                                marginLeft: "auto",
+                                fontSize: 12,
+                              }}
+                            >
                               {relativeTimeAgo(created_at)}
                             </span>
                           </small>
@@ -562,6 +649,7 @@ const mapDispatch = (dispatch) => {
       updateUser: updateUserAction,
       updateCommentList: setCommentsAction,
       trackActivity,
+      updateUserInRedux: loadUserObjAction,
     },
     dispatch
   );

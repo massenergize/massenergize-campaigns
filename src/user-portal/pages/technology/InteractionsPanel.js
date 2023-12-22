@@ -1,3 +1,4 @@
+import { Tooltip } from "bootstrap";
 import React, { useEffect, useState } from "react";
 
 const interactions = [
@@ -19,13 +20,13 @@ function InteractionsPanel({
   const [likeCount, setLikeCount] = useState(0);
 
   useEffect(() => {
-    setHasLiked(liked);
+    // setHasLiked(liked);
     setLikeCount(likes);
   }, [likes, liked]);
 
   const doLike = () => {
     setLikeCount(hasLiked ? likeCount - 1 : likeCount + 1);
-    setHasLiked(!hasLiked);
+    // setHasLiked(!hasLiked);
     like();
   };
 
@@ -55,9 +56,11 @@ function InteractionsPanel({
         }}
       >
         <i
-          className={`fa fa-heart interact ${hasLiked ? "already-liked" : ""}`}
+          // className={`fa fa-heart interact ${hasLiked ? "already-liked" : ""}`}
+          className={`fa fa-heart interact`}
           style={{ marginRight: 6, color: "var(--app-deep-green)" }}
         />
+
         <small
           className="touchable-opacity"
           // style={{ fontWeight: "bold", textDecoration: "underline" }}
