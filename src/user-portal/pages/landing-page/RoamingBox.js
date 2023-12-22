@@ -12,7 +12,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
         <Col lg={{ span: 9, offset: 1 }}>
           <Row>
             <Col lg={8}>
-              <div className="elevate-float-pro">
+              <div className="">
                 <div
                   style={{
                     padding: "10px 30px",

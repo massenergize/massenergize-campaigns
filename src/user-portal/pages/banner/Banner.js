@@ -4,7 +4,6 @@ import { Col, Container, Row } from "react-bootstrap";
 import partnerLogo from "./../../../assets/imgs/me-round-logo.png";
 
 function Banner({ title, secondary_logo, primary_logo, tagline }) {
-  console.log("tagline", tagline);
   return (
     <Container style={{ marginTop: 70 }}>
       <Row>
@@ -49,7 +48,16 @@ function Banner({ title, secondary_logo, primary_logo, tagline }) {
             {title}
           </h1>
           {tagline && (
-            <h5 style={{ fontWeight: "400", color: "var(--app-medium-green)" }}>
+            <h5
+              style={{
+                fontWeight: "400",
+                color: "var(--app-medium-green)",
+                textAlign: "center",
+                textTransform: "capitalize",
+                lineHeight: "1.5",
+                width: "85%",
+              }}
+            >
               {tagline}
             </h5>
           )}

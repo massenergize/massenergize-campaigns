@@ -13,8 +13,6 @@ function AppNavigationBar({ menu, campaign }) {
   const navigator = useNavigate();
   const { secondary_logo, primary_logo } = campaign || {};
 
-  console.log("Campaign stuff", campaign);
-
   return (
     <Navbar
       variant="dark"
