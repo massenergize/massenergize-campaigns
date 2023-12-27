@@ -8,6 +8,7 @@ import { createCampaignFromTemplate } from "../../requests/campaign-requests";
 import { ProgressButton } from "../../components/progress-button/progress-button";
 import { MultiSelect } from "react-multi-select-component";
 import { useBubblyBalloons } from "../../components/bubbly-balloon/use-bubbly-balloons";
+import { useSelector } from "react-redux";
 
 export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCampaignDetails, step, setStep, lists }) {
   const [showError, setShowError] = useState(false);
@@ -40,6 +41,7 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCamp
   };
   const { blow, pop } = useBubblyBalloons();
   const [formData, dispatch] = useReducer(reducer, initialState);
+  const account = useSelector((state) => state.campaignAccount);
 
   const [submitButton, setSubmitButton] = useState({
     text: "Create Campaign",
@@ -50,7 +52,7 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCamp
     try {
       setLoading(true);
       const payload = {
-        campaign_account_id: "c2699d84-92e1-436f-8aad-cd301dad97ec", // TODO Remove this when the API is fixed
+        campaign_account_id: account?.id, // TODO Remove this when the API is fixed
         title: campaignDetails?.title,
         community_ids: campaignDetails?.communities?.map((community) => community?.id),
       }

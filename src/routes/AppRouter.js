@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Routes, useParams, Navigate,  generatePath } from "react-router-dom";
 import LandingPage from "../user-portal/pages/landing-page/LandingPage";
 import { bindActionCreators } from "redux";
 import {
-  appInnit,
   fetchMeUser,
   logUserOut,
-  setAuthUserAction,
   appInnitAction,
   testReduxAction,
   toggleUniversalModal,
@@ -22,7 +20,6 @@ import { AllCampaigns } from "../admin-portal/pages/campaign/all";
 import { CreateTechnology } from "../admin-portal/pages/technology/new";
 import { AllTechnologies } from "../admin-portal/pages/technology/all";
 import OneTestimonial from "../user-portal/pages/testimonials/OneTestimonial";
-import { getLastSegmentFromUrl } from "../utils/utils";
 import CreateCampaignAccount from "../admin-portal/pages/campaign-account/CreateCampaignAccount";
 import { CampaignStatistics } from "../admin-portal/pages/campaign/campaign-statistics/campaign-statistics";
 import Login from "../admin-portal/pages/auth/Login";
@@ -126,6 +123,10 @@ const ROUTE_TABLE = [
   {
     path: "/login",
     component: Login,
+  },
+  {
+    path: "/admin/campaign/account/new",
+    component: CreateCampaignAccount,
   },
   {
     path: "/dummy-for-auth",

@@ -13,6 +13,7 @@ import { fetchAllCampaigns } from "../requests/campaign-requests";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLink, faEye } from "@fortawesome/free-solid-svg-icons";
 import { faFileEdit } from "@fortawesome/free-solid-svg-icons/faFileEdit";
+import { useSelector } from "react-redux";
 
 const DUMMY_DATA = [
 	{
@@ -107,6 +108,7 @@ const DUMMY_CAMPAIGN_OWNERS = [
 export function AllCampaignsView({}) {
 	const [data, setData] = useNamedState("table data", DUMMY_DATA);
 	const [rowMenu, setRowMenu] = useState(ROW_ACTIONS_MENU);
+	const campaignAccount = useSelector((state) => state.campaignAccount);
 
 	const [SELECTED_ROW, setSelectedRow] = useNamedState("SELECTED_ROW", null);
 
@@ -339,13 +341,11 @@ export function AllCampaignsView({}) {
 	};
 	// endregion
 
-	let { data: campaigns } = useSWR(`campaigns.list`, fetchAllCampaigns, {
+	let { data: campaigns } = useSWR(`campaigns.list`, ()=>fetchAllCampaigns('campaigns.list',campaignAccount?.id ), {
 		onSuccess: (data) => {
 			console.log("Nice stuff insid db", { data });
 		},
 	});
-
-	console.log({ campaigns });
 
 	const patched = campaigns?.map((campaign, i) => {
 		return {

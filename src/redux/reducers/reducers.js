@@ -7,6 +7,7 @@ import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
   SET_AUTH_USER,
+  SET_CAMPAIGN_ACCOUNT,
   SET_FIRE_AUTH,
   SET_FULL_TECH_OBJ,
   SET_NAVIGATION_MENU,
@@ -88,6 +89,13 @@ export const commentsListReducer = (state = {}, action = {}) => {
 };
 export const testimonialsReducer = (state = [], action = {}) => {
   if (action.type === SET_TESTIMONIALS) {
+    return action.payload;
+  }
+  return state;
+};
+
+export const campaignAccountReducer = (state = {}, action = {}) => {
+  if (action.type === SET_CAMPAIGN_ACCOUNT) {
     return action.payload;
   }
   return state;

@@ -8,11 +8,10 @@ import { Sidebar } from "@kehillahglobal/ui";
 import { BOTTOM_MENU, SIDE_BAR_MENU } from "../layout-components/sidebarMenu";
 import { useState } from "react";
 import classes from "classnames";
-import { logUserOut } from "../redux/actions/actions";
 import { apiCall } from "../api/messenger";
 import AuthGuard from "../guards/AuthGuard";
-import {useDispatch} from "react-redux";
-import {logUserOut} from "../redux/actions/actions";
+import {useDispatch, useSelector} from "react-redux";
+import {logUserOut, setCampaignAccountAction} from "../redux/actions/actions";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -21,11 +20,18 @@ interface AdminLayoutProps {
 export function AdminLayout (props: AdminLayoutProps) {
   const { children } = props;
   const [shrink, setShrink] = useState(true);
+  const user = useSelector((state: any) => state.authAdmin);
+  const account = useSelector((state: any) => state.campaignAccount);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userInfo = {};
+  const userInfo = {
+      userName: user?.full_name,
+      role: user?.is_super_admin ? "Super Admin" : "Admin",
+      userImage: user?.profile_picture?.url,
+      companyName: account?.name,
+  };
   return (
 
     <SWRConfig value={{ dedupingInterval: 500000, fetcher: fetchData }}>
@@ -38,8 +44,15 @@ export function AdminLayout (props: AdminLayoutProps) {
             menu={SIDE_BAR_MENU}
             bottomMenu={BOTTOM_MENU}
             userDetails={userInfo}
+            accounts={user?.campaign_accounts}
+            onItemSelect={(item: any) => {
+              dispatch(setCampaignAccountAction(item))
+              let encoded = btoa(JSON.stringify(item));
+              localStorage.setItem("account", encoded);
+              window.location.href = `/admin/home`;
+            }}
             dark={true}
-            onTabItemClick={(e, { link, name }) => {
+            onTabItemClick={(e: any, { link, name }: any) => {
               if (!link && name === "SignOut") {
                 const iAmSureIWantToLogOut = window.confirm(
                   "Are you sure you want to sign out?"
@@ -47,7 +60,7 @@ export function AdminLayout (props: AdminLayoutProps) {
                 if (iAmSureIWantToLogOut) {
                   apiCall("/auth.logout",).then((res) => {
                     if (res.success) {
-                      dispatch(logUserOut());
+                      logUserOut()
                       window.location.href = "/login";
                     }
                   });
@@ -55,7 +68,7 @@ export function AdminLayout (props: AdminLayoutProps) {
               }
               navigate(link);
             }}
-            onShrinkBtnClick={(data) => {
+            onShrinkBtnClick={(data: any) => {
               console.log("Shrink button clicked", data);
             }}
             onStateChange={({ shrink }) => {

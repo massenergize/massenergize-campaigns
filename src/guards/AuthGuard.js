@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/admin/fire-config";
-import { fetchMeUser, setFirebaseAuthAction } from "../redux/actions/actions";
+import { fetchMeUser, setCampaignAccountAction, setFirebaseAuthAction } from "../redux/actions/actions";
 import { LOADING } from "../utils/Constants";
 import Loading from "../components/pieces/Loading";
 
@@ -35,7 +35,11 @@ function AuthGuard({
 				return console.log("ADMIN_IS_NOT_AUTHENTICATED");
 			}
 			putFirebaseAuthInRedux(user);
-			fetchMassenergizeUser({ idToken: user?.accessToken });
+			fetchMassenergizeUser({ idToken: user?.accessToken }, (data, err) => {
+				let account = localStorage.getItem("account");
+				account = account && JSON.parse(atob(account));
+				props.setAccount(account|| data?.campaign_accounts[0]);
+			});
 		});
 	}, []);
 
@@ -66,6 +70,7 @@ const mapDispatch = (dispatch) => {
 		{
 			fetchMassenergizeUser: fetchMeUser,
 			putFirebaseAuthInRedux: setFirebaseAuthAction,
+			setAccount:setCampaignAccountAction,
 		},
 		dispatch
 	);
