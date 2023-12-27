@@ -27,6 +27,7 @@ function Vendors({ sectionId, data, vendors }) {
         <Row>
           <ul style={{ display: "flex", flexWrap: "wrap" }}>
             {vendors?.map(({ vendor }, index) => {
+              console.log("VENDORHERE", vendor)
               return (
                 <li
                   onClick={() => {

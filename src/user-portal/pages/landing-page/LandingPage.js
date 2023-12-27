@@ -191,16 +191,16 @@ function LandingPage({
         <Banner {...campaign} />
         <Container>
           <img
-            className="elevate-float-pro"
+            className="elevate-float-pro campaign-focus-image"
             src={image?.url || planetB}
-            style={{
-              width: "80%",
-              margin: "0px 10%",
-              height: 530,
-              borderRadius: 10,
-              marginTop: 20,
-              objectFit: "cover",
-            }}
+            // style={{
+            //   width: "80%",
+            //   margin: "0px 10%",
+            //   height: 530,
+            //   borderRadius: 10,
+            //   marginTop: 20,
+            //   objectFit: "cover",
+            // }}
           />
         </Container>
         <RoamingBox
