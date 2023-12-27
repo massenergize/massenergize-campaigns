@@ -41,7 +41,6 @@ function Login ({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux, }) 
             if (err) {
                 return setError(err);
             }
-            console.log("== data == ", data)
             if (data?.campaign_accounts?.length < 1) {
               return navigate("/admin/campaign/account/new");
             }else{
