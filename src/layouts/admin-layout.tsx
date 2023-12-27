@@ -8,8 +8,9 @@ import { Sidebar } from "@kehillahglobal/ui";
 import { BOTTOM_MENU, SIDE_BAR_MENU } from "../layout-components/sidebarMenu";
 import { useState } from "react";
 import classes from "classnames";
-import { logUserOut } from "../redux/actions/actions";
 import { apiCall } from "../api/messenger";
+import {useDispatch} from "react-redux";
+import {logUserOut} from "../redux/actions/actions";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -20,6 +21,7 @@ export function AdminLayout (props: AdminLayoutProps) {
   const [shrink, setShrink] = useState(true);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const userInfo = {};
   return (
@@ -40,8 +42,8 @@ export function AdminLayout (props: AdminLayoutProps) {
                 if (iAmSureIWantToLogOut) {
                   apiCall("/auth.logout",).then((res) => {
                     if (res.success) {
-                      logUserOut()
-                      // window.location.href = "/login";
+                      // dispatch(logUserOut());
+                      window.location.href = "/login";
                     }
                   });
                 }

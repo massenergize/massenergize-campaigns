@@ -176,7 +176,13 @@ export function CampaignStatistics({}) {
 										<Button
 											className="btn-success mr-3"
 											onClick={() => {
-												window.history.back();
+												apiCall("/downloads.campaigns.performance", {campaign_id:id}).then(
+													res=>{
+														if(res?.success){
+															// 	show a message asking user to check email
+														}
+													}
+												)
 											}}
 										>
 											<FontAwesomeIcon icon={faDownload} /> Download Data File
