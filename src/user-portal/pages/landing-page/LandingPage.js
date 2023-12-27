@@ -12,6 +12,7 @@ import CoachesSection from "../coaches/CoachesSection";
 import Banner from "../banner/Banner";
 import planetB from "./../../../assets/imgs/planet-b.jpeg";
 import { connect } from "react-redux";
+import { apiCall } from "../../../api/messenger";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import {
@@ -37,6 +38,7 @@ function LandingPage({
   menu,
   trackActivity,
   authUser,
+  preview,
   whereIsUserFrom,
   updateUserInRedux,
 }) {
@@ -79,15 +81,21 @@ function LandingPage({
   }, [campaignId]);
 
   const stashUserCommunity = ({ data, close, campaign }) => {
+    // return console.log("THIS IS THE DATA", data)
     let communities = campaign?.communities || [];
     communities = communities?.map((com) => com.community);
     const id = data?.comId;
     let community = communities?.find(
       (com) => com?.id?.toString() === id?.toString()
     );
+    let json = { ...(authUser || {}), community };
 
-    if (id === OTHER) community = OTHER_JSON;
-    if (community) updateUserInRedux({ ...(authUser || {}), community });
+    if (id === OTHER) {
+      community = OTHER_JSON;
+      const { valueForOther, zipcode } = data || {};
+      json = { ...json, community, community_name: valueForOther, zipcode };
+    }
+    if (community) updateUserInRedux(json);
     close && close();
   };
   const tellUsWhereYouAreFrom = (justLoadedCampaign) => {
@@ -119,6 +127,7 @@ function LandingPage({
       fullControl: true,
     });
   };
+
   const showMoreAboutAdvert = () => {
     const data = config?.advert || {};
     toggleModal({
@@ -140,13 +149,17 @@ function LandingPage({
     });
   };
 
-  if (campaign === LOADING)
+  useEffect(() => {
+    if(!preview) init(campaignId);
+  }, []);
+
+  if (campaign === LOADING && !preview)
     return <Loading fullPage>Fetching campaign details...</Loading>;
 
   if (!campaign) return <NotFound></NotFound>;
 
   let previewMode = fetchUrlParams("preview");
-  previewMode = previewMode?.trim() === "true" ? true : false;
+  previewMode = previewMode?.trim() === "true";
 
   return (
     <div style={{}}>
@@ -180,7 +193,7 @@ function LandingPage({
           </a> */}
         </p>
       )}
-      {!previewMode && <AppNavigationBar menu={menu} />}
+      {!previewMode && <AppNavigationBar menu={menu} campaign={campaign} />}
       <Container>
         <Banner {...campaign} />
         <Container>
@@ -195,6 +208,7 @@ function LandingPage({
               marginTop: 20,
               objectFit: "cover",
             }}
+            alt={"campaign banner"}
           />
         </Container>
         <RoamingBox

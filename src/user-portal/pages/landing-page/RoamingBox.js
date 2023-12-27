@@ -4,7 +4,7 @@ import phone_call from "./../../../assets/imgs/phone_call.png";
 const LEN = 250;
 function RoamingBox({ advert, keyContact, showMore }) {
   const desc = advert?.description;
-  const preview = desc?.substring(0, LEN);
+  const preview = desc?.substr(0, LEN);
   const isLong = desc?.length > LEN;
   return (
     <div style={{ margin: "100px 0px" }}>
@@ -12,7 +12,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
         <Col lg={{ span: 9, offset: 1 }}>
           <Row>
             <Col lg={8}>
-              <div className="elevate-float-pro">
+              <div className="">
                 <div
                   style={{
                     padding: "10px 30px",
@@ -30,7 +30,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
                     background: "antiquewhite",
                   }}
                 >
-                  <p style={{ padding: "15px 25px", fontSize: 18 }}>
+                  <p style={{ padding: "15px 25px" }}>
                     {preview}
                     {isLong ? "..." : ""}
                   </p>
@@ -44,7 +44,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
                         borderWidth: 0,
                         padding: "9px 19px",
                       }}
-                      className="elevate-2"
+                      className="elevate-2 touchable-opacity"
                     >
                       Learn More
                     </Button>
@@ -64,7 +64,6 @@ function RoamingBox({ advert, keyContact, showMore }) {
             >
               <img
                 className="mb-2"
-                alt="key contact"
                 src={keyContact?.image?.url || phone_call}
                 style={{
                   borderRadius: "100%",
@@ -89,18 +88,28 @@ function RoamingBox({ advert, keyContact, showMore }) {
                 <span>{keyContact?.name || "..."}</span>
               </h6>
               <p
-                className="mb-1"
+                onClick={() => {
+                  window.open(`mailto:${keyContact?.email}`, "_blank");
+                }}
+                className="mb-1 touchable-opacity"
                 style={{
                   display: "flex",
                   flexDirection: "row",
+                  textDecoration: "underline",
                   alignItems: "center",
                 }}
               >
-                <i className=" fa fa-envelope" style={{ marginRight: 6 }}/>
+                <i className=" fa fa-envelope" style={{ marginRight: 6 }} />
                 <span> {keyContact?.email}</span>
               </p>
-              <p>
-                <i className="fa fa-phone"/>{" "}
+              <p
+                className="touchable-opacity"
+                onClick={() => {
+                  window.open(`tel:${keyContact?.phone_number}`, "_blank");
+                }}
+                style={{ textDecoration: "underline" }}
+              >
+                <i className="fa fa-phone" />{" "}
                 <span>{keyContact?.phone_number}</span>
               </p>
             </Col>

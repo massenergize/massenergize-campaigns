@@ -5,10 +5,10 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const EXCLUDED_FOOTER_MENU_KEYS = ["incentives", "vendors"];
-function Footer({ toggleModal, campaign }) {
+function Footer({ toggleModal, campaign, authUser }) {
   const navigator = useNavigate();
   const { navigation } = campaign || {};
-
+  const { user } = authUser || {};
   return (
     <div
       style={{
@@ -28,7 +28,7 @@ function Footer({ toggleModal, campaign }) {
       >
         <Container>
           <Col lg={{ span: 6, offset: 3 }}>
-            <h4 style={{ color: "white" }}>FOLLOW</h4>
+            <h4 style={{ color: "white" }}>Newsletter</h4>
             <p style={{ color: "white" }}>
               Unlock all the exclusive deals from our vendors, and stay updated
               with all actions you can take to help save the planet!
@@ -50,7 +50,7 @@ function Footer({ toggleModal, campaign }) {
                   component: (props) => (
                     <JoinUsForm
                       {...(props || {})}
-                      confirmText="Follow"
+                      confirmText="Subscribe"
                       callbackOnSubmit={({ close }) => close && close()}
                     />
                   ),
@@ -59,8 +59,23 @@ function Footer({ toggleModal, campaign }) {
                 })
               }
             >
-              I want to follow
+              Subscribe to our Newsletter
             </Button>
+            {user?.email && (
+              <p
+                style={{
+                  marginTop: 10,
+                  fontSize: 12,
+                  color: "#e1efce",
+                }}
+              >
+                <i>
+                  {" "}
+                  You've already subscribed with{" "}
+                  <b style={{}}>'{user?.email || ""}' </b>
+                </i>
+              </p>
+            )}
           </Col>
         </Container>
       </div>
@@ -76,7 +91,7 @@ function Footer({ toggleModal, campaign }) {
         <Container>
           <Row>
             <Col lg={{ span: 9, offset: 1 }} style={{}}>
-              <h4 style={{ color: "white" }}>QUICK LINKS</h4>
+              <h4 style={{ color: "white" }}>Quick Links</h4>
               <ul
                 style={{
                   listStyleType: "none",
@@ -117,6 +132,6 @@ function Footer({ toggleModal, campaign }) {
 }
 
 const mapState = (state) => {
-  return { campaign: state.campaign };
+  return { campaign: state.campaign, authUser: state.user };
 };
 export default connect(mapState)(Footer);

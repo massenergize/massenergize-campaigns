@@ -47,9 +47,20 @@ function Banner({ title, secondary_logo, primary_logo, tagline }) {
           >
             {title}
           </h1>
-          <h5 style={{ fontWeight: "400", color: "var(--app-medium-green)" }}>
-              {tagline ||"A CAMPAIGN TO GUIDE CLIMATE ACTION"}
-          </h5>
+          {tagline && (
+            <h5
+              style={{
+                fontWeight: "400",
+                color: "var(--app-medium-green)",
+                textAlign: "center",
+                textTransform: "capitalize",
+                lineHeight: "1.5",
+                width: "85%",
+              }}
+            >
+              {tagline}
+            </h5>
+          )}
         </Col>
         <Col
           lg={3}

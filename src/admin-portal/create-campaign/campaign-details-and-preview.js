@@ -21,9 +21,9 @@ export function CampaignDetailsAndPreview ({ campaignDetails, setCampaignDetails
             {/*<Button variant="primary" onClick={() => setPreview(!preview)}>
               <FontAwesomeIcon icon={faEye}/> {preview ? "Hide Preview" : "Show Preview"}
             </Button>*/}
-            {/*<Link to={`/${campaignDetails.id}?preview=true`} target={"_blank"}>*/}
+            {/*<Link to={`/campaign/${campaignDetails.id}?preview=true`} target={"_blank"}>*/}
             <Button variant="primary" onClick={() => {
-              window.open(`/${campaignDetails.id}?preview=true`, "_blank")
+              window.open(`/campaign/${campaignDetails.id}?preview=true`, "_blank")
             }}>
               Preview <FontAwesomeIcon icon={faExternalLink}/>
             </Button>
@@ -57,7 +57,7 @@ export function CampaignDetailsAndPreview ({ campaignDetails, setCampaignDetails
 
           {/*region Body: Content goes here*/}
           <Row className="mt-4 pt-4">
-            <Col>
+            <Col className={"px-4"}>
               {
                 campaignPages?.map((tab) => {
                   return (

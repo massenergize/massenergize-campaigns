@@ -13,6 +13,7 @@ import {
 } from "../../../requests/campaign-requests";
 import { fetchCommunitiesList } from "../../../requests/community-routes";
 import { SAMPLE_CAMPAIGN, CAMPAIGN} from "../../../mocks/campaign";
+import { addLabelsAndValues } from "../../../helpers/utils/array";
 
 const { useReducer } = require("react");
 
@@ -137,7 +138,7 @@ export function NewCampaign ({ props }) {
 
   const lists = {
     allPartners: {
-      data: allPartners,
+      data: addLabelsAndValues(allPartners || []),
       error: allPartnersError,
       isValidating: allPartnersIsValidating,
       isLoading: allPartnersIsLoading,
@@ -149,17 +150,17 @@ export function NewCampaign ({ props }) {
       // isLoading: allManagersIsLoading,
     },
     allTechnologies: {
-      data: allTechnologies,
+      data: addLabelsAndValues(allTechnologies || []),
       isLoading: allTechnologiesLoading,
     },
     allCommunities: {
-      data: allCommunities,
+      data: addLabelsAndValues(allCommunities || []),
       error: allCommunitiesError,
       isValidating: allCommunitiesIsValidating,
       isLoading: allCommunitiesIsLoading,
     },
     allEvents: {
-      data: allEvents,
+      data: addLabelsAndValues(allEvents || []),
       isLoading: allEventsLoading,
       error: allEventsError,
       isValidating: allEventsIsValidating,

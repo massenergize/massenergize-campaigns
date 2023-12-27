@@ -11,7 +11,7 @@
   margin: 0;
   padding: 0;
 }
-body{ 
+body{
   overflow-x: hidden;
 }
 
@@ -20,6 +20,8 @@ body{
   --app-medium-green: #8bb256;
   --app-kicking-yellow: #ffd66d;
   --kicking-background: #fff5dd;
+  /* --app-deep-green: #3030d0;  */
+  /* --app-medium-green: #ffc501; */
   --app-antique-white: antiquewhite;
   --admin-theme-color: #6e207c;
 }

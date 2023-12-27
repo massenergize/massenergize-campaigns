@@ -1,9 +1,12 @@
 import { apiCall } from "../../api/messenger";
+import { auth } from "../../firebase/admin/fire-config";
 import { CAMPAIGN_INFORMATION_URL, CAMPAIGN_VIEW_URL } from "../../api/urls";
 import JoinUsForm from "../../user-portal/pages/forms/JoinUsForm";
 import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
+  SET_AUTH_USER,
+  SET_FIRE_AUTH,
   SET_COMMENTS,
   SET_FULL_TECH_OBJ,
   SET_NAVIGATION_MENU,
@@ -13,6 +16,7 @@ import {
   UPDATE_EVENT_OBJ,
   UPDATE_TESTIMONIALS_OBJ,
 } from "../redux-action-types";
+import { signOut } from "firebase/auth";
 
 export const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
 export const testReduxAction = (someValue = []) => {
@@ -39,6 +43,12 @@ export const updateEventsObj = (payload) => {
 };
 export const updateTestimonialsObjAction = (payload) => {
   return { type: UPDATE_TESTIMONIALS_OBJ, payload };
+};
+export const setAuthAdminAction = (payload) => {
+  return { type: SET_AUTH_USER, payload };
+};
+export const setFirebaseAuthAction = (payload) => {
+  return { type: SET_FIRE_AUTH, payload };
 };
 export const setNavigationMenuAction = (payload) => {
   return { type: SET_NAVIGATION_MENU, payload };
@@ -125,4 +135,33 @@ export const appInnitAction = (campaignId, cb) => {
       })
       .catch((e) => console.log("ERROR_IN_INNIT:", e?.toString()));
   };
+};
+
+export const fetchMeUser = (payload, cb) => {
+  return (dispatch) =>
+    apiCall("/auth.login", payload).then((response) => {
+      const { data, error, success } = response || {};
+
+      if (!success) {
+        cb && cb(data, error);
+        return console.log("ERROR_FETCHING_ME_USER: ", error?.toString());
+      }
+
+
+      cb && cb(data, null);
+      console.log("THIS IS THE ME USER", data);
+      dispatch(setAuthAdminAction(data));
+
+    });
+};
+
+export const logUserOut = () => {
+  return (dispatch) =>
+    signOut(auth).then(() => {
+      console.log("You are successfully signed out!");
+      // Redirect to login page or something
+      dispatch(setAuthAdminAction(null));
+      dispatch(setFirebaseAuthAction(null));
+      // dispatch(s(null))
+    });
 };

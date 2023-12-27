@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Input from "../../components/admin-components/Input";
 import FileUploader from "../../components/admin-components/FileUploader";
-import "../adminStyles.css";
+import "../../assets/styles/admin-styles.scss";
 import { ProgressButton } from "../../components/progress-button/progress-button";
 import dayjs from "dayjs";
 import { updateCampaign } from "../../requests/campaign-requests";
@@ -42,6 +42,10 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
     setCampaignDetails(field, value);
   };
 
+  const imageExists = (key) => {
+    return typeof campaignDetails[key]?.url !== "undefined";
+  }
+
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -57,9 +61,9 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
 
         ...(campaignDetails.start_date && { start_date: dayjs(campaignDetails.start_date).format("YYYY-MM-DD") }),
         ...(campaignDetails.end_date && { end_date: dayjs(campaignDetails.end_date).format("YYYY-MM-DD") }),
-        ...(typeof campaignDetails?.primary_logo?.url !== "undefined"  ? {} : ({ primary_logo: campaignDetails.primary_logo })),
-        ...(typeof campaignDetails?.secondary_logo?.url !== "undefined" ? {} : { secondary_logo: campaignDetails.secondary_logo }),
-        ...(typeof campaignDetails?.campaign_image?.url !== "undefined" ? {} : (
+        ...(imageExists("primary_logo")  ? {} : ({ primary_logo: campaignDetails.primary_logo })),
+        ...(imageExists("secondary_logo") ? {} : { secondary_logo: campaignDetails.secondary_logo }),
+        ...(imageExists("campaign_image") ? {} : (
           typeof campaignDetails?.campaign_image !== "undefined" ? { campaign_image: campaignDetails.campaign_image } : {})),
       };
 
@@ -84,8 +88,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
   };
 
   return (
-    <Container>
-      <form>
+      <>
         <Row className="mt-0">
           <Col>
             <Input
@@ -203,7 +206,11 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
         </Row>
         <Row className="mt-4">
           <Col>
-            <FileUploader
+            {
+              /*imageExists("primary_logo") ? (
+                <img src={campaignDetails?.primary_logo?.url} alt={campaignDetails.primary_logo?.name || "Primary Logo"} />
+              ) : */(<FileUploader
+              defaultValue={campaignDetails?.primary_logo?.url || ""}
               required={false}
               id="primary_logo"
               text="Upload a primary logo"
@@ -212,10 +219,12 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
                   handleFieldChange("primary_logo", val);
                 }
               }}
-            />
+            />)
+            }
           </Col>
           <Col>
             <FileUploader
+              defaultValue={campaignDetails?.secondary_logo?.url || ""}
               required={false}
               id="secondary_logo"
               text="Upload a secondary logo"
@@ -230,6 +239,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
         <Row className="mt-4">
           <Col>
             <FileUploader
+              defaultValue={campaignDetails?.campaign_image?.url || ""}
               required={false}
               id="campaign_image"
               text="Add an image for the campaign(optional)"
@@ -258,8 +268,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
             </Col>
           )}
         </Row>
-      </form>
-    </Container>
+      </>
   );
 };
 

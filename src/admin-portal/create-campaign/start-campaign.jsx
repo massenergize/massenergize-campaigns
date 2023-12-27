@@ -1,7 +1,7 @@
 import React, { useReducer, useState } from "react";
 import { Alert, Button, Col, Container, FormLabel, Row } from "react-bootstrap";
 import Input from "../../components/admin-components/Input";
-import "../adminStyles.css";
+import "../../assets/styles/admin-styles.scss";
 import { isEmpty } from "../../helpers/utils/string";
 import Chip from "../../components/admin-components/Chip";
 import { createCampaignFromTemplate } from "../../requests/campaign-requests";
@@ -50,7 +50,7 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCamp
     try {
       setLoading(true);
       const payload = {
-        campaign_account_id: "24b4b3c0-5592-4548-b297-7fd57618a265", // TODO Remove this when the API is fixed
+        campaign_account_id: "c2699d84-92e1-436f-8aad-cd301dad97ec", // TODO Remove this when the API is fixed
         title: campaignDetails?.title,
         community_ids: campaignDetails?.communities?.map((community) => community?.id),
       }

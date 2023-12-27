@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Input from "../../../components/admin-components/Input";
 import FileUploader from "../../../components/admin-components/FileUploader";
 import Button from "../../../components/admin-components/Button";
-import "../../adminStyles.css";
+import "../../../assets/styles/admin-styles.scss";
 import Dropdown from "../../../components/admin-components/Dropdown";
 import { useNavigate } from "react-router-dom";
 import Chip from "../../../components/admin-components/Chip";

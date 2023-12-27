@@ -79,6 +79,7 @@ function CoachesSection({ toggleModal, sectionId, technologies }) {
             >
               Meet The Coaches
             </h2>
+            <p>Click on any of the tabs to see coaches under each technology</p>
 
             <CustomTabView
               defaultTab={firstOne?.id}

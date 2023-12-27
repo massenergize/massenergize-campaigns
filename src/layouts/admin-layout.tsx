@@ -8,7 +8,9 @@ import { Sidebar } from "@kehillahglobal/ui";
 import { BOTTOM_MENU, SIDE_BAR_MENU } from "../layout-components/sidebarMenu";
 import { useState } from "react";
 import classes from "classnames";
+import { logUserOut } from "../redux/actions/actions";
 import { apiCall } from "../api/messenger";
+import AuthGuard from "../guards/AuthGuard";
 import {useDispatch} from "react-redux";
 import {logUserOut} from "../redux/actions/actions";
 
@@ -25,7 +27,10 @@ export function AdminLayout (props: AdminLayoutProps) {
 
   const userInfo = {};
   return (
+
     <SWRConfig value={{ dedupingInterval: 500000, fetcher: fetchData }}>
+      {/* @ts-ignore*/}
+      <AuthGuard>
       <Row className={"overflow-hidden mx-0"}>
         <Col md={"auto"} className={classes(" side-bar-container position-relative px-0", { shrink })}>
           <Sidebar
@@ -42,7 +47,7 @@ export function AdminLayout (props: AdminLayoutProps) {
                 if (iAmSureIWantToLogOut) {
                   apiCall("/auth.logout",).then((res) => {
                     if (res.success) {
-                      // dispatch(logUserOut());
+                      dispatch(logUserOut());
                       window.location.href = "/login";
                     }
                   });
@@ -60,6 +65,7 @@ export function AdminLayout (props: AdminLayoutProps) {
         </Col>
         <Col>{children}</Col>
       </Row>
+      </AuthGuard>
     </SWRConfig>
   );
 }
