@@ -126,5 +126,18 @@
   .do-more-root {
     padding: 5vh 0px;
   }
+
+  .one-tech-main img {
+    height: 200px;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  .o-t-desc {
+    font-size: var(--mob-normal-font-size);
+  }
+  .one-tech-wrapper {
+    padding: 0px 15px;
+  }
   /* ---------------------------- END OF PHONE SPECIFIC STYLES ----------- */
 }

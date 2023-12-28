@@ -170,7 +170,6 @@ function TechnologyFullViewPage({
     events,
   } = technology;
 
-
   const like = (userObject) => {
     const { community, user } = userObject || {};
     // if (!user) return triggerRegistrationForLike();
@@ -303,20 +302,27 @@ function TechnologyFullViewPage({
   return (
     <div>
       <AppNavigationBar />
-      <div style={{ marginTop: 100 }}>
+      <div style={{ marginTop: 100 }} className="one-tech-wrapper">
         <OptimumWrapper>
-          <h2 style={{ color: "var(--app-deep-green)" }}>{name || "..."}</h2>
+          <h2
+            style={{
+              color: "var(--app-deep-green)",
+              fontSize: "var(--mob-title-font-size)",
+            }}
+          >
+            {name || "..."}
+          </h2>
           <Row>
-            <Col lg={9}>
+            <Col lg={9} className="one-tech-main">
               <img
                 className="elevate-float-pro mt-2"
                 src={image?.url || carPhoto}
-                style={{
-                  width: "100%",
-                  height: 420,
-                  objectFit: "contain",
-                  borderRadius: 10,
-                }}
+                // style={{
+                //   width: "100%",
+                //   height: 420,
+                //   objectFit: "contain",
+                //   borderRadius: 10,
+                // }}
               />
               <InteractionsPanel
                 openShareBox={openShareBox}
@@ -327,7 +333,7 @@ function TechnologyFullViewPage({
                 views={campaign_technology_views}
                 comments={comments?.length || 0}
               />
-              <p className="mt-3" style={{ textAlign: "justify" }}>
+              <p className="mt-3 o-t-desc" style={{ textAlign: "justify" }}>
                 <span
                   dangerouslySetInnerHTML={{ __html: description }}
                   style={{ height, display: "block", overflowY: "hidden" }}
@@ -590,13 +596,15 @@ function TechnologyFullViewPage({
           campaignName={name}
           overview_title={technology?.overview_title}
         />
-        <TakeActionSection
-          campaign={campaign}
-          sectionId="take-action-section"
-          scrollToSection={scrollToSection}
-          trackActivity={trackActivity}
-          authUser={authUser}
-        />
+        <div className="phone-vanish">
+          <TakeActionSection
+            campaign={campaign}
+            sectionId="take-action-section"
+            scrollToSection={scrollToSection}
+            trackActivity={trackActivity}
+            authUser={authUser}
+          />
+        </div>
         <div ref={testimonialsRef}>
           <OneTechTestimonialsSection
             testimonials={testimonials}

@@ -58,14 +58,17 @@ function OneTechMeetTheCoachesSection({
         <Row style={{ marginTop: 50 }}>
           {coaches?.map((coach, index) => {
             return (
-              <Col key={index?.toString()} xs={4}>
+              <Col key={index?.toString()} xs={4} className="coach-main">
                 <OneCoach {...coach} />
               </Col>
             );
           })}
         </Row>
 
-        <div style={{ textTransform: "justify", marginTop: 20 }}>
+        <div
+          // style={{ textTransform: "justify", marginTop: 20 }}
+          className="coaches-description"
+        >
           <p>{description}</p>
           <div
             style={{
