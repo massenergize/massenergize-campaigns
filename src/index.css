@@ -4,9 +4,3 @@
 body {
 	font-family: "Manrope", sans-serif;
 }
-
-.center-me {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}

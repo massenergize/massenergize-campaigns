@@ -1,17 +1,16 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import dayjs from "dayjs";
 import DataTable from "../components/data-table";
 import { SelectColumnFilter } from "../components/data-table/filters";
 import { TableFooter } from "../components/data-table/TableFooter";
-import { RowActions } from "./row-actions";
 import { ROW_ACTIONS_MENU } from "./menu";
 import { useNamedState } from "../hooks/useNamedState";
 import useSWR from "swr";
-import { Link, useNavigate } from "react-router-dom";
-import { Button, ButtonGroup, Dropdown } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { Button, ButtonGroup, Container } from "react-bootstrap";
 import { fetchAllCampaigns } from "../requests/campaign-requests";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLink, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faFileEdit } from "@fortawesome/free-solid-svg-icons/faFileEdit";
 import { useSelector } from "react-redux";
 import { NoItems } from "@kehillahglobal/ui";
@@ -88,26 +87,26 @@ const DUMMY_CAMPAIGN_NAMEs = [
   "5KW Solr installation",
 ];
 
-const DUMMY_CAMPAIGN_OWNERS = [
-  "Brad H.",
-  "Aimee P.",
-  "John D.",
-  "Sally C.",
-  "Nancy D.",
-  "Cindy L.",
-  "Linda S.",
-  "Bob S.",
-  "Micheal J.",
-  "James B.",
-  "Robert M.",
-  "William B.",
-  "David S.",
-  "Richard H.",
-  "Charles M.",
-];
+// const DUMMY_CAMPAIGN_OWNERS = [
+//   "Brad H.",
+//   "Aimee P.",
+//   "John D.",
+//   "Sally C.",
+//   "Nancy D.",
+//   "Cindy L.",
+//   "Linda S.",
+//   "Bob S.",
+//   "Micheal J.",
+//   "James B.",
+//   "Robert M.",
+//   "William B.",
+//   "David S.",
+//   "Richard H.",
+//   "Charles M.",
+// ];
 
 export function AllCampaignsView({}) {
-  const [data, setData] = useNamedState("table data", DUMMY_DATA);
+//   const [data, setData] = useNamedState("table data", DUMMY_DATA);
   const [rowMenu, setRowMenu] = useState(ROW_ACTIONS_MENU);
   const campaignAccount = useSelector((state) => state.campaignAccount);
 
@@ -370,11 +369,11 @@ export function AllCampaignsView({}) {
     };
   });
 
-  if (!patched?.length) {
+  if (patched?.length) {
     return (
-      <div className="center-me" style={{height:'70vh'}}>
-        <NoItems text="Ready to start a campaign? Let's create impact together – launch your first one now!" />
-      </div>
+      <Container className="d-flex m-auto" style={{height:"70vh"}}>
+        <NoItems text="Ready to start a campaign? Let's create impact together - launch your first one now!" />
+      </Container>
     );
   }
 
