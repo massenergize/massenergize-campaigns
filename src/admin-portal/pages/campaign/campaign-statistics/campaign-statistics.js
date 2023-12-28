@@ -62,7 +62,7 @@ export function CampaignStatistics({}) {
 		},
 		{
 			name: "Testimonials",
-			component: <Testimonials testimonials={CAMPAIGN?.my_testimonials} />,
+			component: <Testimonials campaign={CAMPAIGN} />,
 		},
 	];
 	const [activeTab, setActiveTab] = useState(tabs[0]?.name);
@@ -166,7 +166,6 @@ export function CampaignStatistics({}) {
 								<Col>
 									<h3 className=" pt-4">
 										Campaign Statistics{" "}
-										{/*<span><FontAwesomeIcon icon={faChartLine}/></span>*/}
 									</h3>
 									<div className="statss-con-div">
 										{statistics?.map((data, index) => {
@@ -178,15 +177,6 @@ export function CampaignStatistics({}) {
 										})}
 									</div>
 									<div>
-										{/*<Button
-											className="btn-success mr-3"
-											onClick={() => {
-												window.history.back();
-											}}
-										>
-											<FontAwesomeIcon icon={faDownload} /> Download Data File
-										</Button>*/}
-
 										<Button
 											className="btn-success mr-3"
 											onClick={() => {

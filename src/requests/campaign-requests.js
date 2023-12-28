@@ -46,7 +46,7 @@ export async function updateCampaign(data, url = "campaigns.update") {
 	}
 }
 
-export async function fetchAllCampaigns(url = "campaigns.list") {
+export async function fetchAllCampaigns(url = "campaigns.listForAdmin") {
 	try {
 		const response = await apiCall(url, {}, null);
 		if (!response || !response?.success) {

@@ -339,7 +339,7 @@ export function AllCampaignsView({}) {
 	};
 	// endregion
 
-	let { data: campaigns } = useSWR(`campaigns.list`, fetchAllCampaigns, {
+	let { data: campaigns } = useSWR(`campaigns.listForAdmin`, fetchAllCampaigns, {
 		onSuccess: (data) => {
 			console.log("Nice stuff insid db", { data });
 		},
