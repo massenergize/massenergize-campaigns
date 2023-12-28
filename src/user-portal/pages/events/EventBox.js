@@ -13,6 +13,7 @@ function EventBox({ event, campaign }) {
         borderRadius: 10,
         background: "white",
         minHeight: 300,
+        marginBottom: 20,
       }}
     >
       <img
@@ -22,9 +23,7 @@ function EventBox({ event, campaign }) {
           objectFit: "cover",
           borderRadius: 5,
         }}
-        src={
-          image?.url || "https://picsum.photos/id/870/300/300?grayscale&blur=2"
-        }
+        src={image?.url}
       />
       <div style={{ padding: "15px 15px" }}>
         <h6

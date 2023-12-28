@@ -71,11 +71,34 @@
     height: 350px;
   }
 
-  .one-tech-wrapper {
-    /* padding: 0px 4px; */
+  .coach-main {
+    margin-top: 50px;
+    width: 120px;
+    height: 120px;
+  }
+
+  .coach-main p {
+    font-size: 15px;
+  }
+  .coaches-description {
+    width: 80%;
+  }
+  .do-more-root {
+    padding: 20vh 0px;
   }
 
   /* --------------------------------- END OF PC SPECIFIC ---------------------- */
+}
+
+.coach-main p {
+  font-weight: bold;
+  /* font-size: 15px; */
+  color: var(--app-orange);
+  text-transform: uppercase;
+}
+.coach-main img {
+  border-radius: 100%;
+  object-fit: cover;
 }
 
 .testi-container {

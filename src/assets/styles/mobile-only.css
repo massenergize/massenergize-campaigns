@@ -92,5 +92,39 @@
     height: 200px;
     margin-bottom: 15px;
   }
+  .coach-main {
+    margin: 0;
+    justify-content: space-between;
+  }
+
+  .coach-main img {
+    width: 60px;
+    height: 60px;
+    /* object-fit: cover; */
+  }
+
+  .coach-main h6 {
+    font-size: 0.7rem;
+    text-align: center;
+    margin: 5px 0px;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+
+  .coach-main p {
+    font-size: 11px;
+  }
+  .coaches-description {
+    width: 100%;
+    font-size: var(--mob-normal-font-size);
+  }
+  .do-more-root p {
+    width: 100%;
+    font-size: var(--mob-normal-font-size);
+    /* text-align: justify; */
+  }
+  .do-more-root {
+    padding: 5vh 0px;
+  }
   /* ---------------------------- END OF PHONE SPECIFIC STYLES ----------- */
 }

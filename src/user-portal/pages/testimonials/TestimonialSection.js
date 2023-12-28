@@ -60,10 +60,10 @@ function TestimonialSection({ sectionId, technologies, defaultTab }) {
   return (
     <div
       id={sectionId}
-      className="elevate-float-pro"
+      className="elevate-float-pro g-s-container"
       style={{
         margin: "40px 0px",
-        padding: "100px 0px",
+        // padding: "100px 0px",
         background: "white",
         width: "100%",
       }}
