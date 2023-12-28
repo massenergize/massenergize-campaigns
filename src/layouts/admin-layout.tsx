@@ -44,11 +44,11 @@ export function AdminLayout (props: AdminLayoutProps) {
             menu={SIDE_BAR_MENU}
             bottomMenu={BOTTOM_MENU}
             userDetails={userInfo}
-            accounts={user?.campaign_accounts}
+            accounts={user?.campaign_accounts?.length > 1 ? user?.campaign_accounts : []}
             onItemSelect={(item: any) => {
               dispatch(setCampaignAccountAction(item))
               let encoded = btoa(JSON.stringify(item));
-              localStorage.setItem("account", encoded);
+              localStorage.setItem("acc", encoded);
               window.location.href = `/admin/home`;
             }}
             dark={true}
@@ -74,6 +74,7 @@ export function AdminLayout (props: AdminLayoutProps) {
             onStateChange={({ shrink }) => {
               setShrink(shrink);
             }}
+            verified={user?.is_super_admin}
           />
         </Col>
         <Col>{children}</Col>

@@ -45,7 +45,7 @@ function Login ({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux, }) 
               return navigate("/admin/campaign/account/new");
             }else{
               let encoded = btoa(JSON.stringify(data?.campaign_accounts[0]));
-              localStorage.setItem("account", encoded);
+              localStorage.setItem("acc", encoded);
               dispatch(setCampaignAccountAction(data?.campaign_accounts[0]));
               return navigate("/admin/home");
             }

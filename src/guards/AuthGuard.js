@@ -36,7 +36,7 @@ function AuthGuard({
 			}
 			putFirebaseAuthInRedux(user);
 			fetchMassenergizeUser({ idToken: user?.accessToken }, (data, err) => {
-				let account = localStorage.getItem("account");
+				let account = localStorage.getItem("acc");
 				account = account && JSON.parse(atob(account));
 				props.setAccount(account|| data?.campaign_accounts[0]);
 			});
