@@ -369,7 +369,7 @@ export function AllCampaignsView({}) {
     };
   });
 
-  if (patched?.length) {
+  if (!patched?.length) {
     return (
       <Container className="d-flex m-auto" style={{height:"70vh"}}>
         <NoItems text="Ready to start a campaign? Let's create impact together - launch your first one now!" />
