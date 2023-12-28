@@ -42,6 +42,72 @@
     border-width: 0px;
     padding: 9px 19px;
   }
+
+  .g-s-container {
+    padding: 130px 20px;
+  }
+
+  .one-box {
+    padding: 40px 40px 10px;
+  }
+  .one-box img {
+    height: 100px;
+    width: 100px;
+  }
+  .one-box-container {
+    min-height: 390px;
+  }
+  .one-box-footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 30px 30px;
+  }
+
+  .testi-container {
+    padding: 20px;
+    height: 350px;
+  }
+
+  .one-tech-wrapper {
+    /* padding: 0px 4px; */
+  }
+
+  /* --------------------------------- END OF PC SPECIFIC ---------------------- */
+}
+
+.testi-container {
+  border: 1px solid rgb(228, 228, 228);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.one-box-container {
+  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+
+.one-box img {
+  object-fit: contain;
+}
+
+.one-box h5 {
+  color: var(--app-medium-green);
+  margin-top: 10px;
+}
+.one-box {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
 }
 .roaming-header {
   padding: 10px 30px;
@@ -56,4 +122,8 @@
   border-radius: 100px !important;
   background: var(--app-deep-green) !important;
   border-width: 0px !important;
+}
+
+.g-s-container {
+  background: var(--app-medium-green);
 }

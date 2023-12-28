@@ -47,7 +47,7 @@ function TestimonialSection({ sectionId, technologies, defaultTab }) {
         <Row style={{ marginTop: 50 }}>
           {testimonials?.map((item) => {
             return (
-              <Col key={item.id} xs={3}>
+              <Col key={item.id} xs={12}>
                 <TestimonialBox {...item} />
               </Col>
             );

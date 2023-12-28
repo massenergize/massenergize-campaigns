@@ -1,6 +1,9 @@
 @media only screen and (max-width: 767px) {
+  .phone-vanish {
+    display: none !important;
+  }
   .page-title {
-    font-size: 1.25rem;
+    font-size: var(--mob-title-font-size);
   }
   .page-slogan {
     font-weight: 400;
@@ -9,7 +12,7 @@
     text-transform: capitalize;
     line-height: 1.5;
     width: 85%;
-    font-size: 0.8rem;
+    font-size: var(--mob-normal-font-size);
   }
 
   .site-logo {
@@ -34,17 +37,60 @@
   .roaming-header h3 {
     font-size: 1.1rem;
   }
-  .roaming-text { 
-    font-size: .85rem;
+  .roaming-text {
+    font-size: var(--mob-normal-font-size);
   }
-  .mob-phone-mode{ 
-    font-size: .85rem;
+  .mob-phone-mode {
+    font-size: var(--mob-normal-font-size);
     padding: 7px 15px;
   }
   .app-btn {
     border-width: 0px;
     padding: 7px 17px;
-    font-size: .85rem !important;
-
+    font-size: var(--mob-normal-font-size) !important;
   }
+
+  .g-s-container {
+    padding: 50px 10px;
+  }
+  .one-box {
+    padding: 0px 10px 10px;
+  }
+  .one-box h5 {
+    font-size: 1rem;
+  }
+  .one-box img {
+    margin-top: 12px;
+    height: 60px;
+    width: 60px;
+  }
+  .one-box-container {
+    min-height: 250px;
+    margin-bottom: 20px;
+  }
+
+  .one-box p,
+  a {
+    /* font-size: var(--mob-normal-font-size); */
+    font-size: 0.77rem;
+  }
+
+  .one-box-footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    /* padding: 20px 30px 30px; */
+  }
+  .one-tech-wrapper {
+    padding: 0px 4px !important;
+  }
+
+  .testi-container {
+    padding: 20px;
+    height: 200px;
+    margin-bottom: 15px;
+  }
+  /* ---------------------------- END OF PHONE SPECIFIC STYLES ----------- */
 }
