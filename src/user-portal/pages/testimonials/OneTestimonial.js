@@ -209,6 +209,7 @@ function OneTestimonial({
               color: "white",
               textAlign: "center",
               borderRadius: 5,
+              marginBottom: 15,
             }}
           >
             <p style={{ margin: 0, fontWeight: "bold" }}>Add Testimonial</p>
