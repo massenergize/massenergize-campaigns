@@ -61,6 +61,7 @@ export function AdminLayout (props: AdminLayoutProps) {
                   apiCall("/auth.logout",).then((res) => {
                     if (res.success) {
                       logUserOut()
+                      localStorage.removeItem("acc");
                       window.location.href = "/login";
                     }
                   });

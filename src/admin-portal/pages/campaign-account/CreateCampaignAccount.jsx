@@ -31,8 +31,8 @@ export default function CreateCampaignAccount() {
     // error: allCommunitiesError,
     // isValidating: allCommunitiesIsValidating,
     isLoading: allCommunitiesIsLoading,
-  } = useSWR("communities.list", async () => {
-    return await fetchCommunitiesList("communities.list")
+  } = useSWR("communities.listForCommunityAdmin", async () => {
+    return await fetchCommunitiesList("communities.listForCommunityAdmin")
   }, {
     dedupingInterval:3_600_000,
     revalidateInterval:3_600_000,
