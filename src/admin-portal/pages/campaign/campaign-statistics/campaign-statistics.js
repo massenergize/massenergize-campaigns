@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faArrowLeft,
 	faBan,
 	faBullhorn,
-	faChartLine,
 	faDownload,
 	faGlobe,
 	faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import StatsCard from "../../../../components/admin-components/StatsCard";
-import { campaignData } from "../../../../utils/Constants";
 import Comments from "../../../../components/admin-components/Comments";
 import Testimonials from "../../../../components/admin-components/Testimonials";
 import classes from "classnames";
@@ -20,9 +18,7 @@ import { Link, useParams } from "react-router-dom";
 import { AdminLayout } from "../../../../layouts/admin-layout";
 import useSWR from "swr";
 import { fetchCampaign } from "../../../../requests/campaign-requests";
-import NProgress from "nprogress";
 import { apiCall } from "../../../../api/messenger";
-import CustomToast from "../../../../components/admin-components/CustomToast";
 import Loading from "../../../../components/pieces/Loading";
 import { useBubblyBalloons } from "../../../../components/bubbly-balloon/use-bubbly-balloons";
 
@@ -62,7 +58,7 @@ export function CampaignStatistics({}) {
 		},
 		{
 			name: "Testimonials",
-			component: <Testimonials testimonials={CAMPAIGN?.my_testimonials} />,
+			component: <Testimonials campaign={CAMPAIGN} />,
 		},
 	];
 	const [activeTab, setActiveTab] = useState(tabs[0]?.name);
@@ -166,7 +162,6 @@ export function CampaignStatistics({}) {
 								<Col>
 									<h3 className=" pt-4">
 										Campaign Statistics{" "}
-										{/*<span><FontAwesomeIcon icon={faChartLine}/></span>*/}
 									</h3>
 									<div className="statss-con-div">
 										{statistics?.map((data, index) => {
@@ -178,20 +173,6 @@ export function CampaignStatistics({}) {
 										})}
 									</div>
 									<div>
-										{/*<Button
-											className="btn-success mr-3"
-											onClick={() => {
-												apiCall("/downloads.campaigns.performance", {campaign_id:id}).then(
-													res=>{
-														if(res?.success){
-															// 	show a message asking user to check email
-														}
-													}
-												)
-											}}
-										>
-											<FontAwesomeIcon icon={faDownload} /> Download Data File
-										</Button>*/}
 
 										<Button
 											className="btn-success mr-3"

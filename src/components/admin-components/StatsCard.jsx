@@ -11,56 +11,46 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 const StatsCard = ({ data, index }) => {
-	const dataCount = data[1];
+	let [key, value] = data;
 
-	const total = dataCount.reduce((sum, item) => sum + item.count, 0);
+	const bgColor = {
+		comments: "bg-cyan-400",
+		views: "bg-lime-400",
+		shares: "bg-pink-400",
+		testimonials: "bg-indigo-400",
+		likes: "bg-violet-400",
+		followers: "bg-teal-400",
+		default: "bg-green-400",
+	};
+
+	const iconMap = {
+		comments: faComments,
+		views: faEye,
+		shares: faShareNodes,
+		testimonials: faUsers,
+		likes: faHeart,
+		followers: faUserPlus,
+	};
+
+	const getBackgroundColor = (type) => {
+		return bgColor[type] || bgColor.default;
+	};
+
+	const getIcon = (type) => {
+		return iconMap[type] || null;
+	};
 
 	return (
-		<div
-			className={`stat-card ${
-				data[0] === "comments"
-					? "bg-cyan-400"
-					: data[0] === "views"
-					? "bg-lime-400"
-					: data[0] === "shares"
-					? "bg-pink-400"
-					: data[0] === "testimonials"
-					? "bg-indigo-400"
-					: data[0] === "likes"
-					? "bg-violet-400"
-					: data[0] === "followers"
-					? "bg-teal-400"
-					: "bg-green-400"
-			} `}
-		>
+		<div className={`stat-card ${getBackgroundColor(key)}`}>
 			<div className="stat-type">
-				<h5>{data[0]}</h5>
+				<h5>{key}</h5>
 				<span className="stat-icon">
-					<FontAwesomeIcon
-						icon={
-							data[0] === "comments"
-								? faComments
-								: data[0] === "views"
-								? faEye
-								: data[0] === "shares"
-								? faShareNodes
-								: data[0] === "testimonials"
-								? faUsers
-								: data[0] === "likes"
-								? faHeart
-								: data[0] === "followers" && faUserPlus
-						}
-					/>
+					<FontAwesomeIcon icon={getIcon(key)} />
 				</span>
 			</div>
-			<div>
-				<h1>{total}</h1>
+			<div className="text-center">
+				<h1>{value}</h1>
 			</div>
-			{/*<div className="d-flex items-center justify-content-end">*/}
-			{/*	<span>*/}
-			{/*		<FontAwesomeIcon icon={faDownload} />*/}
-			{/*	</span>*/}
-			{/*</div>*/}
 		</div>
 	);
 };

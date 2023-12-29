@@ -342,8 +342,8 @@ export function AllCampaignsView({}) {
   // endregion
 
   let { data: campaigns } = useSWR(
-    `campaigns.list`,
-    () => fetchAllCampaigns("campaigns.list", campaignAccount?.id),
+    `campaigns.listForAdmin`,
+    () => fetchAllCampaigns("campaigns.listForAdmin", campaignAccount?.id),
     {
       onSuccess: (data) => {
         console.log("Nice stuff insid db", { data });
