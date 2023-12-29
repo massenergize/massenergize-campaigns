@@ -2,30 +2,64 @@ import React, { useReducer, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Spinner from 'react-bootstrap/Spinner';
 
 import "./campaignAccount.css";
 import { motion as m } from "framer-motion";
 import Input from "../../../components/admin-components/Input";
-import Dropdown from "../../../components/admin-components/Dropdown";
+import { Dropdown } from "@kehillahglobal/ui";
 import Button from "../../../components/admin-components/Button";
+import { fetchCommunitiesList } from "../../../requests/community-routes";
+import useSWR from "swr";
+import { apiCall } from "../../../api/messenger";
+import { useDispatch } from "react-redux";
+import { setCampaignAccountAction } from "../../../redux/actions/actions";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateCampaignAccount() {
+  const [showError, setShowError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState({});
 
-    const [showError, setShowError] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [query, setQuery] = useState({});
-
-   
-    const buildQuery = (key, value) => {
-        setQuery({ ...query, [key]: value });
-    }
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
 
-    const onSubmit = (e) => {
-        e.preventDefault();
+  const {
+    // initialData: allCommunitiesInitialData,
+    data: allCommunities,
+    // error: allCommunitiesError,
+    // isValidating: allCommunitiesIsValidating,
+    isLoading: allCommunitiesIsLoading,
+  } = useSWR("communities.listForCommunityAdmin", async () => {
+    return await fetchCommunitiesList("communities.listForCommunityAdmin")
+  }, {
+    dedupingInterval:3_600_000,
+    revalidateInterval:3_600_000,
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    refreshInterval:3_600_000
+  });
 
-        console.log("=== query ===", query)
-    }
+  const buildQuery = (key, value) => {
+    setQuery({ ...query, [key]: value });
+  };
+
+  const onSubmit = (e) => {
+    setLoading(true);
+    e.preventDefault();
+    apiCall("campaign.accounts.create", query).then((res) => {
+      setLoading(false);
+      if (res?.success) {
+        dispatch(setCampaignAccountAction(res?.data));
+        navigate("/admin/home")
+      }else{
+        setShowError(true);
+      }
+      
+    });
+  };
   return (
     <div className="campaign-account-root">
       <Container className="campaign-account-main elevate-float">
@@ -66,7 +100,7 @@ export default function CreateCampaignAccount() {
                     required={true}
                     type="textbox"
                     onChange={(val) => {
-                        buildQuery("subdomain", val);
+                      buildQuery("subdomain", val);
                     }}
                   />
                 </Col>
@@ -74,31 +108,27 @@ export default function CreateCampaignAccount() {
               <Row className="py-4">
                 <Col>
                   <Dropdown
-                    displayTextToggle="Select a community this account is associated with"
-                    data={[
-                      { name: "Community 1" },
-                      { name: "Community 2" },
-                      { name: "Community 3" },
-                      { name: "Community 4" },
-                    ]}
-                    valueExtractor={(item) => item}
-                    labelExtractor={(item) => item?.name}
-                    multiple={false}
-                    onItemSelect={(selectedItem, allSelected) => {
-                      buildQuery("community", allSelected);
+                    data={allCommunities || []}
+                    labelExtractor={(item)=>item?.name}
+                    onItemSelected={(selected, currentItem, parentValueOfCurrentItem)=>{
+                      buildQuery("community_id", selected?.id);
                     }}
-                    label={"Community"}
-                    defaultValue={[]}
+                    valueExtractor={(item)=>item?.id}
+                    placeholder={"Select a community"}
+
                   />
                 </Col>
               </Row>
               <Row className="py-4 justify-content-end">
                 <Col>
+                {loading ? <Spinner animation="border" variant="primary" />:(
                   <Button
                     text="Create Account"
                     onSubmit={onSubmit}
                     rounded={false}
                   />
+
+                )}
                 </Col>
               </Row>
 

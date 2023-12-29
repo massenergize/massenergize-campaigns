@@ -4,9 +4,10 @@ import { validateEmail } from "../../../utils/utils";
 import Notification from "../../../components/pieces/Notification";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../../firebase/admin/fire-config";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { fetchMeUser, logUserOut, setAuthAdminAction, setFirebaseAuthAction, } from "../../../redux/actions/actions";
+import { fetchMeUser, logUserOut, setAuthAdminAction, setCampaignAccountAction, setFirebaseAuthAction, } from "../../../redux/actions/actions";
+import { useNavigate } from "react-router-dom";
 
 const GOOGLE = "GOOGLE";
 const EMAIL = "EMAIL";
@@ -17,6 +18,8 @@ function Login ({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux, }) 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [authType, setAuthType] = useState();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // -------------------------------------------------------------------------------
   const authenticateWithGoogle = () => {
@@ -34,8 +37,18 @@ function Login ({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux, }) 
         const { user } = response;
 
         putFirebaseAuthInRedux(user);
-        fetchMassenergizeUser({ idToken: user?.accessToken }, () => {
-          window.location.href = "/admin/home";
+        fetchMassenergizeUser({ idToken: user?.accessToken }, (data, err) => {
+            if (err) {
+                return setError(err);
+            }
+            if (data?.campaign_accounts?.length < 1) {
+              return navigate("/admin/campaign/account/new");
+            }else{
+              let encoded = btoa(JSON.stringify(data?.campaign_accounts[0]));
+              localStorage.setItem("acc", encoded);
+              dispatch(setCampaignAccountAction(data?.campaign_accounts[0]));
+              return navigate("/admin/home");
+            }
         });
       })
       .catch((e) => {

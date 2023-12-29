@@ -1,17 +1,11 @@
 import {
-  faBorderAll,
-  faBuilding,
-  faBuildingColumns,
   faBullhorn,
-  faBullseye,
-  faGear,
   faHome,
   faListDots,
   faPen,
-  faPlus,
-  faSheetPlastic,
   faArrowRightFromBracket,
-  faHeadset
+  faHeadset,
+  faCog
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -73,6 +67,12 @@ export const SIDE_BAR_MENU = [
 
 
 export const BOTTOM_MENU = [
+  // {
+  //   id: "account-settings",
+  //   name: "Account Settings",
+  //   icon: <FontAwesomeIcon icon={faCog} />,
+  //   link: "/admin/account-settings",
+  // },
   {
     id: "sign-out",
     name: "SignOut",

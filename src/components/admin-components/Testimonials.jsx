@@ -9,7 +9,9 @@ import Input from "./Input";
 import Dropdown from "./Dropdown";
 import FileUploader from "./FileUploader";
 
-const Testimonials = ({ testimonials }) => {
+const Testimonials = ({ campaign }) => {
+	let testimonials = [...campaign?.technologies?.map((tech) => tech?.testimonials)].flat();
+
 	const timeAgo = (date) => {
 		const currentDate = new Date();
 		const inputDate = new Date(date);
@@ -89,7 +91,7 @@ const Testimonials = ({ testimonials }) => {
 		body: "test",
 		title: "test",
 		image: "",
-		commnity_id: 1,
+		community_id: 1,
 		user_id: 1,
 	};
 
@@ -145,7 +147,7 @@ const Testimonials = ({ testimonials }) => {
 										multiple={false}
 										onItemSelect={(selectedItem, allSelected) => {
 											console.log(selectedItem);
-											handleFieldChange("commnity_id", selectedItem);
+											handleFieldChange("community_id", selectedItem);
 										}}
 										selectedValues={[]}
 									/>
