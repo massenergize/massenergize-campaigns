@@ -22,7 +22,7 @@ import { COMMENTS, ONE_TECH_DATA } from "../../data/user-portal-dummy-data";
 import { fetchUrlParams, relativeTimeAgo } from "../../../utils/utils";
 import { useParams } from "react-router-dom";
 import NotFound from "../error/404";
-import { LOADING } from "../../../utils/Constants";
+import { LOADING, MOBILE_WIDTH } from "../../../utils/Constants";
 import { apiCall } from "../../../api/messenger";
 import Loading from "../../../components/pieces/Loading";
 import {
@@ -37,9 +37,13 @@ import ShareBox from "../sharing/ShareBox";
 import CommentDeleteConfirmation from "./CommentDeleteConfirmation";
 import DoMore from "../landing-page/DoMore";
 import OneTechEventSection from "./OneTechEventSection";
+import { useMediaQuery } from "react-responsive";
 
 const DEFAULT_READ_HEIGHT = 190;
+const PREVIEW_TEXT_LENGHT = 1000;
+const MOBILE_PREVIEW_TEXT_LENGTH = 200;
 const COMMENT_LENGTH = 40;
+
 function TechnologyFullViewPage({
   toggleModal,
   techs,
@@ -82,6 +86,8 @@ function TechnologyFullViewPage({
   const [height, setHeight] = useState(DEFAULT_READ_HEIGHT);
   const [error, setError] = useState("");
   const { campaign_technology_id, campaign_id } = useParams();
+  const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
+
   const id = campaign_technology_id;
 
   const scrollToSection = (id) => {
@@ -210,25 +216,9 @@ function TechnologyFullViewPage({
       fullControl: true,
     });
   };
-  // const triggerRegistrationForLike = () => {
-  //   toggleModal({
-  //     show: true,
-  //     title: `Tell us where you are from`,
-  //     iconName: "fa-thumbs-up",
-  //     component: ({ close }) => (
-  //       <JoinUsForm
-  //         close={close}
-  //         callbackOnSubmit={({ user }) => {
-  //           like(user);
-  //         }}
-  //       />
-  //     ),
-  //     // modalNativeProps: { size: "md" },
-  //     fullControl: true,
-  //   });
-  // };
+ 
   const triggerCommentBox = (userObject) => {
-    const { community, user } = userObject || {};
+    const {  user } = userObject || {};
     if (!user) return triggerRegistration();
     toggleModal({
       show: true,
@@ -297,7 +287,11 @@ function TechnologyFullViewPage({
       );
   };
 
-  const isReallyLong = description.length > 1000; // This is not a good way of checking, change it later
+  // const READ_HEIGHT = isMobile ? 100 : DEFAULT_READ_HEIGHT;
+  const READ_HEIGHT = DEFAULT_READ_HEIGHT;
+  const LENGTH = isMobile ? MOBILE_PREVIEW_TEXT_LENGTH : PREVIEW_TEXT_LENGHT;
+  const isReallyLong = description.length > LENGTH; // This is not a good way of checking, change it later
+
 
   return (
     <div>
@@ -340,9 +334,7 @@ function TechnologyFullViewPage({
                 ></span>
                 {isReallyLong && (
                   <span
-                    onClick={() =>
-                      setHeight(readMore ? "100%" : DEFAULT_READ_HEIGHT)
-                    }
+                    onClick={() => setHeight(readMore ? "100%" : READ_HEIGHT)}
                     className="touchable-opacity"
                     style={{
                       fontWeight: "bold",

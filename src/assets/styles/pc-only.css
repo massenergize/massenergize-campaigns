@@ -71,7 +71,7 @@
     height: 350px;
   }
 
-  .coach-main {
+  .coach-main img {
     margin-top: 50px;
     width: 120px;
     height: 120px;
@@ -81,7 +81,7 @@
     font-size: 15px;
   }
   .coaches-description {
-    width: 80%;
+    /* width: 80%; */
   }
   .do-more-root {
     padding: 20vh 0px;
@@ -89,11 +89,36 @@
 
   .one-tech-main img {
     height: 420px;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 5px;
   }
 
+  .vendor-list-group li {
+    /* vendor-list-item */
+    flex-basis: calc(33.33% - 10px);
+    /* margin: 5px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: black; */
+  }
 
+  .vendor-list-group {
+    display: flex;
+    /* flex-direction: row; */
+    flex-wrap: wrap;
+  }
 
   /* --------------------------------- END OF PC SPECIFIC ---------------------- */
+}
+
+.vendor-list-group li {
+  /* vendor-list-item */
+  /* flex-basis: calc(33.33% - 10px); */
+  margin: 5px;
+  font-weight: bold;
+  text-decoration: underline;
+  color: black;
 }
 
 .coach-main p {

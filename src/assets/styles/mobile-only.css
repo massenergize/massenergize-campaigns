@@ -116,7 +116,8 @@
   }
   .coaches-description {
     width: 100%;
-    font-size: var(--mob-normal-font-size);
+    font-size: var(--mob-paragraph-font-size);
+    text-align: justify;
   }
   .do-more-root p {
     width: 100%;
@@ -134,10 +135,22 @@
   }
 
   .o-t-desc {
-    font-size: var(--mob-normal-font-size);
+    font-size: var(--mob-paragraph-font-size);
   }
   .one-tech-wrapper {
     padding: 0px 15px;
+  }
+
+  .section-title {
+    font-size: 1.3rem;
+  }
+
+  .overview-item p {
+    font-size: var(--mob-paragraph-font-size);
+  }
+
+  .paragraph-font {
+    font-size: var(--mob-paragraph-font-size);
   }
   /* ---------------------------- END OF PHONE SPECIFIC STYLES ----------- */
 }

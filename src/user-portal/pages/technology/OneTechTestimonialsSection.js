@@ -35,12 +35,12 @@ function OneTechTestimonialsSection({ sectionId, testimonials }) {
   return (
     <div
       id={sectionId}
-      className="mt-5"
+      className="mt-5 g-s-container"
       style={{
         background: "white",
         width: "100%",
-        padding: "80px 0px",
-        minHeight: 200,
+        // padding: "80px 0px",
+        // minHeight: 200,
       }}
     >
       <OptimumWrapper>
@@ -56,9 +56,7 @@ function OneTechTestimonialsSection({ sectionId, testimonials }) {
         >
           <SectionTitle style={{ margin: 0 }}>Testimonials</SectionTitle>
 
-          <div style={{ marginLeft: "auto" }}>
-            {/* <ArrowButtons /> */}
-          </div>
+          <div style={{ marginLeft: "auto" }}>{/* <ArrowButtons /> */}</div>
         </div>
 
         <Row style={{ overflowX: "auto", flexWrap: "nowrap" }}>

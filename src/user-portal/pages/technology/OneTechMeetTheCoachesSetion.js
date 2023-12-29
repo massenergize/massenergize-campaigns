@@ -42,12 +42,12 @@ function OneTechMeetTheCoachesSection({
     <div
       ref={ref}
       id={sectionId}
-      className="mt-5 elevate-float-pro"
+      className="mt-5 elevate-float-pro g-s-container"
       style={{
         background: "antiquewhite",
         width: "100%",
-        padding: "80px 0px",
-        minHeight: 200,
+        // padding: "80px 0px",
+        // minHeight: 200,
       }}
     >
       <OptimumWrapper>
