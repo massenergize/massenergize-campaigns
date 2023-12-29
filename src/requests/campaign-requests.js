@@ -46,9 +46,9 @@ export async function updateCampaign(data, url = "campaigns.update") {
 	}
 }
 
-export async function fetchAllCampaigns(url = "campaigns.listForAdmin") {
+export async function fetchAllCampaigns(url = "campaigns.list", campaign_account_id) {
 	try {
-		const response = await apiCall(url, {}, null);
+		const response = await apiCall(url, {campaign_account_id}, null);
 		if (!response || !response?.success) {
 			handleRequestError(response?.error, "FETCH_ALL_CAMPAIGNS_ERROR_BE");
 		}

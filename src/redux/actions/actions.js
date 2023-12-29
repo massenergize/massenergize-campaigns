@@ -15,6 +15,7 @@ import {
   TOGGLE_UNIVERSAL_MODAL,
   UPDATE_EVENT_OBJ,
   UPDATE_TESTIMONIALS_OBJ,
+  SET_CAMPAIGN_ACCOUNT,
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
 
@@ -57,6 +58,12 @@ export const setCommentsAction = (payload) => {
   return { type: SET_COMMENTS, payload };
 };
 
+
+
+// ------ Admin Redux------
+export const setCampaignAccountAction = (payload) => {
+  return { type: SET_CAMPAIGN_ACCOUNT, payload };
+};
 // export const recorderAView = () => {
 //   apiCall("/campaigns.technology.view", {
 //     campaign_technology_id: technology?.campaign_technology_id,
