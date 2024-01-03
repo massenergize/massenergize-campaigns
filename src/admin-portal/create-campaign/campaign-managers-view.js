@@ -1,45 +1,57 @@
 import DataTable from "../../components/data-table";
 import React, { useMemo, useState } from "react";
 import { SelectColumnFilter } from "../../components/data-table/filters";
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { CAMPAIGN_MANAGERS } from "../../mocks/campaign";
-
-const removeCampaignManager = async function (id) {};
+import { apiCall } from "src/api/messenger";
+import { set } from "date-fns";
 
 export function CampaignManagersView({ events = CAMPAIGN_MANAGERS, managers }) {
-	const [data, setData] = useState(managers);
+  const [data, setData] = useState(managers);
+  const [toggleConfirmation, setToggleConfirmation] = useState(false);
+  const [toRemove, setToRemove] = useState(null);
 
-	const handleRemove = async (campaign_manager_id) => {
-		try {
-			const updatedManagers = await removeCampaignManager(campaign_manager_id);
+  const handleClose = () => {
+    setToggleConfirmation(false);
+    setToRemove(null);
+  };
 
-			// campaignManagers = updatedManagers;
-		} catch (e) {}
-	};
+  const handleRemove = async (manager) => {
+    try {
+      const res = await apiCall("campaigns.managers.remove", {
+        campaign_manager_id: manager.id,
+      });
+      if (res.success) {
+        const updatedManagers = data.filter((item) => item.id !== manager.id);
+        setData(updatedManagers);
+		handleClose();
+      }
+    } catch (e) {}
+  };
 
-	const columns = useMemo(
-		() => [
-			{
-				id: "image",
-				Header: () => null,
-				accessor: (values) => {
-					const { user } = values;
-					let src = user?.profile_picture?.url || "/img/fallback-img.png";
-					return (
-						<div>
-							<img
-								src={src}
-								alt="logo"
-								style={{ width: "40px", height: "40px" }}
-								onError={() => {
-									src = "/img/fallback-img.png";
-								}}
-							/>
-						</div>
-					);
-				},
-				className: "text-left",
-				filter: "equals",
+  const columns = useMemo(
+    () => [
+      {
+        id: "image",
+        Header: () => null,
+        accessor: (values) => {
+          const { user } = values;
+          let src = user?.profile_picture?.url || "/img/fallback-img.png";
+          return (
+            <div>
+              <img
+                src={src}
+                alt="logo"
+                style={{ width: "40px", height: "40px" }}
+                onError={() => {
+                  src = "/img/fallback-img.png";
+                }}
+              />
+            </div>
+          );
+        },
+        className: "text-left",
+        filter: "equals",
 
 				style: {
 					textAlign: "left",
@@ -85,47 +97,69 @@ export function CampaignManagersView({ events = CAMPAIGN_MANAGERS, managers }) {
 						row,
 					} = cell;
 
-					return (
-						<Button
-							className={"link"}
-							onClick={() => {
-								// handleRemove(user?.id);
-							}}
-						>
-							Remove
-						</Button>
-					);
-				},
-			},
-		],
-		[]
-	);
+          return (
+            <Button className={"link"} onClick={() => {
+						setToRemove(value);
+						setToggleConfirmation(true);
+			}}>
+              Remove
+            </Button>
+          );
+        },
+      },
+    ],
+    []
+  );
 
-	const [pagesCount, setPagesCount] = useState(1);
-	const [pageIndex, setPageIndex] = useState(0);
-	const [pageSize, setPageSize] = useState(10);
+  const [pagesCount, setPagesCount] = useState(1);
+  const [pageIndex, setPageIndex] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
 
-	const [skipPageReset, setSkipPageReset] = React.useState(false);
-	const updateMyData = (rowIndex, columnId, value) => {
-		setSkipPageReset(true);
-	};
+  const [skipPageReset, setSkipPageReset] = React.useState(false);
+  const updateMyData = (rowIndex, columnId, value) => {
+    setSkipPageReset(true);
+  };
 
-	let [canGotoPreviousPage, setCanPreviousPage] = useState(false);
-	let [canGotoNextPage, setCanGotoNextPage] = useState(false);
+  let [canGotoPreviousPage, setCanPreviousPage] = useState(false);
+  let [canGotoNextPage, setCanGotoNextPage] = useState(false);
 
-	// endregion
-	return (
-		<div>
-			<DataTable
-				className={"table-responsive-sm table"}
-				columns={columns}
-				data={data}
-				size={pageSize}
-				skipPageReset={skipPageReset}
-				updateMyData={updateMyData}
-				renderRowSubComponent={null}
-				rowSelect={true}
-			/>
-		</div>
-	);
+  // endregion
+  return (
+    <div>
+      <DataTable
+        className={"table-responsive-sm table"}
+        columns={columns}
+        data={data}
+        size={pageSize}
+        skipPageReset={skipPageReset}
+        updateMyData={updateMyData}
+        renderRowSubComponent={null}
+        rowSelect={true}
+      />
+
+      <Modal
+        size={"lg"}
+        show={toggleConfirmation}
+        onHide={handleClose}
+		variant="primary"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title className={"text-sm"}>
+            Campaign Manager Removal
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+			<p>Are you sure you want to remove <span style={{fontSize:'1.1rem', fontWeight:'bold'}}>{toRemove?.user?.full_name}</span>  from this campaign? This action is irreversible and will permanently delete their association with the campaign.</p>
+        </Modal.Body>
+        <Modal.Footer>
+		<Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={()=>handleRemove(toRemove)}>
+            Remove
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
 }

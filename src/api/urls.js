@@ -1,4 +1,4 @@
-import { IS_DEV, IS_LOCAL, IS_PROD,  IS_CANARY} from "./config";
+import { IS_DEV, IS_LOCAL, IS_PROD, IS_CANARY } from "../config/environment";
 
 export var API_HOST = "http://localhost:8000/api";
 // export var API_HOST = "http://2606-154-160-22-219.ngrok-free.app";
@@ -6,6 +6,8 @@ export var API_HOST = "http://localhost:8000/api";
 if (IS_PROD) API_HOST = "https://api.massenergize.org/";
 // else if(IS_LOCAL) API_HOST = `${API_HOST}/api`
 else if (IS_DEV) API_HOST = "https://api.massenergize.dev";
+// else if (IS_DEV) API_HOST = "http://localhost:8000/api";
+// else if (IS_DEV) API_HOST = "https://0fe9-197-251-151-181.ngrok-free.app";
 
 const URLS = {};
 if (IS_LOCAL) {
