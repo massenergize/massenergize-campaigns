@@ -37,7 +37,7 @@ export async function apiCall(destinationUrl, dataToSend = {}, relocationPage = 
   }
 
   // special case for carbon_calculator api
-  let host = API_HOST;
+  // let host = API_HOST;
   //   if (destinationUrl.substring(0, 1) === 'cc') {
   //     host = CC_HOST;
   //     if (!IS_LOCAL) {
@@ -48,7 +48,7 @@ export async function apiCall(destinationUrl, dataToSend = {}, relocationPage = 
   //     // not for cc api
   //     destinationUrl = "api/" + destinationUrl;
   //   }
-  destinationUrl = `${host}/${destinationUrl}`;
+  destinationUrl = `${API_HOST}/${destinationUrl}`;
 
   try {
     const response = await fetch(destinationUrl, {

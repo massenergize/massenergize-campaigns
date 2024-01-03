@@ -3,7 +3,7 @@ import { AdminLayout } from "../../../layouts/admin-layout";
 import { AllCampaignsView } from "../../../views/all-campaigns-view";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useBubblyBalloons } from "../../../components/bubbly-balloon/use-bubbly-balloons";
+import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloons";
 import { Link } from "react-router-dom";
 
 export function AllCampaigns () {

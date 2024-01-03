@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { IS_PROD } from "../../api/config";
+import { IS_PROD } from "../../config/environment";
 // import 'firebase/auth';
 // import { FIREBASE_CONFIG } from '../../config/constants';
 

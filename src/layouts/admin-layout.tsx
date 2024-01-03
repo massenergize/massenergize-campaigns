@@ -10,6 +10,7 @@ import { useState } from "react";
 import classes from "classnames";
 import { apiCall } from "../api/messenger";
 import AuthGuard from "../guards/AuthGuard";
+import { SWR_CONFIG } from "../config/config";
 import {useDispatch, useSelector} from "react-redux";
 import {logUserOut, setCampaignAccountAction} from "../redux/actions/actions";
 
@@ -33,8 +34,7 @@ export function AdminLayout (props: AdminLayoutProps) {
       companyName: account?.name,
   };
   return (
-
-    <SWRConfig value={{ dedupingInterval: 500000, fetcher: fetchData }}>
+    <SWRConfig value={{ ...SWR_CONFIG, fetcher: fetchData }}>
       {/* @ts-ignore*/}
       <AuthGuard>
       <Row className={"overflow-hidden mx-0"}>
