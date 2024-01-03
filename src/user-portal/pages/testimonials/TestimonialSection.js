@@ -3,8 +3,10 @@ import TestimonialBox from "./TestimonialBox";
 import { Col, Container, Row } from "react-bootstrap";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
+import { useNavigate } from "react-router-dom";
 
-function TestimonialSection({ sectionId, technologies, defaultTab }) {
+function TestimonialSection({ sectionId, technologies, defaultTab, campaign }) {
+  const navigator = useNavigate();
   const testimonialsOfEachTech = technologies?.map(
     ({
       campaign_technology,
@@ -27,6 +29,8 @@ function TestimonialSection({ sectionId, technologies, defaultTab }) {
     })
   );
   const firstOne = testimonialsOfEachTech[0];
+  const firstTestimonial = (firstOne?.testimonials || [])[0];
+  const testimonialRoute = `/campaign/${campaign?.id}/technology/testimonial/${firstTestimonial?.id}?open=true`;
 
   const intoTabs = testimonialsOfEachTech?.map(
     ({ id, name, testimonials }) => ({
@@ -83,6 +87,7 @@ function TestimonialSection({ sectionId, technologies, defaultTab }) {
             <p>
               Click on any of the tabs to see testimonials under each technology
             </p>
+            <AddNewTestimonial onClick={() => navigator(testimonialRoute)} />
           </div>
 
           <CustomTabView
@@ -96,3 +101,33 @@ function TestimonialSection({ sectionId, technologies, defaultTab }) {
 }
 
 export default TestimonialSection;
+
+export const AddNewTestimonial = ({ style, onClick }) => {
+  return (
+    <div
+      style={{
+        margin: "20px 0px ",
+      }}
+    >
+      <a
+        onClick={(e) => {
+          e.preventDefault();
+          onClick && onClick();
+        }}
+        className="touchable-opacity"
+        style={{
+          color: "var(--app-medium-green)",
+          fontWeight: "bold",
+
+          ...(style || {}),
+        }}
+      >
+        Add your own testimonial here{" "}
+        <i
+          className="fa fa-long-arrow-right"
+          style={{ marginLeft: 10, fontWeight: "bold" }}
+        />
+      </a>
+    </div>
+  );
+};

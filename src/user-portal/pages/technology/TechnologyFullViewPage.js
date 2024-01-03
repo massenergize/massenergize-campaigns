@@ -601,6 +601,7 @@ function TechnologyFullViewPage({
           <OneTechTestimonialsSection
             testimonials={testimonials}
             sectionId="testimonial-section"
+            campaign = {campaign}
           />
         </div>
         <div ref={coachesRef}>

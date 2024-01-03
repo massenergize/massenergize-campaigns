@@ -17,6 +17,7 @@ import Loading from "../../../components/pieces/Loading";
 import { apiCall } from "../../../api/messenger";
 import JoinUsForm from "../forms/JoinUsForm";
 import NewTestimonialForm from "./NewTestimonialForm";
+import { fetchUrlParams } from "../../../utils/utils";
 
 function OneTestimonial({
   testimonials,
@@ -73,7 +74,6 @@ function OneTestimonial({
           close={close}
           callbackOnSubmit={({ user }) => {
             close && close();
-            console.log("USER AFTER CALL ON SUBMIT: ", user);
             initiateTestimonialCreation(user);
           }}
           confirmText="Continue"
@@ -84,8 +84,13 @@ function OneTestimonial({
     });
   };
   const otherTestimonials = groupTestimonials();
-
   const campaignExists = campaign && campaign !== LOADING;
+
+  const openForm = fetchUrlParams("open")?.trim() === "true";
+
+  useEffect(() => {
+    if (openForm) initiateTestimonialCreation();
+  }, [openForm]);
 
   useEffect(() => {
     if (!campaignExists) init(campaign_id);
@@ -144,6 +149,8 @@ function OneTestimonial({
               padding: 10,
               //   marginBottom: 10,
               background: "var(--app-deep-green)",
+              borderTopLeftRadius: 5,
+              borderTopRightRadius: 5,
             }}
           >
             <h6

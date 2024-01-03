@@ -32,14 +32,13 @@ function NewTestimonialForm({
     setForm({ ...form, [name]: value });
   };
 
-  const getValue = (name) => {
-    return (form || {})[name];
+  const getValue = (name, pop = false) => {
+    const value = (form || {})[name];
+    if (pop && name) delete form[name];
+    return value;
   };
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
+
+  const listOfCommunities = campaign?.communities || [];
 
   // useEffect(() => {
   //   const { user } = authUser || {};
@@ -70,10 +69,11 @@ function NewTestimonialForm({
     }
     setLoading(true);
     const body = editorRef?.current?.getContent();
+    const chosenCom = getValue("chosenCommunity", true);
     const payload = {
       ...form,
       user_id: user?.id,
-      community_id: community?.id,
+      community_id: chosenCom || community?.id || null,
       body,
     };
 
@@ -99,11 +99,26 @@ function NewTestimonialForm({
       });
   };
 
+  const inflate = () => {
+    setForm({ chosenCommunity: community?.id });
+  };
+
+  useEffect(() => {
+    inflate();
+  }, []);
+
   const technologies = campaign?.technologies || [];
 
   return (
     <div>
-      <div style={{ padding: 20 }}>
+      <div
+        style={{
+          padding: 20,
+          maxHeight: 600,
+          position: "relative",
+          overflowX: "scroll",
+        }}
+      >
         <Form.Text>Tell us your story!</Form.Text>
         {/* <InputGroup className="mb-3 mt-2">
           <InputGroup.Text style={{ fontWeight: "bold" }} id="basic-addon1">
@@ -168,9 +183,35 @@ function NewTestimonialForm({
         </Form.Group>
 
         <div style={{ marginBottom: 15 }}>
+          <Form.Text>Select your community</Form.Text>
+          <Form.Select
+            value={getValue("chosenCommunity") || ""}
+            style={{
+              fontWeight: "bold",
+              color: "var(--app-medium-green)",
+              marginTop: 5,
+            }}
+            onChange={(e) => setState("chosenCommunity", value(e))}
+          >
+            <option value={NULL}>--- Select your community ---</option>
+            {listOfCommunities?.map(({ community }, index) => {
+              return (
+                <option key={index?.toString()} value={community?.id}>
+                  {community?.name || "..."}
+                </option>
+              );
+            })}
+          </Form.Select>
+        </div>
+        <div style={{ marginBottom: 15 }}>
+          <Form.Text>What technology is this testimonial under?</Form.Text>
           <Form.Select
             value={getValue("campaign_technology_id") || ""}
-            style={{ fontWeight: "bold", color: "var(--app-medium-green)" }}
+            style={{
+              fontWeight: "bold",
+              color: "var(--app-medium-green)",
+              marginTop: 5,
+            }}
             onChange={(e) => setState("campaign_technology_id", value(e))}
           >
             <option value={NULL}>--- Select a technology ---</option>
@@ -193,7 +234,7 @@ function NewTestimonialForm({
             onInit={(evt, editor) => (editorRef.current = editor)}
             initialValue="<p>Start telling your story here...</p>"
             init={{
-              height: 500,
+              height: 300,
               menubar: false,
               plugins: [
                 "advlist",
@@ -216,7 +257,7 @@ function NewTestimonialForm({
                 "wordcount",
               ],
               toolbar:
-                "undo redo | blocks | " +
+                "undo redo | blocks | link | " +
                 "bold italic forecolor | alignleft aligncenter " +
                 "alignright alignjustify | bullist numlist outdent indent | " +
                 "removeformat | help",

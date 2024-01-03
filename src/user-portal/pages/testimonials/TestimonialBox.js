@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { MOBILE_WIDTH } from "../../../utils/Constants";
 
 const PREVIEW_LENGTH = 125;
-const LONG_LENGTH = 380;
+const LONG_LENGTH = 350;
 function TestimonialBox({
   title,
   user,
@@ -19,17 +19,17 @@ function TestimonialBox({
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
   const route = `/campaign/${campaign?.id}/technology/testimonial/${id}`;
 
-  const preview = body?.substr(
-    0,
-    hasNoImage && !isMobile ? LONG_LENGTH : PREVIEW_LENGTH
-  );
+  const preview = body?.substr(0, !isMobile ? LONG_LENGTH : PREVIEW_LENGTH);
 
   return (
     <div className="testi-container">
       <h5 style={{ color: "var(--app-medium-green)", fontSize: "1.07rem" }}>
-        {user?.preferred_name || user?.full_name || "...."}
+        {title || "..."}
       </h5>
-      <h6 style={{ fontSize: 15 }}>{title || "..."}</h6>
+      <h6 style={{ fontSize: 15 }}>
+        {" "}
+        {user?.preferred_name || user?.full_name || "...."}
+      </h6>
       <div
         style={{
           fontSize: 14,
@@ -55,7 +55,7 @@ function TestimonialBox({
       >
         Read More...
       </a> */}
-
+      {/* 
       {image?.url && (
         <img
           className="phone-vanish"
@@ -68,7 +68,7 @@ function TestimonialBox({
           }}
           src={image?.url}
         />
-      )}
+      )} */}
       <div
         style={{
           display: "flex",

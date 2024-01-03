@@ -81,10 +81,13 @@
     font-size: 15px;
   }
   .coaches-description {
-    /* width: 80%; */
+    width: 80%;
   }
   .do-more-root {
     padding: 20vh 0px;
+  }
+  .do-more-root p {
+    width: 80%;
   }
 
   .one-tech-main img {

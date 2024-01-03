@@ -144,7 +144,7 @@ function AppNavigationBar({ menu, campaign }) {
 }
 
 const mapState = (state) => {
-  return { menu: state.navigation };
+  return { menu: state.navigation, campaign: state?.campaign };
 };
 
 const mapDispatch = (dispatch) => {

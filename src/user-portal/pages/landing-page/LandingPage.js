@@ -220,6 +220,7 @@ function LandingPage({
 
       <div ref={testimonialsRef}>
         <TestimonialSection
+          campaign={campaign}
           // defaultTab={activeTab}
           technologies={technologies}
           sectionId="testimonial-section"
