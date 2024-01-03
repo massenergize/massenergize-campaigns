@@ -46,11 +46,12 @@ export function useBubblyBalloons () {
   return {
     balloons :store,
     deflate,
-    balloon : balloon,
+    balloon,
     inflate : balloon,
     pop : balloon,
     create : balloon,
     notify : balloon,
+    removeNotification : deflate,
     blow : balloon
   }
 }
