@@ -7,7 +7,7 @@ import Chip from "../../components/admin-components/Chip";
 import { createCampaignFromTemplate } from "../../requests/campaign-requests";
 import { ProgressButton } from "../../components/progress-button/progress-button";
 import { MultiSelect } from "react-multi-select-component";
-import { useBubblyBalloons } from "../../components/bubbly-balloon/use-bubbly-balloons";
+import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
 import { useSelector } from "react-redux";
 
 export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCampaignDetails, step, setStep, lists }) {

@@ -71,15 +71,7 @@ export function CampaignManagersView({ events = CAMPAIGN_MANAGERS, managers }) {
 				accessor: (values) => {
 					const { user } = values;
 
-					// return user;
-					<Button
-						className={"link"}
-						onClick={() => {
-							// handleRemove(user?.id);
-						}}
-					>
-						Remove
-					</Button>;
+					return user;
 				},
 				style: {
 					textAlign: "left",

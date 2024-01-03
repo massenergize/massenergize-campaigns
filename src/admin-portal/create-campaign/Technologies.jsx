@@ -4,66 +4,111 @@ import Col from "react-bootstrap/Col";
 import "../../assets/styles/admin-styles.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ProgressButton } from "../../components/progress-button/progress-button";
 import { MultiSelect } from "react-multi-select-component";
 import { Card } from "react-bootstrap";
-import { addLabelsAndValues, diffArray } from "../../helpers/utils/array";
-import Chip from "../../components/admin-components/Chip";
+import { addLabelsAndValues } from "../../helpers/utils/array";
+import { useCampaignContext } from "../../hooks/use-campaign-context";
+import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
+import { updateCampaignTechnologies } from "../../requests/campaign-requests";
 
-const Technologies = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
-  const { technologies } = campaignDetails;
+function Technology ({ tech, handleRemove }) {
+  let image = tech?.image?.url;
+  const { id, name, } = tech;
 
+  return (
+    // <Link to={`/admin/campaign/edit-technology/${id}`} className="image-edit-btn">
+    <Card className={"position-relative"}>
+      <Card.Body className={"p-0"}>
+        <Card.Img variant="top" src={image} style={{ height: 280 }}/>
+      </Card.Body>
+      <Card.Footer>
+        <Card.Title className={"mb-0"}>{name}</Card.Title>
+        <Card.Text>{name}</Card.Text>
+      </Card.Footer>
+
+      <span onClick={() => {
+        handleRemove(tech);
+      }} className="image-close-btn d-flex">
+      <FontAwesomeIcon icon={faClose} className={"m-auto"}/>
+    </span>
+    </Card>
+    // </Link>
+  )
+}
+
+const Technologies = ({}) => {
   const navigate = useNavigate();
 
+  const { notify, pop } = useBubblyBalloons();
   const {
-    allTechnologies,
-  } = lists;
+    campaignDetails,
+    originalCampaignDetails,
+    lists,
+    handleCampaignDetailsChange,
+    setNewCampaignDetails,
+  } = useCampaignContext();
 
-  const originalTechnologies = Object.assign([], technologies);
+  const { technologies } = campaignDetails;
+  const { allTechnologies, } = lists;
+
+  const originalTechnologies = originalCampaignDetails.technologies;
+  const originalTechnologiesSet = new Set(originalCampaignDetails?.technologies?.map((tech) => tech.id));
 
   const handleRemove = (data) => {
     const filteredTechnologies = technologies.filter((tech) => tech.id !== data.id);
-    setCampaignDetails("technologies", filteredTechnologies);
+    handleCampaignDetailsChange("technologies", filteredTechnologies);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    try {
+      const payload = {
+        campaign_id: campaignDetails?.id,
+        technology_ids: technologies.map((tech) => tech.id),
+      };
+
+      const res = await updateCampaignTechnologies(payload);
+
+      if (res) {
+        notify({
+          title: "Success",
+          message: "Campaign Technologies updated successfully.",
+          type: "success",
+          timeout: 15000,
+        })
+      }
+    } catch (e) {
+      notify({
+        title: "Error",
+        message: "Something went wrong. Please try again later.",
+        type: "error",
+        timeout: 15000,
+      })
+    }
   }
 
-  const enableSave = () => {
-    // let's check if the form has changed
-    if (originalTechnologies?.length !== technologies?.length) {
-      return true;
-    }
-    // if the lengths are the same, we need to check if the values are the same
-    // we can do this by checking if the ids are the same
-    let changed = false;
-    for (let i = 0; i < originalTechnologies?.length; i++) {
-      if (originalTechnologies[i]?.id !== technologies[i]?.id) {
-        changed = true;
+  let listChanged = false;
+  const TECHNOLOGIES_SIZE = technologies?.length;
+  const ORIGINAL_TECHNOLOGIES_SIZE = originalTechnologies?.length;
+
+  if (ORIGINAL_TECHNOLOGIES_SIZE !== TECHNOLOGIES_SIZE) {
+    listChanged = true;
+  } else {
+    for (let i = 0; i < TECHNOLOGIES_SIZE; i++) {
+      if (!originalTechnologiesSet.has(technologies[i]?.id)) {
+        listChanged = true;
         break;
       }
     }
-    return changed;
   }
 
-  // console.log("technologies", technologies, allTechnologies.data)
+  let notification = null;
+
   return (
-    // <m.div initial={{ y: " 10%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
     <Container>
       <form>
-        <Row>
-          <Col>
-            <p>Choose one or more technologies for your campaign from the dropdown below.</p>
-            <small className={"text-muted"}>
-              If you don't see the technology you're looking for, you can {" "}
-              <Link className="theme-color text-link" to={"/admin/campaign/create-technology"}>
-                Create a new technology.
-              </Link>
-            </small>
-          </Col>
-        </Row>
-        <Row className="mt-4">
+        <Row className="">
           <Col>
             <MultiSelect
               options={allTechnologies.data}
@@ -77,87 +122,75 @@ const Technologies = ({ campaignDetails, setCampaignDetails, setStep, lists }) =
                   return "All Selected";
                 }
 
-                return selected.map(({label, id}, i) => {
+                return selected.map(({ label, id }, i) => {
                   return label + (i < allTechnologies?.data?.length ? ", " : "");
-                  /*return <Chip size={"sm"} text={label} id={id} onDismiss={() => {
-                    handleRemove({id})
-                  }}/>*/
                 })
               }}
               onChange={(val) => {
-                setCampaignDetails("technologies", val);
+                if (!(val?.length < 1)) {
+                  handleCampaignDetailsChange("technologies", val);
+                } else {
+                  if (notification) {
+                    console.log("=== notification ===", notification)
+                    pop(notification)
+                  }
+                  notification = notify({
+                    title: "Not Allowed",
+                    message: "You must select at least one technology.",
+                    type: "error",
+                    timeout: 150000,
+                    onClose: () => {
+                      // notification = null;
+                    }
+                  })
+                }
               }}
               labelledBy="Select"
             />
           </Col>
         </Row>
+        {
+          TECHNOLOGIES_SIZE < 1 ? (
+            <Row className="mt-4 pb-4 justify-content-center">
+              <Col sm="auto" className={"py-5"}>
+                <img src="/img/technology-illustration.svg" alt="No Technology Illustration"/>
+                <h6 className={"text-center mt-4 mb-0"}>No technologies selected</h6>
+                <p className={"text-center text-sm"}>
+                  Please select one or more technologies from the dropdown above.
+                </p>
+              </Col>
+            </Row>
+          ) : null
+        }
+        {
+          TECHNOLOGIES_SIZE > 0 ? <>
+            <Row className="mt-4 pb-4 justify-content-start">
+              {
+                technologies.map((tech) => {
+                  return (
+                    <Col md={4} lg={3} className={"mb-3 px-2 h-100"}>
+                      <Technology tech={tech} handleRemove={handleRemove}/>
+                    </Col>
+                  );
+                })
+              }
+            </Row>
 
-        <Row className="mt-4 pb-4 justify-content-start">{
-          technologies.map((tech) => {
-            let image = tech?.image?.url;
-            const { id, name, } = tech;
 
-            return (
-              <Col md={3} className={"mb-3 h-100"} style={{ height: 300 }}>
-                {/*<Link to={`/admin/campaign/edit-technology/${id}`} className="image-edit-btn">*/}
-                  <Card style={{ width: '18rem' }} className={"position-relative"}>
-                    <Card.Body>
-                      <Card.Img variant="top" src={image}/>
-                      <Card.Title>{name}</Card.Title>
-                      <Card.Text>{name}</Card.Text>
-                    </Card.Body>
-
-                    <span onClick={() => {handleRemove(tech);}} className="image-close-btn d-flex">
-                    <FontAwesomeIcon icon={faClose} className={"m-auto"}/>
-                  </span>
-                  </Card>
-                {/*</Link>*/}
-
-                {/*<div key={tech?.id} className={"border rounded position-relative"}>
-                    <div className="small-image-container rounded" style={{
-                      backgroundImage: `url(${image})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      backgroundRepeat: "no-repeat",
-                    }}>
-                      <img className={classes("small-image ", { "d-none": image })}
-                           src={image}
-                           alt=""
-                           onError={() => {
-                             image = "/img/fallback-img.png"
-                           }}/>
-                    </div>
-                    <p className="text-center pb-3 small-image-text light-gray-back rounded mb-0">{tech?.name}</p>
-                    <span onClick={() => {
-                      handleRemove(tech);
-                    }} className="image-close-btn">
-                    <FontAwesomeIcon icon={faClose}/>
-                  </span>
-                  </div>*/}
-              </Col>);
-          })}
-        </Row>
-
-        <Row className="mt-4 py-4 justify-content-end">
-          <Col className="mt-4 py-4">
-            <ProgressButton
-              text="Save Changes"
-              onClick={handleSubmit}
-              rounded={false}
-              disabled={diffArray(technologies, originalTechnologies, function (a, b) {
-                if (a.length !== b.length) {
-                  return false;
-                }
-                for (let i = 0; i < a.length; i++) {
-                  if (a[i].id !== b[i].id) {
-                    return false;
-                  }
-                }
-                return true;
-              } )}
-            >Save Changes</ProgressButton>
-          </Col>
-        </Row>
+          </> : null
+        }
+        {
+          <Row className="mt-4 py-4 justify-content-end">
+            <Col className="mt-4 py-4">
+              <ProgressButton
+                text="Save Changes"
+                onClick={handleSubmit}
+                rounded={false}
+                disabled={listChanged === false || TECHNOLOGIES_SIZE < 1}
+              >Save Changes</ProgressButton>
+            </Col>
+          </Row>
+        }
       </form>
     </Container>
     // </m.div>

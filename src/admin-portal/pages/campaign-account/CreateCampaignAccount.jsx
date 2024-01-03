@@ -1,22 +1,21 @@
-import React, { useReducer, useState } from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Spinner from 'react-bootstrap/Spinner';
 
 import "./campaignAccount.css";
-import { motion as m } from "framer-motion";
 import Input from "../../../components/admin-components/Input";
 import { Dropdown } from "@kehillahglobal/ui";
-import Button from "../../../components/admin-components/Button";
 import { fetchCommunitiesList } from "../../../requests/community-routes";
 import useSWR from "swr";
-import { apiCall } from "../../../api/messenger";
 import { useDispatch } from "react-redux";
 import { setCampaignAccountAction } from "../../../redux/actions/actions";
 import { useNavigate } from "react-router-dom";
+import { Alert } from "react-bootstrap";
+import { ProgressButton } from "../../../components/progress-button/progress-button";
+import { createCampaignAccount } from "../../../requests/campaign-requests";
 
-export default function CreateCampaignAccount() {
+export default function CreateCampaignAccount () {
   const [showError, setShowError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState({});
@@ -34,47 +33,49 @@ export default function CreateCampaignAccount() {
   } = useSWR("communities.listForCommunityAdmin", async () => {
     return await fetchCommunitiesList("communities.listForCommunityAdmin")
   }, {
-    dedupingInterval:3_600_000,
-    revalidateInterval:3_600_000,
+    dedupingInterval: 3_600_000,
+    revalidateInterval: 3_600_000,
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
-    refreshInterval:3_600_000
+    refreshInterval: 3_600_000
   });
 
   const buildQuery = (key, value) => {
     setQuery({ ...query, [key]: value });
   };
 
-  const onSubmit = (e) => {
-    setLoading(true);
-    e.preventDefault();
-    apiCall("campaign.accounts.create", query).then((res) => {
-      setLoading(false);
-      if (res?.success) {
-        dispatch(setCampaignAccountAction(res?.data));
+  const onSubmit = async function onSubmit (e) {
+    try {
+      setLoading(true);
+
+      const res = await createCampaignAccount(query);
+
+      if (res) {
+        setLoading(false);
+        dispatch(setCampaignAccountAction(res));
         navigate("/admin/home")
-      }else{
-        setShowError(true);
       }
-      
-    });
+    } catch (e) {
+      setLoading(false);
+      setShowError(true);
+    }
   };
+
   return (
     <div className="campaign-account-root">
-      <Container className="campaign-account-main elevate-float">
-        <div>
-          <h1 className="title">WELCOME TO MASSENERGIZE CAMPAIGNS </h1>
-          <p className="description">
-            Create a campaign account and invite people to manage your campaigns
-            with you.
-          </p>
-        </div>
-
-        <m.div className="container">
-          <Container>
+      <Container className="campaign-account-main">
+        <Row className={"justify-content-center"}>
+          <Col md={7}>
+            <div>
+              <h4 className="title">Welcome to massenergize campaigns </h4>
+              <p className="description text-sm">
+                Create a campaign account and invite people to manage your campaigns
+                with you.
+              </p>
+            </div>
             <form>
-              <Row className="py-4">
+              <Row className="mt-3">
                 <Col>
                   <Input
                     id="name"
@@ -90,7 +91,7 @@ export default function CreateCampaignAccount() {
                 </Col>
               </Row>
 
-              <Row className="py-4">
+              <Row className="mt-2">
                 <Col>
                   <Input
                     id="subdomain"
@@ -105,15 +106,15 @@ export default function CreateCampaignAccount() {
                   />
                 </Col>
               </Row>
-              <Row className="py-4">
+              <Row className="mt-4">
                 <Col>
                   <Dropdown
                     data={allCommunities || []}
-                    labelExtractor={(item)=>item?.name}
-                    onItemSelected={(selected, currentItem, parentValueOfCurrentItem)=>{
+                    labelExtractor={(item) => item?.name}
+                    onItemSelected={(selected, currentItem, parentValueOfCurrentItem) => {
                       buildQuery("community_id", selected?.id);
                     }}
-                    valueExtractor={(item)=>item?.id}
+                    valueExtractor={(item) => item?.id}
                     placeholder={"Select a community"}
 
                   />
@@ -121,30 +122,28 @@ export default function CreateCampaignAccount() {
               </Row>
               <Row className="py-4 justify-content-end">
                 <Col>
-                {loading ? <Spinner animation="border" variant="primary" />:(
-                  <Button
-                    text="Create Account"
-                    onSubmit={onSubmit}
-                    rounded={false}
-                  />
-
-                )}
+                  <ProgressButton onClick={onSubmit} loading={loading} disabled={loading} rounded={false}>
+                    Create Account
+                  </ProgressButton>
                 </Col>
               </Row>
-
-              <Row className="py-4 my-4">
-                {showError && (
-                  <Col>
-                    <p className="text-center py-3 light-red-background">
-                      Sorry, you got an error while saving. Please check your
-                      key contact information
-                    </p>
-                  </Col>
-                )}
-              </Row>
             </form>
-          </Container>
-        </m.div>
+            {
+              showError && (
+                <Row className="py-4 my-4">
+                  <Col>
+                    <Alert variant="danger" onClose={() => setShowError(false)} dismissible>
+                      <Alert.Heading className>Oh snap!</Alert.Heading>
+                      <p>
+                        Sorry, an error occurred while saving. Please check your
+                        key contact information
+                      </p>
+                    </Alert>
+                  </Col>
+                </Row>
+              )}
+          </Col>
+        </Row>
       </Container>
     </div>
   );

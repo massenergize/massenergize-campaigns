@@ -5,10 +5,27 @@ import classes from "classnames";
 import LandingPage from "../../user-portal/pages/landing-page/LandingPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLink, faEye } from "@fortawesome/free-solid-svg-icons";
+import { useCampaignContext } from "../../hooks/use-campaign-context";
 
-export function CampaignDetailsAndPreview ({ campaignDetails, setCampaignDetails, setStep, lists }) {
+export function CampaignDetailsAndPreview ({setStep,}) {
   const [activeTab, setActiveTab] = useState(campaignPages[0].name);
   const [preview, setPreview] = useState(false);
+
+  const {
+    campaignDetails,
+    originalCampaignDetails,
+    lists,
+    handleCampaignDetailsChange : setCampaignDetails,
+    setNewCampaignDetails,
+  } = useCampaignContext();
+
+  console.log({
+    campaignDetails,
+    originalCampaignDetails,
+    lists,
+    setCampaignDetails,
+    setNewCampaignDetails
+  })
 
   return (
     <>
@@ -66,6 +83,7 @@ export function CampaignDetailsAndPreview ({ campaignDetails, setCampaignDetails
                         key={tab?.name}
                         setStep={setStep}
                         campaignDetails={campaignDetails}
+                        originalCampaignDetails={originalCampaignDetails}
                         setCampaignDetails={setCampaignDetails}
                         lists={lists}
                       />

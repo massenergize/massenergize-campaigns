@@ -8,10 +8,10 @@ import "../../assets/styles/admin-styles.scss";
 import { ProgressButton } from "../../components/progress-button/progress-button";
 import dayjs from "dayjs";
 import { updateCampaign } from "../../requests/campaign-requests";
-import { useBubblyBalloons } from "../../components/bubbly-balloon/use-bubbly-balloons";
+import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
 import { useNamedState } from "../../hooks/useNamedState";
 import { isEmpty } from "../../helpers/utils/string";
-import { BubblyBalloonContext } from "../../components/bubbly-balloon/bubbly-balloon-context";
+import { BubblyBalloonContext } from "../../lib/bubbly-balloon/bubbly-balloon-context";
 
 const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
   const [showError, setShowError] = useState(false);

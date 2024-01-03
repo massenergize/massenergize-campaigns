@@ -60,6 +60,7 @@ export function NewCampaign ({ props }) {
   const dedupingInterval = 3_600_000;
   const revalidateInterval = 3_600_000;
   const refreshInterval = 3_600_000;
+
   const {
     initialData: allCommunitiesInitialData,
     data: allCommunities,

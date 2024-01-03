@@ -68,17 +68,6 @@ const Managers = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
 				}
 			} else if (next > pageIndex) {
 				if (canGotoNextPage) {
-					// let data = await fetchData(next, pageSize);
-					// if (data) {
-					//   // console.log({ pi : pageIndex + 1, pagesCount });
-					//   if (pageIndex + 1 >= pagesCount) {
-					//     setCanGotoNextPage(false);
-					//   }
-					//
-					//   if (!canGotoPreviousPage && pagesCount > 1) {
-					//     setCanGotoNextPage(true);
-					//   }
-					// }
 				}
 			}
 		}
