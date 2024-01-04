@@ -156,7 +156,6 @@ export const fetchMeUser = (payload, cb) => {
 
 
       cb && cb(data, null);
-      console.log("THIS IS THE ME USER", data);
       dispatch(setAuthAdminAction(data));
 
     });
