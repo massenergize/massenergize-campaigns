@@ -43,18 +43,22 @@ export const campaignPages = [
 
 export const technologyPages = [
 	{
+		key : "information",
 		name: "Information",
 		component: Info,
 	},
 	{
+		key : "coaches",
 		name: "Coaches",
 		component: Coaches,
 	},
 	{
+		key : "vendors",
 		name: "Vendors",
 		component: Vendors,
 	},
 	{
+		key : "incentives",
 		name: "Incentives",
 		component: Incentives,
 	},

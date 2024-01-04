@@ -111,7 +111,7 @@ const ROUTE_TABLE = [
     component: CreateTechnology,
   },
   {
-    path: "/admin/technology/:id/edit/:campaign_id",
+    path: "/admin/technology/:technology_id/edit/:campaign_id",
     component: CreateTechnology,
   },
 
