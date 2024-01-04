@@ -1,28 +1,30 @@
 // react page
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
 import {
   addTechnologyEvent,
   fetchEvents,
 } from "../../../requests/technology-requests";
 import { Spinner } from "@kehillahglobal/ui";
-import { Col, Container, Row, FormLabel, Form, Button } from "react-bootstrap";
+import { Col, Container, Row, FormLabel, Form } from "react-bootstrap";
 import { MultiSelect } from "react-multi-select-component";
-import { Dropdown } from "@kehillahglobal/ui";
 import Chip from "src/components/admin-components/Chip";
-import { ProgressButton } from "src/components/progress-button/progress-button";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
+import Button from "../../../components/admin-components/Button";
 
 function TechnologyEvents({}) {
   const navigate = useNavigate();
   const [selectedEvents, setSelectedEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { technologyID } = useParams();
 
   const { blow, pop } = useBubblyBalloons();
 
   const community_ids = [1, 2, 3];
+
+  console.log("===technologyID===", technologyID);
 
   const {
     data: allEvents,
@@ -38,7 +40,7 @@ function TechnologyEvents({}) {
     setLoading(true);
     try {
       let toSend = {
-        technology_id: "1",
+        technology_id: technologyID,
         event_ids: selectedEvents.map((event) => event?.id),
       };
       const savedItems = await addTechnologyEvent(toSend);
@@ -52,14 +54,15 @@ function TechnologyEvents({}) {
         });
       }
     } catch (e) {
-        setError(e);
-        setLoading(false);
-        pop({
-            title: "Error",
-            message: "Error saving events",
-            type: "error",
-            duration: 5000,
-        });
+      setError(e);
+      console.log("===e===", e);
+      setLoading(false);
+      pop({
+        title: "Error",
+        message: "Error saving events",
+        type: "error",
+        duration: 5000,
+      });
     }
   };
 
@@ -144,13 +147,13 @@ function TechnologyEvents({}) {
 
         <Row className="mt-4 justify-content-end">
           <Col>
-            <ProgressButton
+            <Button
+              text="Save & Continue"
               loading={loading}
               disabled={loading}
-              onClick={handleSaveEvents}
-            >
-              Save Changes
-            </ProgressButton>
+              onSubmit={handleSaveEvents}
+              rounded={false}
+            />
           </Col>
         </Row>
       </Container>
