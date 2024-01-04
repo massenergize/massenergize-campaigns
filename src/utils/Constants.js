@@ -9,6 +9,7 @@ import Coaches from "../admin-portal/create-campaign/create-technology/Coaches";
 import Incentives from "../admin-portal/create-campaign/create-technology/Incentives";
 import Info from "../admin-portal/create-campaign/create-technology/Info";
 import Vendors from "../admin-portal/create-campaign/create-technology/Vendors";
+import TechnologyEvents from "../admin-portal/create-campaign/create-technology/Events";
 
 export const campaignPages = [
 	{
@@ -57,6 +58,10 @@ export const technologyPages = [
 	{
 		name: "Incentives",
 		component: Incentives,
+	},
+	{
+		name: "Events",
+		component: TechnologyEvents,
 	},
 ];
 
