@@ -7,13 +7,13 @@ import useSWR from "swr";
 import {
   fetchAllCampaignEventsBySuperAdmins,
   fetchAllPartners,
-  fetchAllTechnologies,
-  fetchCampaignEvents,
-  fetchCampaignTechnologies
+  fetchAllTechnologies
 } from "../../../requests/campaign-requests";
 import { fetchCommunitiesList } from "../../../requests/community-routes";
-import { SAMPLE_CAMPAIGN, CAMPAIGN} from "../../../mocks/campaign";
+import { CAMPAIGN } from "../../../mocks/campaign";
 import { addLabelsAndValues } from "../../../helpers/utils/array";
+import { CampaignProvider } from "../../../contexts/campaign-context";
+import { CampaignEditView } from "../../../views/campaign-edit-view";
 
 const { useReducer } = require("react");
 
@@ -57,9 +57,9 @@ export function NewCampaign ({ props }) {
 
   const [STEP, setStep] = useNamedState("STEP", "START"); // START, DETAILS, MANAGERS, TECHNOLOGIES, EVENTS, REVIEW, SUBMIT
 
-  const dedupingInterval = 3_600_000;
-  const revalidateInterval = 3_600_000;
-  const refreshInterval = 3_600_000;
+  // const dedupingInterval = 3_600_000;
+  // const revalidateInterval = 3_600_000;
+  // const refreshInterval = 3_600_000;
 
   const {
     initialData: allCommunitiesInitialData,
@@ -69,133 +69,40 @@ export function NewCampaign ({ props }) {
     isLoading: allCommunitiesIsLoading,
   } = useSWR("communities.list", async () => {
     return await fetchCommunitiesList("communities.list")
-  }, {
-    dedupingInterval,
-    revalidateInterval,
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    refreshInterval
-  });
+  },);
 
-  const {
-    data: allTechnologies,
-    isLoading: allTechnologiesLoading,
-  } = useSWR(`technologies.list`, async () => {
-    return await fetchAllTechnologies();
-  }, {
-    dedupingInterval,
-    revalidateInterval,
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    refreshInterval
-  });
-
-  const {
-    // initialData: allPartnersInitialData,
-    data: allPartners,
-    error: allPartnersError,
-    isValidating: allPartnersIsValidating,
-    isLoading: allPartnersIsLoading,
-  } = useSWR("partners.list", async () => {
-    await fetchAllPartners("partners.list")
-  }, {
-    dedupingInterval,
-    revalidateInterval,
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-    refreshInterval
-  });
-
-  const {
-    data: allEvents,
-    isLoading: allEventsLoading,
-    isValidating: allEventsIsValidating,
-    error: allEventsError,
-  } = useSWR(`events.listForCommunityAdmin`, async () => {
-    return await fetchAllCampaignEventsBySuperAdmins();
-  }, {
-    dedupingInterval,
-    revalidateInterval,
-    refreshInterval,
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false
-  });
-
-  // const {
-  //   // initialData: allManagersInitialData,
-  //   data: allManagers,
-  //   error: allManagersError,
-  //   isValidating: allManagersIsValidating,
-  //   isLoading: allManagersIsLoading,
-  // } = useSWR(`campaigns.managers.list/${campaignDetails.id}`, async () => {
-  //   return await fetchCampaignManagers("campaigns.managers.list", campaignDetails.id)
-  // }, {
-  //   dedupingInterval
-  // });
-
-  const lists = {
-    allPartners: {
-      data: addLabelsAndValues(allPartners || []),
-      error: allPartnersError,
-      isValidating: allPartnersIsValidating,
-      isLoading: allPartnersIsLoading,
-    },
-    allManagers: {
-      // data: allManagers,
-      // error: allManagersError,
-      // isValidating: allManagersIsValidating,
-      // isLoading: allManagersIsLoading,
-    },
-    allTechnologies: {
-      data: addLabelsAndValues(allTechnologies || []),
-      isLoading: allTechnologiesLoading,
-    },
-    allCommunities: {
-      data: addLabelsAndValues(allCommunities || []),
-      error: allCommunitiesError,
-      isValidating: allCommunitiesIsValidating,
-      isLoading: allCommunitiesIsLoading,
-    },
-    allEvents: {
-      data: addLabelsAndValues(allEvents || []),
-      isLoading: allEventsLoading,
-      error: allEventsError,
-      isValidating: allEventsIsValidating,
-    },
-  }
 
   return (
     <AdminLayout>
-      <div className={""}>
-        {
-          STEP === "START" ? (
-            <StartCampaign
-              step={STEP}
-              setStep={setStep}
-              campaignDetails={campaignDetails}
-              setCampaignDetails={handleCampaignDetailsChange}
-              updateCampaignDetails={updateCampaignDetails}
-              lists={lists}
-            />
-          ) : null
-        }
+      <CampaignProvider>
+        <div className={""}>
+          {
+            STEP === "START" ? (
+              <StartCampaign
+                step={STEP}
+                setStep={setStep}
+                // campaignDetails={campaignDetails}
+                // setCampaignDetails={handleCampaignDetailsChange}
+                // updateCampaignDetails={updateCampaignDetails}
+                // lists={lists}
+              />
+            ) : null
+          }
 
-        {
-          STEP === "COMPLETE" ? (
-            <CampaignDetailsAndPreview
-              setStep={setStep}
-              step={STEP}
-              campaignDetails={campaignDetails}
-              setCampaignDetails={handleCampaignDetailsChange}
-              lists={lists}
-            />
-          ) : null
-        }
-      </div>
+          {
+            STEP === "COMPLETE" ? (
+                <CampaignEditView data={campaignDetails} STEP={STEP} setStep={setStep}/>
+              /*<CampaignDetailsAndPreview
+                setStep={setStep}
+                step={STEP}
+                campaignDetails={campaignDetails}
+                setCampaignDetails={handleCampaignDetailsChange}
+                lists={lists}
+              />*/
+            ) : null
+          }
+        </div>
+      </CampaignProvider>
     </AdminLayout>
   );
 }

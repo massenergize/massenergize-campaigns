@@ -9,8 +9,9 @@ import { ProgressButton } from "../../components/progress-button/progress-button
 import { MultiSelect } from "react-multi-select-component";
 import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
 import { useSelector } from "react-redux";
+import { useCampaignContext } from "../../hooks/use-campaign-context";
 
-export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCampaignDetails, step, setStep, lists }) {
+export function StartCampaign ({ step, setStep, }) {
   const [showError, setShowError] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -30,6 +31,7 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCamp
     phone_number: "",
     key_contact_image: "",
   };
+
   const reducer = (state, action) => {
     let { type, payload } = action;
     switch (type) {
@@ -47,6 +49,14 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCamp
     text: "Create Campaign",
     variant: "primary",
   });
+
+  const {
+    campaignDetails,
+    originalCampaignDetails,
+    lists,
+    handleCampaignDetailsChange : setCampaignDetails,
+    setNewCampaignDetails,
+  } = useCampaignContext();
 
   const handleSubmit = async (e) => {
     try {
@@ -66,7 +76,7 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCamp
           variant: "success",
         });
 
-        updateCampaignDetails({
+        setNewCampaignDetails({
           ...campaign,
           communities: campaign?.communities?.map((community) => {
             return {
@@ -105,8 +115,6 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCamp
           })
         })
 
-        console.log(campaign)
-
         const toast = blow({
           title: "Campaign Created",
           message: "Your campaign has been created successfully",
@@ -114,8 +122,6 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCamp
           position: "bottom-right",
           timeout: 5000,
         });
-
-        console.log({ toast })
 
         setStep("COMPLETE");
       }
@@ -126,9 +132,6 @@ export function StartCampaign ({ campaignDetails, setCampaignDetails, updateCamp
   };
 
   const {
-    allPartners,
-    allManagers,
-    allTechnologies,
     allCommunities,
   } = lists
 
