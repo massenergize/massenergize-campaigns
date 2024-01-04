@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { technologyPages } from "../../../utils/Constants";
 import CreateTechnologyPageWrapper from "../PageWrapper/CreateTechnologyPageWrapper";
@@ -8,7 +8,7 @@ import { AdminLayout } from "../../../layouts/admin-layout";
 import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloons";
 import { useParams } from "react-router-dom";
 
-const { useReducer } = require("react");
+// const { useReducer } = require("react");
 
 const INFO_INITIAL_STATE = {
   name: "",
@@ -16,19 +16,19 @@ const INFO_INITIAL_STATE = {
   description: "",
   summary: "",
 };
-const initialState = {
-  isTemplate: false,
-  title: "",
-  slogan: "",
-  startDate: "",
-  endDate: "",
-  description: "",
-  logo: "",
-  fullName: "",
-  email: "",
-  contact: "",
-  profileImage: "",
-};
+// const initialState = {
+//   isTemplate: false,
+//   title: "",
+//   slogan: "",
+//   startDate: "",
+//   endDate: "",
+//   description: "",
+//   logo: "",
+//   fullName: "",
+//   email: "",
+//   contact: "",
+//   profileImage: "",
+// };
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -40,15 +40,23 @@ const reducer = (state, action) => {
 };
 
 export function CreateTechnology() {
-  const [showError, setShowError] = useState(false);
-  const [activeTab, setActiveTab] = useState(technologyPages[0].name);
+  // const [showError, setShowError] = useState(false);
+  const [activeTab, setActiveTab] = useState(technologyPages[0]?.key || "");
 
   const [information, setInformation] = useState(INFO_INITIAL_STATE);
 
-  const [campaignDetails, dispatch] = useReducer(reducer, initialState);
+  // const [campaignDetails, dispatch] = useReducer(reducer, initialState);
   const { notify } = useBubblyBalloons();
 
   const { campaign_id, technology_id } = useParams();
+
+  const fetchTechnology = (id) => {
+    // apiCall("/technologies.info", {id:})
+  };
+
+  useEffect(() => {
+
+  }, [technology_id]);
 
   const notifyError = (message) => {
     notify({
@@ -133,11 +141,11 @@ export function CreateTechnology() {
             <div className="nav-tabs-container">
               {technologyPages?.map((page) => (
                 <div
-                  key={page?.name}
+                  key={page?.key}
                   className={classes("nav-tabs-main tab", {
-                    "tab-active": activeTab === page?.name,
+                    "tab-active": activeTab === page?.key,
                   })}
-                  onClick={() => setActiveTab(page?.name)}
+                  onClick={() => setActiveTab(page?.key)}
                 >
                   <h5 className={classes("nav-tabs")}>{page?.name}</h5>
                 </div>
@@ -152,13 +160,15 @@ export function CreateTechnology() {
           <Col>
             {technologyPages?.map((tab) => {
               return (
-                activeTab === tab?.name && (
+                activeTab === tab?.key && (
                   <tab.component
-                    key={tab?.name}
+                    key={tab?.key}
                     setInformation={setInformation}
                     information={information}
                     notifyError={notifyError}
                     notifySuccess={notifySuccess}
+                    campaign_id={campaign_id}
+                    tech_id={technology_id}
                     // technologyInfo={technologyInfo}
                     // setTechnologyInfo={setTechnologyInfo}
                     setActiveTab={setActiveTab}

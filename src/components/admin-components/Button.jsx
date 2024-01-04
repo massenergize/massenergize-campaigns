@@ -3,7 +3,14 @@ import "../../assets/styles/styles.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Spinner } from "react-bootstrap";
 
-const Button = ({ text, onSubmit, onClick, rounded, icon, loading = true }) => {
+const Button = ({
+  text,
+  onSubmit,
+  onClick,
+  rounded,
+  icon,
+  loading = false,
+}) => {
   // const [loader, setLoader] = useState(false);
   return (
     <button

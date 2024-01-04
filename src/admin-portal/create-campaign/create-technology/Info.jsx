@@ -14,22 +14,23 @@ import { useParams } from "react-router-dom";
 import { fetchUrlParams } from "src/utils/utils";
 
 const Info = ({
-  technologyInfo,
-  setTechnologyInfo,
   information,
   setInformation,
-  setActiveTab,
   notifyError,
   notifySuccess,
-  tech_id
+  tech_id,
+  campaign_id,
 }) => {
   const [loading, setLoading] = useState(false);
+  const isEditing = tech_id;
 
-  const { campaign_id } = useParams();
-//   const edit_id = fetchUrlParams("edit");
-//   const isEditing = edit_id;
+  console.log("This is the technology_id", tech_id);
 
-  console.log("THIS IS THE CAMPAIGN ID", campaign_id);
+  //   const { campaign_id } = useParams();
+  //   const edit_id = fetchUrlParams("edit");
+  //   const isEditing = edit_id;
+
+//   console.log("THIS IS THE CAMPAIGN ID", campaign_id);
 
   //   const initialState = {
   //     name: "",
@@ -83,8 +84,8 @@ const Info = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!contentIsValid(information)) return;
-
     setLoading(true);
+    // TODO: MOVE THIS INTO THE REQUEST TECHNOLOGY FILE LATER
     apiCall("campaigns.technologies.create", {
       ...information,
       campaign_id,
