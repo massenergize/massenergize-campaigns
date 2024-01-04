@@ -13,13 +13,13 @@ import { useCampaignContext } from "../../hooks/use-campaign-context";
 import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
 import { updateCampaignTechnologies } from "../../requests/campaign-requests";
 
-function Technology ({ tech, handleRemove }) {
+function Technology ({ tech, handleRemove, navigate }) {
   let image = tech?.image?.url;
   const { id, name, } = tech;
 
   return (
     // <Link to={`/admin/campaign/edit-technology/${id}`} className="image-edit-btn">
-    <Card className={"position-relative"}>
+    <Card className={"position-relative"} onClick={()=> navigate(`/admin/campaign/${tech?.campaign_id}/technology/${tech?.id}/`)}>
       <Card.Body className={"p-0"}>
         <Card.Img variant="top" src={image} style={{ height: 280 }}/>
       </Card.Body>
@@ -170,7 +170,7 @@ const Technologies = ({}) => {
                 technologies.map((tech) => {
                   return (
                     <Col md={4} lg={3} className={"mb-3 px-2 h-100"}>
-                      <Technology tech={tech} handleRemove={handleRemove}/>
+                      <Technology tech={tech} handleRemove={handleRemove} navigate={navigate}/>
                     </Col>
                   );
                 })
