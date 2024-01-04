@@ -3,11 +3,11 @@ import { Col, Container, Row } from "react-bootstrap";
 import { technologyPages } from "../../../utils/Constants";
 import CreateTechnologyPageWrapper from "../PageWrapper/CreateTechnologyPageWrapper";
 import classes from "classnames";
-import { apiCall } from "../../../api/messenger";
 import { AdminLayout } from "../../../layouts/admin-layout";
 import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloons";
 import { useParams } from "react-router-dom";
 import { Spinner } from "@kehillahglobal/ui";
+import { apiCall } from "../../../api/messenger";
 const INFO_INITIAL_STATE = {
   name: "",
   image: "",

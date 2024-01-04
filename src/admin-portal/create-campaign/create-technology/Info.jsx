@@ -6,12 +6,12 @@ import Input from "../../../components/admin-components/Input";
 import FileUploader from "../../../components/admin-components/FileUploader";
 import Button from "../../../components/admin-components/Button";
 import "../../../assets/styles/admin-styles.scss";
-import { apiCall } from "../../../utils/api_call";
 import MERichText from "../../../components/admin-components/RichText";
 import { ProgressButton } from "src/components/progress-button/progress-button";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import { useParams } from "react-router-dom";
 import { fetchUrlParams } from "src/utils/utils";
+import { apiCall } from "src/api/messenger";
 
 const Info = ({
   information,
@@ -64,7 +64,7 @@ const Info = ({
     // TODO: MOVE THIS INTO THE REQUEST TECHNOLOGY FILE LATER
     apiCall(url, {
       ...information,
-      technology_id: tech_id,
+      id: tech_id,
       campaign_id,
     }).then((response) => {
       const { data, success, error } = response || {};
