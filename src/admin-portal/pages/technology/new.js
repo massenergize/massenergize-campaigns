@@ -76,6 +76,7 @@ export function CreateTechnology() {
     fetchTechnology(technology_id);
   }, [technology_id]);
 
+
   const notifyError = (message) => {
     notify({
       title: "Error",

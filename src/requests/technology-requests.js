@@ -30,3 +30,34 @@ export const addTechnologyEvent = async (data, url = "technologies.events.add") 
         handleRequestError(error, "ADD_EVENT_ERROR");
     }
 }
+
+
+
+export const fetchCampaignCommunityVendors = async (campaignID, url = "campaigns.communities.vendors.list") => {
+  try {
+    const response = await apiCall(url, { no_pagination : true, campaign_id: campaignID });
+
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "FETCH_CAMPAIGN_COMMUNITY_VENDORS_ERROR_BE");
+    }
+
+    return response?.data;
+  } catch (error) {
+    handleRequestError(error, "FETCH_CAMPAIGN_COMMUNITY_VENDORS_ERROR");
+  }
+}
+
+
+export const addTechnologyVendor = async (data, url = "technologies.vendors.add") => {
+  try {
+      const response = await apiCall(url, data);
+  
+      if (!response || !response?.success) {
+      handleRequestError(response?.error, "ADD_TECHNOLOGY_VENDOR_ERROR_BE");
+      }
+  
+      return response?.data;
+  } catch (error) {
+      handleRequestError(error, "ADD_TECHNOLOGY_VENDOR_ERROR");
+  }
+}

@@ -1,6 +1,5 @@
 // react page
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
 import {
   addTechnologyEvent,
@@ -12,22 +11,16 @@ import { MultiSelect } from "react-multi-select-component";
 import Chip from "src/components/admin-components/Chip";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import Button from "../../../components/admin-components/Button";
-import { fetchCampaignCommunity } from "src/requests/campaign-requests";
 
 function TechnologyEvents({campaign_id, tech_id,techObject, updateTechObject}) {
-  const navigate = useNavigate();
   let existing = [...(techObject?.events||[])?.map((tech) => tech?.event)].flat();
   const [selectedEvents, setSelectedEvents] = useState(existing || []);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  console.log("===SELECTED EVENTS===", selectedEvents)
 
 
   const { blow, pop } = useBubblyBalloons();
   const {
     data: allEvents,
-    error: fetchError,
     isLoading,
   } = useSWR("campaigns.communities.events.list", () => fetchEvents(campaign_id), {
     shouldRetryOnError: true,
@@ -55,7 +48,6 @@ function TechnologyEvents({campaign_id, tech_id,techObject, updateTechObject}) {
         });
       }
     } catch (e) {
-      setError(e);
       console.log("===e===", e);
       setLoading(false);
       pop({
@@ -114,7 +106,7 @@ function TechnologyEvents({campaign_id, tech_id,techObject, updateTechObject}) {
                 .join(", ")
                 .concat(" Selected");
             }}
-            labelledBy={"Select Fruits"}
+
             className={"event-select"}
           />
         </Form>
@@ -122,19 +114,19 @@ function TechnologyEvents({campaign_id, tech_id,techObject, updateTechObject}) {
         <Row className="mt-4">
           <Col>
             <Row>
-              {selectedEvents?.map((community) => {
+              {selectedEvents?.map((event) => {
                 return (
                   <Col sm={"auto mb-2"}>
                     <Chip
-                      text={community?.name}
-                      icon={community?.icon}
-                      id={community?.id}
+                      text={event?.name}
+                      icon={event?.icon}
+                      id={event?.id}
                       size={"sm"}
                       className="mr-2 mb-5"
-                      onDismiss={(id, text) => {
+                      onDismiss={(id) => {
                         setSelectedEvents(
                           selectedEvents?.filter(
-                            (community) => community?.id !== id
+                            (event) => event?.id !== id
                           )
                         );
                       }}
@@ -149,7 +141,7 @@ function TechnologyEvents({campaign_id, tech_id,techObject, updateTechObject}) {
         <Row className="mt-4 justify-content-end">
           <Col>
             <Button
-              text="Save & Continue"
+              text="Save Changes"
               loading={loading}
               disabled={loading}
               onSubmit={handleSaveEvents}
