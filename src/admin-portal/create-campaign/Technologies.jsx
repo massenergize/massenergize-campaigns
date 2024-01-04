@@ -175,7 +175,7 @@ const Technologies = ({}) => {
                 })
               }
               <Col md={4} lg={3} className={"mb-3 px-2 h-100"}>
-                <Link to={`/admin/technology/new/${i}`}>
+                <Link to={`/admin/technology/new/${campaignDetails?.id}`}>
                   <Card className={"position-relative border-dashed border-2"}>
                     <Card.Body className={"p-0 bg-light-gray"}>
                       <Card.Img variant="" src="/img/add-new.svg" style={{ height: 180 }}/>
