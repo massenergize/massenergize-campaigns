@@ -12,29 +12,26 @@ import { MultiSelect } from "react-multi-select-component";
 import Chip from "src/components/admin-components/Chip";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import Button from "../../../components/admin-components/Button";
+import { fetchCampaignCommunity } from "src/requests/campaign-requests";
 
-function TechnologyEvents({}) {
+function TechnologyEvents({...props}) {
   const navigate = useNavigate();
   const [selectedEvents, setSelectedEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { technologyID } = useParams();
+  const { technologyID, campaignID } = useParams();
 
   const { blow, pop } = useBubblyBalloons();
-
-  const community_ids = [1, 2, 3];
-
-  console.log("===technologyID===", technologyID);
-
   const {
     data: allEvents,
     error: fetchError,
     isLoading,
-  } = useSWR("events.list", () => fetchEvents(community_ids), {
+  } = useSWR("campaigns.communities.events.list", () => fetchEvents(campaignID), {
     shouldRetryOnError: true,
     errorRetryCount: 3,
     errorRetryInterval: 3000,
   });
+
 
   const handleSaveEvents = async () => {
     setLoading(true);

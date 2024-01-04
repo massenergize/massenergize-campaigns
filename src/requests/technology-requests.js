@@ -1,9 +1,9 @@
 import { apiCall } from "src/api/messenger";
 import { handleRequestError } from "src/helpers/utils/http";
 
-export const fetchEvents = async (community_ids,url = "events.list", ) => {
+export const fetchEvents = async (campaignID,url = "campaigns.communities.events.list", ) => {
   try {
-    const response = await apiCall(url, { no_pagination : true, community_ids });
+    const response = await apiCall(url, { no_pagination : true, campaign_id: campaignID });
 
     if (!response || !response?.success) {
       handleRequestError(response?.error, "FETCH_EVENTS_ERROR_BE");
