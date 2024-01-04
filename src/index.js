@@ -10,16 +10,19 @@ import store from "./redux/store";
 import AppRouter from "./routes/AppRouter";
 import "@kehillahglobal/ui/dist/index.css";
 import BubblyBalloonProvider from "./lib/bubbly-balloon/bubbly-balloon-context";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <BubblyBalloonProvider>
-    <BrowserRouter>
-      <AppRouter />
-    </BrowserRouter>
-    </BubblyBalloonProvider>
-  </Provider>
+  <ErrorBoundary>
+    <Provider store={store}>
+      <BubblyBalloonProvider>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </BubblyBalloonProvider>
+    </Provider>
+  </ErrorBoundary>
 );
 
 // If you want to start measuring performance in your app, pass a function
