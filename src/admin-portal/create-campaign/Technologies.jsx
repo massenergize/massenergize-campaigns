@@ -13,29 +13,37 @@ import { useCampaignContext } from "../../hooks/use-campaign-context";
 import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
 import { updateCampaignTechnologies } from "../../requests/campaign-requests";
 
-function Technology ({ tech, handleRemove, navigate }) {
+function Technology({ tech, handleRemove, navigate }) {
   let image = tech?.image?.url;
-  const { id, name, } = tech;
+  const { id, name } = tech;
 
   return (
     // <Link to={`/admin/campaign/edit-technology/${id}`} className="image-edit-btn">
-    <Card className={"position-relative"} onClick={()=> navigate(`/admin/campaign/${tech?.campaign_id}/technology/${tech?.id}/`)}>
+    <Card
+      className={"position-relative touchable-opacity"}
+      onClick={() =>
+        navigate(`/admin/technology/${tech?.id}/edit/${tech?.campaign_id}`)
+      }
+    >
       <Card.Body className={"p-0"}>
-        <Card.Img variant="top" src={image} style={{ height: 280 }}/>
+        <Card.Img variant="top" src={image} style={{ height: 280 }} />
       </Card.Body>
       <Card.Footer>
         <Card.Title className={"mb-0"}>{name}</Card.Title>
         <Card.Text>{name}</Card.Text>
       </Card.Footer>
 
-      <span onClick={() => {
-        handleRemove(tech);
-      }} className="image-close-btn d-flex">
-      <FontAwesomeIcon icon={faClose} className={"m-auto"}/>
-    </span>
+      <span
+        onClick={() => {
+          handleRemove(tech);
+        }}
+        className="image-close-btn d-flex"
+      >
+        <FontAwesomeIcon icon={faClose} className={"m-auto"} />
+      </span>
     </Card>
     // </Link>
-  )
+  );
 }
 
 const Technologies = ({}) => {
@@ -51,13 +59,17 @@ const Technologies = ({}) => {
   } = useCampaignContext();
 
   const { technologies } = campaignDetails;
-  const { allTechnologies, } = lists;
+  const { allTechnologies } = lists;
 
   const originalTechnologies = originalCampaignDetails.technologies;
-  const originalTechnologiesSet = new Set(originalCampaignDetails?.technologies?.map((tech) => tech.id));
+  const originalTechnologiesSet = new Set(
+    originalCampaignDetails?.technologies?.map((tech) => tech.id)
+  );
 
   const handleRemove = (data) => {
-    const filteredTechnologies = technologies.filter((tech) => tech.id !== data.id);
+    const filteredTechnologies = technologies.filter(
+      (tech) => tech.id !== data.id
+    );
     handleCampaignDetailsChange("technologies", filteredTechnologies);
   };
 
@@ -76,7 +88,7 @@ const Technologies = ({}) => {
           message: "Campaign Technologies updated successfully.",
           type: "success",
           timeout: 15000,
-        })
+        });
       }
     } catch (e) {
       notify({
@@ -84,9 +96,9 @@ const Technologies = ({}) => {
         message: "Something went wrong. Please try again later.",
         type: "error",
         timeout: 15000,
-      })
+      });
     }
-  }
+  };
 
   let listChanged = false;
   const TECHNOLOGIES_SIZE = technologies?.length;
@@ -123,16 +135,18 @@ const Technologies = ({}) => {
                 }
 
                 return selected.map(({ label, id }, i) => {
-                  return label + (i < allTechnologies?.data?.length ? ", " : "");
-                })
+                  return (
+                    label + (i < allTechnologies?.data?.length ? ", " : "")
+                  );
+                });
               }}
               onChange={(val) => {
                 if (!(val?.length < 1)) {
                   handleCampaignDetailsChange("technologies", val);
                 } else {
                   if (notification) {
-                    console.log("=== notification ===", notification)
-                    pop(notification)
+                    console.log("=== notification ===", notification);
+                    pop(notification);
                   }
                   notification = notify({
                     title: "Not Allowed",
@@ -141,8 +155,8 @@ const Technologies = ({}) => {
                     timeout: 150000,
                     onClose: () => {
                       // notification = null;
-                    }
-                  })
+                    },
+                  });
                 }
               }}
               labelledBy="Select"
@@ -164,24 +178,31 @@ const Technologies = ({}) => {
         }
 */}
         <Row className="mt-4 pb-4 justify-content-start">
-          {
-            TECHNOLOGIES_SIZE > 0 ? <>
-              {
-                technologies.map((tech) => {
-                  return (
-                    <Col md={4} lg={3} className={"mb-3 px-2 h-100"}>
-                      <Technology tech={tech} handleRemove={handleRemove} navigate={navigate}/>
-                    </Col>
-                  );
-                })
-              }
-            </> : null
-          }
+          {TECHNOLOGIES_SIZE > 0 ? (
+            <>
+              {technologies.map((tech) => {
+                console.log("What is this tech", tech);
+                return (
+                  <Col md={4} lg={3} className={"mb-3 px-2 h-100"}>
+                    <Technology
+                      tech={tech}
+                      handleRemove={handleRemove}
+                      navigate={navigate}
+                    />
+                  </Col>
+                );
+              })}
+            </>
+          ) : null}
           <Col md={4} lg={3} className={"mb-3 px-2 h-100"}>
             <Link to={`/admin/technology/new/${campaignDetails?.id}`}>
               <Card className={"position-relative border-dashed border-2"}>
                 <Card.Body className={"p-0 bg-light-gray"}>
-                  <Card.Img variant="" src="/img/add-new.svg" style={{ height: 180 }}/>
+                  <Card.Img
+                    variant=""
+                    src="/img/add-new.svg"
+                    style={{ height: 180 }}
+                  />
                 </Card.Body>
               </Card>
             </Link>
@@ -196,7 +217,9 @@ const Technologies = ({}) => {
                 onClick={handleSubmit}
                 rounded={false}
                 disabled={listChanged === false || TECHNOLOGIES_SIZE < 1}
-              >Save Changes</ProgressButton>
+              >
+                Save Changes
+              </ProgressButton>
             </Col>
           </Row>
         }

@@ -103,10 +103,6 @@ const ROUTE_TABLE = [
   },
 
   {
-    path: "/admin/campaign/:campaignID/technology/:technologyID",
-    component: CreateTechnology,
-  },
-  {
     path: "/admin/technology/new/:campaign_id",
     component: CreateTechnology,
   },
