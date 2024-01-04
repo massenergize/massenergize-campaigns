@@ -20,42 +20,14 @@ const Info = ({
   notifySuccess,
   tech_id,
   campaign_id,
+  updateTechObject,
 }) => {
   const [loading, setLoading] = useState(false);
   const isEditing = tech_id;
 
-  console.log("This is the technology_id", tech_id);
-
-  //   const { campaign_id } = useParams();
-  //   const edit_id = fetchUrlParams("edit");
-  //   const isEditing = edit_id;
-
-//   console.log("THIS IS THE CAMPAIGN ID", campaign_id);
-
-  //   const initialState = {
-  //     name: "",
-  //     image: "",
-  //     description: "",
-  //     summary: "",
-  //   };
-
-  //   const reducer = (state, action) => {
-  //     switch (action.type) {
-  //       case "SET_FIELD_VALUE":
-  //         return { ...state, [action.field]: action.value };
-  //       default:
-  //         throw new Error(`Unsupported action type: ${action.type}`);
-  //     }
-  //   };
-
-  //   const [formData, dispatch] = useReducer(reducer, initialState);
-
   const handleFieldChange = (field, value) => {
-    // dispatch({ type: "SET_FIELD_VALUE", field, value });
     setInformation({ ...information, [field]: value });
   };
-
-  console.log("MAKE WE SEE INFOR", information);
 
   const getValue = (name, fallback = "") =>
     (information || {})[name] || fallback;
@@ -85,15 +57,21 @@ const Info = ({
     e.preventDefault();
     if (!contentIsValid(information)) return;
     setLoading(true);
+
+    const url = isEditing
+      ? "technologies.update"
+      : "campaigns.technologies.create";
     // TODO: MOVE THIS INTO THE REQUEST TECHNOLOGY FILE LATER
-    apiCall("campaigns.technologies.create", {
+    apiCall(url, {
       ...information,
+      technology_id: tech_id,
       campaign_id,
     }).then((response) => {
       const { data, success, error } = response || {};
       setLoading(false);
       console.log("This is the actual response", response);
       if (!success) return notifyError(error);
+      updateTechObject(data);
       notifySuccess("Saved successfully!");
     });
   };
@@ -155,6 +133,7 @@ const Info = ({
                   handleFieldChange("image", val);
                 }}
                 value={getValue("image")}
+                defaultValue={getValue("image")}
               />
             </Col>
           </Row>

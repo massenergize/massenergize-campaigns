@@ -16,7 +16,6 @@ const FileUploader = ({
   const [previewUrl, setPreviewUrl] = useState(defaultValue ? defaultValue : null);
 
   useEffect(() => {
-    console.log("fsdnfsdfbd")
     setValues({
       ...values,
       preview : !isEmpty(defaultValue) && isEmpty(previewUrl) ? defaultValue : previewUrl
