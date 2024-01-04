@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import "../../assets/styles/admin-styles.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ProgressButton } from "../../components/progress-button/progress-button";
 import { MultiSelect } from "react-multi-select-component";
 import { Card } from "react-bootstrap";
@@ -174,6 +174,15 @@ const Technologies = ({}) => {
                   );
                 })
               }
+              <Col md={4} lg={3} className={"mb-3 px-2 h-100"}>
+                <Link to={`/admin/technology/new/${i}`}>
+                  <Card className={"position-relative border-dashed border-2"}>
+                    <Card.Body className={"p-0 bg-light-gray"}>
+                      <Card.Img variant="" src="/img/add-new.svg" style={{ height: 180 }}/>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              </Col>
             </Row>
 
 
