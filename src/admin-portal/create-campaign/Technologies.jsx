@@ -149,7 +149,7 @@ const Technologies = ({}) => {
             />
           </Col>
         </Row>
-        {
+        {/*{
           TECHNOLOGIES_SIZE < 1 ? (
             <Row className="mt-4 pb-4 justify-content-center">
               <Col sm="auto" className={"py-5"}>
@@ -162,9 +162,10 @@ const Technologies = ({}) => {
             </Row>
           ) : null
         }
-        {
-          TECHNOLOGIES_SIZE > 0 ? <>
-            <Row className="mt-4 pb-4 justify-content-start">
+*/}
+        <Row className="mt-4 pb-4 justify-content-start">
+          {
+            TECHNOLOGIES_SIZE > 0 ? <>
               {
                 technologies.map((tech) => {
                   return (
@@ -174,20 +175,19 @@ const Technologies = ({}) => {
                   );
                 })
               }
-              <Col md={4} lg={3} className={"mb-3 px-2 h-100"}>
-                <Link to={`/admin/technology/new/${campaignDetails?.id}`}>
-                  <Card className={"position-relative border-dashed border-2"}>
-                    <Card.Body className={"p-0 bg-light-gray"}>
-                      <Card.Img variant="" src="/img/add-new.svg" style={{ height: 180 }}/>
-                    </Card.Body>
-                  </Card>
-                </Link>
-              </Col>
-            </Row>
+            </> : null
+          }
+          <Col md={4} lg={3} className={"mb-3 px-2 h-100"}>
+            <Link to={`/admin/technology/new/${campaignDetails?.id}`}>
+              <Card className={"position-relative border-dashed border-2"}>
+                <Card.Body className={"p-0 bg-light-gray"}>
+                  <Card.Img variant="" src="/img/add-new.svg" style={{ height: 180 }}/>
+                </Card.Body>
+              </Card>
+            </Link>
+          </Col>
+        </Row>
 
-
-          </> : null
-        }
         {
           <Row className="mt-4 py-4 justify-content-end">
             <Col className="mt-4 py-4">
