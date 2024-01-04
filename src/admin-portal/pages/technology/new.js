@@ -140,6 +140,7 @@ export function CreateTechnology() {
                     updateTechObject={updateTechObject}
                     // technologyInfo={technologyInfo}
                     // setTechnologyInfo={setTechnologyInfo}
+					techObject={techObject}
                     setActiveTab={setActiveTab}
                   />
                 )

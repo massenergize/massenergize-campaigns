@@ -14,19 +14,22 @@ import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import Button from "../../../components/admin-components/Button";
 import { fetchCampaignCommunity } from "src/requests/campaign-requests";
 
-function TechnologyEvents({...props}) {
+function TechnologyEvents({campaign_id, tech_id,techObject, updateTechObject}) {
   const navigate = useNavigate();
-  const [selectedEvents, setSelectedEvents] = useState([]);
+  let existing = [...(techObject?.events||[])?.map((tech) => tech?.event)].flat();
+  const [selectedEvents, setSelectedEvents] = useState(existing || []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { technologyID, campaignID } = useParams();
+
+  console.log("===SELECTED EVENTS===", selectedEvents)
+
 
   const { blow, pop } = useBubblyBalloons();
   const {
     data: allEvents,
     error: fetchError,
     isLoading,
-  } = useSWR("campaigns.communities.events.list", () => fetchEvents(campaignID), {
+  } = useSWR("campaigns.communities.events.list", () => fetchEvents(campaign_id), {
     shouldRetryOnError: true,
     errorRetryCount: 3,
     errorRetryInterval: 3000,
@@ -37,12 +40,13 @@ function TechnologyEvents({...props}) {
     setLoading(true);
     try {
       let toSend = {
-        technology_id: technologyID,
+        technology_id: tech_id,
         event_ids: selectedEvents.map((event) => event?.id),
       };
       const savedItems = await addTechnologyEvent(toSend);
       if (savedItems) {
         setLoading(false);
+        updateTechObject(savedItems);
         blow({
           title: "Success",
           message: "Events saved successfully",

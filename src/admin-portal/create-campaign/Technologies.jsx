@@ -20,7 +20,7 @@ function Technology ({ tech, handleRemove }) {
 
   return (
     // <Link to={`/admin/campaign/edit-technology/${id}`} className="image-edit-btn">
-    <Card className={"position-relative"} onClick={()=> navigate(`/admin/campaign/${tech?.campaign_id}/technology/${tech?.id}/`)}>
+    <Card className={"position-relative"} onClick={()=> navigate(`/admin/technology/${tech?.id}/edit/${tech?.campaign_id}`)}>
       <Card.Body className={"p-0"}>
         <Card.Img variant="top" src={image} style={{ height: 280 }}/>
       </Card.Body>
