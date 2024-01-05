@@ -17,9 +17,9 @@ import { FormLabel } from "react-bootstrap";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 
 const Testimonials = ({campaign_id,tech_id,techObject,updateTechObject}) => {
-  let existing = [...(techObject?.testimonials || [])?.map((testimonial) => testimonial),].flat();
-
-  console.log("===techObject===",techObject)
+  let existing = [...(techObject?.testimonials || [])?.map((testimonial) => {
+    return {...testimonial, id: testimonial?.testimonial}
+  }),].flat();
 
   const [loading, setLoading] = useState(false);
   const { blow, pop } = useBubblyBalloons();
