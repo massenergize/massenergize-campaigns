@@ -187,7 +187,6 @@ const Technologies = ({}) => {
           {TECHNOLOGIES_SIZE > 0 ? (
             <>
               {technologies.map((tech) => {
-                console.log("What is this tech", tech);
                 return (
                   <Col md={4} lg={3} className={"mb-3 px-2 h-100"}>
                     <Technology
