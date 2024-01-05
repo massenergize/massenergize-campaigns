@@ -78,7 +78,7 @@ export async function fetchAllTechnologyTestimonials(campaign_id,url = "campaign
       handleRequestError(error, "FETCH_ALL_COMMUNITY_TESTIMONIALS_ERROR");
   }
 }
-export async function addTestimonials(data,url = "campaigns.technologies.testimonials.add",) {
+export async function addTestimonials(url = "campaigns.technologies.testimonials.add",data) {
   try {
       const response = await apiCall(url, data, null);
       if (!response || !response?.success) {
