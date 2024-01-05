@@ -4,12 +4,13 @@ import { SelectColumnFilter } from "../../components/data-table/filters";
 import { Button, Modal } from "react-bootstrap";
 import { CAMPAIGN_MANAGERS } from "../../mocks/campaign";
 import { apiCall } from "src/api/messenger";
-import { set } from "date-fns";
+import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 
 export function CampaignManagersView({ events = CAMPAIGN_MANAGERS, managers }) {
   const [data, setData] = useState(managers);
   const [toggleConfirmation, setToggleConfirmation] = useState(false);
   const [toRemove, setToRemove] = useState(null);
+  const { blow, pop } = useBubblyBalloons();
 
   const handleClose = () => {
     setToggleConfirmation(false);
@@ -22,9 +23,23 @@ export function CampaignManagersView({ events = CAMPAIGN_MANAGERS, managers }) {
         campaign_manager_id: manager.id,
       });
       if (res.success) {
-        const updatedManagers = data.filter((item) => item.id !== manager.id);
+        const updatedManagers = data?.filter((item) => item.id !== manager.id);
         setData(updatedManagers);
-		handleClose();
+        handleClose();
+        blow({
+          title: "Success",
+          message: "Manager saved successfully",
+          type: "success",
+          duration: 5000,
+        });
+      } else {
+        handleClose();
+        blow({
+          title: "Error",
+          message: "Something went wrong",
+          type: "error",
+          duration: 5000,
+        });
       }
     } catch (e) {}
   };
@@ -53,55 +68,55 @@ export function CampaignManagersView({ events = CAMPAIGN_MANAGERS, managers }) {
         className: "text-left",
         filter: "equals",
 
-				style: {
-					textAlign: "left",
-					width: "50px",
-				},
-			},
-			{
-				Filter: SelectColumnFilter,
-				Header: "Name",
-				accessor: (values) => {
-					const { user } = values;
-					return (
-						<div>
-							<h6 className={"mb-0 fw-bold"}>{user?.full_name}</h6>
-							<p className={"text-muted"}>{user?.email}</p>
-						</div>
-					);
-				},
-				className: "text-left",
-				filter: "equals",
-				id: "name",
-				style: {
-					textAlign: "left",
-				},
-			},
-			{
-				Header: () => null,
-				id: "actions",
-				accessor: (values) => {
-					const { user } = values;
-
-					return user;
-				},
-				style: {
-					textAlign: "left",
-					width: "100px",
-				},
-				disableSortBy: true,
-				Cell: ({ cell }) => {
-					const {
-						value,
-						row: { id, values },
-						row,
-					} = cell;
+        style: {
+          textAlign: "left",
+          width: "50px",
+        },
+      },
+      {
+        Filter: SelectColumnFilter,
+        Header: "Name",
+        accessor: (values) => {
+          const { user } = values;
+          return (
+            <div>
+              <h6 className={"mb-0 fw-bold"}>{user?.full_name}</h6>
+              <p className={"text-muted"}>{user?.email}</p>
+            </div>
+          );
+        },
+        className: "text-left",
+        filter: "equals",
+        id: "name",
+        style: {
+          textAlign: "left",
+        },
+      },
+      {
+        Header: () => null,
+        id: "actions",
+        accessor: (values) => values,
+        style: {
+          textAlign: "left",
+          width: "100px",
+        },
+        disableSortBy: true,
+        Cell: ({ cell }) => {
+          const {
+            value,
+            row: { id, values },
+            row,
+          } = cell;
 
           return (
-            <Button className={"link"} onClick={() => {
-						setToRemove(value);
-						setToggleConfirmation(true);
-			}}>
+            <Button
+              className={"link"}
+              onClick={() => {
+                console.log("=== value ===", value);
+                setToRemove(value);
+                setToggleConfirmation(true);
+              }}
+            >
               Remove
             </Button>
           );
@@ -141,7 +156,7 @@ export function CampaignManagersView({ events = CAMPAIGN_MANAGERS, managers }) {
         size={"lg"}
         show={toggleConfirmation}
         onHide={handleClose}
-		variant="primary"
+        variant="primary"
       >
         <Modal.Header closeButton>
           <Modal.Title className={"text-sm"}>
@@ -149,13 +164,20 @@ export function CampaignManagersView({ events = CAMPAIGN_MANAGERS, managers }) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-			<p>Are you sure you want to remove <span style={{fontSize:'1.1rem', fontWeight:'bold'}}>{toRemove?.user?.full_name}</span>  from this campaign? This action is irreversible and will permanently delete their association with the campaign.</p>
+          <p>
+            Are you sure you want to remove{" "}
+            <span style={{ fontSize: "1.1rem", fontWeight: "bold" }}>
+              {toRemove?.user?.full_name}
+            </span>{" "}
+            from this campaign? This action is irreversible and will permanently
+            delete their association with the campaign.
+          </p>
         </Modal.Body>
         <Modal.Footer>
-		<Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={()=>handleRemove(toRemove)}>
+          <Button variant="primary" onClick={() => handleRemove(toRemove)}>
             Remove
           </Button>
         </Modal.Footer>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { technologyPages } from "../../../utils/Constants";
-import CreateTechnologyPageWrapper from "../PageWrapper/CreateTechnologyPageWrapper";
 import classes from "classnames";
 import { apiCall } from "../../../api/messenger";
 import { AdminLayout } from "../../../layouts/admin-layout";
@@ -30,19 +29,20 @@ const INFO_INITIAL_STATE = {
 //   profileImage: "",
 // };
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "SET_FIELD_VALUE":
-      return { ...state, [action.field]: action.value };
-    default:
-      throw new Error(`Unsupported action type: ${action.type}`);
-  }
-};
+// const reducer = (state, action) => {
+//   switch (action.type) {
+//     case "SET_FIELD_VALUE":
+//       return { ...state, [action.field]: action.value };
+//     default:
+//       throw new Error(`Unsupported action type: ${action.type}`);
+//   }
+// };
 
 export function CreateTechnology() {
   // const [showError, setShowError] = useState(false);
   const [activeTab, setActiveTab] = useState(technologyPages[0]?.key || "");
 
+  const [techObject, setTechObject] = useState(null);
   const [information, setInformation] = useState(INFO_INITIAL_STATE);
 
   // const [campaignDetails, dispatch] = useReducer(reducer, initialState);
@@ -50,12 +50,29 @@ export function CreateTechnology() {
 
   const { campaign_id, technology_id } = useParams();
 
+  const inflate = (techObject) => {
+    const { summary, image, description, name } = techObject || {};
+    setInformation({ summary, image: image?.url, description, name });
+    // setInformation({})
+  };
+
+  // TODO: MOve this into technology request file later
   const fetchTechnology = (id) => {
-    // apiCall("/technologies.info", {id:})
+    apiCall("/technologies.info", { id }).then((response) => {
+      const { data, success, error } = response || {};
+      if (!success) return notifyError(error);
+      setTechObject(data);
+      inflate(data);
+    });
+  };
+
+  const updateTechObject = (data) => {
+    setTechObject({ ...techObject, ...(data || {}) });
   };
 
   useEffect(() => {
-
+    if (!technology_id) return;
+    fetchTechnology(technology_id);
   }, [technology_id]);
 
   const notifyError = (message) => {
@@ -74,56 +91,6 @@ export function CreateTechnology() {
       timeout: 15000,
     });
   };
-
-  //   const handleCampaignDetailsChange = (name, value) => {
-  //     dispatch({ type: "SET_FIELD_VALUE", field: name, value });
-  //   };
-
-  //   const validateCampaignDetails = () => {
-  //     // FIXME change this to a more appropriate name
-  //     const {
-  //       title,
-  //       slogan,
-  //       startDate,
-  //       endDate,
-  //       description,
-  //       logo,
-  //       fullName,
-  //       email,
-  //       contact,
-  //       profileImage,
-  //     } = campaignDetails;
-
-  //     if (
-  //       !title ||
-  //       !slogan ||
-  //       !startDate ||
-  //       !endDate ||
-  //       !description ||
-  //       !logo ||
-  //       !fullName ||
-  //       !email ||
-  //       !contact ||
-  //       !profileImage
-  //     ) {
-  //       setShowError(true);
-  //       return false;
-  //     }
-
-  //     return true;
-  //   };
-
-  //   const submitCampaign = () => {
-  //     try {
-  //       // TODO: validate campaign details
-  //       // TODO: submit campaign details
-  //       // apiCall("campaign/create", campaignDetails).then((res) => {
-  //       // 	console.log("==== res ====", res);
-  //       // });
-  //     } catch (e) {
-  //       throw Error("Error submitting campaign"); //FIXME chnage this to a more appropriate error message or even a mor detailed error object
-  //     }
-  //   };
 
   return (
     <div
@@ -169,8 +136,10 @@ export function CreateTechnology() {
                     notifySuccess={notifySuccess}
                     campaign_id={campaign_id}
                     tech_id={technology_id}
+                    updateTechObject={updateTechObject}
                     // technologyInfo={technologyInfo}
                     // setTechnologyInfo={setTechnologyInfo}
+                    techObject={techObject}
                     setActiveTab={setActiveTab}
                   />
                 )

@@ -1,6 +1,5 @@
 // react page
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import useSWR from "swr";
 import {
   addTechnologyEvent,
@@ -13,39 +12,34 @@ import Chip from "src/components/admin-components/Chip";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import Button from "../../../components/admin-components/Button";
 
-function TechnologyEvents({}) {
-  const navigate = useNavigate();
-  const [selectedEvents, setSelectedEvents] = useState([]);
+function TechnologyEvents({campaign_id, tech_id,techObject, updateTechObject}) {
+  let existing = [...(techObject?.events||[])?.map((tech) => tech?.event)].flat();
+  const [selectedEvents, setSelectedEvents] = useState(existing || []);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const { technologyID } = useParams();
+
 
   const { blow, pop } = useBubblyBalloons();
-
-  const community_ids = [1, 2, 3];
-
-  console.log("===technologyID===", technologyID);
-
   const {
     data: allEvents,
-    error: fetchError,
     isLoading,
-  } = useSWR("events.list", () => fetchEvents(community_ids), {
+  } = useSWR("campaigns.communities.events.list", () => fetchEvents(campaign_id), {
     shouldRetryOnError: true,
     errorRetryCount: 3,
     errorRetryInterval: 3000,
   });
 
+
   const handleSaveEvents = async () => {
     setLoading(true);
     try {
       let toSend = {
-        technology_id: technologyID,
+        technology_id: tech_id,
         event_ids: selectedEvents.map((event) => event?.id),
       };
       const savedItems = await addTechnologyEvent(toSend);
       if (savedItems) {
         setLoading(false);
+        updateTechObject(savedItems);
         blow({
           title: "Success",
           message: "Events saved successfully",
@@ -54,7 +48,6 @@ function TechnologyEvents({}) {
         });
       }
     } catch (e) {
-      setError(e);
       console.log("===e===", e);
       setLoading(false);
       pop({
@@ -86,7 +79,7 @@ function TechnologyEvents({}) {
       <Container>
         <Form>
           <FormLabel>
-            Choose one or more communities for your campaign from the dropdown
+            Choose one or more Events for this technology from the dropdown
             below.
           </FormLabel>
 
@@ -102,18 +95,12 @@ function TechnologyEvents({}) {
             value={selectedEvents}
             onChange={(val) => setSelectedEvents(val)}
             valueRenderer={(selected, _options) => {
-              if (selected.length === _options.length) {
-                return "All Events Selected";
-              }
-              if (selected.length > 2) {
-                return `${selected.length} Events Selected`;
-              }
-              return selected
-                .map(({ label }) => label)
-                .join(", ")
-                .concat(" Selected");
+            if(selected.length === 0) return "Select Events"
+            if (selected.length === _options.length) return "All Events Selected";
+            if (selected.length > 2)  return `${selected.length} Events Selected`;
+            return selected?.map(({ label }) => label)?.join(", ").concat(" Selected");
             }}
-            labelledBy={"Select Fruits"}
+
             className={"event-select"}
           />
         </Form>
@@ -121,19 +108,19 @@ function TechnologyEvents({}) {
         <Row className="mt-4">
           <Col>
             <Row>
-              {selectedEvents?.map((community) => {
+              {selectedEvents?.map((event) => {
                 return (
                   <Col sm={"auto mb-2"}>
                     <Chip
-                      text={community?.name}
-                      icon={community?.icon}
-                      id={community?.id}
+                      text={event?.name}
+                      icon={event?.icon}
+                      id={event?.id}
                       size={"sm"}
                       className="mr-2 mb-5"
-                      onDismiss={(id, text) => {
+                      onDismiss={(id) => {
                         setSelectedEvents(
                           selectedEvents?.filter(
-                            (community) => community?.id !== id
+                            (event) => event?.id !== id
                           )
                         );
                       }}
@@ -148,7 +135,7 @@ function TechnologyEvents({}) {
         <Row className="mt-4 justify-content-end">
           <Col>
             <Button
-              text="Save & Continue"
+              text="Save Changes"
               loading={loading}
               disabled={loading}
               onSubmit={handleSaveEvents}

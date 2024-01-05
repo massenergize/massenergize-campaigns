@@ -6,7 +6,7 @@ import classes from "classnames";
 const reducer = (state, action) => {
   switch (action.type) {
     case 'ADD':
-      console.log("adding balloon", action.payload);
+
       return [...state, action.payload];
     case 'REMOVE':
       return state.filter(b => b.id !== action.payload.id);

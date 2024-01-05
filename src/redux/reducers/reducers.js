@@ -94,9 +94,11 @@ export const testimonialsReducer = (state = [], action = {}) => {
   return state;
 };
 
-export const campaignAccountReducer = (state = {}, action = {}) => {
-  if (action.type === SET_CAMPAIGN_ACCOUNT) {
-    return action.payload;
+export const campaignAccountReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_CAMPAIGN_ACCOUNT':
+      return action.payload; // return new state
+    default:
+      return state; // return current state if action is not handled
   }
-  return state;
 };
