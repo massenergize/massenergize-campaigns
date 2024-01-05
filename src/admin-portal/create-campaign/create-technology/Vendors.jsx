@@ -16,7 +16,7 @@ const Vendors = ({campaign_id, tech_id,techObject, updateTechObject}) => {
 
 	const { blow, pop } = useBubblyBalloons();
 
-	const {data:allVendors, error, isLoading} = useSWR("campaigns.communities.vendors.list", () => fetchCampaignCommunityVendors(campaign_id), {
+	const {data:allVendors, isLoading} = useSWR("campaigns.communities.vendors.list", () => fetchCampaignCommunityVendors(campaign_id), {
 		shouldRetryOnError: true,
 		errorRetryCount: 3,
 		errorRetryInterval: 3000,

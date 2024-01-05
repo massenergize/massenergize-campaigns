@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { technologyPages } from "../../../utils/Constants";
-import CreateTechnologyPageWrapper from "../PageWrapper/CreateTechnologyPageWrapper";
 import classes from "classnames";
 import { apiCall } from "../../../api/messenger";
 import { AdminLayout } from "../../../layouts/admin-layout";
@@ -76,7 +75,6 @@ export function CreateTechnology() {
     fetchTechnology(technology_id);
   }, [technology_id]);
 
-
   const notifyError = (message) => {
     notify({
       title: "Error",
@@ -141,7 +139,7 @@ export function CreateTechnology() {
                     updateTechObject={updateTechObject}
                     // technologyInfo={technologyInfo}
                     // setTechnologyInfo={setTechnologyInfo}
-					techObject={techObject}
+                    techObject={techObject}
                     setActiveTab={setActiveTab}
                   />
                 )
