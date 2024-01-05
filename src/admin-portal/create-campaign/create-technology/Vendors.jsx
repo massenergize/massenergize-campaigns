@@ -74,7 +74,7 @@ const Vendors = ({campaign_id, tech_id,techObject, updateTechObject}) => {
 		<Container>
 		  <Form>
 			<FormLabel>
-			  Choose one or more communities for your campaign from the dropdown
+			  Choose one or more Vendors for this technology from the dropdown
 			  below.
 			</FormLabel>
   
@@ -90,16 +90,10 @@ const Vendors = ({campaign_id, tech_id,techObject, updateTechObject}) => {
 			  value={selectedVendors}
 			  onChange={(val) => setSelectedVendors(val)}
 			  valueRenderer={(selected, _options) => {
-				if (selected.length === _options.length) {
-				  return "All Vendors Selected";
-				}
-				if (selected.length > 2) {
-				  return `${selected.length} Vendors Selected`;
-				}
-				return selected
-				  .map(({ label }) => label)
-				  .join(", ")
-				  .concat(" Selected");
+				if(selected.length === 0) return "Select Vendors"
+				if (selected.length === _options.length) return "All Vendors Selected";
+				if (selected.length > 2) return `${selected.length} Vendors Selected`;
+				return selected?.map(({ label }) => label).join(", ").concat(" Selected");
 			  }}
 			  className={"event-select"}
 			/>
