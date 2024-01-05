@@ -92,7 +92,13 @@ function TechnologyEvents({campaign_id, tech_id,techObject, updateTechObject}) {
               };
             })}
             hasSelectAll={true}
-            value={selectedEvents}
+            value={selectedEvents?.map((event) => {
+              return {
+                ...event,
+                value: event?.id,
+                label: event?.name,
+              };
+            })}
             onChange={(val) => setSelectedEvents(val)}
             valueRenderer={(selected, _options) => {
             if(selected.length === 0) return "Select Events"
