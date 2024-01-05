@@ -12,11 +12,13 @@ import { addLabelsAndValues } from "../../helpers/utils/array";
 import { useCampaignContext } from "../../hooks/use-campaign-context";
 import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
 import { updateCampaignTechnologies } from "../../requests/campaign-requests";
+import { smartString } from "src/utils/utils";
 
 function Technology({ tech, handleRemove, navigate }) {
   let image = tech?.image?.url;
-  const { id, name } = tech;
+  let { id, name } = tech;
 
+  name = smartString(name,25)
   return (
     // <Link to={`/admin/campaign/edit-technology/${id}`} className="image-edit-btn">
     <Card
@@ -26,7 +28,11 @@ function Technology({ tech, handleRemove, navigate }) {
       }
     >
       <Card.Body className={"p-0"}>
-        <Card.Img variant="top" src={image} style={{ height: 280 }} />
+        <Card.Img
+          variant="top"
+          src={image}
+          style={{ height: 280, objectFit: "cover" }}
+        />
       </Card.Body>
       <Card.Footer>
         <Card.Title className={"mb-0"}>{name}</Card.Title>
