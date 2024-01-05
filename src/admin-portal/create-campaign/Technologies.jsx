@@ -14,19 +14,15 @@ import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons"
 import { updateCampaignTechnologies } from "../../requests/campaign-requests";
 import { smartString } from "src/utils/utils";
 
-function Technology({ tech, handleRemove, navigate }) {
+function Technology ({ tech, handleRemove }) {
   let image = tech?.image?.url;
-  let { id, name } = tech;
+  const { id, name, } = tech;
+  const navigate = useNavigate();
 
   name = smartString(name,25)
   return (
     // <Link to={`/admin/campaign/edit-technology/${id}`} className="image-edit-btn">
-    <Card
-      className={"position-relative touchable-opacity"}
-      onClick={() =>
-        navigate(`/admin/technology/${tech?.id}/edit/${tech?.campaign_id}`)
-      }
-    >
+    <Card className={"position-relative"} onClick={()=> navigate(`/admin/technology/${tech?.id}/edit/${tech?.campaign_id}`)}>
       <Card.Body className={"p-0"}>
         <Card.Img
           variant="top"

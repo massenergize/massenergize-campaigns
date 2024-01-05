@@ -69,10 +69,7 @@ export async function fetchCampaign (id, url = "campaigns.info") {
   }
 }
 
-export async function fetchCampaignTechnology (
-  url = "/campaigns.technologies.info",
-  id
-) {
+export async function fetchCampaignTechnology (url = "/campaigns.technologies.info",id) {
   try {
     const response = await apiCall(url, { campaign_technology_id: id }, null);
 
