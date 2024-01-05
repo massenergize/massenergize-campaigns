@@ -6,18 +6,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloons";
 import { Link } from "react-router-dom";
 
-export function AllCampaigns () {
+export function AllCampaigns() {
   const { blow, pop } = useBubblyBalloons();
   return (
     <AdminLayout>
       <Row className={"px-4"}>
         <Col>
           {/*region Header*/}
-          <Row lg={{ gutter: 0 }} className="py-4 overflow-scroll gap-0 no-gutters g justify-content-between">
+          <Row
+            lg={{ gutter: 0 }}
+            className="py-4 overflow-scroll gap-0 no-gutters g justify-content-between"
+          >
             <Col>
-              <div className="nav-tabs-container">
-
-              </div>
+              <div className="nav-tabs-container"></div>
             </Col>
             <Col md="auto">
               {/*<Button primary className="rounded-1 primary"
@@ -41,8 +42,8 @@ export function AllCampaigns () {
               </Button>*/}
 
               <Link to={"/admin/campaign/new"}>
-                <Button primary className="rounded-1 primary">
-                  <FontAwesomeIcon icon={faPlus}/> New Campaign
+                <Button variant="success" className="rounded-1">
+                  <FontAwesomeIcon icon={faPlus} /> New Campaign
                 </Button>
               </Link>
             </Col>
@@ -52,7 +53,7 @@ export function AllCampaigns () {
           {/*region Body: Content goes here*/}
           <Row className=" pt-4">
             <Col>
-              <AllCampaignsView/>
+              <AllCampaignsView />
             </Col>
           </Row>
           {/*endregion*/}

@@ -19,13 +19,13 @@ export function CampaignDetailsAndPreview ({setStep,}) {
     setNewCampaignDetails,
   } = useCampaignContext();
 
-  console.log({
-    campaignDetails,
-    originalCampaignDetails,
-    lists,
-    setCampaignDetails,
-    setNewCampaignDetails
-  })
+  // console.log({
+  //   campaignDetails,
+  //   originalCampaignDetails,
+  //   lists,
+  //   setCampaignDetails,
+  //   setNewCampaignDetails
+  // })
 
   return (
     <>

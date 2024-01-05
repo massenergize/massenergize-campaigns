@@ -3,59 +3,57 @@ import { Col, Container, Row } from "react-bootstrap";
 import { technologyPages } from "../../../utils/Constants";
 import CreateTechnologyPageWrapper from "../PageWrapper/CreateTechnologyPageWrapper";
 import classes from "classnames";
-import { apiCall } from "../../../api/messenger";
 import { AdminLayout } from "../../../layouts/admin-layout";
 import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloons";
 import { useParams } from "react-router-dom";
-
-// const { useReducer } = require("react");
-
+import { Spinner } from "@kehillahglobal/ui";
+import { apiCall } from "../../../api/messenger";
 const INFO_INITIAL_STATE = {
   name: "",
   image: "",
   description: "",
   summary: "",
 };
-// const initialState = {
-//   isTemplate: false,
-//   title: "",
-//   slogan: "",
-//   startDate: "",
-//   endDate: "",
-//   description: "",
-//   logo: "",
-//   fullName: "",
-//   email: "",
-//   contact: "",
-//   profileImage: "",
-// };
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "SET_FIELD_VALUE":
-      return { ...state, [action.field]: action.value };
-    default:
-      throw new Error(`Unsupported action type: ${action.type}`);
-  }
-};
 
 export function CreateTechnology() {
-  // const [showError, setShowError] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState(technologyPages[0]?.key || "");
 
+  const [techObject, setTechObject] = useState(null);
   const [information, setInformation] = useState(INFO_INITIAL_STATE);
+  const [coaches, setCoaches] = useState([]);
 
-  // const [campaignDetails, dispatch] = useReducer(reducer, initialState);
   const { notify } = useBubblyBalloons();
 
   const { campaign_id, technology_id } = useParams();
 
-  const fetchTechnology = (id) => {
-    // apiCall("/technologies.info", {id:})
+  const inflate = (techObject) => {
+    const { summary, image, description, name, coaches } = techObject || {};
+    setInformation({ summary, image: image?.url, description, name });
+    setCoaches(coaches);
+  };
+
+  // TODO: MOve this into technology request file later
+  const fetchTechnology = (id, cb) => {
+    apiCall("/technologies.info", { id }).then((response) => {
+      const { data, success, error } = response || {};
+      cb && cb(data, success);
+      if (!success) return notifyError(error);
+      setTechObject(data);
+      inflate(data);
+    });
+  };
+
+  const updateTechObject = (data) => {
+    const obj = { ...techObject, ...(data || {}) };
+    setTechObject(obj);
+    inflate(obj);
   };
 
   useEffect(() => {
-
+    if (!technology_id) return;
+    setLoading(true);
+    fetchTechnology(technology_id, () => setLoading(false));
   }, [technology_id]);
 
   const notifyError = (message) => {
@@ -68,62 +66,47 @@ export function CreateTechnology() {
   };
   const notifySuccess = (message) => {
     notify({
-      title: "Error",
+      title: "Success",
       message: message,
       type: "success",
       timeout: 15000,
     });
   };
 
-  //   const handleCampaignDetailsChange = (name, value) => {
-  //     dispatch({ type: "SET_FIELD_VALUE", field: name, value });
-  //   };
+  console.log("TECH_OBJECT_HERE", techObject);
 
-  //   const validateCampaignDetails = () => {
-  //     // FIXME change this to a more appropriate name
-  //     const {
-  //       title,
-  //       slogan,
-  //       startDate,
-  //       endDate,
-  //       description,
-  //       logo,
-  //       fullName,
-  //       email,
-  //       contact,
-  //       profileImage,
-  //     } = campaignDetails;
+  const renderTabs = () => {
+    if (loading)
+      return (
+        <center>
+          <Spinner color="#6e207c" radius={56} variation="TwoHalfCirclesType" />
+        </center>
+      );
 
-  //     if (
-  //       !title ||
-  //       !slogan ||
-  //       !startDate ||
-  //       !endDate ||
-  //       !description ||
-  //       !logo ||
-  //       !fullName ||
-  //       !email ||
-  //       !contact ||
-  //       !profileImage
-  //     ) {
-  //       setShowError(true);
-  //       return false;
-  //     }
-
-  //     return true;
-  //   };
-
-  //   const submitCampaign = () => {
-  //     try {
-  //       // TODO: validate campaign details
-  //       // TODO: submit campaign details
-  //       // apiCall("campaign/create", campaignDetails).then((res) => {
-  //       // 	console.log("==== res ====", res);
-  //       // });
-  //     } catch (e) {
-  //       throw Error("Error submitting campaign"); //FIXME chnage this to a more appropriate error message or even a mor detailed error object
-  //     }
-  //   };
+    return (
+      <Col>
+        {technologyPages?.map((tab) => {
+          return (
+            activeTab === tab?.key && (
+              <tab.component
+                key={tab?.key}
+                setInformation={setInformation}
+                information={information}
+                notifyError={notifyError}
+                notifySuccess={notifySuccess}
+                campaign_id={campaign_id}
+                tech_id={technology_id}
+                updateTechObject={updateTechObject} // only requires you to include the part of the techObject you want to update
+                setActiveTab={setActiveTab}
+                coaches={coaches}
+                setCoaches={setCoaches}
+              />
+            )
+          );
+        })}
+      </Col>
+    );
+  };
 
   return (
     <div
@@ -156,28 +139,7 @@ export function CreateTechnology() {
         {/*endregion*/}
 
         {/*region Body: Content goes here*/}
-        <Row className="mt-4 pt-4">
-          <Col>
-            {technologyPages?.map((tab) => {
-              return (
-                activeTab === tab?.key && (
-                  <tab.component
-                    key={tab?.key}
-                    setInformation={setInformation}
-                    information={information}
-                    notifyError={notifyError}
-                    notifySuccess={notifySuccess}
-                    campaign_id={campaign_id}
-                    tech_id={technology_id}
-                    // technologyInfo={technologyInfo}
-                    // setTechnologyInfo={setTechnologyInfo}
-                    setActiveTab={setActiveTab}
-                  />
-                )
-              );
-            })}
-          </Col>
-        </Row>
+        <Row className="mt-4 pt-4">{renderTabs()}</Row>
         {/*endregion*/}
 
         {/*region Footer*/}
