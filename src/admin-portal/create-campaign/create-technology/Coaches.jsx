@@ -3,7 +3,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Input from "../../../components/admin-components/Input";
-import FileUploader from "../../../components/admin-components/FileUploader";
+import FileUploader, {
+  RESET,
+} from "../../../components/admin-components/FileUploader";
 import Button from "../../../components/admin-components/Button";
 import "../../../assets/styles/admin-styles.scss";
 import Dropdown from "../../../components/admin-components/Dropdown";
@@ -14,14 +16,14 @@ import CustomModal from "../../../components/modal/CustomModal";
 import MEModal from "../../../components/admin-components/MEModal";
 import { apiCall } from "src/api/messenger";
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "SET_FIELD_VALUE":
-      return { ...state, [action.field]: action.value };
-    default:
-      throw new Error(`Unsupported action type: ${action.type}`);
-  }
-};
+// const reducer = (state, action) => {
+//   switch (action.type) {
+//     case "SET_FIELD_VALUE":
+//       return { ...state, [action.field]: action.value };
+//     default:
+//       throw new Error(`Unsupported action type: ${action.type}`);
+//   }
+// };
 const INTITIAL_COACH_STATE = {
   technology_id: "",
   full_name: "",
@@ -61,29 +63,35 @@ const Coaches = ({
     return (source || {})[key] || "";
   };
 
-  // console.log("Lets Log Query", query);
-
-  // useEffect(() => {
-  //   setCoaches(technologyInfo?.coaches || []);
-  // }, [technologyInfo]);
-
   const handleFieldChange = (field, value) => {
     // dispatch({ type: "SET_FIELD_VALUE", field, value });
     setFormData({ ...formData, [field]: value });
   };
 
+  const contentIsValid = (data) => {
+    const { full_name, image, email, community } = data || {};
+    if (!full_name || !image || !email || !community) {
+      notifyError(
+        "(Email, Full Name, Image, Community) Please make sure none of them are empty..."
+      );
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     let data = { ...formData, technology_id: tech_id };
-
     // return console.log("THis is what the data looks like", data);
+    const url = isEditing
+      ? "technologies.coaches.update"
+      : "technologies.coaches.create";
 
-    const url = isEditing ? "" : "technologies.coaches.create";
+    if (!contentIsValid(data)) return;
     setLoading(true);
     apiCall(url, data).then((res) => {
       const { data, success, error } = res || {};
       setLoading(false);
-      console.log("=== CREATE TECH COACH===", res);
       if (!success) {
         console.log("ERROR: ", error);
         return notifyError(error);
@@ -93,13 +101,19 @@ const Coaches = ({
       if (isEditing) {
         let rem = coaches?.filter((it) => it?.id !== data?.id);
         items = [...rem, data];
-      } else items = [...(coaches || []), res?.data];
-      notifySuccess("Coach added!");
+      } else {
+        items = [...(coaches || []), res?.data];
+        resetForm();
+      }
+      notifySuccess(isEditing ? "New changes saved!" : "Coach added!");
       return updateTechObject({ coaches: items });
     });
   };
 
-  const updateCoach = async (data) => {};
+  const resetForm = () => {
+    setFormData({ image: RESET });
+    setIsEditing(false);
+  };
 
   const renderSelectedCoaches = () => {
     return (
@@ -143,6 +157,7 @@ const Coaches = ({
     );
   };
 
+  const formHasContent = Object.keys(formData || {}).length > 0;
   return (
     <div>
       <Container>
@@ -165,7 +180,7 @@ const Coaches = ({
               </p>
             </Col>
           </Row>
-          <Row className="py-4">
+          <Row className="py-2">
             <Col>
               <Input
                 label="Full Name"
@@ -179,7 +194,7 @@ const Coaches = ({
               />
             </Col>
           </Row>
-          <Row className="py-4">
+          <Row className="py-2">
             <Col>
               <Input
                 label="Email"
@@ -193,7 +208,7 @@ const Coaches = ({
               />
             </Col>
           </Row>
-          <Row className="py-4">
+          <Row className="py-2">
             <Col>
               <Input
                 label="Phone Number"
@@ -207,7 +222,7 @@ const Coaches = ({
               />
             </Col>
           </Row>
-          <Row className="py-4">
+          <Row className="py-2">
             <Col>
               <Input
                 label="Community"
@@ -230,20 +245,42 @@ const Coaches = ({
                 onChange={(val) => {
                   handleFieldChange("image", val);
                 }}
-                value={getValue("image")}
+                // value={getValue("image")}
                 defaultValue={getValue("image")}
               />
             </Col>
           </Row>
 
           <Row className="py-4 mt-4 justify-content-end">
-            <Col>
+            <Col
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                // justifyContent: "center",
+              }}
+            >
               <Button
                 loading={loading}
-                text="Add Coach"
+                text={isEditing ? "Save Changes" : "Add Coach"}
                 onSubmit={handleSubmit}
                 rounded={false}
               />
+              {formHasContent && (
+                <small
+                  // style={{ marginLeft: 10 }}
+                  onClick={() => resetForm()}
+                  style={{
+                    fontWeight: "bold",
+                    marginLeft: 10,
+                    color: "red",
+                    textDecoration: "underline",
+                  }}
+                  className="touchable-opacity"
+                >
+                  Reset Form
+                </small>
+              )}
             </Col>
           </Row>
         </form>

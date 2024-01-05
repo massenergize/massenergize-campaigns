@@ -14,17 +14,26 @@ const INFO_INITIAL_STATE = {
   summary: "",
 };
 
+const UNPROTECTED = ["information"];
 export function CreateTechnology() {
-  const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState(technologyPages[0]?.key || "");
+  let TABS = technologyPages;
+  const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState(TABS[0]?.key || "");
+  const { campaign_id, technology_id } = useParams();
+
+  const techIsNotCreatedYet = !technology_id;
+  if (techIsNotCreatedYet) {
+    TABS = TABS.map((tab) => {
+      if (UNPROTECTED.includes(tab.key)) return tab;
+      return { ...tab, deactivate: true };
+    });
+  }
 
   const [techObject, setTechObject] = useState(null);
   const [information, setInformation] = useState(INFO_INITIAL_STATE);
   const [coaches, setCoaches] = useState([]);
 
   const { notify } = useBubblyBalloons();
-
-  const { campaign_id, technology_id } = useParams();
 
   const inflate = (techObject) => {
     const { summary, image, description, name, coaches } = techObject || {};
@@ -72,8 +81,6 @@ export function CreateTechnology() {
     });
   };
 
-  console.log("TECH_OBJECT_HERE", techObject);
-
   const renderTabs = () => {
     if (loading)
       return (
@@ -84,7 +91,7 @@ export function CreateTechnology() {
 
     return (
       <Col>
-        {technologyPages?.map((tab) => {
+        {TABS?.map((tab) => {
           return (
             activeTab === tab?.key && (
               <tab.component
@@ -121,17 +128,23 @@ export function CreateTechnology() {
         >
           <Col>
             <div className="nav-tabs-container">
-              {technologyPages?.map((page) => (
-                <div
-                  key={page?.key}
-                  className={classes("nav-tabs-main tab", {
-                    "tab-active": activeTab === page?.key,
-                  })}
-                  onClick={() => setActiveTab(page?.key)}
-                >
-                  <h5 className={classes("nav-tabs")}>{page?.name}</h5>
-                </div>
-              ))}
+              {TABS?.map(({ key, name, deactivate }) => {
+                return (
+                  <div
+                    key={key}
+                    style={{ opacity: deactivate ? 0.6 : 1 }}
+                    className={classes("nav-tabs-main tab", {
+                      "tab-active": activeTab === key,
+                    })}
+                    onClick={() => {
+                      if (deactivate) return;
+                      setActiveTab(key);
+                    }}
+                  >
+                    <h5 className={classes("nav-tabs")}>{name}</h5>
+                  </div>
+                );
+              })}
             </div>
           </Col>
         </Row>
