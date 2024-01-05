@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import "../../assets/styles/admin-styles.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate, useNavigation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ProgressButton } from "../../components/progress-button/progress-button";
 import { MultiSelect } from "react-multi-select-component";
 import { Card } from "react-bootstrap";
@@ -12,12 +12,14 @@ import { addLabelsAndValues } from "../../helpers/utils/array";
 import { useCampaignContext } from "../../hooks/use-campaign-context";
 import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
 import { updateCampaignTechnologies } from "../../requests/campaign-requests";
+import { smartString } from "src/utils/utils";
 
 function Technology({ tech, handleRemove }) {
   let image = tech?.image?.url;
-  const { id, name } = tech;
-  const navigate = useNavigation()
+  let { id, name } = tech;
+  const navigate =  useNavigate()
 
+  name = smartString(name,25)
   return (
     // <Link to={`/admin/campaign/edit-technology/${id}`} className="image-edit-btn">
     <Card
@@ -27,7 +29,11 @@ function Technology({ tech, handleRemove }) {
       }
     >
       <Card.Body className={"p-0"}>
-        <Card.Img variant="top" src={image} style={{ height: 280 }} />
+        <Card.Img
+          variant="top"
+          src={image}
+          style={{ height: 280, objectFit: "cover" }}
+        />
       </Card.Body>
       <Card.Footer>
         <Card.Title className={"mb-0"}>{name}</Card.Title>

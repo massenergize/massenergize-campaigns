@@ -270,7 +270,7 @@ export function AllCampaignsView({}) {
               <FontAwesomeIcon icon={faFileEdit} />
             </Button>
             <Button
-              variant="warning"
+              variant="danger"
               onClick={() => {
                 navigate(`/campaign/${value}`);
               }}

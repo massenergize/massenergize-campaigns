@@ -20,14 +20,16 @@ export function CreateTechnology() {
 
   const [techObject, setTechObject] = useState(null);
   const [information, setInformation] = useState(INFO_INITIAL_STATE);
+  const [coaches, setCoaches] = useState([]);
 
   const { notify } = useBubblyBalloons();
 
   const { campaign_id, technology_id } = useParams();
 
   const inflate = (techObject) => {
-    const { summary, image, description, name } = techObject || {};
+    const { summary, image, description, name, coaches } = techObject || {};
     setInformation({ summary, image: image?.url, description, name });
+    setCoaches(coaches);
   };
 
   // TODO: MOve this into technology request file later
@@ -42,7 +44,9 @@ export function CreateTechnology() {
   };
 
   const updateTechObject = (data) => {
-    setTechObject({ ...techObject, ...(data || {}) });
+    const obj = { ...techObject, ...(data || {}) };
+    setTechObject(obj);
+    inflate(obj);
   };
 
   useEffect(() => {
@@ -61,12 +65,14 @@ export function CreateTechnology() {
   };
   const notifySuccess = (message) => {
     notify({
-      title: "Error",
+      title: "Success",
       message: message,
       type: "success",
       timeout: 15000,
     });
   };
+
+  console.log("TECH_OBJECT_HERE", techObject);
 
   const renderTabs = () => {
     if (loading)
@@ -89,8 +95,10 @@ export function CreateTechnology() {
                 notifySuccess={notifySuccess}
                 campaign_id={campaign_id}
                 tech_id={technology_id}
-                updateTechObject={updateTechObject}
+                updateTechObject={updateTechObject} // only requires you to include the part of the techObject you want to update
                 setActiveTab={setActiveTab}
+                coaches={coaches}
+                setCoaches={setCoaches}
               />
             )
           );

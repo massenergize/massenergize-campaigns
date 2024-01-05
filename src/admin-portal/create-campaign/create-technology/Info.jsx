@@ -128,7 +128,7 @@ const Info = ({
               <FileUploader
                 required={false}
                 id="tech_image"
-                text="Add an image for the action"
+                text="Add an image"
                 onChange={(val) => {
                   handleFieldChange("image", val);
                 }}
