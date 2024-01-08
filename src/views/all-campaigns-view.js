@@ -106,7 +106,7 @@ const DUMMY_CAMPAIGN_NAMEs = [
 // ];
 
 export function AllCampaignsView({}) {
-//   const [data, setData] = useNamedState("table data", DUMMY_DATA);
+  //   const [data, setData] = useNamedState("table data", DUMMY_DATA);
   const [rowMenu, setRowMenu] = useState(ROW_ACTIONS_MENU);
   const campaignAccount = useSelector((state) => state.campaignAccount);
 
@@ -133,7 +133,7 @@ export function AllCampaignsView({}) {
             <img
               src={src}
               alt="logo"
-              style={{ width: "40px", height: "40px" }}
+              style={{ width: "40px", height: "40px", objectFit: "contain" }}
               onError={() => {
                 src = "/fallback-img.png";
               }}
@@ -195,7 +195,7 @@ export function AllCampaignsView({}) {
         return (
           <span
             style={{
-              backgroundColor: is_published ? "#9fea9f" : "#e6c0a6",
+              backgroundColor: is_published ? "#9fea9f" : "rgb(255 231 231)",
               paddingBlock: "1px",
               paddingInline: "10px",
               borderRadius: "12px",
@@ -217,7 +217,7 @@ export function AllCampaignsView({}) {
         return (
           <span
             style={{
-              backgroundColor: is_template ? "#9fea9f" : "#e6c0a6",
+              backgroundColor: is_template ? "#9fea9f" : "rgb(255 231 231)",
               paddingBlock: "1px",
               paddingInline: "10px",
               borderRadius: "12px",
@@ -254,7 +254,7 @@ export function AllCampaignsView({}) {
         return (
           <ButtonGroup className="mr-2">
             <Button
-              variant="primary"
+              variant="success"
               onClick={() => {
                 navigate(`/admin/campaign/${value}/stats`);
               }}
@@ -270,7 +270,7 @@ export function AllCampaignsView({}) {
               <FontAwesomeIcon icon={faFileEdit} />
             </Button>
             <Button
-              variant="primary"
+              variant="danger"
               onClick={() => {
                 navigate(`/campaign/${value}`);
               }}
@@ -371,7 +371,7 @@ export function AllCampaignsView({}) {
 
   if (!patched?.length) {
     return (
-      <Container className="d-flex m-auto" style={{height:"70vh"}}>
+      <Container className="d-flex m-auto" style={{ height: "70vh" }}>
         <NoItems text="Ready to start a campaign? Let's create impact together - launch your first one now!" />
       </Container>
     );

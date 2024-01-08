@@ -1,5 +1,11 @@
-import React from "react";
-import { Route, Routes, useParams, Navigate,  generatePath } from "react-router-dom";
+import React, { useEffect } from "react";
+import {
+  Route,
+  Routes,
+  useParams,
+  Navigate,
+  generatePath,
+} from "react-router-dom";
 import LandingPage from "../user-portal/pages/landing-page/LandingPage";
 import { bindActionCreators } from "redux";
 import {
@@ -24,6 +30,7 @@ import CreateCampaignAccount from "../admin-portal/pages/campaign-account/Create
 import { CampaignStatistics } from "../admin-portal/pages/campaign/campaign-statistics/campaign-statistics";
 import Login from "../admin-portal/pages/auth/Login";
 import Dummy from "../admin-portal/pages/auth/Dummy";
+import { portalIsAdmin, setPageTitle } from "../utils/utils";
 
 export const NavigateWithParams = ({ to, ...props }) => {
   const params = useParams();
@@ -103,10 +110,6 @@ const ROUTE_TABLE = [
   },
 
   {
-    path: "/admin/campaign/:campaignID/technology/:technologyID",
-    component: CreateTechnology,
-  },
-  {
     path: "/admin/technology/new/:campaign_id",
     component: CreateTechnology,
   },
@@ -152,12 +155,17 @@ function AppRouter({
   logUserOut,
   init,
   campaign,
+  isAdminPortal,
   // navigation,
 }) {
   const params = useParams();
-  // useEffect(() => {
-  //   console.log("CAMPAIGN: ", params);
-  // }, []);
+
+  useEffect(() => {
+    let pageName = "ME Campaign";
+    if (isAdminPortal) pageName = "Admin Portal";
+    setPageTitle(pageName);
+  }, []);
+  
   return (
     <>
       <CustomModal
@@ -220,6 +228,7 @@ const mapState = (state) => {
     test: state.testStore,
     modalOptions: state.modalOptions,
     campaign: state.campaign,
+    isAdminPortal: state.isAdminPortal,
   };
 };
 

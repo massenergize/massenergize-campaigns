@@ -7,6 +7,10 @@ import FileUploader from "../../../components/admin-components/FileUploader";
 import Button from "../../../components/admin-components/Button";
 import "../../../assets/styles/admin-styles.scss";
 import MERichText from "../../../components/admin-components/RichText";
+import { ProgressButton } from "src/components/progress-button/progress-button";
+import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
+import { useParams } from "react-router-dom";
+import { fetchUrlParams } from "src/utils/utils";
 import { apiCall } from "src/api/messenger";
 
 const Info = ({
@@ -65,8 +69,9 @@ const Info = ({
     }).then((response) => {
       const { data, success, error } = response || {};
       setLoading(false);
-      console.log("This is the actual response", response);
       if (!success) return notifyError(error);
+      // console.log("Its the data after creating info", data);
+      // updateTechObject({ ...data, ...(data?.technology || {}) });
       updateTechObject(data);
       notifySuccess("Saved successfully!");
     });
@@ -124,7 +129,7 @@ const Info = ({
               <FileUploader
                 required={false}
                 id="tech_image"
-                text="Add an image for the action"
+                text="Add an image"
                 onChange={(val) => {
                   handleFieldChange("image", val);
                 }}
