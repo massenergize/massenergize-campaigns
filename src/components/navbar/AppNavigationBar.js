@@ -48,7 +48,11 @@ function AppNavigationBar({ menu, campaign }) {
                 return (
                   <Nav.Link
                     key={menu?.key}
-                    style={{ textTransform: "uppercase" }}
+                    style={{
+                      textTransform: "uppercase",
+                      marginRight: 20,
+                      fontWeight: "bold",
+                    }}
                     onClick={() => {
                       navigator(menu.url || "#");
                     }}
@@ -64,7 +68,11 @@ function AppNavigationBar({ menu, campaign }) {
                 );
               return (
                 <NavDropdown
-                  style={{ textTransform: "uppercase" }}
+                  style={{
+                    textTransform: "uppercase",
+                    marginRight: 20,
+                    fontWeight: "bold",
+                  }}
                   title={
                     <span>
                       <i
@@ -132,7 +140,7 @@ function AppNavigationBar({ menu, campaign }) {
                   height: 45,
                   width: 45,
                   objectFit: "contain",
-                  marginLeft: 5,
+                  // marginLeft: 5,
                 }}
               />
             )}
