@@ -5,9 +5,10 @@ import CreateTechnologyPageWrapper from "../PageWrapper/CreateTechnologyPageWrap
 import classes from "classnames";
 import { AdminLayout } from "../../../layouts/admin-layout";
 import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloons";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Spinner } from "@kehillahglobal/ui";
 import { apiCall } from "../../../api/messenger";
+import BackButton from "../../../components/admin-components/BackButton";
 const INFO_INITIAL_STATE = {
   name: "",
   image: "",
@@ -19,10 +20,18 @@ const UNPROTECTED = ["information"];
 export function CreateTechnology() {
   let TABS = technologyPages;
   const [loading, setLoading] = useState(false);
+  const [techObject, setTechObject] = useState(null);
+  const [information, setInformation] = useState(INFO_INITIAL_STATE);
+  const [coaches, setCoaches] = useState([]);
   const [activeTab, setActiveTab] = useState(TABS[0]?.key || "");
   const { campaign_id, technology_id } = useParams();
 
-  const techIsNotCreatedYet = !technology_id;
+  const getTechnologyId = () => {
+    return technology_id || techObject?.technology?.id;
+  };
+
+  const techIsNotCreatedYet = !getTechnologyId();
+
   if (techIsNotCreatedYet) {
     TABS = TABS.map((tab) => {
       if (UNPROTECTED.includes(tab.key)) return tab;
@@ -30,15 +39,14 @@ export function CreateTechnology() {
     });
   }
 
-  const [techObject, setTechObject] = useState(null);
-  const [information, setInformation] = useState(INFO_INITIAL_STATE);
-  const [coaches, setCoaches] = useState([]);
-
   const { notify } = useBubblyBalloons();
 
   const inflate = (techObject) => {
     const { summary, image, description, name, coaches } = techObject || {};
-    setInformation({ summary, image: image?.url, description, name });
+    if (!techIsNotCreatedYet) {
+      // Will only run when updating "information", not creating (cos at that time, techObject is null...)
+      setInformation({ summary, image: image?.url, description, name });
+    }
     setCoaches(coaches);
   };
 
@@ -102,7 +110,7 @@ export function CreateTechnology() {
                 notifyError={notifyError}
                 notifySuccess={notifySuccess}
                 campaign_id={campaign_id}
-                tech_id={technology_id}
+                tech_id={getTechnologyId()}
                 updateTechObject={updateTechObject} // only requires you to include the part of the techObject you want to update
                 setActiveTab={setActiveTab}
                 coaches={coaches}
@@ -128,7 +136,9 @@ export function CreateTechnology() {
           className="pb-4 overflow-scroll gap-0 no-gutters g"
         >
           <Col>
-            <div className="nav-tabs-container">
+            <BackButton />
+
+            <div className="nav-tabs-container" style={{ marginTop: 10 }}>
               {TABS?.map(({ key, name, deactivate }) => {
                 return (
                   <div
