@@ -92,3 +92,10 @@ export function smartString(inputString, maxLength = 30) {
 
   return inputString.slice(0, maxLength) + "...";
 }
+
+export const setPageTitle = (string) => (document.title = string);
+
+export const portalIsAdmin = () => {
+  const url = window.location.href;
+  return url.includes("admin/");
+};

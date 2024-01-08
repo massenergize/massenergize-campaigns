@@ -16,6 +16,7 @@ import {
   UPDATE_EVENT_OBJ,
   UPDATE_TESTIMONIALS_OBJ,
   SET_CAMPAIGN_ACCOUNT,
+  SET_IS_ADMIN_PORTAL,
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
 
@@ -57,8 +58,6 @@ export const setNavigationMenuAction = (payload) => {
 export const setCommentsAction = (payload) => {
   return { type: SET_COMMENTS, payload };
 };
-
-
 
 // ------ Admin Redux------
 export const setCampaignAccountAction = (payload) => {
@@ -154,10 +153,8 @@ export const fetchMeUser = (payload, cb) => {
         return console.log("ERROR_FETCHING_ME_USER: ", error?.toString());
       }
 
-
       cb && cb(data, null);
       dispatch(setAuthAdminAction(data));
-
     });
 };
 
@@ -170,4 +167,7 @@ export const logUserOut = () => {
       dispatch(setFirebaseAuthAction(null));
       // dispatch(s(null))
     });
+};
+export const setAdminPortalBooleanAction = (payload =false) => {
+  return { type: SET_IS_ADMIN_PORTAL, payload };
 };
