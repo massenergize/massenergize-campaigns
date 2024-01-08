@@ -3,230 +3,247 @@ import { TableFooter } from "../../components/data-table/TableFooter";
 import React, { useMemo, useState } from "react";
 import { SelectColumnFilter } from "../../components/data-table/filters";
 import dayjs from "dayjs";
-const DUMMY_DATA = [
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name1",
-    createdAt: "2023-12-01T00:00:00Z",
-    updatedAt: "2023-12-01T00:00:00Z",
-    category: "Category1",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name2",
-    createdAt: "2023-12-02T00:00:00Z",
-    updatedAt: "2023-12-02T00:00:00Z",
-    category: "Category2",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name3",
-    createdAt: "2023-12-03T00:00:00Z",
-    updatedAt: "2023-12-03T00:00:00Z",
-    category: "Category3",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name4",
-    createdAt: "2023-12-04T00:00:00Z",
-    updatedAt: "2023-12-04T00:00:00Z",
-    category: "Category4",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name5",
-    createdAt: "2023-12-05T00:00:00Z",
-    updatedAt: "2023-12-05T00:00:00Z",
-    category: "Category5",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name6",
-    createdAt: "2023-12-06T00:00:00Z",
-    updatedAt: "2023-12-06T00:00:00Z",
-    category: "Category6",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name7",
-    createdAt: "2023-12-07T00:00:00Z",
-    updatedAt: "2023-12-07T00:00:00Z",
-    category: "Category7",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name8",
-    createdAt: "2023-12-08T00:00:00Z",
-    updatedAt: "2023-12-08T00:00:00Z",
-    category: "Category8",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name9",
-    createdAt: "2023-12-09T00:00:00Z",
-    updatedAt: "2023-12-09T00:00:00Z",
-    category: "Category9",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name10",
-    createdAt: "2023-12-10T00:00:00Z",
-    updatedAt: "2023-12-10T00:00:00Z",
-    category: "Category10",
-  },
-];
+import { Col, Container, FormLabel, Row, Spinner } from "react-bootstrap";
+import { MultiSelect } from "react-multi-select-component";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose, faTrash } from "@fortawesome/free-solid-svg-icons";
+import Button from "src/components/admin-components/Button";
+import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
+import { daysOfWeek, monthsOfYear } from "src/utils/Constants";
+import { AddSelectedEvents } from "src/requests/campaign-requests";
 
-export function CampaignEventsView ({ events = DUMMY_DATA }) {
-  const [data, setData] = useState(DUMMY_DATA);
+export function CampaignEventsView({ events, campaign }) {
+	const [loading, setLoading] = useState(false);
 
-  const columns = useMemo(
-    () => [
-      {
-        id: "logo",
-        Header: () => null,
-        accessor: (values) => {
-          const { logo } = values;
-          return (
-            <div>
-              <img
-                src={logo}
-                alt="logo"
-                style={{ width: "40px", height: "40px" }}
-              />
-            </div>
-          );
-        },
-        className: "text-left",
-        filter: "equals",
+	const allEvents = events?.data || [];
 
-        style: {
-          textAlign: "left",
-        },
-      },
-      {
-        Filter: SelectColumnFilter,
-        Header: "Name",
-        accessor: "name",
-        className: "text-left",
-        filter: "equals",
-        id: "name",
-        style: {
-          textAlign: "left",
-        },
-      },
-      {
-        Filter: SelectColumnFilter,
-        Header: "Date",
-        accessor: (values) => {
-          const { createdAt } = values;
-          return dayjs(createdAt).format("MM-DD-YYYY");
-        },
-        disableSortBy: true,
-        filter: "equals",
-        id: "createdAt",
-        style: {
-          textAlign: "center",
-        },
-      },
+	const [selectedEvents, setSelectedEvents] = useState([]);
+	const { blow, pop } = useBubblyBalloons();
 
-      {
-        Header: "Category",
-        accessor: (values) => {
-          const { category } = values;
-          return <span>{category}</span>;
-        },
-        id: "category",
-        style: {
-          textAlign: "center",
-        },
-      },
-    ],
-    []
-  );
+	const originalEvents = allEvents || [];
+	const originalTestimonialSet = new Set(
+		originalEvents?.map((tech) => tech.id)
+	);
 
-  const [pagesCount, setPagesCount] = useState(1);
-  const [pageIndex, setPageIndex] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
+	const handleRemove = (data) => {
+		const filteredTechnologies = selectedEvents.filter(
+			(testimonial) => testimonial.id !== data.id
+		);
+		setSelectedEvents(filteredTechnologies);
+	};
+	const formatDate = (date) => {
+		let d = new Date(date);
+		let d_date = d.getDate();
+		let day = daysOfWeek[d.getDay()];
+		let month = monthsOfYear[d.getMonth()];
+		let year = d.getFullYear();
 
-  const [skipPageReset, setSkipPageReset] = React.useState(false);
-  const updateMyData = (rowIndex, columnId, value) => {
-    setSkipPageReset(true);
-  };
+		return `${day}, ${d_date} ${month} ${year} `;
+	};
 
-  let [canGotoPreviousPage, setCanPreviousPage] = useState(false);
-  let [canGotoNextPage, setCanGotoNextPage] = useState(false);
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setLoading(true);
 
-  const fetchData = async function (pageIndex, pageSize) {
-    try {
-    } catch (e) {
-      console.log(e);
-    }
-  };
+		try {
+			const payload = {
+				campaign_id: campaign?.id,
+				technology_events_ids: selectedEvents.map((event) => event.id),
+			};
 
-  // region Pagination
-  const gotoPage = async function (next) {
-    if (next !== pageIndex) {
-      if (next < pageIndex) {
-        if (canGotoPreviousPage) {
-          await fetchData(next, pageSize);
-        }
-      } else if (next > pageIndex) {
-        if (canGotoNextPage) {
-          let data = await fetchData(next, pageSize);
+			const res = await AddSelectedEvents(payload);
 
-          if (data) {
-            // console.log({ pi : pageIndex + 1, pagesCount });
-            if (pageIndex + 1 >= pagesCount) {
-              setCanGotoNextPage(false);
-            }
+			if (res) {
+				setLoading(false);
+				// updateTechObject(res);
+				blow({
+					title: "Success",
+					message: "Campaign Testimonials updated successfully.",
+					type: "success",
+					duration: 5000,
+				});
+			}
+		} catch (e) {
+			setLoading(false);
+			pop({
+				title: "Error",
+				message: "Something went wrong. Please try again later.",
+				type: "error",
+				timeout: 5000,
+			});
+		}
+	};
 
-            if (!canGotoPreviousPage && pagesCount > 1) {
-              setCanGotoNextPage(true);
-            }
-          }
-        }
-      }
-    }
-  };
+	if (loading)
+		return (
+			<div
+				className=""
+				style={{
+					width: "100%",
+					display: "flex",
+					justifyContent: "center",
+					height: "100vh",
+				}}
+			>
+				<Spinner color="#6e207c" radius={56} variation="TwoHalfCirclesType" />
+			</div>
+		);
 
-  const previousPage = async function () {
-    if (canGotoPreviousPage) {
-      return await fetchData(pageIndex - 1, pageSize);
-    }
-  };
+	const EVENTS_SIZE = (selectedEvents || [])?.length;
 
-  const nextPage = async function () {
-    if (canGotoNextPage) {
-      return await fetchData(pageIndex + 1, pageSize);
-    }
-  };
+	// console.log(selectedEvents);
+	// endregion
+	return (
+		<Container>
+			<form>
+				<Row>
+					<Col>
+						<FormLabel>
+							Choose one or more events for your campaign from the dropdown
+							below.
+						</FormLabel>
+					</Col>
+				</Row>
+				<Row className="" style={{ height: "180px" }}>
+					<Col>
+						<MultiSelect
+							options={allEvents?.map((event) => {
+								return {
+									...event,
+									label: event?.name,
+									value: event?.id,
+								};
+							})}
+							value={selectedEvents?.map((event) => {
+								return {
+									...event,
+									label: event?.name,
+									value: event?.id,
+								};
+							})}
+							valueRenderer={(selected, _options) => {
+								if (selected?.length < 1) {
+									return "Select Events...";
+								}
 
-  // endregion
-  return (
-    <div>
-      <DataTable
-        className={"table-responsive-sm table"}
-        columns={columns}
-        data={data}
-        size={pageSize}
-        skipPageReset={skipPageReset}
-        updateMyData={updateMyData}
-        renderRowSubComponent={null}
-        rowSelect={true}
-      />
-      <TableFooter
-        pageIndex={pageIndex}
-        pagesCount={pagesCount}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        canGotoPreviousPage={canGotoPreviousPage}
-        canGotoNextPage={canGotoNextPage}
-        gotoPage={gotoPage}
-        setPageIndex={setPageIndex}
-        fetchData={fetchData}
-      />
-    </div>
-  );
+								if (selected?.length === allEvents?.length) {
+									return "All Selected";
+								}
+								if (selected?.length > 3) {
+									return `${selected?.length} Selected`;
+								}
+
+								return selected.map(({ name, id }, i) => {
+									return name + (i < allEvents?.length ? ", " : "");
+								});
+							}}
+							onChange={(val) => {
+								setSelectedEvents(val);
+							}}
+							labelledBy="Select"
+						/>
+					</Col>
+				</Row>
+
+				<Row
+					className=" pb-4 justify-content-start"
+					style={{ marginTop: "-5rem" }}
+				>
+					{EVENTS_SIZE > 0 ? (
+						<>
+							<table className="table">
+								<thead>
+									<tr>
+										<th className="text-center" scope="col">
+											Image
+										</th>
+										<th className="text-center" scope="col">
+											Publicity
+										</th>
+										<th className="text-center" scope="col">
+											Start Date
+										</th>
+										<th className="text-center" scope="col">
+											End Date
+										</th>
+										<th className="text-center" scope="col">
+											Invited Communities
+										</th>
+										<th className="text-center" scope="col">
+											Event Type
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									{(selectedEvents || [])?.map((event) => {
+										return (
+											<tr key={event?.id} className="text-sm">
+												{/* <th scope="row">1</th> */}
+												<td className="text-center">
+													<img
+														style={{
+															width: "35px",
+															height: "35px",
+															objectFit: "cover",
+															borderRadius: "5px",
+														}}
+														src={event?.image?.url}
+														alt=""
+													/>
+												</td>
+												<td className="text-center">{event?.publicity}</td>
+												<td className="text-center">
+													{formatDate(event?.start_date_and_time)}
+												</td>
+												<td className="text-center">
+													{formatDate(event?.end_date_and_time)}
+												</td>
+												<td className="text-end">
+													{event?.invited_communities?.length}
+												</td>
+												<td className="text-center">
+													{event?.event_type === "" ? (
+														<span>&mdash; </span>
+													) : (
+														event?.event_type
+													)}
+												</td>
+												<td className="text-center">
+													<span
+														onClick={() => {
+															handleRemove(event);
+														}}
+														className="d-flex table-trashcan"
+													>
+														<FontAwesomeIcon
+															icon={faTrash}
+															className={"m-auto"}
+														/>
+													</span>
+												</td>
+											</tr>
+										);
+									})}
+								</tbody>
+							</table>
+						</>
+					) : null}
+				</Row>
+
+				{
+					<Row className="mt-4 py-4 justify-content-end">
+						<Col className="mt-4 py-4">
+							<Button
+								text="Save Changes"
+								loading={loading}
+								disabled={loading}
+								onSubmit={handleSubmit}
+								rounded={false}
+							/>
+						</Col>
+					</Row>
+				}
+			</form>
+		</Container>
+	);
 }

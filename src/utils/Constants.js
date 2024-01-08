@@ -45,33 +45,33 @@ export const campaignPages = [
 
 export const technologyPages = [
 	{
-		key : "information",
+		key: "information",
 		name: "Information",
 		component: Info,
 	},
 	{
-		key : "coaches",
+		key: "coaches",
 		name: "Coaches",
 		component: Coaches,
 	},
 	{
-		key : "vendors",
+		key: "vendors",
 		name: "Vendors",
 		component: Vendors,
 	},
 	{
-		key : "incentives",
+		key: "incentives",
 		name: "Incentives",
 		component: Incentives,
 	},
 	{
 		name: "Events",
-		key:'events',
+		key: "events",
 		component: TechnologyEvents,
 	},
 	{
 		name: "Testimonials",
-		key:'testimonials',
+		key: "testimonials",
 		component: Testimonials,
 	},
 ];
@@ -1580,5 +1580,22 @@ export const campaignData = {
 		],
 	},
 };
-export const HOMEPAGE = "HOMEPAGE"
-export const FULL_TECHNOLOGY = "FULL_TECHNOLOGY"
+export const HOMEPAGE = "HOMEPAGE";
+export const FULL_TECHNOLOGY = "FULL_TECHNOLOGY";
+
+export const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+export const monthsOfYear = [
+	"Jan",
+	"Feb",
+	"Mar",
+	"Apr",
+	"May",
+	"Jun",
+	"Jul",
+	"Aug",
+	"Sep",
+	"Oct",
+	"Nov",
+	"Dec",
+];
