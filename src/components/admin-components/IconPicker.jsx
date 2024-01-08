@@ -11,7 +11,7 @@ const icons = [
   // add more icons as needed
 ];
 
-const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
+const colors = ['red', 'yellow', 'white', 'yellow', 'purple', 'orange'];
 
 function IconPicker ({error, onSelect}) {
   const [selectedIcon, setSelectedIcon] = useState(null);
@@ -38,8 +38,7 @@ function IconPicker ({error, onSelect}) {
             active={icon === selectedIcon}
             style={{ cursor: 'pointer' }}
           >
-            <FontAwesomeIcon icon={icon}
-                             color={selectedIcon === icon ? selectedColor : 'black'}/>
+            <FontAwesomeIcon icon={icon} color={selectedIcon === icon ? "#fff" : '#6e207c'}/>
           </ListGroup.Item>
         ))}
       </ListGroup>

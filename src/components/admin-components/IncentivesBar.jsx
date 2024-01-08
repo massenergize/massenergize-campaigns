@@ -14,7 +14,7 @@ const IncentivesBar = ({ incentive = {} }) => {
   };
 
   return (
-    <div className="cusdropdown-container">
+    <div className="cusdropdown-container border rounded overflow-hidden border-primary">
       <div className={`incentivesBardropdown ${isOpen && "open"}`} onClick={handleToggleDropdown}>
         <div className="cusdropdown-toggle">
           <h6 className="theme-color">
@@ -39,7 +39,7 @@ const IncentivesBar = ({ incentive = {} }) => {
 					</span>
         </div>
       </div>
-      <div className={classes("cusdropdown-menu p-4", isOpen ? "incentivesBar-menu-open" : "cusdropdown-menu-close")}>
+      <div className={classes(" p-4", isOpen ? "incentivesBar-menu-open" : "cusdropdown-menu-close d-none")}>
         <Row>
           <Col>
             <IncentiveForm incentive={incentive}/>
