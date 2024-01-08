@@ -42,21 +42,18 @@ const Coaches = ({
   notifySuccess,
   tech_id,
 }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  // const [coaches, setCoaches] = useState([]);
-  const [selectedCoach, setSelectedCoach] = useState({});
-  const [showCoachModal, setShowCoachModal] = useState(false);
-  // const [formData, dispatch] = useReducer(reducer, INTITIAL_COACH_STATE);
+  // const [selectedCoach, setSelectedCoach] = useState({});
+  // const [showCoachModal, setShowCoachModal] = useState(false);
   const [formData, setFormData] = useState(INTITIAL_COACH_STATE);
-  const [query, setQuery] = useState({});
+  // const [query, setQuery] = useState({});
   const [isEditing, setIsEditing] = useState(false);
 
   // TODO LATER: EDITING & CREATION CAN BE MERGED INTO ONE FORM AND ONE PROCESS!
-
-  const buildQuery = (key, data) => {
-    setQuery({ ...query, [key]: data });
-  };
+  // const buildQuery = (key, data) => {
+  //   setQuery({ ...query, [key]: data });
+  // };
 
   const getValue = (key, source) => {
     source = source || formData;
@@ -286,7 +283,7 @@ const Coaches = ({
         </form>
       </Container>
 
-      <MEModal
+      {/* <MEModal
         show={showCoachModal}
         handleClose={() => {
           setShowCoachModal(false);
@@ -298,86 +295,86 @@ const Coaches = ({
         size={"lg"}
       >
         <RenderCoachesEditForm />
-      </MEModal>
+      </MEModal> */}
     </div>
   );
 
-  function RenderCoachesEditForm() {
-    return (
-      <div style={{ padding: 20 }}>
-        <Row className="">
-          <Col>
-            <Input
-              label="Full Name"
-              placeholder="Enter full name here..."
-              required={true}
-              type="textbox"
-              value={getValue("full_name")}
-              onChange={(val) => {
-                buildQuery("full_name", val);
-              }}
-            />
-          </Col>
-        </Row>
-        <Row className="py-2">
-          <Col>
-            <Input
-              label="Email"
-              placeholder="Enter email here..."
-              required={true}
-              type="email"
-              value={getValue("email")}
-              onChange={(val) => {
-                buildQuery("email", val);
-              }}
-            />
-          </Col>
-        </Row>
-        <Row className="py-2">
-          <Col>
-            <Input
-              label="Phone Number"
-              placeholder="Enter email here..."
-              required={false}
-              type="textbox"
-              value={getValue("phone_number")}
-              onChange={(val) => {
-                buildQuery("phone_number", val);
-              }}
-            />
-          </Col>
-        </Row>
-        <Row className="py-2">
-          <Col>
-            <Input
-              label="Community"
-              placeholder="Enter the community of the coach here..."
-              required={true}
-              type="textbox"
-              value={getValue("community")}
-              onChange={(val) => {
-                buildQuery("community", val);
-              }}
-            />
-          </Col>
-        </Row>
-        <Row className="py-4">
-          <Col>
-            <FileUploader
-              required={false}
-              id="coach_image"
-              text="Add a profile image for the Coach"
-              onChange={(val) => {
-                buildQuery("image", val);
-              }}
-              value={getValue("image")}
-              defaultValue={getValue("image")}
-            />
-          </Col>
-        </Row>
-      </div>
-    );
-  }
+  // function RenderCoachesEditForm() {
+  //   return (
+  //     <div style={{ padding: 20 }}>
+  //       <Row className="">
+  //         <Col>
+  //           <Input
+  //             label="Full Name"
+  //             placeholder="Enter full name here..."
+  //             required={true}
+  //             type="textbox"
+  //             value={getValue("full_name")}
+  //             onChange={(val) => {
+  //               buildQuery("full_name", val);
+  //             }}
+  //           />
+  //         </Col>
+  //       </Row>
+  //       <Row className="py-2">
+  //         <Col>
+  //           <Input
+  //             label="Email"
+  //             placeholder="Enter email here..."
+  //             required={true}
+  //             type="email"
+  //             value={getValue("email")}
+  //             onChange={(val) => {
+  //               buildQuery("email", val);
+  //             }}
+  //           />
+  //         </Col>
+  //       </Row>
+  //       <Row className="py-2">
+  //         <Col>
+  //           <Input
+  //             label="Phone Number"
+  //             placeholder="Enter email here..."
+  //             required={false}
+  //             type="textbox"
+  //             value={getValue("phone_number")}
+  //             onChange={(val) => {
+  //               buildQuery("phone_number", val);
+  //             }}
+  //           />
+  //         </Col>
+  //       </Row>
+  //       <Row className="py-2">
+  //         <Col>
+  //           <Input
+  //             label="Community"
+  //             placeholder="Enter the community of the coach here..."
+  //             required={true}
+  //             type="textbox"
+  //             value={getValue("community")}
+  //             onChange={(val) => {
+  //               buildQuery("community", val);
+  //             }}
+  //           />
+  //         </Col>
+  //       </Row>
+  //       <Row className="py-4">
+  //         <Col>
+  //           <FileUploader
+  //             required={false}
+  //             id="coach_image"
+  //             text="Add a profile image for the Coach"
+  //             onChange={(val) => {
+  //               buildQuery("image", val);
+  //             }}
+  //             value={getValue("image")}
+  //             defaultValue={getValue("image")}
+  //           />
+  //         </Col>
+  //       </Row>
+  //     </div>
+  //   );
+  // }
 };
 
 export default Coaches;

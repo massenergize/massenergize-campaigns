@@ -69,8 +69,9 @@ const Info = ({
     }).then((response) => {
       const { data, success, error } = response || {};
       setLoading(false);
-      console.log("This is the actual response", response);
       if (!success) return notifyError(error);
+      // console.log("Its the data after creating info", data);
+      // updateTechObject({ ...data, ...(data?.technology || {}) });
       updateTechObject(data);
       notifySuccess("Saved successfully!");
     });
