@@ -61,3 +61,31 @@ export const addTechnologyVendor = async (data, url = "technologies.vendors.add"
       handleRequestError(error, "ADD_TECHNOLOGY_VENDOR_ERROR");
   }
 }
+
+export async function fetchAllTechnologyTestimonials(campaign_id,url = "campaigns.communities.testimonials.list") {
+  try {
+      // const response = await apiCall(url, { campaign_id }, null);
+      const response = await apiCall(url, { campaign_id }, null);
+      if (!response || !response?.success) {
+          handleRequestError(
+              response?.error,
+              "FETCH_ALL_COMMUNITY_TESTIMONIALS_ERROR_BE"
+          );
+      }
+      const data = response?.data || [];
+      return data;
+  } catch (error) {
+      handleRequestError(error, "FETCH_ALL_COMMUNITY_TESTIMONIALS_ERROR");
+  }
+}
+export async function addTestimonials(url = "campaigns.technologies.testimonials.add",data) {
+  try {
+      const response = await apiCall(url, data, null);
+      if (!response || !response?.success) {
+          handleRequestError(response?.error, "ADD_SELECTED_TESTIMONIALS_ERROR_BE");
+      }
+      return response?.data;
+  } catch (error) {
+      handleRequestError(error, "ADD_SELECTED_TESTIMONIALS_ERROR");
+  }
+}
