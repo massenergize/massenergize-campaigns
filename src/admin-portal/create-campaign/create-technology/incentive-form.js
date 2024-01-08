@@ -1,0 +1,155 @@
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Input from "../../../components/admin-components/Input";
+import IconPicker from "../../../components/admin-components/IconPicker";
+import React, { useReducer, useState } from "react";
+import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloons";
+import { isEmpty } from "../../../helpers/utils/string";
+import { objectIsEmpty } from "../../../helpers/utils";
+import { updateTechnologyIncentives } from "../../../requests/technology-requests";
+import { ProgressButton } from "../../../components/progress-button/progress-button";
+import { HorizontalLoader } from "../../../components/horizontal-loader/horizontal-loader";
+
+export function IncentiveForm ({ incentive = {}, campaign_id, onSubmit, technology_id}) {
+  const { notify } = useBubblyBalloons();
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const [incentiveFormData, dispatch] = useReducer((state, action) => {
+      switch (action.type) {
+        case "SET_FIELD_VALUE":
+          return { ...state, [action.field]: action.value };
+        default:
+          throw new Error(`Unsupported action type: ${action.type}`);
+      }
+    },
+    {
+      title: "",
+      description: "",
+      icon: "",
+      image : "",
+      // info: "",
+      // image: "",
+      ...incentive
+    });
+
+  const handleFieldChange = (field, value) => {
+    dispatch({ type: "SET_FIELD_VALUE", field, value });
+  }
+
+  const isDataValid = () => {
+    setErrors({});
+    let newErrors = {};
+    for (let field in incentiveFormData) {
+      if (isEmpty(incentiveFormData[field])) {
+        newErrors[field] = "This field is required";
+      }
+    }
+
+    if(objectIsEmpty(newErrors)) {
+      return true;
+    }
+
+    setErrors(newErrors);
+    return false;
+  }
+
+  const handleSubmitIncentive = async () => {
+    try {
+      if (!isDataValid()) {
+        return;
+      }
+      setLoading(true)
+
+      const response = await updateTechnologyIncentives({
+        id : technology_id,
+        ...(objectIsEmpty(incentive) ? {} : {campaign_id}),
+        incentive: incentiveFormData
+      });
+
+      if (!response?.success) {
+        notify({
+          title: "Error",
+          message: "Something went wrong while adding incentive",
+          type: "error"
+        });
+        return;
+      }
+
+      notify({
+        title: "Success",
+        message: "Incentive added successfully",
+        type: "success"
+      });
+      setLoading(false)
+      typeof onSubmit === "function" && onSubmit();
+
+    } catch (e) {
+      setLoading(false)
+      console.log(e);
+      notify({
+        title: "Error",
+        message: "Something went wrong while adding incentive",
+        type: "error"
+      })
+    }
+  }
+
+  return (
+    <form>
+      <Row className="">
+        <Col>
+          <Input
+            id="title"
+            name="title"
+            label="Title"
+            placeholder="Enter a Title for this incentive ..."
+            required={true}
+            erro-r={errors?.title}
+            type="textbox"
+            value={incentiveFormData?.title}
+            onChange={(val) => {
+              handleFieldChange("title", val);
+            }}
+          />
+        </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col>
+          <Input
+            id="description"
+            name="description"
+            label="Description"
+            placeholder="Add a more detailed description of the incentive..."
+            required={false}
+            type="textarea"
+            error={errors?.description}
+            value={incentiveFormData?.description}
+            onChange={(val) => {
+              handleFieldChange("description", val);
+            }}
+          />
+        </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col>
+          <p>Icon <span className={"text-danger"}>*</span></p>
+          <IconPicker error={errors?.icon} onSelect={() => {
+          }}/>
+        </Col>
+      </Row>
+
+      <Row className=" justify-content-end">
+        <Col sm={"auto"}>
+          <ProgressButton
+            loading={loading}
+            disabled={loading}
+            onClick={handleSubmitIncentive}
+            rounded={false}>
+            Save
+          </ProgressButton>
+        </Col>
+      </Row>
+    </form>
+  )
+}
