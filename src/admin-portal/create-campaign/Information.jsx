@@ -112,7 +112,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               id="Tagline"
               name="Tagline"
               label="Tagline"
-              error={errors?.title}
+              error={errors?.tagline}
               placeholder="Enter a tagline for this campaign ..."
               required={false}
               type="textbox"
@@ -196,7 +196,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               placeholder="Add a more detailed description of your campaign..."
               required={false}
               type="textarea"
-              error={errors?.title}
+              error={errors?.description}
               value={campaignDetails?.description}
               onChange={(val) => {
                 handleFieldChange("description", val);
