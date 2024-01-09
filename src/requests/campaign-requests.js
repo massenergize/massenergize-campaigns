@@ -345,3 +345,79 @@ export async function updateCampaignTechnologies (data, url = "campaigns.technol
   }
 }
 
+
+export async function createCampaignComment (data, url = "campaigns.technologies.comments.create"){
+try {
+    const response = await apiCall(url, data, null);
+
+    if (!response || !response?.success) {
+      handleRequestError(
+        response?.error,
+        "CREATE_CAMPAIGN_COMMENT_ERROR_BE"
+      );
+    }
+
+    return response?.data;
+  } catch (e) {
+    handleRequestError(e, "CREATE_CAMPAIGN_COMMENT_ERROR");
+  }
+
+}
+
+
+export async function deleteCampaignComment (data, url = "campaigns.technologies.comments.delete"){
+try {
+    const response = await apiCall(url, data, null);
+
+    if (!response || !response?.success) {
+      handleRequestError(
+        response?.error,
+        "DELETE_CAMPAIGN_COMMENT_ERROR_BE"
+      );
+    }
+
+    return response?.data;
+  }
+    catch (e) {
+        handleRequestError(e, "DELETE_CAMPAIGN_COMMENT_ERROR");
+    }
+}
+
+
+
+export async function getUsers (data, url = "users.listForCommunityAdmin"){
+try {
+    const response = await apiCall(url, data, null);
+
+    if (!response || !response?.success) {
+      handleRequestError(
+        response?.error,
+        "GET_USERS_ERROR_BE"
+      );
+    }
+
+    return response?.data;
+  }
+    catch (e) {
+        handleRequestError(e, "GET_USERS_ERROR");
+    }
+}
+
+
+export async function createCampaignTestimonial (data, url = "campaigns.technologies.testimonials.create"){
+try {
+    const response = await apiCall(url, data, null);
+
+    if (!response || !response?.success) {
+      handleRequestError(
+        response?.error,
+        "CREATE_CAMPAIGN_TESTIMONIAL_ERROR_BE"
+      );
+    }
+
+    return response?.data;
+  }
+    catch (e) {
+        handleRequestError(e, "CREATE_CAMPAIGN_TESTIMONIAL_ERROR");
+    }
+}
