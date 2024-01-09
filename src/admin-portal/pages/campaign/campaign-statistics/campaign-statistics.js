@@ -112,14 +112,14 @@ export function CampaignStatistics({}) {
               style={{
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
 		              url(${CAMPAIGN?.image?.url})`,
-              }}
-            >
-              <Col>
-                <Container className={"px-5"} style={{ maxWidth: "100" }}>
-                  <Row className="campaign-text justify-content-end">
-                    <Col>
-                      <h3 className="">CAMPAIGN</h3>
-                    </Col>
+							}}
+						>
+							<Col>
+								<Container className={"px-5"} style={{ maxWidth: "100" }}>
+									<Row className="campaign-text justify-content-end">
+										<Col>
+											<h3 className="">CAMPAIGN</h3>
+										</Col>
 
                     <Col md={"auto"}>
                       <Button
@@ -257,25 +257,25 @@ export function CampaignStatistics({}) {
                 </Col>
               </Row>
 
-              <Row className="mt-4">
-                <Col className="mt-4">
-                  <div className="nav-tabs-container mt-4">
-                    {tabs?.map((tab, index) => (
-                      <div
-                        key={tab?.name}
-                        className={classes("nav-tabs-main tab", {
-                          "tab-active": activeTab === tab?.name,
-                          "rounded-left": index === 0,
-                          "rounded-right": index === tabs.length - 1,
-                        })}
-                        onClick={() => setActiveTab(tab?.name)}
-                      >
-                        <h5 className={classes("nav-tabs")}>{tab?.name}</h5>
-                      </div>
-                    ))}
-                  </div>
-                </Col>
-              </Row>
+							<Row className="mt-4">
+								<Col className="mt-4">
+									<div className="nav-tabs-container mt-4">
+										{tabs?.map((tab, index) => (
+											<div
+												key={tab?.name}
+												className={classes("nav-tabs-main tab", {
+													"tab-active": activeTab === tab?.name,
+													"rounded-left": index === 0,
+													"rounded-right": index === tabs.length - 1,
+												})}
+												onClick={() => setActiveTab(tab?.name)}
+											>
+												<h5 className={classes("nav-tabs")}>{tab?.name}</h5>
+											</div>
+										))}
+									</div>
+								</Col>
+							</Row>
 
               <Row className="mt-4">
                 <Col>
@@ -291,12 +291,12 @@ export function CampaignStatistics({}) {
         ) : null}
         {/*endregion*/}
 
-        {/*region error and loader*/}
-        {!campaignLoading && campaignError ? (
-          <Col>
-            <h5>An error occurred</h5>
-          </Col>
-        ) : null}
+				{/*region error and loader*/}
+				{!campaignLoading && campaignError ? (
+					<Col>
+						<h5>An error occurred</h5>
+					</Col>
+				) : null}
 
         {campaignLoading ? (
           <Col>
