@@ -14,6 +14,7 @@ const Button = ({
   // const [loader, setLoader] = useState(false);
   return (
     <button
+      type="button"
       onClick={(e) => {
         if (onClick) return onClick(e);
         onSubmit && onSubmit(e);

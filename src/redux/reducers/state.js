@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import {
+  adminPortalReducer,
   authenticatedAdminReducer,
   campaignAccountReducer,
   campaignInformationReducer,
@@ -28,5 +29,6 @@ export default combineReducers({
   authAdmin: authenticatedAdminReducer,
   navigation: navigationMenuReducer,
   comments: commentsListReducer,
-  campaignAccount:campaignAccountReducer
+  campaignAccount: campaignAccountReducer,
+  isAdminPortal: adminPortalReducer,
 });

@@ -2,12 +2,12 @@ import React, { useState, useContext } from "react";
 import { Button, ButtonGroup, Col, Container, Row,} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-	faArrowLeft,
-	faBan,
-	faBullhorn,
-	faDownload,
-	faGlobe,
-	faPenToSquare,
+  faArrowLeft,
+  faBan,
+  faBullhorn,
+  faDownload,
+  faGlobe,
+  faPenToSquare,
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import StatsCard from "../../../../components/admin-components/StatsCard";
@@ -26,15 +26,13 @@ import GhostLoading from "../../../../components/admin-components/GhostLoading";
 
 
 
-export function CampaignStatistics ({}) {
+export function CampaignStatistics({}) {
   const { id } = useParams();
 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const {
-    blow,pop
-  } = useBubblyBalloons();
+  const { blow,pop} = useBubblyBalloons();
 
   const {
     data: campaign,
@@ -124,10 +122,13 @@ export function CampaignStatistics ({}) {
                     </Col>
 
                     <Col md={"auto"}>
-                      <Button className="btn-light mr-3" onClick={() => {
-                        window.history.back();
-                      }}>
-                        <FontAwesomeIcon icon={faArrowLeft}/>
+                      <Button
+                        className="btn-light mr-3"
+                        onClick={() => {
+                          window.history.back();
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faArrowLeft} />
                       </Button>
                       &nbsp;
                       <ButtonGroup>
@@ -151,7 +152,10 @@ export function CampaignStatistics ({}) {
 
             <Container className={"px-5"} style={{ maxWidth: "100" }}>
               <Row>
-                <Col className="title--container rounded-4 px-4 py-5">
+                <Col
+                  className="title--container rounded-4 py-5"
+                  style={{ paddingLeft: "3.6rem", paddingRight: "3.6rem" }}
+                >
                   <Row>
                     <Col className="mt-4">
                       <h3 className="title-txt">
@@ -168,18 +172,18 @@ export function CampaignStatistics ({}) {
                             <p className="camp-date">
                               Start Date :{" "}
                               <span>
-														{CAMPAIGN?.start_date
-                              ? CAMPAIGN?.start_date
-                              : "Not specified"}
-													</span>
+                                {CAMPAIGN?.start_date
+                                  ? CAMPAIGN?.start_date
+                                  : "Not specified"}
+                              </span>
                             </p>
                             <p className="camp-date">
                               End Date :{" "}
                               <span>
-														{CAMPAIGN?.end_date
-                              ? CAMPAIGN?.end_date
-                              : "Not specified"}
-													</span>
+                                {CAMPAIGN?.end_date
+                                  ? CAMPAIGN?.end_date
+                                  : "Not specified"}
+                              </span>
                             </p>
                           </div>
                         </Col>
@@ -187,13 +191,16 @@ export function CampaignStatistics ({}) {
                     </Col>
                     <Col className="update-btn-con">
                       <p
-                        className={CAMPAIGN?.is_published ? "active" : "inactive"}
+                        className={
+                          CAMPAIGN?.is_published ? "active" : "inactive"
+                        }
                       ></p>
                       <Link
+                        target="_blank"
                         className="update-btn btn btn-primary py-2 px-3"
                         to={`/admin/campaign/${id}/edit`}
                       >
-                        <FontAwesomeIcon icon={faPenToSquare}/> Update
+                        <FontAwesomeIcon icon={faPenToSquare} /> Update
                       </Link>
                     </Col>
                   </Row>
@@ -210,7 +217,7 @@ export function CampaignStatistics ({}) {
                     {statistics?.map((data, index) => {
                       return (
                         <div key={index}>
-                          <StatsCard data={data} index={index}/>
+                          <StatsCard data={data} index={index} />
                         </div>
                       );
                     })}
@@ -228,22 +235,23 @@ export function CampaignStatistics ({}) {
                     <Button
                       className="btn-success mr-3"
                       onClick={() => {
-                        apiCall("/downloads.campaigns.performance", { campaign_id: id }).then(
-                          res => {
-                            if (res?.success) {
-                              // 	show a message asking user to check email
-                              blow({
-                                title: "Success",
-                                message: "File sent to your email. Please check your email",
-                                type: "success",
-                                timeout: false
-                              })
-                            }
+                        apiCall("/downloads.campaigns.performance", {
+                          campaign_id: id,
+                        }).then((res) => {
+                          if (res?.success) {
+                            // 	show a message asking user to check email
+                            blow({
+                              title: "Success",
+                              message:
+                                "File sent to your email. Please check your email",
+                              type: "success",
+                              timeout: false,
+                            });
                           }
-                        )
+                        });
                       }}
                     >
-                      <FontAwesomeIcon icon={faDownload}/> Download Data File
+                      <FontAwesomeIcon icon={faDownload} /> Download Data File
                     </Button>
                   </div>
                 </Col>
@@ -292,7 +300,7 @@ export function CampaignStatistics ({}) {
 
         {campaignLoading ? (
           <Col>
-            <Loading/>
+            <Loading />
           </Col>
         ) : null}
       </Container>

@@ -174,11 +174,14 @@
 }
 
 .title--container {
-	background-color: #20203f;
+	// background-color: #20203f;
+	background-color: #3d0746;
+	// background-color: white;
 	margin-top: -90px;
 	height: 330px;
 	color: white;
 	padding: 2rem;
+	box-shadow: var(--elevate-float-pro);
 	/*width: 95%;*/
 }
 

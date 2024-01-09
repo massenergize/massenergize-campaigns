@@ -3,6 +3,7 @@ import {
   ONE_TECH_DATA,
 } from "../../user-portal/data/user-portal-dummy-data";
 import { LOADING } from "../../utils/Constants";
+import { portalIsAdmin } from "../../utils/utils";
 import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
@@ -10,6 +11,7 @@ import {
   SET_CAMPAIGN_ACCOUNT,
   SET_FIRE_AUTH,
   SET_FULL_TECH_OBJ,
+  SET_IS_ADMIN_PORTAL,
   SET_NAVIGATION_MENU,
   SET_TESTIMONIALS,
   SET_USER_OBJ,
@@ -96,7 +98,15 @@ export const testimonialsReducer = (state = [], action = {}) => {
 
 export const campaignAccountReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'SET_CAMPAIGN_ACCOUNT':
+    case SET_CAMPAIGN_ACCOUNT:
+      return action.payload; // return new state
+    default:
+      return state; // return current state if action is not handled
+  }
+};
+export const adminPortalReducer = (state = portalIsAdmin(), action) => {
+  switch (action.type) {
+    case SET_IS_ADMIN_PORTAL:
       return action.payload; // return new state
     default:
       return state; // return current state if action is not handled

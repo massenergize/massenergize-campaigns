@@ -74,3 +74,28 @@ export function generateUniqueRandomString(length) {
 
   return result;
 }
+export function smartString(inputString, maxLength = 30) {
+  if (
+    typeof inputString !== "string" ||
+    typeof maxLength !== "number" ||
+    maxLength <= 0
+  ) {
+    console.error(
+      "Invalid input. Please provide a valid string and a positive number of characters."
+    );
+    return "";
+  }
+
+  if (inputString.length <= maxLength) {
+    return inputString;
+  }
+
+  return inputString.slice(0, maxLength) + "...";
+}
+
+export const setPageTitle = (string) => (document.title = string);
+
+export const portalIsAdmin = () => {
+  const url = window.location.href;
+  return url.includes("admin/");
+};
