@@ -474,3 +474,17 @@ export async function AddSelectedEvents(data, url = "campaigns.events.add") {
 		handleRequestError(e, "ADD_EVENTS_TO_CAMPAIGN");
 	}
 }
+
+export async function fetchAllCampaignTechnologyEvents(campaign_id, url="campaigns.technologies.events.list"){
+  try {
+    const response = await apiCall(url, {campaign_id}, null);
+
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "FETCH_TECHNOLOGY_EVENTS_BE");
+    }
+    return response?.data;
+  } catch (e) {
+    handleRequestError(e, "FETCH_TECHNOLOGY_EVENTS");
+  }
+
+}

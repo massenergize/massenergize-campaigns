@@ -1,7 +1,7 @@
 import React from 'react'
-import { Spinner } from 'react-bootstrap'
+import { Spinner } from '@kehillahglobal/ui'
 
-export default function GhostLoading() {
+export default function GhostLoader() {
   return (
     <div style={{
         width: '100%',
@@ -16,7 +16,7 @@ export default function GhostLoading() {
         zIndex: 100,
         bottom: 0,
     }}>
-        <Spinner animation="border" />
+         <Spinner color="#6e207c" radius={56} variation="TwoHalfCirclesType" />
     </div>
   )
 }

@@ -22,7 +22,7 @@ import { fetchCampaign, updateCampaign } from "../../../../requests/campaign-req
 import { apiCall } from "../../../../api/messenger";
 import Loading from "../../../../components/pieces/Loading";
 import { useBubblyBalloons } from "../../../../lib/bubbly-balloon/use-bubbly-balloons";
-import GhostLoading from "../../../../components/admin-components/GhostLoading";
+import GhostLoader from "../../../../components/admin-components/GhostLoader";
 
 
 
@@ -103,7 +103,7 @@ export function CampaignStatistics({}) {
   return (
     <AdminLayout>
       <Container fluid className={""}>
-        {loading && <GhostLoading/>}
+        {loading && <GhostLoader/>}
         {/*region campaign content*/}
         {!campaignLoading && !campaignError ? (
           <>

@@ -15,7 +15,6 @@ import Button from "../../../components/admin-components/Button";
 function TechnologyEvents({campaign_id, tech_id,techObject, updateTechObject}) {
   let existing = [...(techObject?.events||[])?.map((tech) => tech?.event)].flat();
 
-  console.log("===existing===", techObject)
   const [selectedEvents, setSelectedEvents] = useState(existing || []);
   const [loading, setLoading] = useState(false);
 
@@ -50,7 +49,6 @@ function TechnologyEvents({campaign_id, tech_id,techObject, updateTechObject}) {
         });
       }
     } catch (e) {
-      console.log("===e===", e);
       setLoading(false);
       pop({
         title: "Error",
