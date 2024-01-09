@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, ButtonGroup, Col, Container, Row } from "react-bootstrap";
+import React, { useState, useContext } from "react";
+import { Button, ButtonGroup, Col, Container, Row,} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
@@ -17,19 +17,22 @@ import classes from "classnames";
 // import Button from "../../../../components/admin-components/Button";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { AdminLayout } from "../../../../layouts/admin-layout";
-import useSWR from "swr";
-import { fetchCampaign } from "../../../../requests/campaign-requests";
+import useSWR, {mutate} from "swr";
+import { fetchCampaign, updateCampaign } from "../../../../requests/campaign-requests";
 import { apiCall } from "../../../../api/messenger";
 import Loading from "../../../../components/pieces/Loading";
 import { useBubblyBalloons } from "../../../../lib/bubbly-balloon/use-bubbly-balloons";
+import GhostLoader from "../../../../components/admin-components/GhostLoader";
+
+
 
 export function CampaignStatistics({}) {
   const { id } = useParams();
 
-  const [showToast, setShowToast] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const { blow } = useBubblyBalloons();
+  const { blow,pop} = useBubblyBalloons();
 
   const {
     data: campaign,
@@ -37,7 +40,7 @@ export function CampaignStatistics({}) {
     isValidating: campaignValidating,
     error: campaignError,
   } = useSWR(
-    `campaign.info/${id}`,
+    `campaign.info`,
     async () => {
       return await fetchCampaign(id);
     },
@@ -50,24 +53,57 @@ export function CampaignStatistics({}) {
   const CAMPAIGN = campaign || {};
 
   const statistics = Object.entries(CAMPAIGN?.stats || {});
+  const mutateCampaign = (data) => {
+    mutate(`campaign.info`);
+  }
+
+
+
+  const handleUpdateCampaign = async() => {
+    setLoading(true);
+    try{
+      const res = await updateCampaign({is_published: !CAMPAIGN?.is_published, id: CAMPAIGN?.id});
+      if(res){
+         mutateCampaign(res);
+        setLoading(false);
+        blow({
+          title: "Success",
+          message: res?.is_published ? "Campaign published successfully" : "Campaign unpublished successfully",
+          type: "success",
+          timeout: false
+        })
+      }
+
+    }catch (e) {
+      setLoading(false);
+      pop({
+        title: "Error",
+        message: "An error occurred",
+        type: "danger",
+        timeout: false
+      })
+
+    }
+  }
+
 
   const tabs = [
     {
       name: "Comments",
-      component: <Comments campaign={CAMPAIGN} />,
+      component: <Comments campaign={CAMPAIGN} mutateData ={mutateCampaign}/>,
     },
     {
       name: "Testimonials",
-      component: <Testimonials testimonials={CAMPAIGN?.my_testimonials} />,
+      component: <Testimonials campaign={CAMPAIGN} mutateData ={mutateCampaign}/>,
     },
   ];
   const [activeTab, setActiveTab] = useState(tabs[0]?.name);
 
-  console.log({ CAMPAIGN });
 
   return (
     <AdminLayout>
       <Container fluid className={""}>
+        {loading && <GhostLoader/>}
         {/*region campaign content*/}
         {!campaignLoading && !campaignError ? (
           <>
@@ -76,14 +112,14 @@ export function CampaignStatistics({}) {
               style={{
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
 		              url(${CAMPAIGN?.image?.url})`,
-              }}
-            >
-              <Col>
-                <Container className={"px-5"} style={{ maxWidth: "100" }}>
-                  <Row className="campaign-text justify-content-end">
-                    <Col>
-                      <h3 className="">CAMPAIGN</h3>
-                    </Col>
+							}}
+						>
+							<Col>
+								<Container className={"px-5"} style={{ maxWidth: "100" }}>
+									<Row className="campaign-text justify-content-end">
+										<Col>
+											<h3 className="">CAMPAIGN</h3>
+										</Col>
 
                     <Col md={"auto"}>
                       <Button
@@ -96,22 +132,12 @@ export function CampaignStatistics({}) {
                       </Button>
                       &nbsp;
                       <ButtonGroup>
-                        <Button
-                          variant="warning"
-                          onClick={() => {
-                            navigate(`/campaign/${id}`);
-                          }}
-                        >
-                          <FontAwesomeIcon icon={faEye} />
+                        <Button onClick={() => {navigate(`/campaign/${id}`)}} style={{marginRight:2}}>
+                          <FontAwesomeIcon icon={faEye}/> View
                         </Button>
-                        <Button
-                          variant="success"
-                          className={
-                            CAMPAIGN?.is_published
-                              ? "disable-btn"
-                              : "btn-primary"
-                          }
-                        >
+                        <Button className={CAMPAIGN?.is_published ? "disable-btn" : "btn-primary"}  onClick={()=>{
+                          handleUpdateCampaign()
+                        }}>
                           <FontAwesomeIcon
                             icon={CAMPAIGN?.is_published ? faBan : faGlobe}
                           />{" "}
@@ -231,25 +257,25 @@ export function CampaignStatistics({}) {
                 </Col>
               </Row>
 
-              <Row className="mt-4">
-                <Col className="mt-4">
-                  <div className="nav-tabs-container mt-4">
-                    {tabs?.map((tab, index) => (
-                      <div
-                        key={tab?.name}
-                        className={classes("nav-tabs-main tab", {
-                          "tab-active": activeTab === tab?.name,
-                          "rounded-left": index === 0,
-                          "rounded-right": index === tabs.length - 1,
-                        })}
-                        onClick={() => setActiveTab(tab?.name)}
-                      >
-                        <h5 className={classes("nav-tabs")}>{tab?.name}</h5>
-                      </div>
-                    ))}
-                  </div>
-                </Col>
-              </Row>
+							<Row className="mt-4">
+								<Col className="mt-4">
+									<div className="nav-tabs-container mt-4">
+										{tabs?.map((tab, index) => (
+											<div
+												key={tab?.name}
+												className={classes("nav-tabs-main tab", {
+													"tab-active": activeTab === tab?.name,
+													"rounded-left": index === 0,
+													"rounded-right": index === tabs.length - 1,
+												})}
+												onClick={() => setActiveTab(tab?.name)}
+											>
+												<h5 className={classes("nav-tabs")}>{tab?.name}</h5>
+											</div>
+										))}
+									</div>
+								</Col>
+							</Row>
 
               <Row className="mt-4">
                 <Col>
@@ -258,9 +284,6 @@ export function CampaignStatistics({}) {
                       activeTab === tab?.name && <div>{tab?.component}</div>
                     );
                   })}
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Accusamus delectus dolorem dolorum illum iste nihil porro quod
-                  reiciendis tempore totam.
                 </Col>
               </Row>
             </Container>
@@ -268,12 +291,12 @@ export function CampaignStatistics({}) {
         ) : null}
         {/*endregion*/}
 
-        {/*region error and loader*/}
-        {!campaignLoading && campaignError ? (
-          <Col>
-            <h5>An error occurred</h5>
-          </Col>
-        ) : null}
+				{/*region error and loader*/}
+				{!campaignLoading && campaignError ? (
+					<Col>
+						<h5>An error occurred</h5>
+					</Col>
+				) : null}
 
         {campaignLoading ? (
           <Col>

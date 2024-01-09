@@ -744,6 +744,19 @@ $input-focus-outline: $admin-accent-color;
 	color: rgb(43, 43, 43);
 	margin: 1rem 0;
 	font-size: 14px;
+	cursor: pointer;
+}
+.testimonial-read-more-toggle{
+	cursor: pointer;
+}
+.comment-delete-btn{
+	color: rgb(252, 119, 95);
+	font-size: 14px;
+	cursor: pointer;
+}
+.comment-delete-btn:hover{
+	color: red;
+	font-weight: bold;
 }
 
 .comment-date {

@@ -49,7 +49,7 @@ const StatsCard = ({ data, index }) => {
 				</span>
 			</div>
 			<div className="text-center">
-				<h1>{value}</h1>
+				<h1>{value||0}</h1>
 			</div>
 		</div>
 	);

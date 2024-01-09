@@ -114,6 +114,7 @@ export function CreateTechnology() {
                 setActiveTab={setActiveTab}
                 coaches={coaches}
                 setCoaches={setCoaches}
+                techObject={techObject}
               />
             )
           );

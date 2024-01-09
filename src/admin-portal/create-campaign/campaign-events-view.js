@@ -1,232 +1,232 @@
-import DataTable from "../../components/data-table";
-import { TableFooter } from "../../components/data-table/TableFooter";
-import React, { useMemo, useState } from "react";
-import { SelectColumnFilter } from "../../components/data-table/filters";
-import dayjs from "dayjs";
-const DUMMY_DATA = [
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name1",
-    createdAt: "2023-12-01T00:00:00Z",
-    updatedAt: "2023-12-01T00:00:00Z",
-    category: "Category1",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name2",
-    createdAt: "2023-12-02T00:00:00Z",
-    updatedAt: "2023-12-02T00:00:00Z",
-    category: "Category2",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name3",
-    createdAt: "2023-12-03T00:00:00Z",
-    updatedAt: "2023-12-03T00:00:00Z",
-    category: "Category3",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name4",
-    createdAt: "2023-12-04T00:00:00Z",
-    updatedAt: "2023-12-04T00:00:00Z",
-    category: "Category4",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name5",
-    createdAt: "2023-12-05T00:00:00Z",
-    updatedAt: "2023-12-05T00:00:00Z",
-    category: "Category5",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name6",
-    createdAt: "2023-12-06T00:00:00Z",
-    updatedAt: "2023-12-06T00:00:00Z",
-    category: "Category6",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name7",
-    createdAt: "2023-12-07T00:00:00Z",
-    updatedAt: "2023-12-07T00:00:00Z",
-    category: "Category7",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name8",
-    createdAt: "2023-12-08T00:00:00Z",
-    updatedAt: "2023-12-08T00:00:00Z",
-    category: "Category8",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name9",
-    createdAt: "2023-12-09T00:00:00Z",
-    updatedAt: "2023-12-09T00:00:00Z",
-    category: "Category9",
-  },
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    name: "Name10",
-    createdAt: "2023-12-10T00:00:00Z",
-    updatedAt: "2023-12-10T00:00:00Z",
-    category: "Category10",
-  },
-];
+import React, { useState } from "react";
+import { Col, Container, FormLabel, Row, Button as BTN } from "react-bootstrap";
+import { MultiSelect } from "react-multi-select-component";
+import Button from "src/components/admin-components/Button";
+import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
+import { daysOfWeek, monthsOfYear } from "src/utils/Constants";
+import {
+  AddSelectedEvents,
+  fetchAllCampaignTechnologyEvents,
+} from "src/requests/campaign-requests";
+import useSWR from "swr";
+import GhostLoader from "src/components/admin-components/GhostLoader";
+import { useParams } from "react-router-dom";
 
-export function CampaignEventsView ({ events = DUMMY_DATA }) {
-  const [data, setData] = useState(DUMMY_DATA);
 
-  const columns = useMemo(
-    () => [
-      {
-        id: "logo",
-        Header: () => null,
-        accessor: (values) => {
-          const { logo } = values;
-          return (
-            <div>
-              <img
-                src={logo}
-                alt="logo"
-                style={{ width: "40px", height: "40px" }}
-              />
-            </div>
-          );
-        },
-        className: "text-left",
-        filter: "equals",
 
-        style: {
-          textAlign: "left",
-        },
-      },
-      {
-        Filter: SelectColumnFilter,
-        Header: "Name",
-        accessor: "name",
-        className: "text-left",
-        filter: "equals",
-        id: "name",
-        style: {
-          textAlign: "left",
-        },
-      },
-      {
-        Filter: SelectColumnFilter,
-        Header: "Date",
-        accessor: (values) => {
-          const { createdAt } = values;
-          return dayjs(createdAt).format("MM-DD-YYYY");
-        },
-        disableSortBy: true,
-        filter: "equals",
-        id: "createdAt",
-        style: {
-          textAlign: "center",
-        },
-      },
+export function CampaignEventsView({ events, campaign }) { //@Todo: Add a mutate to update main
 
-      {
-        Header: "Category",
-        accessor: (values) => {
-          const { category } = values;
-          return <span>{category}</span>;
-        },
-        id: "category",
-        style: {
-          textAlign: "center",
-        },
-      },
-    ],
-    []
-  );
+	const [loading, setLoading] = useState(false);
+	const {id} = useParams()
+	
+	const {
+		data: allEvents,
+		isLoading,
+		error,
+	} = useSWR("campaigns.technologies.events.list", async () =>
+    fetchAllCampaignTechnologyEvents(campaign?.id || id)
+	);
+	
+	const existingEvents = [...campaign?.technologies?.map((tech) => tech?.events)].flat()
+  const [selectedEvents, setSelectedEvents] = useState(existingEvents?.map(({technology_event}) => technology_event));
+  const { blow, pop } = useBubblyBalloons();
 
-  const [pagesCount, setPagesCount] = useState(1);
-  const [pageIndex, setPageIndex] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
+  const handleRemove = (data) => {
+    const filteredTechnologies = selectedEvents.filter(
+      (testimonial) => testimonial.id !== data.id
+    );
+    setSelectedEvents(filteredTechnologies);
+  };
+  const formatDate = (date) => {
+    let d = new Date(date);
+    let d_date = d.getDate();
+    let day = daysOfWeek[d.getDay()];
+    let month = monthsOfYear[d.getMonth()];
+    let year = d.getFullYear();
 
-  const [skipPageReset, setSkipPageReset] = React.useState(false);
-  const updateMyData = (rowIndex, columnId, value) => {
-    setSkipPageReset(true);
+    return `${day}, ${d_date} ${month} ${year} `;
   };
 
-  let [canGotoPreviousPage, setCanPreviousPage] = useState(false);
-  let [canGotoNextPage, setCanGotoNextPage] = useState(false);
 
-  const fetchData = async function (pageIndex, pageSize) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
     try {
-    } catch (e) {
-      console.log(e);
-    }
-  };
+      const payload = {
+        campaign_id: campaign?.id || id,
+        technology_event_ids: selectedEvents.map((event) => event.id),
+      };
 
-  // region Pagination
-  const gotoPage = async function (next) {
-    if (next !== pageIndex) {
-      if (next < pageIndex) {
-        if (canGotoPreviousPage) {
-          await fetchData(next, pageSize);
-        }
-      } else if (next > pageIndex) {
-        if (canGotoNextPage) {
-          let data = await fetchData(next, pageSize);
+      const res = await AddSelectedEvents(payload);
 
-          if (data) {
-            // console.log({ pi : pageIndex + 1, pagesCount });
-            if (pageIndex + 1 >= pagesCount) {
-              setCanGotoNextPage(false);
-            }
-
-            if (!canGotoPreviousPage && pagesCount > 1) {
-              setCanGotoNextPage(true);
-            }
-          }
-        }
+      if (res) {
+        setLoading(false);
+        blow({
+          title: "Success",
+          message: "Campaign Event Added successfully.",
+          type: "success",
+          duration: 5000,
+        });
       }
+    } catch (e) {
+      setLoading(false);
+      pop({
+        title: "Error",
+        message: "Something went wrong. Please try again later.",
+        type: "error",
+        timeout: 5000,
+      });
     }
   };
 
-  const previousPage = async function () {
-    if (canGotoPreviousPage) {
-      return await fetchData(pageIndex - 1, pageSize);
-    }
-  };
+  if (isLoading || loading)
+    return <GhostLoader loading={isLoading} text="Loading Events..." />;
+  const EVENTS_SIZE = (selectedEvents || [])?.length;
 
-  const nextPage = async function () {
-    if (canGotoNextPage) {
-      return await fetchData(pageIndex + 1, pageSize);
-    }
-  };
-
-  // endregion
   return (
-    <div>
-      <DataTable
-        className={"table-responsive-sm table"}
-        columns={columns}
-        data={data}
-        size={pageSize}
-        skipPageReset={skipPageReset}
-        updateMyData={updateMyData}
-        renderRowSubComponent={null}
-        rowSelect={true}
-      />
-      <TableFooter
-        pageIndex={pageIndex}
-        pagesCount={pagesCount}
-        pageSize={pageSize}
-        setPageSize={setPageSize}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        canGotoPreviousPage={canGotoPreviousPage}
-        canGotoNextPage={canGotoNextPage}
-        gotoPage={gotoPage}
-        setPageIndex={setPageIndex}
-        fetchData={fetchData}
-      />
-    </div>
+    <Container style={{ height: "100vh" }}>
+      <form>
+        <Row>
+          <Col>
+            <FormLabel>
+              Select the events that resonate with your campaign from the
+              options below, and showcase them on your campaign page with just a
+              click!
+            </FormLabel>
+          </Col>
+        </Row>
+        <Row className="" style={{ height: "180px" }}>
+          <Col>
+            <MultiSelect
+              options={allEvents?.map((event) => {
+                return {
+                  ...event,
+                  label: `${event?.event?.name} - ${event?.technology?.name}` ,
+                  value: event?.id,
+                };
+              })}
+              value={selectedEvents?.map((event) => {
+                return {
+                  ...event,
+                  label: `${event?.event?.name} - ${event?.technology?.name}`,
+                  value: event?.id,
+                };
+              })}
+              valueRenderer={(selected, _options) => {
+                if (selected?.length < 1) {
+                  return "No Events selected...";
+                }
+
+                if (selected?.length === allEvents?.length) {
+                  return "All Events Selected";
+                }
+                if (selected?.length >= 3) {
+                  return `${selected?.length} Events Selected`;
+                }
+
+                return selected.map(({ label, id }, i) => {
+                  return label + (i < allEvents?.length ? ", " : "");
+                });
+              }}
+              onChange={(val) => {
+                setSelectedEvents(val);
+              }}
+              labelledBy="Select"
+            />
+          </Col>
+        </Row>
+
+        <Row
+          className=" pb-4 justify-content-start"
+          style={{ marginTop: "-5rem" }}
+        >
+          {EVENTS_SIZE > 0 ? (
+            <>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th className="text-center" scope="col">
+                      #
+                    </th>
+                    <th className="text-center" scope="col">
+                      Image
+                    </th>
+                    <th className="text-center" scope="col">
+                      Name
+                    </th>
+                    <th className="text-center" scope="col">
+                      Technology
+                    </th>
+                    <th className="text-center" scope="col">
+                      {" "}
+                      Date
+                    </th>
+                    <th className="text-center" scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(selectedEvents || [])?.map((event, index) => {
+                    return (
+                      <tr key={event?.id} className="text-sm">
+                        <td className="text-center" >{index+1}</td>
+                        <td className="text-center">
+                          <img
+                            style={{
+                              width: "35px",
+                              height: "35px",
+                              objectFit: "cover",
+                              borderRadius: "5px",
+                            }}
+                            src={event?.event?.image?.url}
+                            alt=""
+                          />
+                        </td>
+                        <td className="text-center">{event?.event?.name}</td>
+                        <td className="text-center">{event?.technology?.name}</td>
+                        <td className="text-center">
+                          {formatDate(event?.event?.start_date)}
+                        </td>
+                        <td className="text-center">
+                          <BTN
+                            // style={{ marginLeft: 10 }}
+                            onClick={() => {
+                              if (
+                                window.confirm(
+                                  "Are you sure you want to remove this Event?"
+                                )
+                              ) {
+                                handleRemove(event);
+                              }
+                            }}
+                            variant="primary"
+                          >
+                            <span>Remove</span>
+                          </BTN>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </>
+          ) : null}
+        </Row>
+
+        {
+          <Row className="mt-2 py-4 justify-content-end">
+            <Col className="mt-2 py-4">
+              <Button
+                text="Save Changes"
+                loading={loading}
+                disabled={loading}
+                onSubmit={handleSubmit}
+                rounded={false}
+              />
+            </Col>
+          </Row>
+        }
+      </form>
+    </Container>
   );
 }
