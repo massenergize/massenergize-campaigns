@@ -70,7 +70,7 @@ const IncentivesBar = ({ data }) => {
 						: "cusdropdown-menu cusdropdown-menu-close"
 				}
 			>
-				<Container>
+				{/* <Container>
 					<form>
 						<Row className="py-4">
 							<Col className="px-4">
@@ -116,7 +116,7 @@ const IncentivesBar = ({ data }) => {
 							</Col>
 						</Row>
 					</form>
-				</Container>
+				</Container> */}
 			</div>
 		</div>
 	);

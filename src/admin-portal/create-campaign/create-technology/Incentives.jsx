@@ -15,7 +15,7 @@ const Incentives = () => {
 			id: 1,
 			title: "ENVIRONMENTALLY  FRIENDLY",
 			description: "this is just a normal description",
-			icon: faLightbulb,
+			icon: '',
 		},
 		{
 			id: 2,
