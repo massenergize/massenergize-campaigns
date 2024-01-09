@@ -196,12 +196,12 @@ function OneTestimonial({
                   }}
                 >
                   <span>
-                    {index + 1}. {item?.title || "..."}
+                    {index + 1}. {`${item?.title} ` || "..."}
                   </span>
                   <span
-                    style={{ color: "var(--app-medium-green)", marginLeft: 5 }}
+                    // style={{  marginLeft: 5 }}
                   >
-                    ({item?.tech_name})
+                   ({item?.tech_name})
                   </span>
                 </li>
               );

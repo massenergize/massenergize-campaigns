@@ -89,6 +89,10 @@
   .do-more-root p {
     width: 80%;
   }
+  .one-coach-main h6 {
+    margin: 20px 0px;
+    font-weight: bold;
+  }
 
   .one-tech-main img {
     height: 420px;

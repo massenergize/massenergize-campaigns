@@ -75,8 +75,24 @@ function TestimonialBox({
           flexDirection: "row",
           marginTop: 10,
           marginTop: "auto",
+          alignItems: "center",
         }}
       >
+        {image?.url && (
+          <img
+            onClick={() => navigator(route)}
+            className="phone-vanish touchable-opacity"
+            style={{
+              width: 35,
+              height: 35,
+              objectFit: "cover",
+              borderRadius: 5,
+              marginTop: 7,
+              borderRadius: "100%",
+            }}
+            src={image?.url}
+          />
+        )}
         <p
           className="touchable-opacity"
           onClick={() => navigator(route)}
@@ -85,6 +101,7 @@ function TestimonialBox({
             marginLeft: "auto",
             fontWeight: "bold",
             color: "var(--app-medium-green)",
+            marginBottom: 0,
           }}
         >
           <i className="fa fa-eye"></i>

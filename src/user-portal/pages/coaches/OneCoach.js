@@ -3,6 +3,7 @@ import React from "react";
 function OneCoach({ full_name, image, community }) {
   return (
     <div
+      className="one-coach-main"
       style={{
         display: "flex",
         flexDirection: "column",
