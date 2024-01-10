@@ -345,3 +345,19 @@ export async function updateCampaignTechnologies (data, url = "campaigns.technol
   }
 }
 
+export async function removeCampaignTechnology (data, url = "campaigns.technologies.remove") {
+  try {
+    const response = await apiCall(url, data, null);
+
+    if (!response || !response?.success) {
+      handleRequestError(
+        response?.error,
+        "REMOVE_CAMPAIGN_TECHNOLOGY_ERROR_BE"
+      );
+    }
+
+    return response?.data;
+  } catch (e) {
+    handleRequestError(e, "REMOVE_CAMPAIGN_TECHNOLOGY_ERROR");
+  }
+}
