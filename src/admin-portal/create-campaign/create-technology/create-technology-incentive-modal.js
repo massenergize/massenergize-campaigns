@@ -2,16 +2,7 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import { IncentiveForm } from "./incentive-form";
 
-export function CreateTechnologyIncentiveModal ({ show, onHide, technology_id }) {
-  const incentive =  {
-      title: "",
-      description: "",
-      icon: "",
-      // info: "",
-      // image: "",
-    };
-
-
+export function CreateTechnologyIncentiveModal ({ show, onHide, technology_id, onSubmit }) {
   return (
     <Modal onHide={onHide} show={show} size={"lg"}>
       <Modal.Header closeButton className={"border-bottom-0"}>
@@ -21,7 +12,7 @@ export function CreateTechnologyIncentiveModal ({ show, onHide, technology_id })
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <IncentiveForm technology_id={technology_id} incentive={incentive} onSubmit={() => {}} />
+        <IncentiveForm key={"new-incentive"} technology_id={technology_id} incentive={{}} onSubmit={onSubmit} />
       </Modal.Body>
       {/*<Modal.Footer>
         <Row className=" justify-content-end">

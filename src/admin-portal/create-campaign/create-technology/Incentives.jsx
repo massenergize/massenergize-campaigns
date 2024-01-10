@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { Row, Col } from "react-bootstrap";
 import "../../../assets/styles/admin-styles.scss";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import IncentivesBar from "../../../components/admin-components/IncentivesBar";
@@ -38,14 +37,16 @@ const DUMMY_DATA = [
 		},*/
 ];
 
+const Incentives = ({ tech_id, campaign_id, updateTechObject,}) => {
+  const { technology,
+    handleTechnologyDetailsChange,
+    setNewTechnologyDetails,
+    handleOverviewChange,
+    handleAddOverview,
+  } = useTechnologyContext();
+  const incentives = technology?.overview || [];
 
-const Incentives = () => {
-
-  const { technology, handleTechnologyDetailsChange } = useTechnologyContext();
-  const incentives = technology?.overview;
-
-  console.log("incentives", [incentives, ...DUMMY_DATA]);
-
+  // console.log("incentives", [...incentives,]);
 
   const handleSubmit = async (e) => {
     try {
@@ -55,8 +56,8 @@ const Incentives = () => {
     }
   };
 
-
   const [showIncentiveModal, setShowIncentiveModal] = useState(false)
+
   return (
     <div>
       <Container>
@@ -75,7 +76,7 @@ const Incentives = () => {
         </Row>
         <Row className=" ">
           <Col>
-            {([incentives, ...DUMMY_DATA] || [])?.map((incentive, index) => {
+            {(incentives || [])?.map((incentive, index) => {
               if (!incentive) return null;
 
               return (
@@ -88,7 +89,14 @@ const Incentives = () => {
         </Row>
       </Container>
 
-      <CreateTechnologyIncentiveModal show={showIncentiveModal} onHide={() => setShowIncentiveModal(false)}/>
+      <CreateTechnologyIncentiveModal
+        show={showIncentiveModal}
+        onHide={() => setShowIncentiveModal(false)}
+        onSubmit={(data) => {
+          setShowIncentiveModal(false)
+          handleAddOverview(data)
+        }}
+      />
     </div>
   );
 };

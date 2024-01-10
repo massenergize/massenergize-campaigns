@@ -1,19 +1,21 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Input from "../../../components/admin-components/Input";
-import IconPicker from "../../../components/admin-components/IconPicker";
 import React, { useReducer, useState } from "react";
 import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloons";
-import { isEmpty } from "../../../helpers/utils/string";
+import { isEmpty, randomString } from "../../../helpers/utils/string";
 import { objectIsEmpty } from "../../../helpers/utils";
-import { updateTechnologyIncentives } from "../../../requests/technology-requests";
+import { addTechnologyIncentive, updateTechnologyIncentive } from "../../../requests/technology-requests";
 import { ProgressButton } from "../../../components/progress-button/progress-button";
-import { HorizontalLoader } from "../../../components/horizontal-loader/horizontal-loader";
+import { useParams } from "react-router-dom";
+import FileUploader from "../../../components/admin-components/FileUploader";
 
-export function IncentiveForm ({ incentive = {}, campaign_id, onSubmit, technology_id}) {
+export function IncentiveForm ({ incentive = {}, onSubmit }) {
   const { notify } = useBubblyBalloons();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+
+  const { campaign_id, technology_id } = useParams();
 
   const [incentiveFormData, dispatch] = useReducer((state, action) => {
       switch (action.type) {
@@ -26,12 +28,11 @@ export function IncentiveForm ({ incentive = {}, campaign_id, onSubmit, technolo
     {
       title: "",
       description: "",
-      icon: "",
-      image : "",
-      // info: "",
-      // image: "",
+      image: null,
       ...incentive
     });
+
+  const IS_NEW = objectIsEmpty(incentive);
 
   const handleFieldChange = (field, value) => {
     dispatch({ type: "SET_FIELD_VALUE", field, value });
@@ -40,18 +41,27 @@ export function IncentiveForm ({ incentive = {}, campaign_id, onSubmit, technolo
   const isDataValid = () => {
     setErrors({});
     let newErrors = {};
-    for (let field in incentiveFormData) {
-      if (isEmpty(incentiveFormData[field])) {
+
+    for (let field of [incentiveFormData.title, incentiveFormData.description]) {
+      if (isEmpty(field)) {
         newErrors[field] = "This field is required";
       }
     }
 
-    if(objectIsEmpty(newErrors)) {
+    if (IS_NEW && !incentiveFormData.image) {
+      newErrors.image = "This field is required";
+    }
+
+    if (objectIsEmpty(newErrors)) {
       return true;
     }
 
     setErrors(newErrors);
     return false;
+  }
+
+  const imageExists = (key) => {
+    return typeof incentiveFormData[key]?.url !== "undefined";
   }
 
   const handleSubmitIncentive = async () => {
@@ -61,35 +71,30 @@ export function IncentiveForm ({ incentive = {}, campaign_id, onSubmit, technolo
       }
       setLoading(true)
 
-      const response = await updateTechnologyIncentives({
-        id : technology_id,
-        ...(objectIsEmpty(incentive) ? {} : {campaign_id}),
-        incentive: incentiveFormData
-      });
+      const payload = {
+        technology_id,
+        ...(IS_NEW ? {} : { id: incentive.id }),
+        ...(IS_NEW ? { campaign_id } : {}),
+        title: incentiveFormData.title,
+        description: incentiveFormData.description,
+        ...(IS_NEW ? { image: incentiveFormData.image } : {}),
+      };
 
-      if (!response?.success) {
-        notify({
-          title: "Error",
-          message: "Something went wrong while adding incentive",
-          type: "error"
-        });
-        return;
-      }
+      const data = IS_NEW ? await addTechnologyIncentive(payload) : await updateTechnologyIncentive(payload);
 
       notify({
         title: "Success",
-        message: "Incentive added successfully",
+        message: `Incentive ${IS_NEW ? 'added' : 'updated'} successfully`,
         type: "success"
       });
-      setLoading(false)
-      typeof onSubmit === "function" && onSubmit();
 
+      setLoading(false)
+      typeof onSubmit === "function" && onSubmit(data);
     } catch (e) {
       setLoading(false)
-      console.log(e);
       notify({
         title: "Error",
-        message: "Something went wrong while adding incentive",
+        message: `Something went wrong while ${IS_NEW ? 'adding' : 'updating'} incentive`,
         type: "error"
       })
     }
@@ -105,7 +110,7 @@ export function IncentiveForm ({ incentive = {}, campaign_id, onSubmit, technolo
             label="Title"
             placeholder="Enter a Title for this incentive ..."
             required={true}
-            erro-r={errors?.title}
+            error={errors?.title}
             type="textbox"
             value={incentiveFormData?.title}
             onChange={(val) => {
@@ -131,13 +136,28 @@ export function IncentiveForm ({ incentive = {}, campaign_id, onSubmit, technolo
           />
         </Col>
       </Row>
-      <Row className="mt-3">
+      <Row className="py-4">
+        <Col>
+          <FileUploader
+            required={false}
+            id={IS_NEW ? randomString({}) : incentiveFormData?.image?.url}
+            text="Add an image"
+            onChange={(val) => {
+              handleFieldChange("image", val);
+            }}
+            error={errors?.image}
+            value={incentiveFormData?.image}
+            defaultValue={incentiveFormData?.image?.url}
+          />
+        </Col>
+      </Row>
+      {/*      <Row className="mt-3">
         <Col>
           <p>Icon <span className={"text-danger"}>*</span></p>
           <IconPicker error={errors?.icon} onSelect={() => {
           }}/>
         </Col>
-      </Row>
+      </Row>*/}
 
       <Row className=" justify-content-end">
         <Col sm={"auto"}>
