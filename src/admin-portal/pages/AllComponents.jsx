@@ -13,12 +13,7 @@ const AllComponents = () => {
 				margin: "2rem 2rem",
 			}}
 		>
-			<div
-				style={{
-					marginTop: "20px",
-					width: "100%",
-				}}
-			>
+			<div style={{ marginTop: "20px", width: "100%", }}>
 				{/* <Information />
 				<Technologies />
 				<Info /> */}

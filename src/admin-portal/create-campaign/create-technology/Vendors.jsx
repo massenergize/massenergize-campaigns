@@ -79,15 +79,20 @@ const Vendors = ({campaign_id, tech_id,techObject, updateTechObject}) => {
 			</FormLabel>
   
 			<MultiSelect
-			  options={(allVendors || []).map((event) => {
+			  options={(allVendors || []).map((vendor) => {
 				return {
-				  ...event,
-				  value: event?.id,
-				  label: event?.name,
+				  ...vendor,
+				  value: vendor?.id,
+				  label: vendor?.name,
 				};
 			  })}
 			  hasSelectAll={true}
-			  value={selectedVendors}
+			  value={selectedVendors?.map((vendor) => {
+				return {
+				  ...vendor,
+				  value: vendor?.id,
+				  label: vendor?.name,
+			  }})}
 			  onChange={(val) => setSelectedVendors(val)}
 			  valueRenderer={(selected, _options) => {
 				if(selected.length === 0) return "Select Vendors"

@@ -15,71 +15,6 @@ import { faFileEdit } from "@fortawesome/free-solid-svg-icons/faFileEdit";
 import { useSelector } from "react-redux";
 import { NoItems } from "@kehillahglobal/ui";
 
-const DUMMY_DATA = [
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    creator: "Brad H.",
-    updatedAt: "2023-12-01T00:00:00Z",
-    isLive: true,
-    isTemplate: true,
-    category: "Category1",
-    id: "ab3b98d2-f1a3-4620-86db-f48a06459b3d",
-    created_at: "2023-12-07T10:56:12.888Z",
-    updated_at: "2023-12-08T10:34:31.573Z",
-    is_deleted: false,
-    info: null,
-    account: {
-      id: "583c96c5-7fb4-488f-ac54-2558252ae535",
-    },
-    title: "Wayland Campaign",
-    description: "Helo there",
-    start_date: "2023-12-07",
-    end_date: null,
-    primary_logo: {
-      id: 620,
-      name: "PrimaryLogoFor Wayland Campaign Campaign",
-      url: "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png",
-    },
-    secondary_logo: {
-      id: 621,
-      name: "SecondaryLogoFor Wayland Campaign Campaign",
-      url: "https://massenergize-files.s3.amazonaws.com/media/csu.jpeg",
-    },
-    image: {
-      id: 631,
-      name: "ImageFor Wayland Campaign Campaign",
-      url: "https://massenergize-files.s3.amazonaws.com/media/pexels-pixabay-221012.jpg",
-    },
-    is_approved: false,
-    is_published: false,
-    is_global: true,
-    is_template: false,
-    tagline: "Wayland and Acton Colab",
-    owner: "906d4df9-e7a7-4b75-b2c6-235796cab193",
-  },
-  {
-    id: "nwv2b324mlkj2 h2g23c22ifn",
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    title: "Reneable Energy Campaign",
-    creator: "Brad H.",
-    createdAt: "2023-12-01T00:00:00Z",
-    updatedAt: "2023-12-01T00:00:00Z",
-    isLive: false,
-    isTemplate: false,
-    category: "Category1",
-  },
-  {
-    id: "nw6b29x7n6207r2m89dh2mn",
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    title: "Carbon Footprint Reduction",
-    creator: "Brad H.",
-    createdAt: "2023-12-01T00:00:00Z",
-    updatedAt: "2023-12-01T00:00:00Z",
-    isLive: true,
-    isTemplate: false,
-  },
-];
-
 const DUMMY_CAMPAIGN_NAMEs = [
   "Tree Planting",
   "Carbon Footprint Reduction",
@@ -87,26 +22,8 @@ const DUMMY_CAMPAIGN_NAMEs = [
   "5KW Solr installation",
 ];
 
-// const DUMMY_CAMPAIGN_OWNERS = [
-//   "Brad H.",
-//   "Aimee P.",
-//   "John D.",
-//   "Sally C.",
-//   "Nancy D.",
-//   "Cindy L.",
-//   "Linda S.",
-//   "Bob S.",
-//   "Micheal J.",
-//   "James B.",
-//   "Robert M.",
-//   "William B.",
-//   "David S.",
-//   "Richard H.",
-//   "Charles M.",
-// ];
-
 export function AllCampaignsView({}) {
-//   const [data, setData] = useNamedState("table data", DUMMY_DATA);
+  //   const [data, setData] = useNamedState("table data", DUMMY_DATA);
   const [rowMenu, setRowMenu] = useState(ROW_ACTIONS_MENU);
   const campaignAccount = useSelector((state) => state.campaignAccount);
 
@@ -133,7 +50,7 @@ export function AllCampaignsView({}) {
             <img
               src={src}
               alt="logo"
-              style={{ width: "40px", height: "40px" }}
+              style={{ width: "40px", height: "40px", objectFit: "contain" }}
               onError={() => {
                 src = "/fallback-img.png";
               }}
@@ -195,7 +112,7 @@ export function AllCampaignsView({}) {
         return (
           <span
             style={{
-              backgroundColor: is_published ? "#9fea9f" : "#e6c0a6",
+              backgroundColor: is_published ? "#9fea9f" : "rgb(255 231 231)",
               paddingBlock: "1px",
               paddingInline: "10px",
               borderRadius: "12px",
@@ -217,7 +134,7 @@ export function AllCampaignsView({}) {
         return (
           <span
             style={{
-              backgroundColor: is_template ? "#9fea9f" : "#e6c0a6",
+              backgroundColor: is_template ? "#9fea9f" : "rgb(255 231 231)",
               paddingBlock: "1px",
               paddingInline: "10px",
               borderRadius: "12px",
@@ -254,7 +171,7 @@ export function AllCampaignsView({}) {
         return (
           <ButtonGroup className="mr-2">
             <Button
-              variant="primary"
+              variant="success"
               onClick={() => {
                 navigate(`/admin/campaign/${value}/stats`);
               }}
@@ -270,7 +187,7 @@ export function AllCampaignsView({}) {
               <FontAwesomeIcon icon={faFileEdit} />
             </Button>
             <Button
-              variant="primary"
+              variant="danger"
               onClick={() => {
                 navigate(`/campaign/${value}`);
               }}
@@ -371,7 +288,7 @@ export function AllCampaignsView({}) {
 
   if (!patched?.length) {
     return (
-      <Container className="d-flex m-auto" style={{height:"70vh"}}>
+      <Container className="d-flex m-auto" style={{ height: "70vh" }}>
         <NoItems text="Ready to start a campaign? Let's create impact together - launch your first one now!" />
       </Container>
     );

@@ -47,6 +47,7 @@ function AppNavigationBar({ menu, campaign }) {
               if (!menu?.children)
                 return (
                   <Nav.Link
+                    className={"mx-2"}
                     key={menu?.key}
                     style={{ textTransform: "uppercase" }}
                     onClick={() => {
@@ -64,6 +65,7 @@ function AppNavigationBar({ menu, campaign }) {
                 );
               return (
                 <NavDropdown
+                  className={"mx-2"}
                   style={{ textTransform: "uppercase" }}
                   title={
                     <span>
@@ -86,6 +88,7 @@ function AppNavigationBar({ menu, campaign }) {
 
                     return (
                       <NavDropdown.Item
+
                         style={{ textTransform: "uppercase" }}
                         key={child?.key}
                         onClick={() => {
@@ -97,7 +100,7 @@ function AppNavigationBar({ menu, campaign }) {
                       </NavDropdown.Item>
                     );
                   })}
-                  {/* 
+                  {/*
                   <NavDropdown.Item href="#action/3.2">
                     Another action
                   </NavDropdown.Item>
