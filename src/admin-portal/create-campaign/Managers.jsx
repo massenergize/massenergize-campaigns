@@ -1,6 +1,6 @@
 import { useReducer, useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
-import useSWR, {mutate} from "swr";
+import { Col, Row } from "react-bootstrap";
+import useSWR, { mutate } from "swr";
 import {
 	addCampaignManager,
 	fetchCampaignManagers,
@@ -10,11 +10,14 @@ import Modal from "react-bootstrap/Modal";
 import Input from "../../components/admin-components/Input";
 import { Spinner } from "@kehillahglobal/ui";
 import Notification from "src/components/pieces/Notification";
+import Button from "src/components/admin-components/Button";
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
 
 const Managers = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
 	const [pagesCount, setPagesCount] = useState(1);
 	const [pageIndex, setPageIndex] = useState(0);
 	const [pageSize, setPageSize] = useState(10);
+	const [loading, setLoading] = useState(false);
 	const [notification, setNotification] = useState(null);
 
 	const initialState = {
@@ -36,16 +39,20 @@ const Managers = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
 		dispatch({ type: "SET_FIELD_VALUE", field, value });
 	};
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		console.log(formData);
-	};
+	// const handleSubmit = async (e) => {
+	// 	e.preventDefault();
+	// 	console.log(formData);
+	// };
 
 	const makeNotification = (message, good = false) => {
 		setNotification({ message, good });
 	};
 
-	const {data: campaignManagers,error: campaignManagersError,isLoading} = useSWR(`campaigns.managers.list`, async () => {
+	const {
+		data: campaignManagers,
+		error: campaignManagersError,
+		isLoading,
+	} = useSWR(`campaigns.managers.list`, async () => {
 		return await fetchCampaignManagers(campaignDetails?.id);
 	});
 
@@ -85,17 +92,23 @@ const Managers = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
 	};
 
 	const handleManagerAdd = async () => {
+		setLoading(true);
 		try {
-			const manager = await addCampaignManager(formData?.email,campaignDetails?.id);
+			const manager = await addCampaignManager(
+				formData?.email,
+				campaignDetails?.id
+			);
 
 			if (manager) {
 				mutate(`campaigns.managers.list`);
 				makeNotification("Manager added successfully", true);
+				setLoading(false);
 				handleClose();
 			}
 		} catch (e) {
 			makeNotification("An Error occurred", false);
 			console.log("ERROR ADDING MANAGER", e);
+			setLoading(false);
 		}
 	};
 
@@ -118,13 +131,15 @@ const Managers = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
 						<Col></Col>
 						<Col md={"auto"}>
 							<Button
-								variant={"success"}
-								onClick={() => {
+								text="Add Manager"
+								icon={faAdd}
+								// loading={loading}
+								// disabled=
+								onSubmit={() => {
 									setShowSearchModal(true);
 								}}
-							>
-								Add Manager
-							</Button>
+								rounded={false}
+							/>
 						</Col>
 					</Row>
 					<Row className="py-4">
@@ -171,7 +186,10 @@ const Managers = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
 							/>
 							<div className="mt-4">
 								{notification && (
-									<Notification show={notification.message} good={notification.good}>
+									<Notification
+										show={notification.message}
+										good={notification.good}
+									>
 										{notification?.message}
 									</Notification>
 								)}
@@ -180,9 +198,16 @@ const Managers = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
 					</Row>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant="primary" onClick={handleManagerAdd}>
+					<Button
+						text="Add Manager"
+						loading={loading}
+						disabled={loading}
+						onSubmit={handleManagerAdd}
+						rounded={true}
+					/>
+					{/* <Button variant="primary" onClick={handleManagerAdd}>
 						Add Manager
-					</Button>
+					</Button> */}
 				</Modal.Footer>
 			</Modal>
 		</div>

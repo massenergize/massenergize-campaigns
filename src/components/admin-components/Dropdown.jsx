@@ -119,6 +119,13 @@ const Dropdown = ({
 						maxHeight: 250,
 					}}
 				>
+					{data?.length === 0 && (
+						<div>
+							<span style={{ marginLeft: "17px" }}>
+								&mdash;&mdash;&mdash;&mdash;&mdash;{" "}
+							</span>
+						</div>
+					)}
 					{data.map((datum, index) =>
 						multiple ? (
 							<div key={index}>

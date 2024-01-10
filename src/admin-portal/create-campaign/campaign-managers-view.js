@@ -116,6 +116,7 @@ export function CampaignManagersView({ events = CAMPAIGN_MANAGERS, managers }) {
 								setToRemove(value);
 								setToggleConfirmation(true);
 							}}
+							variant="danger"
 						>
 							Remove
 						</Button>

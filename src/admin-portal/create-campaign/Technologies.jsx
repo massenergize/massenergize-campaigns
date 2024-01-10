@@ -13,164 +13,170 @@ import { useCampaignContext } from "../../hooks/use-campaign-context";
 import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
 import { updateCampaignTechnologies } from "../../requests/campaign-requests";
 import { smartString } from "src/utils/utils";
+import Button from "src/components/admin-components/Button";
+import { useState } from "react";
 
 function Technology({ tech, handleRemove }) {
-  let image = tech?.image?.url;
-  let { id, name } = tech;
-  const navigate =  useNavigate()
+	let image = tech?.image?.url;
+	let { id, name } = tech;
+	const navigate = useNavigate();
 
-  name = smartString(name,25)
-  return (
-    // <Link to={`/admin/campaign/edit-technology/${id}`} className="image-edit-btn">
-    <Card
-      className={"position-relative touchable-opacity"}
-      onClick={() =>
-        navigate(`/admin/technology/${tech?.id}/edit/${tech?.campaign_id}`)
-      }
-    >
-      <Card.Body className={"p-0"}>
-        <Card.Img
-          variant="top"
-          src={image}
-          style={{ height: 280, objectFit: "cover" }}
-        />
-      </Card.Body>
-      <Card.Footer>
-        <Card.Title className={"mb-0"}>{name}</Card.Title>
-        <Card.Text>{name}</Card.Text>
-      </Card.Footer>
+	name = smartString(name, 25);
+	return (
+		// <Link to={`/admin/campaign/edit-technology/${id}`} className="image-edit-btn">
+		<Card
+			className={"position-relative touchable-opacity"}
+			onClick={() =>
+				navigate(`/admin/technology/${tech?.id}/edit/${tech?.campaign_id}`)
+			}
+		>
+			<Card.Body className={"p-0"}>
+				<Card.Img
+					variant="top"
+					src={image}
+					style={{ height: 280, objectFit: "cover" }}
+				/>
+			</Card.Body>
+			<Card.Footer>
+				<Card.Title className={"mb-0"}>{name}</Card.Title>
+				<Card.Text>{name}</Card.Text>
+			</Card.Footer>
 
-      <span
-        onClick={() => {
-          handleRemove(tech);
-        }}
-        className="image-close-btn d-flex"
-      >
-        <FontAwesomeIcon icon={faClose} className={"m-auto"} />
-      </span>
-    </Card>
-    // </Link>
-  );
+			<span
+				onClick={() => {
+					handleRemove(tech);
+				}}
+				className="image-close-btn d-flex"
+			>
+				<FontAwesomeIcon icon={faClose} className={"m-auto"} />
+			</span>
+		</Card>
+		// </Link>
+	);
 }
 
 const Technologies = ({}) => {
-  const navigate = useNavigate();
+	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false);
 
-  const { notify, pop } = useBubblyBalloons();
-  const {
-    campaignDetails,
-    originalCampaignDetails,
-    lists,
-    handleCampaignDetailsChange,
-    setNewCampaignDetails,
-  } = useCampaignContext();
+	const { notify, pop } = useBubblyBalloons();
+	const {
+		campaignDetails,
+		originalCampaignDetails,
+		lists,
+		handleCampaignDetailsChange,
+		setNewCampaignDetails,
+	} = useCampaignContext();
 
-  const { technologies } = campaignDetails;
-  const { allTechnologies } = lists;
+	const { technologies } = campaignDetails;
+	const { allTechnologies } = lists;
 
-  const originalTechnologies = originalCampaignDetails.technologies;
-  const originalTechnologiesSet = new Set(
-    originalCampaignDetails?.technologies?.map((tech) => tech.id)
-  );
+	const originalTechnologies = originalCampaignDetails.technologies;
+	const originalTechnologiesSet = new Set(
+		originalCampaignDetails?.technologies?.map((tech) => tech.id)
+	);
 
-  const handleRemove = (data) => {
-    const filteredTechnologies = technologies.filter(
-      (tech) => tech.id !== data.id
-    );
-    handleCampaignDetailsChange("technologies", filteredTechnologies);
-  };
+	const handleRemove = (data) => {
+		const filteredTechnologies = technologies.filter(
+			(tech) => tech.id !== data.id
+		);
+		handleCampaignDetailsChange("technologies", filteredTechnologies);
+	};
 
-  const handleSubmit = async (e) => {
-    try {
-      const payload = {
-        campaign_id: campaignDetails?.id,
-        technology_ids: technologies.map((tech) => tech.id),
-      };
+	const handleSubmit = async (e) => {
+		setLoading(true);
+		try {
+			const payload = {
+				campaign_id: campaignDetails?.id,
+				technology_ids: technologies.map((tech) => tech.id),
+			};
 
-      const res = await updateCampaignTechnologies(payload);
+			const res = await updateCampaignTechnologies(payload);
 
-      if (res) {
-        notify({
-          title: "Success",
-          message: "Campaign Technologies updated successfully.",
-          type: "success",
-          timeout: 15000,
-        });
-      }
-    } catch (e) {
-      notify({
-        title: "Error",
-        message: "Something went wrong. Please try again later.",
-        type: "error",
-        timeout: 15000,
-      });
-    }
-  };
+			if (res) {
+				notify({
+					title: "Success",
+					message: "Campaign Technologies updated successfully.",
+					type: "success",
+					timeout: 15000,
+				});
+				setLoading(false);
+			}
+		} catch (e) {
+			notify({
+				title: "Error",
+				message: "Something went wrong. Please try again later.",
+				type: "error",
+				timeout: 15000,
+			});
+			setLoading(false);
+		}
+	};
 
-  let listChanged = false;
-  const TECHNOLOGIES_SIZE = technologies?.length;
-  const ORIGINAL_TECHNOLOGIES_SIZE = originalTechnologies?.length;
+	let listChanged = false;
+	const TECHNOLOGIES_SIZE = technologies?.length;
+	const ORIGINAL_TECHNOLOGIES_SIZE = originalTechnologies?.length;
 
-  if (ORIGINAL_TECHNOLOGIES_SIZE !== TECHNOLOGIES_SIZE) {
-    listChanged = true;
-  } else {
-    for (let i = 0; i < TECHNOLOGIES_SIZE; i++) {
-      if (!originalTechnologiesSet.has(technologies[i]?.id)) {
-        listChanged = true;
-        break;
-      }
-    }
-  }
+	if (ORIGINAL_TECHNOLOGIES_SIZE !== TECHNOLOGIES_SIZE) {
+		listChanged = true;
+	} else {
+		for (let i = 0; i < TECHNOLOGIES_SIZE; i++) {
+			if (!originalTechnologiesSet.has(technologies[i]?.id)) {
+				listChanged = true;
+				break;
+			}
+		}
+	}
 
-  let notification = null;
+	let notification = null;
 
-  return (
-    <Container>
-      <form>
-        <Row className="">
-          <Col>
-            <MultiSelect
-              options={allTechnologies.data}
-              value={addLabelsAndValues(technologies)}
-              valueRenderer={(selected, _options) => {
-                if (selected?.length < 1) {
-                  return "Select Technologies...";
-                }
+	return (
+		<Container>
+			<form>
+				<Row className="">
+					<Col>
+						<MultiSelect
+							options={allTechnologies.data}
+							value={addLabelsAndValues(technologies)}
+							valueRenderer={(selected, _options) => {
+								if (selected?.length < 1) {
+									return "Select Technologies...";
+								}
 
-                if (selected?.length === allTechnologies?.data?.length) {
-                  return "All Selected";
-                }
+								if (selected?.length === allTechnologies?.data?.length) {
+									return "All Selected";
+								}
 
-                return selected.map(({ label, id }, i) => {
-                  return (
-                    label + (i < allTechnologies?.data?.length ? ", " : "")
-                  );
-                });
-              }}
-              onChange={(val) => {
-                if (!(val?.length < 1)) {
-                  handleCampaignDetailsChange("technologies", val);
-                } else {
-                  if (notification) {
-                    console.log("=== notification ===", notification);
-                    pop(notification);
-                  }
-                  notification = notify({
-                    title: "Not Allowed",
-                    message: "You must select at least one technology.",
-                    type: "error",
-                    timeout: 150000,
-                    onClose: () => {
-                      // notification = null;
-                    },
-                  });
-                }
-              }}
-              labelledBy="Select"
-            />
-          </Col>
-        </Row>
-        {/*{
+								return selected.map(({ label, id }, i) => {
+									return (
+										label + (i < allTechnologies?.data?.length ? ", " : "")
+									);
+								});
+							}}
+							onChange={(val) => {
+								if (!(val?.length < 1)) {
+									handleCampaignDetailsChange("technologies", val);
+								} else {
+									if (notification) {
+										console.log("=== notification ===", notification);
+										pop(notification);
+									}
+									notification = notify({
+										title: "Not Allowed",
+										message: "You must select at least one technology.",
+										type: "error",
+										timeout: 150000,
+										onClose: () => {
+											// notification = null;
+										},
+									});
+								}
+							}}
+							labelledBy="Select"
+						/>
+					</Col>
+				</Row>
+				{/*{
           TECHNOLOGIES_SIZE < 1 ? (
             <Row className="mt-4 pb-4 justify-content-center">
               <Col sm="auto" className={"py-5"}>
@@ -184,55 +190,54 @@ const Technologies = ({}) => {
           ) : null
         }
 */}
-        <Row className="mt-4 pb-4 justify-content-start">
-          {TECHNOLOGIES_SIZE > 0 ? (
-            <>
-              {technologies.map((tech) => {
-                return (
-                  <Col md={4} lg={3} className={"mb-3 px-2 h-100"}>
-                    <Technology
-                      tech={tech}
-                      handleRemove={handleRemove}
-                      navigate={navigate}
-                    />
-                  </Col>
-                );
-              })}
-            </>
-          ) : null}
-          <Col md={4} lg={3} className={"mb-3 px-2 h-100"}>
-            <Link to={`/admin/technology/new/${campaignDetails?.id}`}>
-              <Card className={"position-relative border-dashed border-2"}>
-                <Card.Body className={"p-0 bg-light-gray"}>
-                  <Card.Img
-                    variant=""
-                    src="/img/add-new.svg"
-                    style={{ height: 180 }}
-                  />
-                </Card.Body>
-              </Card>
-            </Link>
-          </Col>
-        </Row>
+				<Row className="mt-4 pb-4 justify-content-start">
+					{TECHNOLOGIES_SIZE > 0 ? (
+						<>
+							{technologies.map((tech) => {
+								return (
+									<Col md={4} lg={3} className={"mb-3 px-2 h-100"}>
+										<Technology
+											tech={tech}
+											handleRemove={handleRemove}
+											navigate={navigate}
+										/>
+									</Col>
+								);
+							})}
+						</>
+					) : null}
+					<Col md={4} lg={3} className={"mb-3 px-2 h-100"}>
+						<Link to={`/admin/technology/new/${campaignDetails?.id}`}>
+							<Card className={"position-relative border-dashed border-2"}>
+								<Card.Body className={"p-0 bg-light-gray"}>
+									<Card.Img
+										variant=""
+										src="/img/add-new.svg"
+										style={{ height: 180 }}
+									/>
+								</Card.Body>
+							</Card>
+						</Link>
+					</Col>
+				</Row>
 
-        {
-          <Row className="mt-4 py-4 justify-content-end">
-            <Col className="mt-4 py-4">
-              <ProgressButton
-                text="Save Changes"
-                onClick={handleSubmit}
-                rounded={false}
-                disabled={listChanged === false || TECHNOLOGIES_SIZE < 1}
-              >
-                Save Changes
-              </ProgressButton>
-            </Col>
-          </Row>
-        }
-      </form>
-    </Container>
-    // </m.div>
-  );
+				{
+					<Row className="mt-4 py-4 justify-content-end">
+						<Col className="mt-4 py-4">
+							<Button
+								text="Save Changes"
+								loading={loading}
+								disabled={listChanged === false || TECHNOLOGIES_SIZE < 1}
+								onSubmit={handleSubmit}
+								rounded={false}
+							/>
+						</Col>
+					</Row>
+				}
+			</form>
+		</Container>
+		// </m.div>
+	);
 };
 
 export default Technologies;
