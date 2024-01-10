@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Button, ButtonGroup, Col, Container, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-	faArrowLeft,
-	faBan,
-	faBullhorn,
-	faDownload,
-	faGlobe,
-	faPenToSquare,
+  faArrowLeft,
+  faBan,
+  faBullhorn,
+  faDownload,
   faEye,
+  faGlobe,
+  faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import StatsCard from "../../../../components/admin-components/StatsCard";
 import Comments from "../../../../components/admin-components/Comments";
@@ -29,21 +29,16 @@ export function CampaignStatistics ({}) {
   const [showToast, setShowToast] = useState(false);
   const navigate = useNavigate();
 
-  const {
-    blow
-  } = useBubblyBalloons();
+  const { blow } = useBubblyBalloons();
 
   const {
     data: campaign,
     isLoading: campaignLoading,
     isValidating: campaignValidating,
     error: campaignError,
-  } = useSWR(
-    `campaign.info/${id}`,
-    async () => {
+  } = useSWR(`campaign.info/${id}`, async () => {
       return await fetchCampaign(id);
-    },
-    {
+    }, {
       onSuccess: (data) => {
         // console.log({ data });
       },
@@ -89,16 +84,29 @@ export function CampaignStatistics ({}) {
 
                     <Col md={"auto"}>
                       <Button className="btn-light mr-3" onClick={() => {
-                        window.history.back();
-                      }}>
+                          window.history.back();
+                        }}
+                      >
                         <FontAwesomeIcon icon={faArrowLeft}/>
                       </Button>
                       &nbsp;
                       <ButtonGroup>
-                        <Button onClick={() => {navigate(`/campaign/${id}`)}}>
+                        <Button
+                          variant="warning"
+                          onClick={() => {
+                            navigate(`/campaign/${id}`);
+                          }}
+                        >
                           <FontAwesomeIcon icon={faEye}/>
                         </Button>
-                        <Button className={CAMPAIGN?.is_published ? "disable-btn" : "btn-primary"}>
+                        <Button
+                          variant="success"
+                          className={
+                            CAMPAIGN?.is_published
+                              ? "disable-btn"
+                              : "btn-primary"
+                          }
+                        >
                           <FontAwesomeIcon
                             icon={CAMPAIGN?.is_published ? faBan : faGlobe}
                           />{" "}
@@ -113,7 +121,10 @@ export function CampaignStatistics ({}) {
 
             <Container className={"px-5"} style={{ maxWidth: "100" }}>
               <Row>
-                <Col className="title--container rounded-4 px-4 py-5">
+                <Col
+                  className="title--container rounded-4 py-5"
+                  style={{ paddingLeft: "3.6rem", paddingRight: "3.6rem" }}
+                >
                   <Row>
                     <Col className="mt-4">
                       <h3 className="title-txt">
@@ -130,28 +141,27 @@ export function CampaignStatistics ({}) {
                             <p className="camp-date">
                               Start Date :{" "}
                               <span>
-														{CAMPAIGN?.start_date
-                              ? CAMPAIGN?.start_date
-                              : "Not specified"}
-													</span>
+                                {CAMPAIGN?.start_date
+                                  ? CAMPAIGN?.start_date
+                                  : "Not specified"}
+                              </span>
                             </p>
                             <p className="camp-date">
                               End Date :{" "}
                               <span>
-														{CAMPAIGN?.end_date
-                              ? CAMPAIGN?.end_date
-                              : "Not specified"}
-													</span>
+                                {CAMPAIGN?.end_date
+                                  ? CAMPAIGN?.end_date
+                                  : "Not specified"}
+                              </span>
                             </p>
                           </div>
                         </Col>
                       </Row>
                     </Col>
                     <Col className="update-btn-con">
-                      <p
-                        className={CAMPAIGN?.is_published ? "active" : "inactive"}
-                      ></p>
+                      <p className={CAMPAIGN?.is_published ? "active" : "inactive"}></p>
                       <Link
+                        target="_blank"
                         className="update-btn btn btn-primary py-2 px-3"
                         to={`/admin/campaign/${id}/edit`}
                       >
@@ -190,19 +200,20 @@ export function CampaignStatistics ({}) {
                     <Button
                       className="btn-success mr-3"
                       onClick={() => {
-                        apiCall("/downloads.campaigns.performance", { campaign_id: id }).then(
-                          res => {
-                            if (res?.success) {
-                              // 	show a message asking user to check email
-                              blow({
-                                title: "Success",
-                                message: "File sent to your email. Please check your email",
-                                type: "success",
-                                timeout: false
-                              })
-                            }
+                        apiCall("/downloads.campaigns.performance", {
+                          campaign_id: id,
+                        }).then((res) => {
+                          if (res?.success) {
+                            // 	show a message asking user to check email
+                            blow({
+                              title: "Success",
+                              message:
+                                "File sent to your email. Please check your email",
+                              type: "success",
+                              timeout: false,
+                            });
                           }
-                        )
+                        });
                       }}
                     >
                       <FontAwesomeIcon icon={faDownload}/> Download Data File
