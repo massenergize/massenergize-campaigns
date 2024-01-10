@@ -1,9 +1,6 @@
-// import { useReducer, useState } from "react";
-// import Button from "./Button";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { motion as m } from "framer-motion";
 import React, { useReducer, useState } from "react";
-// import { comments } from "../../utils/Constants";
 import { Col, Container, Row, Button as BTN } from "react-bootstrap";
 import Input from "./Input";
 import { Dropdown, RadioGroup } from "@kehillahglobal/ui";
@@ -16,6 +13,17 @@ import {
 import Button from "../../components/admin-components/Button";
 import MERichText from "./RichText";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
+import Form from "react-bootstrap/Form";
+import "./sideNav.css";
+import { relativeTimeAgo } from "../../utils/utils";
+import { useSelector } from "react-redux";
+
+
+const USER_TYPES = {
+  MYSELF: "Myself",
+  ME_USER: "MassEnergize user",
+  OTHER: "Other",
+};
 
 const Testimonials = ({ campaign, mutateData }) => {
   const techs = campaign?.technologies;
@@ -30,30 +38,7 @@ const Testimonials = ({ campaign, mutateData }) => {
     isLoading,
   } = useSWR("users.listForCommunityAdmin", getUsers({ no_pagination: true }));
 
-  const timeAgo = (date) => {
-    const currentDate = new Date();
-    const inputDate = new Date(date);
-
-    const diffInSeconds = Math.floor((currentDate - inputDate) / 1000);
-
-    if (diffInSeconds < 60) {
-      return "Just now";
-    } else if (diffInSeconds < 3600) {
-      const minutes = Math.floor(diffInSeconds / 60);
-      return `${minutes} minutes ago`;
-    } else if (diffInSeconds < 86400) {
-      const hours = Math.floor(diffInSeconds / 3600);
-      return `${hours} hours ago`;
-    } else if (diffInSeconds < 604800) {
-      const days = Math.floor(diffInSeconds / 86400);
-      return `${days} days ago`;
-    } else if (diffInSeconds < 2592000) {
-      const weeks = Math.floor(diffInSeconds / 604800);
-      return `${weeks} weeks ago`;
-    } else {
-      return "More than a month ago";
-    }
-  };
+  const loggedInUser = useSelector((state) => state.authAdmin);
 
   const [readMore, setReadMore] = useState();
   const [openCreateForm, setOpenCreateForm] = useState(false);
@@ -79,22 +64,27 @@ const Testimonials = ({ campaign, mutateData }) => {
   };
 
   const [formData, dispatch] = useReducer(reducer, initialState);
+  const [userType, setUserType] = useState("");
 
   const handleFieldChange = (field, value) => {
     dispatch({ type: "SET_FIELD_VALUE", field, value });
   };
 
   const handleClick = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
-     const toSend = {
-		...formData,
-		is_published: formData?.is_published ? true : false,
-	 }
-      const createdTestimonial = await createCampaignTestimonial(formData);
+      const toSend = {
+        ...formData,
+        is_published: formData?.is_published ? true : false,
+      };
+      if(userType === USER_TYPES.MYSELF){
+        toSend.user_id = loggedInUser?.id;
+      }
+      const createdTestimonial = await createCampaignTestimonial(toSend);
       if (createdTestimonial) {
         mutateData();
-    	setLoading(false);
+        setLoading(false);
         setOpenCreateForm(false);
         blow({
           title: "Success",
@@ -104,7 +94,7 @@ const Testimonials = ({ campaign, mutateData }) => {
         });
       }
     } catch (e) {
-    	setLoading(false);
+      setLoading(false);
       pop({
         title: "Error",
         message: "An error occured while creating testimonial",
@@ -174,30 +164,73 @@ const Testimonials = ({ campaign, mutateData }) => {
               <Row className="my-4 pt-4">
                 <Col>
                   <Dropdown
-                    placeholder="Select the User "
-                    data={users}
-                    valueExtractor={(item) => item?.id}
-                    labelExtractor={(item) =>
-                      `${item?.full_name} (${item?.email})`
-                    }
-                    onItemSelected={(selectedItem, allSelected) => {
-                      handleFieldChange("user_id", selectedItem?.id);
-                    }}
-                    onSearch={(searchText) => {
-                      return users.filter((user) => {
-                        return (
-                          user?.full_name
-                            ?.toLowerCase()
-                            .includes(searchText.toLowerCase()) ||
-                          user?.email
-                            ?.toLowerCase()
-                            .includes(searchText.toLowerCase())
-                        );
-                      });
+                    placeholder="Who is this testimonial for ?"
+                    data={Object.values(USER_TYPES)}
+                    onItemSelected={(selected) => {
+                      setUserType(selected);
                     }}
                   />
                 </Col>
               </Row>
+              {userType === USER_TYPES.ME_USER ? (
+                <Row className="my-4 pt-4">
+                  <Col>
+                    <Dropdown
+                      placeholder="Select the User "
+                      data={users}
+                      valueExtractor={(item) => item?.id}
+                      labelExtractor={(item) =>
+                        `${item?.full_name} (${item?.email})`
+                      }
+                      onItemSelected={(selectedItem, allSelected) => {
+                        handleFieldChange("user_id", selectedItem?.id);
+                      }}
+                      onSearch={(searchText) => {
+                        return users.filter((user) => {
+                          return (
+                            user?.full_name
+                              ?.toLowerCase()
+                              .includes(searchText.toLowerCase()) ||
+                            user?.email
+                              ?.toLowerCase()
+                              .includes(searchText.toLowerCase())
+                          );
+                        });
+                      }}
+                    />
+                  </Col>
+                </Row>
+              ) : userType === USER_TYPES.OTHER ? (
+                <>
+                  <Row className="my-4 pt-4">
+                    <Col>
+                      <Input
+                        label="Name"
+                        placeholder="Enter the name of the person here.."
+                        required={true}
+                        type="textbox"
+                        onChange={(val) => {
+                          handleFieldChange("name", val);
+                        }}
+                      />
+                    </Col>
+                  </Row>
+                  <Row className="my-4 pt-4">
+                    <Col>
+                      <Input
+                        label="Email"
+                        placeholder="Enter the email of the person here.."
+                        required={true}
+                        type="textbox"
+                        onChange={(val) => {
+                          handleFieldChange("email", val);
+                        }}
+                      />
+                    </Col>
+                  </Row>
+                </>
+              ) : null}
+
               <Row className="py-4">
                 <Col>
                   <MERichText
@@ -227,13 +260,13 @@ const Testimonials = ({ campaign, mutateData }) => {
               </Row>
               <Row className="py-4">
                 <Col>
-                  <RadioGroup
-                    data={[
-                      {value: true,name: "Published ?"},
-                    ]}
-                    labelExtractor={(item)=>item?.name}
-                    onItemSelected={(selectedItem, allSelected) => {handleFieldChange("is_published", selectedItem)}}
-                    valueExtractor={(item)=>item?.value}
+                  <Form.Check
+                    type="switch"
+                    id="live-checkbox"
+                    label="Go Live ?"
+                    onChange={(e) =>
+                      handleFieldChange("is_published", e.target.checked)
+                    }
                   />
                 </Col>
               </Row>
@@ -248,7 +281,11 @@ const Testimonials = ({ campaign, mutateData }) => {
                       rounded={false}
                     />
                     <BTN
-                      style={{ marginLeft: 10 }}
+                      style={{
+                        marginLeft: 10,
+                        padding: "10px 20px",
+                        borderRadius: 0,
+                      }}
                       onClick={() => setOpenCreateForm(false)}
                       variant="danger"
                     >
@@ -277,26 +314,35 @@ const Testimonials = ({ campaign, mutateData }) => {
       <h3 className="mb-4">Testimonials</h3>
 
       <div
-        style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "10px",
+        }}
       >
         {testimonials?.map((testimonial) => {
           return (
             <div
-            //   style={{
-            //     maxWidth: testimonial?.id === readMore ? "100%" : "500px",
-            //     transitionProperty: "all",
-            //     transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-            //     transitionDuration: "300ms",
-            //   }}
+              //   style={{
+              //     maxWidth: testimonial?.id === readMore ? "100%" : "500px",
+              //     transitionProperty: "all",
+              //     transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+              //     transitionDuration: "300ms",
+              //   }}
               className="border-no-dash"
             >
               <h5 style={{ color: "green", textTransform: "uppercase" }}>
                 {testimonial?.user?.full_name}
               </h5>
               <p
-                style={{ color: "gray", fontStyle: "italic", margin: "8px 0" }}
+                style={{
+                  color: "gray",
+                  fontStyle: "italic",
+                  margin: "8px 0",
+                  fontSize: "0.9rem",
+                }}
               >
-                Created : <span> {timeAgo(testimonial?.created_at)} </span>{" "}
+                <span> {relativeTimeAgo(testimonial?.created_at)} </span>{" "}
               </p>
               <h6> {testimonial?.title}</h6>
 
