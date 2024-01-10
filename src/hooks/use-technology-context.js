@@ -8,6 +8,14 @@ export const useTechnologyContext = () => {
     dispatch({ type: "SET_FIELD_VALUE", payload: { field: name, value } });
   };
 
+  const handleOverviewChange = (name, value) => {
+    dispatch({ type: "SET_OVERVIEW", payload: value });
+  };
+
+  const handleAddOverview = (payload) => {
+    dispatch({ type: "ADD_OVERVIEW", payload });
+  }
+
   const setNewTechnologyDetails = (payload) => {
     dispatch({ type: "NEW_TECHNOLOGY", payload });
   }
@@ -15,6 +23,8 @@ export const useTechnologyContext = () => {
   return {
     state,
     technology : state,
+    handleAddOverview,
+    handleOverviewChange,
     handleTechnologyDetailsChange,
     setNewTechnologyDetails,
   }
