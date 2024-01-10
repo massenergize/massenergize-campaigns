@@ -106,7 +106,7 @@ export function CampaignProvider ({ children }) {
   } = useSWR(`events.listForCommunityAdmin`, async () => {
     return await fetchAllCampaignEventsBySuperAdmins();
   }, { ...SWR_CONFIG, });
-
+  // endregion
   // const {
   //   // initialData: allManagersInitialData,
   //   data: allManagers,
