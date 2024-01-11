@@ -1,6 +1,6 @@
 import React from "react";
 
-function OneCoach({ full_name, image, community }) {
+function OneCoach ({ full_name, image, community }) {
   return (
     <div
       className="one-coach-main"
@@ -21,6 +21,7 @@ function OneCoach({ full_name, image, community }) {
         //   marginBlock: 10,
         //   objectFit: "cover",
         // }}
+        alt={"logo"}
       ></img>
       {/* <span style={{ fontSize: 12, color: "grey" }}>KEY CONTACT</span> */}
       <h6 className="">{full_name}</h6>

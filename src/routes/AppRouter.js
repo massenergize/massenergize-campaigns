@@ -145,7 +145,7 @@ const ROUTE_TABLE = [
   },
 ];
 
-function AppRouter({
+function AppRouter ({
   test,
   testFunction,
   modalOptions,

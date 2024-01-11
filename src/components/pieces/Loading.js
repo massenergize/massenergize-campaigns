@@ -1,7 +1,7 @@
 import React from "react";
 import { Spinner } from "react-bootstrap";
 
-function Loading({ text = "Loading...", fullPage, children, spinnerStyle }) {
+function Loading ({ text = "Loading...", fullPage, children, spinnerStyle }) {
   const styles = fullPage
     ? {
         height: "100vh",

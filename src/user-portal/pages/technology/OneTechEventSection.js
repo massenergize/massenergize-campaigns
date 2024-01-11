@@ -5,7 +5,7 @@ import { Col, Row } from "react-bootstrap";
 import TestimonialBox from "../testimonials/TestimonialBox";
 import EventBox from "../events/EventBox";
 
-function OneTechEventSection({ events, style, wrapperStyle }) {
+function OneTechEventSection ({ events, style, wrapperStyle }) {
   if (!events?.length) return <></>;
   return (
     <div

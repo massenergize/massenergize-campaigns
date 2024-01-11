@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 export const OTHER = "other";
 export const OTHER_JSON = { name: OTHER, id: OTHER };
 
-function CommunitySelector({ onChange, communities, data, readOnly }) {
+function CommunitySelector ({ onChange, communities, data, readOnly }) {
   const [state, setState] = useState({});
   data = data || {};
 

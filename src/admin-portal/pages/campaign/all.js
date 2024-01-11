@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloons";
 import { Link } from "react-router-dom";
 
-export function AllCampaigns() {
+export function AllCampaigns () {
   const { blow, pop } = useBubblyBalloons();
   return (
     <AdminLayout>

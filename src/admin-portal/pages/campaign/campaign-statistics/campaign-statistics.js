@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState } from "react";
 import { Button, ButtonGroup, Col, Container, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -27,7 +27,7 @@ import Loading from "../../../../components/pieces/Loading";
 import { useBubblyBalloons } from "../../../../lib/bubbly-balloon/use-bubbly-balloons";
 import GhostLoader from "../../../../components/admin-components/GhostLoader";
 
-export function CampaignStatistics({}) {
+export function CampaignStatistics ({}) {
   const { id } = useParams();
 
   const [loading, setLoading] = useState(false);
@@ -41,7 +41,7 @@ export function CampaignStatistics({}) {
     isValidating: campaignValidating,
     error: campaignError,
   } = useSWR(
-    `campaign.info`,
+    `campaign.info/${id}`,
     async () => {
       return await fetchCampaign(id);
     },

@@ -60,10 +60,6 @@ export function IncentiveForm ({ incentive = {}, onSubmit }) {
     return false;
   }
 
-  const imageExists = (key) => {
-    return typeof incentiveFormData[key]?.url !== "undefined";
-  }
-
   const handleSubmitIncentive = async () => {
     try {
       if (!isDataValid()) {

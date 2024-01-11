@@ -1,7 +1,5 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import PageWrapper from "./PageWrapper";
-import CampaignStatsPopup from "../../../components/admin-components/CampaignStatsPopup";
 
 const CreateTechnologyPageWrapper = ({ children }) => {
 	return (

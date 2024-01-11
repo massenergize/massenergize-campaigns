@@ -47,6 +47,7 @@ export const RowActions = ({ id, rowActions, setRowActionsOpen }) => {
         <span className={'cursor-pointer'} onClick={(e) => {
           toggleIsOpen()
         }}>
+          {/* eslint-ignore */}
         <DotsVerticalIcon/>
       </span>
         <div>

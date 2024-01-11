@@ -1,8 +1,5 @@
 import React, { useReducer, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import Checkbox from "../../components/admin-components/Checkbox";
-import Input from "../../components/admin-components/Input";
-import Button from "../../components/admin-components/Button";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import IncentivesBar from "../../components/admin-components/IncentivesBar";
 import { motion as m } from "framer-motion";
@@ -57,17 +54,6 @@ const Goal = () => {
 			default:
 				throw new Error(`Unsupported action type: ${action.type}`);
 		}
-	};
-
-	const [formData, dispatch] = useReducer(reducer, initialState);
-
-	const handleFieldChange = (field, value) => {
-		dispatch({ type: "SET_FIELD_VALUE", field, value });
-	};
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		console.log(formData);
 	};
 
 	return (

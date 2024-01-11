@@ -33,7 +33,7 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
   },
 ];
-function OneTechTestimonialsSection({ sectionId, testimonials, campaign }) {
+function OneTechTestimonialsSection ({ sectionId, testimonials, campaign }) {
   const navigator = useNavigate();
   const firstTestimonial = (testimonials || [])[0];
   const testimonialRoute = `/campaign/${campaign?.id}/technology/testimonial/${firstTestimonial?.id}?open=true`;

@@ -7,7 +7,7 @@ const interactions = [
   { icon: "fa-eye", name: "Views", count: 3542 },
   // { icon: "fa-share", name: "Shares", count: 15 },
 ];
-function InteractionsPanel({
+function InteractionsPanel ({
   openCommentBox,
   likes,
   views,

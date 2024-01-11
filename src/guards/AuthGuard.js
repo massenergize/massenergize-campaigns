@@ -18,7 +18,7 @@ import Loading from "../components/pieces/Loading";
  * @returns {React.JSX.Element|void}
  * @constructor
  */
-function AuthGuard({
+function AuthGuard ({
 	fetchMassenergizeUser,
 	fireAuth,
 	admin,

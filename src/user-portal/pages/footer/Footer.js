@@ -7,7 +7,7 @@ import { MOBILE_WIDTH } from "../../../utils/Constants";
 import { useMediaQuery } from "react-responsive";
 
 const EXCLUDED_FOOTER_MENU_KEYS = ["incentives", "vendors"];
-function Footer({ toggleModal, campaign, authUser }) {
+function Footer ({ toggleModal, campaign, authUser }) {
   const navigator = useNavigate();
   const { navigation } = campaign || {};
   const { user } = authUser || {};
@@ -19,6 +19,8 @@ function Footer({ toggleModal, campaign, authUser }) {
       if (isExcluded) return <></>;
       return (
         <li
+          role={"button"}
+          tabIndex={0}
           className="touchable-opacity"
           onClick={() => navigator(url)}
           style={{

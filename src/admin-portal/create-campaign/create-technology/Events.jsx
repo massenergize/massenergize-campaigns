@@ -12,7 +12,7 @@ import Chip from "src/components/admin-components/Chip";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import Button from "../../../components/admin-components/Button";
 
-function TechnologyEvents({campaign_id, tech_id,techObject, updateTechObject}) {
+function TechnologyEvents ({campaign_id, tech_id,techObject, updateTechObject}) {
   let existing = [...(techObject?.events||[])?.map((tech) => tech?.event)].flat();
 
   const [selectedEvents, setSelectedEvents] = useState(existing || []);

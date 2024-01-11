@@ -1,6 +1,5 @@
 import {
 	faComments,
-	faDownload,
 	faEye,
 	faHeart,
 	faShareNodes,

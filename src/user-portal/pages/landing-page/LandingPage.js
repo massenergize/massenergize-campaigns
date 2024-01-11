@@ -11,14 +11,13 @@ import GettingStartedSection from "../getting-started/GettingStartedSection";
 import CoachesSection from "../coaches/CoachesSection";
 import Banner from "../banner/Banner";
 import planetB from "./../../../assets/imgs/planet-b.jpeg";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import {
   USER_STORAGE_KEY,
   appInnitAction,
   loadUserObjAction,
-  toggleUserInfoModal,
   trackActivity,
 } from "../../../redux/actions/actions";
 import { LOADING } from "../../../utils/Constants";
@@ -31,7 +30,7 @@ import JoinUsForm from "../forms/JoinUsForm";
 import { OTHER, OTHER_JSON } from "../forms/CommunitySelector";
 
 
-function LandingPage({
+function LandingPage ({
   toggleModal,
   campaign,
   init,

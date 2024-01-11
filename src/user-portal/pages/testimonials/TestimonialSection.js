@@ -5,7 +5,7 @@ import CenteredWrapper from "../wrappers/CenteredWrapper";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
 import { useNavigate } from "react-router-dom";
 
-function TestimonialSection({ sectionId, technologies, defaultTab, campaign }) {
+function TestimonialSection ({ sectionId, technologies, defaultTab, campaign }) {
   const navigator = useNavigate();
   const testimonialsOfEachTech = technologies?.map(
     ({

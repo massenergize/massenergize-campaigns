@@ -1,7 +1,7 @@
 import React from "react";
 import PageWrapper from "../wrappers/PageWrapper";
 import svg from "./../../../assets/svgs/404.svg";
-function NotFound({ text }) {
+function NotFound ({ text }) {
   return (
     <PageWrapper>
       <div
@@ -12,7 +12,7 @@ function NotFound({ text }) {
           justifyContent: "center",
         }}
       >
-        <img src={svg} style={{ width: "30vh", height: "30vh" }} />
+        <img src={svg} style={{ width: "30vh", height: "30vh" }} alt={""} />
         <h6 style={{ color: "var(--app-deep-green)" }}>
           {text || " Sorry, could not find what you were looking for..."}
           <span

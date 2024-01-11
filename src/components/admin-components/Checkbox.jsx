@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../../assets/styles/styles.scss";
 
-function CheckboxLabel({ label, icon }) {
+function CheckboxLabel ({ label, icon }) {
 	return (
 		<span className="text">
 				<span>{icon}</span> {label}

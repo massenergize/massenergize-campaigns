@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
-function CenteredWrapper({ children }) {
+function CenteredWrapper ({ children }) {
   return (
     <div>
       <Container>

@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import phone_call from "./../../../assets/imgs/phone_call.png";
 const LEN = 250;
-function RoamingBox({ advert, keyContact, showMore }) {
+function RoamingBox ({ advert, keyContact, showMore }) {
   const desc = advert?.description;
   const preview = desc?.substr(0, LEN);
   const isLong = desc?.length > LEN;
@@ -46,7 +46,6 @@ function RoamingBox({ advert, keyContact, showMore }) {
               </div>
             </Col>
             <Col
-              //   lg={3}
               lg={{ span: 2, offset: 2 }}
               style={{
                 display: "flex",
@@ -64,6 +63,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
                   height: 120,
                   objectFit: "cover",
                 }}
+                alt={keyContact?.image?.name || "Key Contact"}
               ></img>
               <span className="mb-1" style={{ fontSize: 12, color: "#c8c8c8" }}>
                 KEY CONTACT
@@ -81,6 +81,8 @@ function RoamingBox({ advert, keyContact, showMore }) {
                 <span>{keyContact?.name || "..."}</span>
               </h6>
               <p
+                role={"button"}
+                tabIndex={0}
                 onClick={() => {
                   window.open(`mailto:${keyContact?.email}`, "_blank");
                 }}
@@ -96,6 +98,8 @@ function RoamingBox({ advert, keyContact, showMore }) {
                 <span> {keyContact?.email}</span>
               </p>
               <p
+                role={"button"}
+                tabIndex={0}
                 className="touchable-opacity"
                 onClick={() => {
                   window.open(`tel:${keyContact?.phone_number}`, "_blank");

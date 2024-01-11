@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const DEFAULT_HELP_LINK = ""; // to be provided by Amie
 
-function GetHelpForm({ close, communities, authUser }) {
+function GetHelpForm ({ close, communities, authUser }) {
   const [form, setForm] = useState({});
 
   useEffect(() => {

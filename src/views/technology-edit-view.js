@@ -20,11 +20,11 @@ const INFO_INITIAL_STATE = {
 
 const UNPROTECTED = ["information"];
 
-export function TechnologyEditView ({}) {
-  const { technology, handleTechnologyDetailsChange, setNewTechnologyDetails } = useTechnologyContext();
+export function TechnologyEditView () {
+  const { setNewTechnologyDetails } = useTechnologyContext();
   let TABS = technologyPages;
 
-  const [loading, setLoading] = useState(false);
+  const [loading ] = useState(false);
 
   const [techObject, setTechObject] = useState(null);
 
@@ -74,22 +74,11 @@ export function TechnologyEditView ({}) {
     inflate(obj);
   };
 
-  /*  useEffect(() => {
-      if (!technology_id) return;
-      setLoading(true);
-      fetchTechnology(technology_id, () => setLoading(false));
-    }, [technology_id]);*/
-
-  const {
-    data,
-    isLoading,
-    isValidating,
-  } = useSWR(technology_id ? `/technologies.info?id=${technology_id}` : null, async () => {
+  useSWR(technology_id ? `/technologies.info?id=${technology_id}` : null, async () => {
     return await fetchTechnology(technology_id);
   }, {
     onSuccess: (data) => {
       setTechObject(data);
-      console.log("data", data)
       setNewTechnologyDetails(data);
       inflate(data);
     }
@@ -156,6 +145,7 @@ export function TechnologyEditView ({}) {
             {TABS?.map(({ key, name, deactivate }) => {
               return (
                 <div
+                  tabIndex={0}
                   key={key}
                   style={{ opacity: deactivate ? 0.6 : 1 }}
                   className={classes("nav-tabs-main tab", { "tab-active": activeTab === key, })}

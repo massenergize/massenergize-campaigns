@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 // import partnerLogo from "./../../../assets/imgs/me-logo.png";
 import partnerLogo from "./../../../assets/imgs/me-round-logo.png";
 
-function Banner({ title, secondary_logo, primary_logo, tagline }) {
+function Banner ({ title, secondary_logo, primary_logo, tagline }) {
   return (
     <Container style={{ marginTop: 70 }}>
       <Row>
@@ -28,7 +28,8 @@ function Banner({ title, secondary_logo, primary_logo, tagline }) {
             //   marginBlock: 10,
             //   objectFit: "contain",
             // }}
-          ></img>
+            alt={"logo"}
+          />
         </Col>
         <Col
           lg={6}
@@ -89,6 +90,7 @@ function Banner({ title, secondary_logo, primary_logo, tagline }) {
               //   marginBlock: 10,
               //   objectFit: "contain",
               // }}
+              alt={"logo"}
             ></img>
           )}
         </Col>

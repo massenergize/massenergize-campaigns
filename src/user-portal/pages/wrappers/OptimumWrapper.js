@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
-function OptimumWrapper({ children, style }) {
+function OptimumWrapper ({ children, style }) {
   return (
     <Container style={style || {}}>
       <Row>

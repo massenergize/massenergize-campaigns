@@ -29,7 +29,7 @@ function Info ({
     setInformation({ ...information, [field]: value });
   };
 
-  const { technology, handleTechnologyDetailsChange, setNewTechnologyDetails } = useTechnologyContext();
+  const { setNewTechnologyDetails } = useTechnologyContext();
 
   const getValue = (name, fallback = "") => (information || {})[name] || fallback;
 

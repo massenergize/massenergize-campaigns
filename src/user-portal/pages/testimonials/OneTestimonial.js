@@ -19,7 +19,7 @@ import JoinUsForm from "../forms/JoinUsForm";
 import NewTestimonialForm from "./NewTestimonialForm";
 import { fetchUrlParams } from "../../../utils/utils";
 
-function OneTestimonial({
+function OneTestimonial ({
   testimonials,
   updateTestimonials,
   campaign,
@@ -132,6 +132,7 @@ function OneTestimonial({
                 objectFit: "cover",
                 borderRadius: 10,
               }}
+              alt={image?.name || "Testimonial Image"}
             />
           )}
 
@@ -179,6 +180,8 @@ function OneTestimonial({
               title = title ? `${title} (${item?.tech_name})` : "...";
               return (
                 <li
+                  role={"button"}
+                  tabIndex={0}
                   key={index?.toString()}
                   onClick={() =>
                     navigator(

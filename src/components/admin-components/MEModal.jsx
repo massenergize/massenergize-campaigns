@@ -1,7 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
-function MEModal({ title, children, show, handleClose, animate, onOkClick, size }) {
+function MEModal ({ title, children, show, handleClose, animate, onOkClick, size }) {
 
   return (
     <>

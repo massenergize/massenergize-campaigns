@@ -311,6 +311,7 @@ function TechnologyFullViewPage ({
               <img
                 className="elevate-float-pro mt-2"
                 src={image?.url || carPhoto}
+                alt={"event"}
                 // style={{
                 //   width: "100%",
                 //   height: 420,

@@ -6,7 +6,7 @@ import CustomTabView from "../../../components/tab-view/CustomTabView";
 import JoinUsForm from "../forms/JoinUsForm";
 import GetHelpForm from "../forms/GetHelpForm";
 
-function CoachesSection({ toggleModal, sectionId, technologies }) {
+function CoachesSection ({ toggleModal, sectionId, technologies }) {
   const coachesForEachTech = technologies?.map(
     ({
       campaign_technology,

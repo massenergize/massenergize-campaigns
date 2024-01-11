@@ -1,11 +1,11 @@
-import {useReducer, useContext} from "react";
+import {useReducer, useContext, createContext} from "react";
 
 const initialState = {
   dialogs: [],
   currentDialog: null
 }
 
-const DialogContext = React.createContext(initialState);
+const DialogContext = createContext(initialState);
 
 
 const dialogReducer = (state, action) => {

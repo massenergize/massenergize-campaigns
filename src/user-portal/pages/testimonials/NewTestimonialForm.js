@@ -14,7 +14,7 @@ import { apiCall } from "../../../api/messenger";
 import { setTestimonialsActions } from "../../../redux/actions/actions";
 
 const NULL = "null";
-function NewTestimonialForm({
+function NewTestimonialForm ({
   close,
   campaign,
   callbackOnSubmit,

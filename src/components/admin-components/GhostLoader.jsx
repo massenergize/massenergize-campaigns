@@ -1,7 +1,7 @@
 import React from 'react'
 import { Spinner } from '@kehillahglobal/ui'
 
-export default function GhostLoader() {
+export default function GhostLoader () {
   return (
     <div style={{
         width: '100%',

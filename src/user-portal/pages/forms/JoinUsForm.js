@@ -15,7 +15,7 @@ import { apiCall } from "../../../api/messenger";
 import { bindActionCreators } from "redux";
 import { loadUserObjAction } from "../../../redux/actions/actions";
 
-function JoinUsForm({
+function JoinUsForm ({
   campaign,
   close,
   setUserObj,

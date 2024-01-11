@@ -4,7 +4,7 @@ import { Button, ButtonGroup, Col, Row } from "react-bootstrap";
 import classes from "classnames";
 import LandingPage from "../../user-portal/pages/landing-page/LandingPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLink, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faExternalLink } from "@fortawesome/free-solid-svg-icons";
 import { useCampaignContext } from "../../hooks/use-campaign-context";
 
 export function CampaignDetailsAndPreview ({setStep,}) {
@@ -16,7 +16,6 @@ export function CampaignDetailsAndPreview ({setStep,}) {
     originalCampaignDetails,
     lists,
     handleCampaignDetailsChange : setCampaignDetails,
-    setNewCampaignDetails,
   } = useCampaignContext();
 
   return (

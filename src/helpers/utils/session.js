@@ -124,7 +124,7 @@ export const getNewTokenByInterval = function (refreshInterval) {
   let interval;
   interval = setInterval(async () => {
     try {
-      await renewSession();
+      // await renewSession();
     } catch (error) {
       clearInterval(interval);
     }

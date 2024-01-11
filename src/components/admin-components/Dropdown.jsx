@@ -64,7 +64,7 @@ const Dropdown = ({
 	// }, []);
 
 	useEffect(() => {
-		function handleClickOutside(event) {
+		function handleClickOutside (event) {
 			if (ref.current && !ref.current.contains(event.target)) {
 				setIsOpen(false);
 			}
@@ -138,6 +138,8 @@ const Dropdown = ({
 						) : (
 							<div key={index} style={{}}>
 								<p
+									role={"button"}
+									tabIndex={0}
 									onClick={() => {
 										handleSelect(valueExtractor && valueExtractor(datum));
 										setLabelShowing(labelExtractor && labelExtractor(datum));

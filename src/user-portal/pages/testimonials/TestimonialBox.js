@@ -79,6 +79,8 @@ function TestimonialBox ({
       >
         {image?.url && (
           <img
+            role={"button"}
+            tabIndex={0}
             onClick={() => navigator(route)}
             className="phone-vanish touchable-opacity"
             style={{
@@ -93,6 +95,8 @@ function TestimonialBox ({
           />
         )}
         <p
+          role={"button"}
+          tabIndex={0}
           className="touchable-opacity"
           onClick={() => navigator(route)}
           style={{
