@@ -1,41 +1,80 @@
 import React, { useState } from "react";
-import { Col, Container, FormLabel, Row, Button as BTN } from "react-bootstrap";
+import {
+  Col,
+  Container,
+  Row,
+  Button as BTN,
+  Modal,
+  Form,
+} from "react-bootstrap";
 import { MultiSelect } from "react-multi-select-component";
 import Button from "src/components/admin-components/Button";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import { daysOfWeek, monthsOfYear } from "src/utils/Constants";
 import {
   AddSelectedEvents,
-  fetchAllCampaignTechnologyEvents,
+  removeCampaignTechnologyEvent,
 } from "src/requests/campaign-requests";
 import useSWR from "swr";
 import GhostLoader from "src/components/admin-components/GhostLoader";
 import { useParams } from "react-router-dom";
+import Chip from "src/components/admin-components/Chip";
+import { fetchEvents } from "src/requests/technology-requests";
+import {NoItems} from '@kehillahglobal/ui'
 
+export function CampaignEventsView({ events, campaign }) {
+  //@Todo: Add a mutate to update main
 
+  const [loading, setLoading] = useState(false);
+  const { id } = useParams();
 
-export function CampaignEventsView({ events, campaign }) { //@Todo: Add a mutate to update main
+  const { data: allEvents, isLoading } = useSWR(
+    "campaigns.communities.events.list",
+    () => fetchEvents(campaign?.id || id),
+    {
+      shouldRetryOnError: true,
+      errorRetryCount: 3,
+      errorRetryInterval: 3000,
+    }
+  );
 
-	const [loading, setLoading] = useState(false);
-	const {id} = useParams()
-	
-	const {
-		data: allEvents,
-		isLoading,
-		error,
-	} = useSWR("campaigns.technologies.events.list", async () =>
-    fetchAllCampaignTechnologyEvents(campaign?.id || id)
-	);
-	
-	const existingEvents = [...campaign?.technologies?.map((tech) => tech?.events)].flat()
-  const [selectedEvents, setSelectedEvents] = useState(existingEvents?.map(({technology_event}) => technology_event));
+  const techs = campaign?.technologies
+
+  const existingEvents = [...campaign?.technologies?.map((tech) => tech?.events)].flat();
+  const [selectedEvents, setSelectedEvents] = useState(existingEvents);
+  const [openModal, setOpenModal] = useState(false);
+  const [toAddEvents, setToAddEvents] = useState([]);
+  const [selectedTech, setSelectedTech] = useState("");
   const { blow, pop } = useBubblyBalloons();
 
-  const handleRemove = (data) => {
-    const filteredTechnologies = selectedEvents.filter(
-      (testimonial) => testimonial.id !== data.id
-    );
+  const handleRemove = async(tech_event_id) => {
+    setLoading(true);
+    const _old = [...selectedEvents];
+    const filteredTechnologies = selectedEvents.filter((event) => event?.id !== tech_event_id);
     setSelectedEvents(filteredTechnologies);
+    try{
+      const removedEvent = await removeCampaignTechnologyEvent(tech_event_id);
+      if(removedEvent){
+        setLoading(false);
+        blow({
+          title: "Success",
+          message: "Event removed successfully.",
+          type: "success",
+          duration: 5000,
+        });
+      }
+
+    }catch(e){
+      setSelectedEvents(_old);
+      setLoading(false);
+      pop({
+        title: "Error",
+        message: "Something went wrong. Please try again later.",
+        type: "error",
+        timeout: 5000,
+      });
+    }
+
   };
   const formatDate = (date) => {
     let d = new Date(date);
@@ -47,21 +86,22 @@ export function CampaignEventsView({ events, campaign }) { //@Todo: Add a mutate
     return `${day}, ${d_date} ${month} ${year} `;
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
       const payload = {
-        campaign_id: campaign?.id || id,
-        technology_event_ids: selectedEvents.map((event) => event.id),
+        campaign_technology_id: selectedTech,
+        event_ids: toAddEvents?.map((event) => event.id),
       };
 
       const res = await AddSelectedEvents(payload);
 
       if (res) {
         setLoading(false);
+        onModalClose();
+        setSelectedEvents([...selectedEvents, ...res]);
         blow({
           title: "Success",
           message: "Campaign Event Added successfully.",
@@ -84,62 +124,36 @@ export function CampaignEventsView({ events, campaign }) { //@Todo: Add a mutate
     return <GhostLoader loading={isLoading} text="Loading Events..." />;
   const EVENTS_SIZE = (selectedEvents || [])?.length;
 
+  const onModalClose = () => {
+    setOpenModal(false);
+    setToAddEvents([]);
+    setSelectedTech("");
+
+  }
+
+  
+  const selectedEventIds = selectedEvents.map(event => event.event.id);
+  const eventsToShow = allEvents.filter(event => !selectedEventIds.includes(event.id));
+
   return (
     <Container style={{ height: "100vh" }}>
-      <form>
-        <Row>
-          <Col>
-            <FormLabel>
-              Select the events that resonate with your campaign from the
-              options below, and showcase them on your campaign page with just a
-              click!
-            </FormLabel>
-          </Col>
-        </Row>
-        <Row className="" style={{ height: "180px" }}>
-          <Col>
-            <MultiSelect
-              options={allEvents?.map((event) => {
-                return {
-                  ...event,
-                  label: `${event?.event?.name} - ${event?.technology?.name}` ,
-                  value: event?.id,
-                };
-              })}
-              value={selectedEvents?.map((event) => {
-                return {
-                  ...event,
-                  label: `${event?.event?.name} - ${event?.technology?.name}`,
-                  value: event?.id,
-                };
-              })}
-              valueRenderer={(selected, _options) => {
-                if (selected?.length < 1) {
-                  return "No Events selected...";
-                }
+      <Container>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginBottom: 10,
+          }}
+        >
+          <BTN onClick={() => setOpenModal(true)}>
+            <span>Add Events</span>
+          </BTN>
+        </div>
+      </Container>
 
-                if (selected?.length === allEvents?.length) {
-                  return "All Events Selected";
-                }
-                if (selected?.length >= 3) {
-                  return `${selected?.length} Events Selected`;
-                }
-
-                return selected.map(({ label, id }, i) => {
-                  return label + (i < allEvents?.length ? ", " : "");
-                });
-              }}
-              onChange={(val) => {
-                setSelectedEvents(val);
-              }}
-              labelledBy="Select"
-            />
-          </Col>
-        </Row>
-
+      <Container>
         <Row
-          className=" pb-4 justify-content-start"
-          style={{ marginTop: "-5rem" }}
+          className=" pb-4 justify-content-start mt-4"
         >
           {EVENTS_SIZE > 0 ? (
             <>
@@ -149,16 +163,16 @@ export function CampaignEventsView({ events, campaign }) { //@Todo: Add a mutate
                     <th className="text-center" scope="col">
                       #
                     </th>
-                    <th className="text-center" scope="col">
+                    <th className="textcenter" scope="col">
                       Image
                     </th>
-                    <th className="text-center" scope="col">
+                    <th className="text-cener" scope="col">
                       Name
                     </th>
-                    <th className="text-center" scope="col">
+                    <th className="text-centr" scope="col">
                       Technology
                     </th>
-                    <th className="text-center" scope="col">
+                    <th className="textcenter" scope="col">
                       {" "}
                       Date
                     </th>
@@ -169,8 +183,8 @@ export function CampaignEventsView({ events, campaign }) { //@Todo: Add a mutate
                   {(selectedEvents || [])?.map((event, index) => {
                     return (
                       <tr key={event?.id} className="text-sm">
-                        <td className="text-center" >{index+1}</td>
-                        <td className="text-center">
+                        <td className="text-center">{index + 1}</td>
+                        <td className="ext-center">
                           <img
                             style={{
                               width: "35px",
@@ -182,9 +196,11 @@ export function CampaignEventsView({ events, campaign }) { //@Todo: Add a mutate
                             alt=""
                           />
                         </td>
-                        <td className="text-center">{event?.event?.name}</td>
-                        <td className="text-center">{event?.technology?.name}</td>
-                        <td className="text-center">
+                        <td className="tex-center">{event?.event?.name}</td>
+                        <td className="text-ceter">
+                          {event?.campaign_technology[0]?.technology?.name}
+                        </td>
+                        <td className="text-ceter">
                           {formatDate(event?.event?.start_date)}
                         </td>
                         <td className="text-center">
@@ -196,7 +212,7 @@ export function CampaignEventsView({ events, campaign }) { //@Todo: Add a mutate
                                   "Are you sure you want to remove this Event?"
                                 )
                               ) {
-                                handleRemove(event);
+                                handleRemove(event?.id);
                               }
                             }}
                             variant="primary"
@@ -210,23 +226,116 @@ export function CampaignEventsView({ events, campaign }) { //@Todo: Add a mutate
                 </tbody>
               </table>
             </>
-          ) : null}
+          ) : <NoItems text="No events add to this campaign click the 'Add Events' button to add"/>}
         </Row>
+      </Container>
 
-        {
-          <Row className="mt-2 py-4 justify-content-end">
-            <Col className="mt-2 py-4">
-              <Button
-                text="Save Changes"
-                loading={loading}
-                disabled={loading}
-                onSubmit={handleSubmit}
-                rounded={false}
-              />
+      <Modal size={"lg"} show={openModal} onHide={onModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className={"text-sm"}>Events Selection</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ height: "70vh" }}>
+          {eventsToShow?.length > 0 ? (
+                 <form>
+                 <Row className="mt-2" style={{ height: "180px" }}>
+                   <Col>
+                   <Form.Label>Select events to feature on this campaign</Form.Label>
+                     <MultiSelect
+                       options={(eventsToShow || []).map((event) => {
+                         return {
+                           ...event,
+                           value: event?.id,
+                           label: event?.name,
+                         };
+                       })}
+                       hasSelectAll={true}
+                       value={toAddEvents?.map((event) => {
+                         return {
+                           ...event,
+                           value: event?.id,
+                           label: event?.name,
+                         };
+                       })}
+                       onChange={(val) => setToAddEvents(val)}
+                       valueRenderer={(selected, _options) => {
+                         if (selected.length === 0) return "Select Events";
+                         if (selected.length === _options.length)
+                           return "All Events Selected";
+                         if (selected.length > 2)
+                           return `${selected.length} Events Selected`;
+                         return selected
+                           ?.map(({ label }) => label)
+                           ?.join(", ")
+                           .concat(" Selected");
+                       }}
+                       className={"event-select"}
+                     />
+     
+                     <Row className="my-4">
+                     
+                     <Form.Label>Select th technology these events belong to</Form.Label>
+                       <Col>
+                           <Form.Select onChange={(e)=>{setSelectedTech(e.target.value)}}>
+                           <option> ----- -----</option>
+                           {(techs || []).map((tech) => {
+                             return (
+                               <option value={tech?.campaign_technology_id}>{tech?.name}</option>
+                             )
+                           })}
+                           </Form.Select>
+                       </Col>
+                     </Row>
+                   </Col>
+                 </Row>
+               </form>
+          ):(
+            <NoItems />
+          )}
+
+     
+
+          <Row className="mt-4">
+            <Col>
+              <Row>
+                {toAddEvents?.map((event) => {
+                  return (
+                    <Col sm={"auto mb-2"}>
+                      <Chip
+                        text={event?.name}
+                        icon={event?.icon}
+                        id={event?.id}
+                        size={"sm"}
+                        className="mr-2 mb-5"
+                        onDismiss={(id) => {
+                          setToAddEvents(
+                            toAddEvents?.filter((event) => event?.id !== id)
+                          );
+                        }}
+                      />
+                    </Col>
+                  );
+                })}
+              </Row>
             </Col>
           </Row>
-        }
-      </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            text="Save Changes"
+            loading={loading}
+            disabled={loading || toAddEvents?.length === 0 || !selectedTech}
+            onSubmit={handleSubmit}
+            rounded={false}
+          />
+          <BTN
+            style={{ marginLeft: 10, padding: "10px 20px", borderRadius: 0 }}
+            variant="danger"
+            onClick={onModalClose}
+          >
+            Close
+          </BTN>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }

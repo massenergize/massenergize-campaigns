@@ -64,11 +64,11 @@ export const technologyPages = [
 		name: "Incentives",
 		component: Incentives,
 	},
-	{
-		name: "Events",
-		key: "events",
-		component: TechnologyEvents,
-	},
+	// {
+	// 	name: "Events",
+	// 	key: "events",
+	// 	component: TechnologyEvents,
+	// },
 	{
 		name: "Testimonials",
 		key: "testimonials",

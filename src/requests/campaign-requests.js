@@ -461,7 +461,7 @@ try {
     }
 
   }
-export async function AddSelectedEvents(data, url = "campaigns.events.add") {
+export async function AddSelectedEvents(data, url = "campaigns.technology.events.add") {
 	try {
 		const response = await apiCall(url, data, null);
 
@@ -475,16 +475,16 @@ export async function AddSelectedEvents(data, url = "campaigns.events.add") {
 	}
 }
 
-export async function fetchAllCampaignTechnologyEvents(campaign_id, url="campaigns.technologies.events.list"){
-  try {
-    const response = await apiCall(url, {campaign_id}, null);
+export async function removeCampaignTechnologyEvent(id, url="campaigns.technology.events.remove"){
+	try {
+		const response = await apiCall(url, {id}, null);
 
-    if (!response || !response?.success) {
-      handleRequestError(response?.error, "FETCH_TECHNOLOGY_EVENTS_BE");
-    }
-    return response?.data;
-  } catch (e) {
-    handleRequestError(e, "FETCH_TECHNOLOGY_EVENTS");
-  }
+		if (!response || !response?.success) {
+			handleRequestError(response?.error, "REMOVE_EVENTS_FROM_CAMPAIGN_BE");
+		}
 
+		return response?.data;
+	} catch (e) {
+		handleRequestError(e, "REMOVE_EVENTS_FROM_CAMPAIGN");
+	}
 }
