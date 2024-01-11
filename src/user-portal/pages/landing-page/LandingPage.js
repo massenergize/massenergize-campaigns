@@ -12,14 +12,12 @@ import CoachesSection from "../coaches/CoachesSection";
 import Banner from "../banner/Banner";
 import planetB from "./../../../assets/imgs/planet-b.jpeg";
 import { connect, useSelector } from "react-redux";
-import { apiCall } from "../../../api/messenger";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import {
   USER_STORAGE_KEY,
   appInnitAction,
   loadUserObjAction,
-  toggleUserInfoModal,
   trackActivity,
 } from "../../../redux/actions/actions";
 import { LOADING } from "../../../utils/Constants";
@@ -32,7 +30,7 @@ import JoinUsForm from "../forms/JoinUsForm";
 import { OTHER, OTHER_JSON } from "../forms/CommunitySelector";
 
 
-function LandingPage({
+function LandingPage ({
   toggleModal,
   campaign,
   init,
@@ -173,7 +171,7 @@ function LandingPage({
       minHeight: "100vh",
     }}>
       <h1>This campaign is not Live. Contact Admin</h1>
-     
+
     </Container>
   );
 
@@ -214,16 +212,16 @@ function LandingPage({
         <Banner {...campaign} />
         <Container>
           <img
-            className="elevate-float-pro"
+            className="elevate-float-pro campaign-focus-image"
             src={image?.url || planetB}
-            style={{
-              width: "80%",
-              margin: "0px 10%",
-              height: 530,
-              borderRadius: 10,
-              marginTop: 20,
-              objectFit: "cover",
-            }}
+            // style={{
+            //   width: "80%",
+            //   margin: "0px 10%",
+            //   height: 530,
+            //   borderRadius: 10,
+            //   marginTop: 20,
+            //   objectFit: "cover",
+            // }}
             alt={"campaign banner"}
           />
         </Container>
@@ -244,6 +242,7 @@ function LandingPage({
 
       <div ref={testimonialsRef}>
         <TestimonialSection
+          campaign={campaign}
           // defaultTab={activeTab}
           technologies={technologies}
           sectionId="testimonial-section"

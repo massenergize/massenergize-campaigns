@@ -6,16 +6,8 @@ import {
 	faBan,
 	faBullhorn,
 	faChartLine,
-	faComment,
 	faDownload,
-	faEye,
-	faHeart,
 	faPenToSquare,
-	faPhotoFilm,
-	faShareNodes,
-	faSquareShareNodes,
-	faUserPlus,
-	faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import StatsCard from "../../components/admin-components/StatsCard";
 import { statsData } from "../../utils/Constants";
@@ -26,10 +18,7 @@ import Button from "../../components/admin-components/Button";
 import { useNavigate } from "react-router-dom";
 
 const PreviewCampaign = () => {
-	const data = statsData;
-
 	const statistics = Object.entries(statsData?.data);
-
 	const tabs = [
 		{
 			name: "Comments",

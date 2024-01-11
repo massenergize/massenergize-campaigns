@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-function Introduction() {
+function Introduction () {
   return (
     <div style={{ marginTop: 80 }}>
       <Container className="mt-5">

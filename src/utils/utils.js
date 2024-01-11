@@ -1,6 +1,6 @@
 import { format, formatDistanceToNow, isSameDay, parseISO } from "date-fns";
 
-export function formatTimeRange(startDateString, endDateString) {
+export function formatTimeRange (startDateString, endDateString) {
   if (!startDateString || !endDateString) return "";
   const startDate = parseISO(startDateString);
   const endDate = parseISO(endDateString);
@@ -19,7 +19,7 @@ export function formatTimeRange(startDateString, endDateString) {
   }
 }
 
-export function relativeTimeAgo(datetimeString) {
+export function relativeTimeAgo (datetimeString) {
   const date = parseISO(datetimeString);
 
   return formatDistanceToNow(date, { addSuffix: true });
@@ -31,12 +31,12 @@ export const validateEmail = (email) => {
   return emailRegex.test(email);
 };
 
-export function fetchUrlParams(name) {
+export function fetchUrlParams (name) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(name) || "";
 }
 
-export function getLastSegmentFromUrl(url) {
+export function getLastSegmentFromUrl (url) {
   const parsedUrl = new URL(url);
   const pathnameSegments = parsedUrl.pathname.split("/").filter(Boolean);
 
@@ -47,7 +47,7 @@ export function getLastSegmentFromUrl(url) {
   return null; // Return null if no segments are found
 }
 
-export function addUrlParams(currentUrl, params) {
+export function addUrlParams (currentUrl, params) {
   const url = new URL(currentUrl);
   const searchParams = new URLSearchParams(url.search);
 
@@ -58,7 +58,7 @@ export function addUrlParams(currentUrl, params) {
   return url.pathname + "?" + searchParams.toString();
 }
 
-export function generateUniqueRandomString(length) {
+export function generateUniqueRandomString (length) {
   const characters =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let result = "";
@@ -74,7 +74,7 @@ export function generateUniqueRandomString(length) {
 
   return result;
 }
-export function smartString(inputString, maxLength = 30) {
+export function smartString (inputString, maxLength = 30) {
   if (
     typeof inputString !== "string" ||
     typeof maxLength !== "number" ||

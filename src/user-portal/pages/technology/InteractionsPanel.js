@@ -7,7 +7,7 @@ const interactions = [
   { icon: "fa-eye", name: "Views", count: 3542 },
   // { icon: "fa-share", name: "Shares", count: 15 },
 ];
-function InteractionsPanel({
+function InteractionsPanel ({
   openCommentBox,
   likes,
   views,
@@ -62,13 +62,14 @@ function InteractionsPanel({
         />
 
         <small
-          className="touchable-opacity"
+          className="touchable-opacity phone-vanish"
           // style={{ fontWeight: "bold", textDecoration: "underline" }}
           style={{ fontWeight: "bold" }}
         >
-          {`${likeCount ? likeCount : ""} ${
+          {`${likeCount ? likeCount : ""} `}
+          <span className="phone-vanish">{`${
             !likeCount || likeCount === 1 ? " Like" : " Likes"
-          }`}
+          }`}</span>
         </small>
       </div>
       <div
@@ -89,9 +90,10 @@ function InteractionsPanel({
           className="touchable-opacity"
           style={{ fontWeight: "bold", textDecoration: "underline" }}
         >
-          {`${comments ? comments : ""} ${
+          {`${comments ? comments : ""}`}
+          <span className="phone-vanish">{`${
             !comments || comments === 1 ? " Comment" : " Comments"
-          }`}
+          }`}</span>
         </small>
       </div>
       {views ? (
@@ -108,7 +110,10 @@ function InteractionsPanel({
             style={{ marginRight: 6, color: "var(--app-deep-green)" }}
           />
           <small style={{ fontWeight: "bold" }}>
-            {views} {views === 1 ? " View" : "Views"}
+            {views}{" "}
+            <span className="phone-vanish">
+              {views === 1 ? " View" : "Views"}
+            </span>
           </small>
         </div>
       ) : (

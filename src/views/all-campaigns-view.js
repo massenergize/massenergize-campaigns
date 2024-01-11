@@ -87,7 +87,7 @@ const DUMMY_CAMPAIGN_NAMEs = [
 	"5KW Solr installation",
 ];
 
-export function AllCampaignsView({}) {
+export function AllCampaignsView ({}) {
   //   const [data, setData] = useNamedState("table data", DUMMY_DATA);
   const [rowMenu, setRowMenu] = useState(ROW_ACTIONS_MENU);
   const campaignAccount = useSelector((state) => state.campaignAccount);

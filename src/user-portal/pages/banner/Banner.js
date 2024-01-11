@@ -3,11 +3,12 @@ import { Col, Container, Row } from "react-bootstrap";
 // import partnerLogo from "./../../../assets/imgs/me-logo.png";
 import partnerLogo from "./../../../assets/imgs/me-round-logo.png";
 
-function Banner({ title, secondary_logo, primary_logo, tagline }) {
+function Banner ({ title, secondary_logo, primary_logo, tagline }) {
   return (
     <Container style={{ marginTop: 70 }}>
       <Row>
         <Col
+          className="mob-clear-padding"
           lg={3}
           style={{
             padding: 20,
@@ -18,18 +19,21 @@ function Banner({ title, secondary_logo, primary_logo, tagline }) {
           }}
         >
           <img
+            className="site-logo"
             src={primary_logo?.url}
-            style={{
-              borderRadius: "100%",
-              width: 190,
-              height: 190,
-              marginBlock: 10,
-              objectFit: "contain",
-            }}
-          ></img>
+            // style={{
+            //   // borderRadius: "100%",
+            //   width: 190,
+            //   height: 190,
+            //   marginBlock: 10,
+            //   objectFit: "contain",
+            // }}
+            alt={"logo"}
+          />
         </Col>
         <Col
           lg={6}
+          className="mob-clear-padding"
           style={{
             padding: 20,
             display: "flex",
@@ -39,16 +43,18 @@ function Banner({ title, secondary_logo, primary_logo, tagline }) {
           }}
         >
           <h1
-            style={{
-              textAlign: "center",
-              fontSize: "3rem",
-              textTransform: "uppercase",
-            }}
+            className="page-title"
+            // style={{
+            //   textAlign: "center",
+            //   fontSize: "3rem",
+            //   textTransform: "uppercase",
+            // }}
           >
             {title}
           </h1>
           {tagline && (
             <h5
+              className="page-slogan"
               style={{
                 fontWeight: "400",
                 color: "var(--app-medium-green)",
@@ -64,6 +70,7 @@ function Banner({ title, secondary_logo, primary_logo, tagline }) {
         </Col>
         <Col
           lg={3}
+          className="mob-clear-padding"
           style={{
             padding: 20,
             display: "flex",
@@ -72,19 +79,20 @@ function Banner({ title, secondary_logo, primary_logo, tagline }) {
             justifyContent: "center",
           }}
         >
-          <img
-            src={
-              secondary_logo?.url ||
-              "https://massenergize-prod-files.s3.amazonaws.com/media/MassEnergize-logo-231130-142610.png"
-            }
-            style={{
-              borderRadius: "100%",
-              width: 190,
-              height: 190,
-              marginBlock: 10,
-              objectFit: "contain",
-            }}
-          ></img>
+          {secondary_logo?.url && (
+            <img
+              src={secondary_logo?.url}
+              className="site-logo"
+              // style={{
+              //   // borderRadius: "100%",
+              //   width: 190,
+              //   height: 190,
+              //   marginBlock: 10,
+              //   objectFit: "contain",
+              // }}
+              alt={"logo"}
+            ></img>
+          )}
         </Col>
       </Row>
     </Container>

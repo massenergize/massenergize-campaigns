@@ -3,7 +3,7 @@ import { motion as m } from "framer-motion";
 import React, { useReducer, useState } from "react";
 import { Col, Container, Row, Button as BTN } from "react-bootstrap";
 import Input from "./Input";
-import { Dropdown, RadioGroup } from "@kehillahglobal/ui";
+import { Dropdown } from "@kehillahglobal/ui";
 import FileUploader from "./FileUploader";
 import useSWR from "swr";
 import {
@@ -33,8 +33,6 @@ const Testimonials = ({ campaign, mutateData }) => {
   const { blow, pop } = useBubblyBalloons();
   const {
     data: users,
-    error,
-    isLoading,
   } = useSWR("users.listForCommunityAdmin", getUsers({ no_pagination: true }));
 
   const loggedInUser = useSelector((state) => state.authAdmin);
@@ -321,15 +319,7 @@ const Testimonials = ({ campaign, mutateData }) => {
       >
         {testimonials?.map((testimonial) => {
           return (
-            <div
-              //   style={{
-              //     maxWidth: testimonial?.id === readMore ? "100%" : "500px",
-              //     transitionProperty: "all",
-              //     transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-              //     transitionDuration: "300ms",
-              //   }}
-              className="border-no-dash"
-            >
+            <div className="border-no-dash">
               <h5 style={{ color: "green", textTransform: "uppercase" }}>
                 {testimonial?.user?.full_name}
               </h5>

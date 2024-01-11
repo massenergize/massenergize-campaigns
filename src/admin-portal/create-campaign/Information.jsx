@@ -34,7 +34,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
     key_contact_image: "",
   };
 
-  const { blow, pop } = useBubblyBalloons();
+  const { blow } = useBubblyBalloons();
 
   const [errors, setErrors] = useNamedState("Error", {});
 

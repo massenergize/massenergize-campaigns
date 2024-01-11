@@ -10,38 +10,8 @@ import { CreateTechnologyIncentiveModal } from "./create-technology-incentive-mo
 import classes from "classnames";
 import { HorizontalLoader } from "../../../components/horizontal-loader/horizontal-loader";
 
-const DUMMY_DATA = [
-  {
-    id: 1,
-    title: "ENVIRONMENTALLY  FRIENDLY",
-    description: "this is just a normal description",
-    icon: faLightbulb,
-  },
-  {
-    id: 2,
-    title: "ECONOMIC BENEFITS",
-    description: "this is just a normal description",
-    icon: faLightbulb,
-  },/*
-		{
-			id: 3,
-			title: "COMFORT",
-			description: "this is just a normal description",
-			icon: faLightbulb,
-		},
-		{
-			id: 4,
-			title: "HEALTH & WELLNESS",
-			description: "this is just a normal description",
-			icon: faLightbulb,
-		},*/
-];
-
-const Incentives = ({ tech_id, campaign_id, updateTechObject,}) => {
+const Incentives = ({ }) => {
   const { technology,
-    handleTechnologyDetailsChange,
-    setNewTechnologyDetails,
-    handleOverviewChange,
     handleAddOverview,
   } = useTechnologyContext();
   const incentives = technology?.overview || [];

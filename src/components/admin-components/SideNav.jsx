@@ -14,6 +14,7 @@ const SideNav = ({ navMenus }) => {
 			} bg-slate-900 transition-all duration-500`}
 		>
 			<div
+				tabIndex={0}
 				className="flex py-3 px-5 delay-500 justify-end text-gray-100 duration-700 transition-all"
 				onClick={() => setOpen(!open)}
 			>
@@ -55,6 +56,7 @@ const SideNav = ({ navMenus }) => {
 				const { title, icon, link } = navlink;
 				return (
 					<div
+						tabIndex={0}
 						className="mt-4 group flex flex-col gap-4 relative text-gray-100 cursor-pointer"
 						key={title}
 						onClick={() => {

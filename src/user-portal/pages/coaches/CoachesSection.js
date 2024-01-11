@@ -6,7 +6,7 @@ import CustomTabView from "../../../components/tab-view/CustomTabView";
 import JoinUsForm from "../forms/JoinUsForm";
 import GetHelpForm from "../forms/GetHelpForm";
 
-function CoachesSection({ toggleModal, sectionId, technologies }) {
+function CoachesSection ({ toggleModal, sectionId, technologies }) {
   const coachesForEachTech = technologies?.map(
     ({
       campaign_technology,
@@ -45,7 +45,7 @@ function CoachesSection({ toggleModal, sectionId, technologies }) {
       </span>
     ),
     component: (
-      <Row style={{ marginTop: 50 }}>
+      <Row className="coach-main">
         {coaches?.map((item) => {
           return (
             <Col key={item.id} xs={3}>
@@ -59,10 +59,10 @@ function CoachesSection({ toggleModal, sectionId, technologies }) {
   return (
     <div
       id={sectionId}
-      className="elevate-float-pro"
+      className="elevate-float-pro g-s-container"
       style={{
         margin: "40px 0px",
-        padding: "100px 0px",
+        // padding: "100px 0px",
         background: "antiquewhite",
         width: "100%",
       }}
@@ -86,7 +86,7 @@ function CoachesSection({ toggleModal, sectionId, technologies }) {
               data={intoTabs}
             ></CustomTabView>
 
-            <div style={{ width: "80%" }}>
+            <div className="coaches-description">
               <p>
                 In publishing and graphic design, Lorem ipsum is a placeholder
                 text commonly used to demonstrate the visual form of a document

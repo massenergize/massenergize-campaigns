@@ -385,7 +385,7 @@ class ComboBox extends Component {
         <Row ref={this.listContainer}
              className={classnames("combo-list-items rounded-bottom",
                { "d-none": !showingMatches, },
-               this.props.floatList === true ? "position-relative" : "position-relative" )}
+               this.props.floatList === true ? "position-relative" : "position-relative")}
              onMouseOver={() => {
                if (keyboardSelection > -1) {
                  this.setState({ keyboardSelection: -1 })

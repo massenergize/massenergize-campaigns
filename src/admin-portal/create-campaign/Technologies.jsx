@@ -14,7 +14,7 @@ import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons"
 import { removeCampaignTechnology, updateCampaignTechnologies } from "../../requests/campaign-requests";
 import { smartString } from "src/utils/utils";
 
-function Technology({ tech, handleRemove }) {
+function Technology ({ tech, handleRemove }) {
   let image = tech?.image?.url;
   let { id, name } = tech;
   const navigate =  useNavigate()

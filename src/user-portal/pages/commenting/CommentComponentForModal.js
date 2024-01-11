@@ -6,7 +6,7 @@ import Notification from "../../../components/pieces/Notification";
 import { apiCall } from "../../../api/messenger";
 import CommentDeleteConfirmation from "../technology/CommentDeleteConfirmation";
 
-function CommentComponentForModal({
+function CommentComponentForModal ({
   comments,
   authUser,
   updateUser,

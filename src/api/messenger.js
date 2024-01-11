@@ -16,7 +16,7 @@ export const SESSION_EXPIRED = "session_expired";
  * @param { String } dataToSend
  * @param { String } relocationPage
  */
-export async function apiCall(destinationUrl, dataToSend = {}, relocationPage = null) {
+export async function apiCall (destinationUrl, dataToSend = {}, relocationPage = null) {
   // add some meta data for context in backend
   const data = {
     // __is_prod: IS_PROD || IS_CANARY,
@@ -100,7 +100,7 @@ export async function apiCall(destinationUrl, dataToSend = {}, relocationPage = 
 }
 
 // ----- Used when the backend is meant to return a file for download
-export async function apiCallFile(destinationUrl, dataToSend = {}) {
+export async function apiCallFile (destinationUrl, dataToSend = {}) {
   const idToken = localStorage.getItem("idToken");
 
   // don't need this strictUrl optional arg?  Won't work with IS_LOCAL

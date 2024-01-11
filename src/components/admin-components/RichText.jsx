@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Editor as TinyEditor } from "@tinymce/tinymce-react";
 const TINY_MCE_API_KEY = process.env.REACT_APP_TINY_MCE_KEY;
 
-function MERichText(props) {
-    const [open, setOpen] = useState(false);
+function MERichText (props) {
     const [editor, setEditor] = useState(null);
     const { onEditorChange } = props;
 

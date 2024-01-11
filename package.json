@@ -6,7 +6,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix --ext .js,.jsx ./src",
+    "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md|vue)\""
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
@@ -35,6 +38,7 @@
     "react-google-recaptcha": "^3.1.0",
     "react-multi-select-component": "^4.3.4",
     "react-redux": "^9.0.0",
+    "react-responsive": "^9.0.2",
     "react-router-dom": "^6.20.1",
     "react-scripts": "^5.0.1",
     "react-scroll": "^1.7.16",
@@ -49,7 +53,13 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@stylistic/eslint-plugin-js": "^1.5.3",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1"
   },
   "overrides": {
     "react-scripts": {
@@ -64,6 +74,11 @@
     "rules": {
       "react/react-in-jsx-scope": "off",
       "react/jsx-uses-react": "off"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run format && npm run lint:fix"
     }
   },
   "browserslist": {

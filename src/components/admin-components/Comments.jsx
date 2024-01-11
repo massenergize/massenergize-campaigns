@@ -25,7 +25,7 @@ const Comments = ({ campaign, mutateData }) => {
 let comments = [...technologies?.map((tech) => tech?.comments)].flat();
 const [loading, setLoading] = useState(false);
 
-  const handleClick = async(e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
    try {
         setLoading(true);
@@ -270,7 +270,7 @@ const [loading, setLoading] = useState(false);
                                   </m.p>
                                   <m.div style={{display:'flex', justifyContent:'space-between'}}>
                                       {comment?.user?.id === loggedInAdmin?.id ? (<m.div className="comment-delete-btn"
-                                                                                         onClick={async() =>{
+                                                                                         onClick={async () =>{
                                                                                              if (window.confirm("Are you sure you want to delete this comment ?")) {
                                                                                                  await handleDeleteComment(comment?.id)
                                                                                              }

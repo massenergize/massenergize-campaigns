@@ -1,7 +1,7 @@
 import React from "react";
 import AuthGuard from "../../../guards/AuthGuard";
 
-function Dummy() {
+function Dummy () {
   return (
     <AuthGuard>
       <center>

@@ -1,3 +1,156 @@
 @media only screen and (max-width: 767px) {
-  
+  .phone-vanish {
+    display: none !important;
+  }
+  .page-title {
+    font-size: var(--mob-title-font-size);
+  }
+  .page-slogan {
+    font-weight: 400;
+    color: var(--app-medium-green);
+    text-align: center;
+    text-transform: capitalize;
+    line-height: 1.5;
+    width: 85%;
+    font-size: var(--mob-normal-font-size);
+  }
+
+  .site-logo {
+    height: 70px;
+    width: 70px;
+    object-fit: contain;
+  }
+  .mob-clear-padding {
+    padding: 0px !important;
+  }
+
+  .campaign-focus-image {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .roaming-container {
+    margin: 20px 0px;
+  }
+  .roaming-header h3 {
+    font-size: 1.1rem;
+  }
+  .roaming-text {
+    font-size: var(--mob-normal-font-size);
+  }
+  .mob-phone-mode {
+    font-size: var(--mob-normal-font-size);
+    padding: 7px 15px;
+  }
+  .app-btn {
+    border-width: 0px;
+    padding: 7px 17px;
+    font-size: var(--mob-normal-font-size) !important;
+  }
+
+  .g-s-container {
+    padding: 50px 10px;
+  }
+  .one-box {
+    padding: 0px 10px 10px;
+  }
+  .one-box h5 {
+    font-size: 1rem;
+  }
+  .one-box img {
+    margin-top: 12px;
+    height: 60px;
+    width: 60px;
+  }
+  .one-box-container {
+    min-height: 250px;
+    margin-bottom: 20px;
+  }
+
+  .one-box p,
+  a {
+    /* font-size: var(--mob-normal-font-size); */
+    font-size: 0.77rem;
+  }
+
+  .one-box-footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    /* padding: 20px 30px 30px; */
+  }
+  .one-tech-wrapper {
+    padding: 0px 4px !important;
+  }
+
+  .testi-container {
+    padding: 20px;
+    height: 200px;
+    margin-bottom: 15px;
+  }
+  .coach-main {
+    margin: 0;
+    justify-content: space-between;
+  }
+
+  .coach-main img {
+    width: 60px;
+    height: 60px;
+    /* object-fit: cover; */
+  }
+
+  .coach-main h6 {
+    font-size: 0.7rem;
+    text-align: center;
+    margin: 5px 0px;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+
+  .coach-main p {
+    font-size: 11px;
+  }
+  .coaches-description {
+    width: 100%;
+    font-size: var(--mob-paragraph-font-size);
+    text-align: justify;
+  }
+  .do-more-root p {
+    width: 100%;
+    font-size: var(--mob-normal-font-size);
+    /* text-align: justify; */
+  }
+  .do-more-root {
+    padding: 5vh 0px;
+  }
+
+  .one-tech-main img {
+    height: 200px;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  .o-t-desc {
+    font-size: var(--mob-paragraph-font-size);
+  }
+  .one-tech-wrapper {
+    padding: 0px 15px;
+  }
+
+  .section-title {
+    font-size: 1.3rem;
+  }
+
+  .overview-item p {
+    font-size: var(--mob-paragraph-font-size);
+  }
+
+  .paragraph-font {
+    font-size: var(--mob-paragraph-font-size);
+  }
+  /* ---------------------------- END OF PHONE SPECIFIC STYLES ----------- */
 }

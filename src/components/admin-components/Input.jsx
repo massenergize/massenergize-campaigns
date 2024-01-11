@@ -1,7 +1,6 @@
 import React from "react";
 import "../../assets/styles/styles.scss";
 import classes from "classnames";
-import { format } from "date-fns";
 
 const Input = ({
                  id,

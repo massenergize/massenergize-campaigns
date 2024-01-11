@@ -33,7 +33,7 @@ const dummies = [
     type: "incentives",
   },
 ];
-function TakeAtionSetion({
+function TakeAtionSetion ({
   sectionId,
   scrollToSection,
   authUser,

@@ -440,7 +440,7 @@ try {
     }
 
   }
-export async function AddSelectedEvents(data, url = "campaigns.technology.events.add") {
+export async function AddSelectedEvents (data, url = "campaigns.technology.events.add") {
 	try {
 		const response = await apiCall(url, data, null);
 
@@ -454,7 +454,7 @@ export async function AddSelectedEvents(data, url = "campaigns.technology.events
 	}
 }
 
-export async function removeCampaignTechnologyEvent(id, url="campaigns.technology.events.remove"){
+export async function removeCampaignTechnologyEvent (id, url="campaigns.technology.events.remove"){
 	try {
 		const response = await apiCall(url, {id}, null);
 

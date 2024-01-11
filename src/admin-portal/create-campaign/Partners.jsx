@@ -8,8 +8,6 @@ import Checkbox from "../../components/admin-components/Checkbox";
 import Chip from "../../components/admin-components/Chip";
 import Input from "../../components/admin-components/Input";
 import FileUploader from "../../components/admin-components/FileUploader";
-import { motion as m } from "framer-motion";
-
 
 const Partners = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
   const scrollRef = useRef(null);
@@ -23,9 +21,6 @@ const Partners = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
 
   const handleRemove = (data) => {
     console.log(data);
-  };
-
-  const handleCoachAdd = async () => {
   };
 
   const initialState = {
@@ -64,16 +59,11 @@ const Partners = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
 
   const {
     allPartners,
-    allManagers,
-    allTechnologies,
-    allCommunities,
   } = lists;
 
   return (
-    // <m.div initial={{ y: " 10%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
     <>
     <Container>
-        {/* <form> */}
         <Row className="my-4">
           <Col>
             <Checkbox
@@ -224,7 +214,6 @@ const Partners = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
         </form>
       </Container>
     </>
-    // </m.div>
   );
 };
 

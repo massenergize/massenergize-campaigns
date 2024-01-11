@@ -4,7 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
 
-function EventsSection({ sectionId, technologies }) {
+function EventsSection ({ sectionId, technologies }) {
   const eventsOfEachTech = technologies?.map(
     ({
       events,
@@ -46,7 +46,7 @@ function EventsSection({ sectionId, technologies }) {
       <Row style={{ marginTop: 50 }}>
         {events?.map((item) => {
           return (
-            <Col key={item.id} xs={3}>
+            <Col key={item.id} xs={12} lg={3}>
               <EventBox {...item} />
             </Col>
           );
@@ -57,9 +57,10 @@ function EventsSection({ sectionId, technologies }) {
   return (
     <div
       id={sectionId}
+      className="g-s-container"
       style={{
         margin: "40px 0px",
-        padding: "100px 0px",
+        // padding: "100px 0px",
         background: "white",
         width: "100%",
       }}

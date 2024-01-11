@@ -3,7 +3,7 @@ import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
 
-function GetAGreatDealSection({ sectionId, data, image }) {
+function GetAGreatDealSection ({ sectionId, data, image }) {
   const {
     title,
     description,
@@ -25,18 +25,18 @@ function GetAGreatDealSection({ sectionId, data, image }) {
   return (
     <div
       id={sectionId}
-      className="mt-5"
+      className="mt-5 g-s-container"
       style={{
-        // background: "red",
+        background: "white",
         width: "100%",
-        padding: "80px 0px",
-        minHeight: 200,
-        marginBottom: 140,
+        // padding: "80px 0px",
+        // minHeight: 200,
+        // marginBottom: 140,
       }}
     >
       <OptimumWrapper>
         <SectionTitle className="mb-3">{title}</SectionTitle>
-        <p style={{ textAlign: "justify" }} className="mb-3">
+        <p style={{ textAlign: "justify" }} className="mb-3 paragraph-font">
           {description}
         </p>
         <div className="" style={{ position: "relative" }}>
@@ -79,6 +79,7 @@ function GetAGreatDealSection({ sectionId, data, image }) {
                       borderRadius: 5,
                       textAlign: "center",
                       marginRight: 50,
+                      marginBottom: 15,
                     }}
                   >
                     <h3 style={{ margin: 0, color: "red" }}>{item.text}</h3>
@@ -87,7 +88,7 @@ function GetAGreatDealSection({ sectionId, data, image }) {
               })}
             </Row>
           </div>
-          <p style={{ textAlign: "justify" }} className="mb-3">
+          <p style={{ textAlign: "justify" }} className="mb-3 paragraph-font">
             {description_2}
           </p>
         </div>

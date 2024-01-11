@@ -2,8 +2,10 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { HOMEPAGE } from "../../../utils/Constants";
+import RenderHTML from "../../../components/RenderHtml";
+import { ellipsify, isEmpty } from "../../../helpers/utils/string";
 
-function OneBox({
+function OneBox ({
   icon,
   description,
   name,
@@ -29,26 +31,27 @@ function OneBox({
 
   return (
     <div
-      className="elevate-float-pro"
-      style={{
-        width: "100%",
-        minHeight: 390,
-        borderRadius: 5,
-        display: "flex",
-        flexDirection: "column",
-        background: "white",
-      }}
+      className="elevate-float-pro one-box-container"
+      // style={{
+      //   width: "100%",
+      //   minHeight: 390,
+      //   borderRadius: 5,
+      //   display: "flex",
+      //   flexDirection: "column",
+      //   background: "white",
+      // }}
     >
       <div
-        style={{
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 5,
-          padding: "40px 40px 10px 40px",
-        }}
+        className="one-box p-4"
+        // style={{
+        //   height: "100%",
+        //   display: "flex",
+        //   flexDirection: "column",
+        //   alignItems: "center",
+        //   justifyContent: "center",
+        //   borderRadius: 5,
+        //   padding: "40px 40px 10px 40px",
+        // }}
       >
         {isIcon && (
           <i
@@ -63,46 +66,47 @@ function OneBox({
         {image && (
           <img
             src={image?.url}
-            style={{ height: 100, width: 100, objectFit: "contain" }}
+            alt={image?.name}
+            // style={{ height: 100, width: 100, objectFit: "contain" }}
           />
         )}
-        <h5 style={{ color: "var(--app-medium-green)", marginTop: 10 }}>
-          {name}
-        </h5>
-        <p style={{ textAlign: "center", fontSize: 14 }}>
+        <h5>{name}</h5>
+        <RenderHTML tag={"p"} html={!isEmpty(description) ? ellipsify(description, 80) : "..."} />
+        <p style={{ textAlign: "center" }}>
           {description.substring(0, 80) || "..."}
         </p>
-        <a
-          className="touchable-opacity"
+        <Button
+          variant={"link"}
+          className="touchable-opacity link-accent"
           // href={`/technology/${campaign_technology_id}`}
           onClick={() => {
-            trackActivity &&
-              trackActivity({ ...common, button_type: "learn_more" });
+            trackActivity && trackActivity({ ...common, button_type: "learn_more" });
             navigator(route);
           }}
           style={{ fontWeight: "bold", color: "var(--app-orange)" }}
         >
           Learn More...
-        </a>
+        </Button>
       </div>
       <div
-        style={{
-          marginTop: "auto",
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: 30,
-          paddingTop: 20,
-        }}
+        className="one-box-footer phone-vanish"
+        // style={{
+        //   marginTop: "auto",
+        //   display: "flex",
+        //   flexDirection: "row",
+        //   alignItems: "center",
+        //   justifyContent: "center",
+        //   padding: 30,
+        //   paddingTop: 20,
+        // }}
       >
         <Button
           onClick={() => {
             trackActivity && trackActivity({ ...common, button_type: "quote" });
             navigator(`${route}?section=vendors`);
           }}
-          className="tech-btn elevate-2 touchable-opacity"
-          style={{ background: "var(--app-medium-green)" }}
+          className="tech-btn elevate-2 touchable-opacity mr-2"
+          style={{ background: "var(--app-medium-green)", marginRight: 20 }}
         >
           QUOTE
         </Button>

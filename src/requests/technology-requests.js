@@ -1,7 +1,7 @@
 import { apiCall } from "src/api/messenger";
 import { handleRequestError } from "src/helpers/utils/http";
 
-export const fetchEvents = async (campaignID,url = "campaigns.communities.events.list", ) => {
+export const fetchEvents = async (campaignID,url = "campaigns.communities.events.list",) => {
   try {
     const response = await apiCall(url, { no_pagination : true, campaign_id: campaignID });
 
@@ -115,7 +115,7 @@ export async function fetchAllTechnologyTestimonials (campaign_id, url = "campai
     handleRequestError(error, "FETCH_ALL_COMMUNITY_TESTIMONIALS_ERROR");
   }
 }
-export async function addTestimonials(data, url = "campaigns.technologies.testimonials.add") {
+export async function addTestimonials (data, url = "campaigns.technologies.testimonials.add") {
   try {
     const response = await apiCall(url, data, null);
     if (!response || !response?.success) {

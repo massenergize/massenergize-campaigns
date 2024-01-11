@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Toast from 'react-bootstrap/Toast';
 
-function CustomToast({body, show, setShow}) {
+function CustomToast ({body, show, setShow}) {
     return (
         <Row>
             <Col xs={6}>

@@ -2,13 +2,13 @@ import React from "react";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import { Col, Container, Row } from "react-bootstrap";
 
-function DoMore({ campaign }) {
+function DoMore ({ campaign }) {
   const { communities, communities_section } = campaign || {};
   const { title, description } = communities_section || {};
 
   const COMMUNITY_PORTAL_URL = "https://communities.massenergize.org/";
   return (
-    <div style={{ padding: "20vh 0px" }}>
+    <div className="do-more-root">
       <CenteredWrapper>
         <Container>
           <h2
@@ -20,7 +20,7 @@ function DoMore({ campaign }) {
           >
             {title || " Participating Communities"}
           </h2>
-          <p style={{ width: "80%" }}>{description}</p>
+          <p>{description}</p>
           <Row>
             {(communities || []).map(({ community, id }, index) => {
               return (
@@ -46,8 +46,10 @@ function DoMore({ campaign }) {
                       objectFit: "contain",
                     }}
                     src={community?.logo?.url}
+                    alt={"logo"}
                   />
                   <h6
+                    role={"button"}
                     onClick={() => {
                       window.open(
                         `${COMMUNITY_PORTAL_URL}${community?.subdomain}`

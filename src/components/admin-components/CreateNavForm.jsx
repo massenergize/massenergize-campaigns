@@ -165,8 +165,7 @@ const CreateNavForm = () => {
 									placeholder="Example : 'Actions' "
 									required={true}
 									type="textbox"
-									onChange={(val) => {
-										// setFormData({ ...formData, description: val });
+									onChange={() => {
 									}}
 								/>
 							</Col>
@@ -178,8 +177,7 @@ const CreateNavForm = () => {
 									placeholder="Example : 'www.google.com'"
 									required={false}
 									type="textbox"
-									onChange={(val) => {
-										// setFormData({ ...formData, description: val });
+									onChange={() => {
 									}}
 								/>
 							</Col>

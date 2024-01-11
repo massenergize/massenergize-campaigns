@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { addUrlParams, generateUniqueRandomString } from "../../utils/utils";
 
 const EXCLUDE_FROM_NAV = ["communities"];
-function AppNavigationBar({ menu, campaign }) {
+function AppNavigationBar ({ menu, campaign }) {
   const navigator = useNavigate();
   const { secondary_logo, primary_logo } = campaign || {};
 
@@ -36,6 +36,7 @@ function AppNavigationBar({ menu, campaign }) {
                   objectFit: "contain",
                   marginRight: 5,
                 }}
+                alt={"logo"}
               />
             )}
             {/* </Nav.Link> */}
@@ -47,9 +48,12 @@ function AppNavigationBar({ menu, campaign }) {
               if (!menu?.children)
                 return (
                   <Nav.Link
-                    className={"mx-2"}
                     key={menu?.key}
-                    style={{ textTransform: "uppercase" }}
+                    style={{
+                      textTransform: "uppercase",
+                      marginRight: 20,
+                      fontWeight: "bold",
+                    }}
                     onClick={() => {
                       navigator(menu.url || "#");
                     }}
@@ -65,8 +69,12 @@ function AppNavigationBar({ menu, campaign }) {
                 );
               return (
                 <NavDropdown
+                  style={{
+                    textTransform: "uppercase",
+                    marginRight: 20,
+                    fontWeight: "bold",
+                  }}
                   className={"mx-2"}
-                  style={{ textTransform: "uppercase" }}
                   title={
                     <span>
                       <i
@@ -135,8 +143,9 @@ function AppNavigationBar({ menu, campaign }) {
                   height: 45,
                   width: 45,
                   objectFit: "contain",
-                  marginLeft: 5,
+                  // marginLeft: 5,
                 }}
+                alt={"logo"}
               />
             )}
           </Nav>
@@ -147,7 +156,7 @@ function AppNavigationBar({ menu, campaign }) {
 }
 
 const mapState = (state) => {
-  return { menu: state.navigation };
+  return { menu: state.navigation, campaign: state?.campaign };
 };
 
 const mapDispatch = (dispatch) => {

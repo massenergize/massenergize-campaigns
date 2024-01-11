@@ -2,27 +2,19 @@ import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import phone_call from "./../../../assets/imgs/phone_call.png";
 const LEN = 250;
-function RoamingBox({ advert, keyContact, showMore }) {
+function RoamingBox ({ advert, keyContact, showMore }) {
   const desc = advert?.description;
   const preview = desc?.substr(0, LEN);
   const isLong = desc?.length > LEN;
   return (
-    <div style={{ margin: "100px 0px" }}>
+    <div className="roaming-container">
       <Container>
         <Col lg={{ span: 9, offset: 1 }}>
           <Row>
             <Col lg={8}>
               <div className="">
-                <div
-                  style={{
-                    padding: "10px 30px",
-                    background: "var(--app-kicking-yellow)",
-                    borderRadius: 5,
-                  }}
-                >
-                  <h3 className="m-0" style={{ fontSize: 23 }}>
-                    {advert?.title}
-                  </h3>
+                <div className="roaming-header">
+                  <h3 className="m-0">{advert?.title}</h3>
                 </div>
                 <div
                   style={{
@@ -30,21 +22,22 @@ function RoamingBox({ advert, keyContact, showMore }) {
                     background: "antiquewhite",
                   }}
                 >
-                  <p style={{ padding: "15px 25px" }}>
+                  <p className="roaming-text" style={{ padding: "15px 25px" }}>
                     {preview}
                     {isLong ? "..." : ""}
                   </p>
                   <div style={{ display: "flex", padding: "20px 35px" }}>
                     <Button
+                    // className="app-btn"
                       onClick={() => showMore && showMore()}
-                      style={{
-                        marginLeft: "auto",
-                        borderRadius: 100,
-                        background: "var(--app-deep-green)",
-                        borderWidth: 0,
-                        padding: "9px 19px",
-                      }}
-                      className="elevate-2 touchable-opacity"
+                      // style={{
+                      //   marginLeft: "auto",
+                      //   borderRadius: 100,
+                      //   background: "var(--app-deep-green)",
+                      //   borderWidth: 0,
+                      //   padding: "9px 19px",
+                      // }}
+                      className="elevate-2 touchable-opacity app-btn"
                     >
                       Learn More
                     </Button>
@@ -53,7 +46,6 @@ function RoamingBox({ advert, keyContact, showMore }) {
               </div>
             </Col>
             <Col
-              //   lg={3}
               lg={{ span: 2, offset: 2 }}
               style={{
                 display: "flex",
@@ -71,6 +63,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
                   height: 120,
                   objectFit: "cover",
                 }}
+                alt={keyContact?.image?.name || "Key Contact"}
               ></img>
               <span className="mb-1" style={{ fontSize: 12, color: "#c8c8c8" }}>
                 KEY CONTACT
@@ -88,6 +81,8 @@ function RoamingBox({ advert, keyContact, showMore }) {
                 <span>{keyContact?.name || "..."}</span>
               </h6>
               <p
+                role={"button"}
+                tabIndex={0}
                 onClick={() => {
                   window.open(`mailto:${keyContact?.email}`, "_blank");
                 }}
@@ -103,6 +98,8 @@ function RoamingBox({ advert, keyContact, showMore }) {
                 <span> {keyContact?.email}</span>
               </p>
               <p
+                role={"button"}
+                tabIndex={0}
                 className="touchable-opacity"
                 onClick={() => {
                   window.open(`tel:${keyContact?.phone_number}`, "_blank");

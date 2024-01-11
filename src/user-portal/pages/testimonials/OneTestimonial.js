@@ -17,8 +17,9 @@ import Loading from "../../../components/pieces/Loading";
 import { apiCall } from "../../../api/messenger";
 import JoinUsForm from "../forms/JoinUsForm";
 import NewTestimonialForm from "./NewTestimonialForm";
+import { fetchUrlParams } from "../../../utils/utils";
 
-function OneTestimonial({
+function OneTestimonial ({
   testimonials,
   updateTestimonials,
   campaign,
@@ -73,7 +74,6 @@ function OneTestimonial({
           close={close}
           callbackOnSubmit={({ user }) => {
             close && close();
-            console.log("USER AFTER CALL ON SUBMIT: ", user);
             initiateTestimonialCreation(user);
           }}
           confirmText="Continue"
@@ -84,8 +84,13 @@ function OneTestimonial({
     });
   };
   const otherTestimonials = groupTestimonials();
-
   const campaignExists = campaign && campaign !== LOADING;
+
+  const openForm = fetchUrlParams("open")?.trim() === "true";
+
+  useEffect(() => {
+    if (openForm) initiateTestimonialCreation();
+  }, [openForm]);
 
   useEffect(() => {
     if (!campaignExists) init(campaign_id);
@@ -127,6 +132,7 @@ function OneTestimonial({
                 objectFit: "cover",
                 borderRadius: 10,
               }}
+              alt={image?.name || "Testimonial Image"}
             />
           )}
 
@@ -144,6 +150,8 @@ function OneTestimonial({
               padding: 10,
               //   marginBottom: 10,
               background: "var(--app-deep-green)",
+              borderTopLeftRadius: 5,
+              borderTopRightRadius: 5,
             }}
           >
             <h6
@@ -172,6 +180,8 @@ function OneTestimonial({
               title = title ? `${title} (${item?.tech_name})` : "...";
               return (
                 <li
+                  role={"button"}
+                  tabIndex={0}
                   key={index?.toString()}
                   onClick={() =>
                     navigator(
@@ -189,12 +199,12 @@ function OneTestimonial({
                   }}
                 >
                   <span>
-                    {index + 1}. {item?.title || "..."}
+                    {index + 1}. {`${item?.title} ` || "..."}
                   </span>
                   <span
-                    style={{ color: "var(--app-medium-green)", marginLeft: 5 }}
+                    // style={{  marginLeft: 5 }}
                   >
-                    ({item?.tech_name})
+                   ({item?.tech_name})
                   </span>
                 </li>
               );
@@ -209,6 +219,7 @@ function OneTestimonial({
               color: "white",
               textAlign: "center",
               borderRadius: 5,
+              marginBottom: 15,
             }}
           >
             <p style={{ margin: 0, fontWeight: "bold" }}>Add Testimonial</p>

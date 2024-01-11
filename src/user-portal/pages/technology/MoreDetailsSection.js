@@ -3,19 +3,19 @@ import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
 
-function MoreDetailsSection({ sectionId, data }) {
+function MoreDetailsSection ({ sectionId, data }) {
   const { title, description } = data || {};
   if (!title && !description) return <></>;
 
   return (
     <div
       id={sectionId}
-      className="mt-5 mb-2"
+      className="mt-5 mb-2 g-s-container"
       style={{
         background: "white",
         width: "100%",
-        padding: "80px 0px",
-        minHeight: 200,
+        // padding: "80px 0px",
+        // minHeight: 200,
       }}
     >
       <OptimumWrapper>
@@ -23,7 +23,7 @@ function MoreDetailsSection({ sectionId, data }) {
         <p
           dangerouslySetInnerHTML={{ __html: description }}
           style={{ textAlign: "justify" }}
-          className="mb-4"
+          className="mb-4 paragraph-font"
         ></p>
 
         {/* <img

@@ -14,7 +14,7 @@ import { DefaultColumnFilter } from "./filters";
 
 import { Button, Col, Row, Table } from "react-bootstrap";
 
-function ArrowDownIcon(props) {
+function ArrowDownIcon (props) {
 	return (
 		<svg
 			width={10}
@@ -29,7 +29,7 @@ function ArrowDownIcon(props) {
 	);
 }
 
-function ArrowUpIcon(props) {
+function ArrowUpIcon (props) {
 	return (
 		<svg
 			width={10}

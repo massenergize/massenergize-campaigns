@@ -1599,3 +1599,5 @@ export const monthsOfYear = [
 	"Nov",
 	"Dec",
 ];
+
+export const MOBILE_WIDTH = 768

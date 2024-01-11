@@ -4,6 +4,8 @@ import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
 import TestimonialBox from "../testimonials/TestimonialBox";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
+import { AddNewTestimonial } from "../testimonials/TestimonialSection";
+import { useNavigate } from "react-router-dom";
 
 const dummies = [
   {
@@ -31,16 +33,20 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
   },
 ];
-function OneTechTestimonialsSection({ sectionId, testimonials }) {
+function OneTechTestimonialsSection ({ sectionId, testimonials, campaign }) {
+  const navigator = useNavigate();
+  const firstTestimonial = (testimonials || [])[0];
+  const testimonialRoute = `/campaign/${campaign?.id}/technology/testimonial/${firstTestimonial?.id}?open=true`;
+
   return (
     <div
       id={sectionId}
-      className="mt-5"
+      className="mt-5 g-s-container"
       style={{
         background: "white",
         width: "100%",
-        padding: "80px 0px",
-        minHeight: 200,
+        // padding: "80px 0px",
+        // minHeight: 200,
       }}
     >
       <OptimumWrapper>
@@ -56,11 +62,10 @@ function OneTechTestimonialsSection({ sectionId, testimonials }) {
         >
           <SectionTitle style={{ margin: 0 }}>Testimonials</SectionTitle>
 
-          <div style={{ marginLeft: "auto" }}>
-            {/* <ArrowButtons /> */}
-          </div>
+          <div style={{ marginLeft: "auto" }}>{/* <ArrowButtons /> */}</div>
         </div>
 
+        <AddNewTestimonial onClick={() => navigator(testimonialRoute)} />
         <Row style={{ overflowX: "auto", flexWrap: "nowrap" }}>
           {testimonials.map((item, index) => {
             return (

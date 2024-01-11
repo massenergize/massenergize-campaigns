@@ -30,7 +30,7 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
   },
 ];
-function OneTechMeetTheCoachesSection({
+function OneTechMeetTheCoachesSection ({
   toggleModal,
   sectionId,
   coaches,
@@ -42,12 +42,12 @@ function OneTechMeetTheCoachesSection({
     <div
       ref={ref}
       id={sectionId}
-      className="mt-5 elevate-float-pro"
+      className="mt-5 elevate-float-pro g-s-container"
       style={{
         background: "antiquewhite",
         width: "100%",
-        padding: "80px 0px",
-        minHeight: 200,
+        // padding: "80px 0px",
+        // minHeight: 200,
       }}
     >
       <OptimumWrapper>
@@ -58,14 +58,17 @@ function OneTechMeetTheCoachesSection({
         <Row style={{ marginTop: 50 }}>
           {coaches?.map((coach, index) => {
             return (
-              <Col key={index?.toString()} xs={4}>
+              <Col key={index?.toString()} xs={4} className="coach-main">
                 <OneCoach {...coach} />
               </Col>
             );
           })}
         </Row>
 
-        <div style={{ textTransform: "justify", marginTop: 20 }}>
+        <div
+          // style={{ textTransform: "justify", marginTop: 20 }}
+          className="coaches-description"
+        >
           <p>{description}</p>
           <div
             style={{

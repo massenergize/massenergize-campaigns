@@ -29,16 +29,16 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
   },
 ];
-function WhySection({ sectionId, overview, campaignName, overview_title }) {
+function WhySection ({ sectionId, overview, campaignName, overview_title }) {
   return (
     <div
       id={sectionId}
-      className="mt-5 elevate-float-pro"
+      className="mt-5 elevate-float-pro g-s-container"
       style={{
         background: "white",
         width: "100%",
-        padding: "80px 0px",
-        minHeight: 200,
+        // padding: "80px 0px",
+        // minHeight: 200,
       }}
     >
       <OptimumWrapper>
@@ -51,6 +51,7 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
             const { image, title, description } = item || {};
             return (
               <Col
+                className="overview-item"
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -61,14 +62,7 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
                 lg={6}
                 gap={3}
               >
-                <img
-                  src={image?.url}
-                  style={{ height: 70, width: 70, objectFit: "contain" }}
-                />
-                {/* <i
-                  className={`fa ${item.icon} mb-1 mt-2`}
-                  style={{ fontSize: 70, color: "var(--app-medium-green)" }}
-                /> */}
+                <img src={image?.url} style={{ height: 70, width: 70, objectFit: "contain" }} alt={image?.name}/>
                 <h6
                   className="mt-3 mb-3"
                   style={{

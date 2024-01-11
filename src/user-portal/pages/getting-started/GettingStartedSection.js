@@ -2,6 +2,7 @@ import React from "react";
 import OneBox from "./OneBox";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import people from "./../../../assets/imgs/g_people.png";
+
 const dummies = [
   {
     key: "heat-pump",
@@ -23,19 +24,20 @@ const dummies = [
   },
 ];
 
-function GettingStartedSection({
+function GettingStartedSection ({
   sectionId,
   technologies,
   scrollToCommunities,
   trackActivity,
-  authUser 
+  authUser,
 }) {
   // console.log("these are the technologies", technologies);
   return (
     <div
       id={sectionId}
-      className="mt-5"
-      style={{ background: "var(--app-medium-green)", padding: "130px 20px" }}
+      className="mt-5 g-s-container"
+
+      // style={{ background: "var(--app-medium-green)", padding: "130px 20px" }}
     >
       <Container>
         <Row>
@@ -57,7 +59,7 @@ function GettingStartedSection({
             >
               {technologies?.map((box, index) => {
                 return (
-                  <Col key={box.id} lg={3} xs={3}>
+                  <Col key={box.id} md={4} lg={3} className="one-tech-wrapper mb-4">
                     <OneBox
                       {...box}
                       trackActivity={trackActivity}
@@ -66,7 +68,7 @@ function GettingStartedSection({
                   </Col>
                 );
               })}
-              <Col lg={3} xs={3}>
+              <Col md={3} lg={3} className="one-tech-wrapper">
                 <DoMoreBox
                   scrollToCommunities={() =>
                     scrollToCommunities && scrollToCommunities()
@@ -104,44 +106,48 @@ export default GettingStartedSection;
 const DoMoreBox = ({ scrollToCommunities }) => {
   return (
     <div
-      className="elevate-float-pro"
-      style={{
-        width: "100%",
-        minHeight: 320,
-        borderRadius: 5,
-        display: "flex",
-        flexDirection: "column",
-        background: "white",
-        minHeight: 390,
-      }}
+      className="elevate-float-pro one-box-container"
+      // className="elevate-float-pro"
+      // style={{
+      //   width: "100%",
+      //   minHeight: 320,
+      //   borderRadius: 5,
+      //   display: "flex",
+      //   flexDirection: "column",
+      //   background: "white",
+      //   minHeight: 390,
+      // }}
     >
       <div
-        style={{
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 5,
-          padding: "40px 40px 10px 40px",
-        }}
+        className="one-box  p-4"
+        // style={{
+        //   height: "100%",
+        //   display: "flex",
+        //   flexDirection: "column",
+        //   alignItems: "center",
+        //   justifyContent: "center",
+        //   borderRadius: 5,
+        //   padding: "40px 40px 10px 40px",
+        // }}
       >
         <img
           // src={"https://placehold.co/100x100"}
           src={people}
-          style={{
-            height: 100,
-            width: 100,
-            objectFit: "contain",
-            // marginBottom: 10,
-          }}
+          alt="people"
+          // style={{
+          //   height: 100,
+          //   width: 100,
+          //   objectFit: "contain",
+          //   // marginBottom: 10,
+          // }}
         />
         <h5 style={{ color: "var(--app-medium-green)" }}>Do More</h5>
-        <p style={{ textAlign: "center", fontSize: 14 }}>
+        <p style={{ textAlign: "center" }}>
           Want to do more? Check out other actions you can take on our community
           sites!
         </p>
-        <a
+        <Button
+          variant={"link"}
           onClick={(e) => {
             e.preventDefault();
             scrollToCommunities();
@@ -152,18 +158,19 @@ const DoMoreBox = ({ scrollToCommunities }) => {
           style={{ fontWeight: "bold", color: "var(--app-orange)" }}
         >
           Our Communities
-        </a>
+        </Button>
       </div>
 
       <div
-        style={{
-          marginTop: "auto",
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: 30,
-        }}
+        className="one-box-footer phone-vanish"
+        // style={{
+        //   marginTop: "auto",
+        //   display: "flex",
+        //   flexDirection: "row",
+        //   alignItems: "center",
+        //   justifyContent: "center",
+        //   padding: 30,
+        // }}
       >
         <Button
           onClick={() => scrollToCommunities()}
