@@ -406,19 +406,37 @@ try {
 
 export async function deleteCampaignComment (data, url = "campaigns.technologies.comments.delete"){
 try {
+	const response = await apiCall(url, data, null);
+
+	if (!response || !response?.success) {
+	  handleRequestError(
+		response?.error,
+		"DELETE_CAMPAIGN_COMMENT_ERROR_BE"
+	  );
+	}
+
+	return response?.data;
+  } catch (e) {
+	handleRequestError(e, "DELETE_CAMPAIGN_COMMENT_ERROR");
+  }
+}
+
+	
+export async function removeCampaignTechnology (data, url = "campaigns.technologies.remove") {
+  try {
     const response = await apiCall(url, data, null);
 
     if (!response || !response?.success) {
       handleRequestError(
         response?.error,
-        "DELETE_CAMPAIGN_COMMENT_ERROR_BE"
+        "REMOVE_CAMPAIGN_TECHNOLOGY_ERROR_BE"
       );
     }
 
     return response?.data;
   }
     catch (e) {
-        handleRequestError(e, "DELETE_CAMPAIGN_COMMENT_ERROR");
+        handleRequestError(e, "REMOVE_CAMPAIGN_TECHNOLOGY_ERROR");
     }
 }
 
@@ -487,4 +505,4 @@ export async function removeCampaignTechnologyEvent(id, url="campaigns.technolog
 	} catch (e) {
 		handleRequestError(e, "REMOVE_EVENTS_FROM_CAMPAIGN");
 	}
-}
+  } 

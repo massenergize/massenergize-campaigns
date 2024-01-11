@@ -1,9 +1,10 @@
 import Loading from "../components/pieces/Loading";
 import { CampaignDetailsAndPreview } from "../admin-portal/create-campaign/campaign-details-and-preview";
-import useFetch from "../hooks/useFetch";
 import { useCampaignContext } from "../hooks/use-campaign-context";
+import useSWR from "swr";
+import { fetchCampaign } from "../requests/campaign-requests";
 
-export function CampaignEditView ({id, STEP, setStep}) {
+export function CampaignEditView ({id, edit=true, STEP, setStep}) {
   const {
     setNewCampaignDetails,
   } = useCampaignContext();
@@ -13,7 +14,9 @@ export function CampaignEditView ({id, STEP, setStep}) {
     error: campaignError,
     isValidating: campaignIsValidating,
     isLoading: campaignIsLoading,
-  } = useFetch(`campaigns.info`, null, {
+  } = useSWR(id ? `campaigns.info/${id}` : null, async () => {
+    return await fetchCampaign(id,`campaigns.info`);
+  }, {
     data: { id },
     errorCode: "FETCH_CAMPAIGN_ERROR",
     onSuccess: (data) => {

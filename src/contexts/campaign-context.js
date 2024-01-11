@@ -54,7 +54,7 @@ const reducer = (state, action) => {
   }
 };
 
-export function CampaignProvider ({ children, id, }) {
+export function CampaignProvider ({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // region Fetch Campaign Details
@@ -106,7 +106,7 @@ export function CampaignProvider ({ children, id, }) {
   } = useSWR(`events.listForCommunityAdmin`, async () => {
     return await fetchAllCampaignEventsBySuperAdmins();
   }, { ...SWR_CONFIG, });
-
+  // endregion
   // const {
   //   // initialData: allManagersInitialData,
   //   data: allManagers,

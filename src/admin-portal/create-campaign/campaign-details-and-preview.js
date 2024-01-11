@@ -19,14 +19,6 @@ export function CampaignDetailsAndPreview ({setStep,}) {
     setNewCampaignDetails,
   } = useCampaignContext();
 
-  // console.log({
-  //   campaignDetails,
-  //   originalCampaignDetails,
-  //   lists,
-  //   setCampaignDetails,
-  //   setNewCampaignDetails
-  // })
-
   return (
     <>
       <Row className="justify-content-between mb-4 mt-4">

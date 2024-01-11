@@ -87,24 +87,6 @@ const DUMMY_CAMPAIGN_NAMEs = [
 	"5KW Solr installation",
 ];
 
-// const DUMMY_CAMPAIGN_OWNERS = [
-//   "Brad H.",
-//   "Aimee P.",
-//   "John D.",
-//   "Sally C.",
-//   "Nancy D.",
-//   "Cindy L.",
-//   "Linda S.",
-//   "Bob S.",
-//   "Micheal J.",
-//   "James B.",
-//   "Robert M.",
-//   "William B.",
-//   "David S.",
-//   "Richard H.",
-//   "Charles M.",
-// ];
-
 export function AllCampaignsView({}) {
   //   const [data, setData] = useNamedState("table data", DUMMY_DATA);
   const [rowMenu, setRowMenu] = useState(ROW_ACTIONS_MENU);

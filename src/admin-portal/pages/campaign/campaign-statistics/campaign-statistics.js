@@ -6,9 +6,9 @@ import {
   faBan,
   faBullhorn,
   faDownload,
+  faEye,
   faGlobe,
   faPenToSquare,
-  faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import StatsCard from "../../../../components/admin-components/StatsCard";
 import Comments from "../../../../components/admin-components/Comments";
@@ -26,7 +26,7 @@ import GhostLoader from "../../../../components/admin-components/GhostLoader";
 
 
 
-export function CampaignStatistics({}) {
+export function CampaignStatistics ({}) {
   const { id } = useParams();
 
   const [loading, setLoading] = useState(false);
@@ -43,8 +43,7 @@ export function CampaignStatistics({}) {
     `campaign.info`,
     async () => {
       return await fetchCampaign(id);
-    },
-    {
+    }, {
       onSuccess: (data) => {
         // console.log({ data });
       },
@@ -122,18 +121,21 @@ export function CampaignStatistics({}) {
 										</Col>
 
                     <Col md={"auto"}>
-                      <Button
-                        className="btn-light mr-3"
-                        onClick={() => {
+                      <Button className="btn-light mr-3" onClick={() => {
                           window.history.back();
                         }}
                       >
-                        <FontAwesomeIcon icon={faArrowLeft} />
+                        <FontAwesomeIcon icon={faArrowLeft}/>
                       </Button>
                       &nbsp;
                       <ButtonGroup>
-                        <Button onClick={() => {navigate(`/campaign/${id}`)}} style={{marginRight:2}}>
-                          <FontAwesomeIcon icon={faEye}/> View
+                        <Button
+                          variant="warning"
+                          onClick={() => {
+                            navigate(`/campaign/${id}`);
+                          }}
+                        >
+                          <FontAwesomeIcon icon={faEye}/>
                         </Button>
                         <Button className={CAMPAIGN?.is_published ? "disable-btn" : "btn-primary"}  onClick={()=>{
                           handleUpdateCampaign()
@@ -190,17 +192,13 @@ export function CampaignStatistics({}) {
                       </Row>
                     </Col>
                     <Col className="update-btn-con">
-                      <p
-                        className={
-                          CAMPAIGN?.is_published ? "active" : "inactive"
-                        }
-                      ></p>
+                      <p className={CAMPAIGN?.is_published ? "active" : "inactive"}></p>
                       <Link
                         target="_blank"
                         className="update-btn btn btn-primary py-2 px-3"
                         to={`/admin/campaign/${id}/edit`}
                       >
-                        <FontAwesomeIcon icon={faPenToSquare} /> Update
+                        <FontAwesomeIcon icon={faPenToSquare}/> Update
                       </Link>
                     </Col>
                   </Row>
@@ -217,7 +215,7 @@ export function CampaignStatistics({}) {
                     {statistics?.map((data, index) => {
                       return (
                         <div key={index}>
-                          <StatsCard data={data} index={index} />
+                          <StatsCard data={data} index={index}/>
                         </div>
                       );
                     })}
@@ -251,7 +249,7 @@ export function CampaignStatistics({}) {
                         });
                       }}
                     >
-                      <FontAwesomeIcon icon={faDownload} /> Download Data File
+                      <FontAwesomeIcon icon={faDownload}/> Download Data File
                     </Button>
                   </div>
                 </Col>
@@ -300,7 +298,7 @@ export function CampaignStatistics({}) {
 
         {campaignLoading ? (
           <Col>
-            <Loading />
+            <Loading/>
           </Col>
         ) : null}
       </Container>

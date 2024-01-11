@@ -8,30 +8,18 @@ import FileUploader, {
 } from "../../../components/admin-components/FileUploader";
 import Button from "../../../components/admin-components/Button";
 import "../../../assets/styles/admin-styles.scss";
-import Dropdown from "../../../components/admin-components/Dropdown";
-import { useNavigate } from "react-router-dom";
 import Chip from "../../../components/admin-components/Chip";
-// import { apiCall } from "../../../utils/api_call";
-import CustomModal from "../../../components/modal/CustomModal";
-import MEModal from "../../../components/admin-components/MEModal";
 import { apiCall } from "src/api/messenger";
 
-// const reducer = (state, action) => {
-//   switch (action.type) {
-//     case "SET_FIELD_VALUE":
-//       return { ...state, [action.field]: action.value };
-//     default:
-//       throw new Error(`Unsupported action type: ${action.type}`);
-//   }
-// };
-const INTITIAL_COACH_STATE = {
+const INITIAL_COACH_STATE = {
   technology_id: "",
   full_name: "",
   community: "",
   image: "",
   phone_number: "",
 };
-const Coaches = ({
+
+function Coaches ({
   setTechnologyInfo,
   technologyInfo,
   setCurrentTab,
@@ -41,17 +29,18 @@ const Coaches = ({
   notifyError,
   notifySuccess,
   tech_id,
-}) => {
+}) {
   // const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   // const [selectedCoach, setSelectedCoach] = useState({});
   // const [showCoachModal, setShowCoachModal] = useState(false);
-  const [formData, setFormData] = useState(INTITIAL_COACH_STATE);
+  const [formData, setFormData] = useState(INITIAL_COACH_STATE);
   // const [query, setQuery] = useState({});
   const [isEditing, setIsEditing] = useState(false);
 
   // TODO LATER: EDITING & CREATION CAN BE MERGED INTO ONE FORM AND ONE PROCESS!
   // const buildQuery = (key, data) => {
+
   //   setQuery({ ...query, [key]: data });
   // };
 
@@ -89,6 +78,7 @@ const Coaches = ({
     apiCall(url, data).then((res) => {
       const { data, success, error } = res || {};
       setLoading(false);
+
       if (!success) {
         console.log("ERROR: ", error);
         return notifyError(error);
@@ -265,7 +255,6 @@ const Coaches = ({
               />
               {formHasContent && (
                 <small
-                  // style={{ marginLeft: 10 }}
                   onClick={() => resetForm()}
                   style={{
                     fontWeight: "bold",
@@ -283,19 +272,6 @@ const Coaches = ({
         </form>
       </Container>
 
-      {/* <MEModal
-        show={showCoachModal}
-        handleClose={() => {
-          setShowCoachModal(false);
-          setQuery({});
-        }}
-        onOkClick={() => console.log(query)}
-        animate={true}
-        title={"Edit Coach Info"}
-        size={"lg"}
-      >
-        <RenderCoachesEditForm />
-      </MEModal> */}
     </div>
   );
 

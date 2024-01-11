@@ -11,7 +11,7 @@ import { Card } from "react-bootstrap";
 import { addLabelsAndValues } from "../../helpers/utils/array";
 import { useCampaignContext } from "../../hooks/use-campaign-context";
 import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
-import { updateCampaignTechnologies } from "../../requests/campaign-requests";
+import { removeCampaignTechnology, updateCampaignTechnologies } from "../../requests/campaign-requests";
 import { smartString } from "src/utils/utils";
 
 function Technology({ tech, handleRemove }) {
@@ -19,21 +19,15 @@ function Technology({ tech, handleRemove }) {
   let { id, name } = tech;
   const navigate =  useNavigate()
 
-  name = smartString(name,25)
+  name = smartString(name, 25)
   return (
     // <Link to={`/admin/campaign/edit-technology/${id}`} className="image-edit-btn">
     <Card
       className={"position-relative touchable-opacity"}
-      onClick={() =>
-        navigate(`/admin/technology/${tech?.id}/edit/${tech?.campaign_id}`)
-      }
+      onClick={() => navigate(`/admin/technology/${tech?.id}/edit/${tech?.campaign_id}`)}
     >
       <Card.Body className={"p-0"}>
-        <Card.Img
-          variant="top"
-          src={image}
-          style={{ height: 280, objectFit: "cover" }}
-        />
+        <Card.Img variant="top" src={image} style={{ height: 280, objectFit: "cover" }}/>
       </Card.Body>
       <Card.Footer>
         <Card.Title className={"mb-0"}>{name}</Card.Title>
@@ -41,7 +35,8 @@ function Technology({ tech, handleRemove }) {
       </Card.Footer>
 
       <span
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           handleRemove(tech);
         }}
         className="image-close-btn d-flex"
@@ -69,15 +64,45 @@ const Technologies = ({}) => {
   const { allTechnologies } = lists;
 
   const originalTechnologies = originalCampaignDetails.technologies;
-  const originalTechnologiesSet = new Set(
-    originalCampaignDetails?.technologies?.map((tech) => tech.id)
-  );
+  const originalTechnologiesSet = new Set(originalCampaignDetails?.technologies?.map((tech) => tech.id));
 
-  const handleRemove = (data) => {
-    const filteredTechnologies = technologies.filter(
-      (tech) => tech.id !== data.id
-    );
-    handleCampaignDetailsChange("technologies", filteredTechnologies);
+  const handleRemove = async (technology) => {
+    // let remove the technology from the list optimistically and then make the api call
+    // if the api call fails, we will revert the change
+
+    const { id, campaign_technology_id } = technology;
+    console.log(technology)
+    let originalTechnologies = [...campaignDetails?.technologies]; // make a copy of the original technologies list
+
+    try {
+      const filteredTechnologies = technologies.filter((tech) => tech.id !== id);
+      handleCampaignDetailsChange("technologies", filteredTechnologies);
+
+      const payload = { id : campaign_technology_id };
+
+      console.log("payload", payload, id);
+
+      const res = await removeCampaignTechnology(payload);
+
+      if (res) {
+        notify({
+          title: "Success",
+          message: `${technology?.name} removed successfully.`,
+          type: "success",
+          timeout: 7000,
+        });
+      }
+    } catch (e) {
+      handleCampaignDetailsChange("technologies", originalTechnologies);
+      notify({
+        title: "Sorry",
+        message: `Something went wrong. Please try again later.`,
+        type: "error",
+        timeout: 7000,
+      });
+    } finally {
+      originalTechnologies = null; // set to null for garbage collection
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -142,9 +167,7 @@ const Technologies = ({}) => {
                 }
 
                 return selected.map(({ label, id }, i) => {
-                  return (
-                    label + (i < allTechnologies?.data?.length ? ", " : "")
-                  );
+                  return (label + (i < allTechnologies?.data?.length ? ", " : ""));
                 });
               }}
               onChange={(val) => {
@@ -152,7 +175,6 @@ const Technologies = ({}) => {
                   handleCampaignDetailsChange("technologies", val);
                 } else {
                   if (notification) {
-                    console.log("=== notification ===", notification);
                     pop(notification);
                   }
                   notification = notify({
@@ -162,7 +184,7 @@ const Technologies = ({}) => {
                     timeout: 150000,
                     onClose: () => {
                       // notification = null;
-                    },
+                    }
                   });
                 }
               }}
@@ -204,11 +226,7 @@ const Technologies = ({}) => {
             <Link to={`/admin/technology/new/${campaignDetails?.id}`}>
               <Card className={"position-relative border-dashed border-2"}>
                 <Card.Body className={"p-0 bg-light-gray"}>
-                  <Card.Img
-                    variant=""
-                    src="/img/add-new.svg"
-                    style={{ height: 180 }}
-                  />
+                  <Card.Img variant="" src="/img/add-new.svg" style={{ height: 180 }}/>
                 </Card.Body>
               </Card>
             </Link>

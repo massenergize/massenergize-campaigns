@@ -14,6 +14,7 @@ import { SWR_CONFIG } from "../config/config";
 import { useDispatch, useSelector } from "react-redux";
 import { logUserOut, setCampaignAccountAction } from "../redux/actions/actions";
 import { CampaignProvider } from "../contexts/campaign-context";
+import { TechnologyContextProvider } from "../contexts/technology-context";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -40,49 +41,51 @@ export function AdminLayout (props: AdminLayoutProps) {
       <AuthGuard>
         {/* @ts-ignore*/}
         <CampaignProvider>
-          <Row className={"overflow-hidden mx-0"}>
-            <Col md={"auto"} className={classes(" side-bar-container position-relative px-0", { shrink })}>
-              <Sidebar
-                header={"Kehillah Global"}
-                menu={SIDE_BAR_MENU}
-                bottomMenu={BOTTOM_MENU}
-                userDetails={userInfo}
-                accounts={user?.campaign_accounts?.length > 1 ? user?.campaign_accounts : []}
-                onItemSelect={(item: any) => {
-                  dispatch(setCampaignAccountAction(item))
-                  let encoded = btoa(JSON.stringify(item));
-                  localStorage.setItem("acc", encoded);
-                  window.location.href = `/admin/home`;
-                }}
-                dark={true}
-                onTabItemClick={(e: any, { link, name }: any) => {
-                  if (!link && name === "SignOut") {
-                    const iAmSureIWantToLogOut = window.confirm(
-                      "Are you sure you want to sign out?"
-                    );
-                    if (iAmSureIWantToLogOut) {
-                      apiCall("/auth.logout",).then((res) => {
-                        if (res.success) {
-                          logUserOut()
-                          localStorage.removeItem("acc");
-                          window.location.href = "/login";
-                        }
-                      });
+          <TechnologyContextProvider>
+            <Row className={"overflow-hidden mx-0"}>
+              <Col md={"auto"} className={classes(" side-bar-container position-relative px-0", { shrink })}>
+                <Sidebar
+                  header={"Kehillah Global"}
+                  menu={SIDE_BAR_MENU}
+                  bottomMenu={BOTTOM_MENU}
+                  userDetails={userInfo}
+                  accounts={user?.campaign_accounts?.length > 1 ? user?.campaign_accounts : []}
+                  onItemSelect={(item: any) => {
+                    dispatch(setCampaignAccountAction(item))
+                    let encoded = btoa(JSON.stringify(item));
+                    localStorage.setItem("acc", encoded);
+                    window.location.href = `/admin/home`;
+                  }}
+                  dark={true}
+                  onTabItemClick={(e: any, { link, name }: any) => {
+                    if (!link && name === "SignOut") {
+                      const iAmSureIWantToLogOut = window.confirm(
+                        "Are you sure you want to sign out?"
+                      );
+                      if (iAmSureIWantToLogOut) {
+                        apiCall("/auth.logout",).then((res) => {
+                          if (res.success) {
+                            logUserOut()
+                            localStorage.removeItem("acc");
+                            window.location.href = "/login";
+                          }
+                        });
+                      }
                     }
-                  }
-                  navigate(link);
-                }}
-                onShrinkBtnClick={(data: any) => {
-                  console.log("Shrink button clicked", data);
-                }}
-                onStateChange={({ shrink }) => {
-                  setShrink(shrink);
-                }}
-                verified={user?.is_super_admin}
-              />
-            </Col>
-            <Col>{children}</Col>
-          </Row>
+                    navigate(link);
+                  }}
+                  onShrinkBtnClick={(data: any) => {
+                    console.log("Shrink button clicked", data);
+                  }}
+                  onStateChange={({ shrink }) => {
+                    setShrink(shrink);
+                  }}
+                  verified={user?.is_super_admin}
+                />
+              </Col>
+              <Col>{children}</Col>
+            </Row>
+          </TechnologyContextProvider>
         </CampaignProvider>
       </AuthGuard>
     </SWRConfig>
