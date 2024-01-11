@@ -11,7 +11,7 @@ import GettingStartedSection from "../getting-started/GettingStartedSection";
 import CoachesSection from "../coaches/CoachesSection";
 import Banner from "../banner/Banner";
 import planetB from "./../../../assets/imgs/planet-b.jpeg";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { apiCall } from "../../../api/messenger";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
@@ -30,6 +30,7 @@ import RoamingModalSheet from "./RoamingModalSheet";
 import DoMore from "./DoMore";
 import JoinUsForm from "../forms/JoinUsForm";
 import { OTHER, OTHER_JSON } from "../forms/CommunitySelector";
+
 
 function LandingPage({
   toggleModal,
@@ -57,10 +58,12 @@ function LandingPage({
     communities: communitiesRef,
   };
 
-  const { image, config, key_contact } = campaign || {};
+  const { image, config, key_contact, is_published } = campaign || {};
 
   const technologies = campaign?.technologies || [];
   const { campaignId } = useParams();
+
+  const loggedInAdmin  = useSelector(state => state.authAdmin);
 
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
@@ -160,6 +163,19 @@ function LandingPage({
 
   let previewMode = fetchUrlParams("preview");
   previewMode = previewMode?.trim() === "true";
+
+  if((!is_published && !previewMode) && !(loggedInAdmin?.is_community_admin|| loggedInAdmin?.is_super_admin)) return (
+    <Container style={{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      minHeight: "100vh",
+    }}>
+      <h1>This campaign is not Live. Contact Admin</h1>
+     
+    </Container>
+  );
 
   return (
     <div style={{}}>
