@@ -9,8 +9,8 @@
     "jsx-a11y"
   ],
   "rules": {
-    "react/react-in-jsx-scope": "on",
-    "react/jsx-uses-react": "on",
+    "react/react-in-jsx-scope": 1,
+    "react/jsx-uses-react": 1,
     "react/jsx-key": 1,
     "jsx-a11y/click-events-have-key-events": "off",
     "sort-keys": [
