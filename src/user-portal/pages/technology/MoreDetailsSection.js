@@ -10,12 +10,12 @@ function MoreDetailsSection({ sectionId, data }) {
   return (
     <div
       id={sectionId}
-      className="mt-5 mb-2"
+      className="mt-5 mb-2 g-s-container"
       style={{
         background: "white",
         width: "100%",
-        padding: "80px 0px",
-        minHeight: 200,
+        // padding: "80px 0px",
+        // minHeight: 200,
       }}
     >
       <OptimumWrapper>
@@ -23,7 +23,7 @@ function MoreDetailsSection({ sectionId, data }) {
         <p
           dangerouslySetInnerHTML={{ __html: description }}
           style={{ textAlign: "justify" }}
-          className="mb-4"
+          className="mb-4 paragraph-font"
         ></p>
 
         {/* <img

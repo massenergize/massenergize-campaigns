@@ -23,6 +23,13 @@ body{
   /* --app-deep-green: #3030d0;  */
   /* --app-medium-green: #ffc501; */
   --app-antique-white: antiquewhite;
+  --app-orange: #F57907;
+  --app-close-red: #D33F2B;
+
+  --mob-normal-font-size: .85rem;
+  --mob-paragraph-font-size: .9rem;
+  --mob-title-font-size: calc(1.325rem + .9vw);
+
   --admin-theme-color: #6e207c;
 }
 

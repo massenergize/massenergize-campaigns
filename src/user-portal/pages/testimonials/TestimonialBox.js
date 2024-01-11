@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
+import { MOBILE_WIDTH } from "../../../utils/Constants";
 
 const PREVIEW_LENGTH = 125;
-const LONG_LENGTH = 380;
+const LONG_LENGTH = 350;
 function TestimonialBox({
   title,
   user,
@@ -13,27 +15,21 @@ function TestimonialBox({
   id,
 }) {
   const hasNoImage = !image?.url;
-  const preview = body?.substr(0, hasNoImage ? LONG_LENGTH : PREVIEW_LENGTH);
-  // const isLong = body.length > PREVIEW_LENGTH;
-
   const navigator = useNavigate();
-
+  const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
   const route = `/campaign/${campaign?.id}/technology/testimonial/${id}`;
+
+  const preview = body?.substr(0, !isMobile ? LONG_LENGTH : PREVIEW_LENGTH);
+
   return (
-    <div
-      style={{
-        border: "solid 1px #E4E4E4",
-        padding: 20,
-        borderRadius: 5,
-        height: 350,
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <div className="testi-container">
       <h5 style={{ color: "var(--app-medium-green)", fontSize: "1.07rem" }}>
-        {user?.preferred_name || user?.full_name || "...."}
+        {title || "..."}
       </h5>
-      <h6 style={{ fontSize: 15 }}>{title || "..."}</h6>
+      <h6 style={{ fontSize: 15 }}>
+        {" "}
+        {user?.preferred_name || user?.full_name || "...."}
+      </h6>
       <div
         style={{
           fontSize: 14,
@@ -43,9 +39,7 @@ function TestimonialBox({
           position: "relative",
         }}
         dangerouslySetInnerHTML={{ __html: preview }}
-      >
-        {/* {preview} */}
-      </div>
+      ></div>
       {/* <a
         className="touchable-opacity"
         onClick={(e) => {
@@ -61,9 +55,10 @@ function TestimonialBox({
       >
         Read More...
       </a> */}
-
+      {/* 
       {image?.url && (
         <img
+          className="phone-vanish"
           style={{
             width: "100%",
             height: 140,
@@ -71,20 +66,33 @@ function TestimonialBox({
             borderRadius: 5,
             marginTop: 7,
           }}
-          src={
-            image?.url ||
-            "https://picsum.photos/id/870/300/300?grayscale&blur=2"
-          }
+          src={image?.url}
         />
-      )}
+      )} */}
       <div
         style={{
           display: "flex",
           flexDirection: "row",
           marginTop: 10,
           marginTop: "auto",
+          alignItems: "center",
         }}
       >
+        {image?.url && (
+          <img
+            onClick={() => navigator(route)}
+            className="phone-vanish touchable-opacity"
+            style={{
+              width: 35,
+              height: 35,
+              objectFit: "cover",
+              borderRadius: 5,
+              marginTop: 7,
+              borderRadius: "100%",
+            }}
+            src={image?.url}
+          />
+        )}
         <p
           className="touchable-opacity"
           onClick={() => navigator(route)}
@@ -93,6 +101,7 @@ function TestimonialBox({
             marginLeft: "auto",
             fontWeight: "bold",
             color: "var(--app-medium-green)",
+            marginBottom: 0,
           }}
         >
           <i className="fa fa-eye"></i>

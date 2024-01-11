@@ -33,12 +33,12 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
   return (
     <div
       id={sectionId}
-      className="mt-5 elevate-float-pro"
+      className="mt-5 elevate-float-pro g-s-container"
       style={{
         background: "white",
         width: "100%",
-        padding: "80px 0px",
-        minHeight: 200,
+        // padding: "80px 0px",
+        // minHeight: 200,
       }}
     >
       <OptimumWrapper>
@@ -51,6 +51,7 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
             const { image, title, description } = item || {};
             return (
               <Col
+                className="overview-item"
                 style={{
                   display: "flex",
                   flexDirection: "column",

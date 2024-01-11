@@ -8,7 +8,7 @@ function DoMore({ campaign }) {
 
   const COMMUNITY_PORTAL_URL = "https://communities.massenergize.org/";
   return (
-    <div style={{ padding: "20vh 0px" }}>
+    <div className="do-more-root">
       <CenteredWrapper>
         <Container>
           <h2
@@ -20,7 +20,7 @@ function DoMore({ campaign }) {
           >
             {title || " Participating Communities"}
           </h2>
-          <p style={{ width: "80%" }}>{description}</p>
+          <p>{description}</p>
           <Row>
             {(communities || []).map(({ community, id }, index) => {
               return (

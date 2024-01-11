@@ -10,12 +10,12 @@ function OneTechEventSection({ events, style, wrapperStyle }) {
   return (
     <div
       //   id={sectionId}
-      className="mt-5"
+      className="mt-5 g-s-container"
       style={{
         background: "white",
         width: "100%",
-        padding: "80px 0px",
-        minHeight: 200,
+        // padding: "80px 0px",
+        // minHeight: 200,
         ...(style || {}),
       }}
     >

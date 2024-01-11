@@ -6,7 +6,7 @@ import { CAMPAIGN_MANAGERS } from "../../mocks/campaign";
 import { apiCall } from "src/api/messenger";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 
-export function CampaignManagersView({ events = CAMPAIGN_MANAGERS, managers }) {
+export function CampaignManagersView ({ events = CAMPAIGN_MANAGERS, managers }) {
   const [data, setData] = useState(managers);
   const [toggleConfirmation, setToggleConfirmation] = useState(false);
   const [toRemove, setToRemove] = useState(null);
@@ -51,7 +51,8 @@ export function CampaignManagersView({ events = CAMPAIGN_MANAGERS, managers }) {
         Header: () => null,
         accessor: (values) => {
           const { user } = values;
-          let src = user?.profile_picture?.url || "/img/fallback-img.png";
+          const fallback = "/img/user-avatar.svg";
+          let src = user?.profile_picture?.url || fallback;
           return (
             <div>
               <img
@@ -59,7 +60,7 @@ export function CampaignManagersView({ events = CAMPAIGN_MANAGERS, managers }) {
                 alt="logo"
                 style={{ width: "40px", height: "40px" }}
                 onError={() => {
-                  src = "/img/fallback-img.png";
+                  src = fallback;
                 }}
               />
             </div>

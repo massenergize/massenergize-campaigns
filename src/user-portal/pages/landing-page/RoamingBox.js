@@ -7,22 +7,14 @@ function RoamingBox({ advert, keyContact, showMore }) {
   const preview = desc?.substr(0, LEN);
   const isLong = desc?.length > LEN;
   return (
-    <div style={{ margin: "100px 0px" }}>
+    <div className="roaming-container">
       <Container>
         <Col lg={{ span: 9, offset: 1 }}>
           <Row>
             <Col lg={8}>
               <div className="">
-                <div
-                  style={{
-                    padding: "10px 30px",
-                    background: "var(--app-kicking-yellow)",
-                    borderRadius: 5,
-                  }}
-                >
-                  <h3 className="m-0" style={{ fontSize: 23 }}>
-                    {advert?.title}
-                  </h3>
+                <div className="roaming-header">
+                  <h3 className="m-0">{advert?.title}</h3>
                 </div>
                 <div
                   style={{
@@ -30,21 +22,22 @@ function RoamingBox({ advert, keyContact, showMore }) {
                     background: "antiquewhite",
                   }}
                 >
-                  <p style={{ padding: "15px 25px" }}>
+                  <p className="roaming-text" style={{ padding: "15px 25px" }}>
                     {preview}
                     {isLong ? "..." : ""}
                   </p>
                   <div style={{ display: "flex", padding: "20px 35px" }}>
                     <Button
+                    // className="app-btn"
                       onClick={() => showMore && showMore()}
-                      style={{
-                        marginLeft: "auto",
-                        borderRadius: 100,
-                        background: "var(--app-deep-green)",
-                        borderWidth: 0,
-                        padding: "9px 19px",
-                      }}
-                      className="elevate-2 touchable-opacity"
+                      // style={{
+                      //   marginLeft: "auto",
+                      //   borderRadius: 100,
+                      //   background: "var(--app-deep-green)",
+                      //   borderWidth: 0,
+                      //   padding: "9px 19px",
+                      // }}
+                      className="elevate-2 touchable-opacity app-btn"
                     >
                       Learn More
                     </Button>

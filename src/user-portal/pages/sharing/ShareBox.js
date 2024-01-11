@@ -78,6 +78,7 @@ function ShareBox({ data, onChange, campaign, authUser }) {
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
+            flexWrap: "wrap",
           }}
           onChange={(e) => {
             const value = e.target.value;
