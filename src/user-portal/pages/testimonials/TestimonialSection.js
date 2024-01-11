@@ -4,6 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
 import { useNavigate } from "react-router-dom";
+import Filter from "../../../components/Filter";
 
 function TestimonialSection({ sectionId, technologies, defaultTab, campaign }) {
   const navigator = useNavigate();

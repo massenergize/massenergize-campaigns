@@ -29,6 +29,7 @@ import RoamingModalSheet from "./RoamingModalSheet";
 import DoMore from "./DoMore";
 import JoinUsForm from "../forms/JoinUsForm";
 import { OTHER, OTHER_JSON } from "../forms/CommunitySelector";
+import TestimonialSectionWithFilters from "../testimonials/TestimonialSectionWithFilters";
 
 function LandingPage({
   toggleModal,
@@ -219,7 +220,7 @@ function LandingPage({
       />
 
       <div ref={testimonialsRef}>
-        <TestimonialSection
+        <TestimonialSectionWithFilters
           campaign={campaign}
           // defaultTab={activeTab}
           technologies={technologies}
