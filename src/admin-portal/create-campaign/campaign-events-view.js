@@ -20,7 +20,7 @@ import GhostLoader from "src/components/admin-components/GhostLoader";
 import { useParams } from "react-router-dom";
 import Chip from "src/components/admin-components/Chip";
 import { fetchEvents } from "src/requests/technology-requests";
-import {NoItems} from '@kehillahglobal/ui'
+import { NoItems } from "@kehillahglobal/ui";
 
 export function CampaignEventsView({ events, campaign }) {
   //@Todo: Add a mutate to update main
@@ -38,23 +38,27 @@ export function CampaignEventsView({ events, campaign }) {
     }
   );
 
-  const techs = campaign?.technologies
+  const techs = campaign?.technologies;
 
-  const existingEvents = [...campaign?.technologies?.map((tech) => tech?.events)].flat();
+  const existingEvents = [
+    ...campaign?.technologies?.map((tech) => tech?.events),
+  ].flat();
   const [selectedEvents, setSelectedEvents] = useState(existingEvents);
   const [openModal, setOpenModal] = useState(false);
   const [toAddEvents, setToAddEvents] = useState([]);
   const [selectedTech, setSelectedTech] = useState("");
   const { blow, pop } = useBubblyBalloons();
 
-  const handleRemove = async(tech_event_id) => {
+  const handleRemove = async (tech_event_id) => {
     setLoading(true);
     const _old = [...selectedEvents];
-    const filteredTechnologies = selectedEvents.filter((event) => event?.id !== tech_event_id);
+    const filteredTechnologies = selectedEvents.filter(
+      (event) => event?.id !== tech_event_id
+    );
     setSelectedEvents(filteredTechnologies);
-    try{
+    try {
       const removedEvent = await removeCampaignTechnologyEvent(tech_event_id);
-      if(removedEvent){
+      if (removedEvent) {
         setLoading(false);
         blow({
           title: "Success",
@@ -63,8 +67,7 @@ export function CampaignEventsView({ events, campaign }) {
           duration: 5000,
         });
       }
-
-    }catch(e){
+    } catch (e) {
       setSelectedEvents(_old);
       setLoading(false);
       pop({
@@ -74,7 +77,6 @@ export function CampaignEventsView({ events, campaign }) {
         timeout: 5000,
       });
     }
-
   };
   const formatDate = (date) => {
     let d = new Date(date);
@@ -128,12 +130,12 @@ export function CampaignEventsView({ events, campaign }) {
     setOpenModal(false);
     setToAddEvents([]);
     setSelectedTech("");
+  };
 
-  }
-
-  
-  const selectedEventIds = selectedEvents.map(event => event.event.id);
-  const eventsToShow = allEvents.filter(event => !selectedEventIds.includes(event.id));
+  const selectedEventIds = selectedEvents.map((event) => event.event.id);
+  const eventsToShow = allEvents.filter(
+    (event) => !selectedEventIds.includes(event.id)
+  );
 
   return (
     <Container style={{ height: "100vh" }}>
@@ -152,9 +154,7 @@ export function CampaignEventsView({ events, campaign }) {
       </Container>
 
       <Container>
-        <Row
-          className=" pb-4 justify-content-start mt-4"
-        >
+        <Row className=" pb-4 justify-content-start mt-4">
           {EVENTS_SIZE > 0 ? (
             <>
               <table className="table">
@@ -226,7 +226,9 @@ export function CampaignEventsView({ events, campaign }) {
                 </tbody>
               </table>
             </>
-          ) : <NoItems text="No events add to this campaign click the 'Add Events' button to add"/>}
+          ) : (
+            <NoItems text="No events add to this campaign click the 'Add Events' button to add" />
+          )}
         </Row>
       </Container>
 
@@ -236,63 +238,70 @@ export function CampaignEventsView({ events, campaign }) {
         </Modal.Header>
         <Modal.Body style={{ height: "70vh" }}>
           {eventsToShow?.length > 0 ? (
-                 <form>
-                 <Row className="mt-2" style={{ height: "180px" }}>
-                   <Col>
-                   <Form.Label>Select events to feature on this campaign</Form.Label>
-                     <MultiSelect
-                       options={(eventsToShow || []).map((event) => {
-                         return {
-                           ...event,
-                           value: event?.id,
-                           label: event?.name,
-                         };
-                       })}
-                       hasSelectAll={true}
-                       value={toAddEvents?.map((event) => {
-                         return {
-                           ...event,
-                           value: event?.id,
-                           label: event?.name,
-                         };
-                       })}
-                       onChange={(val) => setToAddEvents(val)}
-                       valueRenderer={(selected, _options) => {
-                         if (selected.length === 0) return "Select Events";
-                         if (selected.length === _options.length)
-                           return "All Events Selected";
-                         if (selected.length > 2)
-                           return `${selected.length} Events Selected`;
-                         return selected
-                           ?.map(({ label }) => label)
-                           ?.join(", ")
-                           .concat(" Selected");
-                       }}
-                       className={"event-select"}
-                     />
-     
-                     <Row className="my-4">
-                     
-                     <Form.Label>Select th technology these events belong to</Form.Label>
-                       <Col>
-                           <Form.Select onChange={(e)=>{setSelectedTech(e.target.value)}}>
-                           <option> ----- -----</option>
-                           {(techs || []).map((tech) => {
-                             return (
-                               <option value={tech?.campaign_technology_id}>{tech?.name}</option>
-                             )
-                           })}
-                           </Form.Select>
-                       </Col>
-                     </Row>
-                   </Col>
-                 </Row>
-               </form>
-          ):(
+            <form>
+              <Row className="mt-2" style={{ height: "180px" }}>
+                <Col>
+                  <Form.Label>
+                    Select events to feature on this campaign
+                  </Form.Label>
+                  <MultiSelect
+                    options={(eventsToShow || []).map((event) => {
+                      return {
+                        ...event,
+                        value: event?.id,
+                        label: event?.name,
+                      };
+                    })}
+                    hasSelectAll={true}
+                    value={toAddEvents?.map((event) => {
+                      return {
+                        ...event,
+                        value: event?.id,
+                        label: event?.name,
+                      };
+                    })}
+                    onChange={(val) => setToAddEvents(val)}
+                    valueRenderer={(selected, _options) => {
+                      if (selected.length === 0) return "Select Events";
+                      if (selected.length === _options.length)
+                        return "All Events Selected";
+                      if (selected.length > 2)
+                        return `${selected.length} Events Selected`;
+                      return selected
+                        ?.map(({ label }) => label)
+                        ?.join(", ")
+                        .concat(" Selected");
+                    }}
+                    className={"event-select"}
+                  />
+
+                  <Row className="my-4">
+                    <Form.Label>
+                      Select th technology these events belong to
+                    </Form.Label>
+                    <Col>
+                      <Form.Select
+                        onChange={(e) => {
+                          setSelectedTech(e.target.value);
+                        }}
+                      >
+                        <option> ----- -----</option>
+                        {(techs || []).map((tech) => {
+                          return (
+                            <option value={tech?.campaign_technology_id}>
+                              {tech?.name}
+                            </option>
+                          );
+                        })}
+                      </Form.Select>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </form>
+          ) : (
             <NoItems />
           )}
-
-     
 
           <Row className="mt-4">
             <Col>

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Button, ButtonGroup, Col, Container, Row,} from "react-bootstrap";
+import { Button, ButtonGroup, Col, Container, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
@@ -17,22 +17,23 @@ import classes from "classnames";
 // import Button from "../../../../components/admin-components/Button";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { AdminLayout } from "../../../../layouts/admin-layout";
-import useSWR, {mutate} from "swr";
-import { fetchCampaign, updateCampaign } from "../../../../requests/campaign-requests";
+import useSWR, { mutate } from "swr";
+import {
+  fetchCampaign,
+  updateCampaign,
+} from "../../../../requests/campaign-requests";
 import { apiCall } from "../../../../api/messenger";
 import Loading from "../../../../components/pieces/Loading";
 import { useBubblyBalloons } from "../../../../lib/bubbly-balloon/use-bubbly-balloons";
 import GhostLoader from "../../../../components/admin-components/GhostLoader";
 
-
-
-export function CampaignStatistics ({}) {
+export function CampaignStatistics({}) {
   const { id } = useParams();
 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const { blow,pop} = useBubblyBalloons();
+  const { blow, pop } = useBubblyBalloons();
 
   const {
     data: campaign,
@@ -43,7 +44,8 @@ export function CampaignStatistics ({}) {
     `campaign.info`,
     async () => {
       return await fetchCampaign(id);
-    }, {
+    },
+    {
       onSuccess: (data) => {
         // console.log({ data });
       },
@@ -54,55 +56,54 @@ export function CampaignStatistics ({}) {
   const statistics = Object.entries(CAMPAIGN?.stats || {});
   const mutateCampaign = (data) => {
     mutate(`campaign.info`);
-  }
+  };
 
-
-
-  const handleUpdateCampaign = async() => {
+  const handleUpdateCampaign = async () => {
     setLoading(true);
-    try{
-      const res = await updateCampaign({is_published: !CAMPAIGN?.is_published, id: CAMPAIGN?.id});
-      if(res){
-         mutateCampaign(res);
+    try {
+      const res = await updateCampaign({
+        is_published: !CAMPAIGN?.is_published,
+        id: CAMPAIGN?.id,
+      });
+      if (res) {
+        mutateCampaign(res);
         setLoading(false);
         blow({
           title: "Success",
-          message: res?.is_published ? "Campaign published successfully" : "Campaign unpublished successfully",
+          message: res?.is_published
+            ? "Campaign published successfully"
+            : "Campaign unpublished successfully",
           type: "success",
-          timeout: false
-        })
+          timeout: false,
+        });
       }
-
-    }catch (e) {
+    } catch (e) {
       setLoading(false);
       pop({
         title: "Error",
         message: "An error occurred",
         type: "danger",
-        timeout: false
-      })
-
+        timeout: false,
+      });
     }
-  }
-
+  };
 
   const tabs = [
     {
       name: "Comments",
-      component: <Comments campaign={CAMPAIGN} mutateData ={mutateCampaign}/>,
+      component: <Comments campaign={CAMPAIGN} mutateData={mutateCampaign} />,
     },
     {
       name: "Testimonials",
-      component: <Testimonials campaign={CAMPAIGN} mutateData ={mutateCampaign}/>,
+      component: <Testimonials campaign={CAMPAIGN} mutateData={mutateCampaign} />,
     },
   ];
   const [activeTab, setActiveTab] = useState(tabs[0]?.name);
 
-
   return (
     <AdminLayout>
       <Container fluid className={""}>
-        {loading && <GhostLoader/>}
+        {loading && <GhostLoader />}
         {/*region campaign content*/}
         {!campaignLoading && !campaignError ? (
           <>
@@ -111,21 +112,23 @@ export function CampaignStatistics ({}) {
               style={{
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
 		              url(${CAMPAIGN?.image?.url})`,
-							}}
-						>
-							<Col>
-								<Container className={"px-5"} style={{ maxWidth: "100" }}>
-									<Row className="campaign-text justify-content-end">
-										<Col>
-											<h3 className="">CAMPAIGN</h3>
-										</Col>
+              }}
+            >
+              <Col>
+                <Container className={"px-5"} style={{ maxWidth: "100" }}>
+                  <Row className="campaign-text justify-content-end">
+                    <Col>
+                      <h3 className="">CAMPAIGN</h3>
+                    </Col>
 
                     <Col md={"auto"}>
-                      <Button className="btn-light mr-3" onClick={() => {
+                      <Button
+                        className="btn-light mr-3"
+                        onClick={() => {
                           window.history.back();
                         }}
                       >
-                        <FontAwesomeIcon icon={faArrowLeft}/>
+                        <FontAwesomeIcon icon={faArrowLeft} />
                       </Button>
                       &nbsp;
                       <ButtonGroup>
@@ -135,11 +138,18 @@ export function CampaignStatistics ({}) {
                             navigate(`/campaign/${id}`);
                           }}
                         >
-                          <FontAwesomeIcon icon={faEye}/>
+                          <FontAwesomeIcon icon={faEye} />
                         </Button>
-                        <Button className={CAMPAIGN?.is_published ? "disable-btn" : "btn-primary"}  onClick={()=>{
-                          handleUpdateCampaign()
-                        }}>
+                        <Button
+                          className={
+                            CAMPAIGN?.is_published
+                              ? "disable-btn"
+                              : "btn-primary"
+                          }
+                          onClick={() => {
+                            handleUpdateCampaign();
+                          }}
+                        >
                           <FontAwesomeIcon
                             icon={CAMPAIGN?.is_published ? faBan : faGlobe}
                           />{" "}
@@ -192,13 +202,17 @@ export function CampaignStatistics ({}) {
                       </Row>
                     </Col>
                     <Col className="update-btn-con">
-                      <p className={CAMPAIGN?.is_published ? "active" : "inactive"}></p>
+                      <p
+                        className={
+                          CAMPAIGN?.is_published ? "active" : "inactive"
+                        }
+                      ></p>
                       <Link
                         target="_blank"
                         className="update-btn btn btn-primary py-2 px-3"
                         to={`/admin/campaign/${id}/edit`}
                       >
-                        <FontAwesomeIcon icon={faPenToSquare}/> Update
+                        <FontAwesomeIcon icon={faPenToSquare} /> Update
                       </Link>
                     </Col>
                   </Row>
@@ -215,7 +229,7 @@ export function CampaignStatistics ({}) {
                     {statistics?.map((data, index) => {
                       return (
                         <div key={index}>
-                          <StatsCard data={data} index={index}/>
+                          <StatsCard data={data} index={index} />
                         </div>
                       );
                     })}
@@ -249,31 +263,31 @@ export function CampaignStatistics ({}) {
                         });
                       }}
                     >
-                      <FontAwesomeIcon icon={faDownload}/> Download Data File
+                      <FontAwesomeIcon icon={faDownload} /> Download Data File
                     </Button>
                   </div>
                 </Col>
               </Row>
 
-							<Row className="mt-4">
-								<Col className="mt-4">
-									<div className="nav-tabs-container mt-4">
-										{tabs?.map((tab, index) => (
-											<div
-												key={tab?.name}
-												className={classes("nav-tabs-main tab", {
-													"tab-active": activeTab === tab?.name,
-													"rounded-left": index === 0,
-													"rounded-right": index === tabs.length - 1,
-												})}
-												onClick={() => setActiveTab(tab?.name)}
-											>
-												<h5 className={classes("nav-tabs")}>{tab?.name}</h5>
-											</div>
-										))}
-									</div>
-								</Col>
-							</Row>
+              <Row className="mt-4">
+                <Col className="mt-4">
+                  <div className="nav-tabs-container mt-4">
+                    {tabs?.map((tab, index) => (
+                      <div
+                        key={tab?.name}
+                        className={classes("nav-tabs-main tab", {
+                          "tab-active": activeTab === tab?.name,
+                          "rounded-left": index === 0,
+                          "rounded-right": index === tabs.length - 1,
+                        })}
+                        onClick={() => setActiveTab(tab?.name)}
+                      >
+                        <h5 className={classes("nav-tabs")}>{tab?.name}</h5>
+                      </div>
+                    ))}
+                  </div>
+                </Col>
+              </Row>
 
               <Row className="mt-4">
                 <Col>
@@ -289,16 +303,16 @@ export function CampaignStatistics ({}) {
         ) : null}
         {/*endregion*/}
 
-				{/*region error and loader*/}
-				{!campaignLoading && campaignError ? (
-					<Col>
-						<h5>An error occurred</h5>
-					</Col>
-				) : null}
+        {/*region error and loader*/}
+        {!campaignLoading && campaignError ? (
+          <Col>
+            <h5>An error occurred</h5>
+          </Col>
+        ) : null}
 
         {campaignLoading ? (
           <Col>
-            <Loading/>
+            <Loading />
           </Col>
         ) : null}
       </Container>

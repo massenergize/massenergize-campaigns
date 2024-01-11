@@ -1,9 +1,9 @@
 import { apiCall } from "src/api/messenger";
 import { handleRequestError } from "src/helpers/utils/http";
 
-export const fetchEvents = async (campaignID, url = "campaigns.communities.events.list",) => {
+export const fetchEvents = async (campaignID,url = "campaigns.communities.events.list", ) => {
   try {
-    const response = await apiCall(url, { no_pagination: true, campaign_id: campaignID });
+    const response = await apiCall(url, { no_pagination : true, campaign_id: campaignID });
 
     if (!response || !response?.success) {
       handleRequestError(response?.error, "FETCH_EVENTS_ERROR_BE");
@@ -59,7 +59,7 @@ export const addTechnologyIncentive = async (data, url = "technologies.overview.
 
 export const fetchCampaignCommunityVendors = async (campaignID, url = "campaigns.communities.vendors.list") => {
   try {
-    const response = await apiCall(url, { no_pagination: true, campaign_id: campaignID });
+    const response = await apiCall(url, { no_pagination : true, campaign_id: campaignID });
 
     if (!response || !response?.success) {
       handleRequestError(response?.error, "FETCH_CAMPAIGN_COMMUNITY_VENDORS_ERROR_BE");

@@ -18,7 +18,6 @@ import "./sideNav.css";
 import { relativeTimeAgo } from "../../utils/utils";
 import { useSelector } from "react-redux";
 
-
 const USER_TYPES = {
   MYSELF: "Myself",
   ME_USER: "MassEnergize user",
@@ -78,7 +77,7 @@ const Testimonials = ({ campaign, mutateData }) => {
         ...formData,
         is_published: formData?.is_published ? true : false,
       };
-      if(userType === USER_TYPES.MYSELF){
+      if (userType === USER_TYPES.MYSELF) {
         toSend.user_id = loggedInUser?.id;
       }
       const createdTestimonial = await createCampaignTestimonial(toSend);

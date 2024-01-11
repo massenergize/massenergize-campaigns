@@ -71,7 +71,7 @@ export const technologyPages = [
 	// },
 	{
 		name: "Testimonials",
-		key: "testimonials",
+		key:'testimonials',
 		component: Testimonials,
 	},
 ];

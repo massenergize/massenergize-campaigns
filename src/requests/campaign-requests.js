@@ -1,10 +1,7 @@
 import { apiCall } from "../api/messenger";
 import { handleRequestError } from "../helpers/utils/http";
 
-export async function createCampaignFromTemplate(
-	data,
-	url = "campaigns.createFromTemplate"
-) {
+export async function createCampaignFromTemplate (data, url = "campaigns.createFromTemplate") {
 	try {
 		const response = await apiCall(url, data, null);
 		if (!response || !response?.success) {
@@ -20,7 +17,7 @@ export async function createCampaignFromTemplate(
 	}
 }
 
-export async function createCampaign(url = "campaigns.create", data) {
+export async function createCampaign (url = "campaigns.create", data) {
 	try {
 		const response = await apiCall(url, data, null);
 		if (!response || !response?.success) {
@@ -33,7 +30,7 @@ export async function createCampaign(url = "campaigns.create", data) {
 	}
 }
 
-export async function updateCampaign(data, url = "campaigns.update") {
+export async function updateCampaign (data, url = "campaigns.update") {
 	try {
 		const response = await apiCall(url, data, null);
 		if (!response || !response?.success) {
@@ -46,10 +43,7 @@ export async function updateCampaign(data, url = "campaigns.update") {
 	}
 }
 
-export async function fetchAllCampaigns(
-	url = "campaigns.list",
-	campaign_account_id
-) {
+export async function fetchAllCampaigns (url = "campaigns.list", campaign_account_id) {
 	try {
 		const response = await apiCall(url, { campaign_account_id }, null);
 		if (!response || !response?.success) {
@@ -61,7 +55,7 @@ export async function fetchAllCampaigns(
 	}
 }
 
-export async function fetchCampaign(id, url = "campaigns.info") {
+export async function fetchCampaign (id, url = "campaigns.info") {
 	try {
 		const response = await apiCall(url, { id }, null);
 
@@ -75,10 +69,7 @@ export async function fetchCampaign(id, url = "campaigns.info") {
 	}
 }
 
-export async function fetchCampaignTechnology(
-	url = "/campaigns.technologies.info",
-	id
-) {
+export async function fetchCampaignTechnology (url = "/campaigns.technologies.info",id) {
 	try {
 		const response = await apiCall(url, { campaign_technology_id: id }, null);
 
@@ -92,7 +83,7 @@ export async function fetchCampaignTechnology(
 	}
 }
 
-export async function fetchAllTechnologies(url = "technologies.list") {
+export async function fetchAllTechnologies (url = "technologies.list") {
 	try {
 		const response = await apiCall(url, {}, null);
 
@@ -106,7 +97,7 @@ export async function fetchAllTechnologies(url = "technologies.list") {
 	}
 }
 
-export async function publishCampaign(url = "campaigns.info", id) {
+export async function publishCampaign (url = "campaigns.info", id) {
 	try {
 		const response = await apiCall(url, { id }, null);
 
@@ -120,7 +111,7 @@ export async function publishCampaign(url = "campaigns.info", id) {
 	}
 }
 
-export async function unpublishCampaign(url = "campaigns.info", id) {
+export async function unpublishCampaign (url = "campaigns.info", id) {
 	try {
 		const response = await apiCall(url, { id }, null);
 
@@ -134,10 +125,7 @@ export async function unpublishCampaign(url = "campaigns.info", id) {
 	}
 }
 
-export async function fetchCampaignManagers(
-	id,
-	url = "campaigns.managers.list"
-) {
+export async function fetchCampaignManagers (id, url = "campaigns.managers.list") {
 	try {
 		const response = await apiCall(url, { campaign_id: id }, null);
 
@@ -151,10 +139,7 @@ export async function fetchCampaignManagers(
 	}
 }
 
-export async function fetchAllUsersBySuperAdminManagers(
-	url = "users.listForCommunityAdmin",
-	options = {}
-) {
+export async function fetchAllUsersBySuperAdminManagers (url = "users.listForCommunityAdmin", options = {}) {
 	try {
 		const response = await apiCall(url, options, null);
 
@@ -171,10 +156,7 @@ export async function fetchAllUsersBySuperAdminManagers(
 	}
 }
 
-export async function fetchAllCampaignManagers(
-	url = "users.listForCommunityAdmin",
-	options = {}
-) {
+export async function fetchAllCampaignManagers (url = "users.listForCommunityAdmin", options = {}) {
 	try {
 		const response = await apiCall(url, options, null);
 
@@ -191,10 +173,7 @@ export async function fetchAllCampaignManagers(
 	}
 }
 
-export async function fetchCampaignTechnologies(
-	id,
-	url = "campaigns.technologies.list"
-) {
+export async function fetchCampaignTechnologies (id, url = "campaigns.technologies.list") {
 	try {
 		const response = await apiCall(url, { campaign_id: id }, null);
 
@@ -211,9 +190,7 @@ export async function fetchCampaignTechnologies(
 	}
 }
 
-export async function fetchAllCampaignEventsBySuperAdmins(
-	url = "events.listForCommunityAdmin"
-) {
+export async function fetchAllCampaignEventsBySuperAdmins (url = "events.listForCommunityAdmin") {
 	try {
 		const response = await apiCall(url, {}, null);
 
@@ -230,7 +207,7 @@ export async function fetchAllCampaignEventsBySuperAdmins(
 	}
 }
 
-export async function fetchCampaignEvents(id, url = "campaigns.events.list") {
+export async function fetchCampaignEvents (id, url = "campaigns.events.list") {
 	try {
 		const response = await apiCall(url, { campaign_id: id }, null);
 
@@ -244,7 +221,7 @@ export async function fetchCampaignEvents(id, url = "campaigns.events.list") {
 	}
 }
 
-export async function fetchAllEvents(url = "campaigns.events.info", id) {
+export async function fetchAllEvents (url = "campaigns.events.info", id) {
 	try {
 		const response = await apiCall(url, { id }, null);
 
@@ -258,7 +235,7 @@ export async function fetchAllEvents(url = "campaigns.events.info", id) {
 	}
 }
 
-export async function fetchAllPartners(url = "partners.list", id) {
+export async function fetchAllPartners (url = "partners.list", id) {
 	try {
 		const response = await apiCall(url, { id }, null);
 
@@ -272,10 +249,7 @@ export async function fetchAllPartners(url = "partners.list", id) {
 	}
 }
 
-export async function fetchCampaignPartners(
-	id,
-	url = "campaigns.partners.list"
-) {
+export async function fetchCampaignPartners (id, url = "campaigns.partners.list") {
 	try {
 		const response = await apiCall(url, { id }, null);
 
@@ -289,10 +263,7 @@ export async function fetchCampaignPartners(
 	}
 }
 
-export async function removeCampaignManager(
-	url = "campaigns.managers.remove",
-	campaign_manager_id
-) {
+export async function removeCampaignManager (url = "campaigns.managers.remove", campaign_manager_id) {
 	try {
 		const response = await apiCall(url, { campaign_manager_id }, null);
 
@@ -306,10 +277,7 @@ export async function removeCampaignManager(
 	}
 }
 
-export async function updateCampaignInformation(
-	data,
-	url = "campaigns.update"
-) {
+export async function updateCampaignInformation (data, url = "campaigns.update") {
 	try {
 		const response = await apiCall(url, data, null);
 
@@ -326,11 +294,7 @@ export async function updateCampaignInformation(
 	}
 }
 
-export async function addCampaignManager(
-	email,
-	campaign_id,
-	url = "campaigns.managers.add"
-) {
+export async function addCampaignManager (email, campaign_id, url = "campaigns.managers.add") {
 	try {
 		const response = await apiCall(url, { email, campaign_id }, null);
 
@@ -347,15 +311,15 @@ export async function addCampaignManager(
 	}
 }
 
-export async function createCampaignAccount(
-	data,
-	url = "campaigns.accounts.create"
-) {
+export async function createCampaignAccount (data, url = "campaigns.accounts.create") {
 	try {
 		const response = await apiCall(url, data, null);
 
 		if (!response || !response?.success) {
-			handleRequestError(response?.error, "CREATE_CAMPAIGN_ACCOUNT_ERROR_BE");
+			handleRequestError(
+				response?.error,
+				"CREATE_CAMPAIGN_ACCOUNT_ERROR_BE"
+				);
 		}
 
 		return response?.data;
@@ -364,10 +328,7 @@ export async function createCampaignAccount(
 	}
 }
 
-export async function updateCampaignTechnologies(
-	data,
-	url = "campaigns.technologies.add"
-) {
+export async function updateCampaignTechnologies (data, url = "campaigns.technologies.add") {
 	try {
 		const response = await apiCall(url, data, null);
 

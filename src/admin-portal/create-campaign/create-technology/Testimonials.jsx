@@ -12,7 +12,7 @@ import useSWR from "swr";
 import Button from "src/components/admin-components/Button";
 import { FormLabel } from "react-bootstrap";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
-import {Button as BTN, Container, Col, Row} from 'react-bootstrap'
+import { Button as BTN, Container, Col, Row } from "react-bootstrap";
 
 const Testimonials = ({
   campaign_id,
@@ -29,7 +29,9 @@ const Testimonials = ({
   const [loading, setLoading] = useState(false);
   const { blow, pop } = useBubblyBalloons();
 
-  const [selectedTestimonials, setSelectedTestimonials] = useState(existing || []);
+  const [selectedTestimonials, setSelectedTestimonials] = useState(
+    existing || []
+  );
 
   let {
     data: payloadTestimonials,
@@ -47,7 +49,9 @@ const Testimonials = ({
   );
 
   const handleRemove = (data) => {
-    const filteredTechnologies = selectedTestimonials.filter((testimonial) => testimonial.id !== data.id);
+    const filteredTechnologies = selectedTestimonials.filter(
+      (testimonial) => testimonial.id !== data.id
+    );
     setSelectedTestimonials(filteredTechnologies);
   };
 
@@ -59,7 +63,9 @@ const Testimonials = ({
       const payload = {
         campaign_id: campaign_id,
         technology_id: tech_id,
-        testimonial_ids: selectedTestimonials.map((testimonial) => testimonial.id),
+        testimonial_ids: selectedTestimonials.map(
+          (testimonial) => testimonial.id
+        ),
       };
 
       const res = await addTestimonials(payload);
@@ -143,8 +149,12 @@ const Testimonials = ({
                 }
 
                 return selected.map(({ title, id }, i) => {
-                  const truncatedTitle = title.length > 30 ? title.slice(0, 30) + '...' : title;
-                  return truncatedTitle + (i < payloadTestimonials?.length - 1 ? ", " : "");
+                  const truncatedTitle =
+                    title.length > 30 ? title.slice(0, 30) + "..." : title;
+                  return (
+                    truncatedTitle +
+                    (i < payloadTestimonials?.length - 1 ? ", " : "")
+                  );
                 });
               }}
               onChange={(val) => {
@@ -183,7 +193,11 @@ const Testimonials = ({
                           <BTN
                             // style={{ marginLeft: 10 }}
                             onClick={() => {
-                              if(window.confirm("Are you sure you want to remove this testimonial?")){
+                              if (
+                                window.confirm(
+                                  "Are you sure you want to remove this testimonial?"
+                                )
+                              ) {
                                 handleRemove(testimonial);
                               }
                             }}
