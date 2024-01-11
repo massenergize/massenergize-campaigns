@@ -10,6 +10,7 @@ import Button from "../../../components/admin-components/Button";
 import "../../../assets/styles/admin-styles.scss";
 import Chip from "../../../components/admin-components/Chip";
 import { apiCall } from "src/api/messenger";
+import GhostLoader from "src/components/admin-components/GhostLoader";
 
 const INITIAL_COACH_STATE = {
   technology_id: "",
@@ -65,6 +66,24 @@ function Coaches ({
     return true;
   };
 
+  const handleRemoveCoach = (coach) => {
+    setLoading(true);
+    const { id } = coach || {};
+    if (!id) return;
+    const url = "technologies.coaches.remove";
+    apiCall(url, { id }).then((res) => {
+      const { data, success, error } = res || {};
+      setLoading(false);
+      if (!success) {
+        console.log("ERROR: ", error);
+        return notifyError(error);
+      }
+      notifySuccess("Coach removed!");
+      const items = coaches?.filter((it) => it?.id !== id);
+      return updateTechObject({ coaches: items });
+    });
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     let data = { ...formData, technology_id: tech_id };
@@ -118,9 +137,7 @@ function Coaches ({
                 key={index}
                 text={item?.full_name}
                 onDismiss={() => {
-                  let items = [...coaches];
-                  items.splice(index, 1);
-                  setCoaches(items);
+                 if(window.confirm("Are you sure you want to remove this coach?")) handleRemoveCoach(item);
                 }}
                 onClick={() => {
                   const editObj = { ...item, image: item?.image?.url || "" };
@@ -143,6 +160,8 @@ function Coaches ({
       </Row>
     );
   };
+
+  if(loading) return (<GhostLoader />);
 
   const formHasContent = Object.keys(formData || {}).length > 0;
   return (
