@@ -1,10 +1,29 @@
 {
   "extends": [
     "react-app",
-    "react-app/jest"
+    "react-app/jest",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "plugins": [
+    "react",
+    "jsx-a11y"
   ],
   "rules": {
-    "react/react-in-jsx-scope": "off",
-    "react/jsx-uses-react": "off"
+    "react/react-in-jsx-scope": "on",
+    "react/jsx-uses-react": "on",
+    "react/jsx-key": 1,
+    "jsx-a11y/click-events-have-key-events": "off",
+    "sort-keys": [
+      "off",
+      "asc",
+      {
+        "caseSensitive": true,
+        "natural": false,
+        "minKeys": 2
+      }
+    ],
+    "space-in-parens": "warn",
+    "no-unneeded-comma": "off",
+    "space-before-function-paren": "error"
   }
 }
