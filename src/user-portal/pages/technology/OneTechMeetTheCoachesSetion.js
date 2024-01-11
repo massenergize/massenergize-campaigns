@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Button, Col, Row } from "react-bootstrap";
 import OneCoach from "../coaches/OneCoach";
+import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 
+const SCROLL_TRAVEL = 100;
 const dummies = [
   {
     icon: "fa-globe",
@@ -38,6 +40,22 @@ function OneTechMeetTheCoachesSection({
   ref,
 }) {
   const { title, description } = data || {};
+  // const [scrollPosition, setScrollPosition] = useState(0);
+  const scrollContainerRef = useRef(null);
+
+  // const handleScroll = (scrollContainerRef, scrollValue) => {
+  //   const maxScroll =
+  //     scrollContainerRef.current.scrollWidth -
+  //     scrollContainerRef.current.clientWidth;
+
+  //   if (!(scrollValue >= 0 && scrollValue <= maxScroll)) return;
+  //   setScrollPosition(scrollValue);
+  //   if (scrollContainerRef.current) {
+  //     scrollContainerRef.current.scrollLeft = scrollValue;
+  //   }
+  // };
+
+  const hasScrollableCoaches = coaches?.length > 4;
   return (
     <div
       ref={ref}
@@ -51,14 +69,45 @@ function OneTechMeetTheCoachesSection({
       }}
     >
       <OptimumWrapper>
-        <SectionTitle className="mb-5" style={{ color: "black" }}>
-          {title || "Meet the Coaches"}
-        </SectionTitle>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <div>
+            <SectionTitle className="mb-5" style={{ color: "black" }}>
+              {title || "Meet the Coaches"}
+            </SectionTitle>
+            {hasScrollableCoaches && (
+              <p style={{ fontSize: "var(--mob-paragraph-font-size)" }}>
+                Scroll from left to right, or use the arrow buttons to see all
+                coaches
+              </p>
+            )}
+          </div>
 
-        <Row style={{ marginTop: 50 }}>
+          {hasScrollableCoaches && (
+            <ArrowButtons
+              style={{ marginLeft: "auto" }}
+              containerRef={scrollContainerRef}
+            />
+          )}
+        </div>
+
+        <Row
+          ref={scrollContainerRef}
+          style={{
+            flexWrap: "nowrap",
+            overflowX: "scroll",
+            justifyContent: "center",
+            // scrollBehavior: "smooth",
+          }}
+          // onScroll={(e) => handleScroll(e.target.scrollLeft)}
+        >
           {coaches?.map((coach, index) => {
             return (
-              <Col key={index?.toString()} xs={4} className="coach-main">
+              <Col key={index?.toString()} xs={4} lg={3} className="coach-main">
                 <OneCoach {...coach} />
               </Col>
             );

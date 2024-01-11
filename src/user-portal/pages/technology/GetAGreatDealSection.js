@@ -36,9 +36,11 @@ function GetAGreatDealSection({ sectionId, data, image }) {
     >
       <OptimumWrapper>
         <SectionTitle className="mb-3">{title}</SectionTitle>
-        <p style={{ textAlign: "justify" }} className="mb-3 paragraph-font">
-          {description}
-        </p>
+        <p
+          dangerouslySetInnerHTML={{ __html: description }}
+          style={{ textAlign: "justify" }}
+          className="mb-3 paragraph-font"
+        ></p>
         <div className="" style={{ position: "relative" }}>
           {/* <img
             style={{
@@ -88,9 +90,11 @@ function GetAGreatDealSection({ sectionId, data, image }) {
               })}
             </Row>
           </div>
-          <p style={{ textAlign: "justify" }} className="mb-3 paragraph-font">
-            {description_2}
-          </p>
+          <p
+            dangerouslySetInnerHTML={{ __html: description_2 }}
+            style={{ textAlign: "justify" }}
+            className="mb-3 paragraph-font"
+          ></p>
         </div>
       </OptimumWrapper>
     </div>

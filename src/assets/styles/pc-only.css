@@ -81,7 +81,9 @@
     font-size: 15px;
   }
   .coaches-description {
-    width: 80%;
+    /* width: 80%; */
+    text-align: justify;
+    margin-top: 20px;
   }
   .do-more-root {
     padding: 20vh 0px;
