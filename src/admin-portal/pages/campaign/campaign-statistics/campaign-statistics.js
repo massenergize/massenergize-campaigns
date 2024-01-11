@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, ButtonGroup, Col, Container, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,28 +17,35 @@ import classes from "classnames";
 // import Button from "../../../../components/admin-components/Button";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { AdminLayout } from "../../../../layouts/admin-layout";
-import useSWR from "swr";
-import { fetchCampaign } from "../../../../requests/campaign-requests";
+import useSWR, { mutate } from "swr";
+import {
+  fetchCampaign,
+  updateCampaign,
+} from "../../../../requests/campaign-requests";
 import { apiCall } from "../../../../api/messenger";
 import Loading from "../../../../components/pieces/Loading";
 import { useBubblyBalloons } from "../../../../lib/bubbly-balloon/use-bubbly-balloons";
+import GhostLoader from "../../../../components/admin-components/GhostLoader";
 
-export function CampaignStatistics ({}) {
+export function CampaignStatistics({}) {
   const { id } = useParams();
 
-  const [showToast, setShowToast] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const { blow } = useBubblyBalloons();
+  const { blow, pop } = useBubblyBalloons();
 
   const {
     data: campaign,
     isLoading: campaignLoading,
     isValidating: campaignValidating,
     error: campaignError,
-  } = useSWR(`campaign.info/${id}`, async () => {
+  } = useSWR(
+    `campaign.info`,
+    async () => {
       return await fetchCampaign(id);
-    }, {
+    },
+    {
       onSuccess: (data) => {
         // console.log({ data });
       },
@@ -47,24 +54,56 @@ export function CampaignStatistics ({}) {
   const CAMPAIGN = campaign || {};
 
   const statistics = Object.entries(CAMPAIGN?.stats || {});
+  const mutateCampaign = (data) => {
+    mutate(`campaign.info`);
+  };
+
+  const handleUpdateCampaign = async () => {
+    setLoading(true);
+    try {
+      const res = await updateCampaign({
+        is_published: !CAMPAIGN?.is_published,
+        id: CAMPAIGN?.id,
+      });
+      if (res) {
+        mutateCampaign(res);
+        setLoading(false);
+        blow({
+          title: "Success",
+          message: res?.is_published
+            ? "Campaign published successfully"
+            : "Campaign unpublished successfully",
+          type: "success",
+          timeout: false,
+        });
+      }
+    } catch (e) {
+      setLoading(false);
+      pop({
+        title: "Error",
+        message: "An error occurred",
+        type: "danger",
+        timeout: false,
+      });
+    }
+  };
 
   const tabs = [
     {
       name: "Comments",
-      component: <Comments campaign={CAMPAIGN}/>,
+      component: <Comments campaign={CAMPAIGN} mutateData={mutateCampaign} />,
     },
     {
       name: "Testimonials",
-      component: <Testimonials testimonials={CAMPAIGN?.my_testimonials}/>,
+      component: <Testimonials campaign={CAMPAIGN} mutateData={mutateCampaign} />,
     },
   ];
   const [activeTab, setActiveTab] = useState(tabs[0]?.name);
 
-  console.log({ CAMPAIGN });
-
   return (
     <AdminLayout>
       <Container fluid className={""}>
+        {loading && <GhostLoader />}
         {/*region campaign content*/}
         {!campaignLoading && !campaignError ? (
           <>
@@ -83,11 +122,13 @@ export function CampaignStatistics ({}) {
                     </Col>
 
                     <Col md={"auto"}>
-                      <Button className="btn-light mr-3" onClick={() => {
+                      <Button
+                        className="btn-light mr-3"
+                        onClick={() => {
                           window.history.back();
                         }}
                       >
-                        <FontAwesomeIcon icon={faArrowLeft}/>
+                        <FontAwesomeIcon icon={faArrowLeft} />
                       </Button>
                       &nbsp;
                       <ButtonGroup>
@@ -97,15 +138,17 @@ export function CampaignStatistics ({}) {
                             navigate(`/campaign/${id}`);
                           }}
                         >
-                          <FontAwesomeIcon icon={faEye}/>
+                          <FontAwesomeIcon icon={faEye} />
                         </Button>
                         <Button
-                          variant="success"
                           className={
                             CAMPAIGN?.is_published
                               ? "disable-btn"
                               : "btn-primary"
                           }
+                          onClick={() => {
+                            handleUpdateCampaign();
+                          }}
                         >
                           <FontAwesomeIcon
                             icon={CAMPAIGN?.is_published ? faBan : faGlobe}
@@ -159,13 +202,17 @@ export function CampaignStatistics ({}) {
                       </Row>
                     </Col>
                     <Col className="update-btn-con">
-                      <p className={CAMPAIGN?.is_published ? "active" : "inactive"}></p>
+                      <p
+                        className={
+                          CAMPAIGN?.is_published ? "active" : "inactive"
+                        }
+                      ></p>
                       <Link
                         target="_blank"
                         className="update-btn btn btn-primary py-2 px-3"
                         to={`/admin/campaign/${id}/edit`}
                       >
-                        <FontAwesomeIcon icon={faPenToSquare}/> Update
+                        <FontAwesomeIcon icon={faPenToSquare} /> Update
                       </Link>
                     </Col>
                   </Row>
@@ -182,7 +229,7 @@ export function CampaignStatistics ({}) {
                     {statistics?.map((data, index) => {
                       return (
                         <div key={index}>
-                          <StatsCard data={data} index={index}/>
+                          <StatsCard data={data} index={index} />
                         </div>
                       );
                     })}
@@ -216,7 +263,7 @@ export function CampaignStatistics ({}) {
                         });
                       }}
                     >
-                      <FontAwesomeIcon icon={faDownload}/> Download Data File
+                      <FontAwesomeIcon icon={faDownload} /> Download Data File
                     </Button>
                   </div>
                 </Col>
@@ -249,8 +296,6 @@ export function CampaignStatistics ({}) {
                       activeTab === tab?.name && <div>{tab?.component}</div>
                     );
                   })}
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus delectus dolorem dolorum illum
-                  iste nihil porro quod reiciendis tempore totam.
                 </Col>
               </Row>
             </Container>
@@ -267,7 +312,7 @@ export function CampaignStatistics ({}) {
 
         {campaignLoading ? (
           <Col>
-            <Loading/>
+            <Loading />
           </Col>
         ) : null}
       </Container>

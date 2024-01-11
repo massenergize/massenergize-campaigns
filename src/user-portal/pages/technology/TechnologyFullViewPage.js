@@ -44,7 +44,7 @@ const PREVIEW_TEXT_LENGHT = 1000;
 const MOBILE_PREVIEW_TEXT_LENGTH = 200;
 const COMMENT_LENGTH = 40;
 
-function TechnologyFullViewPage({
+function TechnologyFullViewPage ({
   toggleModal,
   techs,
   updateTechObjs,
@@ -524,7 +524,6 @@ function TechnologyFullViewPage({
                             />
                             <span
                               style={{
-                                marginLeft: "",
                                 color: "#cbcbcb",
                                 // marginRight: 10,
                                 marginLeft: "auto",

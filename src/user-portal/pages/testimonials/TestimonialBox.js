@@ -5,7 +5,7 @@ import { MOBILE_WIDTH } from "../../../utils/Constants";
 
 const PREVIEW_LENGTH = 125;
 const LONG_LENGTH = 350;
-function TestimonialBox({
+function TestimonialBox ({
   title,
   user,
   image,
@@ -55,7 +55,7 @@ function TestimonialBox({
       >
         Read More...
       </a> */}
-      {/* 
+      {/*
       {image?.url && (
         <img
           className="phone-vanish"
@@ -74,7 +74,6 @@ function TestimonialBox({
           display: "flex",
           flexDirection: "row",
           marginTop: 10,
-          marginTop: "auto",
           alignItems: "center",
         }}
       >
@@ -88,9 +87,9 @@ function TestimonialBox({
               objectFit: "cover",
               borderRadius: 5,
               marginTop: 7,
-              borderRadius: "100%",
             }}
             src={image?.url}
+            alt={image?.name}
           />
         )}
         <p

@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import "../../../assets/styles/admin-styles.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { faClose, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { MultiSelect } from "react-multi-select-component";
 import {
   addTestimonials,
@@ -15,18 +12,26 @@ import useSWR from "swr";
 import Button from "src/components/admin-components/Button";
 import { FormLabel } from "react-bootstrap";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
+import { Button as BTN, Container, Col, Row } from "react-bootstrap";
 
-const Testimonials = ({campaign_id,tech_id,techObject,updateTechObject}) => {
-  let existing = [...(techObject?.testimonials || [])?.map((testimonial) => {
-    return {...testimonial, id: testimonial?.testimonial}
-  }),].flat();
+const Testimonials = ({
+  campaign_id,
+  tech_id,
+  techObject,
+  updateTechObject,
+}) => {
+  let existing = [
+    ...(techObject?.testimonials || [])?.map((testimonial) => {
+      return { ...testimonial, id: testimonial?.testimonial };
+    }),
+  ].flat();
 
   const [loading, setLoading] = useState(false);
   const { blow, pop } = useBubblyBalloons();
 
-  const [selectedTestimonials, setSelectedTestimonials] = useState(existing||[]);
-
-
+  const [selectedTestimonials, setSelectedTestimonials] = useState(
+    existing || []
+  );
 
   let {
     data: payloadTestimonials,
@@ -43,12 +48,6 @@ const Testimonials = ({campaign_id,tech_id,techObject,updateTechObject}) => {
     }
   );
 
-  const testimonials = payloadTestimonials || [];
-
-
-  const originalTestimonials = testimonials || [];
-  const originalTestimonialSet = new Set(originalTestimonials?.map((tech) => tech.id));
-
   const handleRemove = (data) => {
     const filteredTechnologies = selectedTestimonials.filter(
       (testimonial) => testimonial.id !== data.id
@@ -64,14 +63,16 @@ const Testimonials = ({campaign_id,tech_id,techObject,updateTechObject}) => {
       const payload = {
         campaign_id: campaign_id,
         technology_id: tech_id,
-        testimonial_ids: selectedTestimonials.map((testimonial) => testimonial.id),
+        testimonial_ids: selectedTestimonials.map(
+          (testimonial) => testimonial.id
+        ),
       };
 
       const res = await addTestimonials(payload);
 
       if (res) {
         setLoading(false);
-		updateTechObject(res);
+        updateTechObject(res);
         blow({
           title: "Success",
           message: "Campaign Testimonials updated successfully.",
@@ -118,10 +119,10 @@ const Testimonials = ({campaign_id,tech_id,techObject,updateTechObject}) => {
             </FormLabel>
           </Col>
         </Row>
-        <Row className="mb-4 pb-4" style={{ height: "200px" }}>
+        <Row className="" style={{ height: "180px" }}>
           <Col>
             <MultiSelect
-              options={testimonials?.map((testimonial) => {
+              options={payloadTestimonials?.map((testimonial) => {
                 return {
                   ...testimonial,
                   label: testimonial.title,
@@ -131,28 +132,32 @@ const Testimonials = ({campaign_id,tech_id,techObject,updateTechObject}) => {
               value={selectedTestimonials?.map((testimonial) => {
                 return {
                   ...testimonial,
-                  label: testimonial.title, 
+                  label: testimonial.title,
                   value: testimonial.id,
-                }
+                };
               })}
               valueRenderer={(selected, _options) => {
                 if (selected?.length < 1) {
                   return "Select Testimonials...";
                 }
 
-                if (selected?.length === testimonials?.length) {
-                  return "All Selected";
+                if (selected?.length === payloadTestimonials?.length) {
+                  return "All testimonials selected";
                 }
                 if (selected?.length > 3) {
-                  return `${selected?.length} Selected`;
+                  return `${selected?.length} testimonials selected`;
                 }
 
                 return selected.map(({ title, id }, i) => {
-                  return title + (i < testimonials?.length ? ", " : "");
+                  const truncatedTitle =
+                    title.length > 30 ? title.slice(0, 30) + "..." : title;
+                  return (
+                    truncatedTitle +
+                    (i < payloadTestimonials?.length - 1 ? ", " : "")
+                  );
                 });
               }}
               onChange={(val) => {
-                console.log("== vale===", val);
                 setSelectedTestimonials(val);
               }}
               labelledBy="Select"
@@ -161,75 +166,45 @@ const Testimonials = ({campaign_id,tech_id,techObject,updateTechObject}) => {
         </Row>
 
         <Row
-          className="mt-4 pb-4 justify-content-start"
-          style={{ marginTop: "50rem" }}
+          className=" pb-4 justify-content-start"
+          style={{ marginTop: "-5rem" }}
         >
           {TESTIMONIALS_SIZE > 0 ? (
             <>
               <table className="table">
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Date</th>
                     <th scope="col">Title</th>
-                    <th scope="col">Rank</th>
                     <th scope="col">Community</th>
-                    <th scope="col">Live</th>
                     <th scope="col">User</th>
-                    <th scope="col">Action</th>
+                    <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
                   {(selectedTestimonials || [])?.map((testimonial) => {
                     return (
                       <tr className="text-sm">
-                        {/* <th scope="row">1</th> */}
-                        <td>{testimonial?.id}</td>
-                        <td>{testimonial?.created_at}</td>
                         <td>{testimonial?.title}</td>
-                        <td>{testimonial?.rank}</td>
                         <td>{testimonial?.community?.name}</td>
-                        <td>
-                          <p
-                            className={
-                              testimonial?.is_published &&
-                              testimonial?.is_approved
-                                ? "p-2 bg-success text-white text-rounded"
-                                : !testimonial?.is_published &&
-                                  testimonial?.is_approved
-                                ? "p-2 bg-secondary text-white text-rounded"
-                                : !testimonial?.is_published &&
-                                  !testimonial?.is_approved &&
-                                  "p-2 bg-danger text-white  text-rounded"
-                            }
-                          >
-                            {testimonial?.is_published &&
-                            testimonial?.is_approved
-                              ? "Yes"
-                              : !testimonial?.is_published &&
-                                testimonial?.is_approved
-                              ? "No"
-                              : !testimonial?.is_published &&
-                                !testimonial?.is_approved &&
-                                "Not Approved"}
-                          </p>
-                        </td>
                         <td className="text-capitalize">
                           {testimonial?.user?.full_name}
                         </td>
-                        <td>{testimonial?.action?.title}</td>
-                        <td>
-                          <span
+                        <td className="text-cnter">
+                          <BTN
+                            // style={{ marginLeft: 10 }}
                             onClick={() => {
-                              handleRemove(testimonial);
+                              if (
+                                window.confirm(
+                                  "Are you sure you want to remove this testimonial?"
+                                )
+                              ) {
+                                handleRemove(testimonial);
+                              }
                             }}
-                            className="image-close-btn d-flex"
+                            variant="primary"
                           >
-                            <FontAwesomeIcon
-                              icon={faClose}
-                              className={"m-auto"}
-                            />
-                          </span>
+                            <span>Remove</span>
+                          </BTN>
                         </td>
                       </tr>
                     );
