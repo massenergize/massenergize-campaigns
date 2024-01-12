@@ -232,10 +232,10 @@ export function CampaignStatistics ({}) {
                     Campaign Statistics{" "}
                     {/*<span><FontAwesomeIcon icon={faChartLine}/></span>*/}
                   </h3>
-                  <div className="statss-con-div">
+                  <div className="statss-con-div row">
                     {statistics?.map((data, index) => {
                       return (
-                        <div key={index}>
+                        <div key={index} className="col-md-3 mb-4">
                           <StatsCard data={data} index={index} />
                         </div>
                       );
