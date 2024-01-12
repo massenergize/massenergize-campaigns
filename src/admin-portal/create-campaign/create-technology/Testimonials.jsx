@@ -14,12 +14,7 @@ import { FormLabel } from "react-bootstrap";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import { Button as BTN, Container, Col, Row } from "react-bootstrap";
 
-const Testimonials = ({
-  campaign_id,
-  tech_id,
-  techObject,
-  updateTechObject,
-}) => {
+const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
   let existing = [
     ...(techObject?.testimonials || [])?.map((testimonial) => {
       return { ...testimonial, id: testimonial?.testimonial };
@@ -29,9 +24,7 @@ const Testimonials = ({
   const [loading, setLoading] = useState(false);
   const { blow, pop } = useBubblyBalloons();
 
-  const [selectedTestimonials, setSelectedTestimonials] = useState(
-    existing || []
-  );
+  const [selectedTestimonials, setSelectedTestimonials] = useState(existing || []);
 
   let {
     data: payloadTestimonials,
@@ -45,12 +38,12 @@ const Testimonials = ({
       shouldRetryOnError: true,
       errorRetryCount: 3,
       errorRetryInterval: 3000,
-    }
+    },
   );
 
   const handleRemove = (data) => {
     const filteredTechnologies = selectedTestimonials.filter(
-      (testimonial) => testimonial.id !== data.id
+      (testimonial) => testimonial.id !== data.id,
     );
     setSelectedTestimonials(filteredTechnologies);
   };
@@ -63,9 +56,7 @@ const Testimonials = ({
       const payload = {
         campaign_id: campaign_id,
         technology_id: tech_id,
-        testimonial_ids: selectedTestimonials.map(
-          (testimonial) => testimonial.id
-        ),
+        testimonial_ids: selectedTestimonials.map((testimonial) => testimonial.id),
       };
 
       const res = await addTestimonials(payload);
@@ -114,8 +105,8 @@ const Testimonials = ({
         <Row>
           <Col>
             <FormLabel>
-              Choose one or more testimonials for your campaign from the
-              dropdown below.
+              Choose one or more testimonials for your campaign from the dropdown
+              below.
             </FormLabel>
           </Col>
         </Row>
@@ -165,10 +156,7 @@ const Testimonials = ({
           </Col>
         </Row>
 
-        <Row
-          className=" pb-4 justify-content-start"
-          style={{ marginTop: "-5rem" }}
-        >
+        <Row className=" pb-4 justify-content-start" style={{ marginTop: "-5rem" }}>
           {TESTIMONIALS_SIZE > 0 ? (
             <>
               <table className="table">
@@ -195,7 +183,7 @@ const Testimonials = ({
                             onClick={() => {
                               if (
                                 window.confirm(
-                                  "Are you sure you want to remove this testimonial?"
+                                  "Are you sure you want to remove this testimonial?",
                                 )
                               ) {
                                 handleRemove(testimonial);

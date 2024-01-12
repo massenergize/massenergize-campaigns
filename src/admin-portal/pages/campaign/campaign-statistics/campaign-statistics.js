@@ -26,6 +26,7 @@ import { apiCall } from "../../../../api/messenger";
 import Loading from "../../../../components/pieces/Loading";
 import { useBubblyBalloons } from "../../../../lib/bubbly-balloon/use-bubbly-balloons";
 import GhostLoader from "../../../../components/admin-components/GhostLoader";
+import { daysOfWeek, monthsOfYear } from "../../../../utils/Constants";
 
 export function CampaignStatistics ({}) {
   const { id } = useParams();
@@ -49,7 +50,7 @@ export function CampaignStatistics ({}) {
       onSuccess: (data) => {
         // console.log({ data });
       },
-    }
+    },
   );
   const CAMPAIGN = campaign || {};
 
@@ -100,6 +101,16 @@ export function CampaignStatistics ({}) {
   ];
   const [activeTab, setActiveTab] = useState(tabs[0]?.name);
 
+  const formatDate = (date) => {
+    let d = new Date(date);
+    let d_date = d.getDate();
+    let day = daysOfWeek[d.getDay()];
+    let month = monthsOfYear[d.getMonth()];
+    let year = d.getFullYear();
+
+    return `${day}, ${d_date} ${month} ${year} `;
+  };
+
   return (
     <AdminLayout>
       <Container fluid className={""}>
@@ -142,9 +153,7 @@ export function CampaignStatistics ({}) {
                         </Button>
                         <Button
                           className={
-                            CAMPAIGN?.is_published
-                              ? "disable-btn"
-                              : "btn-primary"
+                            CAMPAIGN?.is_published ? "disable-btn" : "btn-primary"
                           }
                           onClick={() => {
                             handleUpdateCampaign();
@@ -185,7 +194,7 @@ export function CampaignStatistics ({}) {
                               Start Date :{" "}
                               <span>
                                 {CAMPAIGN?.start_date
-                                  ? CAMPAIGN?.start_date
+                                  ? formatDate(CAMPAIGN?.start_date)
                                   : "Not specified"}
                               </span>
                             </p>
@@ -193,7 +202,7 @@ export function CampaignStatistics ({}) {
                               End Date :{" "}
                               <span>
                                 {CAMPAIGN?.end_date
-                                  ? CAMPAIGN?.end_date
+                                  ? formatDate(CAMPAIGN?.end_date)
                                   : "Not specified"}
                               </span>
                             </p>
@@ -203,9 +212,7 @@ export function CampaignStatistics ({}) {
                     </Col>
                     <Col className="update-btn-con">
                       <p
-                        className={
-                          CAMPAIGN?.is_published ? "active" : "inactive"
-                        }
+                        className={CAMPAIGN?.is_published ? "active" : "inactive"}
                       ></p>
                       <Link
                         target="_blank"
@@ -292,9 +299,7 @@ export function CampaignStatistics ({}) {
               <Row className="mt-4">
                 <Col>
                   {tabs?.map((tab) => {
-                    return (
-                      activeTab === tab?.name && <div>{tab?.component}</div>
-                    );
+                    return activeTab === tab?.name && <div>{tab?.component}</div>;
                   })}
                 </Col>
               </Row>
