@@ -88,3 +88,8 @@ export function mergeArrays(arrays) {
   }
   return mergedArray;
 }
+
+export const setPageTitle = (name) => {
+  if (!name) return;
+  document.title = name;
+};

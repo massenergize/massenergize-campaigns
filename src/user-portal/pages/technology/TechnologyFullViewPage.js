@@ -19,7 +19,11 @@ import GetHelpForm from "../forms/GetHelpForm";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { COMMENTS, ONE_TECH_DATA } from "../../data/user-portal-dummy-data";
-import { fetchUrlParams, relativeTimeAgo } from "../../../utils/utils";
+import {
+  fetchUrlParams,
+  relativeTimeAgo,
+  setPageTitle,
+} from "../../../utils/utils";
 import { useParams } from "react-router-dom";
 import NotFound from "../error/404";
 import { LOADING, MOBILE_WIDTH } from "../../../utils/Constants";
@@ -129,7 +133,10 @@ function TechnologyFullViewPage({
     // Even if the tech is available locally, set it immediately,
     // But still continue to fetch, so that the user has something to look at
     // while the latest changes on the technology load up
-    if (tech) setTechnology(tech);
+    if (tech) {
+      setPageTitle(tech?.name);
+      setTechnology(tech);
+    }
     apiCall("/campaigns.technologies.info", {
       campaign_technology_id: id,
       email: authUser?.email,
@@ -141,6 +148,7 @@ function TechnologyFullViewPage({
           return setError("Sorry, could not load the technology...");
         }
         const data = response?.data;
+        setPageTitle(data?.name);
         updateTechList(data, id);
         // setTechnology(data);
         setMounted(true);
@@ -216,9 +224,9 @@ function TechnologyFullViewPage({
       fullControl: true,
     });
   };
- 
+
   const triggerCommentBox = (userObject) => {
-    const {  user } = userObject || {};
+    const { user } = userObject || {};
     if (!user) return triggerRegistration();
     toggleModal({
       show: true,
@@ -291,7 +299,6 @@ function TechnologyFullViewPage({
   const READ_HEIGHT = DEFAULT_READ_HEIGHT;
   const LENGTH = isMobile ? MOBILE_PREVIEW_TEXT_LENGTH : PREVIEW_TEXT_LENGHT;
   const isReallyLong = description.length > LENGTH; // This is not a good way of checking, change it later
-
 
   return (
     <div>
@@ -601,7 +608,7 @@ function TechnologyFullViewPage({
           <OneTechTestimonialsSection
             testimonials={testimonials}
             sectionId="testimonial-section"
-            campaign = {campaign}
+            campaign={campaign}
           />
         </div>
         <div ref={coachesRef}>

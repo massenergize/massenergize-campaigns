@@ -24,7 +24,7 @@ import {
 import { LOADING } from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
-import { fetchUrlParams } from "../../../utils/utils";
+import { fetchUrlParams, setPageTitle } from "../../../utils/utils";
 import RoamingModalSheet from "./RoamingModalSheet";
 import DoMore from "./DoMore";
 import JoinUsForm from "../forms/JoinUsForm";
@@ -76,7 +76,10 @@ function LandingPage({
 
   useEffect(() => {
     init(campaignId, (justLoadedCampaign, passed) => {
-      if (passed) tellUsWhereYouAreFrom(justLoadedCampaign);
+      if (passed) {
+        tellUsWhereYouAreFrom(justLoadedCampaign);
+        setPageTitle(justLoadedCampaign?.title);
+      }
       setMounted(true);
     });
   }, [campaignId]);
