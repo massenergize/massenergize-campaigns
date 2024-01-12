@@ -47,9 +47,6 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
       });
     else data = events;
 
-
-    console.log("I AM THE CURRENT DATA", data)
-
     return (
       <Row
         ref={containerRef}

@@ -31,6 +31,7 @@ import JoinUsForm from "../forms/JoinUsForm";
 import { OTHER, OTHER_JSON } from "../forms/CommunitySelector";
 import TestimonialSectionWithFilters from "../testimonials/TestimonialSectionWithFilters";
 import EventsSectionWithFilters from "../events/EventsSectionWithFilters";
+import CoachesSectionWithFilters from "../coaches/CoachesSectionWithFilters";
 
 function LandingPage({
   toggleModal,
@@ -238,7 +239,7 @@ function LandingPage({
       </div>
 
       <div ref={coachesRef}>
-        <CoachesSection
+        <CoachesSectionWithFilters
           technologies={technologies}
           toggleModal={toggleModal}
           sectionId="coaches-section"
