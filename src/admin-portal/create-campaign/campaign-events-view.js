@@ -223,10 +223,13 @@ export const CampaignEventsView = ({ events, campaign }) => {
               </table>
             </>
           ) : (
-            <div>
-              <NoItems text="No events add to this campaign" />
-              <div className="text-center text-muted mt-4">
-                <h6> Click the 'Add Events' button to add </h6>
+            <div className="w-100 flex items-center flex-column text-center">
+              <div>
+                <img src="/img/no-data.svg" alt="" />
+                <h5 className="">No events added to this campaign</h5>
+              </div>
+              <div className="text-center">
+                <h6 className="text-muted">Click the 'Add Events' button to add</h6>
                 <div className="mt-4">
                   <BTN onClick={() => setOpenModal(true)}>
                     <span>Add Events</span>
