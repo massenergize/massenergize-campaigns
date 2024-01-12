@@ -154,7 +154,11 @@
     font-size: var(--mob-paragraph-font-size);
   }
 
-  .our-filter-item { 
+  .our-filter-item {
+    font-size: var(--mob-paragraph-font-size);
+  }
+
+  .link-text {
     font-size: var(--mob-paragraph-font-size);
   }
   /* ---------------------------- END OF PHONE SPECIFIC STYLES ----------- */
