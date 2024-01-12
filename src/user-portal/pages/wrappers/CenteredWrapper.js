@@ -6,7 +6,7 @@ function CenteredWrapper({ children }) {
     <div>
       <Container>
         <Row>
-          <Col lg={{ span: 12, offset: 1 }}>{children}</Col>
+          <Col lg={{ span: 12 }}>{children}</Col>
         </Row>
       </Container>
     </div>
