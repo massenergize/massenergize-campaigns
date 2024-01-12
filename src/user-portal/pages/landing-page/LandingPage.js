@@ -30,6 +30,7 @@ import DoMore from "./DoMore";
 import JoinUsForm from "../forms/JoinUsForm";
 import { OTHER, OTHER_JSON } from "../forms/CommunitySelector";
 import TestimonialSectionWithFilters from "../testimonials/TestimonialSectionWithFilters";
+import EventsSectionWithFilters from "../events/EventsSectionWithFilters";
 
 function LandingPage({
   toggleModal,
@@ -230,7 +231,10 @@ function LandingPage({
       <br />
 
       <div ref={eventsRef}>
-        <EventsSection technologies={technologies} sectionId="event-section" />
+        <EventsSectionWithFilters
+          technologies={technologies}
+          sectionId="event-section"
+        />
       </div>
 
       <div ref={coachesRef}>

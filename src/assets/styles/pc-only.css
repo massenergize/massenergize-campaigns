@@ -82,7 +82,7 @@
     font-size: 15px;
   }
   .coaches-description {
-    width: 80%;
+    width: 90%;
     text-align: justify;
     margin-top: 20px;
   }
@@ -122,6 +122,7 @@
   .t-with-filter-top {
     width: 80%;
   }
+
 
   /* --------------------------------- END OF PC SPECIFIC ---------------------- */
 }

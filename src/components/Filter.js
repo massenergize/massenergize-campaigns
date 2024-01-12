@@ -77,19 +77,22 @@ function Filter({
       </div>
 
       {hasSelections && (
-        <div style={{ padding: "20px 0px" }}>
+        <div
+          className="row-flex"
+          style={{ padding: "20px 0px", flexWrap: "wrap" }}
+        >
           {" "}
           {selection?.map((item) => {
             return (
               <span
-                className="touchable-opacity"
+                className="touchable-opacity our-filter-item"
                 style={{
                   fontWeight: "bold",
                   color: "var(--app-medium-green)",
                   border: "dashed 1px var(--app-medium-green)",
                   borderRadius: 55,
                   padding: "4px 15px",
-                  marginRight: 5,
+                  margin: 5,
                 }}
               >
                 {getLabel(item)}
