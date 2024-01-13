@@ -1,5 +1,5 @@
 import { apiCall } from "../../api/messenger";
-import { auth } from "../../firebase/admin/fire-config";
+import { auth } from "../../config/firebase/admin/fire-config";
 import { CAMPAIGN_INFORMATION_URL, CAMPAIGN_VIEW_URL } from "../../api/urls";
 import JoinUsForm from "../../user-portal/pages/forms/JoinUsForm";
 import {

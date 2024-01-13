@@ -1,4 +1,7 @@
 import parsePhoneNumber from "libphonenumber-js";
+import dayjs from "dayjs";
+import { updateCampaign } from "../../requests/campaign-requests";
+import { RESET } from "../../components/admin-components/FileUploader";
 
 export const isEmpty = function (str) {
   return null === str || undefined === str ? true : /^[\s\xa0]*$/.test(str);
@@ -331,3 +334,19 @@ export function ArrayFromLength (length, callback) {
 
 export const formatDebugValue = ({label, value}) =>
   label + ': ' + (typeof value === 'object' ? JSON.stringify(value) : value);
+
+export const imageExists = (containerObject, key) => {
+  return typeof containerObject[key]?.url !== "undefined";
+}
+
+export const getImageValue = (containerObject, key) => {
+  if (imageExists(containerObject, key)) {
+    return {}
+  }
+
+  if (containerObject[key] !== null || typeof containerObject[key] !== "undefined") {
+    return { [key]: RESET }
+  }
+
+  return { [key]: containerObject[key] }
+}

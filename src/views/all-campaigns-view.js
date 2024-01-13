@@ -267,7 +267,7 @@ export function AllCampaignsView ({}) {
 
 	const [pagesCount, setPagesCount] = useState(1);
 	const [pageIndex, setPageIndex] = useState(0);
-	const [pageSize, setPageSize] = useState(10);
+	const [pageSize, setPageSize] = useState(30);
 
 	const [skipPageReset, setSkipPageReset] = React.useState(false);
 	const updateMyData = (rowIndex, columnId, value) => {
