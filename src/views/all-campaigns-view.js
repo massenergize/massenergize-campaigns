@@ -345,7 +345,7 @@ export function AllCampaignsView ({}) {
       return campaign?.title?.toLowerCase()?.includes(lowercaseInput);
     });
 
-    const filteredData = campaigns.filter((item) => {
+    const filteredData = campaigns?.filter((item) => {
       function searchInElement (element) {
         if (element && typeof element === "object") {
           for (const key in element) {
