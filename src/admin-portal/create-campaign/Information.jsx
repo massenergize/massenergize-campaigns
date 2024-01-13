@@ -123,21 +123,6 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
             />
           </Col>
         </Row>
-        {/* <Row className="py-4">
-						<Col>
-							<Input
-								id="slogan"
-								name="slogan"
-								label="Campaign Slogan"
-								placeholder="Enter a slogan for this campaign ..."
-								required={false}
-								type="textbox"
-								onChange={(val) => {
-									handleFieldChange("slogan", val);
-								}}
-							/>
-						</Col>
-					</Row> */}
         <Row className="py-4">
           <Col>
             <Input
@@ -151,15 +136,15 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               format="mm-dd-yyyy"
               value={campaignDetails?.start_date}
               onChange={(val) => {
-                // startDate cannot be before today
-                if (dayjs(val).isBefore(dayjs())) {
-                  setErrors({ ...errors, start_date: "Start date cannot be before today" });
-                  handleFieldChange("start_date", "");
-                  handleFieldChange("end_date", "");
-                } else {
+                // // startDate cannot be before today
+                // if (dayjs(val).isBefore(dayjs())) {
+                //   setErrors({ ...errors, start_date: "Start date cannot be before today" });
+                //   handleFieldChange("start_date", "");
+                //   handleFieldChange("end_date", "");
+                // } else {
                   handleFieldChange("start_date", val);
-                  setErrors({ ...errors, start_date: null })
-                }
+                //   setErrors({ ...errors, start_date: null })
+                // }
               }}
             />
           </Col>

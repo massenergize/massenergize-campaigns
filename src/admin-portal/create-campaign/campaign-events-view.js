@@ -277,7 +277,7 @@ export function CampaignEventsView ({ events, campaign }) {
 
                   <Row className="my-4">
                     <Form.Label>
-                      Select th technology these events belong to
+                      Select the technology these events belong to
                     </Form.Label>
                     <Col>
                       <Form.Select

@@ -94,6 +94,22 @@ export function CampaignManagersView ({ events = CAMPAIGN_MANAGERS, managers }) 
         },
       },
       {
+        Header: 'Role',
+        id: "role",
+        accessor: (values) => values,
+        style: {
+          textAlign: "left",
+          width: "100px",
+        },
+        disableSortBy: true,
+        Cell: ({ cell }) => {
+          const { value, row: { id, values }, row, } = cell;
+          return (
+            <p className={"link"}>Manager</p>
+          );
+        },
+      },
+      {
         Header: () => null,
         id: "actions",
         accessor: (values) => values,
