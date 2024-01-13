@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Col,
-  Container,
-  Row,
-  Button as BTN,
-  Modal,
-  Form,
-} from "react-bootstrap";
+import { Col, Container, Row, Button as BTN, Modal, Form } from "react-bootstrap";
 import { MultiSelect } from "react-multi-select-component";
 import Button from "src/components/admin-components/Button";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
@@ -35,7 +28,7 @@ export function CampaignEventsView ({ events, campaign }) {
       shouldRetryOnError: true,
       errorRetryCount: 3,
       errorRetryInterval: 3000,
-    }
+    },
   );
 
   const techs = campaign?.technologies;
@@ -53,7 +46,7 @@ export function CampaignEventsView ({ events, campaign }) {
     setLoading(true);
     const _old = [...selectedEvents];
     const filteredTechnologies = selectedEvents.filter(
-      (event) => event?.id !== tech_event_id
+      (event) => event?.id !== tech_event_id,
     );
     setSelectedEvents(filteredTechnologies);
     try {
@@ -78,6 +71,7 @@ export function CampaignEventsView ({ events, campaign }) {
       });
     }
   };
+
   const formatDate = (date) => {
     let d = new Date(date);
     let d_date = d.getDate();
@@ -134,24 +128,26 @@ export function CampaignEventsView ({ events, campaign }) {
 
   const selectedEventIds = selectedEvents.map((event) => event.event.id);
   const eventsToShow = allEvents.filter(
-    (event) => !selectedEventIds.includes(event.id)
+    (event) => !selectedEventIds.includes(event.id),
   );
 
   return (
     <Container style={{ height: "100vh" }}>
-      <Container>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            marginBottom: 10,
-          }}
-        >
-          <BTN onClick={() => setOpenModal(true)}>
-            <span>Add Events</span>
-          </BTN>
-        </div>
-      </Container>
+      {EVENTS_SIZE > 0 && (
+        <Container>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              marginBottom: 10,
+            }}
+          >
+            <BTN onClick={() => setOpenModal(true)}>
+              <span>Add Events</span>
+            </BTN>
+          </div>
+        </Container>
+      )}
 
       <Container>
         <Row className=" pb-4 justify-content-start mt-4">
@@ -209,7 +205,7 @@ export function CampaignEventsView ({ events, campaign }) {
                             onClick={() => {
                               if (
                                 window.confirm(
-                                  "Are you sure you want to remove this Event?"
+                                  "Are you sure you want to remove this Event?",
                                 )
                               ) {
                                 handleRemove(event?.id);
@@ -227,7 +223,20 @@ export function CampaignEventsView ({ events, campaign }) {
               </table>
             </>
           ) : (
-            <NoItems text="No events add to this campaign click the 'Add Events' button to add" />
+            <div className="w-100 flex items-center flex-column text-center">
+              <div>
+                <img src="/img/no-data.svg" alt="" />
+                <h5 className="">No events added to this campaign</h5>
+              </div>
+              <div className="text-center">
+                <h6 className="text-muted">Click the 'Add Events' button to add</h6>
+                <div className="mt-4">
+                  <BTN onClick={() => setOpenModal(true)}>
+                    <span>Add Events</span>
+                  </BTN>
+                </div>
+              </div>
+            </div>
           )}
         </Row>
       </Container>
@@ -241,9 +250,7 @@ export function CampaignEventsView ({ events, campaign }) {
             <form>
               <Row className="mt-2" style={{ height: "180px" }}>
                 <Col>
-                  <Form.Label>
-                    Select events to feature on this campaign
-                  </Form.Label>
+                  <Form.Label>Select events to feature on this campaign</Form.Label>
                   <MultiSelect
                     options={(eventsToShow || []).map((event) => {
                       return {
@@ -317,7 +324,7 @@ export function CampaignEventsView ({ events, campaign }) {
                         className="mr-2 mb-5"
                         onDismiss={(id) => {
                           setToAddEvents(
-                            toAddEvents?.filter((event) => event?.id !== id)
+                            toAddEvents?.filter((event) => event?.id !== id),
                           );
                         }}
                       />
@@ -347,4 +354,4 @@ export function CampaignEventsView ({ events, campaign }) {
       </Modal>
     </Container>
   );
-}
+};

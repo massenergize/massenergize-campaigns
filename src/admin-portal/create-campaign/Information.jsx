@@ -46,6 +46,18 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
     return typeof campaignDetails[key]?.url !== "undefined";
   }
 
+  const getImageValue = (key) => {
+    if (imageExists(key)) {
+      return {}
+    }
+
+    if (campaignDetails[key] !== null || typeof campaignDetails[key] !== "undefined") {
+      return { [key]: "reset" }
+    }
+
+    return { [key]: campaignDetails[key] }
+  }
+
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -61,10 +73,9 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
 
         ...(campaignDetails.start_date && { start_date: dayjs(campaignDetails.start_date).format("YYYY-MM-DD") }),
         ...(campaignDetails.end_date && { end_date: dayjs(campaignDetails.end_date).format("YYYY-MM-DD") }),
-        ...(imageExists("primary_logo")  ? {} : ({ primary_logo: campaignDetails.primary_logo })),
-        ...(imageExists("secondary_logo") ? {} : { secondary_logo: campaignDetails.secondary_logo }),
-        ...(imageExists("campaign_image") ? {} : (
-          typeof campaignDetails?.campaign_image !== "undefined" ? { campaign_image: campaignDetails.campaign_image } : {})),
+        ...(getImageValue("primary_logo")),
+        ...(getImageValue("secondary_logo")),
+        ...(getImageValue("campaign_image")),
       };
 
       let response = await updateCampaign(payload);
@@ -81,7 +92,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
       }
 
     } catch (e) {
-      console.log(e);
+
       setLoading(false);
       setShowError(true);
     }

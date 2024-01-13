@@ -24,9 +24,7 @@ const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) =
   const [loading, setLoading] = useState(false);
   const { blow, pop } = useBubblyBalloons();
 
-  const [selectedTestimonials, setSelectedTestimonials] = useState(
-    existing || []
-  );
+  const [selectedTestimonials, setSelectedTestimonials] = useState(existing || []);
 
   let {
     data: payloadTestimonials,
@@ -37,12 +35,12 @@ const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) =
       shouldRetryOnError: true,
       errorRetryCount: 3,
       errorRetryInterval: 3000,
-    }
+    },
   );
 
   const handleRemove = (data) => {
     const filteredTechnologies = selectedTestimonials.filter(
-      (testimonial) => testimonial.id !== data.id
+      (testimonial) => testimonial.id !== data.id,
     );
     setSelectedTestimonials(filteredTechnologies);
   };
@@ -55,9 +53,7 @@ const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) =
       const payload = {
         campaign_id: campaign_id,
         technology_id: tech_id,
-        testimonial_ids: selectedTestimonials.map(
-          (testimonial) => testimonial.id
-        ),
+        testimonial_ids: selectedTestimonials.map((testimonial) => testimonial.id),
       };
 
       const res = await addTestimonials(payload);
@@ -106,8 +102,8 @@ const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) =
         <Row>
           <Col>
             <FormLabel>
-              Choose one or more testimonials for your campaign from the
-              dropdown below.
+              Choose one or more testimonials for your campaign from the dropdown
+              below.
             </FormLabel>
           </Col>
         </Row>
@@ -157,10 +153,7 @@ const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) =
           </Col>
         </Row>
 
-        <Row
-          className=" pb-4 justify-content-start"
-          style={{ marginTop: "-5rem" }}
-        >
+        <Row className=" pb-4 justify-content-start" style={{ marginTop: "-5rem" }}>
           {TESTIMONIALS_SIZE > 0 ? (
             <>
               <table className="table">
@@ -187,7 +180,7 @@ const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) =
                             onClick={() => {
                               if (
                                 window.confirm(
-                                  "Are you sure you want to remove this testimonial?"
+                                  "Are you sure you want to remove this testimonial?",
                                 )
                               ) {
                                 handleRemove(testimonial);
