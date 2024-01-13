@@ -3,13 +3,13 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Input from "../../../components/admin-components/Input";
-import FileUploader, {
-  RESET,
-} from "../../../components/admin-components/FileUploader";
+import FileUploader, { RESET, } from "../../../components/admin-components/FileUploader";
 import Button from "../../../components/admin-components/Button";
 import "../../../assets/styles/admin-styles.scss";
 import Chip from "../../../components/admin-components/Chip";
 import { apiCall } from "src/api/messenger";
+import { MultiSelect } from "react-multi-select-component";
+import { useCampaignContext } from "../../../hooks/use-campaign-context";
 
 const INITIAL_COACH_STATE = {
   technology_id: "",
@@ -144,6 +144,18 @@ function Coaches ({
     );
   };
 
+  const {
+    campaignDetails,
+    originalCampaignDetails,
+    lists,
+    handleCampaignDetailsChange : setCampaignDetails,
+    setNewCampaignDetails,
+  } = useCampaignContext();
+
+  const {
+    allCommunities,
+  } = lists;
+
   const formHasContent = Object.keys(formData || {}).length > 0;
   return (
     <div>
@@ -160,7 +172,7 @@ function Coaches ({
               <h5 className="theme-color">
                 {isEditing
                   ? `Editing "${formData?.full_name}"`
-                  : "Create A New Coach"}
+                  : "Add A New Coach"}
               </h5>
               <p className="my-4">
                 Please include details of the new Coach of this technology
@@ -223,6 +235,25 @@ function Coaches ({
               />
             </Col>
           </Row>
+          {/*<Row className="py-2">
+            <Col>
+              <MultiSelect
+                options={(allCommunities?.data || []).map((campaign) => {
+                  return {
+                    ...campaign,
+                    value: campaign?.id,
+                    label: campaign?.name
+                  }
+                })}
+                value={campaignDetails?.communities}
+                onChange={(val) => {
+                  setCampaignDetails("communities", val);
+                }}
+                labelledBy="Select"
+              />
+
+            </Col>
+          </Row>*/}
           <Row className="py-4">
             <Col>
               <FileUploader
