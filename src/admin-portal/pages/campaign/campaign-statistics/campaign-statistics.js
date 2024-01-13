@@ -46,11 +46,10 @@ export function CampaignStatistics ({}) {
       return await fetchCampaign(id);
     },
     {
-      onSuccess: (data) => {
-        // console.log({ data });
-      },
-    }
+      onSuccess: (data) => {},
+    },
   );
+
   const CAMPAIGN = campaign || {};
 
   const statistics = Object.entries(CAMPAIGN?.stats || {});
@@ -142,9 +141,7 @@ export function CampaignStatistics ({}) {
                         </Button>
                         <Button
                           className={
-                            CAMPAIGN?.is_published
-                              ? "disable-btn"
-                              : "btn-primary"
+                            CAMPAIGN?.is_published ? "disable-btn" : "btn-primary"
                           }
                           onClick={() => {
                             handleUpdateCampaign();
@@ -203,9 +200,7 @@ export function CampaignStatistics ({}) {
                     </Col>
                     <Col className="update-btn-con">
                       <p
-                        className={
-                          CAMPAIGN?.is_published ? "active" : "inactive"
-                        }
+                        className={CAMPAIGN?.is_published ? "active" : "inactive"}
                       ></p>
                       <Link
                         target="_blank"
@@ -292,9 +287,7 @@ export function CampaignStatistics ({}) {
               <Row className="mt-4">
                 <Col>
                   {tabs?.map((tab) => {
-                    return (
-                      activeTab === tab?.name && <div>{tab?.component}</div>
-                    );
+                    return activeTab === tab?.name && <div>{tab?.component}</div>;
                   })}
                 </Col>
               </Row>
