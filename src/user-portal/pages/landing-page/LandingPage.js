@@ -23,11 +23,14 @@ import {
 import { LOADING } from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
-import { fetchUrlParams } from "../../../utils/utils";
+import { fetchUrlParams, setPageTitle } from "../../../utils/utils";
 import RoamingModalSheet from "./RoamingModalSheet";
 import DoMore from "./DoMore";
 import JoinUsForm from "../forms/JoinUsForm";
 import { OTHER, OTHER_JSON } from "../forms/CommunitySelector";
+import TestimonialSectionWithFilters from "../testimonials/TestimonialSectionWithFilters";
+import EventsSectionWithFilters from "../events/EventsSectionWithFilters";
+import CoachesSectionWithFilters from "../coaches/CoachesSectionWithFilters";
 
 
 function LandingPage ({
@@ -76,7 +79,10 @@ function LandingPage ({
 
   useEffect(() => {
     init(campaignId, (justLoadedCampaign, passed) => {
-      if (passed) tellUsWhereYouAreFrom(justLoadedCampaign);
+      if (passed) {
+        tellUsWhereYouAreFrom(justLoadedCampaign);
+        setPageTitle(justLoadedCampaign?.title);
+      }
       setMounted(true);
     });
   }, [campaignId]);
@@ -241,7 +247,7 @@ function LandingPage ({
       />
 
       <div ref={testimonialsRef}>
-        <TestimonialSection
+        <TestimonialSectionWithFilters
           campaign={campaign}
           // defaultTab={activeTab}
           technologies={technologies}
@@ -251,11 +257,14 @@ function LandingPage ({
       <br />
 
       <div ref={eventsRef}>
-        <EventsSection technologies={technologies} sectionId="event-section" />
+        <EventsSectionWithFilters
+          technologies={technologies}
+          sectionId="event-section"
+        />
       </div>
 
       <div ref={coachesRef}>
-        <CoachesSection
+        <CoachesSectionWithFilters
           technologies={technologies}
           toggleModal={toggleModal}
           sectionId="coaches-section"
