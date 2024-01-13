@@ -14,6 +14,7 @@ function OneBox ({
   isIcon,
   image,
   id,
+  summary,
   campaign_id,
   trackActivity,
   authUser,
@@ -73,7 +74,7 @@ function OneBox ({
         <h5>{name}</h5>
         <RenderHTML tag={"p"} html={!isEmpty(description) ? ellipsify(description, 80) : "..."} />
         <p style={{ textAlign: "center" }}>
-          {description.substring(0, 80) || "..."}
+          {summary?.substring(0, 80) || "..."}
         </p>
         <Button
           variant={"link"}
