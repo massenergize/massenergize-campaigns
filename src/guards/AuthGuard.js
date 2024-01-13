@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase/admin/fire-config";
+import { auth } from "../config/firebase/admin/fire-config";
 import { fetchMeUser, setCampaignAccountAction, setFirebaseAuthAction } from "../redux/actions/actions";
 import { LOADING } from "../utils/Constants";
 import Loading from "../components/pieces/Loading";
