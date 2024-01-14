@@ -141,3 +141,17 @@ export async function addTestimonials (data, url = "campaigns.technologies.testi
     handleRequestError(error, "ADD_SELECTED_TESTIMONIALS_ERROR");
   }
 }
+
+
+export async function updateTechnology (data, url = "technologies.update") {
+  try {
+    const response = await apiCall(url, data, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "UPDATE_TECHNOLOGY_ERROR_BE");
+    }
+    return response?.data;
+  } catch (error) {
+    handleRequestError(error, "UPDATE_TECHNOLOGY_ERROR");
+  }
+}
+

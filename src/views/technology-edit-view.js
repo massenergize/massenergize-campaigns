@@ -142,6 +142,7 @@ export function TechnologyEditView () {
                 setActiveTab={setActiveTab}
                 coaches={coaches}
                 setCoaches={setCoaches}
+                techObject={techObject}
               />
             )
           );

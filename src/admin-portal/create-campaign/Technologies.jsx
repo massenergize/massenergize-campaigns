@@ -16,7 +16,7 @@ import { smartString } from "src/utils/utils";
 
 function Technology ({ tech, handleRemove }) {
   let image = tech?.image?.url;
-  let { id, name } = tech;
+  let { id, name, summary } = tech;
   const navigate =  useNavigate()
 
   name = smartString(name, 25)
@@ -31,12 +31,14 @@ function Technology ({ tech, handleRemove }) {
       </Card.Body>
       <Card.Footer>
         <Card.Title className={"mb-0"}>{name}</Card.Title>
-        <Card.Text>{name}</Card.Text>
+        <Card.Text>{summary}</Card.Text>
       </Card.Footer>
 
       <span
         onClick={(event) => {
           event.stopPropagation();
+          if(!window.confirm(`Are you sure you want to remove ${tech?.name}?`)) return;
+
           handleRemove(tech);
         }}
         className="image-close-btn d-flex"

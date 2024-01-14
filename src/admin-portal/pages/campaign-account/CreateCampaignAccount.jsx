@@ -91,7 +91,7 @@ export default function CreateCampaignAccount () {
                 </Col>
               </Row>
 
-              <Row className="mt-2">
+              {/* <Row className="mt-2">
                 <Col>
                   <Input
                     id="subdomain"
@@ -105,8 +105,8 @@ export default function CreateCampaignAccount () {
                     }}
                   />
                 </Col>
-              </Row>
-              <Row className="mt-4">
+              </Row> */}
+            {allCommunities?.length>1 && (  <Row className="mt-4">
                 <Col>
                   <Dropdown
                     data={allCommunities || []}
@@ -119,7 +119,7 @@ export default function CreateCampaignAccount () {
 
                   />
                 </Col>
-              </Row>
+              </Row>)}
               <Row className="py-4 justify-content-end">
                 <Col>
                   <ProgressButton onClick={onSubmit} loading={loading} disabled={loading} rounded={false}>

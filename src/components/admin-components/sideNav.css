@@ -158,3 +158,21 @@
 .min-h-screen {
 	height: 100vh;
 }
+
+/* ---- Accordion---- */
+.accordion {
+	width: 100%;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+  }
+  
+  .accordion-header {
+	padding: 10px;
+	background-color: #f8f9fa;
+	cursor: pointer;
+  }
+  
+  .accordion-body {
+	padding: 10px;
+	background-color: #fff;
+  }

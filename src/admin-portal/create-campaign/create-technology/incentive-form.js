@@ -123,7 +123,7 @@ export function IncentiveForm ({ incentive = {}, onSubmit }) {
             label="Description"
             placeholder="Add a more detailed description of the incentive..."
             required={false}
-            type="textarea"
+            type="richText"
             error={errors?.description}
             value={incentiveFormData?.description}
             onChange={(val) => {
