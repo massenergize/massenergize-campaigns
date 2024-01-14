@@ -1,205 +1,230 @@
-import { useReducer, useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
-import useSWR, {mutate} from "swr";
-import {
-	addCampaignManager,
-	fetchCampaignManagers,
-} from "../../requests/campaign-requests";
+import React, { useReducer, useState } from "react";
+import { Alert, Button, Col, Row } from "react-bootstrap";
+import { addCampaignManager } from "../../requests/campaign-requests";
 import { CampaignManagersView } from "./campaign-managers-view";
 import Modal from "react-bootstrap/Modal";
 import Input from "../../components/admin-components/Input";
-import { Spinner } from "@kehillahglobal/ui";
-import Notification from "src/components/pieces/Notification";
 import { toSentenceCase } from "../../helpers/utils/string";
 import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
+import { useCampaignContext } from "../../hooks/use-campaign-context";
+import { apiCall } from "../../api/messenger";
 
-const Managers = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
-	const [pagesCount, setPagesCount] = useState(1);
-	const [pageIndex, setPageIndex] = useState(0);
-	const [pageSize, setPageSize] = useState(10);
-	const [notification, setNotification] = useState(null);
+function Managers ({ campaignDetails, setCampaignDetails, setStep, lists }) {
+  const [pagesCount, setPagesCount] = useState(1);
+  const [pageIndex, setPageIndex] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
+  const [notification, setNotification] = useState(null);
 
-	const initialState = {
-		email: "",
-	};
+  const { updateCampaignDetails } =
+    useCampaignContext();
 
-	const reducer = (state, action) => {
-		switch (action.type) {
-			case "SET_FIELD_VALUE":
-				return { ...state, [action.field]: action.value };
-			default:
-				throw new Error(`Unsupported action type: ${action.type}`);
-		}
-	};
+  const { managers: campaignManagers } = campaignDetails;
 
-	const [formData, dispatch] = useReducer(reducer, initialState);
+  const initialState = {
+    email: "",
+  };
 
-	const handleFieldChange = (field, value) => {
-		dispatch({ type: "SET_FIELD_VALUE", field, value });
-	};
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "SET_FIELD_VALUE":
+        return { ...state, [action.field]: action.value };
+      default:
+        throw new Error(`Unsupported action type: ${action.type}`);
+    }
+  };
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		console.log(formData);
-	};
+  const [formData, dispatch] = useReducer(reducer, initialState);
 
-	const makeNotification = (message, good = false) => {
-		setNotification({ message, good });
-	};
+  const handleFieldChange = (field, value) => {
+    dispatch({ type: "SET_FIELD_VALUE", field, value });
+  };
 
-	const {data: campaignManagers,error: campaignManagersError,isLoading} = useSWR(`campaigns.managers.list`, async () => {
-		return await fetchCampaignManagers(campaignDetails?.id);
-	});
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
 
-	let [canGotoPreviousPage, setCanPreviousPage] = useState(false);
-	let [canGotoNextPage, setCanGotoNextPage] = useState(false);
+  const makeNotification = (message, good = false) => {
+    setNotification({ message, good });
+  };
 
-	const { notify } = useBubblyBalloons();
+  let [canGotoPreviousPage, setCanPreviousPage] = useState(false);
+  let [canGotoNextPage, setCanGotoNextPage] = useState(false);
 
-	const gotoPage = async function (next) {
-		if (next !== pageIndex) {
-			if (next < pageIndex) {
-				if (canGotoPreviousPage) {
-					// await fetchData(next, pageSize);
-				}
-			} else if (next > pageIndex) {
-				if (canGotoNextPage) {
-				}
-			}
-		}
-	};
+  const { notify } = useBubblyBalloons();
 
-	const previousPage = async function () {
-		if (canGotoPreviousPage) {
-			// return await fetchData(pageIndex - 1, pageSize);
-		}
-	};
+  const gotoPage = async function (next) {
+    if (next !== pageIndex) {
+      if (next < pageIndex) {
+        if (canGotoPreviousPage) {
+          // await fetchData(next, pageSize);
+        }
+      } else if (next > pageIndex) {
+        if (canGotoNextPage) {
+        }
+      }
+    }
+  };
 
-	const nextPage = async function () {
-		if (canGotoNextPage) {
-			// return await fetchData(pageIndex + 1, pageSize);
-		}
-	};
+  const previousPage = async function () {
+    if (canGotoPreviousPage) {
+      // return await fetchData(pageIndex - 1, pageSize);
+    }
+  };
 
-	const [showSearchModal, setShowSearchModal] = useState(false);
+  const nextPage = async function () {
+    if (canGotoNextPage) {
+      // return await fetchData(pageIndex + 1, pageSize);
+    }
+  };
 
-	const handleClose = () => {
-		setShowSearchModal(false);
-		setNotification(null);
-	};
+  const [showSearchModal, setShowSearchModal] = useState(false);
 
-	const handleManagerAdd = async () => {
-		try {
-			const manager = await addCampaignManager(formData?.email,campaignDetails?.id);
+  const handleClose = () => {
+    setShowSearchModal(false);
+    setNotification(null);
+  };
 
-			if (manager) {
-				mutate(`campaigns.managers.list`);
-				makeNotification("Manager added successfully", true);
-				notify(
-					{
-						title: "Success",
-						message: "Manager added successfully",
-						type: "success",
-						duration: 5000,
-					}
-				);
-				handleClose();
-			}
-		} catch (e) {
-			console.log(e)
-			makeNotification(toSentenceCase(e.message), false);
-			console.log("ERROR ADDING MANAGER", e);
-		}
-	};
+  const handleManagerAdd = async () => {
+    try {
+      const manager = await addCampaignManager(formData?.email, campaignDetails?.id);
 
-	// useEffect(() => {
-	// 	handleFieldChange("user_ids", count);
-	// }, [count]);
+      if (manager) {
+        const newManagers = [...campaignManagers, manager];
+        updateCampaignDetails("managers", newManagers);
+        // setCampaignManagers(newManagers);
 
-	return (
-		<div>
-			{isLoading ? (
-				<div
-					className=""
-					style={{ width: "100%", display: "flex", justifyContent: "center" }}
-				>
-					<Spinner color="#6e207c" radius={56} variation="TwoHalfCirclesType" />
-				</div>
-			) : (
-				<>
-					<Row className="">
-						<Col></Col>
-						<Col md={"auto"}>
-							<Button
-								variant={"success"}
-								onClick={() => {
-									setShowSearchModal(true);
-								}}
-							>
-								Add Manager
-							</Button>
-						</Col>
-					</Row>
-					<Row className="py-4">
-						<Col>
-							<CampaignManagersView
-								managers={campaignManagers || []}
-								// events={allManagers}
-								pagination
-								{...{
-									pageIndex,
-									pageSize,
-									pagesCount,
-									canGotoPreviousPage,
-									canGotoNextPage,
-									gotoPage,
-									previousPage,
-									nextPage,
-								}}
-							/>
-						</Col>
-					</Row>
-				</>
-			)}
+        makeNotification("Manager added successfully", true);
 
-			<Modal size={"lg"} show={showSearchModal} onHide={handleClose}>
-				<Modal.Header closeButton>
-					<Modal.Title className={"text-sm"}>
-						Add a manager to {campaignDetails?.title}
-					</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<Row>
-						<Col>
-							<Input
-								id="contact"
-								name="contact"
-								label="Manager Email"
-								placeholder="Enter email here...."
-								required={true}
-								type="textbox"
-								onChange={(val) => {
-									handleFieldChange("email", val);
-								}}
-							/>
-							<div className="mt-4">
-								{notification && (
-									<Notification show={notification.message} good={notification.good}>
-										{notification?.message}
-									</Notification>
-								)}
-							</div>
-						</Col>
-					</Row>
-				</Modal.Body>
-				<Modal.Footer>
-					<Button variant="primary" onClick={handleManagerAdd}>
-						Add Manager
-					</Button>
-				</Modal.Footer>
-			</Modal>
-		</div>
-	);
-};
+        notify({
+          title: "Success",
+          message: "Manager added successfully",
+          type: "success",
+          duration: 5000,
+        });
+        handleClose();
+      }
+    } catch (e) {
+      setNotification({ message: toSentenceCase(e.message), good: false });
+    }
+  };
+
+  const handleRemove = async (manager) => {
+    try {
+      const res = await apiCall("campaigns.managers.remove", {
+        campaign_manager_id: manager.id,
+      });
+      if (res.success) {
+        const newManagers = campaignManagers?.filter(
+          (item) => item.id !== manager.id,
+        );
+        updateCampaignDetails("managers", newManagers);
+
+        handleClose();
+        notify({
+          title: "Success",
+          message: "Manager delete successfully",
+          type: "success",
+          duration: 5000,
+        });
+      } else {
+        handleClose();
+        notify({
+          title: "Error",
+          message: "Something went wrong",
+          type: "error",
+          duration: 5000,
+        });
+      }
+    } catch (e) {}
+  };
+
+  // useEffect(() => {
+  // 	handleFieldChange("user_ids", count);
+  // }, [count]);
+
+  return (
+    <div>
+      <>
+        <Row className="">
+          <Col></Col>
+          <Col md={"auto"}>
+            <Button
+              variant={"success"}
+              onClick={() => {
+                setShowSearchModal(true);
+              }}
+            >
+              Add Manager
+            </Button>
+          </Col>
+        </Row>
+        <Row className="py-4">
+          <Col>
+            <CampaignManagersView
+              managers={campaignManagers || []}
+              // events={allManagers}
+              pagination
+              handleRemove={handleRemove}
+              {...{
+                pageIndex,
+                pageSize,
+                pagesCount,
+                canGotoPreviousPage,
+                canGotoNextPage,
+                gotoPage,
+                previousPage,
+                nextPage,
+              }}
+            />
+          </Col>
+        </Row>
+      </>
+
+      <Modal size={"lg"} show={showSearchModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className={"text-sm"}>
+            Add a manager to {campaignDetails?.title}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Row>
+            <Col>
+              <Input
+                id="contact"
+                name="contact"
+                label="Manager Email"
+                placeholder="Enter email here...."
+                required={true}
+                type="email"
+                onChange={(val) => {
+                  handleFieldChange("email", val);
+                }}
+              />
+              <div className="mt-4">
+                {notification !== null ? (
+                  <Alert
+                    variant={notification?.good === true ? "success" : "danger"}
+                    onClose={() => {
+                      setNotification(null);
+                    }}
+                    dismissible
+                  >
+                    {notification?.message}
+                  </Alert>
+                ) : null}
+              </div>
+            </Col>
+          </Row>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleManagerAdd}>
+            Add Manager
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
+}
 
 export default Managers;

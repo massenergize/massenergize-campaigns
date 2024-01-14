@@ -6,7 +6,7 @@ import { CAMPAIGN_MANAGERS } from "../../mocks/campaign";
 import { apiCall } from "src/api/messenger";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 
-export function CampaignManagersView ({ events = CAMPAIGN_MANAGERS, managers }) {
+export function CampaignManagersView ({ events = CAMPAIGN_MANAGERS, managers, handleRemove, onRemove, callback }) {
   const [data, setData] = useState(managers);
   const [toggleConfirmation, setToggleConfirmation] = useState(false);
   const [toRemove, setToRemove] = useState(null);
@@ -15,33 +15,6 @@ export function CampaignManagersView ({ events = CAMPAIGN_MANAGERS, managers }) 
   const handleClose = () => {
     setToggleConfirmation(false);
     setToRemove(null);
-  };
-
-  const handleRemove = async (manager) => {
-    try {
-      const res = await apiCall("campaigns.managers.remove", {
-        campaign_manager_id: manager.id,
-      });
-      if (res.success) {
-        const updatedManagers = data?.filter((item) => item.id !== manager.id);
-        setData(updatedManagers);
-        handleClose();
-        blow({
-          title: "Success",
-          message: "Manager saved successfully",
-          type: "success",
-          duration: 5000,
-        });
-      } else {
-        handleClose();
-        blow({
-          title: "Error",
-          message: "Something went wrong",
-          type: "error",
-          duration: 5000,
-        });
-      }
-    } catch (e) {}
   };
 
   const columns = useMemo(
@@ -161,7 +134,7 @@ export function CampaignManagersView ({ events = CAMPAIGN_MANAGERS, managers }) 
       <DataTable
         className={"table-responsive-sm table"}
         columns={columns}
-        data={data}
+        data={managers}
         size={pageSize}
         skipPageReset={skipPageReset}
         updateMyData={updateMyData}
@@ -194,7 +167,10 @@ export function CampaignManagersView ({ events = CAMPAIGN_MANAGERS, managers }) 
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => handleRemove(toRemove)}>
+          <Button variant="primary" onClick={() => {
+            handleRemove(toRemove);
+            handleClose();
+          }}>
             Remove
           </Button>
         </Modal.Footer>
