@@ -255,7 +255,8 @@ export function AllCampaignsView ({}) {
             <Button
               variant="danger"
               onClick={() => {
-                navigate(`/campaign/${value}`);
+              window.open(`/campaign/${value}?preview=true`, "_blank");
+
               }}
             >
               <FontAwesomeIcon icon={faEye} />
