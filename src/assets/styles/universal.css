@@ -19,7 +19,11 @@ body{
 :root {
   --app-deep-green: #3C5B11; 
   /* --app-deep-green: #3030d0;  */
-  --app-medium-green: #8BB256;
+  /* --app-medium-green: #8BB256;  */
+  /* --app-medium-green: #0d6efd;  */
+  --app-medium-green: #1caa68; 
+  --app-accent-green: #01e1b3; 
+  --app-plugin-blue: #3031d7; 
   /* --app-medium-green: #ffc501; */
   --app-kicking-yellow: #FFD66D; 
   --kicking-background: #FFF5DD

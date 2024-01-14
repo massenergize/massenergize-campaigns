@@ -197,5 +197,6 @@
 }
 
 .g-s-container {
-  background: var(--app-medium-green);
+  /* background: var(--app-medium-green); */
+  background: var(--app-plugin-blue);
 }

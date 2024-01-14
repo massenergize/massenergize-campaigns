@@ -15,9 +15,11 @@ function AppNavigationBar({ menu, campaign }) {
 
   return (
     <Navbar
-      variant="dark"
+      variant="light"
+      data-bs-theme="light"
       expand="lg"
-      style={{ background: "var(--app-deep-green)" }}
+      // style={{ background: "var(--app-deep-green)" }}
+      style={{ background: "white" }}
       fixed="top"
       className="elevate-2"
     >
@@ -52,6 +54,7 @@ function AppNavigationBar({ menu, campaign }) {
                       textTransform: "uppercase",
                       marginRight: 20,
                       fontWeight: "bold",
+                      color: "black",
                     }}
                     onClick={() => {
                       navigator(menu.url || "#");
@@ -72,9 +75,10 @@ function AppNavigationBar({ menu, campaign }) {
                     textTransform: "uppercase",
                     marginRight: 20,
                     fontWeight: "bold",
+                    color: "black",
                   }}
                   title={
-                    <span>
+                    <span style={{ color: "black" }}>
                       <i
                         className={`fa ${menu.icon}`}
                         style={{ marginRight: 6 }}
