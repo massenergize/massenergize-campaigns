@@ -146,7 +146,7 @@ export function CampaignStatistics ({}) {
                         <Button
                           variant="warning"
                           onClick={() => {
-                            navigate(`/campaign/${id}`);
+                            window.open(`/campaign/${id}?preview=true`, "_blank");
                           }}
                         >
                           <FontAwesomeIcon icon={faEye} />
