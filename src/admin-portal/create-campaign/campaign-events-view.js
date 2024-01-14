@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import Chip from "src/components/admin-components/Chip";
 import { fetchEvents } from "src/requests/technology-requests";
 import { NoItems } from "@kehillahglobal/ui";
+import Dropdown from "src/components/admin-components/Dropdown";
 
 export function CampaignEventsView ({ events, campaign }) {
   //@Todo: Add a mutate to update main
@@ -89,7 +90,9 @@ export function CampaignEventsView ({ events, campaign }) {
     try {
       const payload = {
         campaign_technology_id: selectedTech,
-        event_ids: toAddEvents?.map((event) => event.id),
+        event_ids: toAddEvents?.map((event) => {
+          return event?.id;
+        }),
       };
 
       const res = await AddSelectedEvents(payload);
@@ -251,35 +254,21 @@ export function CampaignEventsView ({ events, campaign }) {
               <Row className="mt-2" style={{ height: "180px" }}>
                 <Col>
                   <Form.Label>Select events to feature on this campaign</Form.Label>
-                  <MultiSelect
-                    options={(eventsToShow || []).map((event) => {
+                  <Dropdown
+                    displayTextToggle="Select Events for this campaign"
+                    data={(eventsToShow || [])?.map((event) => {
                       return {
                         ...event,
                         value: event?.id,
                         label: event?.name,
                       };
                     })}
-                    hasSelectAll={true}
-                    value={toAddEvents?.map((event) => {
-                      return {
-                        ...event,
-                        value: event?.id,
-                        label: event?.name,
-                      };
-                    })}
-                    onChange={(val) => setToAddEvents(val)}
-                    valueRenderer={(selected, _options) => {
-                      if (selected.length === 0) return "Select Events";
-                      if (selected.length === _options.length)
-                        return "All Events Selected";
-                      if (selected.length > 2)
-                        return `${selected.length} Events Selected`;
-                      return selected
-                        ?.map(({ label }) => label)
-                        ?.join(", ")
-                        .concat(" Selected");
+                    valueExtractor={(item) => item}
+                    labelExtractor={(item) => item?.name}
+                    multiple={false}
+                    onItemSelect={(selectedItem, allSelected) => {
+                      setToAddEvents([selectedItem]);
                     }}
-                    className={"event-select"}
                   />
 
                   <Row className="my-4">
@@ -287,7 +276,23 @@ export function CampaignEventsView ({ events, campaign }) {
                       Select the technology these events belong to
                     </Form.Label>
                     <Col>
-                      <Form.Select
+                      <Dropdown
+                        displayTextToggle="Select Technology for this campaign"
+                        data={(techs || [])?.map((event) => {
+                          return {
+                            ...event,
+                            value: event?.id,
+                            label: event?.name,
+                          };
+                        })}
+                        valueExtractor={(item) => item?.campaign_technology_id}
+                        labelExtractor={(item) => item?.name}
+                        multiple={false}
+                        onItemSelect={(selectedItem, allSelected) => {
+                          setSelectedTech(selectedItem);
+                        }}
+                      />
+                      {/* <Form.Select
                         onChange={(e) => {
                           setSelectedTech(e.target.value);
                         }}
@@ -295,12 +300,15 @@ export function CampaignEventsView ({ events, campaign }) {
                         <option> ----- -----</option>
                         {(techs || []).map((tech) => {
                           return (
-                            <option value={tech?.campaign_technology_id}>
+                            <option
+                              key={tech?.id}
+                              value={tech?.campaign_technology_id}
+                            >
                               {tech?.name}
                             </option>
                           );
                         })}
-                      </Form.Select>
+                      </Form.Select> */}
                     </Col>
                   </Row>
                 </Col>
@@ -315,7 +323,7 @@ export function CampaignEventsView ({ events, campaign }) {
               <Row>
                 {toAddEvents?.map((event) => {
                   return (
-                    <Col sm={"auto mb-2"}>
+                    <Col sm={"auto mb-2"} key={event?.id}>
                       <Chip
                         text={event?.name}
                         icon={event?.icon}

@@ -5,6 +5,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloons";
 import { Link } from "react-router-dom";
+import Searchbar from "../../../components/admin-components/Searchbar";
 
 export function AllCampaigns () {
   const { blow, pop } = useBubblyBalloons();
@@ -51,6 +52,11 @@ export function AllCampaigns () {
           {/*endregion*/}
 
           {/*region Body: Content goes here*/}
+          {/* <Row>
+            <Col>
+              <Searchbar />
+            </Col>
+          </Row> */}
           <Row className=" pt-4">
             <Col>
               <AllCampaignsView />

@@ -306,3 +306,21 @@
 .bg-green {
   background-color: rgb(14, 60, 15);
 }
+
+.searchbar {
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 7px;
+  border: solid gray 1px;
+  margin-bottom: 25px;
+  margin-top: 15px;
+  letter-spacing: 1px;
+  outline: solid #6e207c;
+}
+
+.search-icon {
+  position: absolute;
+  right: 17px;
+  top: 28px;
+  color: #6e207c;
+}
