@@ -71,6 +71,7 @@ export function TechnologyEditView () {
   const updateTechObject = (data) => {
     const obj = { ...techObject, ...(data || {}) };
     setTechObject(obj);
+    setNewTechnologyDetails(obj)
     inflate(obj);
   };
 
@@ -116,6 +117,7 @@ export function TechnologyEditView () {
             activeTab === tab?.key && (
               <tab.component
                 key={tab?.key}
+                techObject={techObject}
                 setInformation={setInformation}
                 information={information}
                 notifyError={notifyError}

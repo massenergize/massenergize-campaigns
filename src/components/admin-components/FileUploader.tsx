@@ -16,14 +16,10 @@ function FileUploader (props) {
   );
 
   useEffect(() => {
-    console.log("defaultValue", defaultValue)
     if (defaultValue === RESET) return reset();
     setValues({
       ...values,
-      preview:
-        !isEmpty(defaultValue) && isEmpty(previewUrl)
-          ? defaultValue
-          : previewUrl,
+      preview: !isEmpty(defaultValue) && isEmpty(previewUrl) ? defaultValue : previewUrl,
     });
   }, [previewUrl, defaultValue]);
 
@@ -57,7 +53,6 @@ function FileUploader (props) {
   const preview = values.preview;
 
   const ID = randomString({}) + id
-  // const ID = id
 
   return (
     <div className={classes("file-upload", { "border-danger": error })} style={{ position: "relative" }}>

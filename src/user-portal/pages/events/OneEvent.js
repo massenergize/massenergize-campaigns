@@ -13,7 +13,8 @@ import {
   appInnitAction,
   updateEventsObj,
 } from "../../../redux/actions/actions";
-import { formatTimeRange } from "../../../utils/utils";
+import { formatTimeRange, setPageTitle } from "../../../utils/utils";
+
 function OneEvent ({ events, updateEvents, init, campaign }) {
   const [event, setEvent] = useState(LOADING);
   const [error, setError] = useState("");
@@ -30,11 +31,15 @@ function OneEvent ({ events, updateEvents, init, campaign }) {
   } = event || {};
 
   const campaignExists = campaign && campaign !== LOADING;
+
   useEffect(() => {
     if (!campaignExists) init(campaign_id);
 
     var ev = (events || {})[id];
-    if (ev) setEvent(ev);
+    if (ev) {
+      setEvent(ev);
+      setPageTitle(` Event | ${ev?.name}`);
+    }
     // still fetch event form API to get up-to-date content
     apiCall("/events.info", { event_id: id })
       .then((response) => {
@@ -42,7 +47,9 @@ function OneEvent ({ events, updateEvents, init, campaign }) {
           setError(response.error);
           return console.log("EVENT_FETCH_ERROR_BE:", response.error);
         }
+
         setEvent(response.data);
+        setPageTitle(` Event | ${response?.data?.name}`);
         updateEvents({ ...events, [id]: response.data });
       })
       .catch((e) => console.log("EVENT_ERROR_SYNT: ", e.toString()));

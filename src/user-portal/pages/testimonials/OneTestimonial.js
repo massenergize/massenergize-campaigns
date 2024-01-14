@@ -17,7 +17,7 @@ import Loading from "../../../components/pieces/Loading";
 import { apiCall } from "../../../api/messenger";
 import JoinUsForm from "../forms/JoinUsForm";
 import NewTestimonialForm from "./NewTestimonialForm";
-import { fetchUrlParams } from "../../../utils/utils";
+import { fetchUrlParams, setPageTitle } from "../../../utils/utils";
 
 function OneTestimonial ({
   testimonials,
@@ -96,9 +96,10 @@ function OneTestimonial ({
     if (!campaignExists) init(campaign_id);
 
     var testim = (testimonials || {})[id];
-    if (testim) setTestimonial(testim);
-    else setTestimonial(LOADING);
-
+    if (testim) {
+      setTestimonial(testim);
+      setPageTitle(`Testimonial | ${testim?.title}`);
+    } else setTestimonial(LOADING);
     // still fetch event form API to get up-to-date content
     apiCall("/campaigns.technologies.testimonials.info", { id })
       .then((response) => {
@@ -107,6 +108,7 @@ function OneTestimonial ({
           return console.log("TESTIMONIAL_FETCH_ERROR_BE:", response.error);
         }
         setTestimonial(response.data);
+        setPageTitle(`Testimonial | ${response?.data?.title}`);
         updateTestimonials({ ...testimonials, [id]: response.data });
       })
       .catch((e) => console.log("TESTIMONIAL_ERROR_SYNT: ", e.toString()));
@@ -202,9 +204,9 @@ function OneTestimonial ({
                     {index + 1}. {`${item?.title} ` || "..."}
                   </span>
                   <span
-                    // style={{  marginLeft: 5 }}
+                  // style={{  marginLeft: 5 }}
                   >
-                   ({item?.tech_name})
+                    ({item?.tech_name})
                   </span>
                 </li>
               );

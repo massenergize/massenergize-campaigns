@@ -47,11 +47,10 @@ export function CampaignStatistics ({}) {
       return await fetchCampaign(id);
     },
     {
-      onSuccess: (data) => {
-        // console.log({ data });
-      },
+      onSuccess: (data) => {},
     },
   );
+
   const CAMPAIGN = campaign || {};
 
   const statistics = Object.entries(CAMPAIGN?.stats || {});

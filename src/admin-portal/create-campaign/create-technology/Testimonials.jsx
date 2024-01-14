@@ -14,7 +14,7 @@ import { FormLabel } from "react-bootstrap";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import { Button as BTN, Container, Col, Row } from "react-bootstrap";
 
-const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
+const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) => {
   let existing = [
     ...(techObject?.testimonials || [])?.map((testimonial) => {
       return { ...testimonial, id: testimonial?.testimonial };
@@ -31,10 +31,7 @@ const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject }) =>
     isValidating,
     isLoading,
     error,
-  } = useSWR(
-    "testimonials.list",
-    () => fetchAllTechnologyTestimonials(campaign_id),
-    {
+  } = useSWR("testimonials.list", async () => await fetchAllTechnologyTestimonials(campaign_id), {
       shouldRetryOnError: true,
       errorRetryCount: 3,
       errorRetryInterval: 3000,

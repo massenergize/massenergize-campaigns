@@ -1,11 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { IS_PROD } from "../../config/environment";
+import { IS_PROD } from "../../environment";
 // import 'firebase/auth';
-// import { FIREBASE_CONFIG } from '../../config/constants';
+// import { firebaseConfig } from '../../config/constants';
 
-//firebase.initializeApp(FIREBASE_CONFIG);
-let FIREBASE_CONFIG = {
+//firebase.initializeApp(firebaseConfig);
+let firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
   databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
@@ -14,18 +14,21 @@ let FIREBASE_CONFIG = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
-// console.log("FIREBASE _LOG HERE: ", FIREBASE_CONFIG);
+// console.log("FIREBASE _LOG HERE: ", firebaseConfig);
 if (IS_PROD) {
-  FIREBASE_CONFIG = {
-    ...FIREBASE_CONFIG,
+  firebaseConfig = {
+    ...firebaseConfig,
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
   };
 }
+
+export const FIREBASE_CONFIG = firebaseConfig;
+
 // !firebase.apps.length
-//   ? firebase.initializeApp(FIREBASE_CONFIG)
+//   ? firebase.initializeApp(firebaseConfig)
 //   : firebase.app();
 
-const app = initializeApp(FIREBASE_CONFIG);
+const app = initializeApp(firebaseConfig);
 // export const googleProvider = new firebase.auth.GoogleAuthProvider();
 // export const facebookProvider = new firebase.auth.FacebookAuthProvider();
 export const auth = getAuth(app);

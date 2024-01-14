@@ -10,7 +10,7 @@ function OneTechEventSection ({ events, style, wrapperStyle }) {
   return (
     <div
       //   id={sectionId}
-      className="mt-5 g-s-container"
+      className="mt-5 g-s-container elevate-float-pro"
       style={{
         background: "white",
         width: "100%",

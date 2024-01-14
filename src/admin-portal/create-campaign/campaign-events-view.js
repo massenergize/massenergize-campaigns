@@ -15,7 +15,7 @@ import Chip from "src/components/admin-components/Chip";
 import { fetchEvents } from "src/requests/technology-requests";
 import { NoItems } from "@kehillahglobal/ui";
 
-export const CampaignEventsView = ({ events, campaign }) => {
+export function CampaignEventsView ({ events, campaign }) {
   //@Todo: Add a mutate to update main
 
   const [loading, setLoading] = useState(false);
@@ -284,7 +284,7 @@ export const CampaignEventsView = ({ events, campaign }) => {
 
                   <Row className="my-4">
                     <Form.Label>
-                      Select th technology these events belong to
+                      Select the technology these events belong to
                     </Form.Label>
                     <Col>
                       <Form.Select

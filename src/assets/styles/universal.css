@@ -74,3 +74,13 @@ body{
     transform: scale(1);
   }
 }
+
+.row-flex { 
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+}
+.column-flex { 
+  display:flex;
+  flex-direction:column;
+}

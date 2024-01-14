@@ -4,6 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
 import { useNavigate } from "react-router-dom";
+import Filter from "../../../components/Filter";
 
 function TestimonialSection ({ sectionId, technologies, defaultTab, campaign }) {
   const navigator = useNavigate();
@@ -114,7 +115,7 @@ export const AddNewTestimonial = ({ style, onClick }) => {
           e.preventDefault();
           onClick && onClick();
         }}
-        className="touchable-opacity"
+        className="touchable-opacity link-text"
         style={{
           color: "var(--app-medium-green)",
           fontWeight: "bold",
@@ -122,11 +123,15 @@ export const AddNewTestimonial = ({ style, onClick }) => {
           ...(style || {}),
         }}
       >
-        Add your own testimonial here{" "}
         <i
+          className="fa fa-plus"
+          style={{ marginRight: 10, fontWeight: "bold" }}
+        />
+        Add your own testimonial here{" "}
+        {/* <i
           className="fa fa-long-arrow-right"
           style={{ marginLeft: 10, fontWeight: "bold" }}
-        />
+        /> */}
       </a>
     </div>
   );

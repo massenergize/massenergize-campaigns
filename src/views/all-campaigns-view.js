@@ -88,6 +88,7 @@ const DUMMY_CAMPAIGN_NAMEs = [
   "5KW Solr installation",
 ];
 
+
 export function AllCampaignsView ({}) {
   //   const [data, setData] = useNamedState("table data", DUMMY_DATA);
   const [rowMenu, setRowMenu] = useState(ROW_ACTIONS_MENU);
@@ -266,6 +267,7 @@ export function AllCampaignsView ({}) {
       },
     },
   ];
+
 
   const [pagesCount, setPagesCount] = useState(1);
   const [pageIndex, setPageIndex] = useState(0);
