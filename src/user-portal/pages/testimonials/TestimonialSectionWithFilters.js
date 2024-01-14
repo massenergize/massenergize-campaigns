@@ -10,7 +10,7 @@ import { mergeArrays } from "../../../utils/utils";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import OurParagraph from "../../../components/OurParagraph";
 
-function TestimonialSectionWithFilters({
+function TestimonialSectionWithFilters ({
   sectionId,
   technologies,
   defaultTab,

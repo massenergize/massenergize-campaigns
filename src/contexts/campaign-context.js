@@ -98,14 +98,14 @@ export function CampaignProvider ({ children }) {
     await fetchAllPartners("partners.list")
   }, { ...SWR_CONFIG, });
 
-  const {
-    data: allEvents,
-    isLoading: allEventsLoading,
-    isValidating: allEventsIsValidating,
-    error: allEventsError,
-  } = useSWR(`events.listForCommunityAdmin`, async () => {
-    return await fetchAllCampaignEventsBySuperAdmins();
-  }, { ...SWR_CONFIG, });
+  // const {
+  //   data: allEvents,
+  //   isLoading: allEventsLoading,
+  //   isValidating: allEventsIsValidating,
+  //   error: allEventsError,
+  // } = useSWR(`events.listForCommunityAdmin`, async () => {
+  //   return await fetchAllCampaignEventsBySuperAdmins();
+  // }, { ...SWR_CONFIG, });
   // endregion
   // const {
   //   // initialData: allManagersInitialData,
@@ -142,12 +142,12 @@ export function CampaignProvider ({ children }) {
       isValidating: allCommunitiesIsValidating,
       isLoading: allCommunitiesIsLoading,
     },
-    allEvents: {
-      data: addLabelsAndValues(allEvents || []),
-      isLoading: allEventsLoading,
-      error: allEventsError,
-      isValidating: allEventsIsValidating,
-    },
+    // allEvents: {
+    //   data: addLabelsAndValues(allEvents || []),
+    //   isLoading: allEventsLoading,
+    //   error: allEventsError,
+    //   isValidating: allEventsIsValidating,
+    // },
 /*    allCampaigns: {
       data: campaignData,
       error: campaignError,

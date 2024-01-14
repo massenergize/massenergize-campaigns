@@ -14,6 +14,9 @@ import { MultiSelect } from "react-multi-select-component";
 import { useCampaignContext } from "../../../hooks/use-campaign-context";
 import BootButton from "react-bootstrap/Button";
 
+import GhostLoader from "src/components/admin-components/GhostLoader";
+import CustomAccordion from "../../../components/admin-components/CustomAccordion";
+import SectionForm from "./SectionsForm";
 const INITIAL_COACH_STATE = {
   technology_id: "",
   full_name: "",
@@ -22,7 +25,7 @@ const INITIAL_COACH_STATE = {
   phone_number: "",
 };
 
-function Coaches({
+function Coaches ({
   setTechnologyInfo,
   technologyInfo,
   setCurrentTab,
@@ -32,12 +35,20 @@ function Coaches({
   notifyError,
   notifySuccess,
   tech_id,
+  techObject,
 }) {
+  // const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  // const [selectedCoach, setSelectedCoach] = useState({});
+  // const [showCoachModal, setShowCoachModal] = useState(false);
   const [formData, setFormData] = useState(INITIAL_COACH_STATE);
+  // const [query, setQuery] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const coachFormRef = useRef(null);
+  const [openAccordion, setOpenAccordion] = useState(false);
 
+  // TODO LATER: EDITING & CREATION CAN BE MERGED INTO ONE FORM AND ONE PROCESS!
+  // const buildQuery = (key, data) => {
 
 
   const interactWithCoachForm = () => {
@@ -57,14 +68,32 @@ function Coaches({
 
   const contentIsValid = (data) => {
     const { full_name, image, email, community } = data || {};
-    if (!full_name || !image || !email || !community) {
+    if (!full_name  || !community) {
       notifyError(
-        "(Email, Full Name, Image, Community) Please make sure none of them are empty...",
+        "(Full Name,Community) Please make sure none of them are empty..."
       );
       return false;
     }
     return true;
   };
+
+  const handleRemoveCoach = (coach) => {
+    setLoading(true);
+    const { id } = coach || {};
+    if (!id) return;
+    const url = "technologies.coaches.remove";
+    apiCall(url, { id }).then((res) => {
+      const { data, success, error } = res || {};
+      setLoading(false);
+      if (!success) {
+        console.log("ERROR: ", error);
+        return notifyError(error);
+      }
+      notifySuccess("Coach removed!");
+      const items = coaches?.filter((it) => it?.id !== id);
+      return updateTechObject({ coaches: items });
+    });
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,6 +104,7 @@ function Coaches({
 
     if (!contentIsValid(data)) return;
     setLoading(true);
+    data  = { ...data,    ...(isEditing && !data.image ? { image: 'reset' } : data.image ? { image: data.image } : {}) };
     apiCall(url, data).then((res) => {
       const { data, success, error } = res || {};
       setLoading(false);
@@ -93,24 +123,6 @@ function Coaches({
         resetForm();
       }
       notifySuccess(isEditing ? "New changes saved!" : "Coach added!");
-      return updateTechObject({ coaches: items });
-    });
-  };
-
-  const handleRemoveCoach = (coach) => {
-    setLoading(true);
-    const { id } = coach || {};
-    if (!id) return;
-    const url = "technologies.coaches.remove";
-    apiCall(url, { id }).then((res) => {
-      const { success, error } = res || {};
-      setLoading(false);
-      if (!success) {
-        console.log("ERROR: ", error);
-        return notifyError(error);
-      }
-      notifySuccess("Coach removed!");
-      const items = coaches?.filter((it) => it?.id !== id);
       return updateTechObject({ coaches: items });
     });
   };
@@ -402,6 +414,23 @@ function Coaches({
               </Col>
             </Row>
           </form>
+        </div>
+
+
+        {/*  show section */}
+        <div className="py-5">
+          <CustomAccordion
+            title={"Customize The Title and Description of Coaches Section"}
+            component={<SectionForm
+              section = "coaches_section"
+              data = {techObject?.coaches_section}
+              updateTechObject = {updateTechObject}
+              tech_id = {tech_id}
+
+            />}
+            isOpen={openAccordion}
+            onClick={() => setOpenAccordion(!openAccordion)}
+          />
         </div>
       </Container>
     </div>
