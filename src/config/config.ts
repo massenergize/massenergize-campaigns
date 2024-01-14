@@ -4,7 +4,7 @@ export const SWR_CONFIG = {
   // refreshInterval: 3_600_000,
 
   // setting the following to false disables automatic revalidation
-  revalidateIfStale: false,
-  revalidateOnFocus: false,
+  revalidateIfStale: true,
+  revalidateOnFocus: true,
   revalidateOnReconnect: false, // automatically revalidates when network recovers
 };

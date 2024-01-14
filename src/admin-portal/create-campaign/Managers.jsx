@@ -10,6 +10,8 @@ import Modal from "react-bootstrap/Modal";
 import Input from "../../components/admin-components/Input";
 import { Spinner } from "@kehillahglobal/ui";
 import Notification from "src/components/pieces/Notification";
+import { toSentenceCase } from "../../helpers/utils/string";
+import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
 
 const Managers = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
 	const [pagesCount, setPagesCount] = useState(1);
@@ -52,6 +54,8 @@ const Managers = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
 	let [canGotoPreviousPage, setCanPreviousPage] = useState(false);
 	let [canGotoNextPage, setCanGotoNextPage] = useState(false);
 
+	const { notify } = useBubblyBalloons();
+
 	const gotoPage = async function (next) {
 		if (next !== pageIndex) {
 			if (next < pageIndex) {
@@ -91,10 +95,19 @@ const Managers = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
 			if (manager) {
 				mutate(`campaigns.managers.list`);
 				makeNotification("Manager added successfully", true);
+				notify(
+					{
+						title: "Success",
+						message: "Manager added successfully",
+						type: "success",
+						duration: 5000,
+					}
+				);
 				handleClose();
 			}
 		} catch (e) {
-			makeNotification("An Error occurred", false);
+			console.log(e)
+			makeNotification(toSentenceCase(e.message), false);
 			console.log("ERROR ADDING MANAGER", e);
 		}
 	};

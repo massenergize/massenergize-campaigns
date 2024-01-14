@@ -48,6 +48,9 @@ export function IncentiveForm ({ incentive = {}, onSubmit }) {
       }
     }
 
+    if (IS_NEW && !incentiveFormData.image) {
+      newErrors.image = "This field is required";
+    }
 
     if (objectIsEmpty(newErrors)) {
       return true;
@@ -70,8 +73,7 @@ export function IncentiveForm ({ incentive = {}, onSubmit }) {
         ...(IS_NEW ? { campaign_id } : {}),
         title: incentiveFormData.title,
         description: incentiveFormData.description,
-
-        ...(incentiveFormData.image ? { image: IS_NEW ? incentiveFormData.image : (incentiveFormData.image ? incentiveFormData.image : 'reset') } : {})
+        ...(IS_NEW ? { image: incentiveFormData.image } : !(incentiveFormData.image) ? {image : "reset"} : {image: incentiveFormData.image}),
       };
 
       const data = IS_NEW ? await addTechnologyIncentive(payload) : await updateTechnologyIncentive(payload);

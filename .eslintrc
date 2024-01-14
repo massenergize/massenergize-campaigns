@@ -43,6 +43,7 @@
     ],
     "space-in-parens": "warn",
     "no-unneeded-comma": "off",
-    "space-before-function-paren": "error"
+    "no-noninteractive-element-to-interactive-role":"off"
+    // "space-before-function-paren": "error"
   }
 }

@@ -34,10 +34,10 @@ export const campaignPages = [
 		name: "Events",
 		component: Events,
 	},
-	{
-		name: "Partners",
-		component: Partners,
-	},
+	// {
+	// 	name: "Partners",
+	// 	component: Partners,
+	// },
 	// {
 	// 	name: "Navigation",
 	// 	component: Navigation,

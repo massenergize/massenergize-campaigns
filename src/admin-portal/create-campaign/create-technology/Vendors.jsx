@@ -6,28 +6,35 @@ import Chip from "src/components/admin-components/Chip";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import Button from "../../../components/admin-components/Button";
 import useSWR from "swr";
-import { addTechnologyVendor, fetchCampaignCommunityVendors } from "src/requests/technology-requests";
+import {
+  addTechnologyVendor,
+  fetchCampaignCommunityVendors,
+} from "src/requests/technology-requests";
 import CustomAccordion from "../../../components/admin-components/CustomAccordion";
 import SectionForm from "./SectionsForm";
 
-const Vendors = ({campaign_id, tech_id,techObject, updateTechObject}) => {
-
-	let existing = [...(techObject?.vendors||[])?.map((tech) => tech?.vendor)].flat();
-	const [selectedVendors, setSelectedVendors] = useState(existing || []);
-	const [loading, setLoading] = useState(false);
+const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
+  let existing = [
+    ...(techObject?.vendors || [])?.map((tech) => tech?.vendor),
+  ].flat();
+  const [selectedVendors, setSelectedVendors] = useState(existing || []);
+  const [loading, setLoading] = useState(false);
 	const [openAccordion, setOpenAccordion] = useState(false);
 
-	const { blow, pop } = useBubblyBalloons();
+  const { blow, pop } = useBubblyBalloons();
 
-	const {data:allVendors, isLoading} = useSWR("campaigns.communities.vendors.list", () => fetchCampaignCommunityVendors(campaign_id), {
-		shouldRetryOnError: true,
-		errorRetryCount: 3,
-		errorRetryInterval: 3000,
-	});
+  const { data: allVendors, isLoading } = useSWR(
+    "campaigns.communities.vendors.list",
+    () => fetchCampaignCommunityVendors(campaign_id),
+    {
+      shouldRetryOnError: true,
+      errorRetryCount: 3,
+      errorRetryInterval: 3000,
+    },
+  );
 
-
-	const handleSaveVendors = async () => {
-	    setLoading(true);
+  const handleSaveVendors = async () => {
+    setLoading(true);
     try {
       let toSend = {
         technology_id: tech_id,
@@ -54,10 +61,9 @@ const Vendors = ({campaign_id, tech_id,techObject, updateTechObject}) => {
         duration: 5000,
       });
     }
+  };
 
-	}
-
-	if (isLoading)
+  if (isLoading)
     return (
       <div
         className=""

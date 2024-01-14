@@ -93,9 +93,26 @@ export function smartString (inputString, maxLength = 30) {
   return inputString.slice(0, maxLength) + "...";
 }
 
-export const setPageTitle = (string) => (document.title = string);
-
 export const portalIsAdmin = () => {
   const url = window.location.href;
   return url.includes("admin/");
+};
+
+export function mergeArrays (arrays) {
+  const mergedArray = [];
+
+  for (const array of arrays) {
+    for (const obj of array) {
+      const isDuplicate = mergedArray.some((item) => item.id === obj.id);
+      if (!isDuplicate) {
+        mergedArray.push(obj);
+      }
+    }
+  }
+  return mergedArray;
+}
+
+export const setPageTitle = (name) => {
+  if (!name) return;
+  document.title = name;
 };

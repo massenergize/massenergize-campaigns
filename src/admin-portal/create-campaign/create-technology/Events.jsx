@@ -12,23 +12,22 @@ import Chip from "src/components/admin-components/Chip";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import Button from "../../../components/admin-components/Button";
 
-function TechnologyEvents ({campaign_id, tech_id,techObject, updateTechObject}) {
-  let existing = [...(techObject?.events||[])?.map((tech) => tech?.event)].flat();
+function TechnologyEvents ({ campaign_id, tech_id, techObject, updateTechObject }) {
+  let existing = [...(techObject?.events || [])?.map((tech) => tech?.event)].flat();
 
   const [selectedEvents, setSelectedEvents] = useState(existing || []);
   const [loading, setLoading] = useState(false);
 
-
   const { blow, pop } = useBubblyBalloons();
-  const {
-    data: allEvents,
-    isLoading,
-  } = useSWR("campaigns.communities.events.list", () => fetchEvents(campaign_id), {
-    shouldRetryOnError: true,
-    errorRetryCount: 3,
-    errorRetryInterval: 3000,
-  });
-
+  const { data: allEvents, isLoading } = useSWR(
+    "campaigns.communities.events.list",
+    () => fetchEvents(campaign_id),
+    {
+      shouldRetryOnError: true,
+      errorRetryCount: 3,
+      errorRetryInterval: 3000,
+    },
+  );
 
   const handleSaveEvents = async () => {
     setLoading(true);
@@ -79,8 +78,7 @@ function TechnologyEvents ({campaign_id, tech_id,techObject, updateTechObject}) 
       <Container>
         <Form>
           <FormLabel>
-            Choose one or more Events for this technology from the dropdown
-            below.
+            Choose one or more Events for this technology from the dropdown below.
           </FormLabel>
 
           <MultiSelect
@@ -101,19 +99,21 @@ function TechnologyEvents ({campaign_id, tech_id,techObject, updateTechObject}) 
             })}
             onChange={(val) => setSelectedEvents(val)}
             valueRenderer={(selected, _options) => {
-            if(selected.length === 0) return "Select Events"
-            if (selected.length === _options.length) return "All Events Selected";
-            if (selected.length > 2)  return `${selected.length} Events Selected`;
-            return selected?.map(({ label }) => label)?.join(", ").concat(" Selected");
+              if (selected.length === 0) return "Select Events";
+              if (selected.length === _options.length) return "All Events Selected";
+              if (selected.length > 2) return `${selected.length} Events Selected`;
+              return selected
+                ?.map(({ label }) => label)
+                ?.join(", ")
+                .concat(" Selected");
             }}
-
             className={"event-select"}
           />
         </Form>
 
         <Row className="mt-4">
           <Col>
-            <Row>
+            {/* <Row>
               {selectedEvents?.map((event) => {
                 return (
                   <Col sm={"auto mb-2"}>
@@ -125,16 +125,14 @@ function TechnologyEvents ({campaign_id, tech_id,techObject, updateTechObject}) 
                       className="mr-2 mb-5"
                       onDismiss={(id) => {
                         setSelectedEvents(
-                          selectedEvents?.filter(
-                            (event) => event?.id !== id
-                          )
+                          selectedEvents?.filter((event) => event?.id !== id),
                         );
                       }}
                     />
                   </Col>
                 );
               })}
-            </Row>
+            </Row> */}
           </Col>
         </Row>
 

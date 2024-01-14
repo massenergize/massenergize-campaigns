@@ -3,7 +3,7 @@ import { Button, Container, Form, FormGroup, FormLabel, Spinner, } from "react-b
 import { validateEmail } from "../../../utils/utils";
 import Notification from "../../../components/pieces/Notification";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../../../firebase/admin/fire-config";
+import { auth, googleProvider } from "../../../config/firebase/admin/fire-config";
 import { connect, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchMeUser, logUserOut, setAuthAdminAction, setCampaignAccountAction, setFirebaseAuthAction, } from "../../../redux/actions/actions";

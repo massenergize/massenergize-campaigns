@@ -10,7 +10,7 @@ const dummies = [
     icon: "fa-globe",
     title: "Find A Vendor",
     actionText: "Vendors",
-    content: "Get in touch with vendors the vendors!",
+    content: "The critical question - who should you have quote your project?",
     url: "vendors",
     type: "vendors",
   },
@@ -19,7 +19,7 @@ const dummies = [
     title: "Ask A Question ",
     actionText: "Get Help",
     content:
-      "Get to know the coaches, and ask all the questions you need to get started!",
+      "Questions large to small, we have community volunteers ready to answer them all.",
     url: "coaches",
     type: "help",
   },
