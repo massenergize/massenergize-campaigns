@@ -6,10 +6,12 @@ import { useBubblyBalloons } from "../lib/bubbly-balloon/use-bubbly-balloons";
 import useSWR from "swr";
 import { fetchTechnology } from "../requests/technology-requests";
 import { Spinner } from "@kehillahglobal/ui";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import classes from "classnames";
 
 import BackButton from "../components/admin-components/BackButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExternalLink } from "@fortawesome/free-solid-svg-icons";
 
 const INFO_INITIAL_STATE = {
   name: "",
@@ -24,7 +26,7 @@ export function TechnologyEditView () {
   const { setNewTechnologyDetails } = useTechnologyContext();
   let TABS = technologyPages;
 
-  const [loading ] = useState(false);
+  const [loading] = useState(false);
 
   const [techObject, setTechObject] = useState(null);
 
@@ -38,6 +40,9 @@ export function TechnologyEditView () {
   };
 
   const techIsNotCreatedYet = !getTechnologyId();
+
+  const params = useParams()
+
 
   if (techIsNotCreatedYet) {
     TABS = TABS.map((tab) => {
@@ -74,15 +79,19 @@ export function TechnologyEditView () {
     inflate(obj);
   };
 
-  useSWR(technology_id ? `/technologies.info?id=${technology_id}` : null, async () => {
-    return await fetchTechnology(technology_id);
-  }, {
-    onSuccess: (data) => {
-      setTechObject(data);
-      setNewTechnologyDetails(data);
-      inflate(data);
-    }
-  });
+  useSWR(
+    technology_id ? `/technologies.info?id=${technology_id}` : null,
+    async () => {
+      return await fetchTechnology(technology_id);
+    },
+    {
+      onSuccess: (data) => {
+        setTechObject(data);
+        setNewTechnologyDetails(data);
+        inflate(data);
+      },
+    },
+  );
 
   const notifyError = (message) => {
     notify({
@@ -105,12 +114,17 @@ export function TechnologyEditView () {
     if (loading)
       return (
         <center>
-          <Spinner color="#6e207c" radius={56} variation="TwoHalfCirclesType"/>
+          <Spinner color="#6e207c" radius={56} variation="TwoHalfCirclesType" />
         </center>
       );
+    
+  console.log(technology_id, techObject?.technology?.id);
+    
 
     return (
       <Col>
+       
+        {/*</Link>*/}
         {TABS?.map((tab) => {
           return (
             activeTab === tab?.key && (
@@ -135,11 +149,30 @@ export function TechnologyEditView () {
   };
 
   return (
-    <div style={{ padding: "1rem", }}>
+    <div style={{ padding: "1rem" }}>
       {/*region Header*/}
       <Row className="pb-4 overflow-scroll gap-0 no-gutters g">
         <Col>
-          <BackButton/>
+          <div className="w-100 flex items-center justify-content-between">
+            <BackButton />
+            {(technology_id ||
+              techObject?.technology?.id) && (
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    window.open(
+                      `/technology/${
+                        technology_id || techObject?.technology?.id
+                      }`,
+                      "_blank",
+                    );
+                    // campagin/campagin_id/technolgy/camapgintech-id
+                  }}
+                >
+                  Preview Technology <FontAwesomeIcon icon={faExternalLink} />
+                </Button>
+              )}
+          </div>
 
           <div className="nav-tabs-container" style={{ marginTop: 10 }}>
             {TABS?.map(({ key, name, deactivate }) => {
@@ -148,7 +181,9 @@ export function TechnologyEditView () {
                   tabIndex={0}
                   key={key}
                   style={{ opacity: deactivate ? 0.6 : 1 }}
-                  className={classes("nav-tabs-main tab", { "tab-active": activeTab === key, })}
+                  className={classes("nav-tabs-main tab", {
+                    "tab-active": activeTab === key,
+                  })}
                   onClick={() => {
                     if (deactivate) return;
                     setActiveTab(key);
@@ -170,5 +205,5 @@ export function TechnologyEditView () {
       {/*region Footer*/}
       {/*endregion*/}
     </div>
-  )
+  );
 }
