@@ -127,50 +127,49 @@ export function AllCampaignsView ({}) {
       },
       className: "text-left",
       filter: "equals",
-
-      style: {
-        textAlign: "left",
-      },
-    },
-    {
-      Filter: SelectColumnFilter,
-      Header: "Title",
-      accessor: "title",
-      className: "text-left",
-      filter: "equals",
-      id: "title",
-      style: {
-        textAlign: "left",
-      },
-    },
-    {
-      Filter: SelectColumnFilter,
-      Header: "Creator",
-      accessor: (value) => {
-        const { creator, owner } = value;
-        return creator;
-      },
-      className: "text-left",
-      filter: "equals",
-      id: "creator",
-      style: {
-        textAlign: "left",
-      },
-    },
-    {
-      Filter: SelectColumnFilter,
-      Header: "Date",
-      accessor: (values) => {
-        const { created_at } = values;
-        return dayjs(created_at).format("MM-DD-YYYY");
-      },
-      disableSortBy: true,
-      filter: "equals",
-      id: "created_at",
-      style: {
-        textAlign: "center",
-      },
-    },
+			style: {
+				textAlign: "left",
+			},
+		},
+		{
+			Filter: SelectColumnFilter,
+			Header: "Title",
+			accessor: "title",
+			className: "text-left",
+			filter: "equals",
+			id: "title",
+			style: {
+				textAlign: "left",
+			},
+		},
+		{
+			Filter: SelectColumnFilter,
+			Header: "Creator",
+			accessor: (value) => {
+				const { creator, owner } = value;
+				return creator;
+			},
+			className: "text-left",
+			filter: "equals",
+			id: "creator",
+			style: {
+				textAlign: "left",
+			},
+		},
+		{
+			Filter: SelectColumnFilter,
+			Header: "Date",
+			accessor: (values) => {
+				const { created_at } = values;
+				return dayjs(created_at).format("MM-DD-YYYY");
+			},
+			disableSortBy: false,
+			filter: "equals",
+			id: "created_at",
+			style: {
+				textAlign: "center",
+			},
+		},
 
     {
       Header: "Live",

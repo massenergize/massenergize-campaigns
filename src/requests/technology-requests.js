@@ -57,6 +57,20 @@ export const addTechnologyIncentive = async (data, url = "technologies.overview.
   }
 }
 
+export const removeTechnologyIncentive = async (data, url = "technologies.overview.delete") => {
+  try {
+    const response = await apiCall(url, data);
+
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "REMOVE_INCENTIVE_ERROR_BE");
+    }
+
+    return response?.data;
+  } catch (error) {
+    handleRequestError(error, "REMOVE_INCENTIVE_ERROR");
+  }
+}
+
 export const fetchCampaignCommunityVendors = async (campaignID, url = "campaigns.communities.vendors.list") => {
   try {
     const response = await apiCall(url, { no_pagination : true, campaign_id: campaignID });
@@ -115,6 +129,7 @@ export async function fetchAllTechnologyTestimonials (campaign_id, url = "campai
     handleRequestError(error, "FETCH_ALL_COMMUNITY_TESTIMONIALS_ERROR");
   }
 }
+
 export async function addTestimonials (data, url = "campaigns.technologies.testimonials.add") {
   try {
     const response = await apiCall(url, data, null);
@@ -128,7 +143,6 @@ export async function addTestimonials (data, url = "campaigns.technologies.testi
 }
 
 
-
 export async function updateTechnology (data, url = "technologies.update") {
   try {
     const response = await apiCall(url, data, null);
@@ -140,3 +154,4 @@ export async function updateTechnology (data, url = "technologies.update") {
     handleRequestError(error, "UPDATE_TECHNOLOGY_ERROR");
   }
 }
+

@@ -1,0 +1,89 @@
+name: Pull Request
+
+on: [ pull_request ]
+
+jobs:
+  commitlint:
+    name: ⚙️commitlint
+    runs-on: ubuntu-latest
+
+    if: github.actor != 'dependabot[bot]'
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v1
+
+  lint:
+    name: ⬣ ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repo
+        uses: actions/checkout@v3
+
+      - name: 'Create env file'
+        run: |
+          touch .env
+#          echo AUTH_API_URL=${{ secrets.RE_CAPTCHA_SITE_KEY }} >> .env
+          cat .env
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📦️ Download deps
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install --silent
+
+      - name: 🔬 Lint
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: lint
+
+#  test:
+#    name: 🧪 Tests
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: 📥 Checkout repo
+#        uses: actions/checkout@v3
+#
+#      - name: 'Create env file'
+#        run: |
+#          touch .env
+#          echo AUTH_API_URL=${{ secrets.RE_CAPTCHA_SITE_KEY }} >> .env
+#          cat .env
+#
+#          touch .env.test
+#          echo AUTH_API_URL=${{ secrets.RE_CAPTCHA_SITE_KEY }} >> .env.test
+#          cat .env.test
+#
+#
+#      - name: ⎔ Setup node
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: 18
+#
+#      - name: 📦️ Download deps
+#        uses: borales/actions-yarn@v4
+#        with:
+#          cmd: install --silent
+#
+#      - name: ⚡ Run Jest
+#        uses: borales/actions-yarn@v4
+#        with:
+#          cmd: test:s
+
+  dependabot:
+    name: 🤖dependabot
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: ahmadnassri/action-dependabot-auto-merge@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
