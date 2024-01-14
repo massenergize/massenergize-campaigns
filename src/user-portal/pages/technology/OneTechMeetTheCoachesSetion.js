@@ -100,7 +100,7 @@ function OneTechMeetTheCoachesSection({
           style={{
             flexWrap: "nowrap",
             overflowX: "scroll",
-            justifyContent: "center",
+            // justifyContent: "center",
             // scrollBehavior: "smooth",
           }}
           // onScroll={(e) => handleScroll(e.target.scrollLeft)}

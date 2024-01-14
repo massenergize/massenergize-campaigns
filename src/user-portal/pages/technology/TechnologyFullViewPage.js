@@ -42,6 +42,7 @@ import CommentDeleteConfirmation from "./CommentDeleteConfirmation";
 import DoMore from "../landing-page/DoMore";
 import OneTechEventSection from "./OneTechEventSection";
 import { useMediaQuery } from "react-responsive";
+import CampaignNotLive from "../landing-page/CampaignNotLive";
 
 const DEFAULT_READ_HEIGHT = 190;
 const PREVIEW_TEXT_LENGHT = 1000;
@@ -305,6 +306,7 @@ function TechnologyFullViewPage({
       <AppNavigationBar />
       <div style={{ marginTop: 100 }} className="one-tech-wrapper">
         <OptimumWrapper>
+          <CampaignNotLive />
           <h2
             style={{
               color: "var(--app-deep-green)",
