@@ -57,7 +57,7 @@ function Coaches ({
 
   const contentIsValid = (data) => {
     const { full_name, image, email, community } = data || {};
-    if (!full_name || !image || !email || !community) {
+    if (!full_name  || !community) {
       notifyError(
         "(Email, Full Name, Image, Community) Please make sure none of them are empty..."
       );
