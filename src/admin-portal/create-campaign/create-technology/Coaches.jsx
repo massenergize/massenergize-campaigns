@@ -22,7 +22,7 @@ const INITIAL_COACH_STATE = {
   phone_number: "",
 };
 
-function Coaches({
+function Coaches ({
   setTechnologyInfo,
   technologyInfo,
   setCurrentTab,

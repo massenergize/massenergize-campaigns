@@ -10,7 +10,7 @@ import OurParagraph from "../../../components/OurParagraph";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import { mergeArrays } from "../../../utils/utils";
 
-function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
+function CoachesSectionWithFilters ({ toggleModal, sectionId, technologies }) {
   const containerRef = useRef();
 
   let coaches = technologies?.map((tech) => {
