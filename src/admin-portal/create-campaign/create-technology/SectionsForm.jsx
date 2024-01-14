@@ -20,7 +20,7 @@ export default function SectionsForm ({section, data,updateTechObject, tech_id})
   const handleSave = async () => {
     setLoading(true)
     try {
-      const toUpdate = {id:tech_id, [section]: JSON.stringify(formData[section])}
+      const toUpdate = {id:tech_id, [section]: JSON.stringify(formData)}
       let res = await updateTechnology(toUpdate)
       if(res){
         updateTechObject({[section]: formData[section]})
@@ -55,7 +55,7 @@ export default function SectionsForm ({section, data,updateTechObject, tech_id})
             placeholder="Enter title here..."
             required={true}
             type="textbox"
-            onChange={(val) => updateTechObject("title", val)}
+            onChange={(val) => updateFormData("title", val)}
             value={formData?.title||''}
           />
         </Col>

@@ -299,7 +299,7 @@ function Coaches ({
       {/*  show section */}
      <div className="py-5">
        <CustomAccordion
-         title={"Coaches Section"}
+         title={"Customize The Title and Description of Coaches Section"}
          component={<SectionForm
            section = "coaches_section"
            data = {techObject?.coaches_section}

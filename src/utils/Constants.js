@@ -75,11 +75,11 @@ export const technologyPages = [
 		key:'testimonials',
 		component: Testimonials,
 	},
-	{
-		name: "More",
-		key: "more-config",
-		component: AdvancedConfig,
-	},
+	// {
+	// 	name: "More",
+	// 	key: "more-config",
+	// 	component: AdvancedConfig,
+	// },
 ];
 
 export const menus = [
