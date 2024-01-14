@@ -177,6 +177,7 @@ function TechnologyFullViewPage ({
     overview,
     description,
     deal_section,
+    deals,
     more_info_section,
     deal_section_image,
     vendors_section,
@@ -632,7 +633,16 @@ function TechnologyFullViewPage ({
           <GetAGreatDealSection
             image={deal_section_image}
             data={deal_section}
+            deals = {deals}
             sectionId="get-a-deal"
+            toggleDealModal={(deal) =>
+              toggleModal({
+                show: true,
+                component: (props) => <div style = {{padding:20}} dangerouslySetInnerHTML={{__html: deal?.description}} />,
+                fullControl: true,
+                title: deal?.title,
+              })
+            }
           />
         </div>
         <div ref={vendorsRef}>

@@ -20,8 +20,8 @@ function Vendors ({ sectionId, data, vendors }) {
     >
       <OptimumWrapper>
         <SectionTitle className="mb-3">{title || "Vendors"}</SectionTitle>
-        <p style={{ textAlign: "justify" }} className="mb-4 paragraph-font">
-          {description}
+        <p  dangerouslySetInnerHTML={{__html:description}} style={{ textAlign: "justify" }} className="mb-4 paragraph-font">
+  
         </p>
 
         <Row>

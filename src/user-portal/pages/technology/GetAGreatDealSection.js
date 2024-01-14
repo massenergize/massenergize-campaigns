@@ -3,25 +3,15 @@ import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
 
-function GetAGreatDealSection ({ sectionId, data, image }) {
+function GetAGreatDealSection ({ sectionId, data, image, deals, toggleDealModal }) {
   const {
     title,
     description,
-    first_deal,
-    second_deal,
-    third_deal,
     description_2,
-    first_link,
-    second_link,
-    third_link,
+
   } = data || {};
   if (!Object.keys(data || {}).length) return <></>;
 
-  const boxes = [
-    { text: first_deal, link: first_link },
-    { text: second_deal, link: second_link },
-    { text: third_deal, link: third_link },
-  ];
   return (
     <div
       id={sectionId}
@@ -63,13 +53,17 @@ function GetAGreatDealSection ({ sectionId, data, image }) {
           >
             <Row style={{ margin: "50px 0px" }}>
               {/* {[first_deal, second_deal, third_deal].map((item, index) => { */}
-              {(boxes || []).map((item, index) => {
-                if (!item || !item?.text) return <></>;
+              {(deals || []).map((item, index) => {
+                if (!item || !item?.title) return <></>;
                 return (
                   <Col
-                    onClick={() => window.open(item?.link, "_blank")}
+                    onClick={() => {
+                      if(item?.description) return toggleDealModal && toggleDealModal(item)
+                      if(!item?.link) return 
+                      window.open(item?.link, "_blank")
+                    }}
                     className="elevate-4 touchable-opacity"
-                    key={index?.toString()}
+                    key={item?.id?.toString()}
                     lg={{ span: 3 }}
                     style={{
                       height: 150,
@@ -84,7 +78,7 @@ function GetAGreatDealSection ({ sectionId, data, image }) {
                       marginBottom: 15,
                     }}
                   >
-                    <h3 style={{ margin: 0, color: "red" }}>{item.text}</h3>
+                    <h3 style={{ margin: 0, color: "red", fontSize:"1.15rem" }}>{item.title}</h3>
                   </Col>
                 );
               })}
