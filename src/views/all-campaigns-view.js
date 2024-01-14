@@ -365,7 +365,7 @@ export function AllCampaignsView ({}) {
 				className={"table-responsive-sm table"}
 				columns={columns}
 				data={patched || []}
-				size={pageSize}
+				size={patched?.length ||10}
 				rowSelect={true}
 				skipPageReset={skipPageReset}
 				updateMyData={updateMyData}

@@ -94,6 +94,8 @@ function Coaches ({
 
     if (!contentIsValid(data)) return;
     setLoading(true);
+    data  = { ...data,    ...(isEditing && !data.image ? { image: 'reset' } : data.image ? { image: data.image } : {}) };
+    console.log("This is the data", data);
     apiCall(url, data).then((res) => {
       const { data, success, error } = res || {};
       setLoading(false);

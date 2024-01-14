@@ -66,13 +66,11 @@ export function CampaignStatistics ({}) {
         id: CAMPAIGN?.id,
       });
       if (res) {
-        mutateCampaign(res);
+        mutate(`campaign.info/${id}`, { ...CAMPAIGN, ...res });
         setLoading(false);
         blow({
           title: "Success",
-          message: res?.is_published
-            ? "Campaign published successfully"
-            : "Campaign unpublished successfully",
+          message: !res?.is_published ? "Campaign published successfully" : "Campaign unpublished successfully",
           type: "success",
           timeout: false,
         });
