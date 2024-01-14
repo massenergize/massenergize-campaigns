@@ -11,7 +11,8 @@ import "../../../assets/styles/admin-styles.scss";
 import Chip from "../../../components/admin-components/Chip";
 import { apiCall } from "src/api/messenger";
 import GhostLoader from "src/components/admin-components/GhostLoader";
-
+import CustomAccordion from "../../../components/admin-components/CustomAccordion";
+import SectionForm from "./SectionsForm";
 const INITIAL_COACH_STATE = {
   technology_id: "",
   full_name: "",
@@ -30,6 +31,7 @@ function Coaches ({
   notifyError,
   notifySuccess,
   tech_id,
+  techObject,
 }) {
   // const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -38,6 +40,7 @@ function Coaches ({
   const [formData, setFormData] = useState(INITIAL_COACH_STATE);
   // const [query, setQuery] = useState({});
   const [isEditing, setIsEditing] = useState(false);
+  const [openAccordion, setOpenAccordion] = useState(false);
 
   // TODO LATER: EDITING & CREATION CAN BE MERGED INTO ONE FORM AND ONE PROCESS!
   // const buildQuery = (key, data) => {
@@ -291,6 +294,23 @@ function Coaches ({
             </Col>
           </Row>
         </form>
+
+
+      {/*  show section */}
+     <div className="py-5">
+       <CustomAccordion
+         title={"Coaches Section"}
+         component={<SectionForm
+           section = "coaches_section"
+           data = {techObject?.coaches_section}
+           updateTechObject = {updateTechObject}
+           tech_id = {tech_id}
+
+         />}
+         isOpen={openAccordion}
+         onClick={() => setOpenAccordion(!openAccordion)}
+       />
+     </div>
       </Container>
 
     </div>
