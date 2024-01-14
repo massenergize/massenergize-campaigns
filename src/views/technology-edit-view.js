@@ -163,12 +163,11 @@ export function TechnologyEditView () {
                   variant="primary"
                   onClick={() => {
                     window.open(
-                      `/technology/${
+                      `/campaign/${campaign_id}/technology/${
                         technology_id || techObject?.technology?.id
-                      }`,
+                      }?preview=true`,
                       "_blank",
                     );
-                    // campagin/campagin_id/technolgy/camapgintech-id
                   }}
                 >
                   Preview Technology <FontAwesomeIcon icon={faExternalLink} />
