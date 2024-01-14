@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
@@ -33,7 +33,9 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
   },
 ];
-function OneTechTestimonialsSection ({ sectionId, testimonials, campaign }) {
+
+function OneTechTestimonialsSection({ sectionId, testimonials, campaign }) {
+  const containerRef = useRef();
   const navigator = useNavigate();
   const firstTestimonial = (testimonials || [])[0];
   const testimonialRoute = `/campaign/${campaign?.id}/technology/testimonial/${firstTestimonial?.id}?open=true`;
@@ -62,11 +64,16 @@ function OneTechTestimonialsSection ({ sectionId, testimonials, campaign }) {
         >
           <SectionTitle style={{ margin: 0 }}>Testimonials</SectionTitle>
 
-          <div style={{ marginLeft: "auto" }}>{/* <ArrowButtons /> */}</div>
+          <div style={{ marginLeft: "auto" }}>
+            <ArrowButtons containerRef={containerRef} />
+          </div>
         </div>
 
         <AddNewTestimonial onClick={() => navigator(testimonialRoute)} />
-        <Row style={{ overflowX: "auto", flexWrap: "nowrap" }}>
+        <Row
+          ref={containerRef}
+          style={{ overflowX: "auto", flexWrap: "nowrap" }}
+        >
           {testimonials.map((item, index) => {
             return (
               <Col key={index?.toString()} lg={4} className="mb-2">
