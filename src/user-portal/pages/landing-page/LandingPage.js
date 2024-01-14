@@ -62,7 +62,6 @@ function LandingPage ({
 
 
   const { image, config, key_contact, advert,is_published } = campaign || {};
-  const { image, config, key_contact, is_published } = campaign || {};
 
   const technologies = campaign?.technologies || [];
   const { campaignId } = useParams();
