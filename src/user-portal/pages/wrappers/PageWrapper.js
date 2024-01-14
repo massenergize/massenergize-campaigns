@@ -7,7 +7,7 @@ import { bindActionCreators } from "redux";
 import { toggleUniversalModal } from "../../../redux/actions/actions";
 import { connect } from "react-redux";
 
-function PageWrapper({ children, toggleModal, menu }) {
+function PageWrapper ({ children, toggleModal, menu }) {
   return (
     <div style={{}}>
       <AppNavigationBar />

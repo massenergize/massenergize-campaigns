@@ -3,7 +3,7 @@ import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
 
-function MoreDetailsSection({ sectionId, data }) {
+function MoreDetailsSection ({ sectionId, data }) {
   const { title, description } = data || {};
   if (!title && !description) return <></>;
 

@@ -4,7 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
 
-function EventsSection({ sectionId, technologies }) {
+function EventsSection ({ sectionId, technologies }) {
   const eventsOfEachTech = technologies?.map(
     ({
       events,

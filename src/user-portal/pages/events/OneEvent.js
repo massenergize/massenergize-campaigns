@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PageWrapper from "../wrappers/PageWrapper";
-import carPhoto from "./../../../assets/imgs/car.jpeg";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { useParams } from "react-router-dom";
 import { LOADING } from "../../../utils/Constants";
@@ -15,7 +14,8 @@ import {
   updateEventsObj,
 } from "../../../redux/actions/actions";
 import { formatTimeRange, setPageTitle } from "../../../utils/utils";
-function OneEvent({ events, updateEvents, init, campaign }) {
+
+function OneEvent ({ events, updateEvents, init, campaign }) {
   const [event, setEvent] = useState(LOADING);
   const [error, setError] = useState("");
   const { eventId, campaign_id } = useParams();
@@ -67,16 +67,14 @@ function OneEvent({ events, updateEvents, init, campaign }) {
         <Col lg={9}>
           <img
             className="elevate-float-pro mt-3"
-            src={
-              image?.url
-              // "https://massenergize-prod-files.s3.amazonaws.com/media/new_image-231024-210048"
-            }
+            src={image?.url}
             style={{
               width: "100%",
               height: 420,
               objectFit: "cover",
               borderRadius: 10,
             }}
+            alt={"event"}
           />
 
           <p className="mt-4" style={{ textAlign: "justify" }}>

@@ -1,6 +1,6 @@
 import React from "react";
 
-function RoamingModalSheet({ data }) {
+function RoamingModalSheet ({ data }) {
   const { description } = data || {};
   //   console.log("This is the advert data", data);
   return (

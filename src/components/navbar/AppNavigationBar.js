@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { addUrlParams, generateUniqueRandomString } from "../../utils/utils";
 
 const EXCLUDE_FROM_NAV = ["communities"];
-function AppNavigationBar({ menu, campaign }) {
+function AppNavigationBar ({ menu, campaign }) {
   const navigator = useNavigate();
   const { secondary_logo, primary_logo } = campaign || {};
 
@@ -36,6 +36,7 @@ function AppNavigationBar({ menu, campaign }) {
                   objectFit: "contain",
                   marginRight: 5,
                 }}
+                alt={"logo"}
               />
             )}
             {/* </Nav.Link> */}
@@ -73,6 +74,7 @@ function AppNavigationBar({ menu, campaign }) {
                     marginRight: 20,
                     fontWeight: "bold",
                   }}
+                  className={"mx-2"}
                   title={
                     <span>
                       <i
@@ -94,6 +96,7 @@ function AppNavigationBar({ menu, campaign }) {
 
                     return (
                       <NavDropdown.Item
+
                         style={{ textTransform: "uppercase" }}
                         key={child?.key}
                         onClick={() => {
@@ -105,7 +108,7 @@ function AppNavigationBar({ menu, campaign }) {
                       </NavDropdown.Item>
                     );
                   })}
-                  {/* 
+                  {/*
                   <NavDropdown.Item href="#action/3.2">
                     Another action
                   </NavDropdown.Item>
@@ -142,6 +145,7 @@ function AppNavigationBar({ menu, campaign }) {
                   objectFit: "contain",
                   // marginLeft: 5,
                 }}
+                alt={"logo"}
               />
             )}
           </Nav>

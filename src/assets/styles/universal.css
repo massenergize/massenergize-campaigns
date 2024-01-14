@@ -8,21 +8,20 @@
 * {
   font-family: "Google Sans", sans-serif;
   box-sizing: border-box;
-  margin:0px; 
-  padding:0px; 
-  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-body{ 
+body{
   overflow-x: hidden;
 }
 
 :root {
-  --app-deep-green: #3C5B11; 
+  --app-deep-green: #3c5b11;
+  --app-medium-green: #8bb256;
+  --app-kicking-yellow: #ffd66d;
+  --kicking-background: #fff5dd;
   /* --app-deep-green: #3030d0;  */
-  --app-medium-green: #8BB256;
   /* --app-medium-green: #ffc501; */
-  --app-kicking-yellow: #FFD66D; 
-  --kicking-background: #FFF5DD
   --app-antique-white: antiquewhite;
   --app-orange: #F57907;
   --app-close-red: #D33F2B;
@@ -31,40 +30,38 @@ body{
   --mob-paragraph-font-size: .9rem;
   --mob-title-font-size: calc(1.325rem + .9vw);
 
+  --admin-theme-color: #6e207c;
 }
 
-.already-liked { 
-  color:var(--app-orange)  !important
+.already-liked {
+  color: var(--app-orange) !important;
 }
 
-.touchable-opacity { 
+.touchable-opacity {
   cursor: pointer;
 }
 
-.touchable-opacity:hover { 
-  opacity: .7;
+.touchable-opacity:hover {
+  opacity: 0.7;
   transition: 0.5s;
 }
 
-.touchable-opacity:active{ 
-  transform:scale(.95);
+.touchable-opacity:active {
+  transform: scale(0.95);
 }
 
-
-.interact:active{ 
+.interact:active {
   transform: scale(1);
   color: var(--app-medium-green) !important;
 }
-.interact { 
+.interact {
   cursor: pointer;
 }
-.interact:hover { 
+.interact:hover {
   /* animation: pulse .8s forwards; */
-  transition: .3s ease-out;
+  transition: 0.3s ease-out;
   transform: scale(1.5);
-
 }
-
 
 @keyframes pulse {
   0% {

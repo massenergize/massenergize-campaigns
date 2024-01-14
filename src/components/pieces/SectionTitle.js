@@ -1,6 +1,6 @@
 import React from "react";
 
-function SectionTitle(props) {
+function SectionTitle (props) {
   let classes = `${props?.className || ""} section-title`;
   return (
     <h2

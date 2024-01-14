@@ -3,7 +3,7 @@ import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
 
-function GetAGreatDealSection({ sectionId, data, image }) {
+function GetAGreatDealSection ({ sectionId, data, image }) {
   const {
     title,
     description,

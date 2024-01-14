@@ -16,11 +16,7 @@ export const SESSION_EXPIRED = "session_expired";
  * @param { String } dataToSend
  * @param { String } relocationPage
  */
-export async function apiCall(
-  destinationUrl,
-  dataToSend = {},
-  relocationPage = null
-) {
+export async function apiCall (destinationUrl, dataToSend = {}, relocationPage = null) {
   // add some meta data for context in backend
   const data = {
     // __is_prod: IS_PROD || IS_CANARY,
@@ -41,7 +37,7 @@ export async function apiCall(
   }
 
   // special case for carbon_calculator api
-  let host = API_HOST;
+  // let host = API_HOST;
   //   if (destinationUrl.substring(0, 1) === 'cc') {
   //     host = CC_HOST;
   //     if (!IS_LOCAL) {
@@ -52,16 +48,15 @@ export async function apiCall(
   //     // not for cc api
   //     destinationUrl = "api/" + destinationUrl;
   //   }
-  destinationUrl = `${host}/${destinationUrl}`;
- 
+  destinationUrl = `${API_HOST}/${destinationUrl}`;
 
-  const response = await fetch(destinationUrl, {
+  try {
+    const response = await fetch(destinationUrl, {
     credentials: "include",
     method: "POST",
     body: formData,
   });
 
-  try {
     const contentType = response.headers.get("content-type");
     if (contentType && contentType.indexOf("application/json") !== -1) {
       const json = await response.json();
@@ -105,7 +100,7 @@ export async function apiCall(
 }
 
 // ----- Used when the backend is meant to return a file for download
-export async function apiCallFile(destinationUrl, dataToSend = {}) {
+export async function apiCallFile (destinationUrl, dataToSend = {}) {
   const idToken = localStorage.getItem("idToken");
 
   // don't need this strictUrl optional arg?  Won't work with IS_LOCAL

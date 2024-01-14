@@ -2,8 +2,10 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { HOMEPAGE } from "../../../utils/Constants";
+import RenderHTML from "../../../components/RenderHtml";
+import { ellipsify, isEmpty } from "../../../helpers/utils/string";
 
-function OneBox({
+function OneBox ({
   icon,
   description,
   name,
@@ -41,7 +43,7 @@ function OneBox({
       // }}
     >
       <div
-        className="one-box"
+        className="one-box p-4"
         // style={{
         //   height: "100%",
         //   display: "flex",
@@ -65,25 +67,27 @@ function OneBox({
         {image && (
           <img
             src={image?.url}
+            alt={image?.name}
             // style={{ height: 100, width: 100, objectFit: "contain" }}
           />
         )}
         <h5>{name}</h5>
+        <RenderHTML tag={"p"} html={!isEmpty(description) ? ellipsify(description, 80) : "..."} />
         <p style={{ textAlign: "center" }}>
           {summary?.substring(0, 80) || "..."}
         </p>
-        <a
-          className="touchable-opacity"
+        <Button
+          variant={"link"}
+          className="touchable-opacity link-accent"
           // href={`/technology/${campaign_technology_id}`}
           onClick={() => {
-            trackActivity &&
-              trackActivity({ ...common, button_type: "learn_more" });
+            trackActivity && trackActivity({ ...common, button_type: "learn_more" });
             navigator(route);
           }}
           style={{ fontWeight: "bold", color: "var(--app-orange)" }}
         >
           Learn More...
-        </a>
+        </Button>
       </div>
       <div
         className="one-box-footer phone-vanish"
@@ -102,8 +106,8 @@ function OneBox({
             trackActivity && trackActivity({ ...common, button_type: "quote" });
             navigator(`${route}?section=vendors`);
           }}
-          className="tech-btn elevate-2 touchable-opacity"
-          style={{ background: "var(--app-medium-green)" }}
+          className="tech-btn elevate-2 touchable-opacity mr-2"
+          style={{ background: "var(--app-medium-green)", marginRight: 20 }}
         >
           QUOTE
         </Button>

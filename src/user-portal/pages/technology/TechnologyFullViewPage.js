@@ -49,7 +49,7 @@ const PREVIEW_TEXT_LENGHT = 1000;
 const MOBILE_PREVIEW_TEXT_LENGTH = 200;
 const COMMENT_LENGTH = 40;
 
-function TechnologyFullViewPage({
+function TechnologyFullViewPage ({
   toggleModal,
   techs,
   updateTechObjs,
@@ -320,6 +320,7 @@ function TechnologyFullViewPage({
               <img
                 className="elevate-float-pro mt-2"
                 src={image?.url || carPhoto}
+                alt={"event"}
                 // style={{
                 //   width: "100%",
                 //   height: 420,
@@ -533,7 +534,6 @@ function TechnologyFullViewPage({
                             />
                             <span
                               style={{
-                                marginLeft: "",
                                 color: "#cbcbcb",
                                 // marginRight: 10,
                                 marginLeft: "auto",

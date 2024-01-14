@@ -11,14 +11,13 @@ import GettingStartedSection from "../getting-started/GettingStartedSection";
 import CoachesSection from "../coaches/CoachesSection";
 import Banner from "../banner/Banner";
 import planetB from "./../../../assets/imgs/planet-b.jpeg";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import {
   USER_STORAGE_KEY,
   appInnitAction,
   loadUserObjAction,
-  toggleUserInfoModal,
   trackActivity,
 } from "../../../redux/actions/actions";
 import { LOADING } from "../../../utils/Constants";
@@ -34,13 +33,15 @@ import EventsSectionWithFilters from "../events/EventsSectionWithFilters";
 import CoachesSectionWithFilters from "../coaches/CoachesSectionWithFilters";
 import CampaignNotLive from "./CampaignNotLive";
 
-function LandingPage({
+
+function LandingPage ({
   toggleModal,
   campaign,
   init,
   menu,
   trackActivity,
   authUser,
+  preview,
   whereIsUserFrom,
   updateUserInRedux,
 }) {
@@ -59,10 +60,14 @@ function LandingPage({
     communities: communitiesRef,
   };
 
-  const { image, config, key_contact, advert } = campaign || {};
+
+  const { image, config, key_contact, advert,is_published } = campaign || {};
+  const { image, config, key_contact, is_published } = campaign || {};
 
   const technologies = campaign?.technologies || [];
   const { campaignId } = useParams();
+
+  const loggedInAdmin  = useSelector(state => state.authAdmin);
 
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
@@ -132,6 +137,7 @@ function LandingPage({
       fullControl: true,
     });
   };
+
   const showMoreAboutAdvert = () => {
     const data = advert || {};
     toggleModal({
@@ -144,13 +150,30 @@ function LandingPage({
     });
   };
 
-  if (campaign === LOADING)
+  useEffect(() => {
+    if(!preview) init(campaignId);
+  }, []);
+
+  if (campaign === LOADING && !preview)
     return <Loading fullPage>Fetching campaign details...</Loading>;
 
   if (!campaign) return <NotFound></NotFound>;
 
   let previewMode = fetchUrlParams("preview");
-  previewMode = previewMode?.trim() === "true" ? true : false;
+  previewMode = previewMode?.trim() === "true";
+
+  if((!is_published && !previewMode) && !(loggedInAdmin?.is_community_admin|| loggedInAdmin?.is_super_admin)) return (
+    <Container style={{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      minHeight: "100vh",
+    }}>
+      <h1>This campaign is not Live. Contact Admin</h1>
+
+    </Container>
+  );
 
   return (
     <div style={{}}>
@@ -200,6 +223,7 @@ function LandingPage({
             //   marginTop: 20,
             //   objectFit: "cover",
             // }}
+            alt={"campaign banner"}
           />
         </Container>
         <RoamingBox

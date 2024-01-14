@@ -2,6 +2,7 @@ import React from "react";
 import OneBox from "./OneBox";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import people from "./../../../assets/imgs/g_people.png";
+
 const dummies = [
   {
     key: "heat-pump",
@@ -23,7 +24,7 @@ const dummies = [
   },
 ];
 
-function GettingStartedSection({
+function GettingStartedSection ({
   sectionId,
   technologies,
   scrollToCommunities,
@@ -58,13 +59,7 @@ function GettingStartedSection({
             >
               {technologies?.map((box, index) => {
                 return (
-                  <Col
-                    key={box.id}
-                    lg={3}
-                    xs={6}
-                    sm={6}
-                    className="one-tech-wrapper"
-                  >
+                  <Col key={box.id} md={4} lg={3} className="one-tech-wrapper mb-4">
                     <OneBox
                       {...box}
                       trackActivity={trackActivity}
@@ -73,7 +68,7 @@ function GettingStartedSection({
                   </Col>
                 );
               })}
-              <Col lg={3} xs={6} sm={6} className="one-tech-wrapper">
+              <Col md={3} lg={3} className="one-tech-wrapper">
                 <DoMoreBox
                   scrollToCommunities={() =>
                     scrollToCommunities && scrollToCommunities()
@@ -124,7 +119,7 @@ const DoMoreBox = ({ scrollToCommunities }) => {
       // }}
     >
       <div
-        className="one-box"
+        className="one-box  p-4"
         // style={{
         //   height: "100%",
         //   display: "flex",
@@ -138,6 +133,7 @@ const DoMoreBox = ({ scrollToCommunities }) => {
         <img
           // src={"https://placehold.co/100x100"}
           src={people}
+          alt="people"
           // style={{
           //   height: 100,
           //   width: 100,
@@ -150,7 +146,8 @@ const DoMoreBox = ({ scrollToCommunities }) => {
           Want to do more? Check out other actions you can take on our community
           sites!
         </p>
-        <a
+        <Button
+          variant={"link"}
           onClick={(e) => {
             e.preventDefault();
             scrollToCommunities();
@@ -161,7 +158,7 @@ const DoMoreBox = ({ scrollToCommunities }) => {
           style={{ fontWeight: "bold", color: "var(--app-orange)" }}
         >
           Our Communities
-        </a>
+        </Button>
       </div>
 
       <div

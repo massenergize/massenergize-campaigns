@@ -2,7 +2,7 @@ import React from "react";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import { Col, Container, Row } from "react-bootstrap";
 
-function DoMore({ campaign }) {
+function DoMore ({ campaign }) {
   const { communities, communities_section } = campaign || {};
   const { title, description } = communities_section || {};
 
@@ -46,8 +46,10 @@ function DoMore({ campaign }) {
                       objectFit: "contain",
                     }}
                     src={community?.logo?.url}
+                    alt={"logo"}
                   />
                   <h6
+                    role={"button"}
                     onClick={() => {
                       window.open(
                         `${COMMUNITY_PORTAL_URL}${community?.subdomain}`

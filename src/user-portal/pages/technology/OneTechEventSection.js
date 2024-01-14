@@ -8,6 +8,7 @@ import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 
 function OneTechEventSection({ events, style, wrapperStyle }) {
   const containerRef = useRef();
+
   if (!events?.length) return <></>;
   return (
     <div

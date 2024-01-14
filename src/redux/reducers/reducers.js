@@ -3,10 +3,15 @@ import {
   ONE_TECH_DATA,
 } from "../../user-portal/data/user-portal-dummy-data";
 import { LOADING } from "../../utils/Constants";
+import { portalIsAdmin } from "../../utils/utils";
 import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
+  SET_AUTH_USER,
+  SET_CAMPAIGN_ACCOUNT,
+  SET_FIRE_AUTH,
   SET_FULL_TECH_OBJ,
+  SET_IS_ADMIN_PORTAL,
   SET_NAVIGATION_MENU,
   SET_TESTIMONIALS,
   SET_USER_OBJ,
@@ -60,6 +65,18 @@ export const testimonialsListReducer = (state = {}, action = {}) => {
   }
   return state;
 };
+export const firebaseAuthObjReducer = (state = LOADING, action = {}) => {
+  if (action.type === SET_FIRE_AUTH) {
+    return action.payload;
+  }
+  return state;
+};
+export const authenticatedAdminReducer = (state = LOADING, action = {}) => {
+  if (action.type === SET_AUTH_USER) {
+    return action.payload;
+  }
+  return state;
+};
 export const navigationMenuReducer = (state = [], action = {}) => {
   if (action.type === SET_NAVIGATION_MENU) {
     return action.payload;
@@ -77,4 +94,21 @@ export const testimonialsReducer = (state = [], action = {}) => {
     return action.payload;
   }
   return state;
+};
+
+export const campaignAccountReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SET_CAMPAIGN_ACCOUNT:
+      return action.payload; // return new state
+    default:
+      return state; // return current state if action is not handled
+  }
+};
+export const adminPortalReducer = (state = portalIsAdmin(), action) => {
+  switch (action.type) {
+    case SET_IS_ADMIN_PORTAL:
+      return action.payload; // return new state
+    default:
+      return state; // return current state if action is not handled
+  }
 };

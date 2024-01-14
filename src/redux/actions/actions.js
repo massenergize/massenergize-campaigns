@@ -1,9 +1,12 @@
 import { apiCall } from "../../api/messenger";
+import { auth } from "../../config/firebase/admin/fire-config";
 import { CAMPAIGN_INFORMATION_URL, CAMPAIGN_VIEW_URL } from "../../api/urls";
 import JoinUsForm from "../../user-portal/pages/forms/JoinUsForm";
 import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
+  SET_AUTH_USER,
+  SET_FIRE_AUTH,
   SET_COMMENTS,
   SET_FULL_TECH_OBJ,
   SET_NAVIGATION_MENU,
@@ -12,7 +15,10 @@ import {
   TOGGLE_UNIVERSAL_MODAL,
   UPDATE_EVENT_OBJ,
   UPDATE_TESTIMONIALS_OBJ,
+  SET_CAMPAIGN_ACCOUNT,
+  SET_IS_ADMIN_PORTAL,
 } from "../redux-action-types";
+import { signOut } from "firebase/auth";
 
 export const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
 export const testReduxAction = (someValue = []) => {
@@ -40,6 +46,12 @@ export const updateEventsObj = (payload) => {
 export const updateTestimonialsObjAction = (payload) => {
   return { type: UPDATE_TESTIMONIALS_OBJ, payload };
 };
+export const setAuthAdminAction = (payload) => {
+  return { type: SET_AUTH_USER, payload };
+};
+export const setFirebaseAuthAction = (payload) => {
+  return { type: SET_FIRE_AUTH, payload };
+};
 export const setNavigationMenuAction = (payload) => {
   return { type: SET_NAVIGATION_MENU, payload };
 };
@@ -47,6 +59,10 @@ export const setCommentsAction = (payload) => {
   return { type: SET_COMMENTS, payload };
 };
 
+// ------ Admin Redux------
+export const setCampaignAccountAction = (payload) => {
+  return { type: SET_CAMPAIGN_ACCOUNT, payload };
+};
 // export const recorderAView = () => {
 //   apiCall("/campaigns.technology.view", {
 //     campaign_technology_id: technology?.campaign_technology_id,
@@ -125,4 +141,33 @@ export const appInnitAction = (campaignId, cb) => {
       })
       .catch((e) => console.log("ERROR_IN_INNIT:", e?.toString()));
   };
+};
+
+export const fetchMeUser = (payload, cb) => {
+  return (dispatch) =>
+    apiCall("/auth.login", payload).then((response) => {
+      const { data, error, success } = response || {};
+
+      if (!success) {
+        cb && cb(data, error);
+        return console.log("ERROR_FETCHING_ME_USER: ", error?.toString());
+      }
+
+      cb && cb(data, null);
+      dispatch(setAuthAdminAction(data));
+    });
+};
+
+export const logUserOut = () => {
+  return (dispatch) =>
+    signOut(auth).then(() => {
+      console.log("You are successfully signed out!");
+      // Redirect to login page or something
+      dispatch(setAuthAdminAction(null));
+      dispatch(setFirebaseAuthAction(null));
+      // dispatch(s(null))
+    });
+};
+export const setAdminPortalBooleanAction = (payload =false) => {
+  return { type: SET_IS_ADMIN_PORTAL, payload };
 };

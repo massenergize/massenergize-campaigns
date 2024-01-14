@@ -3,7 +3,7 @@ import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Row } from "react-bootstrap";
 
-function Vendors({ sectionId, data, vendors }) {
+function Vendors ({ sectionId, data, vendors }) {
   const { title, description } = data;
 
   // if(!vendors?.length)
@@ -32,6 +32,8 @@ function Vendors({ sectionId, data, vendors }) {
             {vendors?.map(({ vendor }) => {
               return (
                 <li
+                  role={"button"}
+                  tabIndex={0}
                   onClick={() => {
                     const link = vendor?.link;
                     if (!link) return;

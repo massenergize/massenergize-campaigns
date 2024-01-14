@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function CommentDeleteConfirmation({ onDelete, show }) {
+function CommentDeleteConfirmation ({ onDelete, show }) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   if (!show) return <></>;

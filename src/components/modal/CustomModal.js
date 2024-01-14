@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 
-function CustomModal(props) {
+function CustomModal (props) {
   const { show, component, modalNativeProps, fullControl, style, close } =
     props || {};
   if (!show) return <></>;
@@ -49,6 +49,7 @@ const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName }) => {
             marginBlock: 10,
             marginRight: 10,
           }}
+          alt={""}
         ></img>
       );
 

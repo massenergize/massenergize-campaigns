@@ -10,7 +10,7 @@ const items = [
   { key: "whatsapp", text: "Whatsapp", icon: "fa-whatsapp", alias: "whatsapp" },
   { key: "other", text: "Other", icon: "", alias: "" },
 ];
-function ShareBox({ data, onChange, campaign, authUser }) {
+function ShareBox ({ data, onChange, campaign, authUser }) {
   const [copied, setCopied] = useState(false);
   const [state, setState] = useState({});
   const [error, setError] = useState({});
