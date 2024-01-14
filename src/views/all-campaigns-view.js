@@ -90,7 +90,7 @@ export function AllCampaignsView ({}) {
 				const { created_at } = values;
 				return dayjs(created_at).format("MM-DD-YYYY");
 			},
-			disableSortBy: true,
+			disableSortBy: false,
 			filter: "equals",
 			id: "created_at",
 			style: {
