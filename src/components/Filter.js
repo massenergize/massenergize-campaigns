@@ -58,6 +58,7 @@ function Filter({
             const isChecked = filterIsSelected(getValue(item));
             return (
               <NavDropdown.Item
+                className="f-dropdown-override"
                 onClick={(e) => {
                   e.preventDefault();
                   addToSelection(item);
@@ -77,10 +78,7 @@ function Filter({
       </div>
 
       {hasSelections && (
-        <div
-          className="row-flex"
-          style={{ padding: "20px 0px", flexWrap: "wrap" }}
-        >
+        <div className="row-flex" style={{ padding: "20px 0px", flexWrap: "wrap" }}>
           {" "}
           {selection?.map((item) => {
             return (
