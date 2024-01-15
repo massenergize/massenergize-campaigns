@@ -257,11 +257,10 @@ export function AllCampaignsView ({}) {
     data: campaigns,
     isLoading : campaignsLoading,
   } = useSWR(
-    `campaigns.listForAdmin`,
+    `campaigns.listForAdmin/${campaignAccount?.id || ""}}`,
     () => fetchAllCampaigns("campaigns.listForAdmin", campaignAccount?.id),
     {
       onSuccess: (data) => {
-        console.log("Nice stuff insid db", { data });
       },
     },
   );
@@ -310,7 +309,7 @@ export function AllCampaignsView ({}) {
     setCampaignShow(filteredData);
   }, [searchText, campaigns]);*/
 
-  const patched = campaigns.map((campaign, i) => {
+  const patched = (campaigns || []).map((campaign, i) => {
     return {
       ...campaign,
       title: campaign?.title,
