@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { Spinner } from "@kehillahglobal/ui";
-import { Col, Container, Row, FormLabel, Form } from "react-bootstrap";
+import {
+  Col,
+  Container,
+  Row,
+  FormLabel,
+  Form,
+  Button as BTN,
+} from "react-bootstrap";
 import { MultiSelect } from "react-multi-select-component";
 import Chip from "src/components/admin-components/Chip";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
@@ -78,8 +85,25 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
       </div>
     );
 
+  console.log(allVendors);
+
   return (
     <div style={{ height: "100vh" }}>
+      <div className="py-5">
+        <CustomAccordion
+          title={"Customize The Title and Description of Vendors Section"}
+          component={
+            <SectionForm
+              section="vendors_section"
+              data={techObject?.vendors_section}
+              updateTechObject={updateTechObject}
+              tech_id={tech_id}
+            />
+          }
+          isOpen={openAccordion}
+          onClick={() => setOpenAccordion(!openAccordion)}
+        />
+      </div>
       <Container>
         <Form>
           <FormLabel>
@@ -91,7 +115,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
               return {
                 ...vendor,
                 value: vendor?.id,
-                label: vendor?.name,
+                label: `${vendor?.name} --- ${vendor?.communities[0]?.name} community`,
               };
             })}
             hasSelectAll={true}
@@ -117,8 +141,8 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
         </Form>
 
         <Row className="mt-4">
-          <Col>
-            <Row>
+          {/* <Col>
+            <table>
               {selectedVendors?.map((vendor) => {
                 return (
                   <Col key={vendor?.id} sm={"auto mb-2"}>
@@ -137,8 +161,64 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
                   </Col>
                 );
               })}
-            </Row>
-          </Col>
+            </table>
+          </Col> */}
+
+          {selectedVendors?.length > 0 ? (
+            <>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Website</th>
+                    <th scope="col">Key Contact</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(selectedVendors || [])?.map((vendor) => {
+                    return (
+                      <tr key={vendor?.id} className="text-sm">
+                        <td>{vendor?.name}</td>
+                        <td
+                          onClick={() => {
+                            console.log(vendor);
+                          }}
+                        >
+                          {vendor?.website ? vendor?.website : "N/A"}
+                        </td>
+                        <td className="text-capitalize">
+                          {vendor?.key_contact?.email
+                            ? vendor?.key_contact?.email
+                            : "N/A"}
+                        </td>
+                        <td className="text-cnter">
+                          <BTN
+                            // style={{ marginLeft: 10 }}
+                            onClick={(id, text) => {
+                              if (
+                                window.confirm(
+                                  "Are you sure you want to remove this vendor?",
+                                )
+                              ) {
+                                const filtered = selectedVendors?.filter(
+                                  (vend) => vend?.id !== vendor?.id,
+                                );
+                                setSelectedVendors(filtered);
+                              }
+                            }}
+                            variant="primary"
+                          >
+                            <span>Remove</span>
+                          </BTN>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </>
+          ) : null}
         </Row>
 
         <Row className="mt-4 justify-content-end">
@@ -153,22 +233,6 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
           </Col>
         </Row>
       </Container>
-
-      <div className="py-5">
-        <CustomAccordion
-          title={"Customize The Title and Description of Vendors Section"}
-          component={
-            <SectionForm
-              section="vendors_section"
-              data={techObject?.vendors_section}
-              updateTechObject={updateTechObject}
-              tech_id={tech_id}
-            />
-          }
-          isOpen={openAccordion}
-          onClick={() => setOpenAccordion(!openAccordion)}
-        />
-      </div>
     </div>
   );
 };
