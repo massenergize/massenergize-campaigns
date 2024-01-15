@@ -4,7 +4,7 @@ import { Button, Form, ModalFooter } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const DEFAULT_HELP_LINK = ""; // to be provided by Amie
+const DEFAULT_HELP_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSeb7oZ2XRTdGWuasXmGmjjF8xAbE8jryu8SJxZlCOqWTJNKMA/viewform"; // to be provided by Amie
 
 function GetHelpForm ({ close, communities, authUser }) {
   const [form, setForm] = useState({});
@@ -36,7 +36,7 @@ function GetHelpForm ({ close, communities, authUser }) {
   const { campaign_community } = form || {};
   const { community } = campaign_community || {};
   const findHelp = () => {
-    window.open(campaign_community?.help_link, "_blank");
+    window.open(campaign_community?.help_link || DEFAULT_HELP_LINK, "_blank");
   };
 
   // useEffect(() => {}, []);

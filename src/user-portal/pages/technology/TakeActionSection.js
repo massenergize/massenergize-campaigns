@@ -33,7 +33,7 @@ const dummies = [
     type: "incentives",
   },
 ];
-function TakeAtionSetion ({
+function TakeAtionSetion({
   sectionId,
   scrollToSection,
   authUser,
@@ -101,6 +101,7 @@ function TakeAtionSetion ({
                   style={{
                     fontSize: "small",
                     textAlign: "center",
+                    marginBottom: 10,
                   }}
                 >
                   {item.content}

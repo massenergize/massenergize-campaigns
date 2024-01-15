@@ -41,7 +41,8 @@ function FileUploader (props) {
     }
   };
 
-  const handleRemoveImage = () => {
+  const handleRemoveImage = (e) => {
+    e.stopPropagation();
     setPreviewUrl(null);
     setValues({
       ...values,
@@ -56,15 +57,7 @@ function FileUploader (props) {
 
   return (
     <div className={classes("file-upload", { "border-danger": error })} style={{ position: "relative" }}>
-      <label htmlFor={ID} className="file-input-label">
-        <input
-          hidden
-          id={ID}
-          type="file"
-          className="file-input"
-          onChange={handleFileChange}
-          accept={accept ? accept : "image/*"}
-        />
+      <div className={"position-relative"}>
         {preview && (
           <button
             type="button"
@@ -95,19 +88,28 @@ function FileUploader (props) {
             </svg>
           </button>
         )}
-        <div className={"position-relative w-100 h-100"}>
-          {preview ? (
-            <>
-              <img
-                src={accept === ".csv" ? "/img/csv-icon.png" : preview}
-                alt="Preview"
-                className="preview-image"
-              />
-            </>
-          ) : (
-            <span
-              style={{ position: "absolute", top: "2.6rem", left: "2.5rem" }}
-            >
+        <label htmlFor={ID} className="file-input-label">
+          <input
+            hidden
+            id={ID}
+            type="file"
+            className="file-input"
+            onChange={handleFileChange}
+            accept={accept ? accept : "image/*"}
+          />
+          <div className={"position-relative w-100 h-100"}>
+            {preview ? (
+              <>
+                <img
+                  src={accept === ".csv" ? "/img/csv-icon.png" : preview}
+                  alt="Preview"
+                  className="preview-image"
+                />
+              </>
+            ) : (
+              <span
+                style={{ position: "absolute", top: "2.6rem", left: "2.5rem" }}
+              >
               <svg
                 stroke="#D1D5DB"
                 fill="#D1D5DB"
@@ -124,15 +126,16 @@ function FileUploader (props) {
                 ></path>
               </svg>
             </span>
-          )}
-        </div>
-      </label>
+            )}
+          </div>
+        </label>
+      </div>
 
       <p style={{ color: "#9CA3AF", textAlign: "center" }}>
         {text} {required && "*"}
       </p>
     </div>
   );
-};
+}
 
 export default FileUploader;

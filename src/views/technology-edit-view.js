@@ -1,6 +1,6 @@
 import { useTechnologyContext } from "../hooks/use-technology-context";
 import { technologyPages } from "../utils/Constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useBubblyBalloons } from "../lib/bubbly-balloon/use-bubbly-balloons";
 import useSWR from "swr";
@@ -78,15 +78,24 @@ export function TechnologyEditView () {
     },
     {
       onSuccess: (data) => {
-        setTechObject(data);
-        setNewTechnologyDetails(data);
-        inflate(data);
+        // setTechObject(data);
+        // setNewTechnologyDetails(data);
+        // inflate(data);
       },
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
       errorRetryCount: 1,
     },
   );
+
+  useEffect(() => {
+    if (technologyData) {
+      setTechObject(technologyData);
+      setNewTechnologyDetails(technologyData);
+      inflate(technologyData);
+    }
+  }, [technologyData, setNewTechnologyDetails]);
+
   const notifyError = (message) => {
     notify({
       title: "Error",
@@ -170,9 +179,7 @@ export function TechnologyEditView () {
                   tabIndex={0}
                   key={key}
                   style={{ opacity: deactivate ? 0.6 : 1 }}
-                  className={classes("nav-tabs-main tab", {
-                    "tab-active": activeTab === key,
-                  })}
+                  className={classes("nav-tabs-main tab", { "tab-active": activeTab === key, })}
                   onClick={() => {
                     if (deactivate) return;
                     setActiveTab(key);

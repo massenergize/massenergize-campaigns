@@ -97,7 +97,7 @@ const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) =
   const TESTIMONIALS_SIZE = (selectedTestimonials || [])?.length;
 
   return (
-    <Container>
+    <div>
       <form>
         <Row>
           <Col>
@@ -214,7 +214,7 @@ const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) =
           </Row>
         }
       </form>
-    </Container>
+    </div>
   );
 };
 
