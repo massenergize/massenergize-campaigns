@@ -38,8 +38,6 @@ function Coaches ({
   const [isEditing, setIsEditing] = useState(false);
   const coachFormRef = useRef(null);
 
-
-
   const interactWithCoachForm = () => {
     // setShowCoachForm(true);
     if (coachFormRef?.current)
