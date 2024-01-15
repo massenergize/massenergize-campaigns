@@ -1,6 +1,6 @@
 import { useTechnologyContext } from "../hooks/use-technology-context";
 import { technologyPages } from "../utils/Constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useBubblyBalloons } from "../lib/bubbly-balloon/use-bubbly-balloons";
 import useSWR from "swr";
@@ -79,12 +79,20 @@ export function TechnologyEditView () {
     },
     {
       onSuccess: (data) => {
-        setTechObject(data);
-        setNewTechnologyDetails(data);
-        inflate(data);
+        // setTechObject(data);
+        // setNewTechnologyDetails(data);
+        // inflate(data);
       },
     },
   );
+
+  useEffect(() => {
+    if (technologyData) {
+      setTechObject(technologyData);
+      setNewTechnologyDetails(technologyData);
+      inflate(technologyData);
+    }
+  }, [technologyData, setNewTechnologyDetails]);
 
   const notifyError = (message) => {
     notify({
