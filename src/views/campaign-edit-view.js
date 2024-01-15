@@ -3,6 +3,8 @@ import { CampaignDetailsAndPreview } from "../admin-portal/create-campaign/campa
 import { useCampaignContext } from "../hooks/use-campaign-context";
 import useSWR from "swr";
 import { fetchCampaign } from "../requests/campaign-requests";
+import { HorizontalPushLoader } from "../components/horizontal-push-loader/horizontal-push-loader";
+import { useEffect } from "react";
 
 export function CampaignEditView ({id, edit=true, STEP, setStep}) {
   const {
@@ -20,13 +22,19 @@ export function CampaignEditView ({id, edit=true, STEP, setStep}) {
     data: { id },
     errorCode: "FETCH_CAMPAIGN_ERROR",
     onSuccess: (data) => {
-      setNewCampaignDetails(data);
+      // setNewCampaignDetails(data);
     }
   })
 
+  useEffect(() => {
+    if (campaignData && id) {
+      setNewCampaignDetails(campaignData);
+    }
+  }, [campaignData, id, setNewCampaignDetails])
+
   return (
     <div className={""}>
-      { campaignIsLoading ? (<Loading/>) : null }
+      { campaignIsLoading ? (<HorizontalPushLoader className={"mt-5"}/>) : null }
       { campaignError ? (<div><h5>An error occurred</h5></div>) : null }
       {
         !campaignIsLoading && !campaignError ? (<CampaignDetailsAndPreview setStep={setStep} step={STEP}/>) : null
