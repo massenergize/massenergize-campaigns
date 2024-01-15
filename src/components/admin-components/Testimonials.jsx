@@ -1,4 +1,4 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsisVertical, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { motion as m } from "framer-motion";
 import React, { useReducer, useState } from "react";
 import { Col, Container, Row, Button as BTN } from "react-bootstrap";
@@ -17,6 +17,7 @@ import Form from "react-bootstrap/Form";
 import "./sideNav.css";
 import { relativeTimeAgo } from "../../utils/utils";
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const USER_TYPES = {
   MYSELF: "Myself",
@@ -31,9 +32,10 @@ const Testimonials = ({ campaign, mutateData }) => {
   testimonials = [...testimonials, ...campaign?.my_testimonials];
 
   const { blow, pop } = useBubblyBalloons();
-  const {
-    data: users,
-  } = useSWR("users.listForCommunityAdmin", getUsers({ no_pagination: true }));
+  const { data: users } = useSWR(
+    "users.listForCommunityAdmin",
+    getUsers({ no_pagination: true }),
+  );
 
   const loggedInUser = useSelector((state) => state.authAdmin);
 
@@ -62,6 +64,7 @@ const Testimonials = ({ campaign, mutateData }) => {
 
   const [formData, dispatch] = useReducer(reducer, initialState);
   const [userType, setUserType] = useState("");
+  const [viewOpt, setViewOpt] = useState();
 
   const handleFieldChange = (field, value) => {
     dispatch({ type: "SET_FIELD_VALUE", field, value });
@@ -104,11 +107,7 @@ const Testimonials = ({ campaign, mutateData }) => {
   // {, body, , , , }
 
   return (
-    <m.div
-      initial={{ y: "15%" }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.3 }}
-    >
+    <m.div initial={{ y: "15%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
       <m.div className="mb-4 pb-4">
         {openCreateForm ? (
           <Container className="border-dashed">
@@ -134,10 +133,7 @@ const Testimonials = ({ campaign, mutateData }) => {
                     valueExtractor={(item) => item?.community?.id}
                     labelExtractor={(item) => item?.community?.name}
                     onItemSelected={(selectedItem, allSelected) => {
-                      handleFieldChange(
-                        "community_id",
-                        selectedItem?.community?.id
-                      );
+                      handleFieldChange("community_id", selectedItem?.community?.id);
                     }}
                   />
                 </Col>
@@ -152,7 +148,7 @@ const Testimonials = ({ campaign, mutateData }) => {
                     onItemSelected={(selected) => {
                       handleFieldChange(
                         "campaign_technology_id",
-                        selected?.campaign_technology_id
+                        selected?.campaign_technology_id,
                       );
                     }}
                   />
@@ -319,7 +315,95 @@ const Testimonials = ({ campaign, mutateData }) => {
       >
         {testimonials?.map((testimonial) => {
           return (
-            <div className="border-no-dash">
+            <div key={testimonial?.id} className="border-no-dash">
+              <div className="relative">
+                <button
+                  className="flex align-items-end justify-content-end w-100"
+                  style={{
+                    marginTop: "-20px",
+                    backgroundColor: "transparent",
+                    color: "black",
+                  }}
+                  onClick={() => {
+                    viewOpt?.id === testimonial?.id
+                      ? setViewOpt(null)
+                      : setViewOpt(testimonial);
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={faEllipsisVertical}
+                    style={{ fontSize: "26px", cursor: "pointer", padding: "6px" }}
+                  />
+                </button>
+                {viewOpt?.id === testimonial?.id && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "7px",
+                      right: "18px",
+                      display: "flex",
+                      flexDirection: "column",
+                      backgroundColor: "white",
+                      border: "solid 1px gray",
+                      borderRadius: "5px",
+                      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+                    }}
+                  >
+                    <button
+                      style={{
+                        color: "black",
+                        padding: "5px 30px",
+                        fontSize: "14px",
+                        backgroundColor: "transparent",
+                        zIndex: 5,
+                      }}
+                      className="v-btn-h"
+                      onClick={() => {
+                        let alert = window.confirm(
+                          "Are you sure you want to Remove this Testimonial?",
+                        );
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      style={{
+                        color: "black",
+                        padding: "5px",
+                        fontSize: "14px",
+                        backgroundColor: "transparent",
+                        zIndex: 5,
+                      }}
+                      className="v-btn-h"
+                      onClick={() => {
+                        let alert = window.confirm(
+                          "Are you sure you want to Feature this Testimonial?",
+                        );
+                      }}
+                    >
+                      Feature
+                    </button>
+                    <button
+                      style={{
+                        color: "black",
+                        padding: "5px",
+                        fontSize: "14px",
+                        backgroundColor: "transparent",
+                        zIndex: 5,
+                      }}
+                      className="v-btn-h"
+                      onClick={() => {
+                        let alert = window.confirm(
+                          "Are you sure you want to Remove this Testimonial?",
+                        );
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                )}
+              </div>
+
               <h5 style={{ color: "green", textTransform: "uppercase" }}>
                 {testimonial?.user?.full_name}
               </h5>
@@ -338,9 +422,7 @@ const Testimonials = ({ campaign, mutateData }) => {
               <div
                 className={"testimonial-read-more-toggle"}
                 onClick={() => {
-                  setReadMore(
-                    readMore === testimonial?.id ? null : testimonial?.id
-                  );
+                  setReadMore(readMore === testimonial?.id ? null : testimonial?.id);
                 }}
               >
                 <p style={{ fontSize: "14px", marginBottom: "20px" }}>

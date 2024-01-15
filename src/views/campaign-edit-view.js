@@ -22,15 +22,15 @@ export function CampaignEditView ({id, edit=true, STEP, setStep}) {
     data: { id },
     errorCode: "FETCH_CAMPAIGN_ERROR",
     onSuccess: (data) => {
-      // setNewCampaignDetails(data);
+      setNewCampaignDetails(data);
     }
   })
 
-  useEffect(() => {
-    if (campaignData && id) {
-      setNewCampaignDetails(campaignData);
-    }
-  }, [campaignData, id, setNewCampaignDetails])
+  // useEffect(() => {
+  //   if (campaignData && id) {
+  //     setNewCampaignDetails(campaignData);
+  //   }
+  // }, [campaignData, id, setNewCampaignDetails])
 
   return (
     <div className={""}>

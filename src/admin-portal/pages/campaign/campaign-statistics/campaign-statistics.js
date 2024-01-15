@@ -28,7 +28,7 @@ import { useBubblyBalloons } from "../../../../lib/bubbly-balloon/use-bubbly-bal
 import GhostLoader from "../../../../components/admin-components/GhostLoader";
 import { daysOfWeek, monthsOfYear } from "../../../../utils/Constants";
 
-export function CampaignStatistics ({}) {
+export function CampaignStatistics({}) {
   const { id } = useParams();
 
   const [loading, setLoading] = useState(false);
@@ -70,7 +70,9 @@ export function CampaignStatistics ({}) {
         setLoading(false);
         blow({
           title: "Success",
-          message: !res?.is_published ? "Campaign published successfully" : "Campaign unpublished successfully",
+          message: !res?.is_published
+            ? "Campaign published successfully"
+            : "Campaign unpublished successfully",
           type: "success",
           timeout: false,
         });
@@ -295,8 +297,12 @@ export function CampaignStatistics ({}) {
 
               <Row className="mt-4">
                 <Col>
-                  {tabs?.map((tab) => {
-                    return activeTab === tab?.name && <div>{tab?.component}</div>;
+                  {tabs?.map((tab, index) => {
+                    return (
+                      activeTab === tab?.name && (
+                        <div key={index}>{tab?.component}</div>
+                      )
+                    );
                   })}
                 </Col>
               </Row>

@@ -97,7 +97,7 @@ const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) =
   const TESTIMONIALS_SIZE = (selectedTestimonials || [])?.length;
 
   return (
-    <div>
+    <div className='px-4 py-5'>
       <form>
         <Row>
           <Col>
@@ -186,7 +186,7 @@ const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) =
                                 handleRemove(testimonial);
                               }
                             }}
-                            variant="primary"
+                            variant="danger"
                           >
                             <span>Remove</span>
                           </BTN>
