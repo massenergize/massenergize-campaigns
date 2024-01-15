@@ -8,3 +8,8 @@ export const SWR_CONFIG = {
   revalidateOnFocus: true,
   revalidateOnReconnect: false, // automatically revalidates when network recovers
 };
+
+export const SWR_NO_REFRESH_CONFIG = {
+  revalidateOnFocus: false,
+  revalidateOnReconnect: false,
+};
