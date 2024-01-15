@@ -10,6 +10,7 @@ import MERichText from "../../../components/admin-components/RichText";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import { apiCall } from "src/api/messenger";
 import { useTechnologyContext } from "../../../hooks/use-technology-context";
+import { getImageValue } from "../../../helpers/utils";
 
 function Info ({
   information,
@@ -75,6 +76,7 @@ function Info ({
       ...information,
       id: tech_id,
       campaign_id,
+      ...(getImageValue(information, "image")),
     }).then((response) => {
       const { data, success, error } = response || {};
       setLoading(false);
