@@ -155,3 +155,38 @@ export async function updateTechnology (data, url = "technologies.update") {
   }
 }
 
+export async function addTechnologyDeal (data, url = "technologies.deals.create") {
+  try {
+    const response = await apiCall(url, data, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "ADD_TECHNOLOGY_DEAL_ERROR_BE");
+    }
+    return response?.data;
+  } catch (error) {
+    handleRequestError(error, "ADD_TECHNOLOGY_DEAL_ERROR");
+  }
+}
+
+export async function updateTechnologyDeal (data, url = "technologies.deals.update") {
+  try {
+    const response = await apiCall(url, data, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "UPDATE_TECHNOLOGY_DEAL_ERROR_BE");
+    }
+    return response?.data;
+  } catch (error) {
+    handleRequestError(error, "UPDATE_TECHNOLOGY_DEAL_ERROR");
+  }
+}
+
+export async function removeTechnologyDeal (data, url = "technologies.deals.delete") {
+  try {
+    const response = await apiCall(url, data, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "REMOVE_TECHNOLOGY_DEAL_ERROR_BE");
+    }
+    return response?.data;
+  } catch (error) {
+    handleRequestError(error, "REMOVE_TECHNOLOGY_DEAL_ERROR");
+  }
+}
