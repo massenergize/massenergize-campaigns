@@ -142,6 +142,7 @@ export async function addTestimonials (data, url = "campaigns.technologies.testi
   }
 }
 
+
 export async function updateTechnology (data, url = "technologies.update") {
   try {
     const response = await apiCall(url, data, null);
