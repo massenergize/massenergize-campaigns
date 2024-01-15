@@ -1,11 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Button,
-  Form,
-  InputGroup,
-  ModalFooter,
-  Spinner,
-} from "react-bootstrap";
+import { Button, Form, InputGroup, ModalFooter, Spinner } from "react-bootstrap";
 import { Editor } from "@tinymce/tinymce-react";
 import Notification from "../../../components/pieces/Notification";
 import { bindActionCreators } from "redux";
@@ -14,7 +8,7 @@ import { apiCall } from "../../../api/messenger";
 import { setTestimonialsActions } from "../../../redux/actions/actions";
 
 const NULL = "null";
-function NewTestimonialForm ({
+function NewTestimonialForm({
   close,
   campaign,
   callbackOnSubmit,
@@ -85,11 +79,10 @@ function NewTestimonialForm ({
           console.log("ERROR_CREATING_TESTIMONIAL_BE:", error);
         }
         reset();
-
-        updateTestimonials([data, ...testimonials]);
+        updateTestimonials({ [data?.id]: data, ...testimonials });
         notify(
           "Thanks for leaving a testimonial! Our admins will review & publish it as soon as possible!",
-          true
+          true,
         );
       })
       .catch((e) => {
@@ -305,9 +298,7 @@ function NewTestimonialForm ({
               alignItems: "center",
             }}
           >
-            {loading && (
-              <Spinner size="sm" style={{ marginRight: 6 }}></Spinner>
-            )}
+            {loading && <Spinner size="sm" style={{ marginRight: 6 }}></Spinner>}
             Create
           </Button>
         </ModalFooter>
@@ -327,7 +318,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return bindActionCreators(
     { updateTestimonials: setTestimonialsActions },
-    dispatch
+    dispatch,
   );
 };
 export default connect(mapState, mapDispatch)(NewTestimonialForm);

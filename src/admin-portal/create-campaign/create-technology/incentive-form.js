@@ -4,7 +4,7 @@ import Input from "../../../components/admin-components/Input";
 import React, { useReducer, useState } from "react";
 import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloons";
 import { isEmpty, randomString } from "../../../helpers/utils/string";
-import { objectIsEmpty } from "../../../helpers/utils";
+import { getImageValue, objectIsEmpty } from "../../../helpers/utils";
 import { addTechnologyIncentive, updateTechnologyIncentive } from "../../../requests/technology-requests";
 import { ProgressButton } from "../../../components/progress-button/progress-button";
 import { useParams } from "react-router-dom";
@@ -48,9 +48,9 @@ export function IncentiveForm ({ incentive = {}, onSubmit }) {
       }
     }
 
-    if (IS_NEW && !incentiveFormData.image) {
-      newErrors.image = "This field is required";
-    }
+    // if (IS_NEW && !incentiveFormData.image) {
+    //   newErrors.image = "This field is required";
+    // }
 
     if (objectIsEmpty(newErrors)) {
       return true;
@@ -73,7 +73,7 @@ export function IncentiveForm ({ incentive = {}, onSubmit }) {
         ...(IS_NEW ? { campaign_id } : {}),
         title: incentiveFormData.title,
         description: incentiveFormData.description,
-        ...(IS_NEW ? { image: incentiveFormData.image } : !(incentiveFormData.image) ? {image : "reset"} : {image: incentiveFormData.image}),
+        ...(getImageValue(incentiveFormData, "image")),
       };
 
       const data = IS_NEW ? await addTechnologyIncentive(payload) : await updateTechnologyIncentive(payload);

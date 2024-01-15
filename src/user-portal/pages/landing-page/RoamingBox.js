@@ -52,6 +52,7 @@ function RoamingBox ({ advert, keyContact, showMore }) {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
+                marginTop:40
               }}
             >
               <img
@@ -59,8 +60,8 @@ function RoamingBox ({ advert, keyContact, showMore }) {
                 src={keyContact?.image?.url || phone_call}
                 style={{
                   borderRadius: "100%",
-                  width: 120,
-                  height: 120,
+                  width: 90,
+                  height: 90,
                   objectFit: "cover",
                 }}
                 alt={keyContact?.image?.name || "Key Contact"}

@@ -47,9 +47,6 @@ function Coaches ({
   const coachFormRef = useRef(null);
   const [openAccordion, setOpenAccordion] = useState(false);
 
-  // TODO LATER: EDITING & CREATION CAN BE MERGED INTO ONE FORM AND ONE PROCESS!
-  // const buildQuery = (key, data) => {
-
 
   const interactWithCoachForm = () => {
     // setShowCoachForm(true);

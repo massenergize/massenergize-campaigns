@@ -54,7 +54,7 @@
     padding: 50px 10px;
   }
   .one-box {
-    padding: 0px 10px 10px;
+    padding: 0px 10px 10px !important;
   }
   .one-box h5 {
     font-size: 1rem;
@@ -70,9 +70,9 @@
   }
 
   .one-box p,
-  a {
+  a,Button {
     /* font-size: var(--mob-normal-font-size); */
-    font-size: 0.77rem;
+    font-size: 0.77rem !important;
   }
 
   .one-box-footer {

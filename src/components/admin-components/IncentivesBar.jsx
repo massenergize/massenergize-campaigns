@@ -5,7 +5,7 @@ import { Button, Col, Row } from "react-bootstrap";
 import classes from "classnames";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-const IncentivesBar = ({ incentive = {}, onRemove }) => {
+const IncentivesBar = ({ incentive = {}, onRemove, formComponent }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { title, description, icon } = incentive;
@@ -43,10 +43,7 @@ const IncentivesBar = ({ incentive = {}, onRemove }) => {
           </Col>
           <Col sm="auto">
             <span
-              className={
-                isOpen
-                  ? "arrowincentivesBar arrowincentivesBar-rotate"
-                  : "arrowincentivesBar"
+              className={isOpen? "arrowincentivesBar arrowincentivesBar-rotate": "arrowincentivesBar"
               }
             >
               <svg
@@ -68,7 +65,8 @@ const IncentivesBar = ({ incentive = {}, onRemove }) => {
       <div className={classes(" p-4", isOpen ? "incentivesBar-menu-open" : "cusdropdown-menu-close d-none",)}>
         <Row>
           <Col>
-            <IncentiveForm incentive={incentive} />
+            {formComponent? formComponent: <IncentiveForm incentive={incentive} />}
+
           </Col>
         </Row>
       </div>

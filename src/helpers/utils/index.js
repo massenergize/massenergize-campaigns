@@ -344,7 +344,7 @@ export const getImageValue = (containerObject, key) => {
     return {}
   }
 
-  if (containerObject[key] !== null || typeof containerObject[key] !== "undefined") {
+  if (containerObject[key] === null || typeof containerObject[key] === "undefined") {
     return { [key]: RESET }
   }
 

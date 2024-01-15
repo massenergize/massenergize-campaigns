@@ -9,7 +9,7 @@ if (IS_DEV) apiHost = "https://api.massenergize.dev";
 else if (IS_DEV) apiHost = "http://localhost:8000/api";
 // else if (IS_DEV) apiHost = "https://0fe9-197-251-151-181.ngrok-free.app";
 
-// if (IS_LOCAL) apiHost = "https://api.massenergize.dev";
+if (IS_LOCAL) apiHost = "http://localhost:8000/api";
 
 export const API_HOST = apiHost;
 

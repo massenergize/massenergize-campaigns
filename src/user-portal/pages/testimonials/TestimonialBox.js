@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
 import { MOBILE_WIDTH } from "../../../utils/Constants";
+import { smartString } from "../../../utils/utils";
 
 const PREVIEW_LENGTH = 125;
-const LONG_LENGTH = 350;
+const LONG_LENGTH = 330;
 function TestimonialBox ({
   title,
   user,
@@ -19,10 +20,11 @@ function TestimonialBox ({
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
   const route = `/campaign/${campaign?.id}/technology/testimonial/${id}`;
 
-  const preview = body?.substr(0, !isMobile ? LONG_LENGTH : PREVIEW_LENGTH);
+  // const preview = body?.substr(0, !isMobile ? LONG_LENGTH : PREVIEW_LENGTH);
+  const preview = smartString(body, !isMobile ? LONG_LENGTH : PREVIEW_LENGTH)
 
   return (
-    <div className="testi-container">
+    <div className="testi-container flex-column">
       <h5 style={{ color: "var(--app-medium-green)", fontSize: "1.07rem" }}>
         {title || "..."}
       </h5>
@@ -73,8 +75,9 @@ function TestimonialBox ({
         style={{
           display: "flex",
           flexDirection: "row",
-          marginTop: 10,
+          marginTop: "auto",
           alignItems: "center",
+          
         }}
       >
         {image?.url && (
@@ -88,7 +91,7 @@ function TestimonialBox ({
               height: 35,
               objectFit: "cover",
               borderRadius: 5,
-              marginTop: 7,
+              // marginTop: 7,
             }}
             src={image?.url}
             alt={image?.name}

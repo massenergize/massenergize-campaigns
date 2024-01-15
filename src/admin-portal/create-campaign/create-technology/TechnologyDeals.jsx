@@ -1,9 +1,114 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Container from "react-bootstrap/Container";
+import { Button, Col, Row, Modal } from "react-bootstrap";
+import classes from "classnames";
+import IncentivesBar from "../../../components/admin-components/IncentivesBar";
+import DealsForm from "./DealsForm";
+import { removeTechnologyDeal } from 'src/requests/technology-requests';
+import { useBubblyBalloons } from 'src/lib/bubbly-balloon/use-bubbly-balloons';
+import { set } from 'date-fns';
+import GhostLoader from 'src/components/admin-components/GhostLoader';
+import CustomAccordion from 'src/components/admin-components/CustomAccordion';
+import SectionsForm from './SectionsForm';
 
 export default function TechnologyDeals({ campaign_id, tech_id, techObject, updateTechObject }) {
-  return (
-    <div>
+  const { deals } = techObject
+  const [openDealsModal, setOpenDealsModal] = useState(false);
+  const [openAccordion, setOpenAccordion] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { pop, blow } = useBubblyBalloons();
 
-    </div>
+  const updateDealsList = (deal,isNew) => {
+    const newDeals = isNew ? [...(deals||[]), deal] : deals.map(d => d.id === deal.id ? deal : d)
+    updateTechObject({deals: newDeals })
+    setOpenDealsModal(false)
+
+  }
+
+  const handleRemove = async(id) => {
+    if (!id) return;
+    if (!window.confirm("Are you sure you want to delete this deal?")) return;
+    setLoading(true)
+    try{
+      const res = await removeTechnologyDeal({ id });
+      if (res) {
+        setLoading(false)
+        const newDeals = deals.filter(d => d.id !== id)
+        updateTechObject({deals: newDeals })
+        blow({
+          title: "Success",
+          message: "Deal removed successfully",
+          type: "success",
+        })
+      }
+    
+    }
+    catch(e){
+      setLoading(false)
+      pop({
+        title: "Error",
+        message: "An error occurred while removing deal",
+        type: "error",
+      });
+    }
+    
+  }
+  
+  if(loading) return <GhostLoader />
+  
+  return (
+    <Container>
+      {/* SECTION */}
+      <div className="py-5">
+          <CustomAccordion
+            title={"Customize The Title and Description of Deals Section"}
+            component={<SectionsForm
+              section = "deal_section"
+              data = {techObject?.deal_section}
+              updateTechObject = {updateTechObject}
+              tech_id = {tech_id}
+
+            />}
+            isOpen={openAccordion}
+            onClick={() => setOpenAccordion(!openAccordion)}
+          />
+        </div>
+      <Row className="py-3">
+        <Col className="">
+          <p>What are the deals for this campaign</p>
+        </Col>
+        <Col sm={"auto"}>
+          <Button text="" rounded onClick={() => setOpenDealsModal(true)}>
+            Add New Deal
+          </Button>
+        </Col>
+      </Row>
+      <Row className=" ">
+        <Col>
+          {(deals || [])?.map((deal, index) => {
+            if (!deal) return null;
+            return (
+              <div
+                key={deal?.id}
+                className={classes("py-2", { "mt-2 ": index > 0 })}
+              >
+                <IncentivesBar incentive={deal} onRemove={() => handleRemove(deal?.id)} formComponent={<DealsForm  technology_id={tech_id} deal={deal} onSubmit= {updateDealsList}/>} />
+              </div>
+            );
+          })}
+        </Col>
+      </Row>
+
+
+      <Modal onHide={()=>setOpenDealsModal(false)} show={openDealsModal} size={"lg"}>
+        <Modal.Header closeButton className={"border-bottom-0"}>
+          <Modal.Title className={"text-sm"}>New Technology Deal</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <DealsForm key={"new-deal"} deal={{}} onSubmit={updateDealsList} technology_id={tech_id} />
+        </Modal.Body>
+      </Modal>
+    </Container>
   )
 }
+
