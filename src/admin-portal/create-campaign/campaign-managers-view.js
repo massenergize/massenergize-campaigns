@@ -78,7 +78,7 @@ export function CampaignManagersView ({ events = CAMPAIGN_MANAGERS, managers, ha
         Cell: ({ cell }) => {
           const { value, row: { id, values }, row, } = cell;
           return (
-            <p className={"link"}>Manager</p>
+            <p className={"link"}>{value?.role || "Manager"}</p>
           );
         },
       },
@@ -102,10 +102,10 @@ export function CampaignManagersView ({ events = CAMPAIGN_MANAGERS, managers, ha
             <Button
               className={"link"}
               onClick={() => {
-                console.log("=== value ===", value);
                 setToRemove(value);
                 setToggleConfirmation(true);
               }}
+              variant={"danger"}
             >
               Remove
             </Button>

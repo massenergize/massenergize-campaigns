@@ -75,6 +75,7 @@ function TestimonialSectionWithFilters ({
     );
   };
 
+
   return (
     <div
       id={sectionId}

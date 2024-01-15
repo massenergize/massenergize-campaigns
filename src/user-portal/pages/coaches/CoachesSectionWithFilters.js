@@ -10,7 +10,7 @@ import OurParagraph from "../../../components/OurParagraph";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import { mergeArrays } from "../../../utils/utils";
 
-function CoachesSectionWithFilters ({ toggleModal, sectionId, technologies }) {
+function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
   const containerRef = useRef();
 
   let coaches = technologies?.map((tech) => {
@@ -25,9 +25,7 @@ function CoachesSectionWithFilters ({ toggleModal, sectionId, technologies }) {
     let data = [];
     if (filters?.length)
       data = coaches?.filter((t) =>
-        filters.some(
-          (f) => f.campaign_technology_id === t.campaign_technology?.id
-        )
+        filters.some((f) => f.campaign_technology_id === t.campaign_technology?.id),
       );
     else data = coaches;
 
@@ -50,6 +48,8 @@ function CoachesSectionWithFilters ({ toggleModal, sectionId, technologies }) {
       </Row>
     );
   };
+
+  const hasScrollableCoaches = coaches?.length > 4;
   return (
     <div
       id={sectionId}
@@ -80,10 +80,12 @@ function CoachesSectionWithFilters ({ toggleModal, sectionId, technologies }) {
                   arrow buttons(top right) to scroll
                 </OurParagraph>
               </div>
-              <ArrowButtons
-                containerRef={containerRef}
-                style={{ marginLeft: "auto" }}
-              />
+              {hasScrollableCoaches && (
+                <ArrowButtons
+                  containerRef={containerRef}
+                  style={{ marginLeft: "auto" }}
+                />
+              )}
             </div>
 
             <Filter
@@ -96,12 +98,12 @@ function CoachesSectionWithFilters ({ toggleModal, sectionId, technologies }) {
 
             <div className="coaches-description">
               <p>
-                In publishing and graphic design, Lorem ipsum is a placeholder
-                text commonly used to demonstrate the visual form of a document
-                or a typeface without relying on meaningful content. Lorem ipsum
-                may be used as a placeholder before final copy is availa a
-                typeface without relying on meaningful content. Lorem ipsum may
-                be used as a placeholder before final copy is availa
+                In publishing and graphic design, Lorem ipsum is a placeholder text
+                commonly used to demonstrate the visual form of a document or a
+                typeface without relying on meaningful content. Lorem ipsum may be
+                used as a placeholder before final copy is availa a typeface without
+                relying on meaningful content. Lorem ipsum may be used as a
+                placeholder before final copy is availa
               </p>
               <div
                 style={{

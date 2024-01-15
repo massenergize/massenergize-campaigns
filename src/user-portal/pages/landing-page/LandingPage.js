@@ -181,7 +181,7 @@ function LandingPage ({
           className="elevate-3"
           style={{
             background: "var(--app-orange)",
-            padding: "20px 40px",
+            padding: "10px 20px",
             position: "fixed",
             right: 0,
             top: 100,

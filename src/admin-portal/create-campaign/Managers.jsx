@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from "react";
-import { Alert, Button, Col, Row } from "react-bootstrap";
+import { Alert, Button as BTN, Button, Col, Row } from "react-bootstrap";
 import { addCampaignManager } from "../../requests/campaign-requests";
 import { CampaignManagersView } from "./campaign-managers-view";
 import Modal from "react-bootstrap/Modal";
@@ -8,15 +8,15 @@ import { toSentenceCase } from "../../helpers/utils/string";
 import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
 import { useCampaignContext } from "../../hooks/use-campaign-context";
 import { apiCall } from "../../api/messenger";
+import { NoItems } from "@kehillahglobal/ui";
 
-function Managers ({ campaignDetails, setCampaignDetails, setStep, lists }) {
+function Managers({ campaignDetails, setCampaignDetails, setStep, lists }) {
   const [pagesCount, setPagesCount] = useState(1);
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [notification, setNotification] = useState(null);
 
-  const { updateCampaignDetails } =
-    useCampaignContext();
+  const { updateCampaignDetails } = useCampaignContext();
 
   const { managers: campaignManagers } = campaignDetails;
 
@@ -41,7 +41,6 @@ function Managers ({ campaignDetails, setCampaignDetails, setStep, lists }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
   };
 
   const makeNotification = (message, good = false) => {
@@ -161,22 +160,41 @@ function Managers ({ campaignDetails, setCampaignDetails, setStep, lists }) {
         </Row>
         <Row className="py-4">
           <Col>
-            <CampaignManagersView
-              managers={campaignManagers || []}
-              // events={allManagers}
-              pagination
-              handleRemove={handleRemove}
-              {...{
-                pageIndex,
-                pageSize,
-                pagesCount,
-                canGotoPreviousPage,
-                canGotoNextPage,
-                gotoPage,
-                previousPage,
-                nextPage,
-              }}
-            />
+            {campaignManagers?.length > 0 ? (
+              <CampaignManagersView
+                managers={campaignManagers || []}
+                // events={allManagers}
+                pagination
+                handleRemove={handleRemove}
+                {...{
+                  pageIndex,
+                  pageSize,
+                  pagesCount,
+                  canGotoPreviousPage,
+                  canGotoNextPage,
+                  gotoPage,
+                  previousPage,
+                  nextPage,
+                }}
+              />
+            ) : (
+              <div className="w-100 flex items-center flex-column text-center">
+                <div>
+                  <img src="/img/no-data.svg" alt="" />
+                  <h5 className="">No managers added to this campaign</h5>
+                </div>
+                <div className="text-center">
+                  <h6 className="text-muted">
+                    Click the 'Add Managers' button to add
+                  </h6>
+                  <div className="mt-4">
+                    <BTN variant={"success"} onClick={() => setShowSearchModal(true)}>
+                      <span>Add Manager</span>
+                    </BTN>
+                  </div>
+                </div>
+              </div>
+            )}
           </Col>
         </Row>
       </>

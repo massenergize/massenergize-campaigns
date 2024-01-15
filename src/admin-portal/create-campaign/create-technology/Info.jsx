@@ -7,8 +7,12 @@ import Button from "../../../components/admin-components/Button";
 import "../../../assets/styles/admin-styles.scss";
 import MERichText from "../../../components/admin-components/RichText";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
+import { useParams, useNavigate } from "react-router-dom";
+import { fetchUrlParams } from "src/utils/utils";
 import { apiCall } from "src/api/messenger";
 import { useTechnologyContext } from "../../../hooks/use-technology-context";
+import CustomAccordion from "../../../components/admin-components/CustomAccordion";
+import SectionForm from "./SectionsForm";
 import { getImageValue } from "../../../helpers/utils";
 
 function Info({
@@ -18,9 +22,13 @@ function Info({
   tech_id,
   campaign_id,
   updateTechObject,
+  techObject,
 }) {
   const [loading, setLoading] = useState(false);
+  const [openAccordion, setOpenAccordion] = useState(false);
   const isEditing = tech_id;
+
+  const navigate = useNavigate()
 
   const handleFieldChange = (field, value) => {
     setInformation({ ...information, [field]: value });
@@ -55,10 +63,10 @@ function Info({
       notifyError("Please add a summary to your technology");
       return false;
     }
-    if (!image) {
-      notifyError("Please add an image to your technology");
-      return false;
-    }
+    // if (!image) {
+    //   notifyError("Please add an image to your technology");
+    //   return false;
+    // }
     return true;
   };
 
@@ -78,12 +86,13 @@ function Info({
       const { data, success, error } = response || {};
       setLoading(false);
       if (!success) return notifyError(error);
+
+      navigate(`/admin/campaign/${campaign_id}/edit/technology/${data?.technology?.id}/campaign_technology/${data?.id}`)
       updateTechObject(data);
       setNewTechnologyDetails(data);
       notifySuccess("Saved successfully!");
     });
   };
-
   return (
     <div>
       <form>
