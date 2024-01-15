@@ -105,7 +105,6 @@ export function TechnologyEditView () {
   const renderTabs = () => {
     return (
       <Col>
-
         {/*</Link>*/}
         {TABS?.map((tab) => {
           return (
@@ -123,7 +122,6 @@ export function TechnologyEditView () {
                 setActiveTab={setActiveTab}
                 coaches={coaches}
                 setCoaches={setCoaches}
-                techObject={techObject}
               />
             )
           );
