@@ -1,0 +1,38 @@
+$loader-color: #6e207c;
+$loader-background: rgba(110, 32, 124, 0.51);
+$loader-height: 4px;
+
+.pusher {
+  background: $loader-background;
+  height: $loader-height;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.pusher::before, .pusher::after {
+  background: $loader-color;
+  content: "";
+  display: block;
+  height: $loader-height;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transform: translate3d(-100%, 0, 0);
+  width: 50%;
+}
+.pusher::before {
+  animation: pusher 2s infinite;
+}
+.pusher::after {
+  animation: pusher 2s -1s infinite;
+}
+
+@keyframes pusher {
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(200%, 0, 0);
+  }
+}
