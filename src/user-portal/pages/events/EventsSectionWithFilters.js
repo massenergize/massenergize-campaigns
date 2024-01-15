@@ -8,7 +8,7 @@ import { mergeArrays } from "../../../utils/utils";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import OurParagraph from "../../../components/OurParagraph";
 
-function EventsSectionWithFilters ({ sectionId, technologies }) {
+function EventsSectionWithFilters({ sectionId, technologies }) {
   const containerRef = useRef();
   // const eventsOfEachTech = technologies?.map(
   //   ({
@@ -42,7 +42,7 @@ function EventsSectionWithFilters ({ sectionId, technologies }) {
       data = events?.filter((ev) => {
         const techsRelatedToEvent = ev?.campaign_technology?.map((t) => t.id); // pick only the campaign technology ids
         return filters.some((f) =>
-          techsRelatedToEvent.includes(f.campaign_technology_id)
+          techsRelatedToEvent.includes(f.campaign_technology_id),
         );
       });
     else data = events;
@@ -92,6 +92,8 @@ function EventsSectionWithFilters ({ sectionId, technologies }) {
   //     </Row>
   //   ),
   // }));
+
+  const hasScrollableEvents = events?.length > 4;
   return (
     <div
       id={sectionId}
@@ -116,10 +118,12 @@ function EventsSectionWithFilters ({ sectionId, technologies }) {
               Featured Events
             </h2>
 
-            <ArrowButtons
-              containerRef={containerRef}
-              style={{ marginLeft: "auto" }}
-            />
+            {hasScrollableEvents && (
+              <ArrowButtons
+                containerRef={containerRef}
+                style={{ marginLeft: "auto" }}
+              />
+            )}
           </div>
           <OurParagraph>
             Scroll from left to right to see more testimonials, or use the arrow
