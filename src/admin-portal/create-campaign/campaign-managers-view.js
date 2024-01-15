@@ -102,10 +102,10 @@ export function CampaignManagersView ({ events = CAMPAIGN_MANAGERS, managers, ha
             <Button
               className={"link"}
               onClick={() => {
-                console.log("=== value ===", value);
                 setToRemove(value);
                 setToggleConfirmation(true);
               }}
+              variant={"danger"}
             >
               Remove
             </Button>

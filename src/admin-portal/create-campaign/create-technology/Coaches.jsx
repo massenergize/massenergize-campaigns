@@ -433,23 +433,6 @@ function Coaches ({
             </Row>
           </form>
         </div>
-
-
-        {/*  show section */}
-        <div className="py-5">
-          <CustomAccordion
-            title={"Customize The Title and Description of Coaches Section"}
-            component={<SectionForm
-              section = "coaches_section"
-              data = {techObject?.coaches_section}
-              updateTechObject = {updateTechObject}
-              tech_id = {tech_id}
-
-            />}
-            isOpen={openAccordion}
-            onClick={() => setOpenAccordion(!openAccordion)}
-          />
-        </div>
       </Container>
     </div>
   );

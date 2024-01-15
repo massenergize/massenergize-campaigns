@@ -169,20 +169,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
 				</div>
 			</Container>
 
-			<div className="py-5">
-				<CustomAccordion
-					title={"Customize The Title and Description of Vendors Section"}
-					component={<SectionForm
-						section="vendors_section"
-						data={techObject?.vendors_section}
-						updateTechObject={updateTechObject}
-						tech_id={tech_id}
 
-					/>}
-					isOpen={openAccordion}
-					onClick={() => setOpenAccordion(!openAccordion)}
-				/>
-			</div>
 		</div>
 	);
 };
