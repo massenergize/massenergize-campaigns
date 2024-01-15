@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -9,10 +9,12 @@ import "../../../assets/styles/admin-styles.scss";
 import MERichText from "../../../components/admin-components/RichText";
 import { ProgressButton } from "src/components/progress-button/progress-button";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { fetchUrlParams } from "src/utils/utils";
 import { apiCall } from "src/api/messenger";
 import { useTechnologyContext } from "../../../hooks/use-technology-context";
+import CustomAccordion from "../../../components/admin-components/CustomAccordion";
+import SectionForm from "./SectionsForm";
 
 function Info ({
   information,
@@ -21,9 +23,13 @@ function Info ({
   tech_id,
   campaign_id,
   updateTechObject,
+  techObject,
 }) {
   const [loading, setLoading] = useState(false);
+  const [openAccordion, setOpenAccordion] = useState(false);
   const isEditing = tech_id;
+
+  const navigate = useNavigate()
 
   const handleFieldChange = (field, value) => {
     setInformation({ ...information, [field]: value });
@@ -58,10 +64,10 @@ function Info ({
       notifyError("Please add a summary to your technology");
       return false;
     }
-    if (!image) {
-      notifyError("Please add an image to your technology");
-      return false;
-    }
+    // if (!image) {
+    //   notifyError("Please add an image to your technology");
+    //   return false;
+    // }
     return true;
   };
 
@@ -84,12 +90,13 @@ function Info ({
       if (!success) return notifyError(error);
       // console.log("It's the data after creating info", data);
       // updateTechObject({ ...data, ...(data?.technology || {}) });
+
+      navigate(`/admin/campaign/${campaign_id}/edit/technology/${data?.technology?.id}/campaign_technology/${data?.id}`)
       updateTechObject(data);
       setNewTechnologyDetails(data);
       notifySuccess("Saved successfully!");
     });
   };
-
   return (
     <div>
       <Container>
@@ -115,7 +122,9 @@ function Info ({
                 placeholder="Add a Summary for this focus......."
                 required={true}
                 type="textbox"
-                onChange={(val) => {handleFieldChange("summary", val);}}
+                onChange={(val) => {
+                  handleFieldChange("summary", val);
+                }}
                 maxLength="100"
                 value={getValue("summary")}
               />
@@ -160,9 +169,24 @@ function Info ({
             </Col>
           </Row>
         </form>
-      </Container>
-    </div>
-  );
+        {isEditing && (<div className="py-5">
+          <CustomAccordion
+          title={"Customize The Title and Description of Info Section"}
+           component={<SectionForm
+          section="more_info_section"
+          data={techObject?.more_info_section || {}}
+          updateTechObject={({ more_info_section }) => updateTechObject(more_info_section)}
+          tech_id={tech_id}
+        />}
+        isOpen={openAccordion}
+        onClick={() => setOpenAccordion(!openAccordion)}
+      />
+    </div>)
+}
+</Container>
+</div>
+)
+  ;
 }
 
 export default Info;

@@ -6,7 +6,6 @@ import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import { updateTechnology } from "../../../requests/technology-requests";
 
 export default function SectionsForm ({section, data,updateTechObject, tech_id}){
-  console.log("=== data ===", data)
 
   const {pop, blow} = useBubblyBalloons()
   const [formData, setFormData] = useState(data);

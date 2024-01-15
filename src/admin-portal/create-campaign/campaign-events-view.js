@@ -244,7 +244,7 @@ export function CampaignEventsView ({ events, campaign }) {
         </Row>
       </Container>
 
-      <Modal size={"lg"} show={openModal} onHide={onModalClose}>
+      <Modal size={"xl"} show={openModal} onHide={onModalClose}>
         <Modal.Header closeButton>
           <Modal.Title className={"text-sm"}>Events Selection</Modal.Title>
         </Modal.Header>
@@ -260,11 +260,11 @@ export function CampaignEventsView ({ events, campaign }) {
                       return {
                         ...event,
                         value: event?.id,
-                        label: event?.name,
+                        label: `${event?.name} - ${event?.community?.name}`,
                       };
                     })}
                     valueExtractor={(item) => item}
-                    labelExtractor={(item) => item?.name}
+                    labelExtractor={(item) =>`${item?.name} - ${item?.community?.name}`}
                     multiple={false}
                     onItemSelect={(selectedItem, allSelected) => {
                       setToAddEvents([selectedItem]);

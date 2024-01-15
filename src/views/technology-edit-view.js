@@ -33,7 +33,7 @@ export function TechnologyEditView () {
   const [information, setInformation] = useState(INFO_INITIAL_STATE);
   const [coaches, setCoaches] = useState([]);
   const [activeTab, setActiveTab] = useState(TABS[0]?.key || "");
-  const { campaign_id, technology_id } = useParams();
+  const { campaign_id, technology_id, campaign_technology_id } = useParams();
 
   const getTechnologyId = () => {
     return technology_id || techObject?.technology?.id;
@@ -118,9 +118,6 @@ export function TechnologyEditView () {
           <Spinner color="#6e207c" radius={56} variation="TwoHalfCirclesType" />
         </center>
       );
-    
-  console.log(technology_id, techObject?.technology?.id);
-    
 
     return (
       <Col>
@@ -142,7 +139,6 @@ export function TechnologyEditView () {
                 setActiveTab={setActiveTab}
                 coaches={coaches}
                 setCoaches={setCoaches}
-                techObject={techObject}
               />
             )
           );
@@ -164,9 +160,7 @@ export function TechnologyEditView () {
                   variant="primary"
                   onClick={() => {
                     window.open(
-                      `/campaign/${campaign_id}/technology/${
-                        technology_id || techObject?.technology?.id
-                      }?preview=true`,
+                      `/campaign/${campaign_id}/technology/${campaign_technology_id}?preview=true`,
                       "_blank",
                     );
                   }}

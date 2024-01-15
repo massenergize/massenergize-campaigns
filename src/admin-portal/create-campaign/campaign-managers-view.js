@@ -78,7 +78,7 @@ export function CampaignManagersView ({ events = CAMPAIGN_MANAGERS, managers, ha
         Cell: ({ cell }) => {
           const { value, row: { id, values }, row, } = cell;
           return (
-            <p className={"link"}>Manager</p>
+            <p className={"link"}>{value?.role || "Manager"}</p>
           );
         },
       },
