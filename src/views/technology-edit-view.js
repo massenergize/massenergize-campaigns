@@ -1,6 +1,6 @@
 import { useTechnologyContext } from "../hooks/use-technology-context";
 import { technologyPages } from "../utils/Constants";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useBubblyBalloons } from "../lib/bubbly-balloon/use-bubbly-balloons";
 import useSWR from "swr";
@@ -31,7 +31,7 @@ export function TechnologyEditView () {
   const [information, setInformation] = useState(INFO_INITIAL_STATE);
   const [coaches, setCoaches] = useState([]);
   const [activeTab, setActiveTab] = useState(TABS[0]?.key || "");
-  const { campaign_id, technology_id } = useParams();
+  const { campaign_id, technology_id, campaign_technology_id } = useParams();
 
   const getTechnologyId = () => {
     return technology_id || techObject?.technology?.id;
@@ -40,6 +40,7 @@ export function TechnologyEditView () {
   const techIsNotCreatedYet = !getTechnologyId();
 
   const params = useParams()
+
 
   if (techIsNotCreatedYet) {
     TABS = TABS.map((tab) => {
@@ -145,23 +146,20 @@ export function TechnologyEditView () {
         <Col>
           <div className="w-100 flex items-center justify-content-between">
             <BackButton />
-
-            {/*{(technology_id ||
+            {(technology_id ||
               techObject?.technology?.id) && (
                 <Button
                   variant="primary"
                   onClick={() => {
                     window.open(
-                      `/campaign/${campaign_id}/technology/${
-                        technology_id || techObject?.technology?.id
-                      }?preview=true`,
+                      `/campaign/${campaign_id}/technology/${campaign_technology_id}?preview=true`,
                       "_blank",
                     );
                   }}
                 >
                   Preview Technology <FontAwesomeIcon icon={faExternalLink} />
                 </Button>
-              )}*/}
+              )}
           </div>
 
           <div className="nav-tabs-container" style={{ marginTop: 10 }}>

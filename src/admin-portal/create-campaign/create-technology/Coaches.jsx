@@ -259,7 +259,25 @@ function Coaches ({
   return (
     <div>
       <Container>
-        <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
+        <div className="py-5">
+          <CustomAccordion
+            title={"Customize The Title and Description of Coaches Section"}
+            component={
+              <SectionForm
+                section="coaches_section"
+                data={techObject?.coaches_section}
+                updateTechObject={updateTechObject}
+                tech_id={tech_id}
+              />
+            }
+            isOpen={openAccordion}
+            onClick={() => setOpenAccordion(!openAccordion)}
+          />
+        </div>
+        <div
+          style={{ display: "flex", flexDirection: "row", width: "100%" }}
+          className="my-3"
+        >
           <BootButton
             style={{ marginLeft: "auto" }}
             variant="success"
@@ -411,23 +429,6 @@ function Coaches ({
               </Col>
             </Row>
           </form>
-        </div>
-
-
-        {/*  show section */}
-        <div className="py-5">
-          <CustomAccordion
-            title={"Customize The Title and Description of Coaches Section"}
-            component={<SectionForm
-              section = "coaches_section"
-              data = {techObject?.coaches_section}
-              updateTechObject = {updateTechObject}
-              tech_id = {tech_id}
-
-            />}
-            isOpen={openAccordion}
-            onClick={() => setOpenAccordion(!openAccordion)}
-          />
         </div>
       </Container>
     </div>

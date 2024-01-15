@@ -16,7 +16,7 @@ import { smartString } from "src/utils/utils";
 
 function Technology ({ tech, handleRemove }) {
   let image = tech?.image?.url;
-  let { id, name, summary } = tech;
+  let { id, name, summary, campaign_technology_id, campaign_id } = tech;
   const navigate =  useNavigate()
 
   name = smartString(name, 25)
@@ -24,7 +24,8 @@ function Technology ({ tech, handleRemove }) {
     // <Link to={`/admin/campaign/edit-technology/${id}`} className="image-edit-btn">
     <Card
       className={"position-relative touchable-opacity"}
-      onClick={() => navigate(`/admin/technology/${tech?.id}/edit/${tech?.campaign_id}`)}
+      onClick={() => navigate(`/admin/campaign/${campaign_id}/edit/technology/${id}/campaign_technology/${campaign_technology_id}`)}
+      // onClick={() => navigate(`/admin/technology/${tech?.id}/edit/${tech?.campaign_id}/${campaign_technology_id}`)}
     >
       <Card.Body className={"p-0"}>
         <Card.Img variant="top" src={image} style={{ height: 280, objectFit: "cover" }}/>
