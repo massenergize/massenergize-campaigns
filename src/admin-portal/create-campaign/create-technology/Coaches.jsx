@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -8,15 +8,12 @@ import FileUploader, {
 } from "../../../components/admin-components/FileUploader";
 import Button from "../../../components/admin-components/Button";
 import "../../../assets/styles/admin-styles.scss";
-import Chip from "../../../components/admin-components/Chip";
 import { apiCall } from "src/api/messenger";
-import { MultiSelect } from "react-multi-select-component";
 import { useCampaignContext } from "../../../hooks/use-campaign-context";
 import BootButton from "react-bootstrap/Button";
-
-import GhostLoader from "src/components/admin-components/GhostLoader";
 import CustomAccordion from "../../../components/admin-components/CustomAccordion";
 import SectionForm from "./SectionsForm";
+
 const INITIAL_COACH_STATE = {
   technology_id: "",
   full_name: "",
@@ -25,7 +22,7 @@ const INITIAL_COACH_STATE = {
   phone_number: "",
 };
 
-function Coaches ({
+function Coaches({
   setTechnologyInfo,
   technologyInfo,
   setCurrentTab,
@@ -47,7 +44,6 @@ function Coaches ({
   const coachFormRef = useRef(null);
   const [openAccordion, setOpenAccordion] = useState(false);
 
-
   const interactWithCoachForm = () => {
     // setShowCoachForm(true);
     if (coachFormRef?.current)
@@ -65,9 +61,9 @@ function Coaches ({
 
   const contentIsValid = (data) => {
     const { full_name, image, email, community } = data || {};
-    if (!full_name  || !community) {
+    if (!full_name || !community) {
       notifyError(
-        "(Full Name,Community) Please make sure none of them are empty..."
+        "(Full Name,Community) Please make sure none of them are empty...",
       );
       return false;
     }
@@ -90,7 +86,7 @@ function Coaches ({
       const items = coaches?.filter((it) => it?.id !== id);
       return updateTechObject({ coaches: items });
     });
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -101,7 +97,14 @@ function Coaches ({
 
     if (!contentIsValid(data)) return;
     setLoading(true);
-    data  = { ...data,    ...(isEditing && !data.image ? { image: 'reset' } : data.image ? { image: data.image } : {}) };
+    data = {
+      ...data,
+      ...(isEditing && !data.image
+        ? { image: "reset" }
+        : data.image
+          ? { image: data.image }
+          : {}),
+    };
     apiCall(url, data).then((res) => {
       const { data, success, error } = res || {};
       setLoading(false);
@@ -258,94 +261,91 @@ function Coaches ({
   const formHasContent = Object.keys(formData || {}).length > 0;
   return (
     <div>
-      <Container>
-        <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
-          <BootButton
-            style={{ marginLeft: "auto" }}
-            variant="success"
-            onClick={() => interactWithCoachForm()}
-          >
-            <i className="fa fa-plus" style={{ marginRight: 7 }} />
-            Add A New Coach
-          </BootButton>
-        </div>
-        {coaches?.length > 0 && (
-          <Container>
-            {/* <hr /> */}
-            {renderSelectedCoaches()}
-          </Container>
-        )}
-        <div ref={coachFormRef}>
-          <form style={{ border: "dashed 2px #eeeeee", padding: "40px" }}>
-            <Row>
-              <Col>
-                <h5 className="theme-color">
-                  {isEditing
-                    ? `Editing "${formData?.full_name}"`
-                    : "Add A New Coach"}
-                </h5>
-                <p className="my-4">
-                  Please include details of the new Coach of this technology
-                </p>
-              </Col>
-            </Row>
-            <Row className="py-2">
-              <Col>
-                <Input
-                  label="Full Name"
-                  placeholder="Enter full name here..."
-                  required={true}
-                  type="textbox"
-                  value={getValue("full_name")}
-                  onChange={(val) => {
-                    handleFieldChange("full_name", val);
-                  }}
-                />
-              </Col>
-            </Row>
-            <Row className="py-2">
-              <Col>
-                <Input
-                  label="Email"
-                  placeholder="Enter email here..."
-                  required={true}
-                  type="email"
-                  value={getValue("email")}
-                  onChange={(val) => {
-                    handleFieldChange("email", val);
-                  }}
-                />
-              </Col>
-            </Row>
-            <Row className="py-2">
-              <Col>
-                <Input
-                  label="Phone Number"
-                  placeholder="Enter email here..."
-                  required={false}
-                  type="textbox"
-                  value={getValue("phone_number")}
-                  onChange={(val) => {
-                    handleFieldChange("phone_number", val);
-                  }}
-                />
-              </Col>
-            </Row>
-            <Row className="py-2">
-              <Col>
-                <Input
-                  label="Community"
-                  placeholder="Enter the community of the coach here..."
-                  required={true}
-                  type="textbox"
-                  value={getValue("community")}
-                  onChange={(val) => {
-                    handleFieldChange("community", val);
-                  }}
-                />
-              </Col>
-            </Row>
-            {/*<Row className="py-2">
+      <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
+        <BootButton
+          style={{ marginLeft: "auto" }}
+          variant="success"
+          onClick={() => interactWithCoachForm()}
+        >
+          <i className="fa fa-plus" style={{ marginRight: 7 }} />
+          Add A New Coach
+        </BootButton>
+      </div>
+      {coaches?.length > 0 && (
+        <Container>
+          {/* <hr /> */}
+          {renderSelectedCoaches()}
+        </Container>
+      )}
+      <div ref={coachFormRef}>
+        <form style={{ border: "dashed 2px #eeeeee", padding: "40px" }}>
+          <Row>
+            <Col>
+              <h5 className="theme-color">
+                {isEditing ? `Editing "${formData?.full_name}"` : "Add A New Coach"}
+              </h5>
+              <p className="my-4">
+                Please include details of the new Coach of this technology
+              </p>
+            </Col>
+          </Row>
+          <Row className="py-2">
+            <Col>
+              <Input
+                label="Full Name"
+                placeholder="Enter full name here..."
+                required={true}
+                type="textbox"
+                value={getValue("full_name")}
+                onChange={(val) => {
+                  handleFieldChange("full_name", val);
+                }}
+              />
+            </Col>
+          </Row>
+          <Row className="py-2">
+            <Col>
+              <Input
+                label="Email"
+                placeholder="Enter email here..."
+                required={true}
+                type="email"
+                value={getValue("email")}
+                onChange={(val) => {
+                  handleFieldChange("email", val);
+                }}
+              />
+            </Col>
+          </Row>
+          <Row className="py-2">
+            <Col>
+              <Input
+                label="Phone Number"
+                placeholder="Enter email here..."
+                required={false}
+                type="textbox"
+                value={getValue("phone_number")}
+                onChange={(val) => {
+                  handleFieldChange("phone_number", val);
+                }}
+              />
+            </Col>
+          </Row>
+          <Row className="py-2">
+            <Col>
+              <Input
+                label="Community"
+                placeholder="Enter the community of the coach here..."
+                required={true}
+                type="textbox"
+                value={getValue("community")}
+                onChange={(val) => {
+                  handleFieldChange("community", val);
+                }}
+              />
+            </Col>
+          </Row>
+          {/*<Row className="py-2">
             <Col>
               <MultiSelect
                 options={(allCommunities?.data || []).map((campaign) => {
@@ -364,72 +364,71 @@ function Coaches ({
 
             </Col>
           </Row>*/}
-            <Row className="py-4">
-              <Col>
-                <FileUploader
-                  required={false}
-                  id="coach_image"
-                  text="Add a profile image for the Coach"
-                  onChange={(val) => {
-                    handleFieldChange("image", val);
-                  }}
-                  // value={getValue("image")}
-                  defaultValue={getValue("image")}
-                />
-              </Col>
-            </Row>
-
-            <Row className="py-4 mt-4 justify-content-end">
-              <Col
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  // justifyContent: "center",
+          <Row className="py-4">
+            <Col>
+              <FileUploader
+                required={false}
+                id="coach_image"
+                text="Add a profile image for the Coach"
+                onChange={(val) => {
+                  handleFieldChange("image", val);
                 }}
-              >
-                <Button
-                  loading={loading}
-                  text={isEditing ? "Save Changes" : "Add Coach"}
-                  onSubmit={handleSubmit}
-                  rounded={false}
-                />
-                {formHasContent && (
-                  <small
-                    onClick={() => resetForm()}
-                    style={{
-                      fontWeight: "bold",
-                      marginLeft: 10,
-                      color: "red",
-                      textDecoration: "underline",
-                    }}
-                    className="touchable-opacity"
-                  >
-                    Reset Form
-                  </small>
-                )}
-              </Col>
-            </Row>
-          </form>
-        </div>
+                // value={getValue("image")}
+                defaultValue={getValue("image")}
+              />
+            </Col>
+          </Row>
 
+          <Row className="py-4 mt-4 justify-content-end">
+            <Col
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                // justifyContent: "center",
+              }}
+            >
+              <Button
+                loading={loading}
+                text={isEditing ? "Save Changes" : "Add Coach"}
+                onSubmit={handleSubmit}
+                rounded={false}
+              />
+              {formHasContent && (
+                <small
+                  onClick={() => resetForm()}
+                  style={{
+                    fontWeight: "bold",
+                    marginLeft: 10,
+                    color: "red",
+                    textDecoration: "underline",
+                  }}
+                  className="touchable-opacity"
+                >
+                  Reset Form
+                </small>
+              )}
+            </Col>
+          </Row>
+        </form>
+      </div>
 
-        {/*  show section */}
-        <div className="py-5">
-          <CustomAccordion
-            title={"Customize The Title and Description of Coaches Section"}
-            component={<SectionForm
-              section = "coaches_section"
-              data = {techObject?.coaches_section}
-              updateTechObject = {updateTechObject}
-              tech_id = {tech_id}
-
-            />}
-            isOpen={openAccordion}
-            onClick={() => setOpenAccordion(!openAccordion)}
-          />
-        </div>
-      </Container>
+      {/*  show section */}
+      <div className="py-5">
+        <CustomAccordion
+          title={"Customize The Title and Description of Coaches Section"}
+          component={
+            <SectionForm
+              section="coaches_section"
+              data={techObject?.coaches_section}
+              updateTechObject={updateTechObject}
+              tech_id={tech_id}
+            />
+          }
+          isOpen={openAccordion}
+          onClick={() => setOpenAccordion(!openAccordion)}
+        />
+      </div>
     </div>
   );
 

@@ -41,7 +41,7 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
           type: "success",
         })
       }
-    
+
     }
     catch(e){
       setLoading(false)
@@ -51,13 +51,13 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
         type: "error",
       });
     }
-    
+
   }
-  
+
   if(loading) return <GhostLoader />
-  
+
   return (
-    <Container>
+    <div>
       {/* SECTION */}
       <div className="py-5">
           <CustomAccordion
@@ -108,7 +108,7 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
           <DealsForm key={"new-deal"} deal={{}} onSubmit={updateDealsList} technology_id={tech_id} />
         </Modal.Body>
       </Modal>
-    </Container>
+    </div>
   )
 }
 
