@@ -175,7 +175,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               label="Description"
               placeholder="Add a more detailed description of your campaign..."
               required={false}
-              type="textarea"
+              type="richText"
               error={errors?.description}
               value={campaignDetails?.description}
               onChange={(val) => {

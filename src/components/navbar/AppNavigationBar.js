@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { addUrlParams, generateUniqueRandomString } from "../../utils/utils";
 
 const EXCLUDE_FROM_NAV = ["communities"];
-function AppNavigationBar ({ menu, campaign }) {
+function AppNavigationBar({ menu, campaign }) {
   const navigator = useNavigate();
   const { secondary_logo, primary_logo } = campaign || {};
 
@@ -41,13 +41,12 @@ function AppNavigationBar ({ menu, campaign }) {
             )}
             {/* </Nav.Link> */}
             {menu?.map((menu) => {
-              const excluded = EXCLUDE_FROM_NAV.includes(
-                menu?.key?.toLowerCase()
-              );
+              const excluded = EXCLUDE_FROM_NAV.includes(menu?.key?.toLowerCase());
               if (excluded) return <></>;
               if (!menu?.children)
                 return (
                   <Nav.Link
+                    // className="f-dropdown-override"
                     key={menu?.key}
                     style={{
                       textTransform: "uppercase",
@@ -96,7 +95,7 @@ function AppNavigationBar ({ menu, campaign }) {
 
                     return (
                       <NavDropdown.Item
-
+                        className="f-dropdown-override"
                         style={{ textTransform: "uppercase" }}
                         key={child?.key}
                         onClick={() => {

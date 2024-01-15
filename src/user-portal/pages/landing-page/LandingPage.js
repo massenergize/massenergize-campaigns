@@ -31,6 +31,7 @@ import { OTHER, OTHER_JSON } from "../forms/CommunitySelector";
 import TestimonialSectionWithFilters from "../testimonials/TestimonialSectionWithFilters";
 import EventsSectionWithFilters from "../events/EventsSectionWithFilters";
 import CoachesSectionWithFilters from "../coaches/CoachesSectionWithFilters";
+import CampaignNotLive from "./CampaignNotLive";
 
 
 function LandingPage ({
@@ -59,7 +60,8 @@ function LandingPage ({
     communities: communitiesRef,
   };
 
-  const { image, config, key_contact, is_published } = campaign || {};
+
+  const { image, config, key_contact, advert,is_published } = campaign || {};
 
   const technologies = campaign?.technologies || [];
   const { campaignId } = useParams();
@@ -136,21 +138,12 @@ function LandingPage ({
   };
 
   const showMoreAboutAdvert = () => {
-    const data = config?.advert || {};
+    const data = advert || {};
     toggleModal({
       show: true,
       title: data?.title || "...",
       // iconName: "fa-comment",
-      component: ({ close }) => (
-        <RoamingModalSheet
-          close={close}
-          data={data}
-          // callbackOnSubmit={({ user }) => {
-          //   close && close();
-          //   triggerCommentBox(user);
-          // }}
-        />
-      ),
+      component: ({ close }) => <RoamingModalSheet close={close} data={data} />,
       // modalNativeProps: { size: "md" },
       fullControl: true,
     });
@@ -213,9 +206,10 @@ function LandingPage ({
           </a> */}
         </p>
       )}
-      {!previewMode && <AppNavigationBar menu={menu} campaign={campaign} />}
+    <AppNavigationBar menu={menu} campaign={campaign} />
       <Container>
         <Banner {...campaign} />
+       <CampaignNotLive />
         <Container>
           <img
             className="elevate-float-pro campaign-focus-image"
@@ -233,7 +227,7 @@ function LandingPage ({
         </Container>
         <RoamingBox
           id="roaming-box"
-          advert={config?.advert}
+          advert={advert}
           keyContact={key_contact}
           showMore={showMoreAboutAdvert}
         />
