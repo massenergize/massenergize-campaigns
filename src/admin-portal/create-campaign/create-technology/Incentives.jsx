@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Container from "react-bootstrap/Container";
 import { Button, Col, Row } from "react-bootstrap";
 import "../../../assets/styles/admin-styles.scss";
 import IncentivesBar from "../../../components/admin-components/IncentivesBar";
@@ -13,7 +12,8 @@ import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloo
 let incentiveToDelete = null;
 
 const Incentives = ({}) => {
-  const { technology, handleAddOverview, handleRemoveOverview } = useTechnologyContext();
+  const { technology, handleAddOverview, handleRemoveOverview } =
+    useTechnologyContext();
   const incentives = technology?.overview || [];
 
   const { notify } = useBubblyBalloons();
@@ -29,17 +29,15 @@ const Incentives = ({}) => {
   const [showIncentiveModal, setShowIncentiveModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-
-
   const hideDeleteModal = () => {
     setShowDeleteModal(false);
     incentiveToDelete = null;
-  }
+  };
 
   const handleRemove = async () => {
     try {
-      setLoading(true)
-      const res = await removeTechnologyIncentive({ id : incentiveToDelete?.id });
+      setLoading(true);
+      const res = await removeTechnologyIncentive({ id: incentiveToDelete?.id });
 
       if (res) {
         handleRemoveOverview(incentiveToDelete?.id);
@@ -48,7 +46,7 @@ const Incentives = ({}) => {
           title: "Success",
           message: "Incentive removed successfully",
           type: "success",
-        })
+        });
       }
     } catch (e) {
       notify({
@@ -57,43 +55,44 @@ const Incentives = ({}) => {
         type: "error",
       });
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
   return (
     <div>
-      <Container>
-        <Row className="">
-          <Col className="">
-            <p>What are the incentives for participating in this technology</p>
-          </Col>
-          <Col sm={"auto"}>
-            <Button text="" rounded onClick={() => setShowIncentiveModal(true)}>
-              Add Incentive
-            </Button>
-          </Col>
-        </Row>
-        <Row className=" ">
-          <Col>
-            {(incentives || [])?.map((incentive, index) => {
-              if (!incentive) return null;
+      <Row className="">
+        <Col className="">
+          <p>What are the incentives for participating in this technology</p>
+        </Col>
+        <Col sm={"auto"}>
+          <Button text="" rounded onClick={() => setShowIncentiveModal(true)}>
+            Add Incentive
+          </Button>
+        </Col>
+      </Row>
+      <Row className=" ">
+        <Col>
+          {(incentives || [])?.map((incentive, index) => {
+            if (!incentive) return null;
 
-              return (
-                <div
-                  key={incentive?.id}
-                  className={classes("py-2", { "mt-2 ": index > 0 })}
-                >
-                  <IncentivesBar incentive={incentive} onRemove={() => {
+            return (
+              <div
+                key={incentive?.id}
+                className={classes("py-2", { "mt-2 ": index > 0 })}
+              >
+                <IncentivesBar
+                  incentive={incentive}
+                  onRemove={() => {
                     incentiveToDelete = incentive;
                     setShowDeleteModal(true);
-                  }} />
-                </div>
-              );
-            })}
-          </Col>
-        </Row>
-      </Container>
+                  }}
+                />
+              </div>
+            );
+          })}
+        </Col>
+      </Row>
 
       <CreateTechnologyIncentiveModal
         show={showIncentiveModal}

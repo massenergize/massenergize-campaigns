@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Container from "react-bootstrap/Container";
+import { useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Input from "../../../components/admin-components/Input";
@@ -16,7 +15,7 @@ import CustomAccordion from "../../../components/admin-components/CustomAccordio
 import SectionForm from "./SectionsForm";
 import { getImageValue } from "../../../helpers/utils";
 
-function Info ({
+function Info({
   information,
   setInformation,
   notifySuccess,
@@ -54,7 +53,7 @@ function Info ({
     const { name, summary, image } = content || {};
     if (!campaign_id)
       return notifyError(
-        "Technology needs to be created with a known campaign id..."
+        "Technology needs to be created with a known campaign id...",
       );
     if (!name?.trim()) {
       notifyError("Please add technology name...");
@@ -76,15 +75,13 @@ function Info ({
     if (!contentIsValid(information)) return;
     setLoading(true);
 
-    const url = isEditing
-      ? "technologies.update"
-      : "campaigns.technologies.create";
+    const url = isEditing ? "technologies.update" : "campaigns.technologies.create";
     // TODO: MOVE THIS INTO THE REQUEST TECHNOLOGY FILE LATER
     apiCall(url, {
       ...information,
       id: tech_id,
       campaign_id,
-      ...(getImageValue(information, "image")),
+      ...getImageValue(information, "image"),
     }).then((response) => {
       const { data, success, error } = response || {};
       setLoading(false);
@@ -98,92 +95,77 @@ function Info ({
   };
   return (
     <div>
-      <Container>
-        <form>
-          <Row className="my-4">
-            <Col>
-              <Input
-                label="Technology Name"
-                placeholder="Enter your technology here...."
-                required={true}
-                type="textbox"
-                onChange={(val) => {
-                  handleFieldChange("name", val);
-                }}
-                value={getValue("name")}
-              />
-            </Col>
-          </Row>
-          <Row className="mt-3">
-            <Col>
-              <Input
-                label="Summary (100 Chars)"
-                placeholder="Add a Summary for this focus......."
-                required={true}
-                type="textbox"
-                onChange={(val) => {handleFieldChange("summary", val);}}
-                maxLength="100"
-                value={getValue("summary")}
-              />
-            </Col>
-          </Row>
-          <Row className="py-4">
-            <Col>
-              <MERichText
-                label="Description"
-                placeholder="Add more description for this technology......."
-                required={true}
-                onEditorChange={(val, _) => {
-                  handleFieldChange("description", val);
-                }}
-                // value={formData?.description}
-                value={getValue("description")}
-              />
-            </Col>
-          </Row>
-          <Row className="py-4">
-            <Col>
-              <FileUploader
-                required={false}
-                id="tech_image"
-                text="Add an image"
-                onChange={(val) => {
-                  handleFieldChange("image", val);
-                }}
-                value={getValue("image")}
-                defaultValue={getValue("image")}
-              />
-            </Col>
-          </Row>
-          <Row className="py-4 justify-content-end">
-            <Col>
-              <Button
-                text="Save & Continue"
-                onClick={handleSubmit}
-                rounded={false}
-                loading={loading}
-              />
-            </Col>
-          </Row>
-        </form>
-        {isEditing && (<div className="py-5">
-          <CustomAccordion
-          title={"Customize The Title and Description of Info Section"}
-           component={<SectionForm
-          section="more_info_section"
-          data={techObject?.more_info_section || {}}
-          updateTechObject={({ more_info_section }) => updateTechObject(more_info_section)}
-          tech_id={tech_id}
-        />}
-        isOpen={openAccordion}
-        onClick={() => setOpenAccordion(!openAccordion)}
-      />
-    </div>)
-}
-</Container>
-</div>
-)
-  ;
+      <form>
+        <Row className="">
+          <Col>
+            <Input
+              label="Technology Name"
+              placeholder="Enter your technology here...."
+              required={true}
+              type="textbox"
+              onChange={(val) => {
+                handleFieldChange("name", val);
+              }}
+              value={getValue("name")}
+            />
+          </Col>
+        </Row>
+        <Row className="mt-3">
+          <Col>
+            <Input
+              label="Summary (100 Chars)"
+              placeholder="Add a Summary for this focus......."
+              required={true}
+              type="textbox"
+              onChange={(val) => {
+                handleFieldChange("summary", val);
+              }}
+              maxLength="100"
+              value={getValue("summary")}
+            />
+          </Col>
+        </Row>
+        <Row className="py-4">
+          <Col>
+            <MERichText
+              label="Description"
+              placeholder="Add more description for this technology......."
+              required={true}
+              onEditorChange={(val, _) => {
+                handleFieldChange("description", val);
+              }}
+              // value={formData?.description}
+              value={getValue("description")}
+            />
+          </Col>
+        </Row>
+        <Row className="py-4">
+          <Col>
+            <FileUploader
+              required={false}
+              id="tech_image"
+              text="Add an image"
+              onChange={(val) => {
+                handleFieldChange("image", val);
+              }}
+              value={getValue("image")}
+              defaultValue={getValue("image")}
+            />
+          </Col>
+        </Row>
+        <Row className="py-4 justify-content-end">
+          <Col>
+            <Button
+              text="Save & Continue"
+              onClick={handleSubmit}
+              rounded={false}
+              loading={loading}
+            />
+          </Col>
+        </Row>
+      </form>
+    </div>
+  );
 }
 
 export default Info;

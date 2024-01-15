@@ -169,9 +169,7 @@ export function TechnologyEditView () {
                   tabIndex={0}
                   key={key}
                   style={{ opacity: deactivate ? 0.6 : 1 }}
-                  className={classes("nav-tabs-main tab", {
-                    "tab-active": activeTab === key,
-                  })}
+                  className={classes("nav-tabs-main tab", { "tab-active": activeTab === key, })}
                   onClick={() => {
                     if (deactivate) return;
                     setActiveTab(key);
