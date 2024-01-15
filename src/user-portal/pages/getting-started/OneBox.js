@@ -72,7 +72,7 @@ function OneBox ({
           />
         )}
         <h5>{name}</h5>
-        <RenderHTML tag={"p"} html={!isEmpty(description) ? ellipsify(description, 80) : "..."} />
+        {/* <RenderHTML tag={"p"} html={!isEmpty(description) ? ellipsify(description, 80) : "..."} /> */}
         <p style={{ textAlign: "center" }}>
           {summary?.substring(0, 80) || "..."}
         </p>
