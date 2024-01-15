@@ -66,7 +66,6 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
 
       if (response) {
         setLoading(false);
-        console.log({ response })
         const balloon = blow({
           title: "Success",
           message: "Campaign information saved successfully",
@@ -194,10 +193,8 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               required={false}
               id="primary_logo"
               text="Upload a primary logo"
-              onChange={async (val) => {
-                if (val) {
+              onChange={(val) => {
                   handleFieldChange("primary_logo", val);
-                }
               }}
             />)
             }
@@ -208,10 +205,8 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               required={false}
               id="secondary_logo"
               text="Upload a secondary logo"
-              onChange={async (val) => {
-                if (val) {
+              onChange={(val) => {
                   handleFieldChange("secondary_logo", val);
-                }
               }}
             />
           </Col>
@@ -223,10 +218,8 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               required={false}
               id="campaign_image"
               text="Add an image for the campaign(optional)"
-              onChange={async (val) => {
-                if (val) {
+              onChange={(val) => {
                   handleFieldChange("campaign_image", val);
-                }
               }}
             />
           </Col>
