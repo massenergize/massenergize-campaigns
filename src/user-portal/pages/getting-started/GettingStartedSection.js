@@ -59,7 +59,7 @@ function GettingStartedSection ({
             >
               {technologies?.map((box, index) => {
                 return (
-                  <Col key={box.id} md={4} lg={3} className="one-tech-wrapper mb-4">
+                  <Col key={box.id} md={4} lg={3} sm={6} xs={6} className="one-tech-wrapper mb-4">
                     <OneBox
                       {...box}
                       trackActivity={trackActivity}
@@ -68,7 +68,7 @@ function GettingStartedSection ({
                   </Col>
                 );
               })}
-              <Col md={3} lg={3} className="one-tech-wrapper">
+              <Col md={3} lg={3}  sm={6} xs={6} className="one-tech-wrapper">
                 <DoMoreBox
                   scrollToCommunities={() =>
                     scrollToCommunities && scrollToCommunities()
@@ -119,7 +119,7 @@ const DoMoreBox = ({ scrollToCommunities }) => {
       // }}
     >
       <div
-        className="one-box  p-4"
+        className="one-box"
         // style={{
         //   height: "100%",
         //   display: "flex",

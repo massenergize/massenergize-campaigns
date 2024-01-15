@@ -1,21 +1,21 @@
-import React from "react";
+import React, { useRef } from "react";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
 import TestimonialBox from "../testimonials/TestimonialBox";
 import EventBox from "../events/EventBox";
+import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 
-function OneTechEventSection ({ events, style, wrapperStyle }) {
+function OneTechEventSection({ events, style, wrapperStyle }) {
+  const containerRef = useRef();
+
   if (!events?.length) return <></>;
   return (
     <div
-      //   id={sectionId}
       className="mt-5 g-s-container elevate-float-pro"
       style={{
         background: "white",
         width: "100%",
-        // padding: "80px 0px",
-        // minHeight: 200,
         ...(style || {}),
       }}
     >
@@ -32,10 +32,13 @@ function OneTechEventSection ({ events, style, wrapperStyle }) {
         >
           <SectionTitle style={{ margin: 0 }}>Featured Events</SectionTitle>
 
-          {/* <div style={{ marginLeft: "auto" }}><ArrowButtons /></div> */}
+          <div style={{ marginLeft: "auto" }}>
+            <ArrowButtons containerRef={containerRef} />
+          </div>
         </div>
 
         <Row
+          ref={containerRef}
           style={{
             overflowX: "auto",
             flexWrap: "nowrap",
