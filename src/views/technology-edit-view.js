@@ -105,7 +105,6 @@ export function TechnologyEditView () {
   const renderTabs = () => {
     return (
       <Col>
-
         {/*</Link>*/}
         {TABS?.map((tab) => {
           return (
@@ -123,7 +122,6 @@ export function TechnologyEditView () {
                 setActiveTab={setActiveTab}
                 coaches={coaches}
                 setCoaches={setCoaches}
-                techObject={techObject}
               />
             )
           );
@@ -147,7 +145,8 @@ export function TechnologyEditView () {
         <Col>
           <div className="w-100 flex items-center justify-content-between">
             <BackButton />
-            {(technology_id ||
+
+            {/*{(technology_id ||
               techObject?.technology?.id) && (
                 <Button
                   variant="primary"
@@ -162,7 +161,7 @@ export function TechnologyEditView () {
                 >
                   Preview Technology <FontAwesomeIcon icon={faExternalLink} />
                 </Button>
-              )}
+              )}*/}
           </div>
 
           <div className="nav-tabs-container" style={{ marginTop: 10 }}>
