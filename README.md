@@ -6,7 +6,7 @@ with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/
 [//]: # (## To get started [&#40;Development setup&#41;]&#40;#development-setup&#41;)
 ## To get started (Development setup)
 
-1. **Clone the repository** [here](https://github.com/Obsidian-Achernar/money-transfer-fr)
+1. **Clone the repository** [here](https://github.com/massenergize/massenergize-campaigns/)
 
 2. **Install the dependencies by running the following command**
 

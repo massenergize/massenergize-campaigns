@@ -48,9 +48,9 @@ export function IncentiveForm ({ incentive = {}, onSubmit }) {
       }
     }
 
-    if (IS_NEW && !incentiveFormData.image) {
-      newErrors.image = "This field is required";
-    }
+    // if (IS_NEW && !incentiveFormData.image) {
+    //   newErrors.image = "This field is required";
+    // }
 
     if (objectIsEmpty(newErrors)) {
       return true;
