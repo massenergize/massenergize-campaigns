@@ -7,10 +7,7 @@ import FileUploader from "../../../components/admin-components/FileUploader";
 import Button from "../../../components/admin-components/Button";
 import "../../../assets/styles/admin-styles.scss";
 import MERichText from "../../../components/admin-components/RichText";
-import { ProgressButton } from "src/components/progress-button/progress-button";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
-import { useParams } from "react-router-dom";
-import { fetchUrlParams } from "src/utils/utils";
 import { apiCall } from "src/api/messenger";
 import { useTechnologyContext } from "../../../hooks/use-technology-context";
 
@@ -81,9 +78,7 @@ function Info ({
     }).then((response) => {
       const { data, success, error } = response || {};
       setLoading(false);
-      if (!success) return notifyError(error);
-      // console.log("It's the data after creating info", data);
-      // updateTechObject({ ...data, ...(data?.technology || {}) });
+      if (!success) return notifyError(error)
       updateTechObject(data);
       setNewTechnologyDetails(data);
       notifySuccess("Saved successfully!");
@@ -94,7 +89,7 @@ function Info ({
     <div>
       <Container>
         <form>
-          <Row className="py-4">
+          <Row className="">
             <Col>
               <Input
                 label="Technology Name"
@@ -108,7 +103,7 @@ function Info ({
               />
             </Col>
           </Row>
-          <Row className="py-4">
+          <Row className="mt-3">
             <Col>
               <Input
                 label="Summary (100 Chars)"

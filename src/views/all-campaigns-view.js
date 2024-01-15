@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import dayjs from "dayjs";
 import DataTable from "../components/data-table";
 import { SelectColumnFilter } from "../components/data-table/filters";
@@ -7,7 +8,7 @@ import { ROW_ACTIONS_MENU } from "./menu";
 import { useNamedState } from "../hooks/useNamedState";
 import useSWR from "swr";
 import { useNavigate } from "react-router-dom";
-import { Button, ButtonGroup, Container } from "react-bootstrap";
+import { Button, ButtonGroup, Col, Container, Row } from "react-bootstrap";
 import { fetchAllCampaigns } from "../requests/campaign-requests";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -15,82 +16,10 @@ import { faFileEdit } from "@fortawesome/free-solid-svg-icons/faFileEdit";
 import { useSelector } from "react-redux";
 import { NoItems } from "@kehillahglobal/ui";
 import Searchbar from "../components/admin-components/Searchbar";
-
-const DUMMY_DATA = [
-  {
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    creator: "Brad H.",
-    updatedAt: "2023-12-01T00:00:00Z",
-    isLive: true,
-    isTemplate: true,
-    category: "Category1",
-    id: "ab3b98d2-f1a3-4620-86db-f48a06459b3d",
-    created_at: "2023-12-07T10:56:12.888Z",
-    updated_at: "2023-12-08T10:34:31.573Z",
-    is_deleted: false,
-    info: null,
-    account: {
-      id: "583c96c5-7fb4-488f-ac54-2558252ae535",
-    },
-    title: "Wayland Campaign",
-    description: "Helo there",
-    start_date: "2023-12-07",
-    end_date: null,
-    primary_logo: {
-      id: 620,
-      name: "PrimaryLogoFor Wayland Campaign Campaign",
-      url: "https://massenergize-files.s3.amazonaws.com/media/Screenshot_2023-11-23_at_10.30.36AM.png",
-    },
-    secondary_logo: {
-      id: 621,
-      name: "SecondaryLogoFor Wayland Campaign Campaign",
-      url: "https://massenergize-files.s3.amazonaws.com/media/csu.jpeg",
-    },
-    image: {
-      id: 631,
-      name: "ImageFor Wayland Campaign Campaign",
-      url: "https://massenergize-files.s3.amazonaws.com/media/pexels-pixabay-221012.jpg",
-    },
-    is_approved: false,
-    is_published: false,
-    is_global: true,
-    is_template: false,
-    tagline: "Wayland and Acton Colab",
-    owner: "906d4df9-e7a7-4b75-b2c6-235796cab193",
-  },
-  {
-    id: "nwv2b324mlkj2 h2g23c22ifn",
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    title: "Reneable Energy Campaign",
-    creator: "Brad H.",
-    createdAt: "2023-12-01T00:00:00Z",
-    updatedAt: "2023-12-01T00:00:00Z",
-    isLive: false,
-    isTemplate: false,
-    category: "Category1",
-  },
-  {
-    id: "nw6b29x7n6207r2m89dh2mn",
-    logo: "https://i.pinimg.com/originals/a1/a1/18/a1a1183db74a83f52cca1ba55e6c37ec.png",
-    title: "Carbon Footprint Reduction",
-    creator: "Brad H.",
-    createdAt: "2023-12-01T00:00:00Z",
-    updatedAt: "2023-12-01T00:00:00Z",
-    isLive: true,
-    isTemplate: false,
-  },
-];
-
-const DUMMY_CAMPAIGN_NAMEs = [
-  "Tree Planting",
-  "Carbon Footprint Reduction",
-  "Renewable Energy Campaign",
-  "5KW Solr installation",
-];
-
+import { HorizontalPushLoader } from "../components/horizontal-push-loader/horizontal-push-loader";
+import { isEmpty } from "../helpers/utils/string";
 
 export function AllCampaignsView ({}) {
-  //   const [data, setData] = useNamedState("table data", DUMMY_DATA);
   const [rowMenu, setRowMenu] = useState(ROW_ACTIONS_MENU);
   const campaignAccount = useSelector((state) => state.campaignAccount);
 
@@ -99,7 +28,6 @@ export function AllCampaignsView ({}) {
   const navigate = useNavigate();
 
   const handleRowActionsClick = (id, row) => {
-    console.log({ id, row });
     setSelectedRow(id);
   };
 
@@ -270,7 +198,7 @@ export function AllCampaignsView ({}) {
 
   const [pagesCount, setPagesCount] = useState(1);
   const [pageIndex, setPageIndex] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(50);
 
   const [skipPageReset, setSkipPageReset] = React.useState(false);
   const updateMyData = (rowIndex, columnId, value) => {
@@ -326,12 +254,14 @@ export function AllCampaignsView ({}) {
   };
   // endregion
 
-  let { data: campaigns } = useSWR(
-    `campaigns.listForAdmin`,
+  let {
+    data: campaigns,
+    isLoading : campaignsLoading,
+  } = useSWR(
+    `campaigns.listForAdmin/${campaignAccount?.id || ""}}`,
     () => fetchAllCampaigns("campaigns.listForAdmin", campaignAccount?.id),
     {
       onSuccess: (data) => {
-        console.log("Nice stuff insid db", { data });
       },
     },
   );
@@ -340,12 +270,12 @@ export function AllCampaignsView ({}) {
 
   const [searchText, setSearchText] = useState("");
 
-  useEffect(() => {
+/*  useEffect(() => {
     const lowercaseInput = searchText.toLowerCase();
 
-    const filtered = campaigns?.filter((campaign) => {
+/!*    const filtered = campaigns?.filter((campaign) => {
       return campaign?.title?.toLowerCase()?.includes(lowercaseInput);
-    });
+    });*!/
 
     const filteredData = campaigns?.filter((item) => {
       function searchInElement (element) {
@@ -378,17 +308,12 @@ export function AllCampaignsView ({}) {
     });
 
     setCampaignShow(filteredData);
-  }, [searchText, campaigns]);
+  }, [searchText, campaigns]);*/
 
-  const patched = campaignShow?.map((campaign, i) => {
+  const patched = (campaigns || []).map((campaign, i) => {
     return {
       ...campaign,
-      title:
-        campaign?.title ||
-        DUMMY_CAMPAIGN_NAMEs[
-          Math.floor(Math.random() * DUMMY_CAMPAIGN_NAMEs.length)
-        ],
-      // creator: campaign.owner || DUMMY_CAMPAIGN_OWNERS[i],
+      title: campaign?.title,
       creator: campaign?.owner?.full_name || "Unknown",
       logo:
         campaign.secondary_logo?.url || "http://localhost:3000/img/fallback-img.png",
@@ -397,32 +322,72 @@ export function AllCampaignsView ({}) {
     };
   });
 
-  // if (!patched?.length) {
-  //   return (
-  //     <Container className="d-flex m-auto" style={{ height: "70vh" }}>
-  //       <NoItems text="Ready to start a campaign? Let's create impact together - launch your first one now!" />
-  //     </Container>
-  //   );
-  // }
 
-  console.log(patched);
+  const SEARCHABLE_FIELDS = [
+    "title",
+    "creator",
+    "created_at",
+    "is_published",
+    "is_template",
+  ];
+
+  const filter = function filter (campaigns, searchText) {
+    return campaigns?.filter((campaign) => {
+      return SEARCHABLE_FIELDS.some((field) => {
+        return campaign[field]?.toString()?.toLowerCase()?.includes(searchText?.toLowerCase());
+      });
+    });
+  }
+
+  let filtered;
+
+  if (!isEmpty(searchText) && patched?.length > 0) {
+    filtered = filter(patched, searchText);
+  } else {
+    filtered = patched;
+  }
+
+  if (campaignsLoading) {
+    return (
+      <Container className="d-flex m-auto" style={{ height: "70vh" }}>
+        <HorizontalPushLoader className={"mt-0"}/>
+      </Container>
+    );
+  }
 
   return (
     <div>
-      <div className="mb-4">
-        <Searchbar setText={setSearchText} />
-      </div>
       {patched?.length > 0 ? (
-        <DataTable
-          className={"table-responsive-sm table"}
-          columns={columns}
-          data={patched || []}
-          size={pageSize}
-          rowSelect={true}
-          skipPageReset={skipPageReset}
-          updateMyData={updateMyData}
-          renderRowSubComponent={null}
-        />
+        <div className="mb-4">
+          <Searchbar onChange={setSearchText} text={searchText} />
+        </div>
+      ) : null}
+
+      {patched?.length > 0 ? (
+        <>
+          {filtered.length > 0 ? (
+            <DataTable
+              className={"table-responsive-sm table"}
+              columns={columns}
+              data={filtered}
+              size={pageSize}
+              rowSelect={false}
+              skipPageReset={skipPageReset}
+              updateMyData={updateMyData}
+              renderRowSubComponent={null}
+            />
+          ) : (
+            <Container className="d-flex m-auto" style={{ height: "70vh" }}>
+              <Row className={"justify-content-center w-100"}>
+                <Col className=" m-auto text-center" md={"auto"}>
+                  <img src="/img/no-search-item.svg" alt="No Search Item" />
+                  <h5 className={"mt-4"}>No campaign matches your search</h5>
+                  <h6>Try searching for something else</h6>
+                </Col>
+              </Row>
+            </Container>
+          )}
+        </>
       ) : (
         <Container className="d-flex m-auto" style={{ height: "70vh" }}>
           <NoItems text="Ready to start a campaign? Let's create impact together - launch your first one now!" />

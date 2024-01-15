@@ -1,17 +1,17 @@
 import { useTechnologyContext } from "../hooks/use-technology-context";
 import { technologyPages } from "../utils/Constants";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useBubblyBalloons } from "../lib/bubbly-balloon/use-bubbly-balloons";
 import useSWR from "swr";
 import { fetchTechnology } from "../requests/technology-requests";
-import { Spinner } from "@kehillahglobal/ui";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import classes from "classnames";
 
 import BackButton from "../components/admin-components/BackButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLink } from "@fortawesome/free-solid-svg-icons";
+import { HorizontalPushLoader } from "../components/horizontal-push-loader/horizontal-push-loader";
 
 const INFO_INITIAL_STATE = {
   name: "",
@@ -25,8 +25,6 @@ const UNPROTECTED = ["information"];
 export function TechnologyEditView () {
   const { setNewTechnologyDetails } = useTechnologyContext();
   let TABS = technologyPages;
-
-  const [loading] = useState(false);
 
   const [techObject, setTechObject] = useState(null);
 
@@ -42,7 +40,6 @@ export function TechnologyEditView () {
   const techIsNotCreatedYet = !getTechnologyId();
 
   const params = useParams()
-
 
   if (techIsNotCreatedYet) {
     TABS = TABS.map((tab) => {
@@ -62,17 +59,6 @@ export function TechnologyEditView () {
     setCoaches(coaches);
   };
 
-  // TODO: MOve this into technology request file later
-  // const fetchTechnologyI = (id, cb) => {
-  //   apiCall("/technologies.info", { id }).then((response) => {
-  //     const { data, success, error } = response || {};
-  //     cb && cb(data, success);
-  //     if (!success) return notifyError(error);
-  //     setTechObject(data);
-  //     inflate(data);
-  //   });
-  // };
-
   const updateTechObject = (data) => {
     const obj = { ...techObject, ...(data || {}) };
     setTechObject(obj);
@@ -80,7 +66,12 @@ export function TechnologyEditView () {
     inflate(obj);
   };
 
-  useSWR(
+  const {
+    data: technologyData,
+    error: technologyError,
+    isValidating: technologyIsValidating,
+    isLoading: technologyIsLoading,
+  } = useSWR(
     technology_id ? `/technologies.info?id=${technology_id}` : null,
     async () => {
       return await fetchTechnology(technology_id);
@@ -112,19 +103,9 @@ export function TechnologyEditView () {
   };
 
   const renderTabs = () => {
-    if (loading)
-      return (
-        <center>
-          <Spinner color="#6e207c" radius={56} variation="TwoHalfCirclesType" />
-        </center>
-      );
-    
-  console.log(technology_id, techObject?.technology?.id);
-    
-
     return (
       <Col>
-       
+
         {/*</Link>*/}
         {TABS?.map((tab) => {
           return (
@@ -150,6 +131,14 @@ export function TechnologyEditView () {
       </Col>
     );
   };
+
+  if (technologyIsLoading) {
+    return (
+      <Container className="d-flex m-auto" style={{ height: "70vh" }}>
+        <HorizontalPushLoader className={"mt-5"}/>
+      </Container>
+    );
+  }
 
   return (
     <div style={{ padding: "1rem" }}>
@@ -201,7 +190,7 @@ export function TechnologyEditView () {
       {/*endregion*/}
 
       {/*region Body: Content goes here*/}
-      <Row className="mt-4 pt-4">{renderTabs()}</Row>
+      <Row className="">{renderTabs()}</Row>
       {/*endregion*/}
 
       {/*region Footer*/}
