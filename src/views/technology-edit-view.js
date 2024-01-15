@@ -78,9 +78,9 @@ export function TechnologyEditView () {
     },
     {
       onSuccess: (data) => {
-        // setTechObject(data);
-        // setNewTechnologyDetails(data);
-        // inflate(data);
+        setTechObject(data);
+        setNewTechnologyDetails(data);
+        inflate(data);
       },
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
@@ -88,13 +88,13 @@ export function TechnologyEditView () {
     },
   );
 
-  useEffect(() => {
-    if (technologyData) {
-      setTechObject(technologyData);
-      setNewTechnologyDetails(technologyData);
-      inflate(technologyData);
-    }
-  }, [technologyData, setNewTechnologyDetails]);
+  // useEffect(() => {
+  //   if (technologyData) {
+  //     setTechObject(technologyData);
+  //     setNewTechnologyDetails(technologyData);
+  //     inflate(technologyData);
+  //   }
+  // }, [technologyData, setNewTechnologyDetails]);
 
   const notifyError = (message) => {
     notify({
