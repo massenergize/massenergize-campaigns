@@ -9,7 +9,7 @@ const Chip = ({
   onClick = null,
   size = "lg",
   onDismiss = null,
-  style,
+  style = {},
 }) => {
   const SIZES = {
     sm: { svg: "18px" },
@@ -21,7 +21,7 @@ const Chip = ({
       className={`${classes("chip", className)} ${
         onClick ? "touchable-opacity" : ""
       }`}
-      style={{ paddingRight: 0, ...(style || {}) }}
+      style={style}
       onClick={() => {
         typeof onClick === "function" && onClick(id);
       }}
