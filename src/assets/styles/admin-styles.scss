@@ -53,9 +53,8 @@
   border-radius: 100%;
   right: -13px;
   background-color: white;
-  box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.5),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5),
+  0 4px 6px -2px rgba(0, 0, 0, 0.05);
   cursor: pointer;
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -268,9 +267,8 @@
 } */
 
 .stats-cont {
-  box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  0 4px 6px -2px rgba(0, 0, 0, 0.05);
   margin-top: 50px;
   background-color: rgb(255, 240, 255);
   padding-bottom: 2rem;
@@ -311,11 +309,19 @@
   width: 100%;
   padding: 10px 10px;
   border-radius: 7px;
-  border: solid gray 1px;
+  border: 1px solid gray;
   margin-bottom: 25px;
   margin-top: 15px;
   letter-spacing: 1px;
-  outline: solid #6e207c;
+
+  &:hover {
+    border-color: #6e207c;
+  }
+
+  &:focus {
+    border-color: #6e207c;
+    outline: solid rgba(110, 32, 124, 0.51);
+  }
 }
 
 .search-icon {
