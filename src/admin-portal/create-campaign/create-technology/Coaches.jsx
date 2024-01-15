@@ -134,7 +134,7 @@ function Coaches({
 
   const renderSelectedCoaches = () => {
     return (
-      <Row className="py-4">
+      <Row className="">
         <Col>
           <h5 className="theme-color">Selected Coaches</h5>
           <p className="my-4">
@@ -260,7 +260,7 @@ function Coaches({
 
   const formHasContent = Object.keys(formData || {}).length > 0;
   return (
-    <div>
+    <div className="px-5 mt-4">
       <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
         <BootButton
           style={{ marginLeft: "auto" }}
@@ -272,12 +272,12 @@ function Coaches({
         </BootButton>
       </div>
       {coaches?.length > 0 && (
-        <Container>
+        <Container fluid>
           {/* <hr /> */}
           {renderSelectedCoaches()}
         </Container>
       )}
-      <div ref={coachFormRef}>
+      <div ref={coachFormRef} className="my-5">
         <form style={{ border: "dashed 2px #eeeeee", padding: "40px" }}>
           <Row>
             <Col>

@@ -91,12 +91,10 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
     );
   }
 
-  console.log(allVendors);
-
   return (
     <div style={{ height: "100vh" }}>
 
-      <Container>
+      <Container fluid className='px-4'>
       <div className="py-5">
         <CustomAccordion
           title={"Customize The Title and Description of Vendors Section"}
@@ -147,7 +145,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
           />
         </Form>
 
-        <Row className="mt-4">
+        <Row className="mt-5">
           {/* <Col>
             <table>
               {selectedVendors?.map((vendor) => {
@@ -214,7 +212,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
                                 setSelectedVendors(filtered);
                               }
                             }}
-                            variant="primary"
+                            variant="danger"
                           >
                             <span>Remove</span>
                           </BTN>
