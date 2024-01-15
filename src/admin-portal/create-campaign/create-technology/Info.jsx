@@ -70,6 +70,7 @@ function Info({
     return true;
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!contentIsValid(information)) return;
@@ -81,13 +82,15 @@ function Info({
       ...information,
       id: tech_id,
       campaign_id,
-      ...getImageValue(information, "image"),
+      ...(isEditing && typeof information.image === 'string' ? {} : { image: !isEditing ? information.image : (information.image ? information.image : 'reset') }),
     }).then((response) => {
       const { data, success, error } = response || {};
       setLoading(false);
       if (!success) return notifyError(error);
-
-      navigate(`/admin/campaign/${campaign_id}/edit/technology/${data?.technology?.id}/campaign_technology/${data?.id}`)
+      
+      if (!isEditing) {
+        navigate(`/admin/campaign/${campaign_id}/edit/technology/${data?.technology?.id}/campaign_technology/${data?.id}`)
+      }
       updateTechObject(data);
       setNewTechnologyDetails(data);
       notifySuccess("Saved successfully!");
