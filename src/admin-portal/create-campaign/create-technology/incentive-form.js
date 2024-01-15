@@ -73,7 +73,8 @@ export function IncentiveForm ({ incentive = {}, onSubmit }) {
         ...(IS_NEW ? { campaign_id } : {}),
         title: incentiveFormData.title,
         description: incentiveFormData.description,
-        ...(getImageValue(incentiveFormData, "image")),
+        ...(!IS_NEW && typeof incentiveFormData.image === 'string' ? {} : { image: IS_NEW ? incentiveFormData.image : (incentiveFormData.image ? incentiveFormData.image : 'reset') }),
+
       };
 
       const data = IS_NEW ? await addTechnologyIncentive(payload) : await updateTechnologyIncentive(payload);

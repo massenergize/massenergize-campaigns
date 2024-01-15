@@ -72,8 +72,7 @@ export function TechnologyEditView () {
     error: technologyError,
     isValidating: technologyIsValidating,
     isLoading: technologyIsLoading,
-  } = useSWR(
-    technology_id ? `/technologies.info?id=${technology_id}` : null,
+  } = useSWR(technology_id ? `/technologies.info?id=${technology_id}` : null,
     async () => {
       return await fetchTechnology(technology_id);
     },
@@ -83,9 +82,11 @@ export function TechnologyEditView () {
         setNewTechnologyDetails(data);
         inflate(data);
       },
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      errorRetryCount: 1,
     },
   );
-
   const notifyError = (message) => {
     notify({
       title: "Error",
