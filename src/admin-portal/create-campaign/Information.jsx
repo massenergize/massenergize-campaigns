@@ -12,6 +12,7 @@ import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons"
 import { useNamedState } from "../../hooks/useNamedState";
 import { isEmpty } from "../../helpers/utils/string";
 import { BubblyBalloonContext } from "../../lib/bubbly-balloon/bubbly-balloon-context";
+import { getImageValue } from "../../helpers/utils";
 
 const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
   const [showError, setShowError] = useState(false);
@@ -42,22 +43,6 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
     setCampaignDetails(field, value);
   };
 
-  const imageExists = (key) => {
-    return typeof campaignDetails[key]?.url !== "undefined";
-  }
-
-  const getImageValue = (key) => {
-    if (imageExists(key)) {
-      return {}
-    }
-
-    if (campaignDetails[key] !== null || typeof campaignDetails[key] !== "undefined") {
-      return { [key]: "reset" }
-    }
-
-    return { [key]: campaignDetails[key] }
-  }
-
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -65,7 +50,6 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
       setShowError(false);
 
       const payload = {
-        // ...campaignDetails,
         id : campaignDetails.id,
         title: campaignDetails.title,
         tagline: campaignDetails.tagline,
@@ -73,16 +57,15 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
 
         ...(campaignDetails.start_date && { start_date: dayjs(campaignDetails.start_date).format("YYYY-MM-DD") }),
         ...(campaignDetails.end_date && { end_date: dayjs(campaignDetails.end_date).format("YYYY-MM-DD") }),
-        ...(getImageValue("primary_logo")),
-        ...(getImageValue("secondary_logo")),
-        ...(getImageValue("campaign_image")),
+        ...(getImageValue(campaignDetails, "primary_logo")),
+        ...(getImageValue(campaignDetails, "secondary_logo")),
+        ...(getImageValue(campaignDetails, "campaign_image")),
       };
 
       let response = await updateCampaign(payload);
 
       if (response) {
         setLoading(false);
-        console.log({ response })
         const balloon = blow({
           title: "Success",
           message: "Campaign information saved successfully",
@@ -210,10 +193,8 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               required={false}
               id="primary_logo"
               text="Upload a primary logo"
-              onChange={async (val) => {
-                if (val) {
+              onChange={(val) => {
                   handleFieldChange("primary_logo", val);
-                }
               }}
             />)
             }
@@ -224,10 +205,8 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               required={false}
               id="secondary_logo"
               text="Upload a secondary logo"
-              onChange={async (val) => {
-                if (val) {
+              onChange={(val) => {
                   handleFieldChange("secondary_logo", val);
-                }
               }}
             />
           </Col>
@@ -239,10 +218,8 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
               required={false}
               id="campaign_image"
               text="Add an image for the campaign(optional)"
-              onChange={async (val) => {
-                if (val) {
+              onChange={(val) => {
                   handleFieldChange("campaign_image", val);
-                }
               }}
             />
           </Col>

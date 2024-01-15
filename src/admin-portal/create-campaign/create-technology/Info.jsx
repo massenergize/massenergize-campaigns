@@ -7,7 +7,6 @@ import FileUploader from "../../../components/admin-components/FileUploader";
 import Button from "../../../components/admin-components/Button";
 import "../../../assets/styles/admin-styles.scss";
 import MERichText from "../../../components/admin-components/RichText";
-import { ProgressButton } from "src/components/progress-button/progress-button";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchUrlParams } from "src/utils/utils";
@@ -15,6 +14,7 @@ import { apiCall } from "src/api/messenger";
 import { useTechnologyContext } from "../../../hooks/use-technology-context";
 import CustomAccordion from "../../../components/admin-components/CustomAccordion";
 import SectionForm from "./SectionsForm";
+import { getImageValue } from "../../../helpers/utils";
 
 function Info ({
   information,
@@ -84,12 +84,11 @@ function Info ({
       ...information,
       id: tech_id,
       campaign_id,
+      ...(getImageValue(information, "image")),
     }).then((response) => {
       const { data, success, error } = response || {};
       setLoading(false);
       if (!success) return notifyError(error);
-      // console.log("It's the data after creating info", data);
-      // updateTechObject({ ...data, ...(data?.technology || {}) });
 
       navigate(`/admin/campaign/${campaign_id}/edit/technology/${data?.technology?.id}/campaign_technology/${data?.id}`)
       updateTechObject(data);
@@ -101,7 +100,7 @@ function Info ({
     <div>
       <Container>
         <form>
-          <Row className="py-4">
+          <Row className="my-4">
             <Col>
               <Input
                 label="Technology Name"
@@ -115,16 +114,14 @@ function Info ({
               />
             </Col>
           </Row>
-          <Row className="py-4">
+          <Row className="mt-3">
             <Col>
               <Input
                 label="Summary (100 Chars)"
                 placeholder="Add a Summary for this focus......."
                 required={true}
                 type="textbox"
-                onChange={(val) => {
-                  handleFieldChange("summary", val);
-                }}
+                onChange={(val) => {handleFieldChange("summary", val);}}
                 maxLength="100"
                 value={getValue("summary")}
               />

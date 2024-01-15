@@ -14,4 +14,6 @@ export function isEmpty (value: any): boolean;
 
 export const someEmpty: <T>(array: T[]) => boolean;
 
+export const getImageValue: (containerObject : object, key: string) => any;
+
 Promise<boolean>;
