@@ -12,8 +12,7 @@ import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloo
 let incentiveToDelete = null;
 
 const Incentives = ({}) => {
-  const { technology, handleAddOverview, handleRemoveOverview } =
-    useTechnologyContext();
+  const { technology, handleAddOverview, handleRemoveOverview } = useTechnologyContext();
   const incentives = technology?.overview || [];
 
   const { notify } = useBubblyBalloons();
@@ -37,10 +36,11 @@ const Incentives = ({}) => {
   const handleRemove = async () => {
     try {
       setLoading(true);
-      const res = await removeTechnologyIncentive({ id: incentiveToDelete?.id });
+      const res = await removeTechnologyIncentive(incentiveToDelete);
 
       if (res) {
-        handleRemoveOverview(incentiveToDelete?.id);
+
+        handleRemoveOverview(incentiveToDelete);
         setShowDeleteModal(false);
         notify({
           title: "Success",
@@ -84,7 +84,7 @@ const Incentives = ({}) => {
                 <IncentivesBar
                   incentive={incentive}
                   onRemove={() => {
-                    incentiveToDelete = incentive;
+                    incentiveToDelete = { id : incentive?.id };
                     setShowDeleteModal(true);
                   }}
                 />

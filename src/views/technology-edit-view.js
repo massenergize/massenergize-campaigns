@@ -12,6 +12,7 @@ import BackButton from "../components/admin-components/BackButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLink } from "@fortawesome/free-solid-svg-icons";
 import { HorizontalPushLoader } from "../components/horizontal-push-loader/horizontal-push-loader";
+import usePrevious from "../hooks/use-previous";
 
 const INFO_INITIAL_STATE = {
   name: "",
@@ -86,13 +87,15 @@ export function TechnologyEditView () {
     },
   );
 
+  const prevTechnologyData = usePrevious(technologyData);
+
   useEffect(() => {
-    if (technologyData) {
+    if (prevTechnologyData === undefined && technologyData !== undefined) {
       setTechObject(technologyData);
       setNewTechnologyDetails(technologyData);
       inflate(technologyData);
     }
-  }, [technologyData, setNewTechnologyDetails]);
+  }, [prevTechnologyData, technologyData, setNewTechnologyDetails]);
 
   const notifyError = (message) => {
     notify({
