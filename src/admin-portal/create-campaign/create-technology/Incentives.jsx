@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button as BTN, Button, Col, Row } from "react-bootstrap";
 import "../../../assets/styles/admin-styles.scss";
 import IncentivesBar from "../../../components/admin-components/IncentivesBar";
 import { useTechnologyContext } from "../../../hooks/use-technology-context";
@@ -65,33 +65,48 @@ const Incentives = ({}) => {
         <Col className="">
           <p>What are the incentives for participating in this technology</p>
         </Col>
-        <Col sm={"auto"}>
-          <Button text="" rounded onClick={() => setShowIncentiveModal(true)}>
-            Add Incentive
-          </Button>
+        <Col sm={"auto"}>{
+          incentives?.length > 0 && (<Button variant="success" rounded onClick={() => setShowIncentiveModal(true)}>Add New Incentive</Button>) }
         </Col>
       </Row>
       <Row className=" ">
-        <Col>
-          {(incentives || [])?.map((incentive, index) => {
-            if (!incentive) return null;
+        {incentives?.length > 0 ? (
+          <Col>
+            {(incentives || [])?.map((incentive, index) => {
+              if (!incentive) return null;
 
-            return (
-              <div
-                key={incentive?.id}
-                className={classes("py-2", { "mt-2 ": index > 0 })}
-              >
-                <IncentivesBar
-                  incentive={incentive}
-                  onRemove={() => {
-                    incentiveToDelete = incentive;
-                    setShowDeleteModal(true);
-                  }}
-                />
+              return (
+                <div
+                  key={incentive?.id}
+                  className={classes("py-2", { "mt-2 ": index > 0 })}
+                >
+                  <IncentivesBar
+                    incentive={incentive}
+                    onRemove={() => {
+                      incentiveToDelete = incentive;
+                      setShowDeleteModal(true);
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </Col>
+        ) : (
+          <div className="w-100 flex items-center flex-column text-center">
+            <div>
+              <img src="/img/no-data.svg" alt="" />
+              <h5 className="">No incentives have been added to this technology.</h5>
+            </div>
+            <div className="text-center">
+              <h6 className="text-muted">Click the 'Add New Incentive' button to add</h6>
+              <div className="mt-4">
+                <BTN variant={"success"} onClick={() => setShowIncentiveModal(true)}>
+                  <span>Add New Incentive</span>
+                </BTN>
               </div>
-            );
-          })}
-        </Col>
+            </div>
+          </div>
+        )}
       </Row>
 
       <CreateTechnologyIncentiveModal

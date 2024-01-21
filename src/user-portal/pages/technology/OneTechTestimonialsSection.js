@@ -38,7 +38,7 @@ function OneTechTestimonialsSection({ sectionId, testimonials, campaign }) {
   const containerRef = useRef();
   const navigator = useNavigate();
   const firstTestimonial = (testimonials || [])[0];
-  const testimonialRoute = `/campaign/${campaign?.id}/technology/testimonial/${firstTestimonial?.id}?open=true`;
+  const testimonialRoute = `/campaign/${campaign?.slug}/technology/testimonial/${firstTestimonial?.id}?open=true`;
 
   return (
     <div

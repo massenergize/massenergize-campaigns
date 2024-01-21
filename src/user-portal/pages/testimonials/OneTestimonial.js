@@ -187,7 +187,7 @@ function OneTestimonial ({
                   key={index?.toString()}
                   onClick={() =>
                     navigator(
-                      `/campaign/${item?.campaign?.id}/technology/testimonial/${item?.id}`
+                      `/campaign/${campaign?.slug}/technology/testimonial/${item?.id}`
                     )
                   }
                   className="touchable-opacity"

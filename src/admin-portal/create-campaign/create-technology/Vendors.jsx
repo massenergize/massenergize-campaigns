@@ -16,6 +16,7 @@ import useSWR from "swr";
 import {
   addTechnologyVendor,
   fetchCampaignCommunityVendors,
+  removeTechnologyVendor,
 } from "src/requests/technology-requests";
 import CustomAccordion from "../../../components/admin-components/CustomAccordion";
 import SectionForm from "./SectionsForm";
@@ -75,6 +76,28 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
     }
   };
 
+  const handleRemoveVendor = async (vendor) => {
+    if (!window.confirm("Are you sure you want to remove this vendor?")) return;
+    setLoading(true);
+    try {
+      let res = await removeTechnologyVendor({
+        technology_id: tech_id,
+        vendor_id: vendor?.id,
+      });
+      const filtered = selectedVendors?.filter((vend) => vend?.id !== vendor?.id);
+      setSelectedVendors(filtered);
+      setLoading(false);
+      blow({
+        title: "Success",
+        message: "Vendor removed successfully",
+        type: "success",
+      });
+    } catch (e) {
+      setLoading(false);
+      pop({ title: "Error", message: "Error removing vendor", type: "error" });
+    }
+  };
+
   if (isLoading) {
     return (
       <div
@@ -93,23 +116,22 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
 
   return (
     <div style={{ height: "100vh" }}>
-
-      <Container fluid className='px-4'>
-      <div className="py-5">
-        <CustomAccordion
-          title={"Customize The Title and Description of Vendors Section"}
-          component={
-            <SectionForm
-              section="vendors_section"
-              data={techObject?.vendors_section}
-              updateTechObject={updateTechObject}
-              tech_id={tech_id}
-            />
-          }
-          isOpen={openAccordion}
-          onClick={() => setOpenAccordion(!openAccordion)}
-        />
-      </div>
+      <Container fluid className="px-4">
+        <div className="py-5">
+          <CustomAccordion
+            title={"Customize The Title and Description of Vendors Section"}
+            component={
+              <SectionForm
+                section="vendors_section"
+                data={techObject?.vendors_section}
+                updateTechObject={updateTechObject}
+                tech_id={tech_id}
+              />
+            }
+            isOpen={openAccordion}
+            onClick={() => setOpenAccordion(!openAccordion)}
+          />
+        </div>
         <Form>
           <FormLabel>
             Choose one or more Vendors for this technology from the dropdown below.
@@ -145,30 +167,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
           />
         </Form>
 
-        <Row className="mt-5">
-          {/* <Col>
-            <table>
-              {selectedVendors?.map((vendor) => {
-                return (
-                  <Col key={vendor?.id} sm={"auto mb-2"}>
-                    <Chip
-                      text={vendor?.name}
-                      icon={vendor?.icon}
-                      id={vendor?.id}
-                      size={"sm"}
-                      className="mr-2 mb-5"
-                      onDismiss={(id, text) => {
-                        setSelectedVendors(
-                          selectedVendors?.filter((vendor) => vendor?.id !== id),
-                        );
-                      }}
-                    />
-                  </Col>
-                );
-              })}
-            </table>
-          </Col> */}
-
+        <Row className="mt-5 px-4">
           {selectedVendors?.length > 0 ? (
             <>
               <table className="table">
@@ -200,18 +199,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
                         <td className="text-cnter">
                           <BTN
                             // style={{ marginLeft: 10 }}
-                            onClick={(id, text) => {
-                              if (
-                                window.confirm(
-                                  "Are you sure you want to remove this vendor?",
-                                )
-                              ) {
-                                const filtered = selectedVendors?.filter(
-                                  (vend) => vend?.id !== vendor?.id,
-                                );
-                                setSelectedVendors(filtered);
-                              }
-                            }}
+                            onClick={() => handleRemoveVendor(vendor)}
                             variant="danger"
                           >
                             <span>Remove</span>
@@ -223,20 +211,32 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
                 </tbody>
               </table>
             </>
-          ) : null}
+          ) : (
+            <div className="w-100 flex items-center flex-column text-center">
+              <div>
+                <img src="/img/no-data.svg" alt="" />
+                <p className="">
+                  No vendors have been associated with this technology yet.
+                </p>
+                <p>Select Vendors from the dropdown above</p>
+              </div>
+            </div>
+          )}
         </Row>
 
-        <Row className="mt-4 justify-content-end">
-          <Col>
-            <Button
-              text="Save Changes"
-              loading={loading}
-              disabled={loading}
-              onSubmit={handleSaveVendors}
-              rounded={false}
-            />
-          </Col>
-        </Row>
+        {selectedVendors?.length > 0 && (
+          <Row className="mt-4 justify-content-end">
+            <Col>
+              <Button
+                text="Save Changes"
+                loading={loading}
+                disabled={loading}
+                onSubmit={handleSaveVendors}
+                rounded={false}
+              />
+            </Col>
+          </Row>
+        )}
       </Container>
     </div>
   );

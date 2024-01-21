@@ -147,9 +147,9 @@ export function AllCampaignsView ({}) {
       Header: () => null,
       id: "actions",
       accessor: (values) => {
-        const { id } = values;
+        const { slug } = values;
 
-        return id;
+        return slug;
       },
       style: {
         width: "100px",
