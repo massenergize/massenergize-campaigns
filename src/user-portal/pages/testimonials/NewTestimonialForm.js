@@ -231,9 +231,8 @@ function NewTestimonialForm({
               menubar: false,
               plugins: [
                 "advlist",
-                "autolink",
+                // "autolink",
                 "lists",
-                "link",
                 "image",
                 "charmap",
                 "preview",
@@ -244,15 +243,16 @@ function NewTestimonialForm({
                 "fullscreen",
                 "insertdatetime",
                 "media",
+                "link",
                 "table",
                 "code",
                 "help",
                 "wordcount",
               ],
               toolbar:
-                "undo redo | blocks | link | " +
+                "undo redo | blocks | " +
                 "bold italic forecolor | alignleft aligncenter " +
-                "alignright alignjustify | bullist numlist outdent indent | " +
+                "alignright alignjustify link | bullist numlist outdent indent | " +
                 "removeformat | help",
               content_style:
                 "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",

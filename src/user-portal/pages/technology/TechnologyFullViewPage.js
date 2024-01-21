@@ -23,6 +23,7 @@ import {
   fetchUrlParams,
   relativeTimeAgo,
   setPageTitle,
+  truncateRichText,
 } from "../../../utils/utils";
 import { useParams } from "react-router-dom";
 import NotFound from "../error/404";
@@ -49,7 +50,7 @@ const PREVIEW_TEXT_LENGHT = 1000;
 const MOBILE_PREVIEW_TEXT_LENGTH = 200;
 const COMMENT_LENGTH = 40;
 
-function TechnologyFullViewPage ({
+function TechnologyFullViewPage({
   toggleModal,
   techs,
   updateTechObjs,
@@ -292,15 +293,16 @@ function TechnologyFullViewPage ({
         updateTechList({ ...(technology || {}), comments: data }, id);
         cb && cb(data);
       })
-      .catch((e) =>
-        console.log("COMMENT_DELETION_ERROR_SYNT: ", e?.toString())
-      );
+      .catch((e) => console.log("COMMENT_DELETION_ERROR_SYNT: ", e?.toString()));
   };
 
   // const READ_HEIGHT = isMobile ? 100 : DEFAULT_READ_HEIGHT;
   const READ_HEIGHT = DEFAULT_READ_HEIGHT;
   const LENGTH = isMobile ? MOBILE_PREVIEW_TEXT_LENGTH : PREVIEW_TEXT_LENGHT;
-  const isReallyLong = description.length > LENGTH; // This is not a good way of checking, change it later
+
+  const { truncatedContent, isLong } = truncateRichText(description, READ_HEIGHT);
+  console.log("LE CONTENT", truncatedContent, isLong);
+  // const isReallyLong = description.length > LENGTH; // This is not a good way of checking, change it later
 
   return (
     <div>
@@ -340,10 +342,10 @@ function TechnologyFullViewPage ({
               />
               <p className="mt-3 o-t-desc" style={{ textAlign: "justify" }}>
                 <span
-                  dangerouslySetInnerHTML={{ __html: description }}
+                  dangerouslySetInnerHTML={{ __html: truncatedContent }}
                   style={{ height, display: "block", overflowY: "hidden" }}
                 ></span>
-                {isReallyLong && (
+                {isLong && (
                   <span
                     onClick={() => setHeight(readMore ? "100%" : READ_HEIGHT)}
                     className="touchable-opacity"
@@ -633,12 +635,17 @@ function TechnologyFullViewPage ({
           <GetAGreatDealSection
             image={deal_section_image}
             data={deal_section}
-            deals = {deals}
+            deals={deals}
             sectionId="get-a-deal"
             toggleDealModal={(deal) =>
               toggleModal({
                 show: true,
-                component: (props) => <div style = {{padding:20}} dangerouslySetInnerHTML={{__html: deal?.description}} />,
+                component: (props) => (
+                  <div
+                    style={{ padding: 20 }}
+                    dangerouslySetInnerHTML={{ __html: deal?.description }}
+                  />
+                ),
                 fullControl: true,
                 title: deal?.title,
               })
@@ -688,7 +695,7 @@ const mapDispatch = (dispatch) => {
       trackActivity,
       updateUserInRedux: loadUserObjAction,
     },
-    dispatch
+    dispatch,
   );
 };
 export default connect(mapState, mapDispatch)(TechnologyFullViewPage);

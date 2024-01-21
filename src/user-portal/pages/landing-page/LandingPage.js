@@ -52,6 +52,8 @@ function LandingPage ({
   const testimonialsRef = useRef();
   const communitiesRef = useRef();
 
+  console.log("HEre is the full campaign", campaign)
+
   const idsToRefMap = {
     coaches: coachesRef,
     incentives: incentivesRef,

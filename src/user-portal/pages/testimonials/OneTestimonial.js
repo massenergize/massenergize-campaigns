@@ -19,7 +19,7 @@ import JoinUsForm from "../forms/JoinUsForm";
 import NewTestimonialForm from "./NewTestimonialForm";
 import { fetchUrlParams, setPageTitle } from "../../../utils/utils";
 
-function OneTestimonial ({
+function OneTestimonial({
   testimonials,
   updateTestimonials,
   campaign,
@@ -119,12 +119,14 @@ function OneTestimonial ({
   if (testimonial === LOADING)
     return <Loading fullPage>Fetching event information...</Loading>;
 
+  const hasOtherTestimonials = otherTestimonials?.length ? true : false;
+
   return (
     <PageWrapper>
       <SectionTitle>{title || "..."}</SectionTitle>
       <Row>
         <Col lg={9}>
-          {image?.url && (
+          {/* {image?.url && (
             <img
               className="elevate-float-pro mt-3"
               src={image?.url}
@@ -136,7 +138,7 @@ function OneTestimonial ({
               }}
               alt={image?.name || "Testimonial Image"}
             />
-          )}
+          )} */}
 
           <p className="mt-4" style={{ textAlign: "justify" }}>
             <span
@@ -146,72 +148,90 @@ function OneTestimonial ({
           </p>
         </Col>
         <Col lg={3} className="mt-3">
-          <div
-            style={{
-              border: "solid 1px var(--app-deep-green)",
-              padding: 10,
-              //   marginBottom: 10,
-              background: "var(--app-deep-green)",
-              borderTopLeftRadius: 5,
-              borderTopRightRadius: 5,
-            }}
-          >
-            <h6
+          {image?.url && (
+            <img
+              className="elevate-float-pro mt-3"
+              src={image?.url}
               style={{
-                color: "white",
-                fontWeight: "bold",
-                margin: 0,
+                width: "100%",
+                height: 150,
+                objectFit: "cover",
+                borderRadius: 10,
+                marginBottom: 20,
+              }}
+              alt={image?.name || "Testimonial Image"}
+            />
+          )}
+          {hasOtherTestimonials && (
+            <div
+              style={{
+                border: "solid 1px var(--app-deep-green)",
+                padding: 10,
+                //   marginBottom: 10,
+                background: "var(--app-deep-green)",
+                borderTopLeftRadius: 5,
+                borderTopRightRadius: 5,
               }}
             >
-              Other Testimonials
-            </h6>
-          </div>
+              <h6
+                style={{
+                  color: "white",
+                  fontWeight: "bold",
+                  margin: 0,
+                }}
+              >
+                Other Testimonials
+              </h6>
+            </div>
+          )}
 
-          <ul
-            style={{
-              listStyleType: "",
-              padding: "15px 15px",
-              border: "solid 1px green",
-              listStyle: "none",
-              borderBottomRightRadius: 6,
-              borderBottomLeftRadius: 6,
-            }}
-          >
-            {otherTestimonials?.map((item, index) => {
-              var title = item?.title;
-              title = title ? `${title} (${item?.tech_name})` : "...";
-              return (
-                <li
-                  role={"button"}
-                  tabIndex={0}
-                  key={index?.toString()}
-                  onClick={() =>
-                    navigator(
-                      `/campaign/${item?.campaign?.id}/technology/testimonial/${item?.id}`
-                    )
-                  }
-                  className="touchable-opacity"
-                  style={{
-                    color: "var(--app-deep-green)",
+          {hasOtherTestimonials && (
+            <ul
+              style={{
+                listStyleType: "",
+                padding: "15px 15px",
+                border: "solid 1px green",
+                listStyle: "none",
+                borderBottomRightRadius: 6,
+                borderBottomLeftRadius: 6,
+              }}
+            >
+              {otherTestimonials?.map((item, index) => {
+                var title = item?.title;
+                title = title ? `${title} (${item?.tech_name})` : "...";
+                return (
+                  <li
+                    role={"button"}
+                    tabIndex={0}
+                    key={index?.toString()}
+                    onClick={() =>
+                      navigator(
+                        `/campaign/${item?.campaign?.id}/technology/testimonial/${item?.id}`,
+                      )
+                    }
+                    className="touchable-opacity"
+                    style={{
+                      color: "var(--app-deep-green)",
 
-                    fontWeight: "bold",
-                    fontSize: 14,
-                    textDecoration: "underline",
-                    marginBottom: 8,
-                  }}
-                >
-                  <span>
-                    {index + 1}. {`${item?.title} ` || "..."}
-                  </span>
-                  <span
-                  // style={{  marginLeft: 5 }}
+                      fontWeight: "bold",
+                      fontSize: 14,
+                      textDecoration: "underline",
+                      marginBottom: 8,
+                    }}
                   >
-                    ({item?.tech_name})
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
+                    <span>
+                      {index + 1}. {`${item?.title} ` || "..."}
+                    </span>
+                    <span
+                    // style={{  marginLeft: 5 }}
+                    >
+                      ({item?.tech_name})
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
           <div
             onClick={() => initiateTestimonialCreation(authUser)}
             className="mt-2 touchable-opacity"
@@ -246,7 +266,7 @@ const mapDispatch = (dispatch) => {
       init: appInnitAction,
       toggleModal: toggleUniversalModal,
     },
-    dispatch
+    dispatch,
   );
 };
 export default connect(mapState, mapDispatch)(OneTestimonial);
