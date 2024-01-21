@@ -41,7 +41,7 @@ function TestimonialSectionWithFilters ({
   );
   const firstOne = testimonialsOfEachTech[0];
   const firstTestimonial = (firstOne?.testimonials || [])[0];
-  const testimonialRoute = `/campaign/${campaign?.id}/technology/testimonial/${firstTestimonial?.id}?open=true`;
+  const testimonialRoute = `/campaign/${campaign?.slug}/technology/testimonial/${firstTestimonial?.id}?open=true`;
 
   let allTestimonials = technologies?.map((tech) => tech?.testimonials);
   allTestimonials = mergeArrays(allTestimonials);

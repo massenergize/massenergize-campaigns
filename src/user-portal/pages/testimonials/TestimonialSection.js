@@ -31,7 +31,7 @@ function TestimonialSection ({ sectionId, technologies, defaultTab, campaign }) 
   );
   const firstOne = testimonialsOfEachTech[0];
   const firstTestimonial = (firstOne?.testimonials || [])[0];
-  const testimonialRoute = `/campaign/${campaign?.id}/technology/testimonial/${firstTestimonial?.id}?open=true`;
+  const testimonialRoute = `/campaign/${campaign?.slug}/technology/testimonial/${firstTestimonial?.id}?open=true`;
 
   const intoTabs = testimonialsOfEachTech?.map(
     ({ id, name, testimonials }) => ({

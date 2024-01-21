@@ -16,6 +16,7 @@ import useSWR from "swr";
 import {
   addTechnologyVendor,
   fetchCampaignCommunityVendors,
+  removeTechnologyVendor,
 } from "src/requests/technology-requests";
 import CustomAccordion from "../../../components/admin-components/CustomAccordion";
 import SectionForm from "./SectionsForm";

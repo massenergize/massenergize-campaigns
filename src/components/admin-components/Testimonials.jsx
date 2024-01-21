@@ -29,7 +29,6 @@ const Testimonials = ({ campaign, mutateData }) => {
   const techs = campaign?.technologies;
   const communities = campaign?.communities;
   let testimonials = [...techs?.map((tech) => tech?.testimonials)].flat();
-  testimonials = [...testimonials, ...campaign?.my_testimonials];
 
   const { blow, pop } = useBubblyBalloons();
   const { data: users } = useSWR(
