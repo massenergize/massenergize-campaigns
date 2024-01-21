@@ -301,7 +301,7 @@ function TechnologyFullViewPage({
   const LENGTH = isMobile ? MOBILE_PREVIEW_TEXT_LENGTH : PREVIEW_TEXT_LENGHT;
 
   const { truncatedContent, isLong } = truncateRichText(description, READ_HEIGHT);
-  console.log("LE CONTENT", truncatedContent, isLong);
+  console.log("IS REALLY LONG", isLong);
   // const isReallyLong = description.length > LENGTH; // This is not a good way of checking, change it later
 
   return (

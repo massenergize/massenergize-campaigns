@@ -2,21 +2,24 @@ import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import phone_call from "./../../../assets/imgs/phone_call.png";
 const LEN = 250;
-function RoamingBox ({ advert, keyContact, showMore }) {
+function RoamingBox({ advert, keyContact, showMore }) {
   const desc = advert?.description;
   const preview = desc?.substr(0, LEN);
   const isLong = desc?.length > LEN;
+
+  const { phone_number, email } = keyContact || {};
   return (
     <div className="roaming-container">
       <Container>
         <Col lg={{ span: 9, offset: 1 }}>
           <Row>
             <Col lg={8}>
-              <div className="">
+              <div style={{}}>
                 <div className="roaming-header">
                   <h3 className="m-0">{advert?.title}</h3>
                 </div>
                 <div
+                  className="flex-column"
                   style={{
                     minHeight: 200,
                     background: "antiquewhite",
@@ -26,9 +29,15 @@ function RoamingBox ({ advert, keyContact, showMore }) {
                     {preview}
                     {isLong ? "..." : ""}
                   </p>
-                  <div style={{ display: "flex", padding: "20px 35px" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      padding: "20px 35px",
+                      marginTop: "auto",
+                    }}
+                  >
                     <Button
-                    // className="app-btn"
+                      // className="app-btn"
                       onClick={() => showMore && showMore()}
                       // style={{
                       //   marginLeft: "auto",
@@ -52,7 +61,7 @@ function RoamingBox ({ advert, keyContact, showMore }) {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                marginTop:40
+                marginTop: 40,
               }}
             >
               <img
@@ -81,35 +90,39 @@ function RoamingBox ({ advert, keyContact, showMore }) {
               >
                 <span>{keyContact?.name || "..."}</span>
               </h6>
-              <p
-                role={"button"}
-                tabIndex={0}
-                onClick={() => {
-                  window.open(`mailto:${keyContact?.email}`, "_blank");
-                }}
-                className="mb-1 touchable-opacity"
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  textDecoration: "underline",
-                  alignItems: "center",
-                }}
-              >
-                <i className=" fa fa-envelope" style={{ marginRight: 6 }} />
-                <span> {keyContact?.email}</span>
-              </p>
-              <p
-                role={"button"}
-                tabIndex={0}
-                className="touchable-opacity"
-                onClick={() => {
-                  window.open(`tel:${keyContact?.phone_number}`, "_blank");
-                }}
-                style={{ textDecoration: "underline" }}
-              >
-                <i className="fa fa-phone" />{" "}
-                <span>{keyContact?.phone_number}</span>
-              </p>
+              {email && (
+                <p
+                  role={"button"}
+                  tabIndex={0}
+                  onClick={() => {
+                    window.open(`mailto:${keyContact?.email}`, "_blank");
+                  }}
+                  className="mb-1 touchable-opacity"
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    textDecoration: "underline",
+                    alignItems: "center",
+                  }}
+                >
+                  <i className=" fa fa-envelope" style={{ marginRight: 6 }} />
+                  <span> {keyContact?.email}</span>
+                </p>
+              )}
+              {phone_number && (
+                <p
+                  role={"button"}
+                  tabIndex={0}
+                  className="touchable-opacity"
+                  onClick={() => {
+                    window.open(`tel:${keyContact?.phone_number}`, "_blank");
+                  }}
+                  style={{ textDecoration: "underline" }}
+                >
+                  <i className="fa fa-phone" />{" "}
+                  <span>{keyContact?.phone_number}</span>
+                </p>
+              )}
             </Col>
           </Row>
         </Col>

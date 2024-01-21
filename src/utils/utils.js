@@ -122,13 +122,19 @@ export function truncateRichText(richText, maxHeight) {
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = richText;
 
+  document.body.appendChild(tempDiv);
   // Get the height of the content in the temporary div
-  const contentHeight = tempDiv.offsetHeight;
+  const contentHeight = tempDiv.offsetHeight +40;
   var isLong = false;
+
+
+  console.log("Here is the content height", contentHeight)
 
   // If the content height is within the specified limit, no need to truncate
   if (contentHeight <= maxHeight) {
-    return { truncateRichText: richText, isLong };
+    document.body.removeChild(tempDiv);
+    console.log("Its coming inside here mom ooo")
+    return { truncatedContent: richText, isLong };
   }
 
   // Iterate through the child nodes to find the point to truncate
