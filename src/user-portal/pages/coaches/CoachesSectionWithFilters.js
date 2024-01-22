@@ -49,6 +49,8 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
     );
   };
 
+  if (!coaches?.length) return <></>;
+
   const hasScrollableCoaches = coaches?.length > 4;
   return (
     <div
