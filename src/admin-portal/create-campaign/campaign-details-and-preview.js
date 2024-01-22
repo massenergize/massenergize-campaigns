@@ -31,7 +31,7 @@ export function CampaignDetailsAndPreview ({setStep,}) {
             </Button>*/}
             {/*<Link to={`/campaign/${campaignDetails.id}?preview=true`} target={"_blank"}>*/}
             <Button variant="primary" onClick={() => {
-              window.open(`/campaign/${campaignDetails.id}?preview=true`, "_blank")
+              window.open(`/campaign/${campaignDetails.slug}?preview=true`, "_blank")
             }}>
               Preview <FontAwesomeIcon icon={faExternalLink}/>
             </Button>

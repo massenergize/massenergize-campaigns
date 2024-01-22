@@ -14,6 +14,7 @@ import { useTechnologyContext } from "../../../hooks/use-technology-context";
 import CustomAccordion from "../../../components/admin-components/CustomAccordion";
 import SectionForm from "./SectionsForm";
 import { getImageValue } from "../../../helpers/utils";
+import { useSelector } from "react-redux";
 
 function Info({
   information,
@@ -29,6 +30,7 @@ function Info({
   const isEditing = tech_id;
 
   const navigate = useNavigate()
+  const campaignAccount = useSelector((state) => state.campaignAccount);
 
   const handleFieldChange = (field, value) => {
     setInformation({ ...information, [field]: value });
@@ -70,6 +72,7 @@ function Info({
     return true;
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!contentIsValid(information)) return;
@@ -81,20 +84,23 @@ function Info({
       ...information,
       id: tech_id,
       campaign_id,
-      ...getImageValue(information, "image"),
+      ...(!isEditing ? { campaign_account_id: campaignAccount?.id } : {}),
+      ...(isEditing && typeof information.image === 'string' ? {} : { image: !isEditing ? information.image : (information.image ? information.image : 'reset') }),
     }).then((response) => {
       const { data, success, error } = response || {};
       setLoading(false);
       if (!success) return notifyError(error);
-
-      navigate(`/admin/campaign/${campaign_id}/edit/technology/${data?.technology?.id}/campaign_technology/${data?.id}`)
+      
+      if (!isEditing) {
+        navigate(`/admin/campaign/${campaign_id}/edit/technology/${data?.technology?.id}/campaign_technology/${data?.id}`)
+      }
       updateTechObject(data);
       setNewTechnologyDetails(data);
       notifySuccess("Saved successfully!");
     });
   };
   return (
-    <div>
+    <div className="py-4">
       <form>
         <Row className="">
           <Col>
@@ -139,6 +145,7 @@ function Info({
             />
           </Col>
         </Row>
+
         <Row className="py-4">
           <Col>
             <FileUploader

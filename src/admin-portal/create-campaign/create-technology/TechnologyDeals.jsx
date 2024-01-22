@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import Container from "react-bootstrap/Container";
-import { Button, Col, Row, Modal } from "react-bootstrap";
+import { Button, Col, Row, Modal, Button as BTN } from "react-bootstrap";
 import classes from "classnames";
 import IncentivesBar from "../../../components/admin-components/IncentivesBar";
 import DealsForm from "./DealsForm";
 import { removeTechnologyDeal } from 'src/requests/technology-requests';
 import { useBubblyBalloons } from 'src/lib/bubbly-balloon/use-bubbly-balloons';
-import { set } from 'date-fns';
 import GhostLoader from 'src/components/admin-components/GhostLoader';
 import CustomAccordion from 'src/components/admin-components/CustomAccordion';
 import SectionsForm from './SectionsForm';
@@ -78,25 +77,58 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
           <p>What are the deals for this campaign</p>
         </Col>
         <Col sm={"auto"}>
-          <Button text="" rounded onClick={() => setOpenDealsModal(true)}>
-            Add New Deal
-          </Button>
+          {deals?.length > 0 && (
+            <Button
+              variant="success"
+              rounded
+              onClick={() => setOpenDealsModal(true)}
+            >
+              Add New Deal
+            </Button>
+          )}
         </Col>
       </Row>
       <Row className=" ">
-        <Col>
-          {(deals || [])?.map((deal, index) => {
-            if (!deal) return null;
-            return (
-              <div
-                key={deal?.id}
-                className={classes("py-2", { "mt-2 ": index > 0 })}
-              >
-                <IncentivesBar incentive={deal} onRemove={() => handleRemove(deal?.id)} formComponent={<DealsForm  technology_id={tech_id} deal={deal} onSubmit= {updateDealsList}/>} />
+        {(deals || [])?.length > 0 ? (
+          <Col>
+            {(deals || [])?.map((deal, index) => {
+              if (!deal) return null;
+              return (
+                <div
+                  key={deal?.id}
+                  className={classes("py-2", { "mt-2 ": index > 0 })}
+                >
+                  <IncentivesBar
+                    incentive={deal}
+                    onRemove={() => handleRemove(deal?.id)}
+                    formComponent={
+                      <DealsForm
+                        technology_id={tech_id}
+                        deal={deal}
+                        onSubmit={updateDealsList}
+                      />
+                    }
+                  />
+                </div>
+              );
+            })}
+          </Col>
+        ) : (
+          <div className="w-100 flex items-center flex-column text-center">
+            <div>
+              <img src="/img/no-data.svg" alt="" />
+              <h5 className="">No deals added to this technology</h5>
+            </div>
+            <div className="text-center">
+              <h6 className="text-muted">Click the 'Add New Deal' button to add</h6>
+              <div className="mt-4">
+                <BTN variant={"success"} onClick={() => setOpenDealsModal(true)}>
+                  <span>Add New Deal</span>
+                </BTN>
               </div>
-            );
-          })}
-        </Col>
+            </div>
+          </div>
+        )}
       </Row>
 
 
@@ -105,7 +137,12 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
           <Modal.Title className={"text-sm"}>New Technology Deal</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <DealsForm key={"new-deal"} deal={{}} onSubmit={updateDealsList} technology_id={tech_id} />
+          <DealsForm
+            key={"new-deal"}
+            deal={{}}
+            onSubmit={updateDealsList}
+            technology_id={tech_id}
+          />
         </Modal.Body>
       </Modal>
     </div>

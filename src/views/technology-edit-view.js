@@ -19,6 +19,7 @@ const INFO_INITIAL_STATE = {
   image: "",
   description: "",
   summary: "",
+  help_link:""
 };
 
 const UNPROTECTED = ["information"];
@@ -53,10 +54,10 @@ export function TechnologyEditView () {
   const { notify } = useBubblyBalloons();
 
   const inflate = (techObject) => {
-    const { summary, image, description, name, coaches } = techObject || {};
+    const { summary, image, description, name, coaches, help_link } = techObject || {};
     if (!techIsNotCreatedYet) {
       // Will only run when updating "information", not creating (cos at that time, techObject is null...)
-      setInformation({ summary, image: image?.url, description, name });
+      setInformation({ summary, image: image?.url, description, name, help_link });
     }
     setCoaches(coaches);
   };
@@ -73,17 +74,19 @@ export function TechnologyEditView () {
     error: technologyError,
     isValidating: technologyIsValidating,
     isLoading: technologyIsLoading,
-  } = useSWR(
-    technology_id ? `/technologies.info?id=${technology_id}` : null,
+  } = useSWR(technology_id ? `/technologies.info?id=${technology_id}` : null,
     async () => {
       return await fetchTechnology(technology_id);
     },
     {
       onSuccess: (data) => {
-        // setTechObject(data);
-        // setNewTechnologyDetails(data);
-        // inflate(data);
+        setTechObject(data);
+        setNewTechnologyDetails(data);
+        inflate(data);
       },
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      errorRetryCount: 1,
     },
   );
 
@@ -151,27 +154,34 @@ export function TechnologyEditView () {
   }
 
   return (
-    <div style={{ padding: "1rem" }}>
+    <div className={"p-3 mt-2"}>
       {/*region Header*/}
-      <Row className="pb-4 overflow-scroll gap-0 no-gutters g">
+      <Row className="overflow-scroll">
         <Col>
-          <div className="w-100 flex items-center justify-content-between">
-            <BackButton />
-            {(technology_id ||
-              techObject?.technology?.id) && (
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    window.open(
-                      `/campaign/${campaign_id}/technology/${campaign_technology_id}?preview=true`,
-                      "_blank",
-                    );
-                  }}
-                >
-                  Preview Technology <FontAwesomeIcon icon={faExternalLink} />
-                </Button>
-              )}
-          </div>
+          <Row className="w-10 justify-content-between">
+            <Col md="auto">
+              <BackButton />
+            </Col>
+            <Col>
+              <h4 className="text-center">{information?.name|| ""}</h4>
+            </Col>
+            <Col md="auto">
+              {(technology_id ||
+                techObject?.technology?.id) && (
+                 <Button
+                   variant="primary"
+                   onClick={() => {
+                     window.open(
+                       `/campaign/${campaign_id}/technology/${campaign_technology_id}?preview=true`,
+                       "_blank",
+                     );
+                   }}
+                 >
+                   Preview Technology <FontAwesomeIcon icon={faExternalLink} />
+                 </Button>
+               )}
+            </Col>
+          </Row>
 
           <div className="nav-tabs-container" style={{ marginTop: 10 }}>
             {TABS?.map(({ key, name, deactivate }) => {

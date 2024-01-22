@@ -19,8 +19,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { AdminLayout } from "../../../../layouts/admin-layout";
 import useSWR, { mutate } from "swr";
 import {
-  fetchCampaign,
-  updateCampaign,
+  fetchCampaign, fetchCampaignStats,
+  updateCampaign
 } from "../../../../requests/campaign-requests";
 import { apiCall } from "../../../../api/messenger";
 import Loading from "../../../../components/pieces/Loading";
@@ -28,7 +28,7 @@ import { useBubblyBalloons } from "../../../../lib/bubbly-balloon/use-bubbly-bal
 import GhostLoader from "../../../../components/admin-components/GhostLoader";
 import { daysOfWeek, monthsOfYear } from "../../../../utils/Constants";
 
-export function CampaignStatistics ({}) {
+export function CampaignStatistics({}) {
   const { id } = useParams();
 
   const [loading, setLoading] = useState(false);
@@ -37,40 +37,56 @@ export function CampaignStatistics ({}) {
   const { blow, pop } = useBubblyBalloons();
 
   const {
-    data: campaign,
-    isLoading: campaignLoading,
-    isValidating: campaignValidating,
-    error: campaignError,
+    data: stats,
+    isLoading: statsLoading,
+    isValidating: statsValidating,
+    error: statsError,
   } = useSWR(
-    `campaign.info/${id}`,
+    `campaign.stats.get-${id}`,
     async () => {
-      return await fetchCampaign(id);
+      return await fetchCampaignStats(id);
     },
     {
       onSuccess: (data) => {},
     },
   );
 
-  const CAMPAIGN = campaign || {};
 
-  const statistics = Object.entries(CAMPAIGN?.stats || {});
+
+  if(!statsLoading && statsError){
+    return <div className="text-center mt-5">
+      <h3 className="text-danger">An error occurred</h3>
+    </div>
+  }
+
+  if(statsLoading){
+    return <div className="text-center mt-5">
+      <Loading/>
+    </div>
+  }
+
+  const {campaign, ...rest} = stats
+
+  const statistics = Object.entries(rest || {});
   const mutateCampaign = (data) => {
-    mutate(`campaign.info`);
+    mutate(`campaign.stats.get-${id}`, { ...stats, campaign: {...campaign, is_published:data?.is_published} });
   };
 
   const handleUpdateCampaign = async () => {
     setLoading(true);
     try {
       const res = await updateCampaign({
-        is_published: !CAMPAIGN?.is_published,
-        id: CAMPAIGN?.id,
+        is_published: !campaign?.is_published,
+        id: campaign?.id,
       });
       if (res) {
-        mutate(`campaign.info/${id}`, { ...CAMPAIGN, ...res });
+        mutate(`campaign.stats.get-${id}`, { ...stats, campaign: {...campaign, is_published:res?.is_published} });
         setLoading(false);
         blow({
           title: "Success",
-          message: !res?.is_published ? "Campaign published successfully" : "Campaign unpublished successfully",
+          message: !res?.is_published
+            ? "Campaign published successfully"
+            : "Campaign unpublished successfully",
           type: "success",
           timeout: false,
         });
@@ -86,18 +102,6 @@ export function CampaignStatistics ({}) {
     }
   };
 
-  const tabs = [
-    {
-      name: "Comments",
-      component: <Comments campaign={CAMPAIGN} mutateData={mutateCampaign} />,
-    },
-    {
-      name: "Testimonials",
-      component: <Testimonials campaign={CAMPAIGN} mutateData={mutateCampaign} />,
-    },
-  ];
-  const [activeTab, setActiveTab] = useState(tabs[0]?.name);
-
   const formatDate = (date) => {
     let d = new Date(date);
     let d_date = d.getDate();
@@ -110,16 +114,14 @@ export function CampaignStatistics ({}) {
 
   return (
     <AdminLayout>
-      <Container fluid className={""}>
+      <Container fluid className={"pb-5"}>
         {loading && <GhostLoader />}
         {/*region campaign content*/}
-        {!campaignLoading && !campaignError ? (
-          <>
             <Row
               className="gradient-bg"
               style={{
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-		              url(${CAMPAIGN?.image?.url})`,
+		              url(${campaign?.image})`,
               }}
             >
               <Col>
@@ -150,16 +152,16 @@ export function CampaignStatistics ({}) {
                         </Button>
                         <Button
                           className={
-                            CAMPAIGN?.is_published ? "disable-btn" : "btn-primary"
+                            campaign?.is_published ? "disable-btn" : "btn-primary"
                           }
                           onClick={() => {
                             handleUpdateCampaign();
                           }}
                         >
                           <FontAwesomeIcon
-                            icon={CAMPAIGN?.is_published ? faBan : faGlobe}
+                            icon={campaign?.is_published ? faBan : faGlobe}
                           />{" "}
-                          {CAMPAIGN?.is_published ? "Unpublish" : "Publish"}
+                          {campaign?.is_published ? "Unpublish" : "Publish"}
                         </Button>
                       </ButtonGroup>
                     </Col>
@@ -181,25 +183,25 @@ export function CampaignStatistics ({}) {
                           icon={faBullhorn}
                           style={{ marginRight: "5px" }}
                         />{" "}
-                        {CAMPAIGN?.title}
+                        {campaign?.title}
                       </h3>
-                      <p className="mt-4">{CAMPAIGN?.tagline}</p>
+                      <p className="mt-4">{campaign?.tagline}</p>
                       <Row>
                         <Col className="mt-4">
                           <div className="d-flex gap-5">
                             <p className="camp-date">
                               Start Date :{" "}
                               <span>
-                                {CAMPAIGN?.start_date
-                                  ? formatDate(CAMPAIGN?.start_date)
+                                {campaign?.start_date
+                                  ? formatDate(campaign?.start_date)
                                   : "Not specified"}
                               </span>
                             </p>
                             <p className="camp-date">
                               End Date :{" "}
                               <span>
-                                {CAMPAIGN?.end_date
-                                  ? formatDate(CAMPAIGN?.end_date)
+                                {campaign?.end_date
+                                  ? formatDate(campaign?.end_date)
                                   : "Not specified"}
                               </span>
                             </p>
@@ -209,7 +211,7 @@ export function CampaignStatistics ({}) {
                     </Col>
                     <Col className="update-btn-con">
                       <p
-                        className={CAMPAIGN?.is_published ? "active" : "inactive"}
+                        className={campaign?.is_published ? "active" : "inactive"}
                       ></p>
                       <Link
                         target="_blank"
@@ -239,15 +241,6 @@ export function CampaignStatistics ({}) {
                     })}
                   </div>
                   <div>
-                    {/*<Button
-											className="btn-success mr-3"
-											onClick={() => {
-												window.history.back();
-											}}
-										>
-											<FontAwesomeIcon icon={faDownload} /> Download Data File
-										</Button>*/}
-
                     <Button
                       className="btn-success mr-3"
                       onClick={() => {
@@ -273,50 +266,12 @@ export function CampaignStatistics ({}) {
                 </Col>
               </Row>
 
-              <Row className="mt-4">
-                <Col className="mt-4">
-                  <div className="nav-tabs-container mt-4">
-                    {tabs?.map((tab, index) => (
-                      <div
-                        key={tab?.name}
-                        className={classes("nav-tabs-main tab", {
-                          "tab-active": activeTab === tab?.name,
-                          "rounded-left": index === 0,
-                          "rounded-right": index === tabs.length - 1,
-                        })}
-                        onClick={() => setActiveTab(tab?.name)}
-                      >
-                        <h5 className={classes("nav-tabs")}>{tab?.name}</h5>
-                      </div>
-                    ))}
-                  </div>
-                </Col>
-              </Row>
-
-              <Row className="mt-4">
-                <Col>
-                  {tabs?.map((tab) => {
-                    return activeTab === tab?.name && <div>{tab?.component}</div>;
-                  })}
-                </Col>
-              </Row>
             </Container>
-          </>
-        ) : null}
+
         {/*endregion*/}
 
         {/*region error and loader*/}
-        {!campaignLoading && campaignError ? (
-          <Col>
-            <h5>An error occurred</h5>
-          </Col>
-        ) : null}
 
-        {campaignLoading ? (
-          <Col>
-            <Loading />
-          </Col>
-        ) : null}
       </Container>
     </AdminLayout>
   );

@@ -69,6 +69,21 @@ export async function fetchCampaign (id, url = "campaigns.info") {
 	}
 }
 
+
+export async function  fetchCampaignStats(campaign_id, url = "campaigns.stats.get") {
+	try {
+		const response = await apiCall(url, {campaign_id}, null);
+
+		if (!response || !response?.success) {
+			handleRequestError(response?.error, "FETCH_CAMPAIGN_STATS_ERROR_BE");
+		}
+
+		return response?.data;
+	} catch (error) {
+		handleRequestError(error, "FETCH_CAMPAIGN_STATS_ERROR");
+	}
+}
+
 export async function fetchCampaignTechnology (url = "/campaigns.technologies.info",id) {
 	try {
 		const response = await apiCall(url, { campaign_technology_id: id }, null);
@@ -83,9 +98,9 @@ export async function fetchCampaignTechnology (url = "/campaigns.technologies.in
 	}
 }
 
-export async function fetchAllTechnologies (url = "technologies.list") {
+export async function fetchAllTechnologies (campaign_account_id,url = "technologies.list") {
 	try {
-		const response = await apiCall(url, {}, null);
+		const response = await apiCall(url, {campaign_account_id}, null);
 
 		if (!response || !response?.success) {
 			handleRequestError(response?.error, "FETCH_ALL_TECH_ERROR_BE");
@@ -466,4 +481,18 @@ export async function removeCampaignTechnologyEvent (id, url="campaigns.technolo
 	} catch (e) {
 		handleRequestError(e, "REMOVE_EVENTS_FROM_CAMPAIGN");
 	}
-  } 
+  }
+
+
+export async function updateCampaignCommunityInfo (data, url = "campaigns.communities.update") {
+	try {
+		const response = await apiCall(url, data, null);
+
+		if (!response || !response?.success) {
+			handleRequestError(response?.error, "UPDATE_CAMPAIGN_COMMUNITIES_BE");
+		}
+		return response?.data;
+	} catch (e) {
+		handleRequestError(e, "UPDATE_CAMPAIGN_COMMUNITIES");
+	}
+}

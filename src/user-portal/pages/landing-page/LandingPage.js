@@ -33,8 +33,7 @@ import EventsSectionWithFilters from "../events/EventsSectionWithFilters";
 import CoachesSectionWithFilters from "../coaches/CoachesSectionWithFilters";
 import CampaignNotLive from "./CampaignNotLive";
 
-
-function LandingPage ({
+function LandingPage({
   toggleModal,
   campaign,
   init,
@@ -52,6 +51,8 @@ function LandingPage ({
   const testimonialsRef = useRef();
   const communitiesRef = useRef();
 
+  console.log("HEre is the full campaign", campaign);
+
   const idsToRefMap = {
     coaches: coachesRef,
     incentives: incentivesRef,
@@ -60,13 +61,13 @@ function LandingPage ({
     communities: communitiesRef,
   };
 
-
-  const { image, config, key_contact, advert,is_published } = campaign || {};
+  const { image, config, key_contact, advert, is_published, description } =
+    campaign || {};
 
   const technologies = campaign?.technologies || [];
   const { campaignId } = useParams();
 
-  const loggedInAdmin  = useSelector(state => state.authAdmin);
+  const loggedInAdmin = useSelector((state) => state.authAdmin);
 
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
@@ -95,7 +96,7 @@ function LandingPage ({
     communities = communities?.map((com) => com.community);
     const id = data?.comId;
     let community = communities?.find(
-      (com) => com?.id?.toString() === id?.toString()
+      (com) => com?.id?.toString() === id?.toString(),
     );
     let json = { ...(authUser || {}), community };
 
@@ -138,10 +139,11 @@ function LandingPage ({
   };
 
   const showMoreAboutAdvert = () => {
-    const data = advert || {};
+    // const data = advert || {};
+    const data = { description };
     toggleModal({
       show: true,
-      title: data?.title || "...",
+      title: `About '${campaign?.title || ""}'`,
       // iconName: "fa-comment",
       component: ({ close }) => <RoamingModalSheet close={close} data={data} />,
       // modalNativeProps: { size: "md" },
@@ -150,7 +152,7 @@ function LandingPage ({
   };
 
   useEffect(() => {
-    if(!preview) init(campaignId);
+    if (!preview) init(campaignId);
   }, []);
 
   if (campaign === LOADING && !preview)
@@ -161,18 +163,24 @@ function LandingPage ({
   let previewMode = fetchUrlParams("preview");
   previewMode = previewMode?.trim() === "true";
 
-  if((!is_published && !previewMode) && !(loggedInAdmin?.is_community_admin|| loggedInAdmin?.is_super_admin)) return (
-    <Container style={{
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      minHeight: "100vh",
-    }}>
-      <h1>This campaign is not Live. Contact Admin</h1>
-
-    </Container>
-  );
+  if (
+    !is_published &&
+    !previewMode &&
+    !(loggedInAdmin?.is_community_admin || loggedInAdmin?.is_super_admin)
+  )
+    return (
+      <Container
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <h1>This campaign is not Live. Contact Admin</h1>
+      </Container>
+    );
 
   return (
     <div style={{}}>
@@ -206,10 +214,10 @@ function LandingPage ({
           </a> */}
         </p>
       )}
-    <AppNavigationBar menu={menu} campaign={campaign} />
+      <AppNavigationBar menu={menu} campaign={campaign} />
       <Container>
         <Banner {...campaign} />
-       <CampaignNotLive />
+        <CampaignNotLive />
         <Container>
           <img
             className="elevate-float-pro campaign-focus-image"
@@ -227,7 +235,7 @@ function LandingPage ({
         </Container>
         <RoamingBox
           id="roaming-box"
-          advert={advert}
+          advert={{ description, title: `About '${campaign?.title || ""}'` }}
           keyContact={key_contact}
           showMore={showMoreAboutAdvert}
         />
@@ -285,7 +293,7 @@ const mapDispatch = (dispatch) => {
       updateUserInRedux: loadUserObjAction,
       // whereIsUserFrom: toggleUserInfoModal,
     },
-    dispatch
+    dispatch,
   );
 };
 export default connect(mapState, mapDispatch)(LandingPage);

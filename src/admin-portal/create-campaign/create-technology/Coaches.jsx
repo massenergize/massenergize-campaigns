@@ -134,7 +134,7 @@ function Coaches({
 
   const renderSelectedCoaches = () => {
     return (
-      <Row className="py-4">
+      <Row className="">
         <Col>
           <h5 className="theme-color">Selected Coaches</h5>
           <p className="my-4">
@@ -260,7 +260,24 @@ function Coaches({
 
   const formHasContent = Object.keys(formData || {}).length > 0;
   return (
-    <div>
+    <div className="px-5 mt-4">
+      {/* section title and description */}
+      <div className="py-5">
+        <CustomAccordion
+          title={"Customize The Title and Description of Coaches Section"}
+          component={
+            <SectionForm
+              section="coaches_section"
+              data={techObject?.coaches_section}
+              updateTechObject={updateTechObject}
+              tech_id={tech_id}
+            />
+          }
+          isOpen={openAccordion}
+          onClick={() => setOpenAccordion(!openAccordion)}
+        />
+      </div>
+
       <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
         <BootButton
           style={{ marginLeft: "auto" }}
@@ -272,12 +289,12 @@ function Coaches({
         </BootButton>
       </div>
       {coaches?.length > 0 && (
-        <Container>
+        <Container fluid>
           {/* <hr /> */}
           {renderSelectedCoaches()}
         </Container>
       )}
-      <div ref={coachFormRef}>
+      <div ref={coachFormRef} className="my-5">
         <form style={{ border: "dashed 2px #eeeeee", padding: "40px" }}>
           <Row>
             <Col>
@@ -345,25 +362,6 @@ function Coaches({
               />
             </Col>
           </Row>
-          {/*<Row className="py-2">
-            <Col>
-              <MultiSelect
-                options={(allCommunities?.data || []).map((campaign) => {
-                  return {
-                    ...campaign,
-                    value: campaign?.id,
-                    label: campaign?.name
-                  }
-                })}
-                value={campaignDetails?.communities}
-                onChange={(val) => {
-                  setCampaignDetails("communities", val);
-                }}
-                labelledBy="Select"
-              />
-
-            </Col>
-          </Row>*/}
           <Row className="py-4">
             <Col>
               <FileUploader
@@ -412,102 +410,8 @@ function Coaches({
           </Row>
         </form>
       </div>
-
-      {/*  show section */}
-      <div className="py-5">
-        <CustomAccordion
-          title={"Customize The Title and Description of Coaches Section"}
-          component={
-            <SectionForm
-              section="coaches_section"
-              data={techObject?.coaches_section}
-              updateTechObject={updateTechObject}
-              tech_id={tech_id}
-            />
-          }
-          isOpen={openAccordion}
-          onClick={() => setOpenAccordion(!openAccordion)}
-        />
-      </div>
     </div>
   );
-
-  // function RenderCoachesEditForm() {
-  //   return (
-  //     <div style={{ padding: 20 }}>
-  //       <Row className="">
-  //         <Col>
-  //           <Input
-  //             label="Full Name"
-  //             placeholder="Enter full name here..."
-  //             required={true}
-  //             type="textbox"
-  //             value={getValue("full_name")}
-  //             onChange={(val) => {
-  //               buildQuery("full_name", val);
-  //             }}
-  //           />
-  //         </Col>
-  //       </Row>
-  //       <Row className="py-2">
-  //         <Col>
-  //           <Input
-  //             label="Email"
-  //             placeholder="Enter email here..."
-  //             required={true}
-  //             type="email"
-  //             value={getValue("email")}
-  //             onChange={(val) => {
-  //               buildQuery("email", val);
-  //             }}
-  //           />
-  //         </Col>
-  //       </Row>
-  //       <Row className="py-2">
-  //         <Col>
-  //           <Input
-  //             label="Phone Number"
-  //             placeholder="Enter email here..."
-  //             required={false}
-  //             type="textbox"
-  //             value={getValue("phone_number")}
-  //             onChange={(val) => {
-  //               buildQuery("phone_number", val);
-  //             }}
-  //           />
-  //         </Col>
-  //       </Row>
-  //       <Row className="py-2">
-  //         <Col>
-  //           <Input
-  //             label="Community"
-  //             placeholder="Enter the community of the coach here..."
-  //             required={true}
-  //             type="textbox"
-  //             value={getValue("community")}
-  //             onChange={(val) => {
-  //               buildQuery("community", val);
-  //             }}
-  //           />
-  //         </Col>
-  //       </Row>
-  //       <Row className="py-4">
-  //         <Col>
-  //           <FileUploader
-  //             required={false}
-  //             id="coach_image"
-  //             text="Add a profile image for the Coach"
-  //             onChange={(val) => {
-  //               buildQuery("image", val);
-  //             }}
-  //             value={getValue("image")}
-  //             defaultValue={getValue("image")}
-  //           />
-  //         </Col>
-  //       </Row>
-  //     </div>
-  //   );
-  // }
 }
 
 export default Coaches;
