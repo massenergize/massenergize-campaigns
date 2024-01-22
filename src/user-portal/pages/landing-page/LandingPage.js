@@ -51,8 +51,6 @@ function LandingPage({
   const testimonialsRef = useRef();
   const communitiesRef = useRef();
 
-  console.log("HEre is the full campaign", campaign);
-
   const idsToRefMap = {
     coaches: coachesRef,
     incentives: incentivesRef,
@@ -182,6 +180,27 @@ function LandingPage({
       </Container>
     );
 
+  const register = (registrationProps) => {
+    toggleModal({
+      fullControl: true,
+      show: true,
+      title: `Before you add a testimonial, we would like to know you`,
+      component: (props) => (
+        <JoinUsForm
+          {...(props || {})}
+          confirmText="Continue"
+          callbackOnSubmit={({ close }) => close && close()}
+          {...(registrationProps || {})}
+        />
+      ),
+    });
+  };
+  const triggerProtectedFunction = (authUser, { cb, registrationOptions } = {}) => {
+    const { user } = authUser || {};
+    if (!user) return register(registrationOptions);
+    cb && cb();
+  };
+
   return (
     <div style={{}}>
       {previewMode && (
@@ -201,17 +220,6 @@ function LandingPage({
           }}
         >
           <span>PREVIEW MODE</span>
-          {/* <a
-            onClick={(e) => {
-              e.preventDefault();
-              window.close();
-            }}
-            href="#"
-            className="touchable-opacity"
-            style={{ marginLeft: 5, color: "white" }}
-          >
-            (Go Back)
-          </a> */}
         </p>
       )}
       <AppNavigationBar menu={menu} campaign={campaign} />
@@ -222,14 +230,6 @@ function LandingPage({
           <img
             className="elevate-float-pro campaign-focus-image"
             src={image?.url || planetB}
-            // style={{
-            //   width: "80%",
-            //   margin: "0px 10%",
-            //   height: 530,
-            //   borderRadius: 10,
-            //   marginTop: 20,
-            //   objectFit: "cover",
-            // }}
             alt={"campaign banner"}
           />
         </Container>
@@ -254,6 +254,9 @@ function LandingPage({
           // defaultTab={activeTab}
           technologies={technologies}
           sectionId="testimonial-section"
+          protectedFunction={(options) =>
+            triggerProtectedFunction(authUser, options)
+          }
         />
       </div>
       <br />

@@ -15,6 +15,7 @@ function NewTestimonialForm({
   authUser,
   updateTestimonials,
   testimonials,
+  cancel,
 }) {
   const { user, community } = authUser || {};
   const [notification, setNotification] = useState({});
@@ -265,12 +266,16 @@ function NewTestimonialForm({
         <ModalFooter style={{ padding: 0, marginTop: 20 }}>
           <Button
             disabled={loading}
-            onClick={() => close && close()}
+            onClick={() => {
+              if (cancel) return cancel({close});
+              close && close();
+            }}
             className="touchable-opacity"
             size="lg"
             style={{
               margin: 0,
-              borderRadius: 0,
+              borderRadius: 55,
+              marginRight: 10,
               borderWidth: 0,
               background: "#d53939",
             }}
@@ -284,7 +289,7 @@ function NewTestimonialForm({
             size="lg"
             style={{
               margin: 0,
-              borderRadius: 0,
+              borderRadius: 55,
               borderWidth: 0,
               background: "var(--app-deep-green)",
               borderBottomRightRadius: 5,

@@ -6,7 +6,7 @@ import CustomTabView from "../../../components/tab-view/CustomTabView";
 import { useNavigate } from "react-router-dom";
 import Filter from "../../../components/Filter";
 
-function TestimonialSection ({ sectionId, technologies, defaultTab, campaign }) {
+function TestimonialSection({ sectionId, technologies, defaultTab, campaign }) {
   const navigator = useNavigate();
   const testimonialsOfEachTech = technologies?.map(
     ({
@@ -27,40 +27,38 @@ function TestimonialSection ({ sectionId, technologies, defaultTab, campaign }) 
       image,
       icon,
       name,
-    })
+    }),
   );
   const firstOne = testimonialsOfEachTech[0];
   const firstTestimonial = (firstOne?.testimonials || [])[0];
   const testimonialRoute = `/campaign/${campaign?.slug}/technology/testimonial/${firstTestimonial?.id}?open=true`;
 
-  const intoTabs = testimonialsOfEachTech?.map(
-    ({ id, name, testimonials }) => ({
-      key: id,
-      title: (
-        <span
-          style={{
-            color: "var(--app-deep-green)",
-            fontWeight: "bold",
-          }}
-        >
-          <span>
-            <i className=" fa fa-pump" /> {name}
-          </span>
+  const intoTabs = testimonialsOfEachTech?.map(({ id, name, testimonials }) => ({
+    key: id,
+    title: (
+      <span
+        style={{
+          color: "var(--app-deep-green)",
+          fontWeight: "bold",
+        }}
+      >
+        <span>
+          <i className=" fa fa-pump" /> {name}
         </span>
-      ),
-      component: (
-        <Row style={{ marginTop: 50 }}>
-          {testimonials?.map((item) => {
-            return (
-              <Col key={item.id} xs={12} lg={3}>
-                <TestimonialBox {...item} />
-              </Col>
-            );
-          })}
-        </Row>
-      ),
-    })
-  );
+      </span>
+    ),
+    component: (
+      <Row style={{ marginTop: 50 }}>
+        {testimonials?.map((item) => {
+          return (
+            <Col key={item.id} xs={12} lg={3}>
+              <TestimonialBox {...item} />
+            </Col>
+          );
+        })}
+      </Row>
+    ),
+  }));
 
   return (
     <div
@@ -85,9 +83,7 @@ function TestimonialSection ({ sectionId, technologies, defaultTab, campaign }) 
             >
               Testimonials
             </h2>
-            <p>
-              Click on any of the tabs to see testimonials under each technology
-            </p>
+            <p>Click on any of the tabs to see testimonials under each technology</p>
             <AddNewTestimonial onClick={() => navigator(testimonialRoute)} />
           </div>
 
@@ -103,7 +99,7 @@ function TestimonialSection ({ sectionId, technologies, defaultTab, campaign }) 
 
 export default TestimonialSection;
 
-export const AddNewTestimonial = ({ style, onClick }) => {
+export const AddNewTestimonial = ({ style, onClick, text, icon }) => {
   return (
     <div
       style={{
@@ -124,10 +120,10 @@ export const AddNewTestimonial = ({ style, onClick }) => {
         }}
       >
         <i
-          className="fa fa-plus"
+          className={`fa fa-${icon || "plus"}`}
           style={{ marginRight: 10, fontWeight: "bold" }}
         />
-        Add your own testimonial here{" "}
+        {text || "Add your own testimonial here"}
         {/* <i
           className="fa fa-long-arrow-right"
           style={{ marginLeft: 10, fontWeight: "bold" }}

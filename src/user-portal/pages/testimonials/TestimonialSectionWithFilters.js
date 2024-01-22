@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import TestimonialBox from "./TestimonialBox";
 import { Col, Container, Row } from "react-bootstrap";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
@@ -9,13 +9,16 @@ import { AddNewTestimonial } from "./TestimonialSection";
 import { mergeArrays } from "../../../utils/utils";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import OurParagraph from "../../../components/OurParagraph";
+import NewTestimonialForm from "./NewTestimonialForm";
 
-function TestimonialSectionWithFilters ({
+function TestimonialSectionWithFilters({
   sectionId,
   technologies,
   defaultTab,
   campaign,
+  protectedFunction,
 }) {
+  const [showForm, setShowForm] = useState(false);
   const containerRef = useRef();
   const navigator = useNavigate();
   const testimonialsOfEachTech = technologies?.map(
@@ -37,7 +40,7 @@ function TestimonialSectionWithFilters ({
       image,
       icon,
       name,
-    })
+    }),
   );
   const firstOne = testimonialsOfEachTech[0];
   const firstTestimonial = (firstOne?.testimonials || [])[0];
@@ -50,9 +53,7 @@ function TestimonialSectionWithFilters ({
     let data = [];
     if (filters?.length)
       data = allTestimonials?.filter((t) =>
-        filters.some(
-          (f) => f.campaign_technology_id === t.campaign_technology?.id
-        )
+        filters.some((f) => f.campaign_technology_id === t.campaign_technology?.id),
       );
     else data = allTestimonials;
 
@@ -75,13 +76,14 @@ function TestimonialSectionWithFilters ({
     );
   };
 
+  const noTestimonials = !allTestimonials?.length;
 
   return (
     <div
       id={sectionId}
       className="elevate-float-pro g-s-container"
       style={{
-        margin: "40px 0px",
+        margin: "10px 0px",
         background: "white",
         width: "100%",
       }}
@@ -99,27 +101,51 @@ function TestimonialSectionWithFilters ({
               >
                 Testimonials
               </h2>
-              <AddNewTestimonial onClick={() => navigator(testimonialRoute)} />
+              <AddNewTestimonial
+                icon={showForm ? "minus" : "plus"}
+                text={
+                  showForm ? "Hide testimonial form" : "Add your testimonial here"
+                }
+                onClick={() => {
+                  const options = {
+                    cb: () => setShowForm(!showForm),
+                    registrationOptions: {
+                      callbackOnSubmit: ({ close }) => {
+                        setShowForm(!showForm);
+                        close && close();
+                      },
+                    },
+                  };
+                  protectedFunction(options);
+                }}
+              />
             </div>
 
-            <ArrowButtons
-              containerRef={containerRef}
-              style={{ marginLeft: "auto" }}
-            />
+            {!noTestimonials && !showForm && (
+              <ArrowButtons
+                containerRef={containerRef}
+                style={{ marginLeft: "auto" }}
+              />
+            )}
           </div>
 
-          <OurParagraph>
-            Scroll from left to right to see more testimonials, or use the arrow
-            buttons(top right) to scroll
-          </OurParagraph>
+          {showForm && <NewTestimonialForm cancel={() => setShowForm(!showForm)} />}
 
-          <Filter
-            title="Filter testimonials by"
-            filterOptions={technologies}
-            labelAccessor={(tech) => tech?.name}
-            valueAccessor={(tech) => tech?.campaign_technology_id}
-            render={renderTestimonials}
-          />
+          {!showForm && !noTestimonials && (
+            <>
+              <OurParagraph>
+                Scroll from left to right to see more testimonials, or use the arrow
+                buttons(top right) to scroll
+              </OurParagraph>
+              <Filter
+                title="Filter testimonials by"
+                filterOptions={technologies}
+                labelAccessor={(tech) => tech?.name}
+                valueAccessor={(tech) => tech?.campaign_technology_id}
+                render={renderTestimonials}
+              />
+            </>
+          )}
         </Container>
       </CenteredWrapper>
     </div>
