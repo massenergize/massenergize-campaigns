@@ -10,6 +10,10 @@ import { urlify } from "../../helpers/utils/string";
  */
 
 const RenderHTML = ({ html, tag = "span", ...rest }) => {
+  if (!html) {
+    return null
+  }
+
   const CustomTag = `${tag}`;
   return <CustomTag dangerouslySetInnerHTML={{ __html : urlify(html)  }} {...rest}/>
 };

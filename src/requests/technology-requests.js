@@ -1,9 +1,9 @@
 import { apiCall } from "src/api/messenger";
 import { handleRequestError } from "src/helpers/utils/http";
 
-export const fetchEvents = async (campaignID,url = "campaigns.communities.events.list",) => {
+export const fetchEvents = async (campaignID, url = "campaigns.communities.events.list") => {
   try {
-    const response = await apiCall(url, { no_pagination : true, campaign_id: campaignID });
+    const response = await apiCall(url, { no_pagination: true, campaign_id: campaignID });
 
     if (!response || !response?.success) {
       handleRequestError(response?.error, "FETCH_EVENTS_ERROR_BE");
@@ -13,7 +13,7 @@ export const fetchEvents = async (campaignID,url = "campaigns.communities.events
   } catch (error) {
     handleRequestError(error, "FETCH_EVENTS_ERROR");
   }
-}
+};
 
 export const addTechnologyEvent = async (data, url = "technologies.events.add") => {
   try {
@@ -27,7 +27,7 @@ export const addTechnologyEvent = async (data, url = "technologies.events.add") 
   } catch (error) {
     handleRequestError(error, "ADD_EVENT_ERROR");
   }
-}
+};
 
 export const updateTechnologyIncentive = async (data, url = "technologies.overview.update") => {
   try {
@@ -41,7 +41,7 @@ export const updateTechnologyIncentive = async (data, url = "technologies.overvi
   } catch (error) {
     handleRequestError(error, "UPDATE_INCENTIVE_ERROR_BE");
   }
-}
+};
 
 export const addTechnologyIncentive = async (data, url = "technologies.overview.create") => {
   try {
@@ -55,7 +55,7 @@ export const addTechnologyIncentive = async (data, url = "technologies.overview.
   } catch (error) {
     handleRequestError(error, "ADD_INCENTIVE_ERROR");
   }
-}
+};
 
 export const removeTechnologyIncentive = async (data, url = "technologies.overview.delete") => {
   try {
@@ -69,11 +69,11 @@ export const removeTechnologyIncentive = async (data, url = "technologies.overvi
   } catch (error) {
     handleRequestError(error, "REMOVE_INCENTIVE_ERROR");
   }
-}
+};
 
 export const fetchCampaignCommunityVendors = async (campaignID, url = "campaigns.communities.vendors.list") => {
   try {
-    const response = await apiCall(url, { no_pagination : true, campaign_id: campaignID });
+    const response = await apiCall(url, { no_pagination: true, campaign_id: campaignID });
 
     if (!response || !response?.success) {
       handleRequestError(response?.error, "FETCH_CAMPAIGN_COMMUNITY_VENDORS_ERROR_BE");
@@ -83,7 +83,7 @@ export const fetchCampaignCommunityVendors = async (campaignID, url = "campaigns
   } catch (error) {
     handleRequestError(error, "FETCH_CAMPAIGN_COMMUNITY_VENDORS_ERROR");
   }
-}
+};
 
 export const fetchTechnology = async (id) => {
   try {
@@ -111,17 +111,14 @@ export const addTechnologyVendor = async (data, url = "technologies.vendors.add"
   } catch (error) {
     handleRequestError(error, "ADD_TECHNOLOGY_VENDOR_ERROR");
   }
-}
+};
 
-export async function fetchAllTechnologyTestimonials (campaign_id, url = "campaigns.communities.testimonials.list") {
+export async function fetchAllTechnologyTestimonials(campaign_id, url = "campaigns.communities.testimonials.list") {
   try {
     // const response = await apiCall(url, { campaign_id }, null);
     const response = await apiCall(url, { campaign_id }, null);
     if (!response || !response?.success) {
-      handleRequestError(
-        response?.error,
-        "FETCH_ALL_COMMUNITY_TESTIMONIALS_ERROR_BE"
-      );
+      handleRequestError(response?.error, "FETCH_ALL_COMMUNITY_TESTIMONIALS_ERROR_BE");
     }
     const data = response?.data || [];
     return data;
@@ -130,7 +127,7 @@ export async function fetchAllTechnologyTestimonials (campaign_id, url = "campai
   }
 }
 
-export async function addTestimonials (data, url = "campaigns.technologies.testimonials.add") {
+export async function addTestimonials(data, url = "campaigns.technologies.testimonials.add") {
   try {
     const response = await apiCall(url, data, null);
     if (!response || !response?.success) {
@@ -142,6 +139,29 @@ export async function addTestimonials (data, url = "campaigns.technologies.testi
   }
 }
 
+export async function updateTestimonial(data, url = "campaigns.technologies.testimonials.update") {
+  try {
+    const response = await apiCall(url, data, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "UPDATE_TESTIMONIAL_ERROR_BE");
+    }
+    return response?.data;
+  } catch (error) {
+    handleRequestError(error, "UPDATE_TESTIMONIAL_ERROR");
+  }
+}
+
+export async function deleteTestimonial(data, url = "campaigns.technologies.testimonials.delete") {
+  try {
+    const response = await apiCall(url, data, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "DELETE_TESTIMONIAL_ERROR_BE");
+    }
+    return response?.data;
+  } catch (error) {
+    handleRequestError(error, "DELETE_TESTIMONIAL_ERROR");
+  }
+}
 
 export async function updateTechnology (data, url = "technologies.update") {
   try {
@@ -201,5 +221,4 @@ export async function removeTechnologyVendor (data, url = "technologies.vendors.
   } catch (error) {
     handleRequestError(error, "REMOVE_TECHNOLOGY_VENDOR_ERROR");
   }
-
 }
