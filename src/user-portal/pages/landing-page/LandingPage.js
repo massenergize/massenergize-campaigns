@@ -60,7 +60,7 @@ function LandingPage({
     communities: communitiesRef,
   };
 
-  const { image, config, key_contact, advert, is_published, description } =
+  const { image, key_contact, is_published, description } =
     campaign || {};
 
   const technologies = campaign?.technologies || [];
