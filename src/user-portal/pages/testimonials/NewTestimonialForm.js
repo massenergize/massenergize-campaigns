@@ -256,7 +256,7 @@ function NewTestimonialForm({
         </div>
       </div>
       <div>
-        <div style={{ padding: "0px 20px" }}>
+        <div style={{ padding: "20px 0px" }}>
           <Notification show={notification?.message} good={notification?.good}>
             {notification?.message}
           </Notification>
