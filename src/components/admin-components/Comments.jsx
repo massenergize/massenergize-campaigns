@@ -1,7 +1,7 @@
 import React, { useReducer, useState } from "react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { AnimatePresence, motion as m } from "framer-motion";
-import { Col, Container, Row, Button as BTN, Modal } from "react-bootstrap";
+import { motion as m } from "framer-motion";
+import { Col, Container, Row, Modal } from "react-bootstrap";
 import Input from "./Input";
 import Dropdown from "./Dropdown";
 import { NoItems } from "@kehillahglobal/ui";
@@ -12,9 +12,11 @@ import {
   createCampaignComment,
   deleteCampaignComment,
 } from "../../requests/campaign-requests";
+import {mutate } from "swr";
+import { relativeTimeAgo } from "src/utils/utils";
 // import Dropdown from "./Dropdown";
 
-const Comments = ({ campaign, mutateData }) => {
+const Comments = ({ campaign, comments }) => {
   const { blow, pop } = useBubblyBalloons();
 
   const communities = campaign?.communities;
@@ -22,7 +24,7 @@ const Comments = ({ campaign, mutateData }) => {
 
   const loggedInAdmin = useSelector((state) => state.authAdmin);
 
-  let comments = [...technologies?.map((tech) => tech?.comments)].flat();
+  // let comments = [...technologies?.map((tech) => tech?.comments)].flat();
   const [loading, setLoading] = useState(false);
 
   const [openModal, setOpenModal] = useState(false);
@@ -33,23 +35,19 @@ const Comments = ({ campaign, mutateData }) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
-      setLoading(true);
       const res = await createCampaignComment(formData);
-
-      if (res) {
-        setOpenCreateForm(false);
-        mutateData(res);
-        setLoading(false);
         setOpenModal(false);
+        mutate(`campaigns.comments.list-${campaign?.id}`, (data) => [...data, ...res])
+        setLoading(false);
         blow({
           title: "Success",
           message: "Comment created successfully",
           type: "success",
           duration: 5000,
         });
-      }
     } catch (e) {
       setLoading(false);
       pop({
@@ -62,11 +60,11 @@ const Comments = ({ campaign, mutateData }) => {
   };
 
   const handleDeleteComment = async (id) => {
+    setLoading(true);
     try {
-      setLoading(true);
       const res = await deleteCampaignComment({ id, user_id: loggedInAdmin?.id });
       if (res) {
-        mutateData(res);
+        mutate(`campaigns.comments.list-${campaign?.id}`, (data) =>data.filter((item) => item?.id !== id))
         setLoading(false);
         blow({
           title: "Success",
@@ -86,33 +84,7 @@ const Comments = ({ campaign, mutateData }) => {
     }
   };
 
-  const timeAgo = (date) => {
-    const currentDate = new Date();
-    const inputDate = new Date(date);
-
-    const diffInSeconds = Math.floor((currentDate - inputDate) / 1000);
-
-    if (diffInSeconds < 60) {
-      return "Just now";
-    } else if (diffInSeconds < 3600) {
-      const minutes = Math.floor(diffInSeconds / 60);
-      return `${minutes} minutes ago`;
-    } else if (diffInSeconds < 86400) {
-      const hours = Math.floor(diffInSeconds / 3600);
-      return `${hours} hours ago`;
-    } else if (diffInSeconds < 604800) {
-      const days = Math.floor(diffInSeconds / 86400);
-      return `${days} days ago`;
-    } else if (diffInSeconds < 2592000) {
-      const weeks = Math.floor(diffInSeconds / 604800);
-      return `${weeks} weeks ago`;
-    } else {
-      return "More than a month ago";
-    }
-  };
-
   const [selectedId, setSelectedId] = useState(null);
-  const [openCreateForm, setOpenCreateForm] = useState(false);
 
   const initialState = {
     text: "",
@@ -136,7 +108,7 @@ const Comments = ({ campaign, mutateData }) => {
   };
 
   return (
-    <m.div initial={{ y: "15%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
+    <m.div initial={{ y: "15%" }} animate={{ y: 0 }} transition={{ duration: 0.2 }}>
       <div className="flex items-center justify-content-end">
         <Button
           onClick={() => {
@@ -181,7 +153,6 @@ const Comments = ({ campaign, mutateData }) => {
                     labelExtractor={(item) => item?.name}
                     multiple={false}
                     onItemSelect={(selectedItem, allSelected) => {
-                      console.log(selectedItem);
                       handleFieldChange("campaign_technology_id", selectedItem);
                     }}
                   />
@@ -293,7 +264,7 @@ const Comments = ({ campaign, mutateData }) => {
                                   <m.div></m.div>
                                 )}
                                 <m.div className="comment-date">
-                                  <m.p>{timeAgo(comment?.created_at)}</m.p>
+                                  <m.p>{relativeTimeAgo(comment?.created_at)}</m.p>
                                 </m.div>
                               </m.div>
                             </m.div>

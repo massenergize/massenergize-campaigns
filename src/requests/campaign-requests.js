@@ -481,3 +481,20 @@ export async function removeCampaignTechnologyEvent (id, url="campaigns.technolo
 		handleRequestError(e, "REMOVE_EVENTS_FROM_CAMPAIGN");
 	}
   } 
+
+
+
+export async function fetchAllCommentsOfCampaign (campaign_id, url = "campaigns.comments.list"){
+	try {
+		const response = await apiCall(url, {campaign_id}, null);
+
+		if (!response || !response?.success) {
+			handleRequestError(response?.error, "FETCH_ALL_COMMENTS_OF_CAMPAIGN_BE");
+		}
+
+		return response?.data;
+	} catch (e) {
+		handleRequestError(e, "FETCH_ALL_COMMENTS_OF_CAMPAIGN");
+	}
+
+}
