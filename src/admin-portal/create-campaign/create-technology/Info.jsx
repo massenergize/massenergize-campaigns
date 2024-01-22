@@ -145,20 +145,7 @@ function Info({
             />
           </Col>
         </Row>
-        <Row className="mt-3">
-          <Col>
-            <Input
-              label="Help Link"
-              placeholder="Add a link to help for this technology......."
-              required={true}
-              type="textbox"
-              onChange={(val) => {
-                handleFieldChange("help_link", val);
-              }}
-              value={getValue("help_link")}
-            />
-          </Col>
-        </Row>
+
         <Row className="py-4">
           <Col>
             <FileUploader

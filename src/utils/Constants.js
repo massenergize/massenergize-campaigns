@@ -23,6 +23,11 @@ export const campaignPages = [
 		name: "Technologies",
 		component: Technologies,
 	},
+	{
+		name: "Communities",
+		key: "communities",
+		component: CampaignCommunities,
+	},
 	// {
 	// 	name: "Goal & Focus",
 	// 	component: Goal,

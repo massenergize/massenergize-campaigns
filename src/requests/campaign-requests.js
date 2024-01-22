@@ -481,4 +481,18 @@ export async function removeCampaignTechnologyEvent (id, url="campaigns.technolo
 	} catch (e) {
 		handleRequestError(e, "REMOVE_EVENTS_FROM_CAMPAIGN");
 	}
-  } 
+  }
+
+
+export async function updateCampaignCommunityInfo (data, url = "campaigns.communities.update") {
+	try {
+		const response = await apiCall(url, data, null);
+
+		if (!response || !response?.success) {
+			handleRequestError(response?.error, "UPDATE_CAMPAIGN_COMMUNITIES_BE");
+		}
+		return response?.data;
+	} catch (e) {
+		handleRequestError(e, "UPDATE_CAMPAIGN_COMMUNITIES");
+	}
+}
