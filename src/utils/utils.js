@@ -1,6 +1,6 @@
 import { format, formatDistanceToNow, isSameDay, parseISO } from "date-fns";
 
-export function formatTimeRange (startDateString, endDateString) {
+export function formatTimeRange(startDateString, endDateString) {
   if (!startDateString || !endDateString) return "";
   const startDate = parseISO(startDateString);
   const endDate = parseISO(endDateString);
@@ -19,7 +19,7 @@ export function formatTimeRange (startDateString, endDateString) {
   }
 }
 
-export function relativeTimeAgo (datetimeString) {
+export function relativeTimeAgo(datetimeString) {
   const date = parseISO(datetimeString);
 
   return formatDistanceToNow(date, { addSuffix: true });
@@ -31,12 +31,12 @@ export const validateEmail = (email) => {
   return emailRegex.test(email);
 };
 
-export function fetchUrlParams (name) {
+export function fetchUrlParams(name) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(name) || "";
 }
 
-export function getLastSegmentFromUrl (url) {
+export function getLastSegmentFromUrl(url) {
   const parsedUrl = new URL(url);
   const pathnameSegments = parsedUrl.pathname.split("/").filter(Boolean);
 
@@ -47,7 +47,7 @@ export function getLastSegmentFromUrl (url) {
   return null; // Return null if no segments are found
 }
 
-export function addUrlParams (currentUrl, params) {
+export function addUrlParams(currentUrl, params) {
   const url = new URL(currentUrl);
   const searchParams = new URLSearchParams(url.search);
 
@@ -58,7 +58,7 @@ export function addUrlParams (currentUrl, params) {
   return url.pathname + "?" + searchParams.toString();
 }
 
-export function generateUniqueRandomString (length) {
+export function generateUniqueRandomString(length) {
   const characters =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let result = "";
@@ -74,14 +74,14 @@ export function generateUniqueRandomString (length) {
 
   return result;
 }
-export function smartString (inputString, maxLength = 30) {
+export function smartString(inputString, maxLength = 30) {
   if (
     typeof inputString !== "string" ||
     typeof maxLength !== "number" ||
     maxLength <= 0
   ) {
     console.error(
-      "Invalid input. Please provide a valid string and a positive number of characters."
+      "Invalid input. Please provide a valid string and a positive number of characters.",
     );
     return "";
   }
@@ -98,7 +98,7 @@ export const portalIsAdmin = () => {
   return url.includes("admin/");
 };
 
-export function mergeArrays (arrays) {
+export function mergeArrays(arrays) {
   const mergedArray = [];
 
   for (const array of arrays) {
@@ -116,3 +116,55 @@ export const setPageTitle = (name) => {
   if (!name) return;
   document.title = name;
 };
+
+export function truncateRichText(richText, maxHeight) {
+  // Create a temporary div element to hold the parsed rich text
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = richText;
+
+  document.body.appendChild(tempDiv);
+  // Get the height of the content in the temporary div
+  const contentHeight = tempDiv.offsetHeight +40;
+  var isLong = false;
+
+
+  console.log("Here is the content height", contentHeight)
+
+  // If the content height is within the specified limit, no need to truncate
+  if (contentHeight <= maxHeight) {
+    document.body.removeChild(tempDiv);
+    console.log("Its coming inside here mom ooo")
+    return { truncatedContent: richText, isLong };
+  }
+
+  // Iterate through the child nodes to find the point to truncate
+  let currentHeight = 0;
+  let truncatedContent = "";
+  isLong = true;
+
+  for (const childNode of tempDiv.childNodes) {
+    const nodeHeight = childNode.offsetHeight;
+
+    // Check if adding this node exceeds the maxHeight
+    if (currentHeight + nodeHeight <= maxHeight) {
+      truncatedContent += childNode.outerHTML;
+      currentHeight += nodeHeight;
+    } else {
+      // Truncate the text within this node to fit the remaining height
+      const remainingHeight = maxHeight - currentHeight;
+      const truncatedText = truncateText(childNode.textContent, remainingHeight);
+      truncatedContent += `<div style="overflow: hidden; text-overflow: ellipsis; max-height: ${remainingHeight}px;">${truncatedText}</div>`;
+      break;
+    }
+  }
+
+  return { truncatedContent, isLong };
+}
+
+function truncateText(text, maxLength) {
+  // Truncate the text to fit within the specified maxLength
+  if (text.length > maxLength) {
+    return text.substring(0, maxLength) + "...";
+  }
+  return text;
+}

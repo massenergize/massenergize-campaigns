@@ -3,8 +3,10 @@ import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Row } from "react-bootstrap";
 
-function Vendors ({ sectionId, data, vendors }) {
+function Vendors({ sectionId, data, vendors }) {
   const { title, description } = data;
+
+  if (!description && !vendors?.length) return <></>;
 
   // if(!vendors?.length)
   return (
@@ -20,9 +22,11 @@ function Vendors ({ sectionId, data, vendors }) {
     >
       <OptimumWrapper>
         <SectionTitle className="mb-3">{title || "Vendors"}</SectionTitle>
-        <p  dangerouslySetInnerHTML={{__html:description}} style={{ textAlign: "justify" }} className="mb-4 paragraph-font">
-  
-        </p>
+        <p
+          dangerouslySetInnerHTML={{ __html: description }}
+          style={{ textAlign: "justify" }}
+          className="mb-4 paragraph-font"
+        ></p>
 
         <Row>
           <ul

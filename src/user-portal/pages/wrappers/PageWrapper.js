@@ -11,7 +11,7 @@ function PageWrapper ({ children, toggleModal, menu }) {
   return (
     <div style={{}}>
       <AppNavigationBar />
-      <OptimumWrapper style={{ minHeight: "85vh", marginTop: 90 }}>
+      <OptimumWrapper style={{ minHeight: "85vh", marginTop: 130 }}>
         {children}
       </OptimumWrapper>
       <Footer toggleModal={toggleModal} />

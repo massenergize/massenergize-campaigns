@@ -3,15 +3,10 @@ import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
 
-function GetAGreatDealSection ({ sectionId, data, image, deals, toggleDealModal }) {
-  const {
-    title,
-    description,
-    description_2,
-
-  } = data || {};
+function GetAGreatDealSection({ sectionId, data, image, deals, toggleDealModal }) {
+  const { title, description, description_2 } = data || {};
   if (!Object.keys(data || {}).length) return <></>;
-
+  
   return (
     <div
       id={sectionId}
@@ -58,9 +53,9 @@ function GetAGreatDealSection ({ sectionId, data, image, deals, toggleDealModal 
                 return (
                   <Col
                     onClick={() => {
-                      if(item?.description) return toggleDealModal && toggleDealModal(item)
-                      if(!item?.link) return 
-                      window.open(item?.link, "_blank")
+                      if (item?.link) return window.open(item?.link, "_blank");
+                      if (item?.description)
+                        return toggleDealModal && toggleDealModal(item);
                     }}
                     className="elevate-4 touchable-opacity"
                     key={item?.id?.toString()}
@@ -78,7 +73,9 @@ function GetAGreatDealSection ({ sectionId, data, image, deals, toggleDealModal 
                       marginBottom: 15,
                     }}
                   >
-                    <h3 style={{ margin: 0, color: "red", fontSize:"1.15rem" }}>{item.title}</h3>
+                    <h3 style={{ margin: 0, color: "red", fontSize: "1.15rem" }}>
+                      {item.title}
+                    </h3>
                   </Col>
                 );
               })}

@@ -34,11 +34,6 @@ function NewTestimonialForm({
 
   const listOfCommunities = campaign?.communities || [];
 
-  // useEffect(() => {
-  //   const { user } = authUser || {};
-  //   // setForm({ ...form, name: user?.full_name });
-  // }, []);
-
   const value = (e) => e?.target?.value;
 
   const notify = (message, good = false) => {
@@ -106,10 +101,10 @@ function NewTestimonialForm({
     <div>
       <div
         style={{
-          padding: 20,
-          maxHeight: 600,
+          // padding: 20,
+          // maxHeight: 600,
           position: "relative",
-          overflowX: "scroll",
+          // overflowX: "scroll",
         }}
       >
         <Form.Text>Tell us your story!</Form.Text>
@@ -231,9 +226,8 @@ function NewTestimonialForm({
               menubar: false,
               plugins: [
                 "advlist",
-                "autolink",
+                // "autolink",
                 "lists",
-                "link",
                 "image",
                 "charmap",
                 "preview",
@@ -244,15 +238,16 @@ function NewTestimonialForm({
                 "fullscreen",
                 "insertdatetime",
                 "media",
+                "link",
                 "table",
                 "code",
                 "help",
                 "wordcount",
               ],
               toolbar:
-                "undo redo | blocks | link | " +
+                "undo redo | blocks | " +
                 "bold italic forecolor | alignleft aligncenter " +
-                "alignright alignjustify | bullist numlist outdent indent | " +
+                "alignright alignjustify link | bullist numlist outdent indent | " +
                 "removeformat | help",
               content_style:
                 "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
@@ -261,13 +256,13 @@ function NewTestimonialForm({
         </div>
       </div>
       <div>
-        <div style={{ padding: "0px 20px" }}>
+        <div style={{ padding: "20px 0px" }}>
           <Notification show={notification?.message} good={notification?.good}>
             {notification?.message}
           </Notification>
         </div>
 
-        <ModalFooter style={{ padding: 0 }}>
+        <ModalFooter style={{ padding: 0, marginTop: 20 }}>
           <Button
             disabled={loading}
             onClick={() => close && close()}
