@@ -138,7 +138,7 @@ export function CampaignStatistics({}) {
                           window.history.back();
                         }}
                       >
-                        <FontAwesomeIcon icon={faArrowLeft} />
+                        <FontAwesomeIcon icon={faArrowLeft} /> Back
                       </Button>
                       &nbsp;
                       <ButtonGroup>
@@ -148,7 +148,7 @@ export function CampaignStatistics({}) {
                             window.open(`/campaign/${id}?preview=true`, "_blank");
                           }}
                         >
-                          <FontAwesomeIcon icon={faEye} />
+                          <FontAwesomeIcon icon={faEye} /> Sandbox Mode
                         </Button>
                         <Button
                           className={
