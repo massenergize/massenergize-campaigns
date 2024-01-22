@@ -19,12 +19,7 @@ import GetHelpForm from "../forms/GetHelpForm";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { COMMENTS, ONE_TECH_DATA } from "../../data/user-portal-dummy-data";
-import {
-  fetchUrlParams,
-  relativeTimeAgo,
-  setPageTitle,
-  truncateRichText,
-} from "../../../utils/utils";
+import { fetchUrlParams, relativeTimeAgo, setPageTitle } from "../../../utils/utils";
 import { useParams } from "react-router-dom";
 import NotFound from "../error/404";
 import { LOADING, MOBILE_WIDTH } from "../../../utils/Constants";
@@ -59,11 +54,11 @@ function TechnologyFullViewPage({
   init,
   user,
   updateUser,
-  updateCommentList,
-  commentsList,
   trackActivity,
   updateUserInRedux,
+  navigation,
 }) {
+  console.log("This is the navigation", navigation);
   const authUser = user;
   // const hasUser = authUser?.user;
   const [mounted, setMounted] = useState(false);
@@ -325,12 +320,6 @@ function TechnologyFullViewPage({
                 className="elevate-float-pro mt-2"
                 src={image?.url || carPhoto}
                 alt={"event"}
-                // style={{
-                //   width: "100%",
-                //   height: 420,
-                //   objectFit: "contain",
-                //   borderRadius: 10,
-                // }}
               />
               <InteractionsPanel
                 openShareBox={openShareBox}
@@ -342,25 +331,6 @@ function TechnologyFullViewPage({
                 comments={comments?.length || 0}
               />
               <SmartRichText>{description}</SmartRichText>
-              {/* <p className="mt-3 o-t-desc" style={{ textAlign: "justify" }}>
-                <span
-                  dangerouslySetInnerHTML={{ __html: truncatedContent }}
-                  style={{ height, display: "block", overflowY: "hidden" }}
-                ></span>
-                {isLong && (
-                  <span
-                    onClick={() => setHeight(readMore ? "100%" : READ_HEIGHT)}
-                    className="touchable-opacity"
-                    style={{
-                      fontWeight: "bold",
-                      color: "var(--app-orange)",
-                      textDecoration: "underline",
-                    }}
-                  >
-                    {readMore ? "Read More..." : "Hide"}
-                  </span>
-                )}
-              </p> */}
             </Col>
             <Col lg={3}>
               <div
@@ -616,6 +586,7 @@ function TechnologyFullViewPage({
             testimonials={testimonials}
             sectionId="testimonial-section"
             campaign={campaign}
+            links={navigation}
           />
         </div>
         <div ref={coachesRef}>
@@ -685,6 +656,7 @@ const mapState = (state) => {
     campaign: state.campaign,
     user: state.user,
     commentsList: state.comments,
+    navigation: state.navigation,
   };
 };
 const mapDispatch = (dispatch) => {

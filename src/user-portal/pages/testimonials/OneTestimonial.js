@@ -162,11 +162,13 @@ function OneTestimonial({
           <div ref={testimonialRef}>
             {showTestimonialForm && (
               <div
-              className="testi-form-wrapper"
+                className="testi-form-wrapper"
                 // style={{ border: "1px dashed #e6e2e2", marginTop: 40, padding: 20 }}
               >
                 <SectionTitle>Add your own testimonial</SectionTitle>
-                <NewTestimonialForm />
+                <NewTestimonialForm
+                  cancel={() => setShowTestimonialForm(!showTestimonialForm)}
+                />
               </div>
             )}
           </div>

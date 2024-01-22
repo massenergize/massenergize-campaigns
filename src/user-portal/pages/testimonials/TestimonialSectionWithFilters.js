@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import TestimonialBox from "./TestimonialBox";
 import { Col, Container, Row } from "react-bootstrap";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
@@ -6,11 +6,12 @@ import CustomTabView from "../../../components/tab-view/CustomTabView";
 import { useNavigate } from "react-router-dom";
 import Filter from "../../../components/Filter";
 import { AddNewTestimonial } from "./TestimonialSection";
-import { mergeArrays } from "../../../utils/utils";
+import { fetchUrlParams, mergeArrays } from "../../../utils/utils";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import OurParagraph from "../../../components/OurParagraph";
 import NewTestimonialForm from "./NewTestimonialForm";
 
+export const TESTIMONIAL_FORM_SHOW_KEY = "testimonial-form";
 function TestimonialSectionWithFilters({
   sectionId,
   technologies,
@@ -44,10 +45,29 @@ function TestimonialSectionWithFilters({
   );
   const firstOne = testimonialsOfEachTech[0];
   const firstTestimonial = (firstOne?.testimonials || [])[0];
-  const testimonialRoute = `/campaign/${campaign?.slug}/technology/testimonial/${firstTestimonial?.id}?open=true`;
+  // const testimonialRoute = `/campaign/${campaign?.slug}/technology/testimonial/${firstTestimonial?.id}?open=true`;
 
   let allTestimonials = technologies?.map((tech) => tech?.testimonials);
   allTestimonials = mergeArrays(allTestimonials);
+
+  const show = fetchUrlParams("show");
+
+  const addTestimonial = () => {
+    const options = {
+      cb: () => setShowForm(!showForm),
+      registrationOptions: {
+        callbackOnSubmit: ({ close }) => {
+          setShowForm(!showForm);
+          close && close();
+        },
+      },
+    };
+    protectedFunction(options);
+  };
+
+  useEffect(() => {
+    if (show === TESTIMONIAL_FORM_SHOW_KEY) return addTestimonial();
+  }, [show]);
 
   const renderTestimonials = (filters) => {
     let data = [];
@@ -107,16 +127,7 @@ function TestimonialSectionWithFilters({
                   showForm ? "Hide testimonial form" : "Add your testimonial here"
                 }
                 onClick={() => {
-                  const options = {
-                    cb: () => setShowForm(!showForm),
-                    registrationOptions: {
-                      callbackOnSubmit: ({ close }) => {
-                        setShowForm(!showForm);
-                        close && close();
-                      },
-                    },
-                  };
-                  protectedFunction(options);
+                  addTestimonial();
                 }}
               />
             </div>

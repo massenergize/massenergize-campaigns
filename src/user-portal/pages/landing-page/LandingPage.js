@@ -43,6 +43,7 @@ function LandingPage({
   preview,
   whereIsUserFrom,
   updateUserInRedux,
+  triggerProtectedFunctionality,
 }) {
   const [mounted, setMounted] = useState(false);
   const coachesRef = useRef();
@@ -73,10 +74,12 @@ function LandingPage({
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   const target = fetchUrlParams("section");
+  const show = fetchUrlParams("show");
 
   useEffect(() => {
     scrollToSection(target?.trim());
   }, [mounted, target]);
+ 
 
   useEffect(() => {
     init(campaignId, (justLoadedCampaign, passed) => {
@@ -180,27 +183,26 @@ function LandingPage({
       </Container>
     );
 
-  const register = (registrationProps) => {
-    toggleModal({
-      fullControl: true,
-      show: true,
-      title: `Before you add a testimonial, we would like to know you`,
-      component: (props) => (
-        <JoinUsForm
-          {...(props || {})}
-          confirmText="Continue"
-          callbackOnSubmit={({ close }) => close && close()}
-          {...(registrationProps || {})}
-        />
-      ),
-    });
-  };
-  const triggerProtectedFunction = (authUser, { cb, registrationOptions } = {}) => {
-    const { user } = authUser || {};
-    if (!user) return register(registrationOptions);
-    cb && cb();
-  };
-
+  // const register = (registrationProps) => {
+  //   toggleModal({
+  //     fullControl: true,
+  //     show: true,
+  //     title: `Before you add a testimonial, we would like to know you`,
+  //     component: (props) => (
+  //       <JoinUsForm
+  //         {...(props || {})}
+  //         confirmText="Continue"
+  //         callbackOnSubmit={({ close }) => close && close()}
+  //         {...(registrationProps || {})}
+  //       />
+  //     ),
+  //   });
+  // };
+  // const triggerProtectedFunction = (authUser, { cb, registrationOptions } = {}) => {
+  //   const { user } = authUser || {};
+  //   if (!user) return register(registrationOptions);
+  //   cb && cb();
+  // };
   return (
     <div style={{}}>
       {previewMode && (
@@ -255,7 +257,7 @@ function LandingPage({
           technologies={technologies}
           sectionId="testimonial-section"
           protectedFunction={(options) =>
-            triggerProtectedFunction(authUser, options)
+            triggerProtectedFunctionality(authUser, options)
           }
         />
       </div>
