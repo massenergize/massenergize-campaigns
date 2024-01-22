@@ -197,7 +197,7 @@ export function CampaignEventsView ({ events, campaign }) {
                         </td>
                         <td className="tex-center">{event?.event?.name}</td>
                         <td className="text-ceter">
-                          {event?.campaign_technology[0]?.technology?.name}
+                          {event?.campaign_technology?.technology?.name}
                         </td>
                         <td className="text-ceter">
                           {formatDate(event?.event?.start_date)}

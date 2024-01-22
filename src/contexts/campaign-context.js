@@ -11,6 +11,14 @@ import {
 import { addLabelsAndValues } from "../helpers/utils/array";
 import { SWR_CONFIG } from "../config/config";
 
+
+const getAccFromLocalStorage = () => {
+  const acc = localStorage.getItem("acc");
+  let account =  acc && JSON.parse(atob(acc));
+  return account?.id
+}
+
+
 export const CampaignContext = createContext(null);
 
 const campaign = {
@@ -85,7 +93,7 @@ export function CampaignProvider ({ children }) {
     data: allTechnologies,
     isLoading: allTechnologiesLoading,
   } = useSWR(`technologies.list`, async () => {
-    return await fetchAllTechnologies();
+    return await fetchAllTechnologies(getAccFromLocalStorage());
   }, { ...SWR_CONFIG, });
 
   const {

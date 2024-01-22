@@ -2,7 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { formatTimeRange } from "../../../utils/utils";
 
-function EventBox ({ event, campaign }) {
+function EventBox ({ event, campaign_technology }) {
+
+  const {campaign} = campaign_technology || {}
+
   const { name, image, start_date, end_date, id } = event || {};
   const navigator = useNavigate();
 
@@ -32,7 +35,7 @@ function EventBox ({ event, campaign }) {
           role={"button"}
           tabIndex={0}
           onClick={() =>
-            navigator(`/campaign/${campaign?.id}/technology/event/${id}`)
+            navigator(`/campaign/${campaign?.slug}/technology/event/${id}`)
           }
           style={{ textDecoration: "underline" }}
         >

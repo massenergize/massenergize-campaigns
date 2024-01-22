@@ -18,7 +18,7 @@ function TestimonialBox ({
   const hasNoImage = !image?.url;
   const navigator = useNavigate();
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
-  const route = `/campaign/${campaign?.id}/technology/testimonial/${id}`;
+  const route = `/campaign/${campaign?.slug}/technology/testimonial/${id}`;
 
   // const preview = body?.substr(0, !isMobile ? LONG_LENGTH : PREVIEW_LENGTH);
   const preview = smartString(body, !isMobile ? LONG_LENGTH : PREVIEW_LENGTH)

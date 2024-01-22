@@ -19,6 +19,7 @@ const INFO_INITIAL_STATE = {
   image: "",
   description: "",
   summary: "",
+  help_link:""
 };
 
 const UNPROTECTED = ["information"];
@@ -53,10 +54,10 @@ export function TechnologyEditView () {
   const { notify } = useBubblyBalloons();
 
   const inflate = (techObject) => {
-    const { summary, image, description, name, coaches } = techObject || {};
+    const { summary, image, description, name, coaches, help_link } = techObject || {};
     if (!techIsNotCreatedYet) {
       // Will only run when updating "information", not creating (cos at that time, techObject is null...)
-      setInformation({ summary, image: image?.url, description, name });
+      setInformation({ summary, image: image?.url, description, name, help_link });
     }
     setCoaches(coaches);
   };
@@ -73,17 +74,19 @@ export function TechnologyEditView () {
     error: technologyError,
     isValidating: technologyIsValidating,
     isLoading: technologyIsLoading,
-  } = useSWR(
-    technology_id ? `/technologies.info?id=${technology_id}` : null,
+  } = useSWR(technology_id ? `/technologies.info?id=${technology_id}` : null,
     async () => {
       return await fetchTechnology(technology_id);
     },
     {
       onSuccess: (data) => {
-        // setTechObject(data);
-        // setNewTechnologyDetails(data);
-        // inflate(data);
+        setTechObject(data);
+        setNewTechnologyDetails(data);
+        inflate(data);
       },
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      errorRetryCount: 1,
     },
   );
 

@@ -190,3 +190,16 @@ export async function removeTechnologyDeal (data, url = "technologies.deals.dele
     handleRequestError(error, "REMOVE_TECHNOLOGY_DEAL_ERROR");
   }
 }
+
+export async function removeTechnologyVendor (data, url = "technologies.vendors.remove") {
+  try {
+    const response = await apiCall(url, data, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "REMOVE_TECHNOLOGY_VENDOR_ERROR_BE");
+    }
+    return response?.data;
+  } catch (error) {
+    handleRequestError(error, "REMOVE_TECHNOLOGY_VENDOR_ERROR");
+  }
+
+}

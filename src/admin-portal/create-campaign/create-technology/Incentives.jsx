@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button as BTN, Button, Col, Row } from "react-bootstrap";
 import "../../../assets/styles/admin-styles.scss";
 import IncentivesBar from "../../../components/admin-components/IncentivesBar";
 import { useTechnologyContext } from "../../../hooks/use-technology-context";
@@ -61,20 +61,19 @@ const Incentives = ({}) => {
 
   return (
     <div>
-      <Row className="">
+      <Row className="my-5">
         <Col className="">
           <p>What are the incentives for participating in this technology</p>
         </Col>
-        <Col sm={"auto"}>
-          <Button text="" rounded onClick={() => setShowIncentiveModal(true)}>
-            Add Incentive
-          </Button>
+        <Col sm={"auto"}>{
+          incentives?.length > 0 && (<Button variant="success" rounded onClick={() => setShowIncentiveModal(true)}>Add New Incentive</Button>) }
         </Col>
       </Row>
       <Row className=" ">
-        <Col>
-          {(incentives || [])?.map((incentive, index) => {
-            if (!incentive) return null;
+        {incentives?.length > 0 ? (
+          <Col>
+            {(incentives || [])?.map((incentive, index) => {
+              if (!incentive) return null;
 
             return (
               <div
@@ -89,9 +88,9 @@ const Incentives = ({}) => {
                   }}
                 />
               </div>
-            );
-          })}
-        </Col>
+            </div>
+          </div>
+        )}
       </Row>
 
       <CreateTechnologyIncentiveModal
