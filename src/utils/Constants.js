@@ -13,6 +13,7 @@ import TechnologyEvents from "../admin-portal/create-campaign/create-technology/
 import Testimonials from "../admin-portal/create-campaign/create-technology/Testimonials";
 import AdvancedConfig from "../admin-portal/create-campaign/create-technology/AdvancedConfig";
 import TechnologyDeals from "../admin-portal/create-campaign/create-technology/TechnologyDeals";
+import CampaignCommunities from "../admin-portal/create-campaign/CampaignCommunities";
 
 export const campaignPages = [
 	{
@@ -22,6 +23,11 @@ export const campaignPages = [
 	{
 		name: "Technologies",
 		component: Technologies,
+	},
+	{
+		name: "Communities",
+		key: "communities",
+		component: CampaignCommunities,
 	},
 	// {
 	// 	name: "Goal & Focus",

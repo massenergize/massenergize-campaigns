@@ -59,7 +59,7 @@ export function CampaignStatistics({}) {
     </div>
   }
 
-  if(statsLoading || statsValidating){
+  if(statsLoading){
     return <div className="text-center mt-5">
       <Loading/>
     </div>
