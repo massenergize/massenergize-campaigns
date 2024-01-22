@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import phone_call from "./../../../assets/imgs/phone_call.png";
+import SmartRichText from "../../../components/SmartRichText";
 const LEN = 250;
 function RoamingBox({ advert, keyContact, showMore }) {
   const desc = advert?.description;
@@ -25,11 +26,30 @@ function RoamingBox({ advert, keyContact, showMore }) {
                     background: "antiquewhite",
                   }}
                 >
-                  <p className="roaming-text" style={{ padding: "15px 25px" }}>
+                  <div style={{ padding: "15px 25px" }}>
+                    <SmartRichText
+                      maxHeight={120}
+                      renderSeeMore={(_, isLong) => {
+                        if (!isLong) return <></>;
+                        return (
+                          <Button
+                            style={{ marginTop: 10 }}
+                            onClick={() => showMore && showMore()}
+                            className="elevate-2 touchable-opacity app-btn"
+                          >
+                            Learn More
+                          </Button>
+                        );
+                      }}
+                    >
+                      {advert?.description}
+                    </SmartRichText>
+                  </div>
+                  {/* <p className="roaming-text" style={{ padding: "15px 25px" }}>
                     {preview}
                     {isLong ? "..." : ""}
-                  </p>
-                  <div
+                  </p> */}
+                  {/* <div
                     style={{
                       display: "flex",
                       padding: "20px 35px",
@@ -50,7 +70,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
                     >
                       Learn More
                     </Button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </Col>
