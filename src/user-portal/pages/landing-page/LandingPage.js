@@ -183,26 +183,7 @@ function LandingPage({
       </Container>
     );
 
-  // const register = (registrationProps) => {
-  //   toggleModal({
-  //     fullControl: true,
-  //     show: true,
-  //     title: `Before you add a testimonial, we would like to know you`,
-  //     component: (props) => (
-  //       <JoinUsForm
-  //         {...(props || {})}
-  //         confirmText="Continue"
-  //         callbackOnSubmit={({ close }) => close && close()}
-  //         {...(registrationProps || {})}
-  //       />
-  //     ),
-  //   });
-  // };
-  // const triggerProtectedFunction = (authUser, { cb, registrationOptions } = {}) => {
-  //   const { user } = authUser || {};
-  //   if (!user) return register(registrationOptions);
-  //   cb && cb();
-  // };
+
   return (
     <div style={{}}>
       {previewMode && (
