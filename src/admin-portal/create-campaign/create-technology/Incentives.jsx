@@ -1,28 +1,21 @@
 import { useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
-import "../../../assets/styles/admin-styles.scss";
+import { Button, Col, Row, Modal } from "react-bootstrap";
+import classes from "classnames";
 import IncentivesBar from "../../../components/admin-components/IncentivesBar";
 import { useTechnologyContext } from "../../../hooks/use-technology-context";
 import { CreateTechnologyIncentiveModal } from "./create-technology-incentive-modal";
-import classes from "classnames";
-import Modal from "react-bootstrap/Modal";
 import { removeTechnologyIncentive } from "../../../requests/technology-requests";
 import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloons";
+import { ProgressButton } from "../../../components/progress-button/progress-button";
+import "../../../assets/styles/admin-styles.scss";
 
 let incentiveToDelete = null;
 
-const Incentives = ({}) => {
+const Incentives = () => {
   const { technology, handleAddOverview, handleRemoveOverview } = useTechnologyContext();
   const incentives = technology?.overview || [];
 
   const { notify } = useBubblyBalloons();
-
-  const handleSubmit = async (e) => {
-    try {
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const [loading, setLoading] = useState(false);
   const [showIncentiveModal, setShowIncentiveModal] = useState(false);
@@ -61,8 +54,8 @@ const Incentives = ({}) => {
 
   return (
     <div>
-      <Row className="">
-        <Col className="">
+      <Row>
+        <Col>
           <p>What are the incentives for participating in this technology</p>
         </Col>
         <Col sm={"auto"}>
@@ -71,16 +64,13 @@ const Incentives = ({}) => {
           </Button>
         </Col>
       </Row>
-      <Row className=" ">
+      <Row>
         <Col>
           {(incentives || [])?.map((incentive, index) => {
             if (!incentive) return null;
 
             return (
-              <div
-                key={incentive?.id}
-                className={classes("py-2", { "mt-2 ": index > 0 })}
-              >
+              <div key={incentive?.id} className={classes("py-2", { "mt-2 ": index > 0 })}>
                 <IncentivesBar
                   incentive={incentive}
                   onRemove={() => {
@@ -118,7 +108,7 @@ const Incentives = ({}) => {
           <Button variant="secondary" onClick={hideDeleteModal}>
             Close
           </Button>
-          <Button onClick={handleRemove}>Delete</Button>
+          <ProgressButton loading={loading} onClick={handleRemove}>Delete</ProgressButton>
         </Modal.Footer>
       </Modal>
     </div>
