@@ -54,7 +54,7 @@ const Incentives = () => {
 
   return (
     <div>
-      <Row>
+      <Row className={"mt-3"}>
         <Col>
           <p>What are the incentives for participating in this technology</p>
         </Col>
