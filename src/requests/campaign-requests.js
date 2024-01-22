@@ -447,7 +447,6 @@ try {
         "CREATE_CAMPAIGN_TESTIMONIAL_ERROR_BE"
       );
     }
-
     return response?.data;
   }
     catch (e) {
