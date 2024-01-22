@@ -7,6 +7,7 @@ import {
   updateTestimonial,
 } from "src/requests/technology-requests";
 import { relativeTimeAgo } from "src/utils/utils";
+import RenderHTML from "../RenderHtml";
 
 const TestimonialCard = ({ test, platform, className = "" }) => {
   const [tick, setTick] = useState(test?.is_featured);
@@ -122,27 +123,21 @@ const TestimonialCard = ({ test, platform, className = "" }) => {
 
   return (
     <div className={"w-100 p-4 rounded-4 border relative " + className}>
-      <p
-        style={{
-          position: "absolute",
-          top: "-10px",
-          right: "20px",
-        }}
-        className="absolute bg-white py-1 px-3 border rounded-5"
-      >
-        {test?.community?.name}
-      </p>
-      {test?.is_published && (
-        <p
-          style={{ position: "absolute", top: "7px", left: "10px" }}
-          className="absolute text-success py-1 px-3  rounded-5"
+      {
+        platform !== "campaign" && <p
+          style={{
+            position: "absolute",
+            top: "-10px",
+            right: "20px",
+          }}
+          className="absolute bg-white py-1 px-3 border rounded-5"
         >
-          <FontAwesomeIcon icon={faThumbsUp} /> Approved
+          {test?.community?.name}
         </p>
-      )}
+      }
 
       <div className="flex items-center justify-content-between">
-        <h6 className="text-decoration-underline">{test?.user?.full_name} </h6>
+        <h6 className="text-capitalize">{test?.user?.full_name} </h6>
         <div className="flex gap-3">
           <p className="text-muted"> {relativeTimeAgo(test?.created_at)}</p>
         </div>
@@ -151,7 +146,8 @@ const TestimonialCard = ({ test, platform, className = "" }) => {
         <div>
           <h6 className="fw-bold">{test?.title}</h6>
           {/* {test?.body} */}
-          <div dangerouslySetInnerHTML={{ __html: test?.body }} />
+          <RenderHTML html={test?.body}/>
+
         </div>
         {(test?.image || test?.file) !== null && (
           <div>
@@ -190,9 +186,7 @@ const TestimonialCard = ({ test, platform, className = "" }) => {
               onClick={handleApprove}
             >
               {test?.is_published ? "Disapprove" : "Approve"}
-              <FontAwesomeIcon
-                icon={test?.is_published ? faThumbsDown : faThumbsUp}
-              />
+              <FontAwesomeIcon icon={test?.is_published ? faThumbsDown : faThumbsUp} />
             </button>
           )}
         </div>
