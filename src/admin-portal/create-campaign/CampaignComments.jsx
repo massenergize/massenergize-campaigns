@@ -1,4 +1,6 @@
 import React from "react";
+import Comments from "../../components/admin-components/Comments";
+import { CampaignCommentView } from "./campaign-comment-view";
 
 const CampaignComments = ({
   campaignDetails,
@@ -6,7 +8,11 @@ const CampaignComments = ({
   setStep,
   lists,
 }) => {
-  return <div>CampaignComments</div>;
+  return (
+    <div>
+      <CampaignCommentView campaign={campaignDetails} />
+    </div>
+  );
 };
 
 export default CampaignComments;
