@@ -10,40 +10,33 @@ import {
 import { Spinner } from "@kehillahglobal/ui";
 import useSWR from "swr";
 import Button from "src/components/admin-components/Button";
-import { FormLabel } from "react-bootstrap";
+import { Form, FormLabel } from "react-bootstrap";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import { Button as BTN, Container, Col, Row } from "react-bootstrap";
+import Dropdown from "src/components/admin-components/Dropdown";
+import { NoItems } from "@kehillahglobal/ui";
 
-const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) => {
-  let existing = [
-    ...(techObject?.testimonials || [])?.map((testimonial) => {
-      return { ...testimonial, id: testimonial?.testimonial };
-    }),
-  ].flat();
-
+export const Testimonials = ({ campaign_id, techs, onModalClose }) => {
   const [loading, setLoading] = useState(false);
   const { blow, pop } = useBubblyBalloons();
 
-  const [selectedTestimonials, setSelectedTestimonials] = useState(existing || []);
+  const [selectedTestimonials, setSelectedTestimonials] = useState([]);
+  const [selectedTech, setSelectedTech] = useState();
 
   let {
     data: payloadTestimonials,
     isValidating,
     isLoading,
     error,
-  } = useSWR("testimonials.list", async () => await fetchAllTechnologyTestimonials(campaign_id), {
+  } = useSWR(
+    "testimonials.list",
+    async () => await fetchAllTechnologyTestimonials(campaign_id),
+    {
       shouldRetryOnError: true,
       errorRetryCount: 3,
       errorRetryInterval: 3000,
     },
   );
-
-  const handleRemove = (data) => {
-    const filteredTechnologies = selectedTestimonials.filter(
-      (testimonial) => testimonial.id !== data.id,
-    );
-    setSelectedTestimonials(filteredTechnologies);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,7 +45,7 @@ const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) =
     try {
       const payload = {
         campaign_id: campaign_id,
-        technology_id: tech_id,
+        technology_id: selectedTech,
         testimonial_ids: selectedTestimonials.map((testimonial) => testimonial.id),
       };
 
@@ -60,13 +53,14 @@ const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) =
 
       if (res) {
         setLoading(false);
-        updateTechObject(res);
+        // updateTechObject(res);
         blow({
           title: "Success",
           message: "Campaign Testimonials updated successfully.",
           type: "success",
           duration: 5000,
         });
+        onModalClose();
       }
     } catch (e) {
       setLoading(false);
@@ -97,110 +91,59 @@ const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) =
   const TESTIMONIALS_SIZE = (selectedTestimonials || [])?.length;
 
   return (
-    <div className='px-4 py-5'>
-      <form>
-        <Row>
-          <Col>
-            <FormLabel>
-              Choose one or more testimonials for your campaign from the dropdown
-              below.
-            </FormLabel>
-          </Col>
-        </Row>
-        <Row className="" style={{ height: "180px" }}>
-          <Col>
-            <MultiSelect
-              options={payloadTestimonials?.map((testimonial) => {
-                return {
-                  ...testimonial,
-                  label: testimonial.title,
-                  value: testimonial.id,
-                };
-              })}
-              value={selectedTestimonials?.map((testimonial) => {
-                return {
-                  ...testimonial,
-                  label: testimonial.title,
-                  value: testimonial.id,
-                };
-              })}
-              valueRenderer={(selected, _options) => {
-                if (selected?.length < 1) {
-                  return "Select Testimonials...";
+    <div className="px-4 py-5">
+      {payloadTestimonials?.length > 0 ? (
+        <form>
+          <Row className="mt-2" style={{ height: "180px" }}>
+            <Col>
+              <Form.Label>
+                Select the Testimonial to feature on this campaign
+              </Form.Label>
+              <Dropdown
+                displayTextToggle="Select a testimonial for this campaign"
+                data={(payloadTestimonials || [])?.map((testimonial) => {
+                  return {
+                    ...testimonial,
+                    value: testimonial?.id,
+                    label: `${testimonial?.title} - ${testimonial?.community?.name}`,
+                  };
+                })}
+                valueExtractor={(item) => item}
+                labelExtractor={(item) =>
+                  `${item?.title} - ${item?.community?.name}`
                 }
+                multiple={false}
+                onItemSelect={(selectedItem, allSelected) => {
+                  setSelectedTestimonials([selectedItem]);
+                }}
+              />
 
-                if (selected?.length === payloadTestimonials?.length) {
-                  return "All testimonials selected";
-                }
-                if (selected?.length > 3) {
-                  return `${selected?.length} testimonials selected`;
-                }
-
-                return selected.map(({ title, id }, i) => {
-                  const truncatedTitle =
-                    title.length > 30 ? title.slice(0, 30) + "..." : title;
-                  return (
-                    truncatedTitle +
-                    (i < payloadTestimonials?.length - 1 ? ", " : "")
-                  );
-                });
-              }}
-              onChange={(val) => {
-                setSelectedTestimonials(val);
-              }}
-              labelledBy="Select"
-            />
-          </Col>
-        </Row>
-
-        <Row className=" pb-4 justify-content-start" style={{ marginTop: "-5rem" }}>
-          {TESTIMONIALS_SIZE > 0 ? (
-            <>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Community</th>
-                    <th scope="col">User</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {(selectedTestimonials || [])?.map((testimonial) => {
-                    return (
-                      <tr className="text-sm">
-                        <td>{testimonial?.title}</td>
-                        <td>{testimonial?.community?.name}</td>
-                        <td className="text-capitalize">
-                          {testimonial?.user?.full_name}
-                        </td>
-                        <td className="text-cnter">
-                          <BTN
-                            // style={{ marginLeft: 10 }}
-                            onClick={() => {
-                              if (
-                                window.confirm(
-                                  "Are you sure you want to remove this testimonial?",
-                                )
-                              ) {
-                                handleRemove(testimonial);
-                              }
-                            }}
-                            variant="danger"
-                          >
-                            <span>Remove</span>
-                          </BTN>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </>
-          ) : null}
-        </Row>
-
-        {
+              <Row className="my-4">
+                <Form.Label>
+                  Select the technology this Testimonial belong to
+                </Form.Label>
+                <Col>
+                  <Dropdown
+                    displayTextToggle="Select Technology for this testimonial on this campaign"
+                    data={(techs || [])?.map((tech) => {
+                      return {
+                        ...tech,
+                        value: tech?.id,
+                        label: tech?.name,
+                      };
+                    })}
+                    valueExtractor={(item) => item?.id}
+                    labelExtractor={(item) => item?.name}
+                    multiple={false}
+                    onItemSelect={(selectedItem, allSelected) => {
+                      setSelectedTech([selectedItem]);
+                      console.log(selectedItem);
+                    }}
+                  />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
           <Row className="mt-4 py-4 justify-content-end">
             <Col className="mt-4 py-4">
               <Button
@@ -212,10 +155,12 @@ const Testimonials = ({ campaign_id, tech_id, techObject, updateTechObject, }) =
               />
             </Col>
           </Row>
-        }
-      </form>
+        </form>
+      ) : (
+        <NoItems />
+      )}
     </div>
   );
 };
 
-export default Testimonials;
+// export default Testimonials;
