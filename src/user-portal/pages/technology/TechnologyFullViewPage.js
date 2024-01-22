@@ -44,6 +44,7 @@ import DoMore from "../landing-page/DoMore";
 import OneTechEventSection from "./OneTechEventSection";
 import { useMediaQuery } from "react-responsive";
 import CampaignNotLive from "../landing-page/CampaignNotLive";
+import SmartRichText from "../../../components/SmartRichText";
 
 const DEFAULT_READ_HEIGHT = 190;
 const PREVIEW_TEXT_LENGHT = 1000;
@@ -300,8 +301,8 @@ function TechnologyFullViewPage({
   const READ_HEIGHT = DEFAULT_READ_HEIGHT;
   const LENGTH = isMobile ? MOBILE_PREVIEW_TEXT_LENGTH : PREVIEW_TEXT_LENGHT;
 
-  const { truncatedContent, isLong } = truncateRichText(description, READ_HEIGHT);
-  console.log("IS REALLY LONG", isLong);
+  // const { truncatedContent, isLong } = truncateRichText(description, READ_HEIGHT);
+  // console.log("IS REALLY LONG", isLong);
   // const isReallyLong = description.length > LENGTH; // This is not a good way of checking, change it later
 
   return (
@@ -340,7 +341,8 @@ function TechnologyFullViewPage({
                 views={campaign_technology_views}
                 comments={comments?.length || 0}
               />
-              <p className="mt-3 o-t-desc" style={{ textAlign: "justify" }}>
+              <SmartRichText>{description}</SmartRichText>
+              {/* <p className="mt-3 o-t-desc" style={{ textAlign: "justify" }}>
                 <span
                   dangerouslySetInnerHTML={{ __html: truncatedContent }}
                   style={{ height, display: "block", overflowY: "hidden" }}
@@ -358,7 +360,7 @@ function TechnologyFullViewPage({
                     {readMore ? "Read More..." : "Hide"}
                   </span>
                 )}
-              </p>
+              </p> */}
             </Col>
             <Col lg={3}>
               <div

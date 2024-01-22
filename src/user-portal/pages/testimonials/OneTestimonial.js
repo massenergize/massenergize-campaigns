@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PageWrapper from "../wrappers/PageWrapper";
 import carPhoto from "./../../../assets/imgs/car.jpeg";
 import { Col, Row } from "react-bootstrap";
@@ -27,9 +27,11 @@ function OneTestimonial({
   toggleModal,
   authUser,
 }) {
+  const testimonialRef = useRef();
   const [testimonial, setTestimonial] = useState(LOADING);
   const [error, setError] = useState("");
   const { id, campaign_id } = useParams();
+  const [showTestimonialForm, setShowTestimonialForm] = useState(true);
 
   const navigator = useNavigate();
   const { title, body, image } = testimonial || {};
@@ -50,17 +52,25 @@ function OneTestimonial({
     }, []);
   };
 
+  const scrollToSection = () => {
+    if (testimonialRef?.current)
+      testimonialRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
   const initiateTestimonialCreation = (userObject) => {
     const { user } = userObject || {};
     if (!user) return triggerRegistration();
-    toggleModal({
-      show: true,
-      title: `Add your testimonial`,
-      iconName: "fa-message",
-      component: ({ close }) => <NewTestimonialForm close={close} />,
-      // modalNativeProps: { size: "md" },
-      fullControl: true,
-    });
+
+    setShowTestimonialForm(!showTestimonialForm);
+    if (!showTestimonialForm) scrollToSection();
+    // WILL REMOVE LATER WHEN NEW FLOW IS APPROVED
+    // toggleModal({
+    //   show: true,
+    //   title: `Add your testimonial`,
+    //   iconName: "fa-message",
+    //   component: ({ close }) => <NewTestimonialForm close={close} />,
+    //   // modalNativeProps: { size: "md" },
+    //   fullControl: true,
+    // });
   };
 
   const triggerRegistration = () => {
@@ -126,26 +136,40 @@ function OneTestimonial({
       <SectionTitle>{title || "..."}</SectionTitle>
       <Row>
         <Col lg={9}>
-          {/* {image?.url && (
-            <img
-              className="elevate-float-pro mt-3"
-              src={image?.url}
-              style={{
-                width: "100%",
-                height: 420,
-                objectFit: "cover",
-                borderRadius: 10,
-              }}
-              alt={image?.name || "Testimonial Image"}
-            />
-          )} */}
-
           <p className="mt-4" style={{ textAlign: "justify" }}>
             <span
               dangerouslySetInnerHTML={{ __html: body }}
               style={{ display: "block", overflowY: "hidden" }}
             ></span>
           </p>
+
+          <p
+            role="button"
+            onClick={() => initiateTestimonialCreation(authUser)}
+            className="touchable-opacity"
+            style={{
+              textDecoration: "underline",
+              fontWeight: "bold",
+              color: "var(--app-medium-green)",
+              display: "inline-block",
+            }}
+          >
+            <i className={`fa fa-${showTestimonialForm ? "minus" : "plus"}`}></i>{" "}
+            {showTestimonialForm
+              ? "Hide testimonial form"
+              : "Add your own testimonial"}
+          </p>
+          <div ref={testimonialRef}>
+            {showTestimonialForm && (
+              <div
+              className="testi-form-wrapper"
+                // style={{ border: "1px dashed #e6e2e2", marginTop: 40, padding: 20 }}
+              >
+                <SectionTitle>Add your own testimonial</SectionTitle>
+                <NewTestimonialForm />
+              </div>
+            )}
+          </div>
         </Col>
         <Col lg={3} className="mt-3">
           {image?.url && (

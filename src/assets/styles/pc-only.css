@@ -127,6 +127,12 @@
     font-size: 1.1rem;
   }
 
+  .testi-form-wrapper {
+    border: 1px dashed rgb(230, 226, 226);
+    margin-top: 40px;
+    padding: 20px;
+  }
+
   /* --------------------------------- END OF PC SPECIFIC ---------------------- */
 }
 
