@@ -33,7 +33,7 @@ if (IS_LOCAL) {
 }
 
 
-export const CAMPAIGN_INFORMATION_URL = "campaigns.info";
+export const CAMPAIGN_INFORMATION_URL = "campaigns.infoForUser";
 export const CAMPAIGN_VIEW_URL = "campaigns.view";
 
 

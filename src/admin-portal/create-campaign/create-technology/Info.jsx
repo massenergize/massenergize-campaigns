@@ -14,6 +14,7 @@ import { useTechnologyContext } from "../../../hooks/use-technology-context";
 import CustomAccordion from "../../../components/admin-components/CustomAccordion";
 import SectionForm from "./SectionsForm";
 import { getImageValue } from "../../../helpers/utils";
+import { useSelector } from "react-redux";
 
 function Info({
   information,
@@ -29,6 +30,7 @@ function Info({
   const isEditing = tech_id;
 
   const navigate = useNavigate()
+  const campaignAccount = useSelector((state) => state.campaignAccount);
 
   const handleFieldChange = (field, value) => {
     setInformation({ ...information, [field]: value });
@@ -82,6 +84,7 @@ function Info({
       ...information,
       id: tech_id,
       campaign_id,
+      ...(!isEditing ? { campaign_account_id: campaignAccount?.id } : {}),
       ...(isEditing && typeof information.image === 'string' ? {} : { image: !isEditing ? information.image : (information.image ? information.image : 'reset') }),
     }).then((response) => {
       const { data, success, error } = response || {};
@@ -97,7 +100,7 @@ function Info({
     });
   };
   return (
-    <div>
+    <div className="py-4">
       <form>
         <Row className="">
           <Col>
@@ -139,6 +142,20 @@ function Info({
               }}
               // value={formData?.description}
               value={getValue("description")}
+            />
+          </Col>
+        </Row>
+        <Row className="mt-3">
+          <Col>
+            <Input
+              label="Help Link"
+              placeholder="Add a link to help for this technology......."
+              required={true}
+              type="textbox"
+              onChange={(val) => {
+                handleFieldChange("help_link", val);
+              }}
+              value={getValue("help_link")}
             />
           </Col>
         </Row>

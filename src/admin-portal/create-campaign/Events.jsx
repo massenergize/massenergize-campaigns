@@ -5,8 +5,6 @@ const Events = ({lists, originalCampaignDetails}) => {
     allEvents,
   } = lists;
 
-  console.log({ allEvents });
-
   return (<CampaignEventsView events={allEvents} campaign={originalCampaignDetails} />);
 };
 

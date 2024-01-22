@@ -236,7 +236,6 @@ function OneTestimonial({
                     className="touchable-opacity"
                     style={{
                       color: "var(--app-deep-green)",
-
                       fontWeight: "bold",
                       fontSize: 14,
                       textDecoration: "underline",
