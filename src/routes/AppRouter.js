@@ -1,11 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Route,
-  Routes,
-  useParams,
-  Navigate,
-  generatePath,
-} from "react-router-dom";
+import { Route, Routes, useParams, Navigate, generatePath } from "react-router-dom";
 import LandingPage from "../user-portal/pages/landing-page/LandingPage";
 import { bindActionCreators } from "redux";
 import {
@@ -31,6 +25,7 @@ import { CampaignStatistics } from "../admin-portal/pages/campaign/campaign-stat
 import Login from "../admin-portal/pages/auth/Login";
 import Dummy from "../admin-portal/pages/auth/Dummy";
 import { portalIsAdmin, setPageTitle } from "../utils/utils";
+import JoinUsForm from "../user-portal/pages/forms/JoinUsForm";
 
 export const NavigateWithParams = ({ to, ...props }) => {
   const params = useParams();
@@ -148,7 +143,7 @@ const ROUTE_TABLE = [
   },
 ];
 
-function AppRouter ({
+function AppRouter({
   test,
   testFunction,
   modalOptions,
@@ -168,7 +163,31 @@ function AppRouter ({
     if (isAdminPortal) pageName = "Admin Portal";
     setPageTitle(pageName);
   }, []);
-  
+
+  const register = (registrationProps) => {
+    toggleModal({
+      fullControl: true,
+      show: true,
+      title: `Before you add a testimonial, we would like to know you`,
+      component: (props) => (
+        <JoinUsForm
+          {...(props || {})}
+          confirmText="Continue"
+          callbackOnSubmit={({ close }) => close && close()}
+          {...(registrationProps || {})}
+        />
+      ),
+    });
+  };
+  const triggerProtectedFunctionality = (
+    authUser,
+    { cb, registrationOptions } = {},
+  ) => {
+    const { user } = authUser || {};
+    if (!user) return register(registrationOptions);
+    cb && cb();
+  };
+
   return (
     <>
       <CustomModal
@@ -183,6 +202,7 @@ function AppRouter ({
               test={test}
               testFunction={testFunction}
               toggleModal={toggleModal}
+              triggerProtectedFunctionality={triggerProtectedFunctionality}
               // menu={navigation}
             />
           }
@@ -195,9 +215,7 @@ function AppRouter ({
             path,
             ...(replace && { replace: true }),
             element: (
-              <route.component
-                toggleModal={addToggleModal ? toggleModal : null}
-              />
+              <route.component toggleModal={addToggleModal ? toggleModal : null} />
             ),
           };
 
@@ -209,6 +227,7 @@ function AppRouter ({
           element={
             <TechnologyFullViewPage
               toggleModal={toggleModal}
+              triggerProtectedFunctionality={triggerProtectedFunctionality}
               // menu={navigation}
             />
           }
@@ -245,7 +264,7 @@ const mapDispatch = (dispatch) => {
       init: appInnitAction,
       logUserOut,
     },
-    dispatch
+    dispatch,
   );
 };
 
