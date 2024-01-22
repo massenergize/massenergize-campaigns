@@ -73,10 +73,7 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
             onClick={() => setOpenAccordion(!openAccordion)}
           />
         </div>
-      <Row className="py-3">
-        <Col className="">
-          <p>What are the deals for this campaign</p>
-        </Col>
+      <Row className="py-3 justify-content-end">
         <Col sm={"auto"}>
           <Button text="" rounded onClick={() => setOpenDealsModal(true)}>
             Add New Deal
