@@ -33,6 +33,7 @@ const Comments = ({ campaign, mutateData }) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+
     try {
       setLoading(true);
       const res = await createCampaignComment(formData);
