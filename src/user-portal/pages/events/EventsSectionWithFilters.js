@@ -12,16 +12,13 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
   const containerRef = useRef();
 
   let events = technologies?.map((tech) => tech?.events);
-  events = mergeArrays(events);
-
+  events = mergeArrays(events, (item, obj) => item?.event?.id === obj?.event?.id);
   const renderEvents = (filters) => {
     let data = [];
     if (filters?.length)
       data = events?.filter((ev) => {
         // const techsRelatedToEvent = ev?.campaign_technology?.map((t) => t.id); // pick only the campaign technology ids
-        return filters.some(
-          (f) => f.campaign_technology_id === ev?.campaign_technology?.id,
-        );
+        return filters.some((f) => f.campaign_technology_id === ev?.campaign_technology?.id);
       });
     else data = events;
 
@@ -71,16 +68,10 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
               Featured Events
             </h2>
 
-            {hasScrollableEvents && (
-              <ArrowButtons
-                containerRef={containerRef}
-                style={{ marginLeft: "auto" }}
-              />
-            )}
+            {hasScrollableEvents && <ArrowButtons containerRef={containerRef} style={{ marginLeft: "auto" }} />}
           </div>
           <OurParagraph>
-            Scroll from left to right to see more testimonials, or use the arrow
-            buttons(top right) to scroll
+            Scroll from left to right to see more testimonials, or use the arrow buttons(top right) to scroll
           </OurParagraph>
           <Filter
             title="Filter events by"
