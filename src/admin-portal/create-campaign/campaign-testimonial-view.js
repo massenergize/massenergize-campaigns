@@ -72,12 +72,13 @@ export function CampaignTestimonialsView({
   const allopts = [
     {
       name: "Testimonials from this campaign",
-      data: campaignTestimonials,
+      data: campaignTestimonials || [],
       addtext: "Create Testimonial",
       platform: "campaign",
-      featuredTestimonials: campaignTestimonials?.filter((test) => {
-        return test?.is_featured;
-      }),
+      featuredTestimonials:
+        campaignTestimonials?.filter((test) => {
+          return test?.is_featured;
+        }) || [],
       allLength: campaignTestimonials?.length,
       featuredLength: campaignTestimonials?.filter((test) => {
         return test?.is_featured;
@@ -85,12 +86,13 @@ export function CampaignTestimonialsView({
     },
     {
       name: "Testimonials from associated communities",
-      data: portalTestimonials,
+      data: portalTestimonials || [],
       addtext: "Add Testimonial",
       platform: "communities",
-      featuredTestimonials: portalTestimonials?.filter((test) => {
-        return test?.is_featured;
-      }),
+      featuredTestimonials:
+        portalTestimonials?.filter((test) => {
+          return test?.is_featured;
+        }) || [],
       allLength: portalTestimonials?.length,
       featuredLength: portalTestimonials?.filter((test) => {
         return test?.is_featured;
@@ -207,7 +209,7 @@ export function CampaignTestimonialsView({
                     <div>
                       {show?.tabTwo === chx?.name && (
                         <div className="mt-5">
-                          {(chx?.featuredLength || chx?.allLength) > 0 ? (
+                          {(chx?.allLength || chx?.featuredLength) > 0 ? (
                             <div>
                               {(show?.tabOne === "All"
                                 ? chx?.data
@@ -229,8 +231,13 @@ export function CampaignTestimonialsView({
                                 <img src="/img/no-data.svg" alt="" />
                                 <h5 className="text-muted">
                                   {chx?.platform === "campaign"
-                                    ? "No featured Testimonials from this section"
-                                    : "No featured Testimonials from communities"}
+                                    ? `No ${
+                                        show?.tabOne === "Featured" ? "Featured" : ""
+                                      } Testimonials from this section`
+                                    : chx?.platform === "communities" &&
+                                      `No ${
+                                        show?.tabOne === "Featured" ? "Featured" : ""
+                                      } Testimonials from communities`}
                                 </h5>
                               </div>
                             </div>

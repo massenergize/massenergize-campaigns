@@ -79,10 +79,12 @@ const Testimonials = ({ campaign, mutateData, onModalClose }) => {
       if (userType === USER_TYPES.MYSELF) {
         toSend.user_id = loggedInUser?.id;
       }
+
       const createdTestimonial = await createCampaignTestimonial(toSend);
 
       if (createdTestimonial) {
-        mutateData();
+        console.log("====success message===", createdTestimonial);
+        // mutateData();
         setLoading(false);
         onModalClose();
         blow({
@@ -91,8 +93,10 @@ const Testimonials = ({ campaign, mutateData, onModalClose }) => {
           type: "success",
           duration: 5000,
         });
+        return;
       }
-    } catch (e) {
+    } catch (err) {
+      console.log("====err message===", err);
       setLoading(false);
       pop({
         title: "Error",

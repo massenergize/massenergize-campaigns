@@ -184,7 +184,7 @@ const TestimonialCard = ({ test, platform }) => {
           {/* {test?.body} */}
           <div dangerouslySetInnerHTML={{ __html: test?.body }} />
         </div>
-        {(test?.image || test?.file) !== null && (
+        {(test?.image || test?.file) && (
           <div>
             <img
               src={(test?.image || test?.file)?.url}
