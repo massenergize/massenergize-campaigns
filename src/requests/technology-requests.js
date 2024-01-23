@@ -127,6 +127,20 @@ export async function fetchAllTechnologyTestimonials(campaign_id, url = "campaig
   }
 }
 
+export async function fetchAllCampaignTestimonials(campaign_id, url = "campaigns.testimonials.list") {
+  try {
+    // const response = await apiCall(url, { campaign_id }, null);
+    const response = await apiCall(url, { campaign_id }, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "FETCH_ALL_CAMPAIGN_TESTIMONIALS_ERROR_BE");
+    }
+    const data = response?.data || [];
+    return data;
+  } catch (error) {
+    handleRequestError(error, "FETCH_ALL_CAMPAIGN_TESTIMONIALS_ERROR");
+  }
+}
+
 export async function addTestimonials(data, url = "campaigns.technologies.testimonials.add") {
   try {
     const response = await apiCall(url, data, null);
@@ -163,7 +177,7 @@ export async function deleteTestimonial(data, url = "campaigns.technologies.test
   }
 }
 
-export async function updateTechnology (data, url = "technologies.update") {
+export async function updateTechnology(data, url = "technologies.update") {
   try {
     const response = await apiCall(url, data, null);
     if (!response || !response?.success) {
@@ -175,7 +189,7 @@ export async function updateTechnology (data, url = "technologies.update") {
   }
 }
 
-export async function addTechnologyDeal (data, url = "technologies.deals.create") {
+export async function addTechnologyDeal(data, url = "technologies.deals.create") {
   try {
     const response = await apiCall(url, data, null);
     if (!response || !response?.success) {
@@ -187,7 +201,7 @@ export async function addTechnologyDeal (data, url = "technologies.deals.create"
   }
 }
 
-export async function updateTechnologyDeal (data, url = "technologies.deals.update") {
+export async function updateTechnologyDeal(data, url = "technologies.deals.update") {
   try {
     const response = await apiCall(url, data, null);
     if (!response || !response?.success) {
@@ -199,7 +213,7 @@ export async function updateTechnologyDeal (data, url = "technologies.deals.upda
   }
 }
 
-export async function removeTechnologyDeal (data, url = "technologies.deals.delete") {
+export async function removeTechnologyDeal(data, url = "technologies.deals.delete") {
   try {
     const response = await apiCall(url, data, null);
     if (!response || !response?.success) {
@@ -211,7 +225,7 @@ export async function removeTechnologyDeal (data, url = "technologies.deals.dele
   }
 }
 
-export async function removeTechnologyVendor (data, url = "technologies.vendors.remove") {
+export async function removeTechnologyVendor(data, url = "technologies.vendors.remove") {
   try {
     const response = await apiCall(url, data, null);
     if (!response || !response?.success) {

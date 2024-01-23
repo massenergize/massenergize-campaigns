@@ -1,9 +1,9 @@
 import React, { useReducer, useState } from "react";
-import { Col, Container, Form, Modal, Row, Spinner } from "react-bootstrap";
+import { Col, Container, Button as BTN, Modal, Row } from "react-bootstrap";
 import TestimonialCard from "../../components/admin-components/TestimonialCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAd, faAdd } from "@fortawesome/free-solid-svg-icons";
-import { fetchAllTechnologyTestimonials } from "src/requests/technology-requests";
+import { fetchAllCampaignTestimonials } from "src/requests/technology-requests";
 import useSWR from "swr";
 import Testimonials from "../../components/admin-components/Testimonials";
 import { Testimonials as TestPortal } from "./create-technology/Testimonials";
@@ -25,33 +25,26 @@ export function CampaignTestimonialsView({ campaignDetails }) {
     isValidating,
     isLoading,
     error,
-  } = useSWR("testimonials.list", async () => await fetchAllTechnologyTestimonials(campaignDetails?.id), {
+  } = useSWR("campaigns.testimonials.list", async () => await fetchAllCampaignTestimonials(campaignDetails?.id), {
     shouldRetryOnError: true,
     errorRetryCount: 3,
     errorRetryInterval: 3000,
   });
 
-  const technologies = campaignDetails?.technologies;
-  const testimonials = [].concat(...technologies?.map((tech) => tech?.testimonials));
+  const testimonials = payloadTestimonials || [];
 
-  const [data, setData] = useState(testimonials);
-
-  const portalTestimonials = data?.filter((test) => {
+  const portalTestimonials = testimonials?.filter((test) => {
     return test?.is_imported;
   });
 
-  const campaignTestimonials = data?.filter((test) => {
+  const campaignTestimonials = testimonials?.filter((test) => {
     return !test?.is_imported;
-  });
-
-  const featuredTestimonials = testimonials?.filter((test) => {
-    return test?.is_featured;
   });
 
   const allopts = [
     {
       name: "Testimonials from this campaign",
-      data: campaignTestimonials || [],
+      data: campaignTestimonials,
       addtext: "Create Testimonial",
       platform: "campaign",
       featuredTestimonials:
@@ -65,8 +58,8 @@ export function CampaignTestimonialsView({ campaignDetails }) {
     },
     {
       name: "Testimonials from associated communities",
-      data: portalTestimonials || [],
-      addtext: "Add Testimonial",
+      data: portalTestimonials,
+      addtext: "Add Testimonial from Communities",
       platform: "communities",
       featuredTestimonials:
         portalTestimonials?.filter((test) => {
@@ -87,6 +80,28 @@ export function CampaignTestimonialsView({ campaignDetails }) {
     <div className="pb-5">
       <Container>
         <Row>
+          <Col className="flex items-center gap-3 justify-content-end">
+            <BTN
+              variant="success"
+              onClick={() => {
+                setShow({ ...show, showFormFor: "campaign" });
+                setOpenModal(true);
+              }}
+            >
+              <span>Create Testimonial</span>
+            </BTN>
+            <BTN
+              onClick={() => {
+                setShow({ ...show, showFormFor: "communities" });
+                setOpenModal(true);
+              }}
+            >
+              <span>Add Testimonial from Communities</span>
+            </BTN>
+          </Col>
+        </Row>
+
+        <Row className="mt-3">
           <Col>
             <div>
               {opts?.map((opt) => {
@@ -100,7 +115,7 @@ export function CampaignTestimonialsView({ campaignDetails }) {
                       setShow({ ...opt, tabOne: opt });
 
                       if (opt === "All") {
-                        setData(testimonials);
+                        // setData(testimonials);
                       }
                     }}
                   >
@@ -129,7 +144,7 @@ export function CampaignTestimonialsView({ campaignDetails }) {
                           }
                         }}
                       >
-                        {chx?.name}
+                        {chx?.name} ( {show?.tabOne === "All" ? chx?.allLength : chx?.featuredLength} )
                         <span
                           className={`bg-gradient px-3 tracking-wide ${show?.tabTwo === chx?.name && "rotate-180"}`}
                         >
@@ -141,8 +156,7 @@ export function CampaignTestimonialsView({ campaignDetails }) {
                           </svg>
                         </span>
                       </button>
-                      {/* {chx?.platform === "campaign" && ( */}
-                      <button
+                      {/* <button
                         onClick={() => {
                           setShow({ ...show, showFormFor: chx?.platform });
                           setOpenModal(true);
@@ -153,8 +167,7 @@ export function CampaignTestimonialsView({ campaignDetails }) {
                           <FontAwesomeIcon icon={faAdd} />
                         </span>
                         {chx?.addtext}
-                      </button>
-                      {/* )} */}
+                      </button> */}
                     </div>
 
                     <div>
@@ -165,7 +178,7 @@ export function CampaignTestimonialsView({ campaignDetails }) {
                               {(show?.tabOne === "All" ? chx?.data : chx?.featuredTestimonials)?.map((test) => {
                                 return (
                                   <div key={test?.id}>
-                                    <TestimonialCard className={"mt-3"} test={test} platform={chx?.platform} />
+                                    <TestimonialCard className={"mt-3"} test={test} />
                                   </div>
                                 );
                               })}
