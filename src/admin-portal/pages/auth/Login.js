@@ -130,24 +130,24 @@ function Login({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux }) {
           {/* <div style={{ textAlign: "center" }} className={"mb-4"}></div> */}
           <div style={{ padding: "10px 20px" }}>
             <FormGroup className="mb-3">
-              <FormLabel style={{ marginLeft: 5, fontWeight: "bold" }}>Enter your email</FormLabel>
+              <FormLabel style={{ marginLeft: 5, fontWeight: "bold" }}>Email</FormLabel>
               <Form.Control
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
-                placeholder="abc@efg.xyz"
-                aria-label="Username"
+                placeholder="Enter your email (e.g. abc@efg.xyz)"
+                aria-label="email"
                 aria-describedby="basic-addon1"
               />
             </FormGroup>
             <FormGroup className="mb-3">
-              <FormLabel style={{ marginLeft: 5, fontWeight: "bold" }}>Enter your password</FormLabel>
+              <FormLabel style={{ marginLeft: 5, fontWeight: "bold" }}>Password</FormLabel>
               <Form.Control
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
-                placeholder="Password"
-                aria-label="Username"
+                placeholder="Enter password here"
+                aria-label="password"
                 aria-describedby="basic-addon1"
               />
             </FormGroup>
