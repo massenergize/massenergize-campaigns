@@ -57,8 +57,7 @@ const Comments = ({ campaign, comments: campaignComments }) => {
     try {
       const res = await createCampaignComment(formData);
       setOpenModal(false);
-      console.log([...res, ...comments])
-      setComments([...res, ...comments])
+      setComments(res)
       setLoading(false);
       blow({
         title: "Success",
