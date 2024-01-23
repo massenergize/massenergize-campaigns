@@ -14,7 +14,7 @@ let firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
-console.log("FIREBASE_LOG HERE: ", firebaseConfig);
+
 if (IS_PROD || IS_CANARY) {
   firebaseConfig = {
     ...firebaseConfig,
@@ -22,6 +22,7 @@ if (IS_PROD || IS_CANARY) {
   };
 }
 
+console.log("FIREBASE_LOG HERE: ", firebaseConfig);
 export const FIREBASE_CONFIG = firebaseConfig;
 
 // !firebase.apps.length
