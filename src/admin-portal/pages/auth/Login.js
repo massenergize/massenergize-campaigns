@@ -1,18 +1,24 @@
 import React, { useState } from "react";
-import { Button, Container, Form, FormGroup, FormLabel, Spinner, } from "react-bootstrap";
+import { Button, Container, Form, FormGroup, FormLabel, Spinner } from "react-bootstrap";
 import { validateEmail } from "../../../utils/utils";
 import Notification from "../../../components/pieces/Notification";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../../config/firebase/admin/fire-config";
 import { connect, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { fetchMeUser, logUserOut, setAuthAdminAction, setCampaignAccountAction, setFirebaseAuthAction, } from "../../../redux/actions/actions";
+import {
+  fetchMeUser,
+  logUserOut,
+  setAuthAdminAction,
+  setCampaignAccountAction,
+  setFirebaseAuthAction,
+} from "../../../redux/actions/actions";
 import { useNavigate } from "react-router-dom";
 
 const GOOGLE = "GOOGLE";
 const EMAIL = "EMAIL";
 
-function Login ({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux, }) {
+function Login({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -38,17 +44,17 @@ function Login ({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux, }) 
 
         putFirebaseAuthInRedux(user);
         fetchMassenergizeUser({ idToken: user?.accessToken }, (data, err) => {
-            if (err) {
-                return setError(err);
-            }
-            if (data?.campaign_accounts?.length < 1) {
-              return navigate("/admin/campaign/account/new");
-            }else{
-              let encoded = btoa(JSON.stringify(data?.campaign_accounts[0]));
-              localStorage.setItem("acc", encoded);
-              dispatch(setCampaignAccountAction(data?.campaign_accounts[0]));
-              return navigate("/admin/home");
-            }
+          if (err) {
+            return setError(err);
+          }
+          if (data?.campaign_accounts?.length < 1) {
+            return navigate("/admin/campaign/account/new");
+          } else {
+            let encoded = btoa(JSON.stringify(data?.campaign_accounts[0]));
+            localStorage.setItem("acc", encoded);
+            dispatch(setCampaignAccountAction(data?.campaign_accounts[0]));
+            return navigate("/admin/home");
+          }
         });
       })
       .catch((e) => {
@@ -62,8 +68,7 @@ function Login ({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux, }) 
   const submit = () => {
     setAuthType(EMAIL);
     const emailIsValid = validateEmail(email?.trim());
-    if (!emailIsValid)
-      return setError("Please include a valid email and password");
+    if (!emailIsValid) return setError("Please include a valid email and password");
     setError("");
     setLoading(true);
 
@@ -87,10 +92,7 @@ function Login ({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux, }) 
   const isEmailAndPass = authType === EMAIL;
   // -------------------------------------------------------------------------------
   return (
-    <Container
-      className="d-flex align-items-center justify-content-center"
-      style={{ height: "100vh", padding: 0 }}
-    >
+    <Container className="d-flex align-items-center justify-content-center" style={{ height: "100vh", padding: 0 }}>
       <div
         className="elevate-float-pro"
         style={{
@@ -103,7 +105,9 @@ function Login ({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux, }) 
         <div style={{ padding: 30 }}>
           <div style={{ textAlign: "center" }} className={"mb-4 border-bottom pb-4"}>
             <h3 style={{ color: "var(--admin-theme-color)" }}>Login</h3>
-            <small className={"text-center"}>Sign in to manage your campaigns</small>
+            <small className={"text-center"} style={{ textTransform: "capitalize" }}>
+              Sign in to manage your campaigns
+            </small>
             {/*<small>Sign in as a campaign administrator to manage your campaigns</small>*/}
 
             <div>
@@ -119,17 +123,14 @@ function Login ({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux, }) 
                   borderWidth: 0,
                 }}
               >
-                {loading && isGoogleAuth && (
-                  <Spinner size="sm" style={{ marginRight: 5 }}></Spinner>
-                )}
+                {loading && isGoogleAuth && <Spinner size="sm" style={{ marginRight: 5 }}></Spinner>}
                 <span>
-                <img src="/img/google.svg" alt="Google Logo" className={"mr-3"}/> Login With Google </span>
+                  <img src="/img/google.svg" alt="Google Logo" className={"mr-3"} /> Login With Google{" "}
+                </span>
               </Button>
             </div>
           </div>
-          <div style={{ textAlign: "center" }} className={"mb-4"}>
-
-          </div>
+          <div style={{ textAlign: "center" }} className={"mb-4"}></div>
           <div style={{ padding: "10px 20px" }}>
             <FormGroup className="mb-3">
               <FormLabel style={{ marginLeft: 5 }}>Email</FormLabel>
@@ -156,7 +157,7 @@ function Login ({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux, }) 
             <Notification show={error}>{error}</Notification>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "row", padding: "0px 20px", }}>
+          <div style={{ display: "flex", flexDirection: "row", padding: "0px 20px" }}>
             {/* <Button onClick={() => logUserOut()}>Sign Out</Button> */}
             <div style={{ display: "inline-block", marginLeft: "auto" }}>
               <Button
@@ -164,12 +165,12 @@ function Login ({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux, }) 
                 disabled={loading || !email || !password}
                 className="touchable-opacity"
                 style={{
-                  fontWeight: "bold", background: "var(--admin-theme-color)", borderWidth: 0,
+                  fontWeight: "bold",
+                  background: "var(--admin-theme-color)",
+                  borderWidth: 0,
                 }}
               >
-                {loading && isEmailAndPass && (
-                  <Spinner size="sm" style={{ marginRight: 5 }}></Spinner>
-                )}
+                {loading && isEmailAndPass && <Spinner size="sm" style={{ marginRight: 5 }}></Spinner>}
                 <span>Submit</span>
               </Button>
             </div>
@@ -222,13 +223,14 @@ function Login ({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux, }) 
 // }
 
 const mapDispatch = (dispatch) => {
-  return bindActionCreators({
+  return bindActionCreators(
+    {
       logUserOut,
       putAdminInRedux: setAuthAdminAction,
       fetchMassenergizeUser: fetchMeUser,
       putFirebaseAuthInRedux: setFirebaseAuthAction,
     },
-    dispatch
+    dispatch,
   );
 };
 export default connect(null, mapDispatch)(Login);
