@@ -29,7 +29,8 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
   },
 ];
-function WhySection ({ sectionId, overview, campaignName, overview_title }) {
+function WhySection({ sectionId, overview, campaignName, overview_title }) {
+  if (overview?.length === 0) return <></>;
   return (
     <div
       id={sectionId}
@@ -42,9 +43,7 @@ function WhySection ({ sectionId, overview, campaignName, overview_title }) {
       }}
     >
       <OptimumWrapper>
-        <SectionTitle className="mb-5">
-          {overview_title || `Why ${campaignName}?`}
-        </SectionTitle>
+        <SectionTitle className="mb-5">{overview_title || `Why ${campaignName}?`}</SectionTitle>
 
         <Row>
           {(overview || []).map((item, index) => {
@@ -62,7 +61,7 @@ function WhySection ({ sectionId, overview, campaignName, overview_title }) {
                 lg={6}
                 gap={3}
               >
-                <img src={image?.url} style={{ height: 70, width: 70, objectFit: "contain" }} alt={image?.name}/>
+                <img src={image?.url} style={{ height: 70, width: 70, objectFit: "contain" }} alt={image?.name} />
                 <h6
                   className="mt-3 mb-3"
                   style={{
