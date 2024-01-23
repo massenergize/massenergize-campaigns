@@ -8,10 +8,7 @@ import { NoItems } from "@kehillahglobal/ui";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import Button from "../../components/admin-components/Button";
 import { useSelector } from "react-redux";
-import {
-  createCampaignComment,
-  deleteCampaignComment,
-} from "../../requests/campaign-requests";
+import { createCampaignComment, deleteCampaignComment } from "../../requests/campaign-requests";
 // import Dropdown from "./Dropdown";
 
 const Comments = ({ campaign, mutateData }) => {
@@ -39,7 +36,6 @@ const Comments = ({ campaign, mutateData }) => {
 
       if (res) {
         setOpenCreateForm(false);
-        mutateData(res);
         setLoading(false);
         setOpenModal(false);
         blow({
@@ -48,12 +44,14 @@ const Comments = ({ campaign, mutateData }) => {
           type: "success",
           duration: 5000,
         });
+        // mutateData(res);
+        return;
       }
-    } catch (e) {
+    } catch (err) {
       setLoading(false);
       pop({
         title: "Error",
-        message: e.message,
+        message: err.message,
         type: "error",
         duration: 5000,
       });
@@ -235,11 +233,7 @@ const Comments = ({ campaign, mutateData }) => {
                             <m.div
                               layoutId={comment.id}
                               key={comment?.id}
-                              className={
-                                selectedId === comment?.id
-                                  ? "comment-card-expand"
-                                  : "comment-card"
-                              }
+                              className={selectedId === comment?.id ? "comment-card-expand" : "comment-card"}
                             >
                               <m.h6 style={{ textDecoration: "underline" }}>
                                 {comment?.user?.preferred_name
@@ -249,21 +243,15 @@ const Comments = ({ campaign, mutateData }) => {
                               <m.p
                                 className="comment-text"
                                 onClick={() => {
-                                  setSelectedId(
-                                    selectedId === comment?.id ? null : comment?.id,
-                                  );
+                                  setSelectedId(selectedId === comment?.id ? null : comment?.id);
                                 }}
                               >
                                 {comment?.text && (
                                   <>
-                                    {selectedId === comment.id ||
-                                    comment.text.length <= 60
+                                    {selectedId === comment.id || comment.text.length <= 60
                                       ? comment.text
                                       : `${comment.text.slice(0, 60)}...`}
-                                    {selectedId !== comment.id &&
-                                      comment.text.length > 60 && (
-                                        <span> Read More</span>
-                                      )}
+                                    {selectedId !== comment.id && comment.text.length > 60 && <span> Read More</span>}
                                   </>
                                 )}
                               </m.p>
@@ -277,11 +265,7 @@ const Comments = ({ campaign, mutateData }) => {
                                   <m.div
                                     className="comment-delete-btn"
                                     onClick={async () => {
-                                      if (
-                                        window.confirm(
-                                          "Are you sure you want to delete this comment ?",
-                                        )
-                                      ) {
+                                      if (window.confirm("Are you sure you want to delete this comment ?")) {
                                         await handleDeleteComment(comment?.id);
                                       }
                                     }}
