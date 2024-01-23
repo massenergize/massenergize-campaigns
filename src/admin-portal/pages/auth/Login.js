@@ -106,7 +106,7 @@ function Login({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux }) {
       <div style={{ padding: "50px 0px", marginTop: "-9%", textAlign: "center", color: "#b322cd" }}>
         <h1 style={{ fontWeight: "900" }}>Campaign Admin Portal</h1>
         <p>
-          <span style={{ textDecoration: "underline" }}> Sign in to manage your campaigns</span> <br />
+          <span style={{}}> Sign in to manage your campaigns</span> <br />
           <span style={{ color: "black" }}>
             You need to be an existing massenergize admin before you can use this site
           </span>
