@@ -104,18 +104,14 @@ const Dropdown = ({
 				</div>
 			</div>
 			<div
-				className={
-					isOpen
-						? "cusdropdown-menu cusdropdown-menu-open"
-						: "cusdropdown-menu cusdropdown-menu-close"
-				}
+				className={isOpen ? "cusdropdown-menu cusdropdown-menu-open" : "cusdropdown-menu cusdropdown-menu-close"}
 			>
 				<div
 					style={{
 						display: "flex",
 						flexDirection: "column",
 						gap: multiple && 20,
-						padding: "0 1.125rem 2rem 1.125rem",
+						// padding: "0 1.125rem 2rem 1.125rem",
 						maxHeight: 250,
 					}}
 				>
