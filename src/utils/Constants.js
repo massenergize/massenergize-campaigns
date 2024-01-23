@@ -1,21 +1,15 @@
 import Technologies from "../admin-portal/create-campaign/Technologies";
 import Managers from "../admin-portal/create-campaign/Managers";
 import Events from "../admin-portal/create-campaign/Events";
-import Goal from "../admin-portal/create-campaign/Goal";
 import Information from "../admin-portal/create-campaign/Information";
-import Navigation from "../admin-portal/create-campaign/Navigation";
-import Partners from "../admin-portal/create-campaign/Partners";
 import Coaches from "../admin-portal/create-campaign/create-technology/Coaches";
 import Incentives from "../admin-portal/create-campaign/create-technology/Incentives";
 import Info from "../admin-portal/create-campaign/create-technology/Info";
 import Vendors from "../admin-portal/create-campaign/create-technology/Vendors";
-import TechnologyEvents from "../admin-portal/create-campaign/create-technology/Events";
-import Testimonials from "../admin-portal/create-campaign/create-technology/Testimonials";
-import AdvancedConfig from "../admin-portal/create-campaign/create-technology/AdvancedConfig";
 import TechnologyDeals from "../admin-portal/create-campaign/create-technology/TechnologyDeals";
 import CampaignTestimonials from "../admin-portal/create-campaign/CampaignTestimonials";
 import CampaignComments from "../admin-portal/create-campaign/CampaignComments";
-
+import CampaignCommunities from "../admin-portal/create-campaign/CampaignCommunities";
 export const campaignPages = [
   {
     name: "Information",
@@ -25,10 +19,10 @@ export const campaignPages = [
     name: "Technologies",
     component: Technologies,
   },
-  // {
-  // 	name: "Goal & Focus",
-  // 	component: Goal,
-  // },
+  {
+  	name: "Communities",
+  	component: CampaignCommunities,
+  },
   {
     name: "Managers",
     component: Managers,

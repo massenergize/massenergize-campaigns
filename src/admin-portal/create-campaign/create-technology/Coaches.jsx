@@ -3,9 +3,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Input from "../../../components/admin-components/Input";
-import FileUploader, {
-  RESET,
-} from "../../../components/admin-components/FileUploader";
+import FileUploader, { RESET } from "../../../components/admin-components/FileUploader";
 import Button from "../../../components/admin-components/Button";
 import "../../../assets/styles/admin-styles.scss";
 import { apiCall } from "src/api/messenger";
@@ -13,7 +11,7 @@ import { useCampaignContext } from "../../../hooks/use-campaign-context";
 import BootButton from "react-bootstrap/Button";
 import CustomAccordion from "../../../components/admin-components/CustomAccordion";
 import SectionForm from "./SectionsForm";
-
+import noCoach from "./../../../assets/imgs/no-coach.png";
 const INITIAL_COACH_STATE = {
   technology_id: "",
   full_name: "",
@@ -46,8 +44,7 @@ function Coaches({
 
   const interactWithCoachForm = () => {
     // setShowCoachForm(true);
-    if (coachFormRef?.current)
-      coachFormRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (coachFormRef?.current) coachFormRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const getValue = (key, source) => {
@@ -62,9 +59,7 @@ function Coaches({
   const contentIsValid = (data) => {
     const { full_name, image, email, community } = data || {};
     if (!full_name || !community) {
-      notifyError(
-        "(Full Name,Community) Please make sure none of them are empty...",
-      );
+      notifyError("(Full Name,Community) Please make sure none of them are empty...");
       return false;
     }
     return true;
@@ -91,19 +86,13 @@ function Coaches({
   const handleSubmit = async (e) => {
     e.preventDefault();
     let data = { ...formData, technology_id: tech_id };
-    const url = isEditing
-      ? "technologies.coaches.update"
-      : "technologies.coaches.create";
+    const url = isEditing ? "technologies.coaches.update" : "technologies.coaches.create";
 
     if (!contentIsValid(data)) return;
     setLoading(true);
     data = {
       ...data,
-      ...(isEditing && !data.image
-        ? { image: "reset" }
-        : data.image
-          ? { image: data.image }
-          : {}),
+      ...(isEditing && !data.image ? { image: "reset" } : data.image ? { image: data.image } : {}),
     };
     apiCall(url, data).then((res) => {
       const { data, success, error } = res || {};
@@ -137,9 +126,7 @@ function Coaches({
       <Row className="">
         <Col>
           <h5 className="theme-color">Selected Coaches</h5>
-          <p className="my-4">
-            All the coaches you add will appear here. Add as many as you need!
-          </p>
+          <p className="my-4">All the coaches you add will appear here. Add as many as you need!</p>
           <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
             {coaches?.map((item, index) => {
               const { full_name, id, image } = item;
@@ -156,7 +143,7 @@ function Coaches({
                 >
                   <img
                     alt={full_name + " image"}
-                    src={image?.url}
+                    src={image?.url || noCoach}
                     style={{
                       width: 40,
                       height: 40,
@@ -179,12 +166,7 @@ function Coaches({
                     </BootButton>
                     <BootButton
                       onClick={() => {
-                        if (
-                          window.confirm(
-                            "Are you sure you want to remove this coach?",
-                          )
-                        )
-                          handleRemoveCoach(item);
+                        if (window.confirm("Are you sure you want to remove this coach?")) handleRemoveCoach(item);
                       }}
                       variant="danger"
                       style={{ margin: "0px 5px" }}
@@ -253,8 +235,7 @@ function Coaches({
     // );
   };
 
-  const { lists, handleCampaignDetailsChange: setCampaignDetails } =
-    useCampaignContext();
+  const { lists, handleCampaignDetailsChange: setCampaignDetails } = useCampaignContext();
 
   // const { allCommunities } = lists;
 
@@ -279,11 +260,7 @@ function Coaches({
       </div>
 
       <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
-        <BootButton
-          style={{ marginLeft: "auto" }}
-          variant="success"
-          onClick={() => interactWithCoachForm()}
-        >
+        <BootButton style={{ marginLeft: "auto" }} variant="success" onClick={() => interactWithCoachForm()}>
           <i className="fa fa-plus" style={{ marginRight: 7 }} />
           Add A New Coach
         </BootButton>
@@ -298,12 +275,8 @@ function Coaches({
         <form style={{ border: "dashed 2px #eeeeee", padding: "40px" }}>
           <Row>
             <Col>
-              <h5 className="theme-color">
-                {isEditing ? `Editing "${formData?.full_name}"` : "Add A New Coach"}
-              </h5>
-              <p className="my-4">
-                Please include details of the new Coach of this technology
-              </p>
+              <h5 className="theme-color">{isEditing ? `Editing "${formData?.full_name}"` : "Add A New Coach"}</h5>
+              <p className="my-4">Please include details of the new Coach of this technology</p>
             </Col>
           </Row>
           <Row className="py-2">
