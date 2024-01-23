@@ -30,7 +30,7 @@ const dummies = [
   },
 ];
 function WhySection({ sectionId, overview, campaignName, overview_title }) {
-  if (overview?.length === 0) return <></>;
+  if (!overview?.length) return <></>;
   return (
     <div
       id={sectionId}
