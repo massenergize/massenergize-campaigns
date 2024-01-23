@@ -59,8 +59,7 @@ export function addUrlParams(currentUrl, params) {
 }
 
 export function generateUniqueRandomString(length) {
-  const characters =
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  const characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let result = "";
 
   for (let i = 0; i < length; i++) {
@@ -75,14 +74,8 @@ export function generateUniqueRandomString(length) {
   return result;
 }
 export function smartString(inputString, maxLength = 30) {
-  if (
-    typeof inputString !== "string" ||
-    typeof maxLength !== "number" ||
-    maxLength <= 0
-  ) {
-    console.error(
-      "Invalid input. Please provide a valid string and a positive number of characters.",
-    );
+  if (typeof inputString !== "string" || typeof maxLength !== "number" || maxLength <= 0) {
+    console.error("Invalid input. Please provide a valid string and a positive number of characters.");
     return "";
   }
 
@@ -98,12 +91,15 @@ export const portalIsAdmin = () => {
   return url.includes("admin/");
 };
 
-export function mergeArrays(arrays) {
+export function mergeArrays(arrays, reducer) {
   const mergedArray = [];
 
   for (const array of arrays) {
     for (const obj of array) {
-      const isDuplicate = mergedArray.some((item) => item.id === obj.id);
+      let isDuplicate;
+
+      if (reducer) mergedArray.find((item) => reducer(item, obj));
+      else mergedArray.find((item) => item.id === obj.id);
       if (!isDuplicate) {
         mergedArray.push(obj);
       }
@@ -124,16 +120,15 @@ export function truncateRichText(richText, maxHeight) {
 
   document.body.appendChild(tempDiv);
   // Get the height of the content in the temporary div
-  const contentHeight = tempDiv.offsetHeight +40;
+  const contentHeight = tempDiv.offsetHeight + 40;
   var isLong = false;
 
-
-  console.log("Here is the content height", contentHeight)
+  console.log("Here is the content height", contentHeight);
 
   // If the content height is within the specified limit, no need to truncate
   if (contentHeight <= maxHeight) {
     document.body.removeChild(tempDiv);
-    console.log("Its coming inside here mom ooo")
+    console.log("Its coming inside here mom ooo");
     return { truncatedContent: richText, isLong };
   }
 

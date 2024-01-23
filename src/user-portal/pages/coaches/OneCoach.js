@@ -1,6 +1,6 @@
 import React from "react";
-
-function OneCoach ({ full_name, image, community }) {
+import noCoach from "./../../../assets/imgs/no-coach.png";
+function OneCoach({ full_name, image, community }) {
   return (
     <div
       className="one-coach-main"
@@ -13,7 +13,7 @@ function OneCoach ({ full_name, image, community }) {
     >
       <img
         className=""
-        src={image?.url}
+        src={image?.url || noCoach}
         // style={{
         //   borderRadius: "100%",
         //   width: 120,
