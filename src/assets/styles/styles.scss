@@ -62,7 +62,7 @@ $input-focus-outline: $admin-accent-color;
   height: 100%;
   letter-spacing: 0.05em;
   resize: none;
-  padding: 2rem 1.4rem;
+  padding: 15px;
   //min-height: 15rem;
   outline: none;
   font-size: 0.9rem;
@@ -325,7 +325,7 @@ $input-focus-outline: $admin-accent-color;
 
 .cusdropdown-menu-open {
   height: auto;
-  padding-top: 2rem;
+  padding-top: 10px;
   box-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -709,7 +709,7 @@ $input-focus-outline: $admin-accent-color;
 
 .comment-card {
   width: 350px;
-  height: 150px;
+  height: auto;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
@@ -752,7 +752,7 @@ $input-focus-outline: $admin-accent-color;
 
 .comment-text {
   color: rgb(43, 43, 43);
-  margin: 1rem 0;
+  //margin: 1rem 0;
   font-size: 14px;
   cursor: pointer;
 }
