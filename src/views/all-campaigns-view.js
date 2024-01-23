@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, ButtonGroup, Col, Container, Row } from "react-bootstrap";
 import { fetchAllCampaigns } from "../requests/campaign-requests";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { faFileEdit } from "@fortawesome/free-solid-svg-icons/faFileEdit";
 import { useSelector } from "react-redux";
 import { NoItems } from "@kehillahglobal/ui";
@@ -30,6 +30,18 @@ export function AllCampaignsView ({}) {
   const handleRowActionsClick = (id, row) => {
     setSelectedRow(id);
   };
+
+  const generateAndCopyCampaignLink = (slug,isLive) => {
+  // only add preview mode if not live
+    let url = `${window.location.origin}/campaign/${slug}`;
+    if(!isLive){
+      url += "?preview=true";
+    }
+
+   window.open(url, "_blank")
+
+
+  }
 
   const [rowSelection, setRowSelection] = React.useState({});
 
@@ -147,9 +159,9 @@ export function AllCampaignsView ({}) {
       Header: () => null,
       id: "actions",
       accessor: (values) => {
-        const { slug } = values;
+        const { slug, is_published } = values;
 
-        return slug;
+        return {slug, is_published};
       },
       style: {
         width: "100px",
@@ -167,7 +179,7 @@ export function AllCampaignsView ({}) {
             <Button
               variant="success"
               onClick={() => {
-                navigate(`/admin/campaign/${value}/stats`);
+                navigate(`/admin/campaign/${value?.slug}/stats`);
               }}
             >
               Stats
@@ -175,19 +187,19 @@ export function AllCampaignsView ({}) {
             <Button
               variant="primary"
               onClick={() => {
-                navigate(`/admin/campaign/${value}/edit`);
+                navigate(`/admin/campaign/${value?.slug}/edit`);
               }}
             >
               <FontAwesomeIcon icon={faFileEdit} />
             </Button>
             <Button
-              variant="danger"
+              variant="secondary"
               onClick={() => {
-              window.open(`/campaign/${value}?preview=true`, "_blank");
-
+                // TODO: Generate link from BE and shorten it
+                generateAndCopyCampaignLink(value?.slug, value?.is_published);
               }}
             >
-              <FontAwesomeIcon icon={faEye} />
+              <FontAwesomeIcon icon={faExternalLinkAlt} />
             </Button>
           </ButtonGroup>
         );

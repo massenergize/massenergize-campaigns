@@ -10,28 +10,6 @@ import OurParagraph from "../../../components/OurParagraph";
 
 function EventsSectionWithFilters({ sectionId, technologies }) {
   const containerRef = useRef();
-  // const eventsOfEachTech = technologies?.map(
-  //   ({
-  //     events,
-  //     id,
-  //     name,
-  //     is_icon,
-  //     is_image,
-  //     image,
-  //     icon,
-  //     campaign_technology,
-  //   }) => ({
-  //     id,
-  //     campaign_technology,
-  //     events,
-  //     is_icon,
-  //     is_image,
-  //     image,
-  //     icon,
-  //     name,
-  //   })
-  // );
-  // const firstOne = eventsOfEachTech[0];
 
   let events = technologies?.map((tech) => tech?.events);
   events = mergeArrays(events);
@@ -40,9 +18,9 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
     let data = [];
     if (filters?.length)
       data = events?.filter((ev) => {
-        const techsRelatedToEvent = ev?.campaign_technology?.map((t) => t.id); // pick only the campaign technology ids
-        return filters.some((f) =>
-          techsRelatedToEvent.includes(f.campaign_technology_id),
+        // const techsRelatedToEvent = ev?.campaign_technology?.map((t) => t.id); // pick only the campaign technology ids
+        return filters.some(
+          (f) => f.campaign_technology_id === ev?.campaign_technology?.id,
         );
       });
     else data = events;
@@ -66,32 +44,7 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
     );
   };
 
-  // const intoTabs = eventsOfEachTech?.map(({ id, name, events }) => ({
-  //   key: id,
-  //   title: (
-  //     <span
-  //       style={{
-  //         color: "var(--app-deep-green)",
-  //         fontWeight: "bold",
-  //       }}
-  //     >
-  //       <span>
-  //         <i className=" fa fa-pump" /> {name}
-  //       </span>
-  //     </span>
-  //   ),
-  //   component: (
-  //     <Row style={{ marginTop: 50 }}>
-  //       {events?.map((item) => {
-  //         return (
-  //           <Col key={item.id} xs={12} lg={3}>
-  //             <EventBox {...item} />
-  //           </Col>
-  //         );
-  //       })}
-  //     </Row>
-  //   ),
-  // }));
+  if (!events?.length) return <></>;
 
   const hasScrollableEvents = events?.length > 4;
   return (
@@ -99,7 +52,7 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
       id={sectionId}
       className="g-s-container"
       style={{
-        margin: "40px 0px",
+        // margin: "40px 0px",
         // padding: "100px 0px",
         background: "white",
         width: "100%",

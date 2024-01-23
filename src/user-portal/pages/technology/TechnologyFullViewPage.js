@@ -19,11 +19,7 @@ import GetHelpForm from "../forms/GetHelpForm";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { COMMENTS, ONE_TECH_DATA } from "../../data/user-portal-dummy-data";
-import {
-  fetchUrlParams,
-  relativeTimeAgo,
-  setPageTitle,
-} from "../../../utils/utils";
+import { fetchUrlParams, relativeTimeAgo, setPageTitle } from "../../../utils/utils";
 import { useParams } from "react-router-dom";
 import NotFound from "../error/404";
 import { LOADING, MOBILE_WIDTH } from "../../../utils/Constants";
@@ -43,13 +39,14 @@ import DoMore from "../landing-page/DoMore";
 import OneTechEventSection from "./OneTechEventSection";
 import { useMediaQuery } from "react-responsive";
 import CampaignNotLive from "../landing-page/CampaignNotLive";
+import SmartRichText from "../../../components/SmartRichText";
 
 const DEFAULT_READ_HEIGHT = 190;
 const PREVIEW_TEXT_LENGHT = 1000;
 const MOBILE_PREVIEW_TEXT_LENGTH = 200;
 const COMMENT_LENGTH = 40;
 
-function TechnologyFullViewPage ({
+function TechnologyFullViewPage({
   toggleModal,
   techs,
   updateTechObjs,
@@ -57,11 +54,11 @@ function TechnologyFullViewPage ({
   init,
   user,
   updateUser,
-  updateCommentList,
-  commentsList,
   trackActivity,
   updateUserInRedux,
+  navigation,
 }) {
+  console.log("This is the navigation", navigation);
   const authUser = user;
   // const hasUser = authUser?.user;
   const [mounted, setMounted] = useState(false);
@@ -292,15 +289,16 @@ function TechnologyFullViewPage ({
         updateTechList({ ...(technology || {}), comments: data }, id);
         cb && cb(data);
       })
-      .catch((e) =>
-        console.log("COMMENT_DELETION_ERROR_SYNT: ", e?.toString())
-      );
+      .catch((e) => console.log("COMMENT_DELETION_ERROR_SYNT: ", e?.toString()));
   };
 
   // const READ_HEIGHT = isMobile ? 100 : DEFAULT_READ_HEIGHT;
   const READ_HEIGHT = DEFAULT_READ_HEIGHT;
   const LENGTH = isMobile ? MOBILE_PREVIEW_TEXT_LENGTH : PREVIEW_TEXT_LENGHT;
-  const isReallyLong = description.length > LENGTH; // This is not a good way of checking, change it later
+
+  // const { truncatedContent, isLong } = truncateRichText(description, READ_HEIGHT);
+  // console.log("IS REALLY LONG", isLong);
+  // const isReallyLong = description.length > LENGTH; // This is not a good way of checking, change it later
 
   return (
     <div>
@@ -322,12 +320,6 @@ function TechnologyFullViewPage ({
                 className="elevate-float-pro mt-2"
                 src={image?.url || carPhoto}
                 alt={"event"}
-                // style={{
-                //   width: "100%",
-                //   height: 420,
-                //   objectFit: "contain",
-                //   borderRadius: 10,
-                // }}
               />
               <InteractionsPanel
                 openShareBox={openShareBox}
@@ -338,25 +330,7 @@ function TechnologyFullViewPage ({
                 views={campaign_technology_views}
                 comments={comments?.length || 0}
               />
-              <p className="mt-3 o-t-desc" style={{ textAlign: "justify" }}>
-                <span
-                  dangerouslySetInnerHTML={{ __html: description }}
-                  style={{ height, display: "block", overflowY: "hidden" }}
-                ></span>
-                {isReallyLong && (
-                  <span
-                    onClick={() => setHeight(readMore ? "100%" : READ_HEIGHT)}
-                    className="touchable-opacity"
-                    style={{
-                      fontWeight: "bold",
-                      color: "var(--app-orange)",
-                      textDecoration: "underline",
-                    }}
-                  >
-                    {readMore ? "Read More..." : "Hide"}
-                  </span>
-                )}
-              </p>
+              <SmartRichText>{description}</SmartRichText>
             </Col>
             <Col lg={3}>
               <div
@@ -612,6 +586,7 @@ function TechnologyFullViewPage ({
             testimonials={testimonials}
             sectionId="testimonial-section"
             campaign={campaign}
+            links={navigation}
           />
         </div>
         <div ref={coachesRef}>
@@ -633,12 +608,17 @@ function TechnologyFullViewPage ({
           <GetAGreatDealSection
             image={deal_section_image}
             data={deal_section}
-            deals = {deals}
+            deals={deals}
             sectionId="get-a-deal"
             toggleDealModal={(deal) =>
               toggleModal({
                 show: true,
-                component: (props) => <div style = {{padding:20}} dangerouslySetInnerHTML={{__html: deal?.description}} />,
+                component: (props) => (
+                  <div
+                    style={{ padding: 20 }}
+                    dangerouslySetInnerHTML={{ __html: deal?.description }}
+                  />
+                ),
                 fullControl: true,
                 title: deal?.title,
               })
@@ -676,6 +656,7 @@ const mapState = (state) => {
     campaign: state.campaign,
     user: state.user,
     commentsList: state.comments,
+    navigation: state.navigation,
   };
 };
 const mapDispatch = (dispatch) => {
@@ -688,7 +669,7 @@ const mapDispatch = (dispatch) => {
       trackActivity,
       updateUserInRedux: loadUserObjAction,
     },
-    dispatch
+    dispatch,
   );
 };
 export default connect(mapState, mapDispatch)(TechnologyFullViewPage);

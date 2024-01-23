@@ -373,7 +373,7 @@
 }
 
 .delbutton:hover {
-  width: 100px;
+  //width: 100px;
   border-radius: 50px;
   transition-duration: 0.3s;
   background-color: rgb(255, 69, 69);
@@ -381,18 +381,18 @@
 }
 
 .delbutton:hover .svgIcon {
-  width: 30px;
+  //width: 30px;
   transition-duration: 0.3s;
-  transform: translateY(60%);
+  //transform: translateY(60%);
 }
 
 .delbutton::before {
-  position: absolute;
-  top: -30px;
-  content: "Delete";
-  color: white;
-  transition-duration: 0.3s;
-  font-size: 2px;
+  //position: absolute;
+  //top: -30px;
+  //content: "Delete";
+  //color: white;
+  //transition-duration: 0.3s;
+  //font-size: 2px;
 }
 
 .delbutton:hover::before {

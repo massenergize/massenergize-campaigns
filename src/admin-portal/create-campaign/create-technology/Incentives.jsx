@@ -1,29 +1,21 @@
-import React, { useState } from "react";
-import { Button as BTN, Button, Col, Row } from "react-bootstrap";
-import "../../../assets/styles/admin-styles.scss";
+import { useState } from "react";
+import { Button, Col, Row, Modal } from "react-bootstrap";
+import classes from "classnames";
 import IncentivesBar from "../../../components/admin-components/IncentivesBar";
 import { useTechnologyContext } from "../../../hooks/use-technology-context";
 import { CreateTechnologyIncentiveModal } from "./create-technology-incentive-modal";
-import classes from "classnames";
-import Modal from "react-bootstrap/Modal";
 import { removeTechnologyIncentive } from "../../../requests/technology-requests";
 import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloons";
+import { ProgressButton } from "../../../components/progress-button/progress-button";
+import "../../../assets/styles/admin-styles.scss";
 
 let incentiveToDelete = null;
 
-const Incentives = ({}) => {
-  const { technology, handleAddOverview, handleRemoveOverview } =
-    useTechnologyContext();
+const Incentives = () => {
+  const { technology, handleAddOverview, handleRemoveOverview } = useTechnologyContext();
   const incentives = technology?.overview || [];
 
   const { notify } = useBubblyBalloons();
-
-  const handleSubmit = async (e) => {
-    try {
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const [loading, setLoading] = useState(false);
   const [showIncentiveModal, setShowIncentiveModal] = useState(false);
@@ -37,10 +29,11 @@ const Incentives = ({}) => {
   const handleRemove = async () => {
     try {
       setLoading(true);
-      const res = await removeTechnologyIncentive({ id: incentiveToDelete?.id });
+      const res = await removeTechnologyIncentive(incentiveToDelete);
 
       if (res) {
-        handleRemoveOverview(incentiveToDelete?.id);
+
+        handleRemoveOverview(incentiveToDelete);
         setShowDeleteModal(false);
         notify({
           title: "Success",
@@ -61,52 +54,34 @@ const Incentives = ({}) => {
 
   return (
     <div>
-      <Row className="my-5">
-        <Col className="">
+      <Row className={"mt-3"}>
+        <Col>
           <p>What are the incentives for participating in this technology</p>
         </Col>
-        <Col sm={"auto"}>{
-          incentives?.length > 0 && (<Button variant="success" rounded onClick={() => setShowIncentiveModal(true)}>Add New Incentive</Button>) }
+        <Col sm={"auto"}>
+          <Button text="" rounded onClick={() => setShowIncentiveModal(true)}>
+            Add Incentive
+          </Button>
         </Col>
       </Row>
-      <Row className=" ">
-        {incentives?.length > 0 ? (
-          <Col>
-            {(incentives || [])?.map((incentive, index) => {
-              if (!incentive) return null;
+      <Row>
+        <Col>
+          {(incentives || [])?.map((incentive, index) => {
+            if (!incentive) return null;
 
-              return (
-                <div
-                  key={incentive?.id}
-                  className={classes("py-2", { "mt-2 ": index > 0 })}
-                >
-                  <IncentivesBar
-                    incentive={incentive}
-                    onRemove={() => {
-                      incentiveToDelete = incentive;
-                      setShowDeleteModal(true);
-                    }}
-                  />
-                </div>
-              );
-            })}
-          </Col>
-        ) : (
-          <div className="w-100 flex items-center flex-column text-center">
-            <div>
-              <img src="/img/no-data.svg" alt="" />
-              <h5 className="">No incentives have been added to this technology.</h5>
-            </div>
-            <div className="text-center">
-              <h6 className="text-muted">Click the 'Add New Incentive' button to add</h6>
-              <div className="mt-4">
-                <BTN variant={"success"} onClick={() => setShowIncentiveModal(true)}>
-                  <span>Add New Incentive</span>
-                </BTN>
+            return (
+              <div key={incentive?.id} className={classes("py-2", { "mt-2 ": index > 0 })}>
+                <IncentivesBar
+                  incentive={incentive}
+                  onRemove={() => {
+                    incentiveToDelete = { id : incentive?.id };
+                    setShowDeleteModal(true);
+                  }}
+                />
               </div>
-            </div>
-          </div>
-        )}
+            );
+          })}
+        </Col>
       </Row>
 
       <CreateTechnologyIncentiveModal
@@ -133,7 +108,7 @@ const Incentives = ({}) => {
           <Button variant="secondary" onClick={hideDeleteModal}>
             Close
           </Button>
-          <Button onClick={handleRemove}>Delete</Button>
+          <ProgressButton loading={loading} onClick={handleRemove}>Delete</ProgressButton>
         </Modal.Footer>
       </Modal>
     </div>

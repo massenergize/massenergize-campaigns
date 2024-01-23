@@ -29,18 +29,20 @@ const IncentivesBar = ({ incentive = {}, onRemove, formComponent }) => {
               {title}
             </h6>
           </Col>
-          <Col sm="auto">
-            <Button
-              className="incentivesBar-delete-btn p-0"
-              variant="link link-danger"
-              onClick={(e) => {
-                e.stopPropagation();
-                typeof onRemove === "function" && onRemove(incentive);
-              }}
-            >
-              <FontAwesomeIcon className=" icentiveBarIcon px-0" icon={faTrash} />
-            </Button>
-          </Col>
+          {onRemove && (
+            <Col sm="auto">
+              <Button
+                className="incentivesBar-delete-btn p-0"
+                variant="link link-danger"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  typeof onRemove === "function" && onRemove(incentive);
+                }}
+              >
+                <FontAwesomeIcon className=" icentiveBarIcon px-0" icon={faTrash} />
+              </Button>
+            </Col>
+          )}
           <Col sm="auto">
             <span
               className={isOpen? "arrowincentivesBar arrowincentivesBar-rotate": "arrowincentivesBar"

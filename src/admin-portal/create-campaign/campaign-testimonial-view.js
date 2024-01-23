@@ -1,32 +1,17 @@
 import React, { useReducer, useState } from "react";
 import { Col, Container, Form, Modal, Row, Spinner } from "react-bootstrap";
 import TestimonialCard from "../../components/admin-components/TestimonialCard";
-import CustomAccordion from "src/components/admin-components/CustomAccordion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAd, faAdd } from "@fortawesome/free-solid-svg-icons";
 import { fetchAllTechnologyTestimonials } from "src/requests/technology-requests";
 import useSWR from "swr";
-import Button from "src/components/admin-components/Button";
-import { NoItems } from "@kehillahglobal/ui";
 import Testimonials from "../../components/admin-components/Testimonials";
-import { createCampaignTestimonial, getUsers } from "src/requests/campaign-requests";
-import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
-import { useSelector } from "react-redux";
 import { Testimonials as TestPortal } from "./create-technology/Testimonials";
 
 const opts = ["All", "Featured"];
 const allOpts = ["On Campaign", "From Communities"];
-const USER_TYPES = {
-  MYSELF: "Myself",
-  ME_USER: "MassEnergize user",
-  OTHER: "Other",
-};
 
-export function CampaignTestimonialsView({
-  campaignDetails,
-  setCampaignDetails,
-  mutateData,
-}) {
+export function CampaignTestimonialsView({ campaignDetails }) {
   const [show, setShow] = useState({
     tabOne: opts[0],
     tabTwo: allOpts[0],
@@ -40,15 +25,11 @@ export function CampaignTestimonialsView({
     isValidating,
     isLoading,
     error,
-  } = useSWR(
-    "testimonials.list",
-    async () => await fetchAllTechnologyTestimonials(campaignDetails?.id),
-    {
-      shouldRetryOnError: true,
-      errorRetryCount: 3,
-      errorRetryInterval: 3000,
-    },
-  );
+  } = useSWR("testimonials.list", async () => await fetchAllTechnologyTestimonials(campaignDetails?.id), {
+    shouldRetryOnError: true,
+    errorRetryCount: 3,
+    errorRetryInterval: 3000,
+  });
 
   const technologies = campaignDetails?.technologies;
   const testimonials = [].concat(...technologies?.map((tech) => tech?.testimonials));
@@ -66,8 +47,6 @@ export function CampaignTestimonialsView({
   const featuredTestimonials = testimonials?.filter((test) => {
     return test?.is_featured;
   });
-
-  //   console.log("====== portalTestimonials ====", portalTestimonials);
 
   const allopts = [
     {
@@ -100,24 +79,6 @@ export function CampaignTestimonialsView({
     },
   ];
 
-  if (isLoading)
-    return (
-      <div
-        className=""
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          height: "100vh",
-        }}
-      >
-        <Spinner color="#6e207c" radius={56} variation="TwoHalfCirclesType" />
-      </div>
-    );
-
-  //   console.log("===data===", campaignDetails);
-  //   console.log("======camapgin testimonials ====", payloadTestimonials);
-
   const onModalClose = () => {
     setOpenModal(false);
   };
@@ -132,7 +93,7 @@ export function CampaignTestimonialsView({
                 return (
                   <button
                     key={opt}
-                    className={`py-2 px-5 text-dark tracking-wide shadow cursor-pointer border test-tab-opts ${
+                    className={`py-2 px-5 text-dark tracking-wide rounded cursor-pointer border test-tab-opts ${
                       opt === show?.tabOne && "test-show-opt"
                     }`}
                     onClick={() => {
@@ -140,8 +101,6 @@ export function CampaignTestimonialsView({
 
                       if (opt === "All") {
                         setData(testimonials);
-                      } else {
-                        // setData(featuredTestimonials);
                       }
                     }}
                   >
@@ -172,17 +131,9 @@ export function CampaignTestimonialsView({
                       >
                         {chx?.name}
                         <span
-                          className={`bg-gradient px-3 tracking-wide ${
-                            show?.tabTwo === chx?.name && "rotate-180"
-                          }`}
+                          className={`bg-gradient px-3 tracking-wide ${show?.tabTwo === chx?.name && "rotate-180"}`}
                         >
-                          <svg
-                            width="12"
-                            height="7"
-                            viewBox="0 0 12 7"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
+                          <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                               d="M10.59 0.589996L6 5.17L1.41 0.589996L0 2L6 8L12 2L10.59 0.589996Z"
                               fill="#2D2D2D"
@@ -208,19 +159,13 @@ export function CampaignTestimonialsView({
 
                     <div>
                       {show?.tabTwo === chx?.name && (
-                        <div className="mt-5">
-                          {(chx?.allLength || chx?.featuredLength) > 0 ? (
+                        <div className="mt-4">
+                          {(chx?.featuredLength || chx?.allLength) > 0 ? (
                             <div>
-                              {(show?.tabOne === "All"
-                                ? chx?.data
-                                : chx?.featuredTestimonials
-                              )?.map((test) => {
+                              {(show?.tabOne === "All" ? chx?.data : chx?.featuredTestimonials)?.map((test) => {
                                 return (
                                   <div key={test?.id}>
-                                    <TestimonialCard
-                                      test={test}
-                                      platform={chx?.platform}
-                                    />
+                                    <TestimonialCard className={"mt-3"} test={test} platform={chx?.platform} />
                                   </div>
                                 );
                               })}
@@ -255,9 +200,7 @@ export function CampaignTestimonialsView({
         <Modal size={"xl"} show={openModal} onHide={onModalClose}>
           <Modal.Header closeButton>
             <Modal.Title className={"text-sm"}>
-              {show?.showFormFor === "campaign"
-                ? "Create New Testimonial"
-                : "Feature New Testimonials"}
+              {show?.showFormFor === "campaign" ? "Create New Testimonial" : "Feature New Testimonials"}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body style={{ height: "70vh" }}>

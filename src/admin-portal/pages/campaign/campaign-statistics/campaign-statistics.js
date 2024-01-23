@@ -60,12 +60,10 @@ export function CampaignStatistics({}) {
     );
   }
 
-  if (statsLoading || statsValidating) {
-    return (
-      <div className="text-center mt-5">
-        <Loading />
-      </div>
-    );
+  if(statsLoading){
+    return <div className="text-center mt-5">
+      <Loading/>
+    </div>
   }
 
   const { campaign, ...rest } = stats;
@@ -140,44 +138,44 @@ export function CampaignStatistics({}) {
                   <h3 className="">CAMPAIGN</h3>
                 </Col>
 
-                <Col md={"auto"}>
-                  <Button
-                    className="btn-light mr-3"
-                    onClick={() => {
-                      window.history.back();
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faArrowLeft} />
-                  </Button>
-                  &nbsp;
-                  <ButtonGroup>
-                    <Button
-                      variant="warning"
-                      onClick={() => {
-                        window.open(`/campaign/${id}?preview=true`, "_blank");
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faEye} />
-                    </Button>
-                    <Button
-                      className={
-                        campaign?.is_published ? "disable-btn" : "btn-primary"
-                      }
-                      onClick={() => {
-                        handleUpdateCampaign();
-                      }}
-                    >
-                      <FontAwesomeIcon
-                        icon={campaign?.is_published ? faBan : faGlobe}
-                      />{" "}
-                      {campaign?.is_published ? "Unpublish" : "Publish"}
-                    </Button>
-                  </ButtonGroup>
-                </Col>
-              </Row>
-            </Container>
-          </Col>
-        </Row>
+                    <Col md={"auto"}>
+                      <Button
+                        className="btn-light mr-3"
+                        onClick={() => {
+                          window.history.back();
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faArrowLeft} /> Back
+                      </Button>
+                      &nbsp;
+                      <ButtonGroup>
+                        <Button
+                          variant="warning"
+                          onClick={() => {
+                            window.open(`/campaign/${id}?preview=true`, "_blank");
+                          }}
+                        >
+                          <FontAwesomeIcon icon={faEye} /> Sandbox Mode
+                        </Button>
+                        <Button
+                          className={
+                            campaign?.is_published ? "disable-btn" : "btn-primary"
+                          }
+                          onClick={() => {
+                            handleUpdateCampaign();
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={campaign?.is_published ? faBan : faGlobe}
+                          />{" "}
+                          {campaign?.is_published ? "Unpublish" : "Publish"}
+                        </Button>
+                      </ButtonGroup>
+                    </Col>
+                  </Row>
+                </Container>
+              </Col>
+            </Row>
 
         <Container className={"px-5"} style={{ maxWidth: "100" }}>
           <Row>

@@ -10,7 +10,7 @@ const labAc = (item) => item.name;
 const valAc = (item) => item.id;
 
 function Filter ({
-  filterOptions = DATA,
+  filterOptions ,
   valueAccessor = valAc,
   labelAccessor = labAc,
   render,
