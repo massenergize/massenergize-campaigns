@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
-import { IS_PROD } from "../../environment";
+import { IS_CANARY, IS_PROD } from "../../environment";
 // import 'firebase/auth';
 // import { firebaseConfig } from '../../config/constants';
 
@@ -14,8 +14,8 @@ let firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
-console.log("FIREBASE _LOG HERE: ", firebaseConfig);
-if (IS_PROD) {
+// console.log("FIREBASE _LOG HERE: ", firebaseConfig);
+if (IS_PROD || IS_CANARY) {
   firebaseConfig = {
     ...firebaseConfig,
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,

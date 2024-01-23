@@ -5,11 +5,10 @@ let apiHost = "http://localhost:8000/api";
 
 if (IS_PROD) apiHost = "https://api.massenergize.org/";
 // else if(IS_LOCAL) apiHost = `${apiHost}/api`
-if (IS_DEV) apiHost = "https://api.massenergize.dev";
-else if (IS_DEV) apiHost = "http://localhost:8000/api";
+else if (IS_DEV) apiHost = "https://api.massenergize.dev";
+else if (IS_CANARY) apiHost = "https://api-canary.massenergize.org";
 // else if (IS_DEV) apiHost = "https://0fe9-197-251-151-181.ngrok-free.app";
-
-if (IS_LOCAL) apiHost = "http://localhost:8000/api";
+else apiHost = "http://localhost:8000/api";
 
 export const API_HOST = apiHost;
 
@@ -32,9 +31,7 @@ if (IS_LOCAL) {
   URLS["SHARE"] = "https://share.massenergize.dev";
 }
 
-
 export const CAMPAIGN_INFORMATION_URL = "campaigns.infoForUser";
 export const CAMPAIGN_VIEW_URL = "campaigns.view";
-
 
 export default URLS;
