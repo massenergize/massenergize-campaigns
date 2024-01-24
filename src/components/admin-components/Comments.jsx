@@ -12,7 +12,7 @@ import { createCampaignComment, deleteCampaignComment } from "../../requests/cam
 import { mutate } from "swr";
 import { relativeTimeAgo } from "src/utils/utils";
 import classes from "classnames"; // import Dropdown from "./Dropdown";
-// import Dropdown from "./Dropdown";
+
 
 const Comments = ({ campaign, comments: campaignComments }) => {
   const { blow, pop } = useBubblyBalloons();
@@ -76,13 +76,20 @@ const Comments = ({ campaign, comments: campaignComments }) => {
     }
   };
 
+  /**
+   *
+   * @param id
+   * @returns {Promise<void>}
+   */
   const handleDeleteComment = async (id) => {
     setLoading(true);
+    // let's do pre-optimistic update
+    let allComments = [...comments]; // copy the comments
+    setComments(comments.filter((comment) => comment?.id !== id));
+
     try {
       const res = await deleteCampaignComment({ id, user_id: loggedInAdmin?.id });
       if (res) {
-        mutate(`campaigns.comments.list-${campaign?.id}`, (data) => data.filter((item) => item?.id !== id));
-        setLoading(false);
         blow({
           title: "Success",
           message: "Comment created successfully",
@@ -91,13 +98,17 @@ const Comments = ({ campaign, comments: campaignComments }) => {
         });
       }
     } catch (e) {
-      setLoading(false);
       pop({
         title: "Error",
         message: e.message,
         type: "error",
         duration: 5000,
       });
+      // revert back to original comments
+      setComments(allComments);
+    } finally {
+      setLoading(false);
+      allComments = null; // set allComments up for garbage collection
     }
   };
 
@@ -249,82 +260,6 @@ const Comments = ({ campaign, comments: campaignComments }) => {
               }
             />
           )}
-
-          {/*{comments?.length > 0 ? (
-            <Col>
-              <h3>Comments</h3>
-              <div className=" comment-card-con border-dashed mb-3 ">
-                {technologies?.map((tech) => {
-                  if (tech?.comments?.length === 0) {
-                    return null;
-                  }
-
-                  return (
-                    <div key={tech?.id} className="per-tech-comment">
-                      <h5 className="theme-color"> {tech?.name} </h5>
-                      <Row className="">
-                        {tech?.comments?.map((comment) => {
-                          return (
-                            <Col
-                              md={4}
-                              key={comment?.id}
-                              className={classes("mr-3", selectedId === comment?.id ? "comment-card-expand" : "comment-card") }
-                            >
-                              <h6 style={{ textDecoration: "underline" }} className={"mb-1"}>
-                                {comment?.user?.preferred_name
-                                  ? comment?.user?.preferred_name
-                                  : comment?.user?.full_name}
-                              </h6>
-                              <p
-                                tabIndex={0}
-                                role={"button"}
-                                className="comment-text"
-                                onClick={() => {
-                                  setSelectedId(selectedId === comment?.id ? null : comment?.id);
-                                }}
-                              >
-                                {comment?.text && (
-                                  <>
-                                    {selectedId === comment.id || comment.text.length <= 60
-                                      ? comment.text
-                                      : `${comment.text.slice(0, 60)}...`}
-                                    {selectedId !== comment.id && comment.text.length > 60 && <span> Read More</span>}
-                                  </>
-                                )}
-                              </p>
-                              <div className={"mt-2"} style={{ display: "flex", justifyContent: "space-between" }}>
-                                {comment?.user?.id === loggedInAdmin?.id ? (
-                                  <div
-                                    className="comment-delete-btn"
-                                    onClick={async () => {
-                                      if (window.confirm("Are you sure you want to delete this comment ?")) {
-                                        await handleDeleteComment(comment?.id);
-                                      }
-                                    }}
-                                  >
-                                    <p>Delete</p>
-                                  </div>
-                                ) : null}
-                                <div className="comment-date">
-                                  <p>{relativeTimeAgo(comment?.created_at)}</p>
-                                </div>
-                              </div>
-                            </Col>
-                          );
-                        })}
-                      </Row>
-                    </div>
-                  );
-                })}
-              </div>
-            </Col>
-          ) : (
-            <NoItems
-              text={
-                "Silence speaks volumes! Be the first to share your thoughts. Add a comment and spark the conversation."
-              }
-            />
-          )}*/}
         </Row>
       </Container>
     </m.div>
