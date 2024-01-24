@@ -1,5 +1,7 @@
 const ENV = process.env.NODE_ENV || 'development';
 
+console.log('ENV', ENV);
+
 export const IS_PROD = ENV === 'production';
 export const IS_CANARY = ENV === 'canary';
 export const IS_DEV = ENV === 'development';
