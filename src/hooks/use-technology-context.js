@@ -20,6 +20,10 @@ export const useTechnologyContext = () => {
     dispatch({ type: "REMOVE_OVERVIEW", payload });
   }
 
+  const handleUpdateOverview = (payload) => {
+    dispatch({ type: "UPDATE_OVERVIEW", payload });
+  }
+
   const setNewTechnologyDetails = (payload) => {
     dispatch({ type: "NEW_TECHNOLOGY", payload });
   }
@@ -29,6 +33,7 @@ export const useTechnologyContext = () => {
     technology : state,
     handleAddOverview,
     handleRemoveOverview,
+    handleUpdateOverview,
     handleOverviewChange,
     handleTechnologyDetailsChange,
     setNewTechnologyDetails,
