@@ -163,3 +163,8 @@ function truncateText(text, maxLength) {
   }
   return text;
 }
+
+export const objHasContent = (obj) => {
+  if (!obj) return false;
+  return Object.keys(obj || {}).length > 0;
+};

@@ -12,6 +12,7 @@ import BootButton from "react-bootstrap/Button";
 import CustomAccordion from "../../../components/admin-components/CustomAccordion";
 import SectionForm from "./SectionsForm";
 import noCoach from "./../../../assets/imgs/no-coach.png";
+import { objHasContent } from "src/utils/utils";
 const INITIAL_COACH_STATE = {
   technology_id: "",
   full_name: "",
@@ -59,7 +60,7 @@ function Coaches({
   const contentIsValid = (data) => {
     const { full_name, image, email, community } = data || {};
     if (!full_name || !community) {
-      notifyError("(Full Name,Community) Please make sure none of them are empty...");
+      notifyError("(Full Name,Community) Please make sure none of them is empty...");
       return false;
     }
     return true;
@@ -239,7 +240,7 @@ function Coaches({
 
   // const { allCommunities } = lists;
 
-  const formHasContent = Object.keys(formData || {}).length > 0;
+  const formHasContent = objHasContent(formData);
   return (
     <div className="px-5 mt-4">
       {/* section title and description */}
