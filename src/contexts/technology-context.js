@@ -14,6 +14,8 @@ const technologyReducer = function technologyReducer (state, action) {
       return { ...state, overview: [...state.overview, payload ] };
     case "REMOVE_OVERVIEW":
       return { ...state, overview: state.overview.filter((item) => item.id !== payload.id) };
+    case "UPDATE_OVERVIEW":
+      return { ...state, overview: state.overview.map((item) => item.id === payload.id ? payload : item) };
     case "NEW_TECHNOLOGY":
       return { ...state, ...payload };
     default:

@@ -4,8 +4,10 @@ import { IncentiveForm } from "../../admin-portal/create-campaign/create-technol
 import { Button, Col, Row } from "react-bootstrap";
 import classes from "classnames";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { objectIsEmpty } from "../../helpers/utils";
 
-const IncentivesBar = ({ incentive = {}, onRemove, formComponent }) => {
+const IncentivesBar = ({ incentive = {}, onRemove, onUpdate, formComponent }) => {
+  const IS_NEW = objectIsEmpty(incentive);
   const [isOpen, setIsOpen] = useState(false);
 
   const { title, description, icon } = incentive;
@@ -16,10 +18,7 @@ const IncentivesBar = ({ incentive = {}, onRemove, formComponent }) => {
 
   return (
     <div className="cusdropdown-container border rounded overflow-hidden border-primary">
-      <div
-        className={`incentivesBardropdown ${isOpen && "open"}`}
-        onClick={handleToggleDropdown}
-      >
+      <div className={`incentivesBardropdown ${isOpen && "open"}`} onClick={handleToggleDropdown}>
         <div className="cusdropdown-toggle row">
           <Col>
             <h6 className="theme-color">
@@ -44,10 +43,7 @@ const IncentivesBar = ({ incentive = {}, onRemove, formComponent }) => {
             </Col>
           )}
           <Col sm="auto">
-            <span
-              className={isOpen? "arrowincentivesBar arrowincentivesBar-rotate": "arrowincentivesBar"
-              }
-            >
+            <span className={isOpen ? "arrowincentivesBar arrowincentivesBar-rotate" : "arrowincentivesBar"}>
               <svg
                 stroke="#6e207c"
                 fill="#6e207c"
@@ -64,11 +60,16 @@ const IncentivesBar = ({ incentive = {}, onRemove, formComponent }) => {
         </div>
       </div>
 
-      <div className={classes(" p-4", isOpen ? "incentivesBar-menu-open" : "cusdropdown-menu-close d-none",)}>
+      <div className={classes(" p-4", isOpen ? "incentivesBar-menu-open" : "cusdropdown-menu-close d-none")}>
         <Row>
           <Col>
-            {formComponent? formComponent: <IncentiveForm incentive={incentive} />}
-
+            {formComponent ?
+              formComponent :
+              <IncentiveForm incentive={incentive} onSubmit={(incentive) => {
+                if (!IS_NEW) {
+                  onUpdate(incentive);
+                }
+              }} />}
           </Col>
         </Row>
       </div>
