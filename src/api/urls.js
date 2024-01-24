@@ -4,10 +4,8 @@ let apiHost = "http://localhost:8000/api";
 // export var apiHost = "http://2606-154-160-22-219.ngrok-free.app";
 
 if (IS_PROD) apiHost = "https://api.massenergize.org/";
-// else if(IS_LOCAL) apiHost = `${apiHost}/api`
 else if (IS_DEV) apiHost = "https://api.massenergize.dev";
 else if (IS_CANARY) apiHost = "https://api-canary.massenergize.org";
-// else if (IS_DEV) apiHost = "https://0fe9-197-251-151-181.ngrok-free.app";
 else apiHost = "http://localhost:8000/api";
 
 export const API_HOST = apiHost;
