@@ -6,6 +6,7 @@ import TestimonialBox from "../testimonials/TestimonialBox";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import { AddNewTestimonial } from "../testimonials/TestimonialSection";
 import { useNavigate } from "react-router-dom";
+import { TESTIMONIAL_FORM_SHOW_KEY } from "../testimonials/TestimonialSectionWithFilters";
 
 const dummies = [
   {
@@ -34,11 +35,15 @@ const dummies = [
   },
 ];
 
-function OneTechTestimonialsSection({ sectionId, testimonials, campaign }) {
+function OneTechTestimonialsSection({ sectionId, testimonials, campaign, links }) {
   const containerRef = useRef();
   const navigator = useNavigate();
   const firstTestimonial = (testimonials || [])[0];
-  const testimonialRoute = `/campaign/${campaign?.slug}/technology/testimonial/${firstTestimonial?.id}?open=true`;
+
+  const home = links?.find((item) => item?.key === "home");
+  console.log("thi sis home", links);
+  const testimonialRoute = `${home?.url}?section=testimonial&show=${TESTIMONIAL_FORM_SHOW_KEY}`;
+  // const testimonialRoute = `/campaign/${campaign?.slug}/technology/testimonial/${firstTestimonial?.id}?open=true`;
 
   return (
     <div
@@ -70,10 +75,7 @@ function OneTechTestimonialsSection({ sectionId, testimonials, campaign }) {
         </div>
 
         <AddNewTestimonial onClick={() => navigator(testimonialRoute)} />
-        <Row
-          ref={containerRef}
-          style={{ overflowX: "auto", flexWrap: "nowrap" }}
-        >
+        <Row ref={containerRef} style={{ overflowX: "auto", flexWrap: "nowrap" }}>
           {testimonials.map((item, index) => {
             return (
               <Col key={index?.toString()} lg={4} className="mb-2">

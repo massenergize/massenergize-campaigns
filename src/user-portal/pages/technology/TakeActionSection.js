@@ -99,9 +99,9 @@ function TakeAtionSetion({
                 </h6>
                 <p
                   style={{
-                    fontSize: "small",
+                    // fontSize: "medium",
                     textAlign: "center",
-                    marginBottom: 10,
+                    marginBottom: 20,
                   }}
                 >
                   {item.content}

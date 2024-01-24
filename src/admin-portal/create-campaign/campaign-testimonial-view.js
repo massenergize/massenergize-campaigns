@@ -1,55 +1,49 @@
-import React, { useReducer, useState } from "react";
-import { Col, Container, Form, Modal, Row, Spinner } from "react-bootstrap";
+import React, { useReducer, useRef, useState } from "react";
+import { Col, Container, Button as BTN, Modal, Row } from "react-bootstrap";
 import TestimonialCard from "../../components/admin-components/TestimonialCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAd, faAdd } from "@fortawesome/free-solid-svg-icons";
-import { fetchAllTechnologyTestimonials } from "src/requests/technology-requests";
+import { fetchAllCampaignTestimonials } from "src/requests/technology-requests";
 import useSWR from "swr";
 import Testimonials from "../../components/admin-components/Testimonials";
 import { Testimonials as TestPortal } from "./create-technology/Testimonials";
+import Loading from "src/components/pieces/Loading";
 
 const opts = ["All", "Featured"];
 const allOpts = ["On Campaign", "From Communities"];
 
-export function CampaignTestimonialsView({ campaignDetails, }) {
+export function CampaignTestimonialsView({ campaignDetails }) {
   const [show, setShow] = useState({
     tabOne: opts[0],
-    tabTwo: allOpts[0],
-    showFormFor: "campaign",
+    tabTwo: "On Campaign",
+    showFormFor: "",
   });
 
   const [openModal, setOpenModal] = useState(false);
+
+  const formRef = useRef();
+
+  const startOfPage = useRef(null);
 
   let {
     data: payloadTestimonials,
     isValidating,
     isLoading,
     error,
-  } = useSWR(
-    "testimonials.list",
-    async () => await fetchAllTechnologyTestimonials(campaignDetails?.id),
-    {
-      shouldRetryOnError: true,
-      errorRetryCount: 3,
-      errorRetryInterval: 3000,
-    },
-  );
+  } = useSWR("campaigns.testimonials.list", async () => await fetchAllCampaignTestimonials(campaignDetails?.id), {
+    shouldRetryOnError: true,
+    errorRetryCount: 3,
+    errorRetryInterval: 3000,
+  });
 
-  const technologies = campaignDetails?.technologies;
-  const testimonials = [].concat(...technologies?.map((tech) => tech?.testimonials));
+  const testimonials = payloadTestimonials || [];
 
-  const [data, setData] = useState(testimonials);
-
-  const portalTestimonials = data?.filter((test) => {
+  const portalTestimonials = testimonials?.filter((test) => {
     return test?.is_imported;
   });
 
-  const campaignTestimonials = data?.filter((test) => {
+  const campaignTestimonials = testimonials?.filter((test) => {
     return !test?.is_imported;
-  });
-
-  const featuredTestimonials = testimonials?.filter((test) => {
-    return test?.is_featured;
   });
 
   const allopts = [
@@ -58,9 +52,10 @@ export function CampaignTestimonialsView({ campaignDetails, }) {
       data: campaignTestimonials,
       addtext: "Create Testimonial",
       platform: "campaign",
-      featuredTestimonials: campaignTestimonials?.filter((test) => {
-        return test?.is_featured;
-      }),
+      featuredTestimonials:
+        campaignTestimonials?.filter((test) => {
+          return test?.is_featured;
+        }) || [],
       allLength: campaignTestimonials?.length,
       featuredLength: campaignTestimonials?.filter((test) => {
         return test?.is_featured;
@@ -69,11 +64,12 @@ export function CampaignTestimonialsView({ campaignDetails, }) {
     {
       name: "Testimonials from associated communities",
       data: portalTestimonials,
-      addtext: "Add Testimonial",
+      addtext: "Add Testimonial from Communities",
       platform: "communities",
-      featuredTestimonials: portalTestimonials?.filter((test) => {
-        return test?.is_featured;
-      }),
+      featuredTestimonials:
+        portalTestimonials?.filter((test) => {
+          return test?.is_featured;
+        }) || [],
       allLength: portalTestimonials?.length,
       featuredLength: portalTestimonials?.filter((test) => {
         return test?.is_featured;
@@ -85,10 +81,47 @@ export function CampaignTestimonialsView({ campaignDetails, }) {
     setOpenModal(false);
   };
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  const hideForm = () => {
+    setShow({ ...show, showFormFor: null });
+  };
+
   return (
     <div className="pb-5">
       <Container>
         <Row>
+          <Col className="flex items-center gap-3 justify-content-end" ref={startOfPage}>
+            <BTN
+              variant="success"
+              onClick={() => {
+                setShow({ ...show, showFormFor: "campaign" });
+
+                setTimeout(() => {
+                  if (formRef.current) {
+                    formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+                  } else {
+                    console.error("Target element not found");
+                  }
+                }, 0.1);
+              }}
+            >
+              <span>Create Testimonial</span>
+            </BTN>
+            <BTN
+              onClick={() => {
+                setShow({ ...show, showFormFor: "communities" });
+                setOpenModal(true);
+              }}
+            >
+              <span>Add Testimonial from Communities</span>
+            </BTN>
+          </Col>
+        </Row>
+
+        <Row className="mt-3">
           <Col>
             <div>
               {opts?.map((opt) => {
@@ -102,7 +135,7 @@ export function CampaignTestimonialsView({ campaignDetails, }) {
                       setShow({ ...opt, tabOne: opt });
 
                       if (opt === "All") {
-                        setData(testimonials);
+                        // setData(testimonials);
                       }
                     }}
                   >
@@ -119,9 +152,9 @@ export function CampaignTestimonialsView({ campaignDetails, }) {
             return (
               <Row key={chx?.name} className="mt-5">
                 <Col>
-                  <div>
-                    <div className="flex items-center justify-content-between">
-                      <button
+                  <details open>
+                    <summary className="flex items-center justify-content-between">
+                      <div
                         className="text-black bg-transparent text-muted text-lg tracking-wide"
                         onClick={() => {
                           if (show?.tabTwo !== chx?.name) {
@@ -131,83 +164,64 @@ export function CampaignTestimonialsView({ campaignDetails, }) {
                           }
                         }}
                       >
-                        {chx?.name}
+                        {chx?.name} ( {show?.tabOne === "All" ? chx?.allLength : chx?.featuredLength} )
                         <span
-                          className={`bg-gradient px-3 tracking-wide ${
-                            show?.tabTwo === chx?.name && "rotate-180"
-                          }`}
+                          className={`bg-gradient px-3 tracking-wide ${show?.tabTwo === chx?.name && "rotate-180"}`}
                         >
-                          <svg
-                            width="12"
-                            height="7"
-                            viewBox="0 0 12 7"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
+                          <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                               d="M10.59 0.589996L6 5.17L1.41 0.589996L0 2L6 8L12 2L10.59 0.589996Z"
                               fill="#2D2D2D"
                             />
                           </svg>
                         </span>
-                      </button>
-                      {/* {chx?.platform === "campaign" && ( */}
-                      <button
-                        onClick={() => {
-                          setShow({ ...show, showFormFor: chx?.platform });
-                          setOpenModal(true);
-                        }}
-                        className=" px-3 bg-white py-2 flex items-center gap-3 cursor-pointer adtxt"
-                      >
-                        <span>
-                          <FontAwesomeIcon icon={faAdd} />
-                        </span>
-                        {chx?.addtext}
-                      </button>
-                      {/* )} */}
-                    </div>
+                      </div>
+                    </summary>
 
                     <div>
-                      {show?.tabTwo === chx?.name && (
-                        <div className="mt-4">
-                          {(chx?.featuredLength || chx?.allLength) > 0 ? (
+                      <div className="mt-4">
+                        {(chx?.featuredLength || chx?.allLength) > 0 ? (
+                          <div>
+                            {(show?.tabOne === "All" ? chx?.data : chx?.featuredTestimonials)?.map((test) => {
+                              return (
+                                <div key={test?.id}>
+                                  <TestimonialCard className={"mt-3"} test={test} />
+                                </div>
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <div className="w-100 flex items-center flex-column text-center">
                             <div>
-                              {(show?.tabOne === "All"
-                                ? chx?.data
-                                : chx?.featuredTestimonials
-                              )?.map((test) => {
-                                return (
-                                  <div key={test?.id}>
-                                    <TestimonialCard
-                                      className={"mt-3"}
-                                      test={test}
-                                      platform={chx?.platform}
-                                    />
-                                  </div>
-                                );
-                              })}
+                              <img src="/img/no-data.svg" alt="" />
+                              <h5 className="text-muted">
+                                {chx?.platform === "campaign"
+                                  ? `No ${show?.tabOne === "Featured" ? "Featured" : ""} Testimonials from this section`
+                                  : chx?.platform === "communities" &&
+                                    `No ${show?.tabOne === "Featured" ? "Featured" : ""} Testimonials from communities`}
+                              </h5>
                             </div>
-                          ) : (
-                            <div className="w-100 flex items-center flex-column text-center">
-                              <div>
-                                <img src="/img/no-data.svg" alt="" />
-                                <h5 className="text-muted">
-                                  {chx?.platform === "campaign"
-                                    ? "No featured Testimonials from this section"
-                                    : "No featured Testimonials from communities"}
-                                </h5>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  </details>
                 </Col>
               </Row>
             );
           })}
         </div>
+
+        <Row className="mt-5 pt-5">
+          <Col>
+            {show?.showFormFor === "campaign" && (
+              <div ref={formRef}>
+                <h4 className="my-5">Create New Testimonial</h4>
+                <Testimonials campaign={campaignDetails} onModalClose={hideForm} startOfPage={startOfPage} />
+              </div>
+            )}
+          </Col>
+        </Row>
 
         <Modal size={"xl"} show={openModal} onHide={onModalClose}>
           <Modal.Header closeButton>

@@ -2,24 +2,25 @@ import { faThumbsDown, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
-import {
-  deleteTestimonial,
-  updateTestimonial,
-} from "src/requests/technology-requests";
+import { deleteTestimonial, updateTestimonial } from "src/requests/technology-requests";
 import { relativeTimeAgo } from "src/utils/utils";
 import RenderHTML from "../RenderHtml";
+import { Modal } from "react-bootstrap";
 
-const TestimonialCard = ({ test, platform, className = "" }) => {
+const TestimonialCard = ({ test, className = "" }) => {
   const [tick, setTick] = useState(test?.is_featured);
 
   const [loading, setLoading] = useState(false);
   const { blow, pop } = useBubblyBalloons();
+  const [openModal, setOpenModal] = useState(false);
+
+  const onModalClose = () => {
+    setOpenModal(false);
+  };
 
   const handleFeatureOnCampaign = async () => {
     let beSure = window.confirm(
-      test?.is_featured
-        ? "Are you sure you want to unfeature?"
-        : "Are you sure you want to Feature this Testimonial?",
+      test?.is_featured ? "Are you sure you want to unfeature?" : "Are you sure you want to Feature this Testimonial?",
     );
     if (beSure) {
       setTick(!tick);
@@ -123,8 +124,8 @@ const TestimonialCard = ({ test, platform, className = "" }) => {
 
   return (
     <div className={"w-100 p-4 rounded-4 border relative " + className}>
-      {
-        platform !== "campaign" && <p
+      {test?.is_imported && (
+        <p
           style={{
             position: "absolute",
             top: "-10px",
@@ -134,7 +135,7 @@ const TestimonialCard = ({ test, platform, className = "" }) => {
         >
           {test?.community?.name}
         </p>
-      }
+      )}
 
       <div className="flex items-center justify-content-between">
         <h6 className="text-capitalize">{test?.user?.full_name} </h6>
@@ -146,15 +147,18 @@ const TestimonialCard = ({ test, platform, className = "" }) => {
         <div>
           <h6 className="fw-bold">{test?.title}</h6>
           {/* {test?.body} */}
-          <RenderHTML html={test?.body}/>
-
+          <RenderHTML html={test?.body} />
         </div>
-        {(test?.image || test?.file) !== null && (
-          <div>
+        {(test?.image || test?.file) && (
+          <div
+            onClick={() => {
+              setOpenModal(true);
+            }}
+          >
             <img
               src={(test?.image || test?.file)?.url}
               alt=""
-              style={{ height: "50px", objectFit: "cover" }}
+              style={{ height: "50px", objectFit: "cover", cursor: "pointer" }}
               className="rounded-4"
             />
           </div>
@@ -178,7 +182,7 @@ const TestimonialCard = ({ test, platform, className = "" }) => {
               </div>
             </div>
           )}
-          {platform === "campaign" && (
+          {!test?.is_imported && (
             <button
               className={`text-white py-2 px-4 rounded-5 bg-primary flex items-center gap-2 ${
                 test?.is_published ? "bg-danger" : "bg-success"
@@ -190,7 +194,7 @@ const TestimonialCard = ({ test, platform, className = "" }) => {
             </button>
           )}
         </div>
-        {platform === "campaign" && (
+        {!test?.is_imported && (
           <button onClick={handleDelete} className="delbutton">
             <svg viewBox="0 0 448 512" className="svgIcon">
               <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
@@ -198,6 +202,23 @@ const TestimonialCard = ({ test, platform, className = "" }) => {
           </button>
         )}
       </div>
+
+      <Modal size={"md"} show={openModal} onHide={onModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className={"text-sm"}>{test?.title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div>
+            <img
+              src={(test?.image || test?.file)?.url}
+              alt=""
+              style={{ height: "100%", width: "100%", objectFit: "contain" }}
+              className="rounded-4"
+            />
+          </div>
+        </Modal.Body>
+        {/* <Modal.Footer></Modal.Footer> */}
+      </Modal>
     </div>
   );
 };

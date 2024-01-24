@@ -18,9 +18,9 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
     let data = [];
     if (filters?.length)
       data = events?.filter((ev) => {
-        const techsRelatedToEvent = ev?.campaign_technology?.map((t) => t.id); // pick only the campaign technology ids
-        return filters.some((f) =>
-          techsRelatedToEvent.includes(f.campaign_technology_id),
+        // const techsRelatedToEvent = ev?.campaign_technology?.map((t) => t.id); // pick only the campaign technology ids
+        return filters.some(
+          (f) => f.campaign_technology_id === ev?.campaign_technology?.id,
         );
       });
     else data = events;

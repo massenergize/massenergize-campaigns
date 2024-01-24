@@ -1,23 +1,16 @@
-import { faEllipsisVertical, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { motion as m } from "framer-motion";
 import React, { useReducer, useState } from "react";
 import { Col, Container, Row, Button as BTN } from "react-bootstrap";
 import Input from "./Input";
 import { Dropdown } from "@kehillahglobal/ui";
 import FileUploader from "./FileUploader";
 import useSWR from "swr";
-import {
-  createCampaignTestimonial,
-  getUsers,
-} from "../../requests/campaign-requests";
+import { createCampaignTestimonial, getUsers } from "../../requests/campaign-requests";
 import Button from "../../components/admin-components/Button";
 import MERichText from "./RichText";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import Form from "react-bootstrap/Form";
 import "./sideNav.css";
-import { relativeTimeAgo } from "../../utils/utils";
 import { useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const USER_TYPES = {
   MYSELF: "Myself",
@@ -25,17 +18,14 @@ const USER_TYPES = {
   OTHER: "Other",
 };
 
-const Testimonials = ({ campaign, mutateData, onModalClose }) => {
+const Testimonials = ({ campaign, onModalClose, startOfPage }) => {
   const techs = campaign?.technologies;
   const communities = campaign?.communities;
   // let testimonials = [...techs?.map((tech) => tech?.testimonials)].flat();
 
   const { blow, pop } = useBubblyBalloons();
 
-  const { data: users } = useSWR(
-    "users.listForCommunityAdmin",
-    getUsers({ no_pagination: true }),
-  );
+  const { data: users } = useSWR("users.listForCommunityAdmin", getUsers({ no_pagination: true }));
 
   const loggedInUser = useSelector((state) => state.authAdmin);
 
@@ -79,20 +69,23 @@ const Testimonials = ({ campaign, mutateData, onModalClose }) => {
       if (userType === USER_TYPES.MYSELF) {
         toSend.user_id = loggedInUser?.id;
       }
+
       const createdTestimonial = await createCampaignTestimonial(toSend);
 
       if (createdTestimonial) {
-        mutateData();
+        console.log("====success message===", createdTestimonial);
+        // mutateData();
         setLoading(false);
-        onModalClose();
         blow({
           title: "Success",
           message: "Testimonial created successfully",
           type: "success",
           duration: 5000,
         });
+        return;
       }
-    } catch (e) {
+    } catch (err) {
+      console.log("====err message===", err);
       setLoading(false);
       pop({
         title: "Error",
@@ -106,8 +99,8 @@ const Testimonials = ({ campaign, mutateData, onModalClose }) => {
   // {, body, , , , }
 
   return (
-    <m.div initial={{ y: "15%" }} animate={{ y: 0 }} transition={{ duration: 0.3 }}>
-      <m.div className="mb-4 pb-4">
+    <div>
+      <div className="mb-4 pb-4">
         <Container className="border-dashed">
           <form>
             <Row className="py-4">
@@ -144,10 +137,7 @@ const Testimonials = ({ campaign, mutateData, onModalClose }) => {
                   valueExtractor={(item) => item?.campaign_technology_id}
                   labelExtractor={(item) => item?.name}
                   onItemSelected={(selected) => {
-                    handleFieldChange(
-                      "campaign_technology_id",
-                      selected?.campaign_technology_id,
-                    );
+                    handleFieldChange("campaign_technology_id", selected?.campaign_technology_id);
                   }}
                 />
               </Col>
@@ -177,12 +167,8 @@ const Testimonials = ({ campaign, mutateData, onModalClose }) => {
                     onSearch={(searchText) => {
                       return users.filter((user) => {
                         return (
-                          user?.full_name
-                            ?.toLowerCase()
-                            .includes(searchText.toLowerCase()) ||
-                          user?.email
-                            ?.toLowerCase()
-                            .includes(searchText.toLowerCase())
+                          user?.full_name?.toLowerCase().includes(searchText.toLowerCase()) ||
+                          user?.email?.toLowerCase().includes(searchText.toLowerCase())
                         );
                       });
                     }}
@@ -253,15 +239,13 @@ const Testimonials = ({ campaign, mutateData, onModalClose }) => {
                   type="switch"
                   id="live-checkbox"
                   label="Go Live ?"
-                  onChange={(e) =>
-                    handleFieldChange("is_published", e.target.checked)
-                  }
+                  onChange={(e) => handleFieldChange("is_published", e.target.checked)}
                 />
               </Col>
             </Row>
             <Row className="py-4">
               <Col>
-                <div>
+                <div className="flex items-center gap-4">
                   <Button
                     text="Create Testimonial"
                     loading={loading}
@@ -269,13 +253,27 @@ const Testimonials = ({ campaign, mutateData, onModalClose }) => {
                     onSubmit={handleClick}
                     rounded={false}
                   />
+                  <BTN
+                    variant="danger"
+                    disabled={loading}
+                    onClick={() => {
+                      onModalClose();
+                      if (startOfPage.current) {
+                        startOfPage.current.scrollIntoView({ behavior: "smooth", block: "start" });
+                      } else {
+                        console.error("Target element not found");
+                      }
+                    }}
+                  >
+                    Cancel
+                  </BTN>
                 </div>
               </Col>
             </Row>
           </form>
         </Container>
-      </m.div>
-    </m.div>
+      </div>
+    </div>
   );
 };
 
