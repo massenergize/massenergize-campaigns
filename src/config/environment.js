@@ -1,4 +1,4 @@
-const ENV = process.env.TARGET_ENV || 'development';
+const ENV = process.env.REACT_APP_TARGET_ENV || 'development';
 
 console.log('ENV', ENV);
 
