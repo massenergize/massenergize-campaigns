@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer, useRef, useState } from "react";
 import { Col, Container, Button as BTN, Modal, Row } from "react-bootstrap";
 import TestimonialCard from "../../components/admin-components/TestimonialCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +7,7 @@ import { fetchAllCampaignTestimonials } from "src/requests/technology-requests";
 import useSWR from "swr";
 import Testimonials from "../../components/admin-components/Testimonials";
 import { Testimonials as TestPortal } from "./create-technology/Testimonials";
+import Loading from "src/components/pieces/Loading";
 
 const opts = ["All", "Featured"];
 const allOpts = ["On Campaign", "From Communities"];
@@ -15,10 +16,14 @@ export function CampaignTestimonialsView({ campaignDetails }) {
   const [show, setShow] = useState({
     tabOne: opts[0],
     tabTwo: "On Campaign",
-    showFormFor: "campaign",
+    showFormFor: "",
   });
 
   const [openModal, setOpenModal] = useState(false);
+
+  const formRef = useRef();
+
+  const startOfPage = useRef(null);
 
   let {
     data: payloadTestimonials,
@@ -76,16 +81,31 @@ export function CampaignTestimonialsView({ campaignDetails }) {
     setOpenModal(false);
   };
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  const hideForm = () => {
+    setShow({ ...show, showFormFor: null });
+  };
+
   return (
     <div className="pb-5">
       <Container>
         <Row>
-          <Col className="flex items-center gap-3 justify-content-end">
+          <Col className="flex items-center gap-3 justify-content-end" ref={startOfPage}>
             <BTN
               variant="success"
               onClick={() => {
                 setShow({ ...show, showFormFor: "campaign" });
-                setOpenModal(true);
+
+                setTimeout(() => {
+                  if (formRef.current) {
+                    formRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+                  } else {
+                    console.error("Target element not found");
+                  }
+                }, 0.1);
               }}
             >
               <span>Create Testimonial</span>
@@ -136,13 +156,13 @@ export function CampaignTestimonialsView({ campaignDetails }) {
                     <summary className="flex items-center justify-content-between">
                       <div
                         className="text-black bg-transparent text-muted text-lg tracking-wide"
-                        // onClick={() => {
-                        //   if (show?.tabTwo !== chx?.name) {
-                        //     setShow({ ...show, tabTwo: chx?.name });
-                        //   } else if (show?.tabTwo === chx?.name) {
-                        //     setShow({ ...show, tabTwo: null });
-                        //   }
-                        // }}
+                        onClick={() => {
+                          if (show?.tabTwo !== chx?.name) {
+                            setShow({ ...show, tabTwo: chx?.name });
+                          } else if (show?.tabTwo === chx?.name) {
+                            setShow({ ...show, tabTwo: null });
+                          }
+                        }}
                       >
                         {chx?.name} ( {show?.tabOne === "All" ? chx?.allLength : chx?.featuredLength} )
                         <span
@@ -191,6 +211,17 @@ export function CampaignTestimonialsView({ campaignDetails }) {
             );
           })}
         </div>
+
+        <Row className="mt-5 pt-5">
+          <Col>
+            {show?.showFormFor === "campaign" && (
+              <div ref={formRef}>
+                <h4 className="my-5">Create New Testimonial</h4>
+                <Testimonials campaign={campaignDetails} onModalClose={hideForm} startOfPage={startOfPage} />
+              </div>
+            )}
+          </Col>
+        </Row>
 
         <Modal size={"xl"} show={openModal} onHide={onModalClose}>
           <Modal.Header closeButton>

@@ -18,7 +18,7 @@ const USER_TYPES = {
   OTHER: "Other",
 };
 
-const Testimonials = ({ campaign, mutateData, onModalClose }) => {
+const Testimonials = ({ campaign, onModalClose, startOfPage }) => {
   const techs = campaign?.technologies;
   const communities = campaign?.communities;
   // let testimonials = [...techs?.map((tech) => tech?.testimonials)].flat();
@@ -76,7 +76,6 @@ const Testimonials = ({ campaign, mutateData, onModalClose }) => {
         console.log("====success message===", createdTestimonial);
         // mutateData();
         setLoading(false);
-        onModalClose();
         blow({
           title: "Success",
           message: "Testimonial created successfully",
@@ -246,7 +245,7 @@ const Testimonials = ({ campaign, mutateData, onModalClose }) => {
             </Row>
             <Row className="py-4">
               <Col>
-                <div>
+                <div className="flex items-center gap-4">
                   <Button
                     text="Create Testimonial"
                     loading={loading}
@@ -254,6 +253,20 @@ const Testimonials = ({ campaign, mutateData, onModalClose }) => {
                     onSubmit={handleClick}
                     rounded={false}
                   />
+                  <BTN
+                    variant="danger"
+                    disabled={loading}
+                    onClick={() => {
+                      onModalClose();
+                      if (startOfPage.current) {
+                        startOfPage.current.scrollIntoView({ behavior: "smooth", block: "start" });
+                      } else {
+                        console.error("Target element not found");
+                      }
+                    }}
+                  >
+                    Cancel
+                  </BTN>
                 </div>
               </Col>
             </Row>
