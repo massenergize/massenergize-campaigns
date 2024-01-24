@@ -171,6 +171,20 @@ function Info({
           </Col>
         </Row>
       </form>
+      {isEditing && (<div className="py-5">
+          <CustomAccordion
+          title={"Customize The Title and Description of Info Section"}
+           component={<SectionForm
+          section="more_info_section"
+          data={techObject?.more_info_section || {}}
+          updateTechObject={({ more_info_section }) => updateTechObject(more_info_section)}
+          tech_id={tech_id}
+        />}
+        isOpen={openAccordion}
+        onClick={() => setOpenAccordion(!openAccordion)}
+      />
+    </div>)
+}
     </div>
   );
 }

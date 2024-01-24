@@ -22,7 +22,6 @@ if (IS_PROD || IS_CANARY) {
   };
 }
 
-console.log("FIREBASE_LOG HERE: ", firebaseConfig);
 export const FIREBASE_CONFIG = firebaseConfig;
 
 // !firebase.apps.length

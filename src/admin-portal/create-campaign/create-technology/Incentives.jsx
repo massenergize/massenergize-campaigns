@@ -12,7 +12,7 @@ import "../../../assets/styles/admin-styles.scss";
 let incentiveToDelete = null;
 
 const Incentives = () => {
-  const { technology, handleAddOverview, handleRemoveOverview } = useTechnologyContext();
+  const { technology, handleAddOverview, handleRemoveOverview, handleUpdateOverview } = useTechnologyContext();
   const incentives = technology?.overview || [];
 
   const { notify } = useBubblyBalloons();
@@ -73,6 +73,9 @@ const Incentives = () => {
               <div key={incentive?.id} className={classes("py-2", { "mt-2 ": index > 0 })}>
                 <IncentivesBar
                   incentive={incentive}
+                  onUpdate={(incentive) => {
+                    handleUpdateOverview(incentive);
+                  }}
                   onRemove={() => {
                     incentiveToDelete = { id : incentive?.id };
                     setShowDeleteModal(true);

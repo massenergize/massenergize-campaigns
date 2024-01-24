@@ -10,7 +10,7 @@ import { ProgressButton } from "../../../components/progress-button/progress-but
 import { useParams } from "react-router-dom";
 import FileUploader from "../../../components/admin-components/FileUploader";
 
-export function IncentiveForm ({ incentive = {}, onSubmit }) {
+export function IncentiveForm ({ incentive = {}, onSubmit, }) {
   const { notify } = useBubblyBalloons();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -67,15 +67,19 @@ export function IncentiveForm ({ incentive = {}, onSubmit }) {
       }
       setLoading(true)
 
+      console.log("incentiveFormData", incentiveFormData)
+
       const payload = {
         technology_id,
         ...(IS_NEW ? {} : { id: incentive.id }),
         ...(IS_NEW ? { campaign_id } : {}),
         title: incentiveFormData.title,
         description: incentiveFormData.description,
-        ...(!IS_NEW && typeof incentiveFormData.image === 'string' ? {} : { image: IS_NEW ? incentiveFormData.image : (incentiveFormData.image ? incentiveFormData.image : 'reset') }),
+        ...(IS_NEW ? { image : incentiveFormData.image } : getImageValue(incentiveFormData, "image")),
 
       };
+
+      console.log("payload", payload)
 
       const data = IS_NEW ? await addTechnologyIncentive(payload) : await updateTechnologyIncentive(payload);
 
