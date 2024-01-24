@@ -1,4 +1,6 @@
-export const IS_LOCAL = true;
-export const IS_PROD = false;
-export const IS_CANARY = false;
-export const IS_DEV = !IS_LOCAL && !IS_PROD && !IS_CANARY;
+const ENV = process.env.NODE_ENV || 'development';
+
+export const IS_PROD = ENV === 'production';
+export const IS_CANARY = ENV === 'canary';
+export const IS_DEV = ENV === 'development';
+export const IS_LOCAL = ENV !== 'production' && ENV !== 'canary' && ENV !== 'development';
