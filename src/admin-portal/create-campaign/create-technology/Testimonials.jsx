@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import "../../../assets/styles/admin-styles.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { MultiSelect } from "react-multi-select-component";
 import {
   addTestimonials,
   fetchAllTechnologyTestimonials,
@@ -10,9 +7,9 @@ import {
 import { Spinner } from "@kehillahglobal/ui";
 import useSWR from "swr";
 import Button from "src/components/admin-components/Button";
-import { Form, FormLabel } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
-import { Button as BTN, Container, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import Dropdown from "src/components/admin-components/Dropdown";
 import { NoItems } from "@kehillahglobal/ui";
 
@@ -28,14 +25,8 @@ export const Testimonials = ({ campaign_id, techs, onModalClose }) => {
     isValidating,
     isLoading,
     error,
-  } = useSWR(
-    "testimonials.list",
-    async () => await fetchAllTechnologyTestimonials(campaign_id),
-    {
-      shouldRetryOnError: true,
-      errorRetryCount: 3,
-      errorRetryInterval: 3000,
-    },
+  } = useSWR("testimonials.list", async () => await fetchAllTechnologyTestimonials(campaign_id),
+    {shouldRetryOnError: false},
   );
 
   const handleSubmit = async (e) => {
@@ -53,7 +44,6 @@ export const Testimonials = ({ campaign_id, techs, onModalClose }) => {
 
       if (res) {
         setLoading(false);
-        // updateTechObject(res);
         blow({
           title: "Success",
           message: "Campaign Testimonials updated successfully.",
@@ -87,8 +77,6 @@ export const Testimonials = ({ campaign_id, techs, onModalClose }) => {
         <Spinner color="#6e207c" radius={56} variation="TwoHalfCirclesType" />
       </div>
     );
-
-  const TESTIMONIALS_SIZE = (selectedTestimonials || [])?.length;
 
   return (
     <div className="px-4 py-5">
@@ -162,5 +150,3 @@ export const Testimonials = ({ campaign_id, techs, onModalClose }) => {
     </div>
   );
 };
-
-// export default Testimonials;

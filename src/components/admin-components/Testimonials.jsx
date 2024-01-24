@@ -73,8 +73,6 @@ const Testimonials = ({ campaign, onModalClose, startOfPage }) => {
       const createdTestimonial = await createCampaignTestimonial(toSend);
 
       if (createdTestimonial) {
-        console.log("====success message===", createdTestimonial);
-        // mutateData();
         setLoading(false);
         blow({
           title: "Success",
@@ -85,7 +83,6 @@ const Testimonials = ({ campaign, onModalClose, startOfPage }) => {
         return;
       }
     } catch (err) {
-      console.log("====err message===", err);
       setLoading(false);
       pop({
         title: "Error",
@@ -95,8 +92,6 @@ const Testimonials = ({ campaign, onModalClose, startOfPage }) => {
       });
     }
   };
-
-  // {, body, , , , }
 
   return (
     <div>
