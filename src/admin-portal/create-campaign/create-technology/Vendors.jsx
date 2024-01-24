@@ -1,13 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Spinner } from "@kehillahglobal/ui";
-import {
-  Col,
-  Container,
-  Row,
-  FormLabel,
-  Form,
-  Button as BTN,
-} from "react-bootstrap";
+import { Col, Container, Row, FormLabel, Form, Button as BTN } from "react-bootstrap";
 import { MultiSelect } from "react-multi-select-component";
 import Chip from "src/components/admin-components/Chip";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
@@ -20,18 +13,21 @@ import {
 } from "src/requests/technology-requests";
 import CustomAccordion from "../../../components/admin-components/CustomAccordion";
 import SectionForm from "./SectionsForm";
+import CreateVendorForm from "./CreateVendorForm";
 import { addLabelsAndValues } from "../../../helpers/utils/array";
 import { useTechnologyContext } from "../../../hooks/use-technology-context";
 import vendors from "../../../user-portal/pages/technology/Vendors";
 import { SWR_NO_REFRESH_CONFIG } from "../../../config/config";
+import { useSelector } from "react-redux";
 
-const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
-  let existing = [
-    ...(techObject?.vendors || [])?.map((tech) => tech?.vendor),
-  ].flat();
-  const [selectedVendors, setSelectedVendors] = useState(existing || []);
+const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyError, notifySuccess }) => {
+  const [selectedVendors, setSelectedVendors] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openAccordion, setOpenAccordion] = useState(false);
+  const [openForVendor, setOpenForVendor] = useState(false);
+  const [editObj, setEditObj] = useState(null);
+
+  const user = useSelector((state) => state.authAdmin);
 
   const { blow, pop } = useBubblyBalloons();
 
@@ -64,7 +60,6 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
         });
       }
     } catch (e) {
-
       pop({
         title: "Error",
         message: "Error saving vendors",
@@ -76,6 +71,11 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
     }
   };
 
+  useEffect(() => {
+    let existing = [...(techObject?.vendors || [])?.map((tech) => tech?.vendor)].flat();
+
+    setSelectedVendors(existing);
+  }, [techObject?.vendors]);
   const handleRemoveVendor = async (vendor) => {
     if (!window.confirm("Are you sure you want to remove this vendor?")) return;
     setLoading(true);
@@ -115,9 +115,9 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
   }
 
   return (
-    <div style={{ height: "100vh" }}>
-      <Container fluid className="px-4">
-        <div className="py-5">
+    <div>
+      <Container fluid className="" style={{ overflowX: "scroll", paddingBottom: 50, paddingRight: 0, paddingLeft: 0 }}>
+        <div className="py-3">
           <CustomAccordion
             title={"Customize The Title and Description of Vendors Section"}
             component={
@@ -129,13 +129,33 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
               />
             }
             isOpen={openAccordion}
-            onClick={() => setOpenAccordion(!openAccordion)}
+            onClick={() => {
+              setOpenAccordion(!openAccordion);
+            }}
           />
         </div>
-        <Form>
-          <FormLabel>
-            Choose one or more Vendors for this technology from the dropdown below.
-          </FormLabel>
+        <div className="py-3">
+          <CustomAccordion
+            title={"Create a new vendor"}
+            isOpen={openForVendor}
+            onClick={() => {
+              setOpenForVendor(!openForVendor);
+            }}
+          >
+            <CreateVendorForm
+              vendors={techObject?.vendors || []}
+              updateTechObject={updateTechObject}
+              notifyError={notifyError}
+              tech_id={tech_id}
+              notifySuccess={notifySuccess}
+              user={user}
+              data={editObj}
+              setEditObj={setEditObj}
+            />
+          </CustomAccordion>
+        </div>
+        <Form className="py-3">
+          <FormLabel>Choose one or more Vendors for this technology from the dropdown below.</FormLabel>
 
           <MultiSelect
             options={(allVendors || []).map((vendor) => {
@@ -175,15 +195,37 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
                   <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Website</th>
-                    <th scope="col">Key Contact</th>
+                    {/* <th scope="col">Key Contact</th> */}
                     <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
                   {(selectedVendors || [])?.map((vendor) => {
+                    const createdByCurrentUser = vendor?.user?.id === user?.id;
+
                     return (
                       <tr key={vendor?.id} className="text-sm">
-                        <td>{vendor?.name}</td>
+                        <td>
+                          {vendor?.name}{" "}
+                          {createdByCurrentUser && (
+                            <small
+                              className="touchable-opacity"
+                              style={{
+                                fontWeight: "bold",
+                                color: "var(--bs-green)",
+                                textDecorationLine: "underline",
+                                fontSize: 14,
+                                margin: 10,
+                              }}
+                              onClick={() => {
+                                setOpenForVendor(true);
+                                setEditObj(vendor);
+                              }}
+                            >
+                              Edit
+                            </small>
+                          )}
+                        </td>
                         <td
                           onClick={() => {
                             console.log(vendor);
@@ -191,13 +233,12 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
                         >
                           {vendor?.website ? vendor?.website : "N/A"}
                         </td>
-                        <td className="text-capitalize">
-                          {vendor?.key_contact?.email
-                            ? vendor?.key_contact?.email
-                            : "N/A"}
-                        </td>
-                        <td className="text-cnter">
+                        {/* <td className="text-capitalize">
+                          {vendor?.key_contact?.email ? vendor?.key_contact?.email : "N/A"}
+                        </td> */}
+                        <td className="text-cnter row-flex">
                           <BTN
+                            style={{ marginLeft: "auto" }}
                             // style={{ marginLeft: 10 }}
                             onClick={() => handleRemoveVendor(vendor)}
                             variant="danger"
@@ -215,9 +256,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject }) => {
             <div className="w-100 flex items-center flex-column text-center">
               <div>
                 <img src="/img/no-data.svg" alt="" />
-                <p className="">
-                  No vendors have been associated with this technology yet.
-                </p>
+                <p className="">No vendors have been associated with this technology yet.</p>
                 <p>Select Vendors from the dropdown above</p>
               </div>
             </div>

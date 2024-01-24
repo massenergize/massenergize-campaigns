@@ -22,7 +22,7 @@ export default function SectionsForm ({section, data,updateTechObject, tech_id})
       const toUpdate = {id:tech_id, [section]: JSON.stringify(formData)}
       let res = await updateTechnology(toUpdate)
       if(res){
-        updateTechObject({[section]: formData[section]})
+        updateTechObject({[section]: res[section]})
         setLoading(false)
         blow({
           title: "Success",
