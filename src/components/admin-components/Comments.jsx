@@ -8,13 +8,11 @@ import { NoItems } from "@kehillahglobal/ui";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import Button from "../../components/admin-components/Button";
 import { useSelector } from "react-redux";
-import {
-  createCampaignComment,
-  deleteCampaignComment,
-} from "../../requests/campaign-requests";
+import { createCampaignComment, deleteCampaignComment } from "../../requests/campaign-requests";
+import { relativeTimeAgo } from "src/utils/utils";
 // import Dropdown from "./Dropdown";
 
-const Comments = ({ campaign, mutateData }) => {
+const Comments = ({ campaign, setCampaignDetails }) => {
   const { blow, pop } = useBubblyBalloons();
 
   const communities = campaign?.communities;
@@ -38,8 +36,6 @@ const Comments = ({ campaign, mutateData }) => {
       const res = await createCampaignComment(formData);
 
       if (res) {
-        setOpenCreateForm(false);
-        mutateData(res);
         setLoading(false);
         setOpenModal(false);
         blow({
@@ -65,7 +61,6 @@ const Comments = ({ campaign, mutateData }) => {
       setLoading(true);
       const res = await deleteCampaignComment({ id, user_id: loggedInAdmin?.id });
       if (res) {
-        mutateData(res);
         setLoading(false);
         blow({
           title: "Success",
@@ -85,33 +80,7 @@ const Comments = ({ campaign, mutateData }) => {
     }
   };
 
-  const timeAgo = (date) => {
-    const currentDate = new Date();
-    const inputDate = new Date(date);
-
-    const diffInSeconds = Math.floor((currentDate - inputDate) / 1000);
-
-    if (diffInSeconds < 60) {
-      return "Just now";
-    } else if (diffInSeconds < 3600) {
-      const minutes = Math.floor(diffInSeconds / 60);
-      return `${minutes} minutes ago`;
-    } else if (diffInSeconds < 86400) {
-      const hours = Math.floor(diffInSeconds / 3600);
-      return `${hours} hours ago`;
-    } else if (diffInSeconds < 604800) {
-      const days = Math.floor(diffInSeconds / 86400);
-      return `${days} days ago`;
-    } else if (diffInSeconds < 2592000) {
-      const weeks = Math.floor(diffInSeconds / 604800);
-      return `${weeks} weeks ago`;
-    } else {
-      return "More than a month ago";
-    }
-  };
-
   const [selectedId, setSelectedId] = useState(null);
-  const [openCreateForm, setOpenCreateForm] = useState(false);
 
   const initialState = {
     text: "",
@@ -235,11 +204,7 @@ const Comments = ({ campaign, mutateData }) => {
                             <m.div
                               layoutId={comment.id}
                               key={comment?.id}
-                              className={
-                                selectedId === comment?.id
-                                  ? "comment-card-expand"
-                                  : "comment-card"
-                              }
+                              className={selectedId === comment?.id ? "comment-card-expand" : "comment-card"}
                             >
                               <m.h6 style={{ textDecoration: "underline" }}>
                                 {comment?.user?.preferred_name
@@ -249,21 +214,15 @@ const Comments = ({ campaign, mutateData }) => {
                               <m.p
                                 className="comment-text"
                                 onClick={() => {
-                                  setSelectedId(
-                                    selectedId === comment?.id ? null : comment?.id,
-                                  );
+                                  setSelectedId(selectedId === comment?.id ? null : comment?.id);
                                 }}
                               >
                                 {comment?.text && (
                                   <>
-                                    {selectedId === comment.id ||
-                                    comment.text.length <= 60
+                                    {selectedId === comment.id || comment.text.length <= 60
                                       ? comment.text
                                       : `${comment.text.slice(0, 60)}...`}
-                                    {selectedId !== comment.id &&
-                                      comment.text.length > 60 && (
-                                        <span> Read More</span>
-                                      )}
+                                    {selectedId !== comment.id && comment.text.length > 60 && <span> Read More</span>}
                                   </>
                                 )}
                               </m.p>
@@ -277,11 +236,7 @@ const Comments = ({ campaign, mutateData }) => {
                                   <m.div
                                     className="comment-delete-btn"
                                     onClick={async () => {
-                                      if (
-                                        window.confirm(
-                                          "Are you sure you want to delete this comment ?",
-                                        )
-                                      ) {
+                                      if (window.confirm("Are you sure you want to delete this comment ?")) {
                                         await handleDeleteComment(comment?.id);
                                       }
                                     }}
@@ -292,7 +247,7 @@ const Comments = ({ campaign, mutateData }) => {
                                   <m.div></m.div>
                                 )}
                                 <m.div className="comment-date">
-                                  <m.p>{timeAgo(comment?.created_at)}</m.p>
+                                  <m.p>{relativeTimeAgo(comment?.created_at)}</m.p>
                                 </m.div>
                               </m.div>
                             </m.div>
