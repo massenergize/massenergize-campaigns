@@ -14,7 +14,7 @@ const allOpts = ["On Campaign", "From Communities"];
 export function CampaignTestimonialsView({ campaignDetails }) {
   const [show, setShow] = useState({
     tabOne: opts[0],
-    tabTwo: allOpts[0],
+    tabTwo: "On Campaign",
     showFormFor: "campaign",
   });
 
@@ -132,17 +132,17 @@ export function CampaignTestimonialsView({ campaignDetails }) {
             return (
               <Row key={chx?.name} className="mt-5">
                 <Col>
-                  <div>
-                    <div className="flex items-center justify-content-between">
-                      <button
+                  <details open>
+                    <summary className="flex items-center justify-content-between">
+                      <div
                         className="text-black bg-transparent text-muted text-lg tracking-wide"
-                        onClick={() => {
-                          if (show?.tabTwo !== chx?.name) {
-                            setShow({ ...show, tabTwo: chx?.name });
-                          } else if (show?.tabTwo === chx?.name) {
-                            setShow({ ...show, tabTwo: null });
-                          }
-                        }}
+                        // onClick={() => {
+                        //   if (show?.tabTwo !== chx?.name) {
+                        //     setShow({ ...show, tabTwo: chx?.name });
+                        //   } else if (show?.tabTwo === chx?.name) {
+                        //     setShow({ ...show, tabTwo: null });
+                        //   }
+                        // }}
                       >
                         {chx?.name} ( {show?.tabOne === "All" ? chx?.allLength : chx?.featuredLength} )
                         <span
@@ -155,55 +155,37 @@ export function CampaignTestimonialsView({ campaignDetails }) {
                             />
                           </svg>
                         </span>
-                      </button>
-                      {/* <button
-                        onClick={() => {
-                          setShow({ ...show, showFormFor: chx?.platform });
-                          setOpenModal(true);
-                        }}
-                        className=" px-3 bg-white py-2 flex items-center gap-3 cursor-pointer adtxt"
-                      >
-                        <span>
-                          <FontAwesomeIcon icon={faAdd} />
-                        </span>
-                        {chx?.addtext}
-                      </button> */}
-                    </div>
+                      </div>
+                    </summary>
 
                     <div>
-                      {show?.tabTwo === chx?.name && (
-                        <div className="mt-4">
-                          {(chx?.featuredLength || chx?.allLength) > 0 ? (
+                      <div className="mt-4">
+                        {(chx?.featuredLength || chx?.allLength) > 0 ? (
+                          <div>
+                            {(show?.tabOne === "All" ? chx?.data : chx?.featuredTestimonials)?.map((test) => {
+                              return (
+                                <div key={test?.id}>
+                                  <TestimonialCard className={"mt-3"} test={test} />
+                                </div>
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <div className="w-100 flex items-center flex-column text-center">
                             <div>
-                              {(show?.tabOne === "All" ? chx?.data : chx?.featuredTestimonials)?.map((test) => {
-                                return (
-                                  <div key={test?.id}>
-                                    <TestimonialCard className={"mt-3"} test={test} />
-                                  </div>
-                                );
-                              })}
+                              <img src="/img/no-data.svg" alt="" />
+                              <h5 className="text-muted">
+                                {chx?.platform === "campaign"
+                                  ? `No ${show?.tabOne === "Featured" ? "Featured" : ""} Testimonials from this section`
+                                  : chx?.platform === "communities" &&
+                                    `No ${show?.tabOne === "Featured" ? "Featured" : ""} Testimonials from communities`}
+                              </h5>
                             </div>
-                          ) : (
-                            <div className="w-100 flex items-center flex-column text-center">
-                              <div>
-                                <img src="/img/no-data.svg" alt="" />
-                                <h5 className="text-muted">
-                                  {chx?.platform === "campaign"
-                                    ? `No ${
-                                        show?.tabOne === "Featured" ? "Featured" : ""
-                                      } Testimonials from this section`
-                                    : chx?.platform === "communities" &&
-                                      `No ${
-                                        show?.tabOne === "Featured" ? "Featured" : ""
-                                      } Testimonials from communities`}
-                                </h5>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      )}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  </details>
                 </Col>
               </Row>
             );
