@@ -579,6 +579,7 @@ function TechnologyFullViewPage({
             scrollToSection={scrollToSection}
             trackActivity={trackActivity}
             authUser={authUser}
+            vendors = {vendors}
           />
         </div>
         <div ref={testimonialsRef}>

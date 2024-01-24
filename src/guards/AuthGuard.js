@@ -38,7 +38,9 @@ function AuthGuard ({
 			fetchMassenergizeUser({ idToken: user?.accessToken }, (data, err) => {
 				let account = localStorage.getItem("acc");
 				account = account && JSON.parse(atob(account));
-				props.setAccount(account|| data?.campaign_accounts[0]);
+				const noAccounts = !account && !data?.campaign_accounts?.length
+				if(noAccounts) return navigator("/admin/campaign/account/new")
+				props.setAccount(account|| (data?.campaign_accounts || [])[0] || null);
 			});
 		});
 	}, []);

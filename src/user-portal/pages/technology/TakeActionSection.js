@@ -18,8 +18,7 @@ const dummies = [
     icon: "fa-lightbulb-o",
     title: "Ask A Question ",
     actionText: "Get Help",
-    content:
-      "Questions large to small, we have community volunteers ready to answer them all.",
+    content: "Questions large to small, we have community volunteers ready to answer them all.",
     url: "coaches",
     type: "help",
   },
@@ -33,13 +32,7 @@ const dummies = [
     type: "incentives",
   },
 ];
-function TakeAtionSetion({
-  sectionId,
-  scrollToSection,
-  authUser,
-  trackActivity,
-  campaign,
-}) {
+function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, campaign, vendors }) {
   const navigator = useNavigate();
   const { user } = authUser || {};
   const common = {
@@ -48,6 +41,9 @@ function TakeAtionSetion({
     // target: name,
     email: user?.email,
   };
+
+  console.log("HERE IS THE CAMPAIGN", campaign);
+  const thereAreNoVendors = !vendors?.length;
 
   return (
     <div
@@ -78,14 +74,12 @@ function TakeAtionSetion({
                   height: 310,
                   padding: 30,
                   borderRadius: 3,
+                  opacity: thereAreNoVendors && item?.type === "vendors" ? 0.3 : 1,
                 }}
                 key={index?.toString()}
                 lg={3}
               >
-                <i
-                  className={`fa ${item.icon} mb-1 mt-2`}
-                  style={{ fontSize: 60, color: "var(--app-medium-green)" }}
-                />
+                <i className={`fa ${item.icon} mb-1 mt-2`} style={{ fontSize: 60, color: "var(--app-medium-green)" }} />
                 <h6
                   className="mt-2 mb-2"
                   style={{
@@ -109,6 +103,7 @@ function TakeAtionSetion({
 
                 <div
                   onClick={() => {
+                    if (thereAreNoVendors && item?.type === "vendors") return <></>;
                     trackActivity({
                       ...common,
                       target: item?.actionText,
@@ -124,9 +119,7 @@ function TakeAtionSetion({
                     borderRadius: 500,
                   }}
                 >
-                  <p style={{ margin: 0, fontSize: 13, fontWeight: "bold" }}>
-                    {item.actionText}
-                  </p>
+                  <p style={{ margin: 0, fontSize: 13, fontWeight: "bold" }}>{item.actionText}</p>
                 </div>
               </Col>
             );

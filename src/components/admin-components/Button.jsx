@@ -10,6 +10,7 @@ const Button = ({
   rounded,
   icon,
   loading = false,
+  children
 }) => {
   // const [loader, setLoader] = useState(false);
   return (
@@ -23,7 +24,7 @@ const Button = ({
     >
       {loading && <Spinner size="sm" style={{ marginRight: 6 }} />}
       <span> {icon && <FontAwesomeIcon icon={icon} />} </span>{" "}
-      {!loading && <span>{text}</span>}
+      {!loading && <span>{text || children}</span>}
     </button>
   );
 };

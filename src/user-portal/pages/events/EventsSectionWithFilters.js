@@ -12,8 +12,7 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
   const containerRef = useRef();
 
   let events = technologies?.map((tech) => tech?.events);
-  events = mergeArrays(events);
-
+  events = mergeArrays(events, (item, obj) => item?.event?.id === obj?.event?.id);
   const renderEvents = (filters) => {
     let data = [];
     if (filters?.length)
@@ -71,16 +70,10 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
               Featured Events
             </h2>
 
-            {hasScrollableEvents && (
-              <ArrowButtons
-                containerRef={containerRef}
-                style={{ marginLeft: "auto" }}
-              />
-            )}
+            {hasScrollableEvents && <ArrowButtons containerRef={containerRef} style={{ marginLeft: "auto" }} />}
           </div>
           <OurParagraph>
-            Scroll from left to right to see more testimonials, or use the arrow
-            buttons(top right) to scroll
+            Scroll from left to right to see more testimonials, or use the arrow buttons(top right) to scroll
           </OurParagraph>
           <Filter
             title="Filter events by"

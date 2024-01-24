@@ -164,6 +164,8 @@ function LandingPage({
   let previewMode = fetchUrlParams("preview");
   previewMode = previewMode?.trim() === "true";
 
+  console.log("Lets see campaign", campaign)
+
   if (
     !is_published &&
     !previewMode &&

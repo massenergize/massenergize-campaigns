@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { formatTimeRange } from "../../../utils/utils";
+import { formatTimeRange, smartString } from "../../../utils/utils";
 
 function EventBox ({ event, campaign_technology }) {
 
@@ -39,7 +39,7 @@ function EventBox ({ event, campaign_technology }) {
           }
           style={{ textDecoration: "underline" }}
         >
-          {name || "..."}
+          {smartString(name,50) || "..."}
           <i
             className="fa fa-long-arrow-right"
             style={{ marginLeft: 10, color: "var(--app-medium-green)" }}
