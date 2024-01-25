@@ -273,54 +273,11 @@ export function AllCampaignsView ({}) {
     `campaigns.listForAdmin/${campaignAccount?.id || ""}}`,
     () => fetchAllCampaigns("campaigns.listForAdmin", campaignAccount?.id),
     {
-      onSuccess: (data) => {
-      },
+      onSuccess: () => {},
     },
   );
 
-  const [campaignShow, setCampaignShow] = useState(campaigns);
-
   const [searchText, setSearchText] = useState("");
-
-/*  useEffect(() => {
-    const lowercaseInput = searchText.toLowerCase();
-
-/!*    const filtered = campaigns?.filter((campaign) => {
-      return campaign?.title?.toLowerCase()?.includes(lowercaseInput);
-    });*!/
-
-    const filteredData = campaigns?.filter((item) => {
-      function searchInElement (element) {
-        if (element && typeof element === "object") {
-          for (const key in element) {
-            const value = element[key];
-
-            if (Array.isArray(value)) {
-              for (const arrayElement of value) {
-                if (searchInElement(arrayElement)) {
-                  return true;
-                }
-              }
-            } else if (typeof value === "object") {
-              if (searchInElement(value)) {
-                return true;
-              }
-            } else if (
-              typeof value === "string" &&
-              value.toLowerCase().includes(lowercaseInput)
-            ) {
-              return true;
-            }
-          }
-        }
-        return false;
-      }
-
-      return searchInElement(item);
-    });
-
-    setCampaignShow(filteredData);
-  }, [searchText, campaigns]);*/
 
   const patched = (campaigns || []).map((campaign, i) => {
     return {
@@ -328,12 +285,11 @@ export function AllCampaignsView ({}) {
       title: campaign?.title,
       creator: campaign?.owner?.full_name || "Unknown",
       logo:
-        campaign.secondary_logo?.url || "http://localhost:3000/img/fallback-img.png",
+        campaign.secondary_logo?.url || "/img/fallback-img.png",
       logo_alt: campaign.primary_logo?.name,
       show: true,
     };
   });
-
 
   const SEARCHABLE_FIELDS = [
     "title",
