@@ -141,7 +141,7 @@ const DoMoreBox = ({ scrollToCommunities }) => {
           //   // marginBottom: 10,
           // }}
         />
-        <h5 style={{ color: "var(--app-medium-green)" }}>Do More</h5>
+        <h5 style={{ color: "var(--app-medium-green)" }}>Connect</h5>
         <p style={{ textAlign: "center" }}>
           Want to do more? Check out other actions you can take on our community
           sites!

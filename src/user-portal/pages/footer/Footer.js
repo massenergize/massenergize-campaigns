@@ -82,8 +82,9 @@ function Footer ({ toggleModal, campaign, authUser }) {
           <Col lg={{ span: 6, offset: 3 }}>
             <h4 style={{ color: "white" }}>Newsletter</h4>
             <p style={{ color: "white" }}>
-              Unlock all the exclusive deals from our vendors, and stay updated
-              with all actions you can take to help save the planet!
+            Get all deals and updates on this technology!
+              {/* Unlock all the exclusive deals from our vendors, and stay updated
+              with all actions you can take to help save the planet! */}
             </p>
             <Button
               className="elevate-float-pro touchable-opacity"
