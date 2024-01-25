@@ -30,8 +30,7 @@ export const Testimonials = ({ campaign_id, techs, onModalClose }) => {
     error,
   } = useSWR(
     "testimonials.list",
-    async () => await fetchAllTechnologyTestimonials(campaign_id),
-    {
+    async () => await fetchAllTechnologyTestimonials(campaign_id), {
       shouldRetryOnError: true,
       errorRetryCount: 3,
       errorRetryInterval: 3000,
