@@ -34,12 +34,13 @@ function Vendors({ sectionId, data, vendors }) {
             className="vendor-list-group"
           >
             {vendors?.map(({ vendor }) => {
+              console.log("WHAT IS VENDOR", vendor)
               return (
                 <li
                   role={"button"}
                   tabIndex={0}
                   onClick={() => {
-                    const link = vendor?.link;
+                    const link = vendor?.website;
                     if (!link) return;
                     window.open(link, "_blank");
                   }}

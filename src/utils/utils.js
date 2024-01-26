@@ -168,3 +168,16 @@ export const objHasContent = (obj) => {
   if (!obj) return false;
   return Object.keys(obj || {}).length > 0;
 };
+
+
+export function findItemAtIndexAndRemainder(arr, comparator) {
+  for (let i = 0; i < arr.length; i++) {
+      if (comparator(arr[i])) {
+          const foundItem = arr[i];
+          const remainder = arr.slice(i + 1);
+          return { item: foundItem, remainder, index: i };
+      }
+  }
+  // If the item is not found, return null
+  return null;
+}
