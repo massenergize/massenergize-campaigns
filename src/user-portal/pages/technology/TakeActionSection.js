@@ -42,7 +42,6 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
     email: user?.email,
   };
 
-  console.log("HERE IS THE CAMPAIGN", campaign);
   const thereAreNoVendors = !vendors?.length;
 
   return (

@@ -25,10 +25,10 @@ function TestimonialBox ({
 
   return (
     <div className="testi-container flex-column">
-      <h5 style={{ color: "var(--app-medium-green)", fontSize: "1.07rem" }}>
+      <h5 style={{  fontSize: "1.07rem" }}>
         {title || "..."}
       </h5>
-      <h6 style={{ fontSize: 15 }}>
+      <h6 style={{ fontSize: 15,color: "var(--app-medium-green)" }}>
         {" "}
         {user?.preferred_name || user?.full_name || "...."}
       </h6>
@@ -87,8 +87,8 @@ function TestimonialBox ({
             onClick={() => navigator(route)}
             className="phone-vanish touchable-opacity"
             style={{
-              width: 35,
-              height: 35,
+              width: 50,
+              height: 50,
               objectFit: "cover",
               borderRadius: 5,
               // marginTop: 7,

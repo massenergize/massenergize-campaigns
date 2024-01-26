@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 export const OTHER = "other";
 export const OTHER_JSON = { name: OTHER, id: OTHER };
 
-function CommunitySelector ({ onChange, communities, data, readOnly }) {
+function CommunitySelector({ onChange, communities, data, readOnly }) {
   const [state, setState] = useState({});
   data = data || {};
 
@@ -40,12 +40,7 @@ function CommunitySelector ({ onChange, communities, data, readOnly }) {
           const { id, name } = community || {};
           return (
             <Form.Check inline type="radio" id={`check-api-${id}`}>
-              <Form.Check.Input
-                checked={comId === id?.toString()}
-                type={"radio"}
-                value={id}
-                isValid
-              />
+              <Form.Check.Input checked={comId === id?.toString()} type={"radio"} value={id} isValid />
               <Form.Check.Label
                 style={{
                   textTransform: "Capitalize",
@@ -61,12 +56,7 @@ function CommunitySelector ({ onChange, communities, data, readOnly }) {
         })}
 
         <Form.Check inline type="radio" id={`check-api-other`}>
-          <Form.Check.Input
-            checked={comId === OTHER}
-            type={"radio"}
-            value={OTHER}
-            isValid
-          />
+          <Form.Check.Input checked={comId === OTHER} type={"radio"} value={OTHER} isValid />
           <Form.Check.Label
             style={{
               textTransform: "Capitalize",
@@ -83,12 +73,10 @@ function CommunitySelector ({ onChange, communities, data, readOnly }) {
         <>
           <div>
             <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon1">
-                Community Name
-              </InputGroup.Text>
+              <InputGroup.Text id="basic-addon1">Community Name</InputGroup.Text>
               <Form.Control
                 type="text"
-                placeholder="Tell us where you are from..."
+                placeholder="What community do you live in?"
                 aria-label="text"
                 aria-describedby="basic-addon1"
                 onChange={(e) => {

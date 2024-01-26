@@ -67,13 +67,13 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
                 marginBottom: 20,
               }}
             >
-              Featured Events
+              Events
             </h2>
 
             {hasScrollableEvents && <ArrowButtons containerRef={containerRef} style={{ marginLeft: "auto" }} />}
           </div>
           <OurParagraph>
-            Scroll from left to right to see more testimonials, or use the arrow buttons(top right) to scroll
+            Scroll from left to right to see more events, or use the arrow buttons(top right) to scroll
           </OurParagraph>
           <Filter
             title="Filter events by"
