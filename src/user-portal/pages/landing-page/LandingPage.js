@@ -144,7 +144,7 @@ function LandingPage({
     const data = { description };
     toggleModal({
       show: true,
-      title: `About '${campaign?.title || ""}'`,
+      title: `About ${campaign?.title || ""}`,
       // iconName: "fa-comment",
       component: ({ close }) => <RoamingModalSheet close={close} data={data} />,
       // modalNativeProps: { size: "md" },
@@ -163,8 +163,6 @@ function LandingPage({
 
   let previewMode = fetchUrlParams("preview");
   previewMode = previewMode?.trim() === "true";
-
-  console.log("Lets see campaign", campaign)
 
   if (
     !is_published &&

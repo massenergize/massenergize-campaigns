@@ -115,7 +115,8 @@ function RoamingBox({ advert, keyContact, showMore }) {
                   role={"button"}
                   tabIndex={0}
                   onClick={() => {
-                    window.open(`mailto:${keyContact?.email}`, "_blank");
+                    // window.open(`mailto:${keyContact?.email}`, "_blank"); WILL BE BACK SOON
+                    window.open(`mailto:plugINmetrowest@massenergize.org`, "_blank");
                   }}
                   className="mb-1 touchable-opacity"
                   style={{
@@ -126,7 +127,8 @@ function RoamingBox({ advert, keyContact, showMore }) {
                   }}
                 >
                   <i className=" fa fa-envelope" style={{ marginRight: 6 }} />
-                  <span> {keyContact?.email}</span>
+                  {/* <span> {keyContact?.email}</span>  CHANGE IT BACK WHEN ADMIN PORTAL IS WORKING*/}
+                  <span>plugINmetrowest@massenergize.org</span>
                 </p>
               )}
               {phone_number && (
