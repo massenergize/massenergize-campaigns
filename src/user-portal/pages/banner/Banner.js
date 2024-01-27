@@ -56,12 +56,12 @@ function Banner ({ title, secondary_logo, primary_logo, tagline }) {
             <h5
               className="page-slogan"
               style={{
-                fontWeight: "400",
-                color: "var(--app-medium-green)",
-                textAlign: "center",
-                textTransform: "capitalize",
-                lineHeight: "1.5",
-                width: "85%",
+                // fontWeight: "400",
+                // color: "var(--app-medium-green)",
+                // textAlign: "center",
+                // // textTransform: "",
+                // lineHeight: "1.5",
+                // width: "85%",
               }}
             >
               {tagline}

@@ -24,9 +24,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
   const renderCoaches = (filters) => {
     let data = [];
     if (filters?.length)
-      data = coaches?.filter((t) =>
-        filters.some((f) => f.campaign_technology_id === t.campaign_technology?.id),
-      );
+      data = coaches?.filter((t) => filters.some((f) => f.campaign_technology_id === t.campaign_technology?.id));
     else data = coaches;
 
     return (
@@ -78,16 +76,10 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
                   Meet The Coaches
                 </h2>
                 <OurParagraph>
-                  Scroll from left to right to see more testimonials, or use the
-                  arrow buttons(top right) to scroll
+                  Scroll from left to right to see more coaches, or use the arrow buttons(top right) to scroll
                 </OurParagraph>
               </div>
-              {hasScrollableCoaches && (
-                <ArrowButtons
-                  containerRef={containerRef}
-                  style={{ marginLeft: "auto" }}
-                />
-              )}
+              {hasScrollableCoaches && <ArrowButtons containerRef={containerRef} style={{ marginLeft: "auto" }} />}
             </div>
 
             <Filter
@@ -100,12 +92,11 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
 
             <div className="coaches-description">
               <p>
-                In publishing and graphic design, Lorem ipsum is a placeholder text
-                commonly used to demonstrate the visual form of a document or a
-                typeface without relying on meaningful content. Lorem ipsum may be
-                used as a placeholder before final copy is availa a typeface without
-                relying on meaningful content. Lorem ipsum may be used as a
-                placeholder before final copy is availa
+                Ask a question! Get help for you neighbors! <br />
+                
+                They are able to help understand heat pumps, community solar and home solar and how they work. They
+                answer your questions and have no financial stake in the outcome. Coaches have been through some
+                training and often also have their own heat pumps, home solar and/or a community solar subscription.
               </p>
               <div
                 style={{
