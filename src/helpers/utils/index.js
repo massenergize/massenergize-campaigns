@@ -11,7 +11,7 @@ export const isEmpty = function (str) {
  *
  * @param strArr {Array<String>}
  */
-export const allEmpty = function allEmpty (strArr) {
+export const allEmpty = function allEmpty(strArr) {
   return strArr.every(isEmpty);
 };
 
@@ -19,7 +19,7 @@ export const allEmpty = function allEmpty (strArr) {
  *
  * @param strArr {Array<String>}
  */
-export const someEmpty = function someEmpty (strArr) {
+export const someEmpty = function someEmpty(strArr) {
   return strArr.some(isEmpty);
 };
 
@@ -45,7 +45,7 @@ export const isNumber = function (value) {
  * @param value {String}
  * @returns {boolean}
  */
-export function isString (value) {
+export function isString(value) {
   return typeof value === "string";
 }
 
@@ -54,7 +54,7 @@ export function isString (value) {
  * @param value {Array}
  * @returns {arg is any[]}
  */
-export function isArray (value) {
+export function isArray(value) {
   return Array.isArray(value);
 }
 
@@ -64,10 +64,12 @@ export function isArray (value) {
  * @returns {boolean}
  */
 export const isArrayLike = function (obj) {
-  const type = typeof (obj);
+  const type = typeof obj;
   // We do not use isObject here in order to exclude function values.
-  return obj !== null && (type === 'array' || type === 'string' || (type === 'object' && typeof obj.length === 'number'));
-}
+  return (
+    obj !== null && (type === "array" || type === "string" || (type === "object" && typeof obj.length === "number"))
+  );
+};
 
 /**
  *
@@ -151,7 +153,7 @@ export const getQueryParams = function (url) {
     let queryArray = queryString.split("&");
 
     queryArray.forEach((param) => {
-      let [ key, value ] = param.split("=");
+      let [key, value] = param.split("=");
       params[key] = value ? decodeURIComponent(value.replace(/\+/g, " ")) : "";
     });
 
@@ -197,7 +199,7 @@ export const createPreviewImage = function (image) {
   return null;
 };
 
-function readFile (file) {
+function readFile(file) {
   return new Promise((resolve) => {
     const reader = new FileReader();
     reader.addEventListener("load", () => resolve(reader.result), false);
@@ -239,7 +241,7 @@ export const handleImageFileInputChange = async function (name, event, onChange)
         onChange(name, { image, imageDataUrl, imageFile }, event);
       }
 
-      return { image, imageDataUrl, imageFile, name, };
+      return { image, imageDataUrl, imageFile, name };
     }
   }
 };
@@ -261,7 +263,7 @@ export const formatPhoneNumber = (phoneNumber, numberType = "INTERNATIONAL", cou
  * @param filename {String}
  * @returns {File}
  */
-export function dataURItoFile (dataUri, filename) {
+export function dataURItoFile(dataUri, filename) {
   let arr = dataUri.split(",");
   let mimeType = arr[0].match(/:(.*?);/)[1];
   let byteStr = atob(arr[1]);
@@ -272,7 +274,7 @@ export function dataURItoFile (dataUri, filename) {
     u8arr[bStringLength] = byteStr.charCodeAt(bStringLength);
   }
 
-  return new File([ u8arr ], filename, { type : mimeType });
+  return new File([u8arr], filename, { type: mimeType });
 }
 
 /**
@@ -280,7 +282,7 @@ export function dataURItoFile (dataUri, filename) {
  * @param dataURI {URL}
  * @returns {Blob}
  */
-export function dataURItoBlob (dataURI) {
+export function dataURItoBlob(dataURI) {
   // convert base64/URLEncoded data component to raw binary data held in a string
   var byteString;
   if (dataURI.split(",")[0].indexOf("base64") >= 0) {
@@ -295,7 +297,7 @@ export function dataURItoBlob (dataURI) {
   for (var i = 0; i < byteString.length; i++) {
     ia[i] = byteString.charCodeAt(i);
   }
-  return new Blob([ ia ], { filename : "image.jpg", type : mimeString, });
+  return new Blob([ia], { filename: "image.jpg", type: mimeString });
 }
 
 /**
@@ -303,7 +305,7 @@ export function dataURItoBlob (dataURI) {
  * @param file {File}
  * @returns {Promise<unknown>}
  */
-export function fileToBlobDataUrl (file) {
+export function fileToBlobDataUrl(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result);
@@ -318,35 +320,41 @@ export function fileToBlobDataUrl (file) {
  * @param fileType
  * @returns {ArrayBuffer}
  */
-export function fileToBlob (file, fileType) {
+export function fileToBlob(file, fileType) {
   fileType = fileType || file.type;
 
   return new Promise((resolve) => {
     const reader = new FileReader();
-    reader.addEventListener("load", () => resolve(reader.result), { type : fileType });
+    reader.addEventListener("load", () => resolve(reader.result), { type: fileType });
     reader.readAsArrayBuffer(file);
   });
 }
 
-export function ArrayFromLength (length, callback) {
+export function ArrayFromLength(length, callback) {
   return Array.from({ length }, callback ? callback : () => undefined);
 }
 
-export const formatDebugValue = ({label, value}) =>
-  label + ': ' + (typeof value === 'object' ? JSON.stringify(value) : value);
+export const formatDebugValue = ({ label, value }) =>
+  label + ": " + (typeof value === "object" ? JSON.stringify(value) : value);
 
 export const imageExists = (containerObject, key) => {
   return typeof containerObject[key]?.url !== "undefined";
-}
+};
 
 export const getImageValue = (containerObject, key) => {
-  if (imageExists(containerObject, key)) {
-    return {}
-  }
+  const value = containerObject[key];
+  const isNormalJson = value && typeof value?.url === "string";
 
-  if (containerObject[key] === null || typeof containerObject[key] === "undefined") {
-    return { [key]: RESET }
-  }
+  if (!value) return { [key]: "reset" };
+  if (isNormalJson) return {};
+  return { [key]: value };
+  // if (imageExists(containerObject, key)) {
+  //   return {}
+  // }
 
-  return { [key]: containerObject[key] }
-}
+  // if (containerObject[key] === null || typeof containerObject[key] === "undefined") {
+  //   return { [key]: RESET }
+  // }
+
+  // return { [key]: containerObject[key] }
+};

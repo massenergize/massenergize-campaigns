@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Col, Container, Row, Button as BTN } from "react-bootstrap";
 import Input from "./Input";
 import { Dropdown } from "@kehillahglobal/ui";
@@ -10,7 +10,9 @@ import MERichText from "./RichText";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import Form from "react-bootstrap/Form";
 import "./sideNav.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { apiCall } from "src/api/messenger";
+import { setMassEnergizeUsersAction } from "src/redux/actions/actions";
 
 const USER_TYPES = {
   MYSELF: "Myself",
@@ -25,7 +27,7 @@ const Testimonials = ({ campaign, onModalClose, startOfPage }) => {
 
   const { blow, pop } = useBubblyBalloons();
 
-  const { data: users } = useSWR("users.listForCommunityAdmin", getUsers({ no_pagination: true }));
+  // const { data: users } = useSWR("users.listForCommunityAdmin", getUsers({ no_pagination: true }));
 
   const loggedInUser = useSelector((state) => state.authAdmin);
 
@@ -50,6 +52,20 @@ const Testimonials = ({ campaign, onModalClose, startOfPage }) => {
     }
   };
 
+  const reduxDispatch = useDispatch();
+  const users = useSelector((state) => state.massUsers);
+  const fetchUsers = () => {
+    apiCall("/users.listForCommunityAdmin").then((response) => {
+      const { data, success, error } = response || {};
+      if (!success) return console.log("ERROR_LOADIN_LIST_OF_MEUSERS:", error);
+      reduxDispatch(setMassEnergizeUsersAction(data));
+    });
+  };
+
+  useEffect(() => {
+    if (!users?.length) return fetchUsers();
+  }, []);
+
   const [formData, dispatch] = useReducer(reducer, initialState);
   const [userType, setUserType] = useState("");
   const [viewOpt, setViewOpt] = useState();
@@ -73,7 +89,6 @@ const Testimonials = ({ campaign, onModalClose, startOfPage }) => {
       const createdTestimonial = await createCampaignTestimonial(toSend);
 
       if (createdTestimonial) {
-        console.log("====success message===", createdTestimonial);
         // mutateData();
         setLoading(false);
         blow({

@@ -9,6 +9,7 @@ import {
   eventsListReducer,
   firebaseAuthObjReducer,
   fullTechnologiesReducer,
+  massEnergizeUsersReducer,
   navigationMenuReducer,
   testimonialsListReducer,
   testimonialsReducer,
@@ -31,4 +32,5 @@ export default combineReducers({
   comments: commentsListReducer,
   campaignAccount: campaignAccountReducer,
   isAdminPortal: adminPortalReducer,
+  massUsers: massEnergizeUsersReducer
 });

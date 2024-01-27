@@ -9,7 +9,7 @@ import Testimonials from "../../components/admin-components/Testimonials";
 import { Testimonials as TestPortal } from "./create-technology/Testimonials";
 import Loading from "src/components/pieces/Loading";
 
-const opts = ["All", "Featured"];
+const opts = ["All", "Only Featured"];
 const allOpts = ["On Campaign", "From Communities"];
 
 export function CampaignTestimonialsView({ campaignDetails }) {
@@ -127,6 +127,7 @@ export function CampaignTestimonialsView({ campaignDetails }) {
               {opts?.map((opt) => {
                 return (
                   <button
+                    style={{ marginRight: 5 }}
                     key={opt}
                     className={`py-2 px-5 text-dark tracking-wide rounded cursor-pointer border test-tab-opts ${
                       opt === show?.tabOne && "test-show-opt"

@@ -12,6 +12,7 @@ import {
   SET_FIRE_AUTH,
   SET_FULL_TECH_OBJ,
   SET_IS_ADMIN_PORTAL,
+  SET_MASSENERGISE_USERS,
   SET_NAVIGATION_MENU,
   SET_TESTIMONIALS,
   SET_USER_OBJ,
@@ -107,6 +108,14 @@ export const campaignAccountReducer = (state = {}, action) => {
 export const adminPortalReducer = (state = portalIsAdmin(), action) => {
   switch (action.type) {
     case SET_IS_ADMIN_PORTAL:
+      return action.payload; // return new state
+    default:
+      return state; // return current state if action is not handled
+  }
+};
+export const massEnergizeUsersReducer = (state =[], action) => {
+  switch (action.type) {
+    case SET_MASSENERGISE_USERS:
       return action.payload; // return new state
     default:
       return state; // return current state if action is not handled
