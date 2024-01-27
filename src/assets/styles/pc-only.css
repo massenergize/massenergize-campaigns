@@ -2,7 +2,7 @@
   .page-title {
     text-align: center;
     font-size: 3rem;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
   }
   .roaming-container {
     margin: 100px 0px;

@@ -73,7 +73,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
                     marginBottom: 20,
                   }}
                 >
-                  Meet The Coaches
+                  Meet the coaches
                 </h2>
                 <OurParagraph>
                   Scroll from left to right to see more coaches, or use the arrow buttons(top right) to scroll

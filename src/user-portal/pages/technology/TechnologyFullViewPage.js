@@ -362,7 +362,7 @@ function TechnologyFullViewPage({
                       width: "83%",
                     }}
                   >
-                    Get all deals and updates on this technology!
+                    {`Get updates on ${technology?.name || "..."}`}
                   </p>
                 </div>
                 <div
