@@ -14,7 +14,7 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [formData, setFormData] = useState({
     ...(communities?.reduce((acc, item) => {
-      acc[item?.id] = { help_link: item?.help_link };
+      acc[item?.id] = { help_link: item?.help_link, alias: item?.alias };
       return acc;
     }, {}) || {}),
   });
@@ -36,8 +36,6 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
       setActiveAccordion(index);
     }
   };
-
-
 
   const handleSave = async (tabId) => {
     setLoading(true);
@@ -68,9 +66,10 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
         <Row className={"mb-4"} key={item?.id}>
           <Col>
             <CustomAccordion
-              title={`Add Help Link for ${item?.community?.name}`}
+              title={`Add Help Link for ${item?.alias || item?.community?.name}`}
               component={
                 <HelpLinkForm
+                  data={item}
                   getValue={getValue}
                   tabId={activeAccordion}
                   handleFieldChange={handleFieldChange}
@@ -88,10 +87,10 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
   );
 }
 
-const HelpLinkForm = ({ handleFieldChange, tabId, getValue, handleSave, loading }) => {
+const HelpLinkForm = ({ handleFieldChange, tabId, getValue, handleSave, loading, data }) => {
   return (
     <div>
-      <Row className="mt-3">
+      <Row className="m-3">
         <Col>
           <Input
             label="Help Link"
@@ -102,6 +101,18 @@ const HelpLinkForm = ({ handleFieldChange, tabId, getValue, handleSave, loading 
               handleFieldChange(tabId, "help_link", val);
             }}
             value={getValue(tabId, "help_link")}
+          />
+        </Col>
+        <Col>
+          <Input
+            label="Community Alias"
+            placeholder={`The current name is ${data?.community?.name || "..."}, want to try something else?`}
+            required={false}
+            type="textbox"
+            onChange={(val) => {
+              handleFieldChange(tabId, "alias", val);
+            }}
+            value={getValue(tabId, "alias")}
           />
         </Col>
       </Row>
