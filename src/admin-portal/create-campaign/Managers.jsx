@@ -114,9 +114,7 @@ function Managers({ campaignDetails, setCampaignDetails, setStep, lists }) {
         campaign_manager_id: manager.id,
       });
       if (res.success) {
-        const newManagers = campaignManagers?.filter(
-          (item) => item.id !== manager.id,
-        );
+        const newManagers = campaignManagers?.filter((item) => item.id !== manager.id);
         updateCampaignDetails("managers", newManagers);
 
         handleClose();
@@ -162,6 +160,7 @@ function Managers({ campaignDetails, setCampaignDetails, setStep, lists }) {
           <Col>
             {campaignManagers?.length > 0 ? (
               <CampaignManagersView
+                updateCampaignDetails={updateCampaignDetails}
                 managers={campaignManagers || []}
                 // events={allManagers}
                 pagination
@@ -184,9 +183,7 @@ function Managers({ campaignDetails, setCampaignDetails, setStep, lists }) {
                   <h5 className="">No managers added to this campaign</h5>
                 </div>
                 <div className="text-center">
-                  <h6 className="text-muted">
-                    Click the 'Add Managers' button to add
-                  </h6>
+                  <h6 className="text-muted">Click the 'Add Managers' button to add</h6>
                   <div className="mt-4">
                     <BTN variant={"success"} onClick={() => setShowSearchModal(true)}>
                       <span>Add Manager</span>
@@ -201,9 +198,7 @@ function Managers({ campaignDetails, setCampaignDetails, setStep, lists }) {
 
       <Modal size={"lg"} show={showSearchModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title className={"text-sm"}>
-            Add a manager to {campaignDetails?.title}
-          </Modal.Title>
+          <Modal.Title className={"text-sm"}>Add a manager to {campaignDetails?.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Row>

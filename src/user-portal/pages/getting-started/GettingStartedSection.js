@@ -24,13 +24,7 @@ const dummies = [
   },
 ];
 
-function GettingStartedSection ({
-  sectionId,
-  technologies,
-  scrollToCommunities,
-  trackActivity,
-  authUser,
-}) {
+function GettingStartedSection({ sectionId, technologies, scrollToCommunities, trackActivity, authUser }) {
   // console.log("these are the technologies", technologies);
   return (
     <div
@@ -42,12 +36,11 @@ function GettingStartedSection ({
       <Container>
         <Row>
           <Col lg={{ span: 12 }}>
-            <h2 style={{ color: "white", fontWeight: "bold" }}>
-              Getting Started
-            </h2>
+            <h2 style={{ color: "white", fontWeight: "bold" }}>Getting Started</h2>
             <p style={{ color: "white", marginBottom: 20 }}>
-              Explore the actions we have under these technologies and get
-              started right away!
+              {/* This section should be edited via the admin portal */}
+              'Volt' into solar and heat pump action!
+              {/* Explore the actions we have under these technologies and get started right away! */}
             </p>
             <Row
               style={{
@@ -60,20 +53,12 @@ function GettingStartedSection ({
               {technologies?.map((box, index) => {
                 return (
                   <Col key={box.id} md={4} lg={3} sm={6} xs={6} className="one-tech-wrapper mb-4">
-                    <OneBox
-                      {...box}
-                      trackActivity={trackActivity}
-                      authUser={authUser}
-                    />
+                    <OneBox {...box} trackActivity={trackActivity} authUser={authUser} />
                   </Col>
                 );
               })}
-              <Col md={3} lg={3}  sm={6} xs={6} className="one-tech-wrapper">
-                <DoMoreBox
-                  scrollToCommunities={() =>
-                    scrollToCommunities && scrollToCommunities()
-                  }
-                />
+              <Col md={3} lg={3} sm={6} xs={6} className="one-tech-wrapper">
+                <DoMoreBox scrollToCommunities={() => scrollToCommunities && scrollToCommunities()} />
               </Col>
             </Row>
 
@@ -141,18 +126,15 @@ const DoMoreBox = ({ scrollToCommunities }) => {
           //   // marginBottom: 10,
           // }}
         />
-        <h5 style={{ color: "var(--app-medium-green)" }}>Do More</h5>
-        <p style={{ textAlign: "center" }}>
-          Want to do more? Check out other actions you can take on our community
-          sites!
-        </p>
+        <h5 style={{ color: "var(--app-medium-green)" }}>Communities</h5>
+        <p style={{ textAlign: "center" }}>Connect with your community and check out other actions</p>
         <Button
           variant={"link"}
           onClick={(e) => {
             e.preventDefault();
             scrollToCommunities();
           }}
-          className="touchable-opacity"
+          className="touchable-opacity  pc-vanish"
           // href={`/technology/${campaign_technology_id}`}
           // onClick={() => navigator()}
           style={{ fontWeight: "bold", color: "var(--app-orange)" }}
@@ -177,7 +159,7 @@ const DoMoreBox = ({ scrollToCommunities }) => {
           style={{ background: "var(--app-medium-green)" }}
           className="tech-btn elevate-2 touchable-opacity"
         >
-          DO MORE!
+          <span style={{ fontSize: 15 }}> Communities</span>
         </Button>
       </div>
     </div>

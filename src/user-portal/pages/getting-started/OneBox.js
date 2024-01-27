@@ -5,7 +5,7 @@ import { HOMEPAGE } from "../../../utils/Constants";
 import RenderHTML from "../../../components/RenderHtml";
 import { ellipsify, isEmpty } from "../../../helpers/utils/string";
 
-function OneBox ({
+function OneBox({
   icon,
   description,
   name,
@@ -71,11 +71,9 @@ function OneBox ({
             // style={{ height: 100, width: 100, objectFit: "contain" }}
           />
         )}
-        <h5>{name}</h5>
+        <h5 style={{ textTransform: "capitalize" }}>{name}</h5>
         {/* <RenderHTML tag={"p"} html={!isEmpty(description) ? ellipsify(description, 80) : "..."} /> */}
-        <p style={{ textAlign: "center" }}>
-          {summary?.substring(0, 80) || "..."}
-        </p>
+        <p style={{ textAlign: "center" }}>{summary?.substring(0, 80) || "..."}</p>
         <Button
           variant={"link"}
           className="touchable-opacity link-accent"

@@ -7,7 +7,7 @@ import { MOBILE_WIDTH } from "../../../utils/Constants";
 import { useMediaQuery } from "react-responsive";
 
 const EXCLUDED_FOOTER_MENU_KEYS = ["incentives", "vendors"];
-function Footer ({ toggleModal, campaign, authUser }) {
+function Footer({ toggleModal, campaign, authUser }) {
   const navigator = useNavigate();
   const { navigation } = campaign || {};
   const { user } = authUser || {};
@@ -42,24 +42,14 @@ function Footer ({ toggleModal, campaign, authUser }) {
     toggleModal({
       show: true,
       component: (props) => (
-        <JoinUsForm
-          {...(props || {})}
-          confirmText="Subscribe"
-          callbackOnSubmit={({ close }) => close && close()}
-        />
+        <JoinUsForm {...(props || {})} confirmText="Subscribe" callbackOnSubmit={({ close }) => close && close()} />
       ),
       title: `Follow ${campaign?.title}` || "...",
       fullControl: true,
     });
   };
 
-  if (isMobile)
-    return (
-      <MobileFooter
-        signUpForNewsletter={signUpForNewsletter}
-        renderMenus={renderMenus}
-      />
-    );
+  if (isMobile) return <MobileFooter signUpForNewsletter={signUpForNewsletter} renderMenus={renderMenus} />;
   return (
     <div
       className="phone-vanish"
@@ -80,10 +70,11 @@ function Footer ({ toggleModal, campaign, authUser }) {
       >
         <Container>
           <Col lg={{ span: 6, offset: 3 }}>
-            <h4 style={{ color: "white" }}>Newsletter</h4>
+            {/* We should be able to change this part tooo from the admin portal */}
+            <h4 style={{ color: "white" }}>Plug In for Updates</h4>
             <p style={{ color: "white" }}>
-              Unlock all the exclusive deals from our vendors, and stay updated
-              with all actions you can take to help save the planet!
+              Sign up for email updates with the latest info on events and incentives, on heat pumps, community solar
+              and home solar.
             </p>
             <Button
               className="elevate-float-pro touchable-opacity"
@@ -110,8 +101,7 @@ function Footer ({ toggleModal, campaign, authUser }) {
               >
                 <i>
                   {" "}
-                  You've already subscribed with{" "}
-                  <b style={{}}>'{user?.email || ""}' </b>
+                  You've already subscribed with <b style={{}}>'{user?.email || ""}' </b>
                 </i>
               </p>
             )}
@@ -169,10 +159,11 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus }) => {
           flexDirection: "column",
         }}
       >
-        <h5 style={{ color: "white" }}>Newsletter</h5>
+        <h5 style={{ color: "white" }}>Plug In for Updates</h5>
         <p style={{ color: "white", fontSize: "var(--mob-normal-font-size" }}>
-          Unlock all the exclusive deals from our vendors, and stay updated with
-          all actions you can take to help save the planet!
+          {/* We should be able to change the footer info from teh admin side */}
+          Sign up for email updates with the latest info on events and incentives, on heat pumps, community solar and
+          home solar.
         </p>
         <Button
           className="elevate-float-pro touchable-opacity"

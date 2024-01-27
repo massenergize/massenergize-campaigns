@@ -45,6 +45,7 @@ function Coaches({
 
   const interactWithCoachForm = () => {
     // setShowCoachForm(true);
+    resetForm()
     if (coachFormRef?.current) coachFormRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -108,6 +109,7 @@ function Coaches({
       if (isEditing) {
         let rem = coaches?.filter((it) => it?.id !== data?.id);
         items = [...rem, data];
+        resetForm()
       } else {
         items = [...(coaches || []), res?.data];
         resetForm();
@@ -242,11 +244,11 @@ function Coaches({
 
   const formHasContent = objHasContent(formData);
   return (
-    <div className="px-5 mt-4">
+    <div className="">
       {/* section title and description */}
       <div className="py-5">
         <CustomAccordion
-          title={"Customize The Title and Description of Coaches Section"}
+          title={"Customize the title and description of the coaches section"}
           component={
             <SectionForm
               section="coaches_section"

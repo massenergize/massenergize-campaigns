@@ -75,7 +75,7 @@ function EventsSection ({ sectionId, technologies }) {
                 marginBottom: 20,
               }}
             >
-              Featured Events
+              Events
             </h2>
             <p>Click on any of the tabs to see events under each technology</p>
 
