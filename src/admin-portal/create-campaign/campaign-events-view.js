@@ -20,12 +20,13 @@ export function CampaignEventsView ({ events, campaign }) {
   //@Todo: Add a mutate to update main
 
   const [loading, setLoading] = useState(false);
-  const { id } = useParams();
+  const { id : ID } = useParams();
+
+  let id = campaign?.id || ID
 
   const { data: allEvents, isLoading } = useSWR(
-    "campaigns.communities.events.list",
-    () => fetchEvents(campaign?.id || id),
-    {
+    `campaigns.communities.events.list/${id}`,
+    () => fetchEvents(campaign?.id || id), {
       shouldRetryOnError: true,
       errorRetryCount: 3,
       errorRetryInterval: 3000,
