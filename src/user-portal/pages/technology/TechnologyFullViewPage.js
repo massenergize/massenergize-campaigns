@@ -58,7 +58,6 @@ function TechnologyFullViewPage({
   updateUserInRedux,
   navigation,
 }) {
-  console.log("This is the navigation", navigation);
   const authUser = user;
   // const hasUser = authUser?.user;
   const [mounted, setMounted] = useState(false);

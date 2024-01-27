@@ -12,7 +12,6 @@ function Footer({ toggleModal, campaign, authUser }) {
   const { navigation } = campaign || {};
   const { user } = authUser || {};
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
-
   const renderMenus = (styles = {}) => {
     return (navigation || []).map(({ text, key, url }, index) => {
       const isExcluded = EXCLUDED_FOOTER_MENU_KEYS.includes(key);
