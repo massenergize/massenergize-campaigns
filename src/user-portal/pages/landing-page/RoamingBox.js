@@ -39,7 +39,6 @@ function RoamingBox({ advert, keyContact, showMore }) {
                             style={{ marginTop: 10 }}
                             onClick={() => showMore && showMore()}
                             className="elevate-2 touchable-opacity app-btn"
-
                           >
                             Learn More
                           </Button>
@@ -119,8 +118,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
                   role={"button"}
                   tabIndex={0}
                   onClick={() => {
-                    // window.open(`mailto:${keyContact?.email}`, "_blank"); WILL BE BACK SOON
-                    window.open(`mailto:plugINmetrowest@massenergize.org`, "_blank");
+                    window.open(`mailto:${keyContact?.email}`, "_blank");
                   }}
                   className="mb-1 touchable-opacity"
                   style={{
@@ -132,8 +130,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
                   }}
                 >
                   <i className=" fa fa-envelope" style={{ marginRight: 6 }} />
-                  {/* <span> {keyContact?.email}</span>  CHANGE IT BACK WHEN ADMIN PORTAL IS WORKING*/}
-                  <span>plugINmetrowest@massenergize.org</span>
+                  <span> {keyContact?.email}</span>
                 </p>
               )}
               {phone_number && (
