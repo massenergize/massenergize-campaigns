@@ -16,7 +16,7 @@ import { fetchEvents } from "src/requests/technology-requests";
 import { NoItems } from "@kehillahglobal/ui";
 import Dropdown from "src/components/admin-components/Dropdown";
 
-export function CampaignEventsView ({ events, campaign }) {
+export function CampaignEventsView ({campaign }) {
   //@Todo: Add a mutate to update main
 
   const [loading, setLoading] = useState(false);
@@ -135,7 +135,7 @@ export function CampaignEventsView ({ events, campaign }) {
   );
 
   return (
-    <Container style={{ height: "100vh" }}>
+    <Container fluid style={{ height: "100vh" }}>
       {EVENTS_SIZE > 0 && (
         <Container>
           <div
@@ -145,14 +145,14 @@ export function CampaignEventsView ({ events, campaign }) {
               marginBottom: 10,
             }}
           >
-            <BTN onClick={() => setOpenModal(true)}>
-              <span>Add Events</span>
+            <BTN variant="success" onClick={() => setOpenModal(true)}>
+              <span>Add Event</span>
             </BTN>
           </div>
         </Container>
       )}
 
-      <Container>
+      <div>
         <Row className=" pb-4 justify-content-start mt-4">
           {EVENTS_SIZE > 0 ? (
             <>
@@ -214,7 +214,7 @@ export function CampaignEventsView ({ events, campaign }) {
                                 handleRemove(event?.id);
                               }
                             }}
-                            variant="primary"
+                            variant="danger"
                           >
                             <span>Remove</span>
                           </BTN>
@@ -242,13 +242,13 @@ export function CampaignEventsView ({ events, campaign }) {
             </div>
           )}
         </Row>
-      </Container>
+      </div>
 
       <Modal size={"xl"} show={openModal} onHide={onModalClose}>
         <Modal.Header closeButton>
           <Modal.Title className={"text-sm"}>Events Selection</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ height: "70vh" }}>
+        <Modal.Body style={{ height: "40vh" }}>
           {eventsToShow?.length > 0 ? (
             <form>
               <Row className="mt-2" style={{ height: "180px" }}>
@@ -292,30 +292,13 @@ export function CampaignEventsView ({ events, campaign }) {
                           setSelectedTech(selectedItem);
                         }}
                       />
-                      {/* <Form.Select
-                        onChange={(e) => {
-                          setSelectedTech(e.target.value);
-                        }}
-                      >
-                        <option> ----- -----</option>
-                        {(techs || []).map((tech) => {
-                          return (
-                            <option
-                              key={tech?.id}
-                              value={tech?.campaign_technology_id}
-                            >
-                              {tech?.name}
-                            </option>
-                          );
-                        })}
-                      </Form.Select> */}
                     </Col>
                   </Row>
                 </Col>
               </Row>
             </form>
           ) : (
-            <NoItems />
+            <NoItems text="The participating communities in this campaign do not have published events" />
           )}
 
           <Row className="mt-4">

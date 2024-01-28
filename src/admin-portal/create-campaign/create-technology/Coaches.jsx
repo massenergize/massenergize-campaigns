@@ -13,6 +13,7 @@ import CustomAccordion from "../../../components/admin-components/CustomAccordio
 import SectionForm from "./SectionsForm";
 import noCoach from "./../../../assets/imgs/no-coach.png";
 import { objHasContent } from "src/utils/utils";
+import MeModal from "src/components/MEModal/MeModal";
 const INITIAL_COACH_STATE = {
   technology_id: "",
   full_name: "",
@@ -42,6 +43,7 @@ function Coaches({
   const [isEditing, setIsEditing] = useState(false);
   const coachFormRef = useRef(null);
   const [openAccordion, setOpenAccordion] = useState(false);
+  const [showCoachForm, setShowCoachForm] = useState(false);
 
   const interactWithCoachForm = () => {
     // setShowCoachForm(true);
@@ -122,6 +124,7 @@ function Coaches({
   const resetForm = () => {
     setFormData({ image: RESET });
     setIsEditing(false);
+    setShowCoachForm(false);
   };
 
   const renderSelectedCoaches = () => {
@@ -162,7 +165,7 @@ function Coaches({
                         const editObj = { ...item, image: item?.image?.url || "" };
                         setFormData(editObj);
                         setIsEditing(true);
-                        interactWithCoachForm();
+                        setShowCoachForm(true);
                       }}
                     >
                       Edit
@@ -190,52 +193,13 @@ function Coaches({
               padding: "20px 0px",
               display: "inline-block",
             }}
-            onClick={() => interactWithCoachForm()}
+            onClick={() => setShowCoachForm(true)}
           >
             <i className="fa fa-plus" style={{ marginRight: 6 }}></i> Add a new coach{" "}
           </h6>
         </Col>
       </Row>
     );
-    // return (
-    //   <Row className="py-4">
-    //     <Col>
-    //       <h5 className="theme-color">Selected Coaches</h5>
-    //       <p className="my-4">
-    //         All the coaches you add will appear here. Add as many as you need!
-    //       </p>
-    //       {coaches?.map((item, index) => {
-    //         return (
-    //           <Chip
-    //             // className="mr-5"
-    //             style={{ marginRight: 6 }}
-    //             key={index}
-    //             text={item?.full_name}
-    //             onDismiss={() => {
-    //               let items = [...coaches];
-    //               items.splice(index, 1);
-    //               setCoaches(items);
-    //             }}
-    //             onClick={() => {
-    //               const editObj = { ...item, image: item?.image?.url || "" };
-    //               setFormData(editObj);
-    //               setIsEditing(true);
-    //               // setQuery();
-    //               // setShowCoachModal(true);
-    //             }}
-    //           />
-    //         );
-    //       })}
-    //     </Col>
-    //     {coaches?.length ? (
-    //       <small style={{ color: "grey", marginTop: 8 }}>
-    //         Click on any coach to edit
-    //       </small>
-    //     ) : (
-    //       <></>
-    //     )}
-    //   </Row>
-    // );
   };
 
   const { lists, handleCampaignDetailsChange: setCampaignDetails } = useCampaignContext();
@@ -263,7 +227,7 @@ function Coaches({
       </div>
 
       <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
-        <BootButton style={{ marginLeft: "auto" }} variant="success" onClick={() => interactWithCoachForm()}>
+        <BootButton style={{ marginLeft: "auto" }} variant="success" onClick={() => setShowCoachForm(true)}>
           <i className="fa fa-plus" style={{ marginRight: 7 }} />
           Add A New Coach
         </BootButton>
@@ -274,11 +238,11 @@ function Coaches({
           {renderSelectedCoaches()}
         </Container>
       )}
-      <div ref={coachFormRef} className="my-5">
-        <form style={{ border: "dashed 2px #eeeeee", padding: "40px" }}>
+
+      <MeModal open={showCoachForm} onHide={()=>setShowCoachForm(false)} title={isEditing ? `Editing "${formData?.full_name}"` : "Add A New Coach"} >
+      <form style={{ }}>
           <Row>
             <Col>
-              <h5 className="theme-color">{isEditing ? `Editing "${formData?.full_name}"` : "Add A New Coach"}</h5>
               <p className="my-4">Please include details of the new Coach of this technology</p>
             </Col>
           </Row>
@@ -379,12 +343,15 @@ function Coaches({
                   }}
                   className="touchable-opacity"
                 >
-                  Reset Form
+                  Close
                 </small>
               )}
             </Col>
           </Row>
         </form>
+      </MeModal>
+      <div ref={coachFormRef} className="my-5">
+
       </div>
     </div>
   );

@@ -20,10 +20,9 @@ const USER_TYPES = {
   OTHER: "Other",
 };
 
-const Testimonials = ({ campaign, onModalClose, startOfPage }) => {
+const Testimonials = ({ campaign, onModalClose, startOfPage, updateTestimonial }) => {
   const techs = campaign?.technologies;
   const communities = campaign?.communities;
-  // let testimonials = [...techs?.map((tech) => tech?.testimonials)].flat();
 
   const { blow, pop } = useBubblyBalloons();
 
@@ -89,7 +88,7 @@ const Testimonials = ({ campaign, onModalClose, startOfPage }) => {
       const createdTestimonial = await createCampaignTestimonial(toSend);
 
       if (createdTestimonial) {
-        // mutateData();
+        updateTestimonial(createdTestimonial);
         setLoading(false);
         blow({
           title: "Success",
@@ -100,18 +99,15 @@ const Testimonials = ({ campaign, onModalClose, startOfPage }) => {
         return;
       }
     } catch (err) {
-      console.log("====err message===", err);
       setLoading(false);
       pop({
         title: "Error",
-        message: "An error occured while creating testimonial",
+        message: "An error occurred while creating testimonial",
         type: "error",
         duration: 5000,
       });
     }
   };
-
-  // {, body, , , , }
 
   return (
     <div>
