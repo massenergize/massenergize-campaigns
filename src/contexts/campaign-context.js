@@ -94,15 +94,15 @@ export function CampaignProvider ({ children }) {
     return await fetchAllTechnologies(getAccFromLocalStorage());
   }, { ...SWR_CONFIG, });
 
-  const {
-    // initialData: allPartnersInitialData,
-    data: allPartners,
-    error: allPartnersError,
-    isValidating: allPartnersIsValidating,
-    isLoading: allPartnersIsLoading,
-  } = useSWR("partners.list", async () => {
-    await fetchAllPartners("partners.list")
-  }, { ...SWR_CONFIG, });
+  // const {
+  //   // initialData: allPartnersInitialData,
+  //   data: allPartners,
+  //   error: allPartnersError,
+  //   isValidating: allPartnersIsValidating,
+  //   isLoading: allPartnersIsLoading,
+  // } = useSWR("partners.list", async () => {
+  //   await fetchAllPartners("partners.list")
+  // }, { ...SWR_CONFIG, });
 
   // const {
   //   data: allEvents,
@@ -126,12 +126,12 @@ export function CampaignProvider ({ children }) {
   // });
 
   const lists = {
-    allPartners: {
-      data: addLabelsAndValues(allPartners || []),
-      error: allPartnersError,
-      isValidating: allPartnersIsValidating,
-      isLoading: allPartnersIsLoading,
-    },
+    // allPartners: {
+    //   data: addLabelsAndValues(allPartners || []),
+    //   error: allPartnersError,
+    //   isValidating: allPartnersIsValidating,
+    //   isLoading: allPartnersIsLoading,
+    // },
     allManagers: {
       // data: allManagers,
       // error: allManagersError,
