@@ -123,7 +123,6 @@ export function truncateRichText(richText, maxHeight) {
   const contentHeight = tempDiv.offsetHeight + 40;
   var isLong = false;
 
-
   // If the content height is within the specified limit, no need to truncate
   if (contentHeight <= maxHeight) {
     document.body.removeChild(tempDiv);
@@ -168,15 +167,17 @@ export const objHasContent = (obj) => {
   return Object.keys(obj || {}).length > 0;
 };
 
-
 export function findItemAtIndexAndRemainder(arr, comparator) {
+  const remainder = [];
+  let foundItem;
+  let index = -1;
   for (let i = 0; i < arr.length; i++) {
-      if (comparator(arr[i])) {
-          const foundItem = arr[i];
-          const remainder = arr.slice(i + 1);
-          return { item: foundItem, remainder, index: i };
-      }
+    const found = arr[i];
+    if (comparator && comparator(found)) {
+      foundItem = found;
+      index = i;
+    } else remainder.push(found);
   }
-  // If the item is not found, return null
-  return null;
+
+  return { index, foundItem, remainder };
 }

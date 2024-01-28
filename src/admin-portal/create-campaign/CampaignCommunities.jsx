@@ -42,7 +42,10 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
     try {
       const res = await updateCampaignCommunityInfo({ campaign_community_id: tabId, ...formData[tabId] });
       setLoading(false);
-      const { remainder, index } = findItemAtIndexAndRemainder(campaignDetails?.communities, (com) => com.id);
+      const { remainder, index, foundItem } = findItemAtIndexAndRemainder(
+        campaignDetails?.communities,
+        (found) => found.id === res?.id,
+      );
       remainder.splice(index, 0, res);
       setCampaignDetails("communities", remainder);
       blow({
