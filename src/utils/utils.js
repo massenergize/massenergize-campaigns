@@ -123,7 +123,6 @@ export function truncateRichText(richText, maxHeight) {
   const contentHeight = tempDiv.offsetHeight + 40;
   var isLong = false;
 
-  console.log("Here is the content height", contentHeight);
 
   // If the content height is within the specified limit, no need to truncate
   if (contentHeight <= maxHeight) {

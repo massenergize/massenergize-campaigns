@@ -128,6 +128,7 @@ const DoMoreBox = ({ scrollToCommunities }) => {
         />
         <h5 style={{ color: "var(--app-medium-green)" }}>Communities</h5>
         <p style={{ textAlign: "center" }}>Connect with your community and check out other actions</p>
+
         <Button
           variant={"link"}
           onClick={(e) => {
