@@ -24,7 +24,14 @@ const dummies = [
   },
 ];
 
-function GettingStartedSection({ sectionId, technologies, scrollToCommunities, trackActivity, authUser }) {
+function GettingStartedSection({
+  sectionId,
+  customization,
+  technologies,
+  scrollToCommunities,
+  trackActivity,
+  authUser,
+}) {
   // console.log("these are the technologies", technologies);
   return (
     <div
@@ -36,10 +43,11 @@ function GettingStartedSection({ sectionId, technologies, scrollToCommunities, t
       <Container>
         <Row>
           <Col lg={{ span: 12 }}>
-            <h2 style={{ color: "white", fontWeight: "bold" }}>Getting Started</h2>
+            <h2 style={{ color: "white", fontWeight: "bold" }}>{customization?.title || "Getting Started"}</h2>
             <p style={{ color: "white", marginBottom: 20 }}>
               {/* This section should be edited via the admin portal */}
-              'Volt' into solar and heat pump action!
+              {customization?.description ||
+                "Explore the actions we have under these technologies and get started right away!"}
               {/* Explore the actions we have under these technologies and get started right away! */}
             </p>
             <Row

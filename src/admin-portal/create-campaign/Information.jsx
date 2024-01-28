@@ -13,6 +13,9 @@ import { useNamedState } from "../../hooks/useNamedState";
 import { isEmpty } from "../../helpers/utils/string";
 import { BubblyBalloonContext } from "../../lib/bubbly-balloon/bubbly-balloon-context";
 import { getImageValue } from "../../helpers/utils";
+import CustomAccordion from "src/components/admin-components/CustomAccordion";
+import LandingPageCustomization from "./LandingPageCustomization";
+import Button from "src/components/admin-components/Button";
 
 const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
   const [showError, setShowError] = useState(false);
@@ -62,8 +65,6 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
         ...getImageValue(campaignDetails, "campaign_image"),
       };
 
-      // return console.log("I am the payload,campaignDetails", payload, campaignDetails);
-
       let response = await updateCampaign(payload);
 
       if (response) {
@@ -83,6 +84,11 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
 
   return (
     <>
+      <div style={{ marginBottom: 20 }}>
+        <CustomAccordion title="Add other page customizations to your main campaign page">
+          <LandingPageCustomization />
+        </CustomAccordion>
+      </div>
       <Row className="mt-0">
         <Col>
           <Input
@@ -226,9 +232,9 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
       </Row>
       <Row className="mt-4 justify-content-end">
         <Col>
-          <ProgressButton loading={loading} disabled={loading} onClick={handleSubmit}>
+          <Button loading={loading} disabled={loading} onClick={handleSubmit}>
             Save
-          </ProgressButton>
+          </Button>
         </Col>
       </Row>
       <Row className="mt-3 ">
