@@ -10,6 +10,7 @@ import TechnologyDeals from "../admin-portal/create-campaign/create-technology/T
 import CampaignTestimonials from "../admin-portal/create-campaign/CampaignTestimonials";
 import CampaignComments from "../admin-portal/create-campaign/CampaignComments";
 import CampaignCommunities from "../admin-portal/create-campaign/CampaignCommunities";
+import TechnologyActions from "../admin-portal/create-campaign/create-technology/TechnologyActions";
 export const campaignPages = [
   {
     name: "Information",
@@ -75,16 +76,15 @@ export const technologyPages = [
     key: "deals",
     component: TechnologyDeals,
   },
-  //   {
-  //     name: "Testimonials",
-  //     key: "testimonials",
-  //     component: Testimonials,
-  //   },
+  // ===== DON'T DELETE THIS COMMENTED CODE =====
+  // its a future feature
   // {
-  // 	name: "More",
-  // 	key: "more-config",
-  // 	component: AdvancedConfig,
+  //   name: "Actions To Take",
+  //   key: "actions-to-take",  
+  //   component: TechnologyActions,
   // },
+  // ====================================
+
 ];
 
 export const menus = [
