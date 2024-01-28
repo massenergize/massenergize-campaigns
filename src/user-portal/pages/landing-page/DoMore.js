@@ -22,7 +22,7 @@ function DoMore ({ campaign }) {
           </h2>
           <p>{description}</p>
           <Row>
-            {(communities || []).map(({ community, id }, index) => {
+            {(communities || []).map(({ community, id, alias }, index) => {
               return (
                 <Col
                   key={index?.toString() + id?.toString()}
@@ -62,7 +62,7 @@ function DoMore ({ campaign }) {
                       fontWeight: "bold",
                     }}
                   >
-                    {community?.name || "..."}
+                    {alias || community?.name || "..."}
                   </h6>
                 </Col>
               );

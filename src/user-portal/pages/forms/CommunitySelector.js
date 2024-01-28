@@ -36,7 +36,7 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
           updateState({ comId: value });
         }}
       >
-        {communities.map(({ community }) => {
+        {communities.map(({ community, alias }) => {
           const { id, name } = community || {};
           return (
             <Form.Check inline type="radio" id={`check-api-${id}`}>
@@ -49,7 +49,7 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
                   fontSize: 15,
                 }}
               >
-                {name}
+                {alias || name}
               </Form.Check.Label>
             </Form.Check>
           );

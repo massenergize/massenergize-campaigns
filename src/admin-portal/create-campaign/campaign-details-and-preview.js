@@ -54,7 +54,7 @@ export function CampaignDetailsAndPreview ({setStep,}) {
           {/*endregion*/}
 
           {/*region Body: Content goes here*/}
-          <Row className="mt-4 pt-4">
+          <Row className=" pt-4">
             <Col className={"px-4"}>
               {
                 campaignPages?.map((tab) => {

@@ -58,7 +58,6 @@ function TechnologyFullViewPage({
   updateUserInRedux,
   navigation,
 }) {
-  console.log("This is the navigation", navigation);
   const authUser = user;
   // const hasUser = authUser?.user;
   const [mounted, setMounted] = useState(false);
@@ -363,7 +362,7 @@ function TechnologyFullViewPage({
                       width: "83%",
                     }}
                   >
-                    Get all deals and updates on this technology!
+                    {`Get updates on ${technology?.name || "..."}`}
                   </p>
                 </div>
                 <div

@@ -7,28 +7,27 @@ import Button from "../../components/admin-components/Button";
 import SectionsForm from "./create-technology/SectionsForm";
 import { updateCampaignCommunityInfo } from "../../requests/campaign-requests";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
+import { findItemAtIndexAndRemainder } from "src/utils/utils";
 
-export default function CampaignCommunities({ campaignDetails }) {
+export default function CampaignCommunities({ campaignDetails, setCampaignDetails }) {
   const { communities } = campaignDetails;
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [formData, setFormData] = useState({
     ...(communities?.reduce((acc, item) => {
-      acc[item?.id] = { help_link: item?.help_link };
+      acc[item?.id] = { help_link: item?.help_link, alias: item?.alias };
       return acc;
     }, {}) || {}),
   });
 
-
   const [loading, setLoading] = useState(false);
 
-  const {blow, pop} = useBubblyBalloons()
+  const { blow, pop } = useBubblyBalloons();
 
   const handleFieldChange = (tabId, field, value) => {
     setFormData({ ...formData, [tabId]: { ...formData[tabId], [field]: value } });
   };
 
-  const getValue = (tabId, name, fallback = "") =>
-    (formData[tabId] || {})[name] || fallback;
+  const getValue = (tabId, name, fallback = "") => (formData[tabId] || {})[name] || fallback;
 
   const openAccordion = (index) => {
     if (activeAccordion === index) {
@@ -38,27 +37,26 @@ export default function CampaignCommunities({ campaignDetails }) {
     }
   };
 
-  const handleSave = async(tabId) => {
+  const handleSave = async (tabId) => {
     setLoading(true);
     try {
-      const res = await updateCampaignCommunityInfo({campaign_community_id: tabId, ...formData[tabId]})
-      setLoading(false)
-
-        blow({
-          title: "Success",
-          message: "Community information updated successfully",
-          type: "success",
-        });
-
-
-    }catch (e) {
-      setLoading(false)
+      const res = await updateCampaignCommunityInfo({ campaign_community_id: tabId, ...formData[tabId] });
+      setLoading(false);
+      const { remainder, index } = findItemAtIndexAndRemainder(campaignDetails?.communities, (com) => com.id);
+      remainder.splice(index, 0, res);
+      setCampaignDetails("communities", remainder);
+      blow({
+        title: "Success",
+        message: "Community information updated successfully",
+        type: "success",
+      });
+    } catch (e) {
+      setLoading(false);
       pop({
         title: "Error",
         message: "An error occurred while updating community information",
         type: "error",
       });
-
     }
   };
 
@@ -68,14 +66,17 @@ export default function CampaignCommunities({ campaignDetails }) {
         <Row className={"mb-4"} key={item?.id}>
           <Col>
             <CustomAccordion
-              title={`Add Help Link for ${item?.community?.name}`}
-              component={ <HelpLinkForm
-                getValue={getValue}
-                tabId={activeAccordion}
-                handleFieldChange={handleFieldChange}
-                handleSave={handleSave}
-                loading={loading}
-              />}
+              title={`Add Help Link for ${item?.alias || item?.community?.name}`}
+              component={
+                <HelpLinkForm
+                  data={item}
+                  getValue={getValue}
+                  tabId={activeAccordion}
+                  handleFieldChange={handleFieldChange}
+                  handleSave={handleSave}
+                  loading={loading}
+                />
+              }
               isOpen={item?.id === activeAccordion}
               onClick={() => openAccordion(item?.id)}
             />
@@ -86,16 +87,10 @@ export default function CampaignCommunities({ campaignDetails }) {
   );
 }
 
-const HelpLinkForm = ({
-  handleFieldChange,
-  tabId,
-  getValue,
-  handleSave,
-  loading,
-}) => {
+const HelpLinkForm = ({ handleFieldChange, tabId, getValue, handleSave, loading, data }) => {
   return (
     <div>
-      <Row className="mt-3">
+      <Row className="m-3">
         <Col>
           <Input
             label="Help Link"
@@ -106,6 +101,18 @@ const HelpLinkForm = ({
               handleFieldChange(tabId, "help_link", val);
             }}
             value={getValue(tabId, "help_link")}
+          />
+        </Col>
+        <Col>
+          <Input
+            label="Community Alias"
+            placeholder={`The current name is ${data?.community?.name || "..."}, want to try something else?`}
+            required={false}
+            type="textbox"
+            onChange={(val) => {
+              handleFieldChange(tabId, "alias", val);
+            }}
+            value={getValue(tabId, "alias")}
           />
         </Col>
       </Row>

@@ -14,12 +14,7 @@ import planetB from "./../../../assets/imgs/planet-b.jpeg";
 import { connect, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import {
-  USER_STORAGE_KEY,
-  appInnitAction,
-  loadUserObjAction,
-  trackActivity,
-} from "../../../redux/actions/actions";
+import { USER_STORAGE_KEY, appInnitAction, loadUserObjAction, trackActivity } from "../../../redux/actions/actions";
 import { LOADING } from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
@@ -60,7 +55,7 @@ function LandingPage({
     communities: communitiesRef,
   };
 
-  const { image, config, key_contact, advert, is_published, description } =
+  const { image, config, key_contact, advert, is_published, description, technologies_section, coaches_section } =
     campaign || {};
 
   const technologies = campaign?.technologies || [];
@@ -70,8 +65,7 @@ function LandingPage({
 
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
-    if (ref?.current)
-      ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (ref?.current) ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   const target = fetchUrlParams("section");
   const show = fetchUrlParams("show");
@@ -79,7 +73,6 @@ function LandingPage({
   useEffect(() => {
     scrollToSection(target?.trim());
   }, [mounted, target]);
- 
 
   useEffect(() => {
     init(campaignId, (justLoadedCampaign, passed) => {
@@ -96,9 +89,7 @@ function LandingPage({
     let communities = campaign?.communities || [];
     communities = communities?.map((com) => com.community);
     const id = data?.comId;
-    let community = communities?.find(
-      (com) => com?.id?.toString() === id?.toString(),
-    );
+    let community = communities?.find((com) => com?.id?.toString() === id?.toString());
     let json = { ...(authUser || {}), community };
 
     if (id === OTHER) {
@@ -129,9 +120,7 @@ function LandingPage({
           confirmText="Okay, Done!"
           cancelText="NO"
           noForm
-          onConfirm={(props) =>
-            stashUserCommunity({ ...props, campaign: justLoadedCampaign })
-          }
+          onConfirm={(props) => stashUserCommunity({ ...props, campaign: justLoadedCampaign })}
         />
       ),
       // modalNativeProps: { size: "md" },
@@ -156,19 +145,14 @@ function LandingPage({
     if (!preview) init(campaignId);
   }, []);
 
-  if (campaign === LOADING && !preview)
-    return <Loading fullPage>Fetching campaign details...</Loading>;
+  if (campaign === LOADING && !preview) return <Loading fullPage>Fetching campaign details...</Loading>;
 
   if (!campaign) return <NotFound></NotFound>;
 
   let previewMode = fetchUrlParams("preview");
   previewMode = previewMode?.trim() === "true";
 
-  if (
-    !is_published &&
-    !previewMode &&
-    !(loggedInAdmin?.is_community_admin || loggedInAdmin?.is_super_admin)
-  )
+  if (!is_published && !previewMode && !(loggedInAdmin?.is_community_admin || loggedInAdmin?.is_super_admin))
     return (
       <Container
         style={{
@@ -182,7 +166,6 @@ function LandingPage({
         <h1>This campaign is not Live. Contact Admin</h1>
       </Container>
     );
-
 
   return (
     <div style={{}}>
@@ -210,11 +193,7 @@ function LandingPage({
         <Banner {...campaign} />
         <CampaignNotLive />
         <Container>
-          <img
-            className="elevate-float-pro campaign-focus-image"
-            src={image?.url || planetB}
-            alt={"campaign banner"}
-          />
+          <img className="elevate-float-pro campaign-focus-image" src={image?.url || planetB} alt={"campaign banner"} />
         </Container>
         <RoamingBox
           id="roaming-box"
@@ -224,6 +203,7 @@ function LandingPage({
         />
       </Container>
       <GettingStartedSection
+        customization={technologies_section || {}}
         scrollToCommunities={() => scrollToSection("communities")}
         technologies={technologies}
         sectionId="getting-started-section"
@@ -237,22 +217,18 @@ function LandingPage({
           // defaultTab={activeTab}
           technologies={technologies}
           sectionId="testimonial-section"
-          protectedFunction={(options) =>
-            triggerProtectedFunctionality(authUser, options)
-          }
+          protectedFunction={(options) => triggerProtectedFunctionality(authUser, options)}
         />
       </div>
       <br />
 
       <div ref={eventsRef}>
-        <EventsSectionWithFilters
-          technologies={technologies}
-          sectionId="event-section"
-        />
+        <EventsSectionWithFilters technologies={technologies} sectionId="event-section" />
       </div>
 
       <div ref={coachesRef}>
         <CoachesSectionWithFilters
+          customization={coaches_section}
           technologies={technologies}
           toggleModal={toggleModal}
           sectionId="coaches-section"
