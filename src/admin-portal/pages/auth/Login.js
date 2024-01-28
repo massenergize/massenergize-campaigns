@@ -18,6 +18,7 @@ import { PLATFORM } from "../../../api/urls";
 
 const GOOGLE = "GOOGLE";
 const EMAIL = "EMAIL";
+const NOT_AN_ADMIN = "authenticated_but_needs_registration";
 
 function Login({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux }) {
   const [email, setEmail] = useState("");
@@ -29,33 +30,46 @@ function Login({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux }) {
   const dispatch = useDispatch();
 
   // -------------------------------------------------------------------------------
+
+  const onAuthSuccess = (data) => {
+    if (data?.campaign_accounts?.length < 1) {
+      return navigate("/admin/campaign/account/new");
+    } else {
+      let encoded = btoa(JSON.stringify(data?.campaign_accounts[0]));
+      localStorage.setItem("acc", encoded);
+      dispatch(setCampaignAccountAction(data?.campaign_accounts[0]));
+      return navigate("/admin/home");
+    }
+  };
+
   const authenticateWithGoogle = () => {
     setAuthType(GOOGLE);
     setLoading(true);
-
+    setError("");
     signInWithPopup(auth, googleProvider)
       .then((response) => {
         setLoading(false);
-
-        if (!response) {
-          return setError("Sorry, we could not sign you in. Please try again!");
-        }
-
+        if (!response) return setError("Sorry, we could not sign you in. Please try again!");
         const { user } = response;
 
         putFirebaseAuthInRedux(user);
         fetchMassenergizeUser({ idToken: user?.accessToken }, (data, err) => {
           if (err) {
-            return setError(err);
+            const text =
+              err === NOT_AN_ADMIN
+                ? "Only admins can use the campaign platform. Please make sure you are regsitered as an admin..."
+                : error;
+            return setError(text);
           }
-          if (data?.campaign_accounts?.length < 1) {
-            return navigate("/admin/campaign/account/new");
-          } else {
-            let encoded = btoa(JSON.stringify(data?.campaign_accounts[0]));
-            localStorage.setItem("acc", encoded);
-            dispatch(setCampaignAccountAction(data?.campaign_accounts[0]));
-            return navigate("/admin/home");
-          }
+          onAuthSuccess(data);
+          // if (data?.campaign_accounts?.length < 1) {
+          //   return navigate("/admin/campaign/account/new");
+          // } else {
+          //   let encoded = btoa(JSON.stringify(data?.campaign_accounts[0]));
+          //   localStorage.setItem("acc", encoded);
+          //   dispatch(setCampaignAccountAction(data?.campaign_accounts[0]));
+          //   return navigate("/admin/home");
+          // }
         });
       })
       .catch((e) => {
@@ -78,8 +92,15 @@ function Login({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux }) {
         setLoading(false);
         const user = response.user;
         putFirebaseAuthInRedux(user);
-        fetchMassenergizeUser({ idToken: user?.accessToken }, () => {
-          window.location.href = "/admin/home";
+        fetchMassenergizeUser({ idToken: user?.accessToken }, (data, err) => {
+          if (err) {
+            const text =
+              err === NOT_AN_ADMIN
+                ? "Only admins can use the campaign platform. Please make sure you are regsitered as an admin..."
+                : error;
+            return setError(text);
+          }
+          onAuthSuccess(data);
         });
       })
       .catch((e) => {
