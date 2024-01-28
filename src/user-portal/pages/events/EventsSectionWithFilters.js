@@ -62,7 +62,7 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
           <div className="row-flex t-with-filter-top">
             <h2
               style={{
-                color: "var(--app-medium-green)",
+                color: "var(--app-accent-3)",
                 fontWeight: "bold",
                 marginBottom: 20,
               }}

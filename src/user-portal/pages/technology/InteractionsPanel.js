@@ -7,15 +7,7 @@ const interactions = [
   { icon: "fa-eye", name: "Views", count: 3542 },
   // { icon: "fa-share", name: "Shares", count: 15 },
 ];
-function InteractionsPanel ({
-  openCommentBox,
-  likes,
-  views,
-  comments,
-  openShareBox,
-  like,
-  liked,
-}) {
+function InteractionsPanel({ openCommentBox, likes, views, comments, openShareBox, like, liked }) {
   const [hasLiked, setHasLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
 
@@ -30,11 +22,17 @@ function InteractionsPanel ({
     like();
   };
 
+  const commonTheme = {
+    color: "var(--app-main-color)",
+    color: "black",
+    // fontWeight:'bold'
+  };
+
   return (
     <div
       className="mt-3"
       style={{
-        border: "solid 1px var(--app-medium-green)",
+        border: "solid 2px black",
         padding: "10px 15px",
         display: "flex",
         flexDirection: "row",
@@ -58,18 +56,16 @@ function InteractionsPanel ({
         <i
           // className={`fa fa-heart interact ${hasLiked ? "already-liked" : ""}`}
           className={`fa fa-heart interact`}
-          style={{ marginRight: 6, color: "var(--app-deep-green)" }}
+          style={{ marginRight: 6, ...commonTheme }}
         />
 
         <small
           className="touchable-opacity phone-vanish"
           // style={{ fontWeight: "bold", textDecoration: "underline" }}
-          style={{ fontWeight: "bold" }}
+          style={{ fontWeight: "bold", ...commonTheme }}
         >
           {`${likeCount ? likeCount : ""} `}
-          <span className="phone-vanish">{`${
-            !likeCount || likeCount === 1 ? " Like" : " Likes"
-          }`}</span>
+          <span className="phone-vanish">{`${!likeCount || likeCount === 1 ? " Like" : " Likes"}`}</span>
         </small>
       </div>
       <div
@@ -82,18 +78,13 @@ function InteractionsPanel ({
           margin: "0px 10px",
         }}
       >
-        <i
-          className={`fa fa-comments interact`}
-          style={{ marginRight: 6, color: "var(--app-deep-green)" }}
-        />
+        <i className={`fa fa-comments interact`} style={{ marginRight: 6, ...commonTheme }} />
         <small
           className="touchable-opacity"
-          style={{ fontWeight: "bold", textDecoration: "underline" }}
+          style={{ fontWeight: "bold", textDecoration: "underline", ...commonTheme }}
         >
           {`${comments ? comments : ""}`}
-          <span className="phone-vanish">{`${
-            !comments || comments === 1 ? " Comment" : " Comments"
-          }`}</span>
+          <span className="phone-vanish">{`${!comments || comments === 1 ? " Comment" : " Comments"}`}</span>
         </small>
       </div>
       {views ? (
@@ -105,15 +96,9 @@ function InteractionsPanel ({
             margin: "0px 10px",
           }}
         >
-          <i
-            className={`fa fa-eye`}
-            style={{ marginRight: 6, color: "var(--app-deep-green)" }}
-          />
-          <small style={{ fontWeight: "bold" }}>
-            {views}{" "}
-            <span className="phone-vanish">
-              {views === 1 ? " View" : "Views"}
-            </span>
+          <i className={`fa fa-eye`} style={{ marginRight: 6, ...commonTheme }} />
+          <small style={{ fontWeight: "bold", ...commonTheme }}>
+            {views} <span className="phone-vanish">{views === 1 ? " View" : "Views"}</span>
           </small>
         </div>
       ) : (
@@ -130,13 +115,8 @@ function InteractionsPanel ({
         }}
         onClick={() => openShareBox()}
       >
-        <i
-          className={`fa fa-share`}
-          style={{ marginRight: 6, color: "var(--app-deep-green)" }}
-        />
-        <small style={{ fontWeight: "bold", textDecoration: "underline" }}>
-          Share
-        </small>
+        <i className={`fa fa-share`} style={{ marginRight: 6, ...commonTheme }} />
+        <small style={{ fontWeight: "bold", textDecoration: "underline", ...commonTheme }}>Share</small>
       </div>
 
       {/* {interactions.map((inter, index) => {

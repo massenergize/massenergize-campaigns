@@ -1,9 +1,8 @@
 import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 
-function CustomModal (props) {
-  const { show, component, modalNativeProps, fullControl, style, close } =
-    props || {};
+function CustomModal(props) {
+  const { show, component, modalNativeProps, fullControl, style, close } = props || {};
   if (!show) return <></>;
   const styles = { ...(style || {}), ...(fullControl ? { padding: 0 } : {}) };
 
@@ -53,20 +52,14 @@ const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName }) => {
         ></img>
       );
 
-    if (iconName)
-      return (
-        <i
-          className={`fa ${iconName}`}
-          style={{ fontSize: 19, color: "white", marginRight: 6 }}
-        />
-      );
+    if (iconName) return <i className={`fa ${iconName}`} style={{ fontSize: 19, color: "white", marginRight: 6 }} />;
 
     return <></>;
   };
   return (
     <Modal.Header
       style={{
-        background: "var(--app-deep-green)",
+        background: "var(--app-main-color)",
         color: "white",
         padding: "10px 25px",
       }}
@@ -79,10 +72,7 @@ const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName }) => {
         }}
       >
         {renderHeaderMedia()}
-        <Modal.Title
-          id="contained-modal-title-vcenter"
-          style={{ fontSize: 18 }}
-        >
+        <Modal.Title id="contained-modal-title-vcenter" style={{ fontSize: 18 }}>
           {title || "..."}
         </Modal.Title>
       </div>
@@ -92,11 +82,7 @@ const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName }) => {
         style={{ color: "white", textDecoration: "none" }}
         onClick={() => close && close()}
       >
-        <span
-          aria-hidden="true"
-          className="fa fa-times"
-          style={{ fontSize: 20 }}
-        ></span>
+        <span aria-hidden="true" className="fa fa-times" style={{ fontSize: 20 }}></span>
       </Button>
     </Modal.Header>
   );
@@ -109,7 +95,7 @@ const SmartFooter = ({ renderFooter, close }) => {
       <div
         className="touchable-opacity"
         style={{
-          background: "var(--app-close-red)",
+          background: "black",
           padding: "5px 15px",
           height: "100%",
           margin: 0,
@@ -129,7 +115,7 @@ const SmartFooter = ({ renderFooter, close }) => {
       <div
         className="touchable-opacity"
         style={{
-          background: "var(--app-deep-green)",
+          background: "var(--app-main-color)",
           padding: "5px 15px",
           height: "100%",
           margin: 0,

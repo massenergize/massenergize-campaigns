@@ -4,15 +4,17 @@
   }
   .page-title {
     font-size: var(--mob-title-font-size);
+    color:var(--app-accent-3);
   }
   .page-slogan {
     font-weight: 400;
-    color: var(--app-medium-green);
+    color: var(--app-main-color);
     text-align: center;
     /* text-transform: capitalize; */
     line-height: 1.5;
     width: 85%;
     font-size: var(--mob-normal-font-size);
+    font-weight: 600;
   }
 
   .site-logo {

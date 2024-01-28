@@ -14,13 +14,7 @@ function AppNavigationBar({ menu, campaign }) {
   const { secondary_logo, primary_logo } = campaign || {};
 
   return (
-    <Navbar
-      variant="dark"
-      expand="lg"
-      style={{ background: "var(--app-deep-green)" }}
-      fixed="top"
-      className="elevate-2"
-    >
+    <Navbar variant="light" expand="lg" style={{ background: "white" }} fixed="top" className="elevate-2">
       <Container>
         {/* <Navbar.Brand href="#home">MassEnergize Campaigns</Navbar.Brand> */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -46,7 +40,7 @@ function AppNavigationBar({ menu, campaign }) {
               if (!menu?.children)
                 return (
                   <Nav.Link
-                    // className="f-dropdown-override"
+                    className="c-nav-item"
                     key={menu?.key}
                     style={{
                       textTransform: "uppercase",
@@ -58,10 +52,7 @@ function AppNavigationBar({ menu, campaign }) {
                     }}
                   >
                     <span>
-                      <i
-                        className={`fa ${menu.icon}`}
-                        style={{ marginRight: 6 }}
-                      ></i>
+                      <i className={`fa ${menu.icon}`} style={{ marginRight: 6 }}></i>
                       <span>{menu.text}</span>
                     </span>
                   </Nav.Link>
@@ -75,11 +66,8 @@ function AppNavigationBar({ menu, campaign }) {
                   }}
                   className={"mx-2"}
                   title={
-                    <span>
-                      <i
-                        className={`fa ${menu.icon}`}
-                        style={{ marginRight: 6 }}
-                      ></i>
+                    <span className="c-nav-item">
+                      <i className={`fa ${menu.icon}`} style={{ marginRight: 6 }}></i>
                       <span>{menu?.text}</span>
                     </span>
                   }
@@ -95,45 +83,20 @@ function AppNavigationBar({ menu, campaign }) {
 
                     return (
                       <NavDropdown.Item
-                        className="f-dropdown-override"
+                        className="f-dropdown-override c-nav-item"
                         style={{ textTransform: "uppercase" }}
                         key={child?.key}
                         onClick={() => {
                           navigator(`${child.url}&salt=${salt}` || "#");
                         }}
-                        // onClick={() => navigator(`${route}`)}
                       >
                         {child.text}
                       </NavDropdown.Item>
                     );
                   })}
-                  {/*
-                  <NavDropdown.Item href="#action/3.2">
-                    Another action
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">
-                    Something
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4">
-                    Separated link
-                  </NavDropdown.Item> */}
                 </NavDropdown>
               );
             })}
-            {/* <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="INCENTIVES" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown> */}
 
             {secondary_logo?.url && (
               <img

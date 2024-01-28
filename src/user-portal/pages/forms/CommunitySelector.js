@@ -39,14 +39,15 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
         {communities.map(({ community, alias }) => {
           const { id, name } = community || {};
           return (
-            <Form.Check inline type="radio" id={`check-api-${id}`}>
-              <Form.Check.Input checked={comId === id?.toString()} type={"radio"} value={id} isValid />
+            <Form.Check inline type="radio" id={`check-api-${id}`} className="touchable-opacity">
+              <Form.Check.Input checked={comId === id?.toString()} type={"radio"} value={id} />
               <Form.Check.Label
                 style={{
                   textTransform: "Capitalize",
                   fontWeight: "bold",
-                  color: "var(--app-deep-green)",
+                  color: "var(--app-main-color)",
                   fontSize: 15,
+                  cursor: "pointer",
                 }}
               >
                 {alias || name}
@@ -56,13 +57,14 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
         })}
 
         <Form.Check inline type="radio" id={`check-api-other`}>
-          <Form.Check.Input checked={comId === OTHER} type={"radio"} value={OTHER} isValid />
+          <Form.Check.Input checked={comId === OTHER} type={"radio"} value={OTHER} />
           <Form.Check.Label
             style={{
               textTransform: "Capitalize",
               fontWeight: "bold",
-              color: "var(--app-deep-green)",
+              color: "var(--app-main-color)",
               fontSize: 15,
+              cursor: "pointer",
             }}
           >
             {OTHER}

@@ -173,7 +173,7 @@ function LandingPage({
         <p
           className="elevate-3"
           style={{
-            background: "var(--app-orange)",
+            background: "var(--app-accent-3)",
             padding: "10px 20px",
             position: "fixed",
             right: 0,
