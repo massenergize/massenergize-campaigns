@@ -7,14 +7,6 @@ import { FULL_TECHNOLOGY } from "../../../utils/Constants";
 
 const dummies = [
   {
-    icon: "fa-globe",
-    title: "Find A Vendor",
-    actionText: "Vendors",
-    content: "The critical question - who should you have quote your project?",
-    url: "vendors",
-    type: "vendors",
-  },
-  {
     icon: "fa-lightbulb-o",
     title: "Ask A Question ",
     actionText: "Get Help",
@@ -22,7 +14,6 @@ const dummies = [
     url: "coaches",
     type: "help",
   },
-
   {
     icon: "fa-money",
     title: "Show Me The Money",
@@ -31,6 +22,16 @@ const dummies = [
     url: "incentives",
     type: "incentives",
   },
+  {
+    icon: "fa-globe",
+    title: "Find A Vendor",
+    actionText: "Vendors",
+    content: "The critical question - who should you have quote your project?",
+    url: "vendors",
+    type: "vendors",
+  },
+
+ 
 ];
 function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, campaign, vendors }) {
   const navigator = useNavigate();

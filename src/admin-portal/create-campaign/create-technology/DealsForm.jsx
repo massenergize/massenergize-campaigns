@@ -58,7 +58,7 @@ export default function DealsForm({deal, onSubmit, technology_id}) {
       onSubmit(data, isNew)
       blow({
         title: "Success",
-        message: `Incentive ${isNew ? 'added' : 'updated'} successfully`,
+        message: `Deal ${isNew ? 'added' : 'updated'} successfully`,
         type: "success"
       });
 
@@ -67,7 +67,7 @@ export default function DealsForm({deal, onSubmit, technology_id}) {
       setLoading(false)
       pop({
         title: "Error",
-        message: `Something went wrong while ${isNew ? 'adding' : 'updating'} incentive`,
+        message: `Something went wrong while ${isNew ? 'adding' : 'updating'} deal`,
         type: "error"
       })
     }

@@ -10,7 +10,7 @@ import OurParagraph from "../../../components/OurParagraph";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import { mergeArrays } from "../../../utils/utils";
 
-function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
+function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, customization }) {
   const containerRef = useRef();
 
   let coaches = technologies?.map((tech) => {
@@ -73,7 +73,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
                     marginBottom: 20,
                   }}
                 >
-                  Meet The Coaches
+                  {customization?.title || " Meet the coaches"}
                 </h2>
                 <OurParagraph>
                   Scroll from left to right to see more coaches, or use the arrow buttons(top right) to scroll
@@ -91,13 +91,9 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
             />
 
             <div className="coaches-description">
-              <p>
-                Ask a question! Get help for you neighbors! <br />
-                
-                They are able to help understand heat pumps, community solar and home solar and how they work. They
-                answer your questions and have no financial stake in the outcome. Coaches have been through some
-                training and often also have their own heat pumps, home solar and/or a community solar subscription.
-              </p>
+              {customization?.description && (
+                <div dangerouslySetInnerHTML={{ __html: customization?.description }}></div>
+              )}
               <div
                 style={{
                   display: "flex",

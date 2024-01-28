@@ -236,3 +236,43 @@ export async function removeTechnologyVendor(data, url = "technologies.vendors.r
     handleRequestError(error, "REMOVE_TECHNOLOGY_VENDOR_ERROR");
   }
 }
+
+
+export async function createTechnologyAction(data, url = "technologies.actions.create") {
+  try {
+    const response = await apiCall(url, data, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "CREATE_TECHNOLOGY_ACTION_ERROR_BE");
+    }
+    return response?.data;
+  } catch (error) {
+    handleRequestError(error, "CREATE_TECHNOLOGY_ACTION_ERROR");
+  }
+
+}
+
+export async function updateTechnologyAction(data, url = "technologies.actions.update") {
+  try {
+    const response = await apiCall(url, data, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "UPDATE_TECHNOLOGY_ACTION_ERROR_BE");
+    }
+    return response?.data;
+  } catch (error) {
+    handleRequestError(error, "UPDATE_TECHNOLOGY_ACTION_ERROR");
+  }
+
+}
+
+export async function deleteTechnologyAction(data, url = "technologies.actions.delete") {
+  try {
+    const response = await apiCall(url, data, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "DELETE_TECHNOLOGY_ACTION_ERROR_BE");
+    }
+    return response?.data;
+  } catch (error) {
+    handleRequestError(error, "DELETE_TECHNOLOGY_ACTION_ERROR");
+  }
+
+}

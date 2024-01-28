@@ -9,10 +9,9 @@ import { useMediaQuery } from "react-responsive";
 const EXCLUDED_FOOTER_MENU_KEYS = ["incentives", "vendors"];
 function Footer({ toggleModal, campaign, authUser }) {
   const navigator = useNavigate();
-  const { navigation } = campaign || {};
+  const { navigation, newsletter_section: customization } = campaign || {};
   const { user } = authUser || {};
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
-
   const renderMenus = (styles = {}) => {
     return (navigation || []).map(({ text, key, url }, index) => {
       const isExcluded = EXCLUDED_FOOTER_MENU_KEYS.includes(key);
@@ -71,10 +70,9 @@ function Footer({ toggleModal, campaign, authUser }) {
         <Container>
           <Col lg={{ span: 6, offset: 3 }}>
             {/* We should be able to change this part tooo from the admin portal */}
-            <h4 style={{ color: "white" }}>Plug In for Updates</h4>
+            <h4 style={{ color: "white" }}>{customization?.title || "Newsletter"}</h4>
             <p style={{ color: "white" }}>
-              Sign up for email updates with the latest info on events and incentives, on heat pumps, community solar
-              and home solar.
+              {customization?.description || "Sign up for email updates with the latest info on events and incentives!"}
             </p>
             <Button
               className="elevate-float-pro touchable-opacity"

@@ -1,10 +1,8 @@
 import { createContext, useReducer } from "react";
 import { CAMPAIGN } from "../mocks/campaign";
-import useFetch from "../hooks/useFetch";
 import useSWR, { } from "swr";
 import { fetchCommunitiesList } from "../requests/community-routes";
 import {
-  fetchAllCampaignEventsBySuperAdmins,
   fetchAllPartners,
   fetchAllTechnologies
 } from "../requests/campaign-requests";

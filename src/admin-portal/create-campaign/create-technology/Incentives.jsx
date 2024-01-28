@@ -88,15 +88,15 @@ const Incentives = () => {
       </Row>
 
       <CreateTechnologyIncentiveModal
-        show={showIncentiveModal}
-        onHide={() => setShowIncentiveModal(false)}
+      show={showIncentiveModal}
+      onHide={() => setShowIncentiveModal(false)}
         onSubmit={(data) => {
           setShowIncentiveModal(false);
           handleAddOverview(data);
         }}
       />
 
-      <Modal show={showDeleteModal} onHide={() => hideDeleteModal}>
+      <Modal show={showDeleteModal} onHide={() => hideDeleteModal} enforceFocus ={false}>
         <Modal.Header closeButton>
           <Modal.Title className={"text-sm"}>Delete incentive.</Modal.Title>
         </Modal.Header>

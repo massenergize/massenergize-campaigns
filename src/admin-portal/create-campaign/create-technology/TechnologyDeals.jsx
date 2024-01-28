@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import Container from "react-bootstrap/Container";
-import { Button, Col, Row, Modal, Button as BTN } from "react-bootstrap";
+import { Button, Col, Row, Button as BTN } from "react-bootstrap";
 import classes from "classnames";
 import IncentivesBar from "../../../components/admin-components/IncentivesBar";
 import DealsForm from "./DealsForm";
@@ -9,6 +8,7 @@ import { useBubblyBalloons } from 'src/lib/bubbly-balloon/use-bubbly-balloons';
 import GhostLoader from 'src/components/admin-components/GhostLoader';
 import CustomAccordion from 'src/components/admin-components/CustomAccordion';
 import SectionsForm from './SectionsForm';
+import MeModal from 'src/components/MEModal/MeModal';
 
 export default function TechnologyDeals({ campaign_id, tech_id, techObject, updateTechObject }) {
   const { deals } = techObject
@@ -128,20 +128,14 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
         )}
       </Row>
 
-
-      <Modal onHide={()=>setOpenDealsModal(false)} show={openDealsModal} size={"lg"}>
-        <Modal.Header closeButton className={"border-bottom-0"}>
-          <Modal.Title className={"text-sm"}>New Technology Deal</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <DealsForm
-            key={"new-deal"}
-            deal={{}}
-            onSubmit={updateDealsList}
-            technology_id={tech_id}
+      <MeModal size={"xl"} title={"New Technology Deal"} open={openDealsModal} onHide={()=>setOpenDealsModal(false)}>
+      <DealsForm
+        key={"new-deal"}
+        deal={{}}
+        onSubmit={updateDealsList}
+        technology_id={tech_id}
           />
-        </Modal.Body>
-      </Modal>
+      </MeModal>
     </div>
   )
 }

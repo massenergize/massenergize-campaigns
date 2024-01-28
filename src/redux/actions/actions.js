@@ -17,6 +17,7 @@ import {
   UPDATE_TESTIMONIALS_OBJ,
   SET_CAMPAIGN_ACCOUNT,
   SET_IS_ADMIN_PORTAL,
+  SET_MASSENERGISE_USERS,
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
 
@@ -170,4 +171,7 @@ export const logUserOut = () => {
 };
 export const setAdminPortalBooleanAction = (payload =false) => {
   return { type: SET_IS_ADMIN_PORTAL, payload };
+};
+export const setMassEnergizeUsersAction = (payload =[]) => {
+  return { type: SET_MASSENERGISE_USERS, payload };
 };
