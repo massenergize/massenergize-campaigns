@@ -28,11 +28,12 @@ export function NewCampaign () {
     <AdminLayout>
       <CampaignProvider>
         <div className={""}>
-          { STEP === "START" ? (<StartCampaign step={STEP} setStep={setStep}/>) : null }
 
-          {
-            STEP === "COMPLETE" ? (<CampaignEditView data={campaignDetails} STEP={STEP} setStep={setStep}/>) : null
-          }
+          <StartCampaign step={STEP} setStep={setStep}/>
+
+          {/*{*/}
+          {/*  STEP === "COMPLETE" ? (<CampaignEditView data={campaignDetails} STEP={STEP} setStep={setStep}/>) : null*/}
+          {/*}*/}
         </div>
       </CampaignProvider>
     </AdminLayout>
