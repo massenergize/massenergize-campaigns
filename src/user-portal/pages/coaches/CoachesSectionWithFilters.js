@@ -57,7 +57,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
       style={{
         margin: "40px 0px",
         // padding: "100px 0px",
-        background: "antiquewhite",
+        background: "var(--app-accent-2)",
         width: "100%",
       }}
     >
@@ -71,6 +71,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
                     color: "black",
                     fontWeight: "bold",
                     marginBottom: 20,
+                    // color: "var(--app-main-color)",
                   }}
                 >
                   {customization?.title || " Meet the coaches"}
@@ -117,7 +118,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
                     borderRadius: 55,
                     padding: "8px 27px",
                     fontWeight: "bold",
-                    background: "var(--app-deep-green)",
+                    background: "var(--app-main-color)",
                     borderWidth: 0,
                   }}
                 >

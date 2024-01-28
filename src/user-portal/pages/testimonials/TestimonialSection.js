@@ -113,7 +113,7 @@ export const AddNewTestimonial = ({ style, onClick, text, icon }) => {
         }}
         className="touchable-opacity link-text"
         style={{
-          color: "var(--app-medium-green)",
+          color: "var(--app-accent-3)",
           fontWeight: "bold",
 
           ...(style || {}),

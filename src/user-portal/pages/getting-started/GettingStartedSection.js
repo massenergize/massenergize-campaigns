@@ -38,7 +38,6 @@ function GettingStartedSection({
       id={sectionId}
       className="mt-5 g-s-container"
 
-      // style={{ background: "var(--app-medium-green)", padding: "130px 20px" }}
     >
       <Container>
         <Row>
@@ -53,9 +52,6 @@ function GettingStartedSection({
             <Row
               style={{
                 marginLeft: 0,
-                // overflowX: "scroll",
-                // width: "100%",
-                // flexWrap: "nowrap",
               }}
             >
               {technologies?.map((box, index) => {
@@ -69,24 +65,6 @@ function GettingStartedSection({
                 <DoMoreBox scrollToCommunities={() => scrollToCommunities && scrollToCommunities()} />
               </Col>
             </Row>
-
-            {/* <div>
-              <h5
-                onClick={() => scrollToCommunities && scrollToCommunities()}
-                className="touchable-opacity"
-                style={{
-                  padding: "20px 0px",
-                  textDecoration: "underline",
-                  display: "inline-block",
-                  color: "white",
-
-                  marginTop: 20,
-                }}
-              >
-                Want to do more? Check out other things you can do on our
-                community sites!
-              </h5>
-            </div> */}
           </Col>
         </Row>
       </Container>
@@ -100,41 +78,18 @@ const DoMoreBox = ({ scrollToCommunities }) => {
   return (
     <div
       className="elevate-float-pro one-box-container"
-      // className="elevate-float-pro"
-      // style={{
-      //   width: "100%",
-      //   minHeight: 320,
-      //   borderRadius: 5,
-      //   display: "flex",
-      //   flexDirection: "column",
-      //   background: "white",
-      //   minHeight: 390,
-      // }}
+   
     >
       <div
         className="one-box"
-        // style={{
-        //   height: "100%",
-        //   display: "flex",
-        //   flexDirection: "column",
-        //   alignItems: "center",
-        //   justifyContent: "center",
-        //   borderRadius: 5,
-        //   padding: "40px 40px 10px 40px",
-        // }}
       >
         <img
           // src={"https://placehold.co/100x100"}
           src={people}
           alt="people"
-          // style={{
-          //   height: 100,
-          //   width: 100,
-          //   objectFit: "contain",
-          //   // marginBottom: 10,
-          // }}
+         
         />
-        <h5 style={{ color: "var(--app-medium-green)" }}>Communities</h5>
+        <h5 style={{ color: "var(--app-main-color)"  }}>Communities</h5>
         <p style={{ textAlign: "center" }}>Connect with your community and check out other actions</p>
 
         <Button
@@ -144,8 +99,6 @@ const DoMoreBox = ({ scrollToCommunities }) => {
             scrollToCommunities();
           }}
           className="touchable-opacity  pc-vanish"
-          // href={`/technology/${campaign_technology_id}`}
-          // onClick={() => navigator()}
           style={{ fontWeight: "bold", color: "var(--app-orange)" }}
         >
           Our Communities
@@ -154,18 +107,10 @@ const DoMoreBox = ({ scrollToCommunities }) => {
 
       <div
         className="one-box-footer phone-vanish"
-        // style={{
-        //   marginTop: "auto",
-        //   display: "flex",
-        //   flexDirection: "row",
-        //   alignItems: "center",
-        //   justifyContent: "center",
-        //   padding: 30,
-        // }}
       >
         <Button
           onClick={() => scrollToCommunities()}
-          style={{ background: "var(--app-medium-green)" }}
+          style={{ background: "var(--app-main-color)" }}
           className="tech-btn elevate-2 touchable-opacity"
         >
           <span style={{ fontSize: 15 }}> Communities</span>

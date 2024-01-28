@@ -8,15 +8,7 @@ import { apiCall } from "../../../api/messenger";
 import { setTestimonialsActions } from "../../../redux/actions/actions";
 
 const NULL = "null";
-function NewTestimonialForm({
-  close,
-  campaign,
-  callbackOnSubmit,
-  authUser,
-  updateTestimonials,
-  testimonials,
-  cancel,
-}) {
+function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updateTestimonials, testimonials, cancel }) {
   const { user, community } = authUser || {};
   const [notification, setNotification] = useState({});
   const [form, setForm] = useState({});
@@ -76,10 +68,7 @@ function NewTestimonialForm({
         }
         reset();
         updateTestimonials({ [data?.id]: data, ...testimonials });
-        notify(
-          "Thanks for leaving a testimonial! Our admins will review & publish it as soon as possible!",
-          true,
-        );
+        notify("Thanks for leaving a testimonial! Our admins will review & publish it as soon as possible!", true);
       })
       .catch((e) => {
         setLoading(false);
@@ -177,7 +166,7 @@ function NewTestimonialForm({
             value={getValue("chosenCommunity") || ""}
             style={{
               fontWeight: "bold",
-              color: "var(--app-medium-green)",
+              color: "var(--app-main-color)",
               marginTop: 5,
             }}
             onChange={(e) => setState("chosenCommunity", value(e))}
@@ -198,7 +187,7 @@ function NewTestimonialForm({
             value={getValue("campaign_technology_id") || ""}
             style={{
               fontWeight: "bold",
-              color: "var(--app-medium-green)",
+              color: "var(--app-main-color)",
               marginTop: 5,
             }}
             onChange={(e) => setState("campaign_technology_id", value(e))}
@@ -206,10 +195,7 @@ function NewTestimonialForm({
             <option value={NULL}>--- Select a technology ---</option>
             {technologies?.map(({ campaign_technology_id, name }, index) => {
               return (
-                <option
-                  key={campaign_technology_id?.toString() || index?.toString()}
-                  value={campaign_technology_id}
-                >
+                <option key={campaign_technology_id?.toString() || index?.toString()} value={campaign_technology_id}>
                   {name}
                 </option>
               );
@@ -250,8 +236,7 @@ function NewTestimonialForm({
                 "bold italic forecolor | alignleft aligncenter " +
                 "alignright alignjustify link | bullist numlist outdent indent | " +
                 "removeformat | help",
-              content_style:
-                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+              content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
             }}
           />
         </div>
@@ -267,7 +252,7 @@ function NewTestimonialForm({
           <Button
             disabled={loading}
             onClick={() => {
-              if (cancel) return cancel({close});
+              if (cancel) return cancel({ close });
               close && close();
             }}
             className="touchable-opacity"
@@ -277,7 +262,7 @@ function NewTestimonialForm({
               borderRadius: 55,
               marginRight: 10,
               borderWidth: 0,
-              background: "#d53939",
+              background: "var(--app-accent-3)",
             }}
           >
             Cancel
@@ -291,7 +276,7 @@ function NewTestimonialForm({
               margin: 0,
               borderRadius: 55,
               borderWidth: 0,
-              background: "var(--app-deep-green)",
+              background: "var(--app-main-color)",
               borderBottomRightRadius: 5,
               display: "flex",
               flexDirection: "row",
@@ -316,9 +301,6 @@ const mapState = (state) => {
 };
 
 const mapDispatch = (dispatch) => {
-  return bindActionCreators(
-    { updateTestimonials: setTestimonialsActions },
-    dispatch,
-  );
+  return bindActionCreators({ updateTestimonials: setTestimonialsActions }, dispatch);
 };
 export default connect(mapState, mapDispatch)(NewTestimonialForm);

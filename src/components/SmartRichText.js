@@ -45,7 +45,7 @@ function SmartRichText({
         className="touchable-opacity"
         style={{
           fontWeight: "bold",
-          color: "var(--app-orange)",
+          color: "var(--app-accent-3)",
           textDecoration: "underline",
         }}
         onClick={() => toggleReadMore()}

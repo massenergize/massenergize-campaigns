@@ -2,7 +2,7 @@ import React from "react";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import { Col, Container, Row } from "react-bootstrap";
 
-function DoMore ({ campaign }) {
+function DoMore({ campaign }) {
   const { communities, communities_section } = campaign || {};
   const { title, description } = communities_section || {};
 
@@ -16,6 +16,7 @@ function DoMore ({ campaign }) {
               color: "black",
               fontWeight: "bold",
               marginBottom: 20,
+              color: "var(--app-accent-3)",
             }}
           >
             {title || " Participating Communities"}
@@ -51,14 +52,12 @@ function DoMore ({ campaign }) {
                   <h6
                     role={"button"}
                     onClick={() => {
-                      window.open(
-                        `${COMMUNITY_PORTAL_URL}${community?.subdomain}`
-                      );
+                      window.open(`${COMMUNITY_PORTAL_URL}${community?.subdomain}`);
                     }}
                     className="touchable-opacity"
                     style={{
                       textDecoration: "underline",
-                      color: "var(--app-deep-green)",
+                      color: "var(--app-accent-3)",
                       fontWeight: "bold",
                     }}
                   >

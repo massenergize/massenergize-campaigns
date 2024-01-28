@@ -40,21 +40,17 @@ export const ArrowButtons = ({ style, containerRef }) => {
     <div style={{ ...(style || {}) }}>
       <i
         onClick={() => doScroll(-1 * SCROLL_TRAVEL)}
-        // onMouseDown={() => handleMouseDown(-1 * SCROLL_TRAVEL)}
-        // onMouseUp={() => handleMouseUp()}
         className="fa fa-arrow-circle-left touchable-opacity"
         style={{
           fontSize: 35,
-          color: "var(--app-medium-green)",
+          color: "var(--app-main-color)",
           marginRight: 10,
         }}
       />
       <i
         onClick={() => doScroll()}
-        // onMouseDown={() => handleMouseDown()}
-        // onMouseUp={() => handleMouseUp()}
         className="fa fa-arrow-circle-right touchable-opacity"
-        style={{ fontSize: 35, color: "var(--app-medium-green)" }}
+        style={{ fontSize: 35, color: "var(--app-main-color)" }}
       />
     </div>
   );

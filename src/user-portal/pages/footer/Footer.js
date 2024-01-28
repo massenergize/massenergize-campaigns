@@ -53,7 +53,7 @@ function Footer({ toggleModal, campaign, authUser }) {
     <div
       className="phone-vanish"
       style={{
-        background: "var(--app-deep-green)",
+        background: "var(--app-main-color)",
         width: "100%",
         height: 310,
         marginTop: 40,
@@ -77,7 +77,7 @@ function Footer({ toggleModal, campaign, authUser }) {
             <Button
               className="elevate-float-pro touchable-opacity"
               style={{
-                background: "var(--app-medium-green)",
+                background: "var(--app-accent-3)",
                 borderWidth: 0,
                 padding: "8px 30px",
                 marginTop: 15,
@@ -151,7 +151,7 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus }) => {
       <div
         style={{
           padding: 20,
-          background: "var(--app-deep-green)",
+          background: "var(--app-main-color)",
           height: "80%",
           display: "flex",
           flexDirection: "column",
@@ -166,7 +166,7 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus }) => {
         <Button
           className="elevate-float-pro touchable-opacity"
           style={{
-            background: "var(--app-medium-green)",
+            background: "var(--app-accent-3)",
             borderWidth: 0,
             padding: "8px 30px",
             marginTop: 5,

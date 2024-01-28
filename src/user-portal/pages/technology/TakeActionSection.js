@@ -50,7 +50,7 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
       id={sectionId}
       className="mt-5 elevate-float-pro"
       style={{
-        background: "var(--app-medium-green)",
+        background: "var(--app-main-color)",
         width: "100%",
         padding: "80px 0px",
         minHeight: 200,
@@ -79,14 +79,15 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
                 key={index?.toString()}
                 lg={3}
               >
-                <i className={`fa ${item.icon} mb-1 mt-2`} style={{ fontSize: 60, color: "var(--app-medium-green)" }} />
+                <i className={`fa ${item.icon} mb-1 mt-2`} style={{ fontSize: 60, color: "var(--app-accent-3)" }} />
                 <h6
                   className="mt-2 mb-2"
                   style={{
-                    color: "var(--app-medium-green)",
+                    color: "var(--app-accent-3)",
                     textTransform: "uppercase",
                     textAlign: "center",
                     fontSize: 13,
+                    fontWeight:"bold"
                   }}
                 >
                   {item.title}
@@ -115,7 +116,7 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
                   style={{
                     padding: "7px 30px",
                     color: "white",
-                    background: "var(--app-deep-green)",
+                    background: "var(--app-main-color)",
                     borderRadius: 500,
                   }}
                 >

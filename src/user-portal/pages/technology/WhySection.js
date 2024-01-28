@@ -66,8 +66,9 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
                 <h6
                   className="mt-3 mb-3"
                   style={{
-                    color: "var(--app-medium-green)",
+                    color: "var(--app-accent-3)",
                     textTransform: "uppercase",
+                    fontWeight: "bold",
                   }}
                 >
                   {title || {}}
