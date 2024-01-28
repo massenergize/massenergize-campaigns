@@ -16,6 +16,7 @@ import { getImageValue } from "../../helpers/utils";
 import CustomAccordion from "src/components/admin-components/CustomAccordion";
 import LandingPageCustomization from "./LandingPageCustomization";
 import Button from "src/components/admin-components/Button";
+import { useCampaignContext } from "src/hooks/use-campaign-context";
 
 const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
   const [showError, setShowError] = useState(false);
@@ -41,6 +42,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
   const { blow } = useBubblyBalloons();
 
   const [errors, setErrors] = useNamedState("Error", {});
+  const { setNewCampaignDetails } = useCampaignContext();
 
   const handleFieldChange = (field, value) => {
     setCampaignDetails(field, value);
@@ -66,7 +68,8 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
       };
 
       let response = await updateCampaign(payload);
-
+      setNewCampaignDetails({ ...(campaignDetails || {}), ...response });
+      
       if (response) {
         setLoading(false);
         const balloon = blow({

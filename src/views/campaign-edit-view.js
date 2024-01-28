@@ -15,12 +15,11 @@ export function CampaignEditView({ id, edit = true, STEP, setStep }) {
 
   useEffect(() => {
     setLoading(true);
-    console.log("Running request for campaign ID", id);
     apiCall(`campaigns.info`, { id })
       .then((response) => {
         setLoading(false);
         const { error, data, success } = response || {};
-        console.log("GOT AN ERROR FROM BACK", error);
+        console.log("FETCH_CAMPAIGN_ERROR_BE:", error);
         if (!success) return setError(`Sorry, something happened please try again: ${error}`);
         setNewCampaignDetails(data);
       })
