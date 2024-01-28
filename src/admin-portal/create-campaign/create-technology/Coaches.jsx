@@ -47,7 +47,7 @@ function Coaches({
 
   const interactWithCoachForm = () => {
     // setShowCoachForm(true);
-    resetForm()
+    resetForm();
     if (coachFormRef?.current) coachFormRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -111,7 +111,7 @@ function Coaches({
       if (isEditing) {
         let rem = coaches?.filter((it) => it?.id !== data?.id);
         items = [...rem, data];
-        resetForm()
+        resetForm();
       } else {
         items = [...(coaches || []), res?.data];
         resetForm();
@@ -193,7 +193,7 @@ function Coaches({
               padding: "20px 0px",
               display: "inline-block",
             }}
-            onClick={() => setShowCoachForm(true)}
+            onClick={() => addNewCoach()}
           >
             <i className="fa fa-plus" style={{ marginRight: 6 }}></i> Add a new coach{" "}
           </h6>
@@ -205,6 +205,11 @@ function Coaches({
   const { lists, handleCampaignDetailsChange: setCampaignDetails } = useCampaignContext();
 
   // const { allCommunities } = lists;
+
+  const addNewCoach = () => {
+    resetForm();
+    setShowCoachForm(true);
+  };
 
   const formHasContent = objHasContent(formData);
   return (
@@ -227,7 +232,7 @@ function Coaches({
       </div>
 
       <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
-        <BootButton style={{ marginLeft: "auto" }} variant="success" onClick={() => setShowCoachForm(true)}>
+        <BootButton style={{ marginLeft: "auto" }} variant="success" onClick={() => addNewCoach()}>
           <i className="fa fa-plus" style={{ marginRight: 7 }} />
           Add A New Coach
         </BootButton>
@@ -239,8 +244,12 @@ function Coaches({
         </Container>
       )}
 
-      <MeModal open={showCoachForm} onHide={()=>setShowCoachForm(false)} title={isEditing ? `Editing "${formData?.full_name}"` : "Add A New Coach"} >
-      <form style={{ }}>
+      <MeModal
+        open={showCoachForm}
+        onHide={() => setShowCoachForm(false)}
+        title={isEditing ? `Editing "${formData?.full_name}"` : "Add A New Coach"}
+      >
+        <form style={{}}>
           <Row>
             <Col>
               <p className="my-4">Please include details of the new Coach of this technology</p>
@@ -350,9 +359,7 @@ function Coaches({
           </Row>
         </form>
       </MeModal>
-      <div ref={coachFormRef} className="my-5">
-
-      </div>
+      <div ref={coachFormRef} className="my-5"></div>
     </div>
   );
 }
