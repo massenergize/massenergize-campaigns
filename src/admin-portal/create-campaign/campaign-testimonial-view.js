@@ -30,19 +30,31 @@ export function CampaignTestimonialsView({ campaignDetails }) {
     isValidating,
     isLoading,
     error,
+    mutate,
   } = useSWR("campaigns.testimonials.list", async () => await fetchAllCampaignTestimonials(campaignDetails?.id), {
     shouldRetryOnError: true,
     errorRetryCount: 3,
     errorRetryInterval: 3000,
   });
 
-  const testimonials = payloadTestimonials || [];
+  const updateTestimonial = (testimonial) => {
+    const index = payloadTestimonials.findIndex((test) => test?.id === testimonial?.id);
 
-  const portalTestimonials = testimonials?.filter((test) => {
+    if (index > -1) {
+      payloadTestimonials[index] = testimonial;
+      mutate([...payloadTestimonials]);
+    }
+    else{
+      mutate([testimonial, ...payloadTestimonials]);
+    }
+  }
+
+
+  const portalTestimonials = (payloadTestimonials|| [])?.filter((test) => {
     return test?.is_imported;
   });
 
-  const campaignTestimonials = testimonials?.filter((test) => {
+  const campaignTestimonials = (payloadTestimonials||[])?.filter((test) => {
     return !test?.is_imported;
   });
 
@@ -217,7 +229,7 @@ export function CampaignTestimonialsView({ campaignDetails }) {
             {show?.showFormFor === "campaign" && (
               <div ref={formRef}>
                 <h4 className="my-5">Create New Testimonial</h4>
-                <Testimonials campaign={campaignDetails} onModalClose={hideForm} startOfPage={startOfPage} />
+                <Testimonials campaign={campaignDetails} onModalClose={hideForm} startOfPage={startOfPage}  updateTestimonial={updateTestimonial}/>
               </div>
             )}
           </Col>
@@ -231,12 +243,13 @@ export function CampaignTestimonialsView({ campaignDetails }) {
           </Modal.Header>
           <Modal.Body style={{ height: "70vh" }}>
             {show?.showFormFor === "campaign" ? (
-              <Testimonials campaign={campaignDetails} onModalClose={onModalClose} />
+              <Testimonials campaign={campaignDetails} onModalClose={onModalClose} updateTestimonial={updateTestimonial} />
             ) : (
               <TestPortal
                 campaign_id={campaignDetails?.id}
                 techs={campaignDetails?.technologies}
                 onModalClose={onModalClose}
+                updateTestimonial={updateTestimonial}
               />
             )}
           </Modal.Body>

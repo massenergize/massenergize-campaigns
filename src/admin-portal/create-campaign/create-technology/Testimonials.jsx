@@ -13,7 +13,7 @@ import { Col, Row } from "react-bootstrap";
 import Dropdown from "src/components/admin-components/Dropdown";
 import { NoItems } from "@kehillahglobal/ui";
 
-export const Testimonials = ({ campaign_id, techs, onModalClose }) => {
+export const Testimonials = ({ campaign_id, techs, onModalClose, updateTestimonial }) => {
   const [loading, setLoading] = useState(false);
   const { blow, pop } = useBubblyBalloons();
 
@@ -44,6 +44,7 @@ export const Testimonials = ({ campaign_id, techs, onModalClose }) => {
 
       if (res) {
         setLoading(false);
+        updateTestimonial(res[0]);
         blow({
           title: "Success",
           message: "Campaign Testimonials updated successfully.",
