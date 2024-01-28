@@ -7,7 +7,7 @@ import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloo
 import { Link } from "react-router-dom";
 import Searchbar from "../../../components/admin-components/Searchbar";
 
-export function AllCampaigns () {
+export function AllCampaigns() {
   const { blow, pop } = useBubblyBalloons();
   return (
     <AdminLayout>
@@ -15,33 +15,14 @@ export function AllCampaigns () {
         <Col>
           {/*region Header*/}
           <Row
+            style={{ alignItems: "center" }}
             lg={{ gutter: 0 }}
-            className="py-4 overflow-scroll gap-0 no-gutters g justify-content-between"
+            className=" mt-5 overflow-scroll gap-0 no-gutters g justify-content-between"
           >
             <Col>
-              <div className="nav-tabs-container"></div>
+              <h3>All Campaigns</h3>
             </Col>
             <Col md="auto">
-              {/*<Button primary className="rounded-1 primary"
-              onClick={() => {
-                blow({
-                  title: "New Campaign",
-                  message: "This feature is not available yet",
-                  type: "info",
-                  timeout : false
-                })
-
-                const balloon = blow({
-                  title: "Success",
-                  message: "Campaign information saved successfully",
-                  type: "success",
-                  // duration: 5000,
-                });
-              }}
-              >
-                <FontAwesomeIcon icon={faPlus}/> New Campaign
-              </Button>*/}
-
               <Link to={"/admin/campaign/new"}>
                 <Button variant="success" className="rounded-1">
                   <FontAwesomeIcon icon={faPlus} /> New Campaign
@@ -57,7 +38,7 @@ export function AllCampaigns () {
               <Searchbar />
             </Col>
           </Row> */}
-          <Row className=" pt-4">
+          <Row className=" pt-1">
             <Col>
               <AllCampaignsView />
             </Col>

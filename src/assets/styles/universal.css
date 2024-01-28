@@ -36,6 +36,7 @@ body {
   --mob-title-font-size: calc(1.325rem + 0.9vw);
 
   --admin-theme-color: #6e207c;
+  --admin-theme-color-light: #be52d1;
 }
 
 .already-liked {
