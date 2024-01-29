@@ -18,16 +18,18 @@ function EventBox({ event, campaign_technology }) {
         marginBottom: 20,
       }}
     >
-      <img
-        style={{
-          width: "100%",
-          height: 180,
-          objectFit: "cover",
-          borderRadius: 5,
-        }}
-        src={image?.url}
-        alt={"event"}
-      />
+      {image?.url && (
+        <img
+          style={{
+            width: "100%",
+            height: 180,
+            objectFit: "cover",
+            borderRadius: 5,
+          }}
+          src={image?.url}
+          alt={"event"}
+        />
+      )}
       <div style={{ padding: "15px 15px" }}>
         <h6
           className="touchable-opacity"
