@@ -24,6 +24,8 @@ const Testimonials = ({ campaign, onModalClose, startOfPage, updateTestimonial }
   const techs = campaign?.technologies;
   const communities = campaign?.communities;
 
+
+
   const { blow, pop } = useBubblyBalloons();
 
   // const { data: users } = useSWR("users.listForCommunityAdmin", getUsers({ no_pagination: true }));
@@ -46,6 +48,8 @@ const Testimonials = ({ campaign, onModalClose, startOfPage, updateTestimonial }
     switch (action.type) {
       case "SET_FIELD_VALUE":
         return { ...state, [action.field]: action.value };
+      case "RESET_FORM":
+        return action.value;
       default:
         throw new Error(`Unsupported action type: ${action.type}`);
     }
@@ -108,6 +112,17 @@ const Testimonials = ({ campaign, onModalClose, startOfPage, updateTestimonial }
       });
     }
   };
+
+  const onCancel = () => {
+    onModalClose();
+    dispatch({ type: "RESET_FORM",value:initialState })
+    if (startOfPage.current) {
+      startOfPage.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      console.error("Target element not found");
+    }
+  }
+
 
   return (
     <div>
@@ -267,14 +282,8 @@ const Testimonials = ({ campaign, onModalClose, startOfPage, updateTestimonial }
                   <BTN
                     variant="danger"
                     disabled={loading}
-                    onClick={() => {
-                      onModalClose();
-                      if (startOfPage.current) {
-                        startOfPage.current.scrollIntoView({ behavior: "smooth", block: "start" });
-                      } else {
-                        console.error("Target element not found");
-                      }
-                    }}
+                    onClick={() => {onCancel()}
+                  }
                   >
                     Cancel
                   </BTN>

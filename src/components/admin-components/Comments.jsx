@@ -100,7 +100,7 @@ const Comments = ({ campaign, comments }) => {
       if (res) {
         blow({
           title: "Success",
-          message: "Comment created successfully",
+          message: "Comment deleted successfully",
           type: "success",
           duration: 5000,
         });

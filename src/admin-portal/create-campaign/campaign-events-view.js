@@ -17,8 +17,12 @@ import { NoItems } from "@kehillahglobal/ui";
 import Dropdown from "src/components/admin-components/Dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { setCampaignCommunityEventsAction } from "../../redux/actions/actions";
+import { useCampaignContext } from "src/hooks/use-campaign-context";
 
 export function CampaignEventsView ({campaign }) {
+
+  const { setNewCampaignDetails,
+  } = useCampaignContext();
   //@Todo: Add a mutate to update main
 
   const [loading, setLoading] = useState(false);
@@ -44,21 +48,25 @@ export function CampaignEventsView ({campaign }) {
 
   const techs = campaign?.technologies;
 
-  const existingEvents = [
-    ...campaign?.technologies?.map((tech) => tech?.events),
-  ].flat();
-  const [selectedEvents, setSelectedEvents] = useState(existingEvents);
+
+  const [selectedEvents, setSelectedEvents] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [toAddEvents, setToAddEvents] = useState([]);
   const [selectedTech, setSelectedTech] = useState("");
   const { blow, pop } = useBubblyBalloons();
 
+  useEffect(() => {
+    const existingEvents = [
+      ...campaign?.technologies?.map((tech) => tech?.events),
+    ].flat();
+    setSelectedEvents(existingEvents);
+
+  },[campaign?.technologies])
+
   const handleRemove = async (tech_event_id) => {
     setLoading(true);
     const _old = [...selectedEvents];
-    const filteredTechnologies = selectedEvents.filter(
-      (event) => event?.id !== tech_event_id,
-    );
+    const filteredTechnologies = selectedEvents.filter((event) => event?.id !== tech_event_id);
     setSelectedEvents(filteredTechnologies);
     try {
       const removedEvent = await removeCampaignTechnologyEvent(tech_event_id);
@@ -109,8 +117,16 @@ export function CampaignEventsView ({campaign }) {
 
       if (res) {
         setLoading(false);
+        const tech = techs?.find((tech) => tech?.campaign_technology_id === selectedTech);
+        const newTech = { ...tech, events: [...tech?.events, ...res] };
+        const newTechs = techs?.map((tech) => {
+          if (tech?.campaign_technology_id === selectedTech) return newTech;
+          return tech;
+        });
         onModalClose();
-        setSelectedEvents([...selectedEvents, ...res]);
+        const newCampaign = { ...campaign, technologies: newTechs };
+        setNewCampaignDetails(newCampaign);
+
         blow({
           title: "Success",
           message: "Campaign Event Added successfully.",
@@ -119,6 +135,7 @@ export function CampaignEventsView ({campaign }) {
         });
       }
     } catch (e) {
+      console.log("=== e ==", e)
       setLoading(false);
       pop({
         title: "Error",
