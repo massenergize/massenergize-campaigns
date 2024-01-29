@@ -2,8 +2,10 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 // import partnerLogo from "./../../../assets/imgs/me-logo.png";
 import partnerLogo from "./../../../assets/imgs/me-round-logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShare } from "@fortawesome/free-solid-svg-icons";
 
-function Banner ({ title, secondary_logo, primary_logo, tagline }) {
+function Banner ({ title, secondary_logo, primary_logo, tagline,handleShareCampaign, is_published }) {
   return (
     <Container style={{ marginTop: 70 }}>
       <Row>
@@ -18,11 +20,7 @@ function Banner ({ title, secondary_logo, primary_logo, tagline }) {
             justifyContent: "center",
           }}
         >
-          <img
-            className="site-logo"
-            src={primary_logo?.url}
-            alt={"logo"}
-          />
+          <img className="site-logo" src={primary_logo?.url} alt={"logo"} />
         </Col>
         <Col
           lg={6}
@@ -35,20 +33,16 @@ function Banner ({ title, secondary_logo, primary_logo, tagline }) {
             justifyContent: "center",
           }}
         >
-          <h1
-            className="page-title"
-           
-          >
-            {title}
-          </h1>
+          <h1 className="page-title">{title}</h1>
           {tagline && (
-            <h5
-              className="page-slogan"
-              style={{
-              }}
-            >
+            <h5 className="page-slogan" style={{}}>
               {tagline}
             </h5>
+          )}
+          {is_published && (
+            <span className="touchable-opacity share-campaign-btn" onClick={()=> handleShareCampaign()}>
+              <FontAwesomeIcon icon={faShare} /> Share
+            </span>
           )}
         </Col>
         <Col

@@ -48,7 +48,10 @@ function Footer({ toggleModal, campaign, authUser }) {
     });
   };
 
-  if (isMobile) return <MobileFooter signUpForNewsletter={signUpForNewsletter} renderMenus={renderMenus} />;
+  if (isMobile)
+    return (
+      <MobileFooter signUpForNewsletter={signUpForNewsletter} renderMenus={renderMenus} customization={customization} />
+    );
   return (
     <div
       className="phone-vanish"
@@ -145,7 +148,7 @@ const mapState = (state) => {
 };
 export default connect(mapState)(Footer);
 
-const MobileFooter = ({ signUpForNewsletter, renderMenus }) => {
+const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
   return (
     <div style={{ height: 250, margin: 0 }}>
       <div
@@ -157,11 +160,9 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus }) => {
           flexDirection: "column",
         }}
       >
-        <h5 style={{ color: "white" }}>Plug In for Updates</h5>
+        <h5 style={{ color: "white" }}>{customization?.title || "Newsletter"}</h5>
         <p style={{ color: "white", fontSize: "var(--mob-normal-font-size" }}>
-          {/* We should be able to change the footer info from teh admin side */}
-          Sign up for email updates with the latest info on events and incentives, on heat pumps, community solar and
-          home solar.
+          {customization?.description || "Sign up for email updates with the latest info on events and incentives!"}
         </p>
         <Button
           className="elevate-float-pro touchable-opacity"
