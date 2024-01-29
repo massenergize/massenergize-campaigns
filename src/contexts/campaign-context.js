@@ -85,14 +85,18 @@ export function CampaignProvider ({ children }) {
     isLoading: allCommunitiesIsLoading,
   } = useSWR("communities.list", async () => {
     return await fetchCommunitiesList("communities.list")
-  }, { ...SWR_CONFIG, });
+  }, { ...SWR_CONFIG,revalidateOnMount: true,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false });
 
   const {
     data: allTechnologies,
     isLoading: allTechnologiesLoading,
   } = useSWR(`technologies.list`, async () => {
     return await fetchAllTechnologies(getAccFromLocalStorage());
-  }, { ...SWR_CONFIG, });
+  }, { ...SWR_CONFIG,      revalidateOnMount: true,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false });
 
   // const {
   //   // initialData: allPartnersInitialData,
