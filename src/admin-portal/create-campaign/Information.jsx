@@ -114,12 +114,13 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
           <Input
             id="Tagline"
             name="Tagline"
-            label="Tagline"
+            label="Tagline (100 Chars)"
             error={errors?.tagline}
             placeholder="Enter a tagline for this campaign ..."
             required={false}
             type="textbox"
             value={campaignDetails?.tagline}
+            maxLength={100}
             onChange={(val) => {
               handleFieldChange("tagline", val);
             }}
