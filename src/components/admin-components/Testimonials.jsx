@@ -94,6 +94,7 @@ const Testimonials = ({ campaign, onModalClose, startOfPage, updateTestimonial }
       if (createdTestimonial) {
         updateTestimonial(createdTestimonial);
         setLoading(false);
+        onCancel();
         blow({
           title: "Success",
           message: "Testimonial created successfully",

@@ -66,11 +66,18 @@ export function CampaignEventsView ({campaign }) {
   const handleRemove = async (tech_event_id) => {
     setLoading(true);
     const _old = [...selectedEvents];
-    const filteredTechnologies = selectedEvents.filter((event) => event?.id !== tech_event_id);
-    setSelectedEvents(filteredTechnologies);
     try {
       const removedEvent = await removeCampaignTechnologyEvent(tech_event_id);
       if (removedEvent) {
+        let tech = techs?.find((tech) => tech?.campaign_technology_id === removedEvent?.campaign_technology?.id);
+        let newEvents = tech?.events?.filter((event) => event?.id !== tech_event_id);
+        tech = { ...tech, events: newEvents };
+
+        const newTechs = techs?.map((t) => {
+          if (t?.campaign_technology_id === removedEvent?.campaign_technology?.id) return tech;
+          return t;
+        })
+        setNewCampaignDetails({ ...campaign, technologies: newTechs });
         setLoading(false);
         blow({
           title: "Success",
