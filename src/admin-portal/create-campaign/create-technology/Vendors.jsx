@@ -107,7 +107,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
   if (isLoading) {
     return (
       <div
-        className=""
+        className="mt-5"
         style={{
           width: "100%",
           display: "flex",
