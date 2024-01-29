@@ -36,6 +36,10 @@ function AuthGuard ({
 			}
 			putFirebaseAuthInRedux(user);
 			fetchMassenergizeUser({ idToken: user?.accessToken }, (data, err) => {
+				if(err) { 
+					console.log("ERROR LOADING ME USER", err) 
+					return navigator("/login")
+				}
 				let account = localStorage.getItem("acc");
 				account = account && JSON.parse(atob(account));
 				const noAccounts = !account && !data?.campaign_accounts?.length

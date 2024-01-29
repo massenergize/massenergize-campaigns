@@ -27,8 +27,8 @@ function TestimonialBox({ title, user, image, body, campaign_technology, campaig
       <div
         style={{
           fontSize: 14,
-          maxHeight: 60,
-          height: 60,
+          // maxHeight: 60,
+          // height: 60,
           margin: 0,
           position: "relative",
           overflow: "auto",

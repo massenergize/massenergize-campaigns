@@ -68,7 +68,7 @@ function Filter ({
                 {isChecked && (
                   <i
                     className="fa fa-check"
-                    style={{ marginLeft: 6, color: "var(--app-medium-green)" }}
+                    style={{ marginLeft: 6, color: "var(--app-main-color)" }}
                   />
                 )}
               </NavDropdown.Item>
@@ -86,8 +86,8 @@ function Filter ({
                 className="touchable-opacity our-filter-item"
                 style={{
                   fontWeight: "bold",
-                  color: "var(--app-medium-green)",
-                  border: "dashed 1px var(--app-medium-green)",
+                  color: "var(--app-main-color)",
+                  border: "dashed 1px var(--app-main-color)",
                   borderRadius: 55,
                   padding: "4px 15px",
                   margin: 5,
