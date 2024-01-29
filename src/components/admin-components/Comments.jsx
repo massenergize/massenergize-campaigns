@@ -60,7 +60,9 @@ const Comments = ({ campaign, comments }) => {
     setLoading(true);
 
     try {
-      const res = await createCampaignComment(formData);
+      const res = await createCampaignComment({ ...formData, is_from_admin_site: true });
+      const together = [...comments, res];
+      updateInRedux(together);
       setOpenModal(false);
       // setComments(res);
       setLoading(false);
@@ -98,7 +100,7 @@ const Comments = ({ campaign, comments }) => {
       if (res) {
         blow({
           title: "Success",
-          message: "Comment created successfully",
+          message: "Comment deleted successfully",
           type: "success",
           duration: 5000,
         });
@@ -128,8 +130,7 @@ const Comments = ({ campaign, comments }) => {
   return (
     <m.div initial={{ y: "15%" }} animate={{ y: 0 }} transition={{ duration: 0.2 }}>
       <div className="flex items-center justify-content-end">
-        {/* DONT UNCHECK THIS.  */}
-        {/* <Button
+        <Button
           onClick={() => {
             setOpenModal(true);
           }}
@@ -138,7 +139,7 @@ const Comments = ({ campaign, comments }) => {
           text="Create New Comment"
         >
           <span></span>
-        </Button> */}
+        </Button>
       </div>
 
       <Modal size={"lg"} show={openModal} onHide={onModalClose}>
@@ -180,7 +181,7 @@ const Comments = ({ campaign, comments }) => {
               <Col>
                 <Input
                   label="Comment"
-                  placeholder="Eneter the comment here..."
+                  placeholder="Enter the comment here..."
                   required={true}
                   type="textarea"
                   onChange={(val) => {
@@ -239,18 +240,18 @@ const Comments = ({ campaign, comments }) => {
                         )}
                       </p>
                       <div className={"mt-2"} style={{ display: "flex", justifyContent: "space-between" }}>
-                        {comment?.user?.id === loggedInAdmin?.id ? (
-                          <div
-                            className="comment-delete-btn"
-                            onClick={async () => {
-                              if (window.confirm("Are you sure you want to delete this comment ?")) {
-                                await handleDeleteComment(comment?.id);
-                              }
-                            }}
-                          >
-                            <p>Delete</p>
-                          </div>
-                        ) : null}
+                        {/* {comment?.user?.id === loggedInAdmin?.id ? ( */}
+                        <div
+                          className="comment-delete-btn"
+                          onClick={async () => {
+                            if (window.confirm("Are you sure you want to delete this comment ?")) {
+                              await handleDeleteComment(comment?.id);
+                            }
+                          }}
+                        >
+                          <p>Delete</p>
+                        </div>
+                        {/* ) : null} */}
                         <div className="comment-date">
                           <p>{relativeTimeAgo(comment?.created_at)}</p>
                         </div>
