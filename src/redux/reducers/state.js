@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import {
   adminPortalReducer,
   authenticatedAdminReducer,
-  campaignAccountReducer, CampaignCommunitiesEventsReducer,
+  campaignAccountReducer, campaignCommentsReducer, CampaignCommunitiesEventsReducer,
   campaignInformationReducer,
   commentsListReducer,
   doNothingReducer,
@@ -33,5 +33,6 @@ export default combineReducers({
   campaignAccount: campaignAccountReducer,
   isAdminPortal: adminPortalReducer,
   massUsers: massEnergizeUsersReducer,
-  communitiesEvents:CampaignCommunitiesEventsReducer
+  communitiesEvents:CampaignCommunitiesEventsReducer,
+  campaignComments: campaignCommentsReducer
 });

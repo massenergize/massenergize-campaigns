@@ -8,7 +8,7 @@ import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
   SET_AUTH_USER,
-  SET_CAMPAIGN_ACCOUNT, SET_CAMPAIGN_COMMUNITIES_EVENTS,
+  SET_CAMPAIGN_ACCOUNT, SET_CAMPAIGN_COMMENTS, SET_CAMPAIGN_COMMUNITIES_EVENTS,
   SET_FIRE_AUTH,
   SET_FULL_TECH_OBJ,
   SET_IS_ADMIN_PORTAL,
@@ -124,6 +124,14 @@ export const massEnergizeUsersReducer = (state =[], action) => {
 export const CampaignCommunitiesEventsReducer = (state =[], action) => {
   switch (action.type) {
     case SET_CAMPAIGN_COMMUNITIES_EVENTS:
+      return action.payload; // return new state
+    default:
+      return state; // return current state if action is not handled
+  }
+};
+export const campaignCommentsReducer = (state =[], action) => {
+  switch (action.type) {
+    case SET_CAMPAIGN_COMMENTS:
       return action.payload; // return new state
     default:
       return state; // return current state if action is not handled
