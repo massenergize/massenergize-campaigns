@@ -7,7 +7,12 @@ import { relativeTimeAgo } from "src/utils/utils";
 import RenderHTML from "../RenderHtml";
 import { Modal } from "react-bootstrap";
 
-const TestimonialCard = ({ test, className = "" }) => {
+const TestimonialCard = ({
+  test,
+  className = "",
+  updateTestimonial: sendUpdatesToRedux,
+  removeTestimonial: removeTestimonialFromRedux,
+}) => {
   const [tick, setTick] = useState(test?.is_featured);
 
   const [loading, setLoading] = useState(false);
@@ -32,6 +37,7 @@ const TestimonialCard = ({ test, className = "" }) => {
         };
 
         const res = await updateTestimonial(payload);
+        sendUpdatesToRedux(res);
 
         if (res) {
           setLoading(false);
@@ -64,6 +70,7 @@ const TestimonialCard = ({ test, className = "" }) => {
         };
 
         const res = await deleteTestimonial(payload);
+        removeTestimonialFromRedux(test);
 
         if (res) {
           setLoading(false);
@@ -100,6 +107,7 @@ const TestimonialCard = ({ test, className = "" }) => {
         };
 
         const res = await updateTestimonial(payload);
+        sendUpdatesToRedux(res);
 
         if (res) {
           setLoading(false);
