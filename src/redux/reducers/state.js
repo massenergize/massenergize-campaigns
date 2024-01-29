@@ -4,6 +4,7 @@ import {
   authenticatedAdminReducer,
   campaignAccountReducer, campaignCommentsReducer, CampaignCommunitiesEventsReducer,
   campaignInformationReducer,
+  campaignTestimonialsReducer,
   commentsListReducer,
   doNothingReducer,
   eventsListReducer,
@@ -34,5 +35,6 @@ export default combineReducers({
   isAdminPortal: adminPortalReducer,
   massUsers: massEnergizeUsersReducer,
   communitiesEvents:CampaignCommunitiesEventsReducer,
-  campaignComments: campaignCommentsReducer
+  campaignComments: campaignCommentsReducer, 
+  campaignTestimonials:campaignTestimonialsReducer
 });
