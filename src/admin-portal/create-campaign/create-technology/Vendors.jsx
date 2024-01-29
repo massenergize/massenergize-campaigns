@@ -122,13 +122,13 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
   return (
     <div>
       <Container fluid className="" style={{ overflowX: "scroll", paddingBottom: 50, paddingRight: 0, paddingLeft: 0 }}>
-      <div style={{ display: "flex", flexDirection: "row", width: "100%", margin:"20px 0px" }}>
-        <BTN style={{ marginLeft: "auto" }} variant="success" onClick={() => setOpenAddVendorModal(true)}>
-          <i className="fa fa-plus" style={{ marginRight: 7 }} />
-          Add A New Vendor
-        </BTN>
-      </div>
-        
+        <div style={{ display: "flex", flexDirection: "row", width: "100%", marginTop: "20px" }}>
+          <BTN style={{ marginLeft: "auto" }} variant="success" onClick={() => setOpenAddVendorModal(true)}>
+            <i className="fa fa-plus" style={{ marginRight: 7 }} />
+            Import A Vendor
+          </BTN>
+        </div>
+
         <div className="py-3">
           <CustomAccordion
             title={"Customize The Title and Description of Vendors Section"}
@@ -242,48 +242,55 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
         </Row>
       </Container>
 
-      <MeModal style={{height:"55vh"}} open={openAddVendorModal} onHide={()=>setOpenAddVendorModal(false)} title={"Add vendor(s) to this technology"}>
-        {newFunction()}
+      <MeModal
+        style={{ height: "55vh" }}
+        open={openAddVendorModal}
+        onHide={() => setOpenAddVendorModal(false)}
+        title={"Add vendor(s) to this technology"}
+      >
+        {importVendors()}
       </MeModal>
     </div>
   );
 
-  function newFunction() {
-    return <Form className="py-3">
-      <FormLabel>Choose one or more Vendors for this technology from the dropdown below.</FormLabel>
+  function importVendors() {
+    return (
+      <Form className="py-3">
+        <FormLabel>Choose one or more Vendors for this technology from the dropdown below.</FormLabel>
 
-      <MultiSelect
-        options={(allVendors || []).map((vendor) => {
-          return {
-            ...vendor,
-            value: vendor?.id,
-            label: `${vendor?.name} --- ${vendor?.communities[0]?.name} community`,
-          };
-        })}
-        hasSelectAll={true}
-        value={selectedVendors?.map((vendor) => {
-          return {
-            ...vendor,
-            value: vendor?.id,
-            label: vendor?.name,
-          };
-        })}
-        onChange={(val) => setSelectedVendors(val)}
-        valueRenderer={(selected, _options) => {
-          if (selected.length === 0) return "Select Vendors";
-          if (selected.length === _options.length) return "All Vendors Selected";
-          if (selected.length > 2) return `${selected.length} Vendors Selected`;
-          return selected
-            ?.map(({ label }) => label)
-            .join(", ")
-            .concat(" Selected");
-        } }
-        className={"event-select"} />
+        <MultiSelect
+          options={(allVendors || []).map((vendor) => {
+            return {
+              ...vendor,
+              value: vendor?.id,
+              label: `${vendor?.name} --- ${vendor?.communities[0]?.name} community`,
+            };
+          })}
+          hasSelectAll={true}
+          value={selectedVendors?.map((vendor) => {
+            return {
+              ...vendor,
+              value: vendor?.id,
+              label: vendor?.name,
+            };
+          })}
+          onChange={(val) => setSelectedVendors(val)}
+          valueRenderer={(selected, _options) => {
+            if (selected.length === 0) return "Select Vendors";
+            if (selected.length === _options.length) return "All Vendors Selected";
+            if (selected.length > 2) return `${selected.length} Vendors Selected`;
+            return selected
+              ?.map(({ label }) => label)
+              .join(", ")
+              .concat(" Selected");
+          }}
+          className={"event-select"}
+        />
         {/* show selected vendors in a chip */}
-        <div className="mt-2" style={{display:'flex', flexWrap:'wrap'}}>
+        <div className="mt-2" style={{ display: "flex", flexWrap: "wrap" }}>
           {selectedVendors?.map((vendor) => {
             return (
-                <Chip
+              <Chip
                 key={vendor?.id}
                 text={vendor?.name}
                 className="mx-1 my-1"
@@ -295,7 +302,6 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
           })}
         </div>
 
-      
         <Row className="mt-4 justify-content-end">
           <Col>
             <Button
@@ -303,11 +309,12 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
               loading={loading}
               disabled={loading}
               onSubmit={handleSaveVendors}
-              rounded={false} />
+              rounded={false}
+            />
           </Col>
         </Row>
-    
-    </Form>;
+      </Form>
+    );
   }
 };
 
