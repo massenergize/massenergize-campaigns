@@ -113,7 +113,7 @@ const TestimonialCard = ({
           setLoading(false);
           blow({
             title: "Success",
-            message: "Testimonial deleted successfully.",
+            message: "Testimonial approved successfully.",
             type: "success",
             duration: 5000,
           });
