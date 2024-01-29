@@ -17,7 +17,7 @@ import {
   UPDATE_TESTIMONIALS_OBJ,
   SET_CAMPAIGN_ACCOUNT,
   SET_IS_ADMIN_PORTAL,
-  SET_MASSENERGISE_USERS,
+  SET_MASSENERGISE_USERS, SET_CAMPAIGN_COMMUNITIES_EVENTS
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
 
@@ -174,4 +174,8 @@ export const setAdminPortalBooleanAction = (payload =false) => {
 };
 export const setMassEnergizeUsersAction = (payload =[]) => {
   return { type: SET_MASSENERGISE_USERS, payload };
+};
+
+export const setCampaignCommunityEventsAction = (payload =[]) => {
+  return { type: SET_CAMPAIGN_COMMUNITIES_EVENTS, payload };
 };

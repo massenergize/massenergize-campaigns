@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Button as BTN, Modal, Form } from "react-bootstrap";
 import { MultiSelect } from "react-multi-select-component";
 import Button from "src/components/admin-components/Button";
@@ -15,22 +15,32 @@ import Chip from "src/components/admin-components/Chip";
 import { fetchEvents } from "src/requests/technology-requests";
 import { NoItems } from "@kehillahglobal/ui";
 import Dropdown from "src/components/admin-components/Dropdown";
+import { useDispatch, useSelector } from "react-redux";
+import { setCampaignCommunityEventsAction } from "../../redux/actions/actions";
 
 export function CampaignEventsView ({campaign }) {
   //@Todo: Add a mutate to update main
 
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
+  const allEvents = useSelector(state=> state.communitiesEvents)
+  const dispatch = useDispatch()
 
-  const { data: allEvents, isLoading } = useSWR(
-    "campaigns.communities.events.list",
-    () => fetchEvents(campaign?.id || id),
-    {
-      shouldRetryOnError: true,
-      errorRetryCount: 3,
-      errorRetryInterval: 3000,
-    },
-  );
+  const fetchEventsIfNone = async () => {
+    try {
+      if (!allEvents?.length) {
+        const data = await fetchEvents(campaign?.id || id);
+        dispatch(setCampaignCommunityEventsAction(data));
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+
+  useEffect(()=>{
+    fetchEventsIfNone()
+  },[])
+
 
   const techs = campaign?.technologies;
 
@@ -119,8 +129,8 @@ export function CampaignEventsView ({campaign }) {
     }
   };
 
-  if (isLoading || loading)
-    return <GhostLoader loading={isLoading} text="Loading Events..." />;
+  // if (isLoading || loading)
+  //   return <GhostLoader loading={isLoading} text="Loading Events..." />;
   const EVENTS_SIZE = (selectedEvents || [])?.length;
 
   const onModalClose = () => {
@@ -136,6 +146,7 @@ export function CampaignEventsView ({campaign }) {
 
   return (
     <Container fluid style={{ height: "100vh" }}>
+      {loading && (<GhostLoader text="Loading Events..." />)}
       {EVENTS_SIZE > 0 && (
         <Container>
           <div
@@ -205,12 +216,9 @@ export function CampaignEventsView ({campaign }) {
                         <td className="text-center">
                           <BTN
                             // style={{ marginLeft: 10 }}
-                            onClick={() => {
-                              if (
-                                window.confirm(
-                                  "Are you sure you want to remove this Event?",
-                                )
-                              ) {
+                            onClick={(e) => {
+                              e.preventDefault()
+                              if (window.confirm("Are you sure you want to remove this Event?")) {
                                 handleRemove(event?.id);
                               }
                             }}
