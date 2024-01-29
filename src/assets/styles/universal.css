@@ -5,102 +5,116 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:400,700");
 @import url("https://fonts.googleapis.com/css?family=Nunito:200,300,400,500,600,700");
 @import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
 * {
-  font-family: "Google Sans", sans-serif;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    font-family: "Google Sans", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
+
 body {
-  overflow-x: hidden;
+    overflow-x: hidden;
 }
 
 :root {
-  --app-main-color: #3030d0;
-  --app-accent-1: #00deb5;
-  --app-accent-2: #ffc501;
-  --app-accent-3: #ff4b00;
-  --app-accent-4: #ff97d6;
-  --app-deep-green: #3c5b11;
-  --app-medium-green: #8bb256;
-  --app-kicking-yellow: #ffd66d;
-  --kicking-background: #fff5dd;
-  /* --app-deep-green: #3030d0;  */
-  /* --app-medium-green: #ffc501; */
-  --app-antique-white: antiquewhite;
-  --app-orange: #f57907;
-  --app-close-red: #d33f2b;
+    --app-main-color: #3030d0;
+    --app-accent-1: #00deb5;
+    --app-accent-2: #ffc501;
+    --app-accent-3: #ff4b00;
+    --app-accent-4: #ff97d6;
+    --app-deep-green: #3c5b11;
+    --app-medium-green: #8bb256;
+    --app-kicking-yellow: #ffd66d;
+    --kicking-background: #fff5dd;
+    /* --app-deep-green: #3030d0;  */
+    /* --app-medium-green: #ffc501; */
+    --app-antique-white: antiquewhite;
+    --app-orange: #f57907;
+    --app-close-red: #d33f2b;
 
-  --mob-normal-font-size: 0.85rem;
-  --mob-paragraph-font-size: 0.9rem;
-  --mob-title-font-size: calc(1.325rem + 0.9vw);
+    --mob-normal-font-size: 0.85rem;
+    --mob-paragraph-font-size: 0.9rem;
+    --mob-title-font-size: calc(1.325rem + 0.9vw);
 
-  --admin-theme-color: #6e207c;
-  --admin-theme-color-light: #be52d1;
+    --admin-theme-color: #6e207c;
+    --admin-theme-color-light: #be52d1;
 }
 
 .already-liked {
-  color: var(--app-orange) !important;
+    color: var(--app-orange) !important;
 }
 
 .touchable-opacity {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .touchable-opacity:hover {
-  opacity: 0.7;
-  transition: 0.5s;
+    opacity: 0.7;
+    transition: 0.5s;
 }
 
 .touchable-opacity:active {
-  transform: scale(0.95);
+    transform: scale(0.95);
 }
 
 .interact:active {
-  transform: scale(1);
-  color: var(--app-medium-green) !important;
+    transform: scale(1);
+    color: var(--app-medium-green) !important;
 }
+
 .interact {
-  cursor: pointer;
+    cursor: pointer;
 }
+
 .interact:hover {
-  /* animation: pulse .8s forwards; */
-  transition: 0.3s ease-out;
-  transform: scale(1.5);
+    /* animation: pulse .8s forwards; */
+    transition: 0.3s ease-out;
+    transform: scale(1.5);
 }
 
 @keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.5);
-  }
-  100% {
-    transform: scale(1);
-  }
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .row-flex {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
+
 .column-flex {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .f-dropdown-override {
-  font-size: 1rem !important;
-  padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x) !important;
-  color: black !important;
+    font-size: 1rem !important;
+    padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x) !important;
+    color: black !important;
 }
 .f-dropdown-override:hover {
-  background: #f8f9fa !important;
+    background: #f8f9fa !important;
 }
 
 
-.c-nav-item { 
-  color: var(--app-main-color) !important; 
+.c-nav-item {
+    color: var(--app-main-color) !important;
+}
+
+.share-campaign-btn {
+    font-weight: bold;
+    color: var(--app-main-color);
+    border: dashed 1px var(--app-main-color);
+    border-radius: 55px;
+    padding: 4px 15px;
+    margin: 5px;
 }

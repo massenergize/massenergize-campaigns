@@ -27,6 +27,7 @@ import TestimonialSectionWithFilters from "../testimonials/TestimonialSectionWit
 import EventsSectionWithFilters from "../events/EventsSectionWithFilters";
 import CoachesSectionWithFilters from "../coaches/CoachesSectionWithFilters";
 import CampaignNotLive from "./CampaignNotLive";
+import ShareBox from "../sharing/ShareBox";
 
 function LandingPage({
   toggleModal,
@@ -141,6 +142,17 @@ function LandingPage({
     });
   };
 
+  const handleShareCampaign = ()=>{
+      toggleModal({
+        show: true,
+        title: "Share Campaign",
+        // iconName: "fa-comment",
+        component: () => <ShareBox campaign={campaign} authUser={authUser} />,
+        modalNativeProps: { size: "lg" },
+        fullControl: true,
+      });
+  }
+
   useEffect(() => {
     if (!preview) init(campaignId);
   }, []);
@@ -190,7 +202,7 @@ function LandingPage({
       )}
       <AppNavigationBar menu={menu} campaign={campaign} />
       <Container>
-        <Banner {...campaign} />
+        <Banner {...campaign} handleShareCampaign={handleShareCampaign} />
         <CampaignNotLive />
         <Container>
           <img className="elevate-float-pro campaign-focus-image" src={image?.url || planetB} alt={"campaign banner"} />
