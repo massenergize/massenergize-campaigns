@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, FormLabel } from "react-bootstrap";
 import CustomAccordion from "../../components/admin-components/CustomAccordion";
 import IncentivesBar from "../../components/admin-components/IncentivesBar";
 import Input from "../../components/admin-components/Input";
@@ -7,28 +7,38 @@ import Button from "../../components/admin-components/Button";
 import SectionsForm from "./create-technology/SectionsForm";
 import { updateCampaignCommunityInfo } from "../../requests/campaign-requests";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
+import { findItemAtIndexAndRemainder } from "src/utils/utils";
+import { MultiSelect } from "react-multi-select-component";
+import { useCampaignContext } from "src/hooks/use-campaign-context";
+import { apiCall } from "src/api/messenger";
 
-export default function CampaignCommunities({ campaignDetails }) {
+export default function CampaignCommunities({ campaignDetails, setCampaignDetails }) {
   const { communities } = campaignDetails;
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [formData, setFormData] = useState({
     ...(communities?.reduce((acc, item) => {
-      acc[item?.id] = { help_link: item?.help_link };
+      acc[item?.id] = { help_link: item?.help_link, alias: item?.alias };
       return acc;
     }, {}) || {}),
   });
 
+  const {
+    lists,
+    setNewCampaignDetails,
+  } = useCampaignContext();
+
+  const { allCommunities } = lists || {};
 
   const [loading, setLoading] = useState(false);
-
-  const {blow, pop} = useBubblyBalloons()
+  const [comChangeLoading, setComChangeLoading] = useState(false);
+  const [comsInThisCampaign, setComsInThisCampaign] = useState([]);
+  const { blow, pop } = useBubblyBalloons();
 
   const handleFieldChange = (tabId, field, value) => {
     setFormData({ ...formData, [tabId]: { ...formData[tabId], [field]: value } });
   };
 
-  const getValue = (tabId, name, fallback = "") =>
-    (formData[tabId] || {})[name] || fallback;
+  const getValue = (tabId, name, fallback = "") => (formData[tabId] || {})[name] || fallback;
 
   const openAccordion = (index) => {
     if (activeAccordion === index) {
@@ -38,44 +48,109 @@ export default function CampaignCommunities({ campaignDetails }) {
     }
   };
 
-  const handleSave = async(tabId) => {
+  const notifyError = (error) => {
+    pop({
+      title: "Error",
+      message: error,
+      type: "error",
+    });
+  };
+  const saveChanges = () => {
+    const community_ids = comsInThisCampaign?.map((c) => c.value);
+    if (!community_ids || !community_ids?.length) return;
+    setComChangeLoading(true);
+    apiCall("/campaigns.communities.add", { community_ids, campaign_id: campaignDetails?.id })
+      .then((response) => {
+        setComChangeLoading(false);
+        console.log("This is the response", response);
+        const { data, success, error } = response || {};
+        if (!success) return notifyError(error);
+        setNewCampaignDetails({ ...campaignDetails, communities: data });
+      })
+      .catch((e) => {
+        setComChangeLoading(false);
+        notifyError(e);
+        console.log("ERROR_SAVING_CHANGES", e);
+      });
+  };
+
+  const handleSave = async (tabId) => {
     setLoading(true);
     try {
-      const res = await updateCampaignCommunityInfo({campaign_community_id: tabId, ...formData[tabId]})
-      setLoading(false)
-
-        blow({
-          title: "Success",
-          message: "Community information updated successfully",
-          type: "success",
-        });
-
-
-    }catch (e) {
-      setLoading(false)
+      const res = await updateCampaignCommunityInfo({ campaign_community_id: tabId, ...formData[tabId] });
+      setLoading(false);
+      const { remainder, index } = findItemAtIndexAndRemainder(
+        campaignDetails?.communities,
+        (found) => found.id === res?.id,
+      );
+      remainder.splice(index, 0, res);
+      setCampaignDetails("communities", remainder);
+      blow({
+        title: "Success",
+        message: "Community information updated successfully",
+        type: "success",
+      });
+    } catch (e) {
+      setLoading(false);
       pop({
         title: "Error",
         message: "An error occurred while updating community information",
         type: "error",
       });
-
     }
   };
 
+  useEffect(() => {
+    let d = campaignDetails?.communities || [];
+    d = d?.map(({ community: c }) => ({ value: c?.id, label: c?.name }));
+    console.log("This is what d looks like", d);
+    setComsInThisCampaign(d);
+    console.log("I Just run the props into the state");
+  }, [campaignDetails?.communities]);
+
   return (
-    <Container fluid>
+    <Container fluid style={{ height: "100vh" }}>
+      <div style={{ marginBottom: 20 }}>
+        <Row className="py-4">
+          <Col>
+            <h6>Add or remove communities from this campaign</h6>
+            <MultiSelect
+              options={(allCommunities?.data || []).map((campaign) => {
+                return {
+                  ...campaign,
+                  value: campaign?.id,
+                  label: campaign?.name,
+                };
+              })}
+              value={comsInThisCampaign}
+              onChange={(coms) => {
+                setComsInThisCampaign(coms);
+                console.log("These are teh values", coms);
+              }}
+              labelledBy="Select"
+            />
+          </Col>
+        </Row>
+
+        <Button loading={comChangeLoading} onClick={() => saveChanges()}>
+          Save Changes
+        </Button>
+      </div>
       {communities?.map((item) => (
         <Row className={"mb-4"} key={item?.id}>
           <Col>
             <CustomAccordion
-              title={`Add Help Link for ${item?.community?.name}`}
-              component={ <HelpLinkForm
-                getValue={getValue}
-                tabId={activeAccordion}
-                handleFieldChange={handleFieldChange}
-                handleSave={handleSave}
-                loading={loading}
-              />}
+              title={`Customize ${item?.alias || item?.community?.name}`}
+              component={
+                <HelpLinkForm
+                  data={item}
+                  getValue={getValue}
+                  tabId={activeAccordion}
+                  handleFieldChange={handleFieldChange}
+                  handleSave={handleSave}
+                  loading={loading}
+                />
+              }
               isOpen={item?.id === activeAccordion}
               onClick={() => openAccordion(item?.id)}
             />
@@ -86,26 +161,34 @@ export default function CampaignCommunities({ campaignDetails }) {
   );
 }
 
-const HelpLinkForm = ({
-  handleFieldChange,
-  tabId,
-  getValue,
-  handleSave,
-  loading,
-}) => {
+const HelpLinkForm = ({ handleFieldChange, tabId, getValue, handleSave, loading, data }) => {
   return (
     <div>
-      <Row className="mt-3">
+      <Row className="m-3">
         <Col>
           <Input
             label="Help Link"
-            placeholder="Add a link to help for this community......."
+            placeholder="Add a link to help for this Eg: https://communities.massenergize.org/ "
             required={false}
             type="textbox"
             onChange={(val) => {
               handleFieldChange(tabId, "help_link", val);
             }}
             value={getValue(tabId, "help_link")}
+          />
+        </Col>
+        <Col>
+          <Input
+            label="Community Alias"
+            placeholder={`The current name is ${
+              data?.alias || data?.community?.name || "..."
+            }, want to try something else?`}
+            required={false}
+            type="textbox"
+            onChange={(val) => {
+              handleFieldChange(tabId, "alias", val);
+            }}
+            value={getValue(tabId, "alias")}
           />
         </Col>
       </Row>

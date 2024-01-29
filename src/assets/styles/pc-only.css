@@ -2,19 +2,21 @@
   .page-title {
     text-align: center;
     font-size: 3rem;
-    text-transform: uppercase;
+    color: var(--app-accent-3);
+    /* text-transform: uppercase; */
   }
   .roaming-container {
     margin: 100px 0px;
   }
   .page-slogan {
     font-weight: 400;
-    color: var(--app-medium-green);
+    color: var(--app-main-color);
     text-align: center;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     line-height: 1.5;
     width: 85%;
     font-size: 1.2rem;
+    font-weight: 600;
   }
 
   .site-logo {
@@ -93,7 +95,9 @@
     /* width: 80%; */
   }
   .one-coach-main h6 {
-    margin: 20px 0px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin: 10px 0px;
     font-weight: bold;
   }
 
@@ -133,6 +137,10 @@
     padding: 20px;
   }
 
+  .pc-vanish {
+    display: none !important;
+  }
+
   /* --------------------------------- END OF PC SPECIFIC ---------------------- */
 }
 
@@ -148,8 +156,8 @@
 .coach-main p {
   font-weight: bold;
   /* font-size: 15px; */
-  color: var(--app-orange);
-  text-transform: uppercase;
+  color: var(--app-main-color);
+  /* text-transform: uppercase; */
 }
 .coach-main img {
   border-radius: 100%;
@@ -189,7 +197,9 @@
 }
 .roaming-header {
   padding: 10px 30px;
-  background: var(--app-kicking-yellow);
+  /* background: var(--app-kicking-yellow); */
+  color: white;
+  background: var(--app-main-color);
   /* border-radius: 5px; */
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
@@ -198,10 +208,10 @@
 .app-btn {
   margin-left: auto;
   border-radius: 100px !important;
-  background: var(--app-deep-green) !important;
+  background: var(--app-main-color) !important;
   border-width: 0px !important;
 }
 
 .g-s-container {
-  background: var(--app-medium-green);
+  background: var(--app-main-color);
 }

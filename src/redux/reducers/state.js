@@ -2,18 +2,19 @@ import { combineReducers } from "redux";
 import {
   adminPortalReducer,
   authenticatedAdminReducer,
-  campaignAccountReducer,
+  campaignAccountReducer, campaignCommentsReducer, CampaignCommunitiesEventsReducer,
   campaignInformationReducer,
   commentsListReducer,
   doNothingReducer,
   eventsListReducer,
   firebaseAuthObjReducer,
   fullTechnologiesReducer,
+  massEnergizeUsersReducer,
   navigationMenuReducer,
   testimonialsListReducer,
   testimonialsReducer,
   universalModalReducer,
-  userObjectReducer,
+  userObjectReducer
 } from "./reducers";
 import { loadCampaignInformation } from "../actions/actions";
 
@@ -31,4 +32,7 @@ export default combineReducers({
   comments: commentsListReducer,
   campaignAccount: campaignAccountReducer,
   isAdminPortal: adminPortalReducer,
+  massUsers: massEnergizeUsersReducer,
+  communitiesEvents:CampaignCommunitiesEventsReducer,
+  campaignComments: campaignCommentsReducer
 });

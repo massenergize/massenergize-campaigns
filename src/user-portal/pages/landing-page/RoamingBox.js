@@ -23,7 +23,10 @@ function RoamingBox({ advert, keyContact, showMore }) {
                   className="flex-column"
                   style={{
                     minHeight: 200,
-                    background: "antiquewhite",
+                    // background: "var(--app-accent-2)",
+                    border: "solid 2px var(--app-main-color)",
+                    borderBottomLeftRadius: 5,
+                    borderBottomRightRadius: 5,
                   }}
                 >
                   <div style={{ padding: "15px 25px" }}>
@@ -101,7 +104,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
               <h6
                 className="mb-1"
                 style={{
-                  color: "var(--app-medium-green)",
+                  color: "var(--app-accent-3)",
                   fontWeight: "800",
                   textTransform: "uppercase",
                   textAlign: "center",
@@ -115,8 +118,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
                   role={"button"}
                   tabIndex={0}
                   onClick={() => {
-                    // window.open(`mailto:${keyContact?.email}`, "_blank"); WILL BE BACK SOON
-                    window.open(`mailto:plugINmetrowest@massenergize.org`, "_blank");
+                    window.open(`mailto:${keyContact?.email}`, "_blank");
                   }}
                   className="mb-1 touchable-opacity"
                   style={{
@@ -124,11 +126,11 @@ function RoamingBox({ advert, keyContact, showMore }) {
                     flexDirection: "row",
                     textDecoration: "underline",
                     alignItems: "center",
+                    fontWeight: "bold",
                   }}
                 >
                   <i className=" fa fa-envelope" style={{ marginRight: 6 }} />
-                  {/* <span> {keyContact?.email}</span>  CHANGE IT BACK WHEN ADMIN PORTAL IS WORKING*/}
-                  <span>plugINmetrowest@massenergize.org</span>
+                  <span> {keyContact?.email}</span>
                 </p>
               )}
               {phone_number && (
@@ -141,8 +143,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
                   }}
                   style={{ textDecoration: "underline" }}
                 >
-                  <i className="fa fa-phone" />{" "}
-                  <span>{keyContact?.phone_number}</span>
+                  <i className="fa fa-phone" /> <span>{keyContact?.phone_number}</span>
                 </p>
               )}
             </Col>

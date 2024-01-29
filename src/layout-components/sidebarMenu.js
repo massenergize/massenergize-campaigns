@@ -78,10 +78,10 @@ export const BOTTOM_MENU = [
     name: "SignOut",
     icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
   },
-  {
-    id: "help",
-    name: "Ask for help",
-    link: "/contact",
-    icon: <FontAwesomeIcon icon={faHeadset} />,
-  },
+  // {
+  //   id: "help",
+  //   name: "Ask for help",
+  //   link: "/contact",
+  //   icon: <FontAwesomeIcon icon={faHeadset} />,
+  // },
 ];

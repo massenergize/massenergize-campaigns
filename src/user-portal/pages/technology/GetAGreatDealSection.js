@@ -73,7 +73,7 @@ function GetAGreatDealSection({ sectionId, data, image, deals, toggleDealModal }
                       marginBottom: 15,
                     }}
                   >
-                    <h3 style={{ margin: 0, color: "red", fontSize: "1.15rem" }}>
+                    <h3 style={{ margin: 0, color: "var(--app-accent-3)", fontSize: "1.15rem" }}>
                       {item.title}
                     </h3>
                   </Col>

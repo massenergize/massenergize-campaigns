@@ -104,7 +104,7 @@ function JoinUsForm ({
         <CommunitySelector onChange={(data) => setForm(data)} data={form} />
         {!noForm && (
           <div>
-            <Form.Text>Join us because we are great!</Form.Text>
+            {/* <Form.Text>Join us because we are great!</Form.Text> */}
             <InputGroup className="mb-3 mt-2">
               <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
               <Form.Control
@@ -135,7 +135,7 @@ function JoinUsForm ({
             margin: 0,
             borderRadius: 0,
             borderWidth: 0,
-            background: "#d53939",
+            background: "#292929",
           }}
         >
           {cancelText || "Cancel"}
@@ -149,7 +149,7 @@ function JoinUsForm ({
             margin: 0,
             borderRadius: 0,
             borderWidth: 0,
-            background: "var(--app-deep-green)",
+            background: "var(--app-main-color)",
             borderBottomRightRadius: 5,
             display: "flex",
             flexDirection: "row",

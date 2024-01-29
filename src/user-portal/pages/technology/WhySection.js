@@ -2,6 +2,7 @@ import React from "react";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
+import SmartRichText from "../../../components/SmartRichText";
 
 const dummies = [
   {
@@ -56,7 +57,7 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  justifyContent: "center",
+                  // justifyContent: "center",
                 }}
                 key={index?.toString()}
                 lg={6}
@@ -66,8 +67,9 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
                 <h6
                   className="mt-3 mb-3"
                   style={{
-                    color: "var(--app-medium-green)",
+                    color: "var(--app-accent-3)",
                     textTransform: "uppercase",
+                    fontWeight: "bold",
                   }}
                 >
                   {title || {}}

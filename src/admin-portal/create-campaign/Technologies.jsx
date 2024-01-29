@@ -153,7 +153,7 @@ const Technologies = ({}) => {
   let notification = null;
 
   return (
-    <Container>
+    <Container fluid>
       <form>
         <Row className="">
           <Col>
@@ -195,20 +195,7 @@ const Technologies = ({}) => {
             />
           </Col>
         </Row>
-        {/*{
-          TECHNOLOGIES_SIZE < 1 ? (
-            <Row className="mt-4 pb-4 justify-content-center">
-              <Col sm="auto" className={"py-5"}>
-                <img src="/img/technology-illustration.svg" alt="No Technology Illustration"/>
-                <h6 className={"text-center mt-4 mb-0"}>No technologies selected</h6>
-                <p className={"text-center text-sm"}>
-                  Please select one or more technologies from the dropdown above.
-                </p>
-              </Col>
-            </Row>
-          ) : null
-        }
-*/}
+
         <Row className="mt-4 pb-4 justify-content-start">
           {TECHNOLOGIES_SIZE > 0 ? (
             <>

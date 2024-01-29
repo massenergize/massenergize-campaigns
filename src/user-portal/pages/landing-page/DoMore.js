@@ -2,7 +2,7 @@ import React from "react";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import { Col, Container, Row } from "react-bootstrap";
 
-function DoMore ({ campaign }) {
+function DoMore({ campaign }) {
   const { communities, communities_section } = campaign || {};
   const { title, description } = communities_section || {};
 
@@ -16,17 +16,18 @@ function DoMore ({ campaign }) {
               color: "black",
               fontWeight: "bold",
               marginBottom: 20,
+              color: "var(--app-accent-3)",
             }}
           >
             {title || " Participating Communities"}
           </h2>
           <p>{description}</p>
           <Row>
-            {(communities || []).map(({ community, id }, index) => {
+            {(communities || []).map(({ community, id, alias }, index) => {
               return (
                 <Col
                   key={index?.toString() + id?.toString()}
-                  lg={4}
+                  lg={3}
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -51,18 +52,16 @@ function DoMore ({ campaign }) {
                   <h6
                     role={"button"}
                     onClick={() => {
-                      window.open(
-                        `${COMMUNITY_PORTAL_URL}${community?.subdomain}`
-                      );
+                      window.open(`${COMMUNITY_PORTAL_URL}${community?.subdomain}`);
                     }}
                     className="touchable-opacity"
                     style={{
                       textDecoration: "underline",
-                      color: "var(--app-deep-green)",
+                      color: "var(--app-accent-3)",
                       fontWeight: "bold",
                     }}
                   >
-                    {community?.name || "..."}
+                    {alias || community?.name || "..."}
                   </h6>
                 </Col>
               );

@@ -7,12 +7,11 @@ import { MOBILE_WIDTH } from "../../../utils/Constants";
 import { useMediaQuery } from "react-responsive";
 
 const EXCLUDED_FOOTER_MENU_KEYS = ["incentives", "vendors"];
-function Footer ({ toggleModal, campaign, authUser }) {
+function Footer({ toggleModal, campaign, authUser }) {
   const navigator = useNavigate();
-  const { navigation } = campaign || {};
+  const { navigation, newsletter_section: customization } = campaign || {};
   const { user } = authUser || {};
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
-
   const renderMenus = (styles = {}) => {
     return (navigation || []).map(({ text, key, url }, index) => {
       const isExcluded = EXCLUDED_FOOTER_MENU_KEYS.includes(key);
@@ -42,29 +41,19 @@ function Footer ({ toggleModal, campaign, authUser }) {
     toggleModal({
       show: true,
       component: (props) => (
-        <JoinUsForm
-          {...(props || {})}
-          confirmText="Subscribe"
-          callbackOnSubmit={({ close }) => close && close()}
-        />
+        <JoinUsForm {...(props || {})} confirmText="Subscribe" callbackOnSubmit={({ close }) => close && close()} />
       ),
       title: `Follow ${campaign?.title}` || "...",
       fullControl: true,
     });
   };
 
-  if (isMobile)
-    return (
-      <MobileFooter
-        signUpForNewsletter={signUpForNewsletter}
-        renderMenus={renderMenus}
-      />
-    );
+  if (isMobile) return <MobileFooter signUpForNewsletter={signUpForNewsletter} renderMenus={renderMenus} />;
   return (
     <div
       className="phone-vanish"
       style={{
-        background: "var(--app-deep-green)",
+        background: "var(--app-main-color)",
         width: "100%",
         height: 310,
         marginTop: 40,
@@ -80,16 +69,15 @@ function Footer ({ toggleModal, campaign, authUser }) {
       >
         <Container>
           <Col lg={{ span: 6, offset: 3 }}>
-            <h4 style={{ color: "white" }}>Newsletter</h4>
+            {/* We should be able to change this part tooo from the admin portal */}
+            <h4 style={{ color: "white" }}>{customization?.title || "Newsletter"}</h4>
             <p style={{ color: "white" }}>
-            Get all deals and updates on this technology!
-              {/* Unlock all the exclusive deals from our vendors, and stay updated
-              with all actions you can take to help save the planet! */}
+              {customization?.description || "Sign up for email updates with the latest info on events and incentives!"}
             </p>
             <Button
               className="elevate-float-pro touchable-opacity"
               style={{
-                background: "var(--app-medium-green)",
+                background: "var(--app-accent-3)",
                 borderWidth: 0,
                 padding: "8px 30px",
                 marginTop: 15,
@@ -111,8 +99,7 @@ function Footer ({ toggleModal, campaign, authUser }) {
               >
                 <i>
                   {" "}
-                  You've already subscribed with{" "}
-                  <b style={{}}>'{user?.email || ""}' </b>
+                  You've already subscribed with <b style={{}}>'{user?.email || ""}' </b>
                 </i>
               </p>
             )}
@@ -164,21 +151,22 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus }) => {
       <div
         style={{
           padding: 20,
-          background: "var(--app-deep-green)",
+          background: "var(--app-main-color)",
           height: "80%",
           display: "flex",
           flexDirection: "column",
         }}
       >
-        <h5 style={{ color: "white" }}>Newsletter</h5>
+        <h5 style={{ color: "white" }}>Plug In for Updates</h5>
         <p style={{ color: "white", fontSize: "var(--mob-normal-font-size" }}>
-          Unlock all the exclusive deals from our vendors, and stay updated with
-          all actions you can take to help save the planet!
+          {/* We should be able to change the footer info from teh admin side */}
+          Sign up for email updates with the latest info on events and incentives, on heat pumps, community solar and
+          home solar.
         </p>
         <Button
           className="elevate-float-pro touchable-opacity"
           style={{
-            background: "var(--app-medium-green)",
+            background: "var(--app-accent-3)",
             borderWidth: 0,
             padding: "8px 30px",
             marginTop: 5,

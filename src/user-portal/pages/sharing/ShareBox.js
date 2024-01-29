@@ -10,7 +10,7 @@ const items = [
   { key: "whatsapp", text: "Whatsapp", icon: "fa-whatsapp", alias: "whatsapp" },
   { key: "other", text: "Other", icon: "", alias: "" },
 ];
-function ShareBox ({ data, onChange, campaign, authUser }) {
+function ShareBox({ data, onChange, campaign, authUser }) {
   const [copied, setCopied] = useState(false);
   const [state, setState] = useState({});
   const [error, setError] = useState({});
@@ -67,10 +67,7 @@ function ShareBox ({ data, onChange, campaign, authUser }) {
     <div>
       <div style={{ padding: 20 }}>
         <div style={{ marginBottom: 10 }}>
-          <Form.Text>
-            Please select a platform that you would like to share this
-            technology to
-          </Form.Text>
+          <Form.Text>Please select a platform that you would like to share this technology to</Form.Text>
         </div>
         <Form
           className="m-2 pb-2"
@@ -88,24 +85,14 @@ function ShareBox ({ data, onChange, campaign, authUser }) {
           {items.map(({ key, text, icon }, index) => {
             return (
               <>
-                <Form.Check
-                  className="touchable-opacity"
-                  inline
-                  type="radio"
-                  id={`check-api-${key}`}
-                >
-                  <Form.Check.Input
-                    checked={platform === key}
-                    type={"radio"}
-                    value={key}
-                    isValid
-                  />
+                <Form.Check className="touchable-opacity" inline type="radio" id={`check-api-${key}`}>
+                  <Form.Check.Input checked={platform === key} type={"radio"} value={key} />
                   <i
                     className={`fa ${icon}`}
                     style={{
                       marginRight: 3,
                       fontSize: 16,
-                      color: "var(--app-medium-green)",
+                      color: "var(--app-main-color)",
                     }}
                   ></i>
                   <Form.Check.Label
@@ -114,7 +101,7 @@ function ShareBox ({ data, onChange, campaign, authUser }) {
                       // textTransform: "capitalize",
                       fontWeight: "bold",
                       fontSize: 16,
-                      color: "var(--app-deep-green)",
+                      color: "var(--app-main-color)",
                     }}
                   >
                     {text}
@@ -140,14 +127,13 @@ function ShareBox ({ data, onChange, campaign, authUser }) {
               onClick={() => handleCopy()}
               variant="success"
               id="button-addon2"
-              style={{ fontWeight: "bold" }}
+              style={{ fontWeight: "bold", background: "var(--app-main-color)" }}
             >
               {copied ? "Copied!" : "Copy Link"}
             </Button>
           </InputGroup>
           <Form.Text>
-            You can copy the link and share it{" "}
-            {state?.platform === "other" ? "" : ` on ${state.platform}`}
+            You can copy the link and share it {state?.platform === "other" ? "" : ` on ${state.platform}`}
           </Form.Text>
         </div>
       </div>

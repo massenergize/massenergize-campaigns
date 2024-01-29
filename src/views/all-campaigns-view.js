@@ -19,7 +19,7 @@ import Searchbar from "../components/admin-components/Searchbar";
 import { HorizontalPushLoader } from "../components/horizontal-push-loader/horizontal-push-loader";
 import { isEmpty } from "../helpers/utils/string";
 
-export function AllCampaignsView ({}) {
+export function AllCampaignsView({}) {
   const [rowMenu, setRowMenu] = useState(ROW_ACTIONS_MENU);
   const campaignAccount = useSelector((state) => state.campaignAccount);
 
@@ -31,17 +31,15 @@ export function AllCampaignsView ({}) {
     setSelectedRow(id);
   };
 
-  const generateAndCopyCampaignLink = (slug,isLive) => {
-  // only add preview mode if not live
+  const generateAndCopyCampaignLink = (slug, isLive) => {
+    // only add preview mode if not live
     let url = `${window.location.origin}/campaign/${slug}`;
-    if(!isLive){
+    if (!isLive) {
       url += "?preview=true";
     }
 
-   window.open(url, "_blank")
-
-
-  }
+    window.open(url, "_blank");
+  };
 
   const [rowSelection, setRowSelection] = React.useState({});
 
@@ -67,49 +65,49 @@ export function AllCampaignsView ({}) {
       },
       className: "text-left",
       filter: "equals",
-			style: {
-				textAlign: "left",
-			},
-		},
-		{
-			Filter: SelectColumnFilter,
-			Header: "Title",
-			accessor: "title",
-			className: "text-left",
-			filter: "equals",
-			id: "title",
-			style: {
-				textAlign: "left",
-			},
-		},
-		{
-			Filter: SelectColumnFilter,
-			Header: "Creator",
-			accessor: (value) => {
-				const { creator, owner } = value;
-				return creator;
-			},
-			className: "text-left",
-			filter: "equals",
-			id: "creator",
-			style: {
-				textAlign: "left",
-			},
-		},
-		{
-			Filter: SelectColumnFilter,
-			Header: "Date",
-			accessor: (values) => {
-				const { created_at } = values;
-				return dayjs(created_at).format("MM-DD-YYYY");
-			},
-			disableSortBy: false,
-			filter: "equals",
-			id: "created_at",
-			style: {
-				textAlign: "center",
-			},
-		},
+      style: {
+        textAlign: "left",
+      },
+    },
+    {
+      Filter: SelectColumnFilter,
+      Header: "Title",
+      accessor: "title",
+      className: "text-left",
+      filter: "equals",
+      id: "title",
+      style: {
+        textAlign: "left",
+      },
+    },
+    {
+      Filter: SelectColumnFilter,
+      Header: "Creator",
+      accessor: (value) => {
+        const { creator, owner } = value;
+        return creator;
+      },
+      className: "text-left",
+      filter: "equals",
+      id: "creator",
+      style: {
+        textAlign: "left",
+      },
+    },
+    {
+      Filter: SelectColumnFilter,
+      Header: "Date",
+      accessor: (values) => {
+        const { created_at } = values;
+        return dayjs(created_at).format("MM-DD-YYYY");
+      },
+      disableSortBy: false,
+      filter: "equals",
+      id: "created_at",
+      style: {
+        textAlign: "center",
+      },
+    },
 
     {
       Header: "Live",
@@ -161,7 +159,7 @@ export function AllCampaignsView ({}) {
       accessor: (values) => {
         const { slug, is_published } = values;
 
-        return {slug, is_published};
+        return { slug, is_published };
       },
       style: {
         width: "100px",
@@ -206,7 +204,6 @@ export function AllCampaignsView ({}) {
       },
     },
   ];
-
 
   const [pagesCount, setPagesCount] = useState(1);
   const [pageIndex, setPageIndex] = useState(0);
@@ -266,15 +263,11 @@ export function AllCampaignsView ({}) {
   };
   // endregion
 
-  let {
-    data: campaigns,
-    isLoading : campaignsLoading,
-  } = useSWR(
+  let { data: campaigns, isLoading: campaignsLoading } = useSWR(
     `campaigns.listForAdmin/${campaignAccount?.id || ""}}`,
     () => fetchAllCampaigns("campaigns.listForAdmin", campaignAccount?.id),
     {
-      onSuccess: (data) => {
-      },
+      onSuccess: (data) => {},
     },
   );
 
@@ -282,7 +275,7 @@ export function AllCampaignsView ({}) {
 
   const [searchText, setSearchText] = useState("");
 
-/*  useEffect(() => {
+  /*  useEffect(() => {
     const lowercaseInput = searchText.toLowerCase();
 
 /!*    const filtered = campaigns?.filter((campaign) => {
@@ -327,29 +320,21 @@ export function AllCampaignsView ({}) {
       ...campaign,
       title: campaign?.title,
       creator: campaign?.owner?.full_name || "Unknown",
-      logo:
-        campaign.secondary_logo?.url || "http://localhost:3000/img/fallback-img.png",
+      logo: campaign.secondary_logo?.url || "http://localhost:3000/img/fallback-img.png",
       logo_alt: campaign.primary_logo?.name,
       show: true,
     };
   });
 
+  const SEARCHABLE_FIELDS = ["title", "creator", "created_at", "is_published", "is_template"];
 
-  const SEARCHABLE_FIELDS = [
-    "title",
-    "creator",
-    "created_at",
-    "is_published",
-    "is_template",
-  ];
-
-  const filter = function filter (campaigns, searchText) {
+  const filter = function filter(campaigns, searchText) {
     return campaigns?.filter((campaign) => {
       return SEARCHABLE_FIELDS.some((field) => {
         return campaign[field]?.toString()?.toLowerCase()?.includes(searchText?.toLowerCase());
       });
     });
-  }
+  };
 
   let filtered;
 
@@ -361,8 +346,8 @@ export function AllCampaignsView ({}) {
 
   if (campaignsLoading) {
     return (
-      <Container className="d-flex m-auto" style={{ height: "70vh" }}>
-        <HorizontalPushLoader className={"mt-0"}/>
+      <Container className="d-flex m-auto m-4" style={{ height: "70vh" }}>
+        <HorizontalPushLoader className={"mt-0"} />
       </Container>
     );
   }

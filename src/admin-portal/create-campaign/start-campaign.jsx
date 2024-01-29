@@ -10,10 +10,13 @@ import { MultiSelect } from "react-multi-select-component";
 import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
 import { useSelector } from "react-redux";
 import { useCampaignContext } from "../../hooks/use-campaign-context";
+import { useNavigate } from "react-router-dom";
 
 export function StartCampaign ({ step, setStep, }) {
   const [showError, setShowError] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate()
 
   const initialState = {
     title: "",
@@ -62,7 +65,7 @@ export function StartCampaign ({ step, setStep, }) {
     try {
       setLoading(true);
       const payload = {
-        campaign_account_id: account?.id, // TODO Remove this when the API is fixed
+        campaign_account_id: account?.id,
         title: campaignDetails?.title,
         community_ids: campaignDetails?.communities?.map((community) => community?.id),
       }
@@ -99,20 +102,20 @@ export function StartCampaign ({ step, setStep, }) {
               label: manager?.name
             }
           }),
-          partners: campaign?.partners?.map((partner) => {
-            return {
-              ...partner,
-              value: partner?.id,
-              label: partner?.name
-            }
-          }),
-          events: campaign?.events?.map((event) => {
-            return {
-              ...event,
-              value: event?.id,
-              label: event?.name
-            }
-          })
+          // partners: campaign?.partners?.map((partner) => {
+          //   return {
+          //     ...partner,
+          //     value: partner?.id,
+          //     label: partner?.name
+          //   }
+          // }),
+          // events: campaign?.events?.map((event) => {
+          //   return {
+          //     ...event,
+          //     value: event?.id,
+          //     label: event?.name
+          //   }
+          // })
         })
 
         const toast = blow({
@@ -123,7 +126,9 @@ export function StartCampaign ({ step, setStep, }) {
           timeout: 5000,
         });
 
-        setStep("COMPLETE");
+        navigate(`/admin/campaign/${campaign?.slug}/edit`)
+
+        // setStep("COMPLETE");
       }
     } catch (e) {
       setLoading(false);

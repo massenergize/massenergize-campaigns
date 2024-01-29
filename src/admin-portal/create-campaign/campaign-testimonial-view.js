@@ -9,7 +9,7 @@ import Testimonials from "../../components/admin-components/Testimonials";
 import { Testimonials as TestPortal } from "./create-technology/Testimonials";
 import Loading from "src/components/pieces/Loading";
 
-const opts = ["All", "Featured"];
+const opts = ["All", "Only Featured"];
 const allOpts = ["On Campaign", "From Communities"];
 
 export function CampaignTestimonialsView({ campaignDetails }) {
@@ -30,19 +30,31 @@ export function CampaignTestimonialsView({ campaignDetails }) {
     isValidating,
     isLoading,
     error,
+    mutate,
   } = useSWR("campaigns.testimonials.list", async () => await fetchAllCampaignTestimonials(campaignDetails?.id), {
     shouldRetryOnError: true,
     errorRetryCount: 3,
     errorRetryInterval: 3000,
   });
 
-  const testimonials = payloadTestimonials || [];
+  const updateTestimonial = (testimonial) => {
+    const index = payloadTestimonials.findIndex((test) => test?.id === testimonial?.id);
 
-  const portalTestimonials = testimonials?.filter((test) => {
+    if (index > -1) {
+      payloadTestimonials[index] = testimonial;
+      mutate([...payloadTestimonials]);
+    }
+    else{
+      mutate([testimonial, ...payloadTestimonials]);
+    }
+  }
+
+
+  const portalTestimonials = (payloadTestimonials|| [])?.filter((test) => {
     return test?.is_imported;
   });
 
-  const campaignTestimonials = testimonials?.filter((test) => {
+  const campaignTestimonials = (payloadTestimonials||[])?.filter((test) => {
     return !test?.is_imported;
   });
 
@@ -127,6 +139,7 @@ export function CampaignTestimonialsView({ campaignDetails }) {
               {opts?.map((opt) => {
                 return (
                   <button
+                    style={{ marginRight: 5 }}
                     key={opt}
                     className={`py-2 px-5 text-dark tracking-wide rounded cursor-pointer border test-tab-opts ${
                       opt === show?.tabOne && "test-show-opt"
@@ -217,7 +230,7 @@ export function CampaignTestimonialsView({ campaignDetails }) {
             {show?.showFormFor === "campaign" && (
               <div ref={formRef}>
                 <h4 className="my-5">Create New Testimonial</h4>
-                <Testimonials campaign={campaignDetails} onModalClose={hideForm} startOfPage={startOfPage} />
+                <Testimonials campaign={campaignDetails} onModalClose={hideForm} startOfPage={startOfPage}  updateTestimonial={updateTestimonial}/>
               </div>
             )}
           </Col>
@@ -231,12 +244,13 @@ export function CampaignTestimonialsView({ campaignDetails }) {
           </Modal.Header>
           <Modal.Body style={{ height: "70vh" }}>
             {show?.showFormFor === "campaign" ? (
-              <Testimonials campaign={campaignDetails} onModalClose={onModalClose} />
+              <Testimonials campaign={campaignDetails} onModalClose={onModalClose} updateTestimonial={updateTestimonial} />
             ) : (
               <TestPortal
                 campaign_id={campaignDetails?.id}
                 techs={campaignDetails?.technologies}
                 onModalClose={onModalClose}
+                updateTestimonial={updateTestimonial}
               />
             )}
           </Modal.Body>

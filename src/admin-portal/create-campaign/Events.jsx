@@ -1,11 +1,8 @@
 import { CampaignEventsView } from "./campaign-events-view";
 
-const Events = ({lists, originalCampaignDetails}) => {
-  const {
-    allEvents,
-  } = lists;
+const Events = ({originalCampaignDetails}) => {
 
-  return (<CampaignEventsView events={allEvents} campaign={originalCampaignDetails} />);
+  return (<CampaignEventsView campaign={originalCampaignDetails} />);
 };
 
 export default Events;

@@ -19,6 +19,7 @@ import { useTechnologyContext } from "../../../hooks/use-technology-context";
 import vendors from "../../../user-portal/pages/technology/Vendors";
 import { SWR_NO_REFRESH_CONFIG } from "../../../config/config";
 import { useSelector } from "react-redux";
+import MeModal from "src/components/MEModal/MeModal";
 
 const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyError, notifySuccess }) => {
   const [selectedVendors, setSelectedVendors] = useState([]);
@@ -26,6 +27,8 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
   const [openAccordion, setOpenAccordion] = useState(false);
   const [openForVendor, setOpenForVendor] = useState(false);
   const [editObj, setEditObj] = useState(null);
+
+  const [openAddVendorModal, setOpenAddVendorModal] = useState(false);
 
   const user = useSelector((state) => state.authAdmin);
 
@@ -51,7 +54,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
       };
       const savedItems = await addTechnologyVendor(toSend);
       if (savedItems) {
-        updateTechObject(savedItems);
+        updateTechObject({ vendors: savedItems });
         blow({
           title: "Success",
           message: "Vendors saved successfully",
@@ -84,8 +87,10 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
         technology_id: tech_id,
         vendor_id: vendor?.id,
       });
-      const filtered = selectedVendors?.filter((vend) => vend?.id !== vendor?.id);
-      setSelectedVendors(filtered);
+      // const filtered = selectedVendors?.filter((vend) => vend?.id !== vendor?.id);
+      // setSelectedVendors(filtered);
+      let filtered = techObject?.vendors?.filter((vend) => vend?.vendor?.id !== vendor?.id);
+      updateTechObject({ vendors: filtered });
       setLoading(false);
       blow({
         title: "Success",
@@ -101,7 +106,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
   if (isLoading) {
     return (
       <div
-        className=""
+        className="mt-5"
         style={{
           width: "100%",
           display: "flex",
@@ -117,6 +122,13 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
   return (
     <div>
       <Container fluid className="" style={{ overflowX: "scroll", paddingBottom: 50, paddingRight: 0, paddingLeft: 0 }}>
+        <div style={{ display: "flex", flexDirection: "row", width: "100%", marginTop: "20px" }}>
+          <BTN style={{ marginLeft: "auto" }} variant="success" onClick={() => setOpenAddVendorModal(true)}>
+            <i className="fa fa-plus" style={{ marginRight: 7 }} />
+            Import A Vendor
+          </BTN>
+        </div>
+
         <div className="py-3">
           <CustomAccordion
             title={"Customize The Title and Description of Vendors Section"}
@@ -134,6 +146,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
             }}
           />
         </div>
+
         <div className="py-3">
           <CustomAccordion
             title={"Create a new vendor"}
@@ -154,38 +167,6 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
             />
           </CustomAccordion>
         </div>
-        <Form className="py-3">
-          <FormLabel>Choose one or more Vendors for this technology from the dropdown below.</FormLabel>
-
-          <MultiSelect
-            options={(allVendors || []).map((vendor) => {
-              return {
-                ...vendor,
-                value: vendor?.id,
-                label: `${vendor?.name} --- ${vendor?.communities[0]?.name} community`,
-              };
-            })}
-            hasSelectAll={true}
-            value={selectedVendors?.map((vendor) => {
-              return {
-                ...vendor,
-                value: vendor?.id,
-                label: vendor?.name,
-              };
-            })}
-            onChange={(val) => setSelectedVendors(val)}
-            valueRenderer={(selected, _options) => {
-              if (selected.length === 0) return "Select Vendors";
-              if (selected.length === _options.length) return "All Vendors Selected";
-              if (selected.length > 2) return `${selected.length} Vendors Selected`;
-              return selected
-                ?.map(({ label }) => label)
-                .join(", ")
-                .concat(" Selected");
-            }}
-            className={"event-select"}
-          />
-        </Form>
 
         <Row className="mt-5 px-4">
           {selectedVendors?.length > 0 ? (
@@ -233,9 +214,6 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
                         >
                           {vendor?.website ? vendor?.website : "N/A"}
                         </td>
-                        {/* <td className="text-capitalize">
-                          {vendor?.key_contact?.email ? vendor?.key_contact?.email : "N/A"}
-                        </td> */}
                         <td className="text-cnter row-flex">
                           <BTN
                             style={{ marginLeft: "auto" }}
@@ -262,23 +240,82 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
             </div>
           )}
         </Row>
-
-        {selectedVendors?.length > 0 && (
-          <Row className="mt-4 justify-content-end">
-            <Col>
-              <Button
-                text="Save Changes"
-                loading={loading}
-                disabled={loading}
-                onSubmit={handleSaveVendors}
-                rounded={false}
-              />
-            </Col>
-          </Row>
-        )}
       </Container>
+
+      <MeModal
+        style={{ height: "55vh" }}
+        open={openAddVendorModal}
+        onHide={() => setOpenAddVendorModal(false)}
+        title={"Add vendor(s) to this technology"}
+      >
+        {importVendors()}
+      </MeModal>
     </div>
   );
+
+  function importVendors() {
+    return (
+      <Form className="py-3">
+        <FormLabel>Choose one or more Vendors for this technology from the dropdown below.</FormLabel>
+
+        <MultiSelect
+          options={(allVendors || []).map((vendor) => {
+            return {
+              ...vendor,
+              value: vendor?.id,
+              label: `${vendor?.name} --- ${vendor?.communities[0]?.name} community`,
+            };
+          })}
+          hasSelectAll={true}
+          value={selectedVendors?.map((vendor) => {
+            return {
+              ...vendor,
+              value: vendor?.id,
+              label: vendor?.name,
+            };
+          })}
+          onChange={(val) => setSelectedVendors(val)}
+          valueRenderer={(selected, _options) => {
+            if (selected.length === 0) return "Select Vendors";
+            if (selected.length === _options.length) return "All Vendors Selected";
+            if (selected.length > 2) return `${selected.length} Vendors Selected`;
+            return selected
+              ?.map(({ label }) => label)
+              .join(", ")
+              .concat(" Selected");
+          }}
+          className={"event-select"}
+        />
+        {/* show selected vendors in a chip */}
+        <div className="mt-2" style={{ display: "flex", flexWrap: "wrap" }}>
+          {selectedVendors?.map((vendor) => {
+            return (
+              <Chip
+                key={vendor?.id}
+                text={vendor?.name}
+                className="mx-1 my-1"
+                // onDelete={() => {
+                //   setSelectedVendors(selectedVendors?.filter((vend) => vend?.id !== vendor?.id));
+                // }}
+              />
+            );
+          })}
+        </div>
+
+        <Row className="mt-4 justify-content-end">
+          <Col>
+            <Button
+              text="Save Changes"
+              loading={loading}
+              disabled={loading}
+              onSubmit={handleSaveVendors}
+              rounded={false}
+            />
+          </Col>
+        </Row>
+      </Form>
+    );
+  }
 };
 
 export default Vendors;

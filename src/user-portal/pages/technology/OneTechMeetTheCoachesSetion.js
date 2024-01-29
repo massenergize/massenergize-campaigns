@@ -40,20 +40,8 @@ function OneTechMeetTheCoachesSection({
   ref,
 }) {
   const { title, description } = data || {};
-  // const [scrollPosition, setScrollPosition] = useState(0);
+
   const scrollContainerRef = useRef(null);
-
-  // const handleScroll = (scrollContainerRef, scrollValue) => {
-  //   const maxScroll =
-  //     scrollContainerRef.current.scrollWidth -
-  //     scrollContainerRef.current.clientWidth;
-
-  //   if (!(scrollValue >= 0 && scrollValue <= maxScroll)) return;
-  //   setScrollPosition(scrollValue);
-  //   if (scrollContainerRef.current) {
-  //     scrollContainerRef.current.scrollLeft = scrollValue;
-  //   }
-  // };
 
   const hasScrollableCoaches = coaches?.length > 4;
   return (
@@ -62,7 +50,7 @@ function OneTechMeetTheCoachesSection({
       id={sectionId}
       className="mt-5 elevate-float-pro g-s-container"
       style={{
-        background: "antiquewhite",
+        background: "var(--app-accent-2)",
         width: "100%",
         // padding: "80px 0px",
         // minHeight: 200,
@@ -133,7 +121,7 @@ function OneTechMeetTheCoachesSection({
                 borderRadius: 55,
                 padding: "8px 20px",
                 fontWeight: "bold",
-                background: "var(--app-deep-green)",
+                background: "var(--app-main-color)",
                 borderWidth: 0,
               }}
               onClick={() => toggleModal()}

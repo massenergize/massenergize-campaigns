@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Button as BTN, Modal, Form } from "react-bootstrap";
 import { MultiSelect } from "react-multi-select-component";
 import Button from "src/components/admin-components/Button";
@@ -15,22 +15,32 @@ import Chip from "src/components/admin-components/Chip";
 import { fetchEvents } from "src/requests/technology-requests";
 import { NoItems } from "@kehillahglobal/ui";
 import Dropdown from "src/components/admin-components/Dropdown";
+import { useDispatch, useSelector } from "react-redux";
+import { setCampaignCommunityEventsAction } from "../../redux/actions/actions";
 
-export function CampaignEventsView ({ events, campaign }) {
+export function CampaignEventsView ({campaign }) {
   //@Todo: Add a mutate to update main
 
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
+  const allEvents = useSelector(state=> state.communitiesEvents)
+  const dispatch = useDispatch()
 
-  const { data: allEvents, isLoading } = useSWR(
-    "campaigns.communities.events.list",
-    () => fetchEvents(campaign?.id || id),
-    {
-      shouldRetryOnError: true,
-      errorRetryCount: 3,
-      errorRetryInterval: 3000,
-    },
-  );
+  const fetchEventsIfNone = async () => {
+    try {
+      if (!allEvents?.length) {
+        const data = await fetchEvents(campaign?.id || id);
+        dispatch(setCampaignCommunityEventsAction(data));
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+
+  useEffect(()=>{
+    fetchEventsIfNone()
+  },[])
+
 
   const techs = campaign?.technologies;
 
@@ -119,8 +129,8 @@ export function CampaignEventsView ({ events, campaign }) {
     }
   };
 
-  if (isLoading || loading)
-    return <GhostLoader loading={isLoading} text="Loading Events..." />;
+  // if (isLoading || loading)
+  //   return <GhostLoader loading={isLoading} text="Loading Events..." />;
   const EVENTS_SIZE = (selectedEvents || [])?.length;
 
   const onModalClose = () => {
@@ -135,7 +145,8 @@ export function CampaignEventsView ({ events, campaign }) {
   );
 
   return (
-    <Container style={{ height: "100vh" }}>
+    <Container fluid style={{ height: "100vh" }}>
+      {loading && (<GhostLoader text="Loading Events..." />)}
       {EVENTS_SIZE > 0 && (
         <Container>
           <div
@@ -145,14 +156,14 @@ export function CampaignEventsView ({ events, campaign }) {
               marginBottom: 10,
             }}
           >
-            <BTN onClick={() => setOpenModal(true)}>
-              <span>Add Events</span>
+            <BTN variant="success" onClick={() => setOpenModal(true)}>
+              <span>Add Event</span>
             </BTN>
           </div>
         </Container>
       )}
 
-      <Container>
+      <div>
         <Row className=" pb-4 justify-content-start mt-4">
           {EVENTS_SIZE > 0 ? (
             <>
@@ -205,16 +216,13 @@ export function CampaignEventsView ({ events, campaign }) {
                         <td className="text-center">
                           <BTN
                             // style={{ marginLeft: 10 }}
-                            onClick={() => {
-                              if (
-                                window.confirm(
-                                  "Are you sure you want to remove this Event?",
-                                )
-                              ) {
+                            onClick={(e) => {
+                              e.preventDefault()
+                              if (window.confirm("Are you sure you want to remove this Event?")) {
                                 handleRemove(event?.id);
                               }
                             }}
-                            variant="primary"
+                            variant="danger"
                           >
                             <span>Remove</span>
                           </BTN>
@@ -242,13 +250,13 @@ export function CampaignEventsView ({ events, campaign }) {
             </div>
           )}
         </Row>
-      </Container>
+      </div>
 
       <Modal size={"xl"} show={openModal} onHide={onModalClose}>
         <Modal.Header closeButton>
           <Modal.Title className={"text-sm"}>Events Selection</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ height: "70vh" }}>
+        <Modal.Body style={{ height: "40vh" }}>
           {eventsToShow?.length > 0 ? (
             <form>
               <Row className="mt-2" style={{ height: "180px" }}>
@@ -292,30 +300,13 @@ export function CampaignEventsView ({ events, campaign }) {
                           setSelectedTech(selectedItem);
                         }}
                       />
-                      {/* <Form.Select
-                        onChange={(e) => {
-                          setSelectedTech(e.target.value);
-                        }}
-                      >
-                        <option> ----- -----</option>
-                        {(techs || []).map((tech) => {
-                          return (
-                            <option
-                              key={tech?.id}
-                              value={tech?.campaign_technology_id}
-                            >
-                              {tech?.name}
-                            </option>
-                          );
-                        })}
-                      </Form.Select> */}
                     </Col>
                   </Row>
                 </Col>
               </Row>
             </form>
           ) : (
-            <NoItems />
+            <NoItems text="The participating communities in this campaign do not have published events" />
           )}
 
           <Row className="mt-4">

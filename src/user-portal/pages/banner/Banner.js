@@ -21,13 +21,6 @@ function Banner ({ title, secondary_logo, primary_logo, tagline }) {
           <img
             className="site-logo"
             src={primary_logo?.url}
-            // style={{
-            //   // borderRadius: "100%",
-            //   width: 190,
-            //   height: 190,
-            //   marginBlock: 10,
-            //   objectFit: "contain",
-            // }}
             alt={"logo"}
           />
         </Col>
@@ -44,11 +37,7 @@ function Banner ({ title, secondary_logo, primary_logo, tagline }) {
         >
           <h1
             className="page-title"
-            // style={{
-            //   textAlign: "center",
-            //   fontSize: "3rem",
-            //   textTransform: "uppercase",
-            // }}
+           
           >
             {title}
           </h1>
@@ -56,12 +45,6 @@ function Banner ({ title, secondary_logo, primary_logo, tagline }) {
             <h5
               className="page-slogan"
               style={{
-                fontWeight: "400",
-                color: "var(--app-medium-green)",
-                textAlign: "center",
-                textTransform: "capitalize",
-                lineHeight: "1.5",
-                width: "85%",
               }}
             >
               {tagline}

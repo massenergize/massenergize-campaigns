@@ -17,11 +17,14 @@ const IncentivesBar = ({ incentive = {}, onRemove, onUpdate, formComponent }) =>
   };
 
   return (
-    <div className="cusdropdown-container border rounded overflow-hidden border-primary">
+    <div
+      className="cusdropdown-container overflow-hidden "
+      style={{ border: "dashed 2px var(--admin-theme-color-light)" }}
+    >
       <div className={`incentivesBardropdown ${isOpen && "open"}`} onClick={handleToggleDropdown}>
-        <div className="cusdropdown-toggle row">
+        <div className="cusdropdown-toggle row" style={{ alignItems: "center" }}>
           <Col>
-            <h6 className="theme-color">
+            <h6 className="theme-color" style={{ margin: 0, fontWeight: "bold" }}>
               <span>
                 <FontAwesomeIcon className="pr-4 icentiveBarIcon" icon={icon} />
               </span>{" "}
@@ -38,7 +41,8 @@ const IncentivesBar = ({ incentive = {}, onRemove, onUpdate, formComponent }) =>
                   typeof onRemove === "function" && onRemove(incentive);
                 }}
               >
-                <FontAwesomeIcon className=" icentiveBarIcon px-0" icon={faTrash} />
+                {/* <FontAwesomeIcon className=" icentiveBarIcon px-0" icon={faTrash} /> */}
+                <span style={{ fontWeight: "bold" }}>Delete</span>
               </Button>
             </Col>
           )}
@@ -63,13 +67,18 @@ const IncentivesBar = ({ incentive = {}, onRemove, onUpdate, formComponent }) =>
       <div className={classes(" p-4", isOpen ? "incentivesBar-menu-open" : "cusdropdown-menu-close d-none")}>
         <Row>
           <Col>
-            {formComponent ?
-              formComponent :
-              <IncentiveForm incentive={incentive} onSubmit={(incentive) => {
-                if (!IS_NEW) {
-                  onUpdate(incentive);
-                }
-              }} />}
+            {formComponent ? (
+              formComponent
+            ) : (
+              <IncentiveForm
+                incentive={incentive}
+                onSubmit={(incentive) => {
+                  if (!IS_NEW) {
+                    onUpdate(incentive);
+                  }
+                }}
+              />
+            )}
           </Col>
         </Row>
       </div>

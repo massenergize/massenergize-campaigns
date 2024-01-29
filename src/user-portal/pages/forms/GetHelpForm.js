@@ -60,7 +60,7 @@ function GetHelpForm ({ close, communities, authUser }) {
             margin: 0,
             borderRadius: 0,
             borderWidth: 0,
-            background: "#d53939",
+            background: "#292929",
           }}
         >
           Close
@@ -74,7 +74,7 @@ function GetHelpForm ({ close, communities, authUser }) {
             margin: 0,
             borderRadius: 0,
             borderWidth: 0,
-            background: "var(--app-deep-green)",
+            background: "var(--app-main-color)",
             borderBottomRightRadius: 5,
             display: "flex",
             flexDirection: "row",

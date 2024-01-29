@@ -114,7 +114,7 @@ function TestimonialSectionWithFilters({
             <div>
               <h2
                 style={{
-                  color: "var(--app-medium-green)",
+                  color: "var(--app-accent-3)",
                   fontWeight: "bold",
                   marginBottom: 20,
                 }}
