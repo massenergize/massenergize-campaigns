@@ -85,7 +85,7 @@ function CreateVendorForm({ setEditObj, notifyError, tech_id, data, vendors, not
       <Row>
         <Col>
           <Input
-            label="Name"
+            label="Name (Unique)*"
             placeholder="Enter name here..."
             // required={true}
             type="text"
@@ -97,7 +97,7 @@ function CreateVendorForm({ setEditObj, notifyError, tech_id, data, vendors, not
         </Col>
         <Col>
           <Input
-            label="Website"
+            label="Website *"
             placeholder="www.vendors-website.com"
             // required={true}
             type="text"
