@@ -55,9 +55,9 @@ const Comments = ({ campaign, comments: campaignComments }) => {
     setLoading(true);
 
     try {
-      const res = await createCampaignComment(formData);
+      const res = await createCampaignComment({is_from_admin_site: true, ...formData});
       setOpenModal(false);
-      setComments(res)
+      setComments([res, ...comments]);
       setLoading(false);
       blow({
         title: "Success",
@@ -92,7 +92,7 @@ const Comments = ({ campaign, comments: campaignComments }) => {
       if (res) {
         blow({
           title: "Success",
-          message: "Comment created successfully",
+          message: "Comment deleted successfully",
           type: "success",
           duration: 5000,
         });
@@ -231,7 +231,7 @@ const Comments = ({ campaign, comments: campaignComments }) => {
                           )}
                         </p>
                         <div className={"mt-2"} style={{ display: "flex", justifyContent: "space-between" }}>
-                          {comment?.user?.id === loggedInAdmin?.id ? (
+                          {/* {comment?.user?.id === loggedInAdmin?.id ? ( */}
                             <div
                               className="comment-delete-btn"
                               onClick={async () => {
@@ -242,7 +242,7 @@ const Comments = ({ campaign, comments: campaignComments }) => {
                             >
                               <p>Delete</p>
                             </div>
-                          ) : null}
+                          {/* ) : null} */}
                           <div className="comment-date">
                             <p>{relativeTimeAgo(comment?.created_at)}</p>
                           </div>

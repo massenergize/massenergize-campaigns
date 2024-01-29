@@ -55,6 +55,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
       const savedItems = await addTechnologyVendor(toSend);
       if (savedItems) {
         updateTechObject({ vendors: savedItems });
+        setOpenAddVendorModal(false);
         blow({
           title: "Success",
           message: "Vendors saved successfully",
