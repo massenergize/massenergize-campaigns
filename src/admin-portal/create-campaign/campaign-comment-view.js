@@ -1,35 +1,35 @@
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import Comments from "src/components/admin-components/Comments";
 import Loading from "src/components/pieces/Loading";
+import { setCampaignCommentsAction } from "src/redux/actions/actions";
 import { fetchAllCampaignComments } from "src/requests/campaign-requests";
 import useSWR, { mutate } from "swr";
 
 export const CampaignCommentView = ({ campaign }) => {
+  const [commentsError, setCommentError] = useState(null);
+  const [commentsLoading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const comments = useSelector((state) => state.campaignComments);
 
+  useEffect(() => {
+    if (comments?.length) return;
+    fetchComments();
+  }, []);
 
-  const {
-    data: comments,
-    isLoading: commentsLoading,
-    error: commentsError,
-    mutate: mutateComments
-  } = useSWR(
-    `campaigns.comments.list/${campaign?.id}`,
-    async () => {
-      return await fetchAllCampaignComments(campaign.id);
-    },
-    {
-      revalidateOnMount: true,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false
+  const fetchComments = async () => {
+    setLoading(true);
+    try {
+      const comments = await fetchAllCampaignComments(campaign.id);
+      setLoading(false);
+      dispatch(setCampaignCommentsAction(comments));
+    } catch (e) {
+      setLoading(false);
+      setCommentError(e);
+      console.log("ERROR_LOADING_COMMENTS:", e?.toString());
     }
-  );
-
-
-  const setComments = (newData) => {
-    mutateComments([...newData, ...comments])
-  }
+  };
 
   if (commentsLoading) {
     return <Loading />;
@@ -48,7 +48,11 @@ export const CampaignCommentView = ({ campaign }) => {
       <Container fluid>
         <Row>
           <Col>
-            <Comments campaign={campaign}  comments={comments} setComments={setComments}/>
+            <Comments
+              campaign={campaign}
+              comments={comments}
+              // setComments={updateComments}
+            />
           </Col>
         </Row>
       </Container>
