@@ -311,7 +311,7 @@ function TechnologyFullViewPage({
           </h2>
           <Row>
             <Col lg={9} className="one-tech-main">
-              <img className="elevate-float-pro mt-2" src={image?.url || carPhoto} alt={"event"} />
+              {image?.url && <img className="elevate-float-pro mt-2" src={image?.url || carPhoto} alt={"event"} />}
               <InteractionsPanel
                 openShareBox={openShareBox}
                 openCommentBox={() => triggerCommentBox(authUser)}

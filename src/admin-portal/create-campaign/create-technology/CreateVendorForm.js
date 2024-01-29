@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import Input from "../../../components/admin-components/Input";
-import FileUploader from "src/components/admin-components/FileUploader";
+import FileUploader, { RESET } from "src/components/admin-components/FileUploader";
 import Button from "../../../components/admin-components/Button";
 import { apiCall } from "src/api/messenger";
 import { objHasContent } from "src/utils/utils";
@@ -32,6 +32,7 @@ function CreateVendorForm({ setEditObj, notifyError, tech_id, data, vendors, not
     // setIsEditing(false);
     setFormData({});
     setEditObj(null);
+    setFormData({ logo: RESET });
   };
 
   const handleSubmit = (e) => {

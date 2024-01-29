@@ -26,7 +26,7 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
 
   return (
     <div>
-      <Form.Text>Please tell us where you are from</Form.Text>
+      <Form.Text>What community do you live in?</Form.Text>
       {/* <p>Please tell us where you are from (Editable)</p> */}
       <Form
         className="m-2 pb-2"

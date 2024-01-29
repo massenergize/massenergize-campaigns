@@ -1,85 +1,79 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { Button, Col, Row, Button as BTN } from "react-bootstrap";
 import classes from "classnames";
 import IncentivesBar from "../../../components/admin-components/IncentivesBar";
 import DealsForm from "./DealsForm";
-import { removeTechnologyDeal } from 'src/requests/technology-requests';
-import { useBubblyBalloons } from 'src/lib/bubbly-balloon/use-bubbly-balloons';
-import GhostLoader from 'src/components/admin-components/GhostLoader';
-import CustomAccordion from 'src/components/admin-components/CustomAccordion';
-import SectionsForm from './SectionsForm';
-import MeModal from 'src/components/MEModal/MeModal';
+import { removeTechnologyDeal } from "src/requests/technology-requests";
+import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
+import GhostLoader from "src/components/admin-components/GhostLoader";
+import CustomAccordion from "src/components/admin-components/CustomAccordion";
+import SectionsForm from "./SectionsForm";
+import MeModal from "src/components/MEModal/MeModal";
+import { faMinus } from "@fortawesome/free-solid-svg-icons";
 
 export default function TechnologyDeals({ campaign_id, tech_id, techObject, updateTechObject }) {
-  const { deals } = techObject
+  const { deals } = techObject;
   const [openDealsModal, setOpenDealsModal] = useState(false);
   const [openAccordion, setOpenAccordion] = useState(false);
   const [loading, setLoading] = useState(false);
   const { pop, blow } = useBubblyBalloons();
 
-  const updateDealsList = (deal,isNew) => {
-    const newDeals = isNew ? [...(deals||[]), deal] : deals.map(d => d.id === deal.id ? deal : d)
-    updateTechObject({deals: newDeals })
-    setOpenDealsModal(false)
+  const updateDealsList = (deal, isNew) => {
+    const newDeals = isNew ? [...(deals || []), deal] : deals.map((d) => (d.id === deal.id ? deal : d));
+    updateTechObject({ deals: newDeals });
+    setOpenDealsModal(false);
+  };
 
-  }
-
-  const handleRemove = async(id) => {
+  const handleRemove = async (id) => {
     if (!id) return;
     if (!window.confirm("Are you sure you want to delete this deal?")) return;
-    setLoading(true)
-    try{
+    setLoading(true);
+    try {
       const res = await removeTechnologyDeal({ id });
       if (res) {
-        setLoading(false)
-        const newDeals = deals.filter(d => d.id !== id)
-        updateTechObject({deals: newDeals })
+        setLoading(false);
+        const newDeals = deals.filter((d) => d.id !== id);
+        updateTechObject({ deals: newDeals });
         blow({
           title: "Success",
           message: "Deal removed successfully",
           type: "success",
-        })
+        });
       }
-
-    }
-    catch(e){
-      setLoading(false)
+    } catch (e) {
+      setLoading(false);
       pop({
         title: "Error",
         message: "An error occurred while removing deal",
         type: "error",
       });
     }
+  };
 
-  }
-
-  if(loading) return <GhostLoader />
+  if (loading) return <GhostLoader />;
 
   return (
     <div>
       {/* SECTION */}
       <div className="py-5">
-          <CustomAccordion
-            title={"Customize The Title and Description of Deals Section"}
-            component={<SectionsForm
-              section = "deal_section"
-              data = {techObject?.deal_section}
-              updateTechObject = {updateTechObject}
-              tech_id = {tech_id}
-
-            />}
-            isOpen={openAccordion}
-            onClick={() => setOpenAccordion(!openAccordion)}
-          />
-        </div>
+        <CustomAccordion
+          title={"Customize The Title and Description of Deals Section"}
+          component={
+            <SectionsForm
+              section="deal_section"
+              data={techObject?.deal_section}
+              updateTechObject={updateTechObject}
+              tech_id={tech_id}
+            />
+          }
+          isOpen={openAccordion}
+          onClick={() => setOpenAccordion(!openAccordion)}
+        />
+      </div>
       <Row className="py-3 justify-content-end">
         <Col sm={"auto"}>
           {deals?.length > 0 && (
-            <Button
-              variant="success"
-              rounded
-              onClick={() => setOpenDealsModal(true)}
-            >
+            <Button variant="success" rounded onClick={() => setOpenDealsModal(true)}>
               Add New Deal
             </Button>
           )}
@@ -91,20 +85,11 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
             {(deals || [])?.map((deal, index) => {
               if (!deal) return null;
               return (
-                <div
-                  key={deal?.id}
-                  className={classes("py-2", { "mt-2 ": index > 0 })}
-                >
+                <div key={deal?.id} className={classes("py-2", { "mt-2 ": index > 0 })}>
                   <IncentivesBar
                     incentive={deal}
                     onRemove={() => handleRemove(deal?.id)}
-                    formComponent={
-                      <DealsForm
-                        technology_id={tech_id}
-                        deal={deal}
-                        onSubmit={updateDealsList}
-                      />
-                    }
+                    formComponent={<DealsForm technology_id={tech_id} deal={deal} onSubmit={updateDealsList} />}
                   />
                 </div>
               );
@@ -128,15 +113,9 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
         )}
       </Row>
 
-      <MeModal size={"xl"} title={"New Technology Deal"} open={openDealsModal} onHide={()=>setOpenDealsModal(false)}>
-      <DealsForm
-        key={"new-deal"}
-        deal={{}}
-        onSubmit={updateDealsList}
-        technology_id={tech_id}
-          />
+      <MeModal size={"xl"} title={"New Technology Deal"} open={openDealsModal} onHide={() => setOpenDealsModal(false)}>
+        <DealsForm key={"new-deal"} deal={{}} onSubmit={updateDealsList} technology_id={tech_id} />
       </MeModal>
     </div>
-  )
+  );
 }
-

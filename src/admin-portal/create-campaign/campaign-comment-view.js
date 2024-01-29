@@ -13,10 +13,19 @@ export const CampaignCommentView = ({ campaign }) => {
     data: comments,
     isLoading: commentsLoading,
     error: commentsError,
-    mutate : mutateComments
-  } = useSWR(`campaigns.comments.list/${campaign?.id}`, async () => {
-    return await fetchAllCampaignComments(campaign.id);
-  });
+    mutate: mutateComments
+  } = useSWR(
+    `campaigns.comments.list/${campaign?.id}`,
+    async () => {
+      return await fetchAllCampaignComments(campaign.id);
+    },
+    {
+      revalidateOnMount: true,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false
+    }
+  );
+
 
   const setComments = (newData) => {
     mutateComments([...newData, ...comments])

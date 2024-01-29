@@ -8,7 +8,7 @@ import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
   SET_AUTH_USER,
-  SET_CAMPAIGN_ACCOUNT,
+  SET_CAMPAIGN_ACCOUNT, SET_CAMPAIGN_COMMUNITIES_EVENTS,
   SET_FIRE_AUTH,
   SET_FULL_TECH_OBJ,
   SET_IS_ADMIN_PORTAL,
@@ -18,7 +18,7 @@ import {
   SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
   UPDATE_EVENT_OBJ,
-  UPDATE_TESTIMONIALS_OBJ,
+  UPDATE_TESTIMONIALS_OBJ
 } from "../redux-action-types";
 
 export const doNothingReducer = (state = [], action = {}) => {
@@ -116,6 +116,14 @@ export const adminPortalReducer = (state = portalIsAdmin(), action) => {
 export const massEnergizeUsersReducer = (state =[], action) => {
   switch (action.type) {
     case SET_MASSENERGISE_USERS:
+      return action.payload; // return new state
+    default:
+      return state; // return current state if action is not handled
+  }
+};
+export const CampaignCommunitiesEventsReducer = (state =[], action) => {
+  switch (action.type) {
+    case SET_CAMPAIGN_COMMUNITIES_EVENTS:
       return action.payload; // return new state
     default:
       return state; // return current state if action is not handled

@@ -27,7 +27,7 @@ function DoMore({ campaign }) {
               return (
                 <Col
                   key={index?.toString() + id?.toString()}
-                  lg={4}
+                  lg={3}
                   style={{
                     display: "flex",
                     flexDirection: "row",

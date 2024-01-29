@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, FormLabel } from "react-bootstrap";
 import CustomAccordion from "../../components/admin-components/CustomAccordion";
 import IncentivesBar from "../../components/admin-components/IncentivesBar";
 import Input from "../../components/admin-components/Input";
@@ -8,6 +8,9 @@ import SectionsForm from "./create-technology/SectionsForm";
 import { updateCampaignCommunityInfo } from "../../requests/campaign-requests";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import { findItemAtIndexAndRemainder } from "src/utils/utils";
+import { MultiSelect } from "react-multi-select-component";
+import { useCampaignContext } from "src/hooks/use-campaign-context";
+import { apiCall } from "src/api/messenger";
 
 export default function CampaignCommunities({ campaignDetails, setCampaignDetails }) {
   const { communities } = campaignDetails;
@@ -19,8 +22,16 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
     }, {}) || {}),
   });
 
-  const [loading, setLoading] = useState(false);
+  const {
+    lists,
+    setNewCampaignDetails,
+  } = useCampaignContext();
 
+  const { allCommunities } = lists || {};
+
+  const [loading, setLoading] = useState(false);
+  const [comChangeLoading, setComChangeLoading] = useState(false);
+  const [comsInThisCampaign, setComsInThisCampaign] = useState([]);
   const { blow, pop } = useBubblyBalloons();
 
   const handleFieldChange = (tabId, field, value) => {
@@ -37,12 +48,38 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
     }
   };
 
+  const notifyError = (error) => {
+    pop({
+      title: "Error",
+      message: error,
+      type: "error",
+    });
+  };
+  const saveChanges = () => {
+    const community_ids = comsInThisCampaign?.map((c) => c.value);
+    if (!community_ids || !community_ids?.length) return;
+    setComChangeLoading(true);
+    apiCall("/campaigns.communities.add", { community_ids, campaign_id: campaignDetails?.id })
+      .then((response) => {
+        setComChangeLoading(false);
+        console.log("This is the response", response);
+        const { data, success, error } = response || {};
+        if (!success) return notifyError(error);
+        setNewCampaignDetails({ ...campaignDetails, communities: data });
+      })
+      .catch((e) => {
+        setComChangeLoading(false);
+        notifyError(e);
+        console.log("ERROR_SAVING_CHANGES", e);
+      });
+  };
+
   const handleSave = async (tabId) => {
     setLoading(true);
     try {
       const res = await updateCampaignCommunityInfo({ campaign_community_id: tabId, ...formData[tabId] });
       setLoading(false);
-      const { remainder, index, foundItem } = findItemAtIndexAndRemainder(
+      const { remainder, index } = findItemAtIndexAndRemainder(
         campaignDetails?.communities,
         (found) => found.id === res?.id,
       );
@@ -63,13 +100,47 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
     }
   };
 
+  useEffect(() => {
+    let d = campaignDetails?.communities || [];
+    d = d?.map(({ community: c }) => ({ value: c?.id, label: c?.name }));
+    console.log("This is what d looks like", d);
+    setComsInThisCampaign(d);
+    console.log("I Just run the props into the state");
+  }, [campaignDetails?.communities]);
+
   return (
-    <Container fluid>
+    <Container fluid style={{ height: "100vh" }}>
+      <div style={{ marginBottom: 20 }}>
+        <Row className="py-4">
+          <Col>
+            <h6>Add or remove communities from this campaign</h6>
+            <MultiSelect
+              options={(allCommunities?.data || []).map((campaign) => {
+                return {
+                  ...campaign,
+                  value: campaign?.id,
+                  label: campaign?.name,
+                };
+              })}
+              value={comsInThisCampaign}
+              onChange={(coms) => {
+                setComsInThisCampaign(coms);
+                console.log("These are teh values", coms);
+              }}
+              labelledBy="Select"
+            />
+          </Col>
+        </Row>
+
+        <Button loading={comChangeLoading} onClick={() => saveChanges()}>
+          Save Changes
+        </Button>
+      </div>
       {communities?.map((item) => (
         <Row className={"mb-4"} key={item?.id}>
           <Col>
             <CustomAccordion
-              title={`Add Help Link for ${item?.alias || item?.community?.name}`}
+              title={`Customize ${item?.alias || item?.community?.name}`}
               component={
                 <HelpLinkForm
                   data={item}
@@ -97,7 +168,7 @@ const HelpLinkForm = ({ handleFieldChange, tabId, getValue, handleSave, loading,
         <Col>
           <Input
             label="Help Link"
-            placeholder="Add a link to help for this community......."
+            placeholder="Add a link to help for this Eg: https://communities.massenergize.org/ "
             required={false}
             type="textbox"
             onChange={(val) => {
@@ -109,7 +180,9 @@ const HelpLinkForm = ({ handleFieldChange, tabId, getValue, handleSave, loading,
         <Col>
           <Input
             label="Community Alias"
-            placeholder={`The current name is ${data?.community?.name || "..."}, want to try something else?`}
+            placeholder={`The current name is ${
+              data?.alias || data?.community?.name || "..."
+            }, want to try something else?`}
             required={false}
             type="textbox"
             onChange={(val) => {
