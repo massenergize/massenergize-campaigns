@@ -11,21 +11,14 @@ import { findItemAtIndexAndRemainder } from "src/utils/utils";
 import { MultiSelect } from "react-multi-select-component";
 import { useCampaignContext } from "src/hooks/use-campaign-context";
 import { apiCall } from "src/api/messenger";
+import CampaignCommunitiesExtraLinks from "./CampaignCommunitiesExtraLinks";
 
 export default function CampaignCommunities({ campaignDetails, setCampaignDetails }) {
   const { communities } = campaignDetails;
   const [activeAccordion, setActiveAccordion] = useState(null);
-  const [formData, setFormData] = useState({
-    ...(communities?.reduce((acc, item) => {
-      acc[item?.id] = { help_link: item?.help_link, alias: item?.alias };
-      return acc;
-    }, {}) || {}),
-  });
+  const [formData, setFormData] = useState({});
 
-  const {
-    lists,
-    setNewCampaignDetails,
-  } = useCampaignContext();
+  const { lists, setNewCampaignDetails } = useCampaignContext();
 
   const { allCommunities } = lists || {};
 
@@ -62,7 +55,6 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
     apiCall("/campaigns.communities.add", { community_ids, campaign_id: campaignDetails?.id })
       .then((response) => {
         setComChangeLoading(false);
-        console.log("This is the response", response);
         const { data, success, error } = response || {};
         if (!success) return notifyError(error);
         setNewCampaignDetails({ ...campaignDetails, communities: data });
@@ -76,8 +68,13 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
 
   const handleSave = async (tabId) => {
     setLoading(true);
+    const toGo = formData[tabId] || {};
     try {
-      const res = await updateCampaignCommunityInfo({ campaign_community_id: tabId, ...formData[tabId] });
+      const res = await updateCampaignCommunityInfo({
+        campaign_community_id: tabId,
+        ...toGo,
+        extra_links: JSON.stringify(toGo?.extra_links || []),
+      });
       setLoading(false);
       const { remainder, index } = findItemAtIndexAndRemainder(
         campaignDetails?.communities,
@@ -103,17 +100,24 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
   useEffect(() => {
     let d = campaignDetails?.communities || [];
     d = d?.map(({ community: c }) => ({ value: c?.id, label: c?.name }));
-    console.log("This is what d looks like", d);
+
+    const initial = communities?.reduce((acc, item) => {
+      acc[item?.id] = { help_link: item?.help_link, alias: item?.alias, extra_links: item?.extra_links };
+      return acc;
+    }, {});
+
+    setFormData(initial);
     setComsInThisCampaign(d);
-    console.log("I Just run the props into the state");
   }, [campaignDetails?.communities]);
 
   return (
-    <Container fluid style={{ height: "100vh" }}>
+    <Container fluid style={{}}>
       <div style={{ marginBottom: 20 }}>
         <Row className="py-4">
           <Col>
-            <h6>Add or remove communities from this campaign</h6>
+            <h6 style={{ fontWeight: "bold", color: "var(--admin-theme-color)" }}>
+              Add or remove communities from this campaign
+            </h6>
             <MultiSelect
               options={(allCommunities?.data || []).map((campaign) => {
                 return {
@@ -125,7 +129,6 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
               value={comsInThisCampaign}
               onChange={(coms) => {
                 setComsInThisCampaign(coms);
-                console.log("These are teh values", coms);
               }}
               labelledBy="Select"
             />
@@ -163,11 +166,11 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
 
 const HelpLinkForm = ({ handleFieldChange, tabId, getValue, handleSave, loading, data }) => {
   return (
-    <div>
-      <Row className="m-3">
+    <div className="m-3">
+      <Row>
         <Col>
           <Input
-            label="Help Link"
+            label="Coach help Link"
             placeholder="Add a link to help for this Eg: https://communities.massenergize.org/ "
             required={false}
             type="textbox"
@@ -191,6 +194,12 @@ const HelpLinkForm = ({ handleFieldChange, tabId, getValue, handleSave, loading,
             value={getValue(tabId, "alias")}
           />
         </Col>
+      </Row>
+      <Row className="py-4 justify-content-end">
+        <CampaignCommunitiesExtraLinks
+          linkObjs={getValue(tabId, "extra_links")}
+          setLinkObjs={(data) => handleFieldChange(tabId, "extra_links", data)}
+        />
       </Row>
       <Row className="py-4 justify-content-end">
         <Col className="px-4">
