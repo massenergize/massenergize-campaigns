@@ -1,18 +1,30 @@
 import React, { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import Input from "src/components/admin-components/Input";
+import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 
 function CampaignCommunitiesExtraLinks({ linkObjs, setLinkObjs }) {
   const [formData, setformData] = useState({});
+  const { pop } = useBubblyBalloons();
 
   const handleFieldChange = (field, value) => {
     setformData({ ...formData, [field]: value });
+  };
+
+  const notifyError = (error) => {
+    pop({
+      title: "Error",
+      message: error,
+      type: "error",
+    });
   };
 
   const getValue = (field) => (formData || {})[field] || "";
   const addLink = () => {
     const asArr = Object.keys(formData);
     if (!asArr?.length) return <></>;
+
+    if (!formData?.label || !formData?.link) return notifyError("Please include a label, and a link");
     const _new = [formData, ...linkObjs];
     setLinkObjs(_new);
     // transfer(_new);
@@ -66,7 +78,7 @@ function CampaignCommunitiesExtraLinks({ linkObjs, setLinkObjs }) {
       <Row>
         <Col>
           <Input
-            label="Link Label"
+            label="Link Label*"
             placeholder="Add a link to help for this Eg: https://communities.massenergize.org/ "
             required={false}
             type="textbox"
@@ -78,7 +90,7 @@ function CampaignCommunitiesExtraLinks({ linkObjs, setLinkObjs }) {
         </Col>
         <Col>
           <Input
-            label="Add Link"
+            label="Add Link*"
             placeholder={`What text should be on the link? Eg: Climate Connections?`}
             required={false}
             type="textbox"

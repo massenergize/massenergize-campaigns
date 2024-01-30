@@ -167,6 +167,7 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
 const HelpLinkForm = ({ handleFieldChange, tabId, getValue, handleSave, loading, data }) => {
   return (
     <div className="m-3">
+      <p className="text-muted">Click "Save Changes" to apply</p>
       <Row>
         <Col>
           <Input

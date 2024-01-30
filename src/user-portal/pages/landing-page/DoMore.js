@@ -31,58 +31,60 @@ function DoMore({ campaign }) {
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center",
+                    alignItems: "flex-start",
                     // justifyContent: "center",
                     flexWrap: "wrap",
-                    margin: "10px 5px",
+                    margin: "10px 0px",
 
                     // flexBasis:"30%"
                   }}
                 >
-                  <img
-                    style={{
-                      width: 100,
-                      height: 60,
-                      marginRight: 10,
-                      objectFit: "contain",
-                    }}
-                    src={community?.logo?.url}
-                    alt={"logo"}
-                  />
-                  <ul>
-                    <li
-                      role={"button"}
-                      onClick={() => {
-                        window.open(`${COMMUNITY_PORTAL_URL}${community?.subdomain}`);
-                      }}
-                      className="touchable-opacity"
+                  <center style={{ display: "inline" }}>
+                    <img
                       style={{
-                        textDecoration: "underline",
-                        color: "var(--app-accent-3)",
-                        fontWeight: "bold",
+                        width: 100,
+                        height: 60,
+                        marginBottom: 10,
+                        objectFit: "contain",
                       }}
-                    >
-                      {alias || community?.name || "..."}
-                    </li>
-                    {links?.map((linkObj) => {
-                      return (
-                        <li
-                          role={"button"}
-                          onClick={() => {
-                            window.open(`${linkObj?.link}`);
-                          }}
-                          className="touchable-opacity"
-                          style={{
-                            textDecoration: "underline",
-                            color: "var(--app-accent-3)",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          {linkObj?.label || "..."}
-                        </li>
-                      );
-                    })}
-                  </ul>
+                      src={community?.logo?.url}
+                      alt={"logo"}
+                    />
+                    <ul style={{ padding: 0 }}>
+                      <li
+                        role={"button"}
+                        onClick={() => {
+                          window.open(`${COMMUNITY_PORTAL_URL}${community?.subdomain}`);
+                        }}
+                        className="touchable-opacity"
+                        style={{
+                          textDecoration: "underline",
+                          color: "var(--app-accent-3)",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {alias || community?.name || "..."}
+                      </li>
+                      {links?.map((linkObj) => {
+                        return (
+                          <li
+                            role={"button"}
+                            onClick={() => {
+                              window.open(`${linkObj?.link}`);
+                            }}
+                            className="touchable-opacity"
+                            style={{
+                              textDecoration: "underline",
+                              color: "var(--app-accent-3)",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {linkObj?.label || "..."}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </center>
                 </Col>
               );
             })}
