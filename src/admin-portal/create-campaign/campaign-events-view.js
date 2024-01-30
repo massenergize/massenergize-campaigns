@@ -18,11 +18,17 @@ import Dropdown from "src/components/admin-components/Dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { setCampaignCommunityEventsAction } from "../../redux/actions/actions";
 import { useCampaignContext } from "src/hooks/use-campaign-context";
+import Loading from "src/components/pieces/Loading";
 
 export function CampaignEventsView ({campaign }) {
 
-  const { setNewCampaignDetails,
-  } = useCampaignContext();
+  const { setNewCampaignDetails,} = useCampaignContext();
+  const [loadingEvents, setLoadingEvents] = useState(false);
+  const [selectedEvents, setSelectedEvents] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [toAddEvents, setToAddEvents] = useState([]);
+  const [selectedTech, setSelectedTech] = useState("");
+  const { blow, pop } = useBubblyBalloons();
   //@Todo: Add a mutate to update main
 
   const [loading, setLoading] = useState(false);
@@ -33,10 +39,13 @@ export function CampaignEventsView ({campaign }) {
   const fetchEventsIfNone = async () => {
     try {
       if (!allEvents?.length) {
+        setLoadingEvents(true);
         const data = await fetchEvents(campaign?.id || id);
         dispatch(setCampaignCommunityEventsAction(data));
+        setLoadingEvents(false);
       }
     } catch (error) {
+      setLoadingEvents(false);
       console.error("An error occurred:", error);
     }
   };
@@ -45,16 +54,6 @@ export function CampaignEventsView ({campaign }) {
     fetchEventsIfNone()
   },[])
 
-
-  const techs = campaign?.technologies;
-
-
-  const [selectedEvents, setSelectedEvents] = useState([]);
-  const [openModal, setOpenModal] = useState(false);
-  const [toAddEvents, setToAddEvents] = useState([]);
-  const [selectedTech, setSelectedTech] = useState("");
-  const { blow, pop } = useBubblyBalloons();
-
   useEffect(() => {
     const existingEvents = [
       ...campaign?.technologies?.map((tech) => tech?.events),
@@ -62,6 +61,14 @@ export function CampaignEventsView ({campaign }) {
     setSelectedEvents(existingEvents);
 
   },[campaign?.technologies])
+
+  
+  if (loadingEvents) {
+    return <Loading text="Loading events..." />;
+  }
+
+
+  const techs = campaign?.technologies;
 
   const handleRemove = async (tech_event_id) => {
     setLoading(true);
@@ -168,9 +175,9 @@ export function CampaignEventsView ({campaign }) {
     (event) => !selectedEventIds.includes(event.id),
   );
 
+
   return (
     <Container fluid style={{ height: "100vh" }}>
-      {loading && (<GhostLoader text="Loading Events..." />)}
       {EVENTS_SIZE > 0 && (
         <Container>
           <div
