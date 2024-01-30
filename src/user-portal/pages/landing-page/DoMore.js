@@ -39,7 +39,7 @@ function DoMore({ campaign }) {
                     // flexBasis:"30%"
                   }}
                 >
-                  <center style={{ display: "inline" }}>
+                  <center className="m-for-center" style={{ display: "inline" }}>
                     <img
                       style={{
                         width: 100,

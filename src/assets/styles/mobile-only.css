@@ -4,7 +4,7 @@
   }
   .page-title {
     font-size: var(--mob-title-font-size);
-    color:var(--app-accent-3);
+    color: var(--app-accent-3);
   }
   .page-slogan {
     font-weight: 400;
@@ -17,6 +17,9 @@
     font-weight: 600;
   }
 
+  .m-for-center {
+    width: 100%;
+  }
   .site-logo {
     height: 70px;
     width: 70px;
