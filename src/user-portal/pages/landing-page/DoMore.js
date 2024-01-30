@@ -6,6 +6,7 @@ function DoMore({ campaign }) {
   const { communities, communities_section } = campaign || {};
   const { title, description } = communities_section || {};
 
+  console.log("Here are teh communiteis", communities);
   const COMMUNITY_PORTAL_URL = "https://communities.massenergize.org/";
   return (
     <div className="do-more-root">
@@ -22,15 +23,15 @@ function DoMore({ campaign }) {
             {title || " Participating Communities"}
           </h2>
           <p>{description}</p>
-          <Row>
-            {(communities || []).map(({ community, id, alias }, index) => {
+          <Row style={{ flexWrap: "wrap", display: "flex" }}>
+            {(communities || []).map(({ community, id, alias, extra_links: links }, index) => {
               return (
                 <Col
                   key={index?.toString() + id?.toString()}
                   lg={3}
                   style={{
                     display: "flex",
-                    flexDirection: "row",
+                    flexDirection: "column",
                     alignItems: "center",
                     // justifyContent: "center",
                     flexWrap: "wrap",
@@ -49,20 +50,40 @@ function DoMore({ campaign }) {
                     src={community?.logo?.url}
                     alt={"logo"}
                   />
-                  <h6
-                    role={"button"}
-                    onClick={() => {
-                      window.open(`${COMMUNITY_PORTAL_URL}${community?.subdomain}`);
-                    }}
-                    className="touchable-opacity"
-                    style={{
-                      textDecoration: "underline",
-                      color: "var(--app-accent-3)",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {alias || community?.name || "..."}
-                  </h6>
+                  <ul>
+                    <li
+                      role={"button"}
+                      onClick={() => {
+                        window.open(`${COMMUNITY_PORTAL_URL}${community?.subdomain}`);
+                      }}
+                      className="touchable-opacity"
+                      style={{
+                        textDecoration: "underline",
+                        color: "var(--app-accent-3)",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {alias || community?.name || "..."}
+                    </li>
+                    {links?.map((linkObj) => {
+                      return (
+                        <li
+                          role={"button"}
+                          onClick={() => {
+                            window.open(`${linkObj?.link}`);
+                          }}
+                          className="touchable-opacity"
+                          style={{
+                            textDecoration: "underline",
+                            color: "var(--app-accent-3)",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {linkObj?.label || "..."}
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </Col>
               );
             })}
