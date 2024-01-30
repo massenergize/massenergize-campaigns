@@ -111,7 +111,7 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
   }, [campaignDetails?.communities]);
 
   return (
-    <Container fluid style={{}}>
+    <Container fluid style={{ minHeight: "50vh" }}>
       <div style={{ marginBottom: 20 }}>
         <Row className="py-4">
           <Col>
@@ -127,6 +127,15 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
                 };
               })}
               value={comsInThisCampaign}
+              valueRenderer={(selected, _options) => {
+                if (selected.length === 0) return "Select Communities";
+                if (selected.length === _options.length) return "All Communities Selected";
+                if (selected.length > 5) return `${selected.length} Communities Selected`;
+                return selected
+                  ?.map(({ label }) => label)
+                  .join(", ")
+                  .concat(" Selected");
+              }}
               onChange={(coms) => {
                 setComsInThisCampaign(coms);
               }}

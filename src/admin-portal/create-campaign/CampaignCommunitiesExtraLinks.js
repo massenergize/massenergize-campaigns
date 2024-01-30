@@ -91,7 +91,7 @@ function CampaignCommunitiesExtraLinks({ linkObjs, setLinkObjs }) {
         <Col>
           <Input
             label="Add Link*"
-            placeholder={"Add a link to help for this Eg: https://communities.massenergize.org"}
+            placeholder={"Add a link Eg: https://communities.massenergize.org"}
             required={false}
             type="textbox"
             onChange={(val) => {
