@@ -209,7 +209,7 @@ function LandingPage({
         </Container>
         <RoamingBox
           id="roaming-box"
-          advert={{ description, title: `About ${campaign?.title?.toLowerCase() || ""}` }}
+          advert={{ description, title: `About ${campaign?.title || ""}` }}
           keyContact={key_contact}
           showMore={showMoreAboutAdvert}
         />
