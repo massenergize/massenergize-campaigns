@@ -50,7 +50,7 @@ function DoMore({ campaign }) {
                       src={community?.logo?.url}
                       alt={"logo"}
                     />
-                    <ul style={{ padding: 0 }}>
+                    <ul style={{ padding: 0, listStyleType:'none' }}>
                       <li
                         role={"button"}
                         onClick={() => {
