@@ -79,7 +79,7 @@ function CampaignCommunitiesExtraLinks({ linkObjs, setLinkObjs }) {
         <Col>
           <Input
             label="Link Label*"
-            placeholder="Add a link to help for this Eg: https://communities.massenergize.org/ "
+            placeholder={`What text should be on the link? Eg: Climate Connections?`}
             required={false}
             type="textbox"
             onChange={(val) => {
@@ -91,7 +91,7 @@ function CampaignCommunitiesExtraLinks({ linkObjs, setLinkObjs }) {
         <Col>
           <Input
             label="Add Link*"
-            placeholder={`What text should be on the link? Eg: Climate Connections?`}
+            placeholder={"Add a link to help for this Eg: https://communities.massenergize.org"}
             required={false}
             type="textbox"
             onChange={(val) => {
