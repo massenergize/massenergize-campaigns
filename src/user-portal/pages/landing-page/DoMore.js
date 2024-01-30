@@ -22,47 +22,69 @@ function DoMore({ campaign }) {
             {title || " Participating Communities"}
           </h2>
           <p>{description}</p>
-          <Row>
-            {(communities || []).map(({ community, id, alias }, index) => {
+          <Row style={{ flexWrap: "wrap", display: "flex" }}>
+            {(communities || []).map(({ community, id, alias, extra_links: links }, index) => {
               return (
                 <Col
                   key={index?.toString() + id?.toString()}
                   lg={3}
                   style={{
                     display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
                     // justifyContent: "center",
                     flexWrap: "wrap",
-                    margin: "10px 5px",
+                    margin: "10px 0px",
 
                     // flexBasis:"30%"
                   }}
                 >
-                  <img
-                    style={{
-                      width: 100,
-                      height: 60,
-                      marginRight: 10,
-                      objectFit: "contain",
-                    }}
-                    src={community?.logo?.url}
-                    alt={"logo"}
-                  />
-                  <h6
-                    role={"button"}
-                    onClick={() => {
-                      window.open(`${COMMUNITY_PORTAL_URL}${community?.subdomain}`);
-                    }}
-                    className="touchable-opacity"
-                    style={{
-                      textDecoration: "underline",
-                      color: "var(--app-accent-3)",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {alias || community?.name || "..."}
-                  </h6>
+                  <center style={{ display: "inline" }}>
+                    <img
+                      style={{
+                        width: 100,
+                        height: 60,
+                        marginBottom: 10,
+                        objectFit: "contain",
+                      }}
+                      src={community?.logo?.url}
+                      alt={"logo"}
+                    />
+                    <ul style={{ padding: 0 }}>
+                      <li
+                        role={"button"}
+                        onClick={() => {
+                          window.open(`${COMMUNITY_PORTAL_URL}${community?.subdomain}`);
+                        }}
+                        className="touchable-opacity"
+                        style={{
+                          textDecoration: "underline",
+                          color: "var(--app-accent-3)",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {alias || community?.name || "..."}
+                      </li>
+                      {links?.map((linkObj) => {
+                        return (
+                          <li
+                            role={"button"}
+                            onClick={() => {
+                              window.open(`${linkObj?.link}`);
+                            }}
+                            className="touchable-opacity"
+                            style={{
+                              textDecoration: "underline",
+                              color: "var(--app-accent-3)",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {linkObj?.label || "..."}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </center>
                 </Col>
               );
             })}
