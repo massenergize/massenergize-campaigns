@@ -111,7 +111,7 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
   }, [campaignDetails?.communities]);
 
   return (
-    <Container fluid style={{}}>
+    <Container fluid style={{ minHeight: "50vh" }}>
       <div style={{ marginBottom: 20 }}>
         <Row className="py-4">
           <Col>
