@@ -57,7 +57,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
       style={{
         margin: "40px 0px",
         // padding: "100px 0px",
-        background: "var(--app-accent-2)",
+        background: "var(--app-accent-1)",
         width: "100%",
       }}
     >

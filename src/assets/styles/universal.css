@@ -115,7 +115,7 @@ body {
 .share-campaign-btn {
     font-weight: bold;
     color: var(--app-main-color);
-    border: dashed 1px var(--app-main-color);
+    border: solid 2px var(--app-main-color);
     border-radius: 55px;
     padding: 4px 15px;
     margin: 5px;

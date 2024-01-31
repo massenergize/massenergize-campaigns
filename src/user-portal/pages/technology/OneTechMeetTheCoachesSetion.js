@@ -50,7 +50,7 @@ function OneTechMeetTheCoachesSection({
       id={sectionId}
       className="mt-5 elevate-float-pro g-s-container"
       style={{
-        background: "var(--app-accent-2)",
+        background: "var(--app-accent-1)",
         width: "100%",
         // padding: "80px 0px",
         // minHeight: 200,
