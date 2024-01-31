@@ -1,0 +1,217 @@
+@media only screen and (min-width: 768px) {
+  .page-title {
+    text-align: center;
+    font-size: 3rem;
+    color: var(--app-accent-3);
+    /* text-transform: uppercase; */
+  }
+  .roaming-container {
+    margin: 100px 0px;
+  }
+  .page-slogan {
+    font-weight: 400;
+    color: var(--app-main-color);
+    text-align: center;
+    /* text-transform: capitalize; */
+    line-height: 1.5;
+    width: 85%;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .site-logo {
+    width: 190px;
+    height: 190px;
+    margin-block: 10px;
+    object-fit: contain;
+  }
+
+  .campaign-focus-image {
+    width: 80%;
+    margin: 20px 10% 0px;
+    height: 530px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  .roaming-header h3 {
+    font-size: 23px;
+  }
+  .roaming-text {
+    font-size: 1rem;
+  }
+
+  .app-btn {
+    border-width: 0px;
+    padding: 9px 19px;
+  }
+
+  .g-s-container {
+    padding: 50px 20px;
+  }
+
+  .one-box {
+    padding: 40px 40px 10px;
+  }
+  .one-box img {
+    height: 100px;
+    width: 100px;
+  }
+  .one-box-container {
+    min-height: 390px;
+  }
+  .one-box-footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 30px 30px;
+  }
+
+  .testi-container {
+    padding: 20px;
+    height: 350px;
+    margin-bottom: 15px;
+  }
+
+  .coach-main img {
+    margin-top: 50px;
+    width: 120px;
+    height: 120px;
+  }
+
+  .coach-main p {
+    font-size: 15px;
+  }
+  .coaches-description {
+    width: 90%;
+    text-align: justify;
+    margin-top: 20px;
+  }
+  .do-more-root {
+    /* padding: 20vh 0px; */
+  }
+  .do-more-root p {
+    /* width: 80%; */
+  }
+  .one-coach-main h6 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin: 10px 0px;
+    font-weight: bold;
+  }
+
+  .one-tech-main img {
+    height: 420px;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+  }
+
+  .vendor-list-group li {
+    /* vendor-list-item */
+    flex-basis: calc(33.33% - 10px);
+    /* margin: 5px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: black; */
+  }
+
+  .vendor-list-group {
+    display: flex;
+    /* flex-direction: row; */
+    flex-wrap: wrap;
+  }
+
+  .t-with-filter-top {
+    /* width: 80%; */
+  }
+
+  .link-text {
+    font-size: 1.1rem;
+  }
+
+  .testi-form-wrapper {
+    border: 1px dashed rgb(230, 226, 226);
+    margin-top: 40px;
+    padding: 20px;
+  }
+
+  .pc-vanish {
+    display: none !important;
+  }
+
+  /* --------------------------------- END OF PC SPECIFIC ---------------------- */
+}
+
+.vendor-list-group li {
+  /* vendor-list-item */
+  /* flex-basis: calc(33.33% - 10px); */
+  margin: 5px;
+  font-weight: bold;
+  text-decoration: underline;
+  color: black;
+}
+
+.coach-main p {
+  font-weight: bold;
+  /* font-size: 15px; */
+  color: var(--app-main-color);
+  /* text-transform: uppercase; */
+}
+.coach-main img {
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.testi-container {
+  border: 1px solid rgb(228, 228, 228);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.one-box-container {
+  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+
+.one-box img {
+  object-fit: contain;
+}
+
+.one-box h5 {
+  color: var(--app-medium-green);
+  margin-top: 10px;
+}
+.one-box {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+.roaming-header {
+  padding: 10px 30px;
+  /* background: var(--app-kicking-yellow); */
+  color: white;
+  background: var(--app-main-color);
+  /* border-radius: 5px; */
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.app-btn {
+  margin-left: auto;
+  border-radius: 100px !important;
+  background: var(--app-main-color) !important;
+  border-width: 0px !important;
+}
+
+.g-s-container {
+  background: var(--app-main-color);
+}

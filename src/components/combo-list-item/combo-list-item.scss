@@ -1,0 +1,47 @@
+@import "../../assets/styles/scss/includes/variables";
+
+.ComboListItem {
+  cursor: pointer;
+  // Vars
+
+  // Support
+
+  // Module
+  &.list-group-item {
+    padding: .5rem 1rem;
+    border-left: none;
+    border-right: none;
+    animation: slideInDown;
+
+    &:first-child, &:last-child{
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      border-radius: 0;
+    }
+
+    &.heading,  &.head{
+      background-color: rgb(243, 246, 249);
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    &:first-child{}
+    &:last-child{}
+  }
+
+  // Facets
+  //color: $oa-dark-gray;
+
+  &:hover {
+    color: var(--obsidian-gold-neue);
+    //background: rgb(207, 245, 255);
+    //background: $accent-gradient-light;
+  }
+
+  // States
+  &.highlighted {
+    //background: $accent-gradient-light;
+    color: var(--obsidian-gold-neue);
+  }
+
+}
