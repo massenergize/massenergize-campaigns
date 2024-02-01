@@ -43,14 +43,14 @@ export const ArrowButtons = ({ style, containerRef }) => {
         className="fa fa-arrow-circle-left touchable-opacity"
         style={{
           fontSize: 35,
-          color: "var(--app-main-color)",
+          color: "var(--theme-accent-color)",
           marginRight: 10,
         }}
       />
       <i
         onClick={() => doScroll()}
         className="fa fa-arrow-circle-right touchable-opacity"
-        style={{ fontSize: 35, color: "var(--app-main-color)" }}
+        style={{ fontSize: 35, color: "var(--theme-accent-color)" }}
       />
     </div>
   );

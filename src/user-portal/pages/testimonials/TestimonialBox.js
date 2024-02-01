@@ -19,7 +19,7 @@ function TestimonialBox({ title, user, image, body, campaign_technology, campaig
   return (
     <div className="testi-container flex-column">
       <h5 style={{ fontSize: "1.07rem" }}>{title || "..."}</h5>
-      <h6 style={{ fontSize: 15, color: "var(--app-main-color)" }}>
+      <h6 style={{ fontSize: 15, color: "var(--theme-accent-color)" }}>
         {" "}
         {/* {user?.preferred_name || user?.full_name || "...."} */}
         {userName ? `${userName} ${community?.name ? "from" : ""} ${community?.name || ""}` : "..."}
@@ -98,7 +98,7 @@ function TestimonialBox({ title, user, image, body, campaign_technology, campaig
             fontSize: 15,
             marginLeft: "auto",
             fontWeight: "bold",
-            color: "var(--app-main-color)",
+            color: "var(--theme-accent-color)",
             marginBottom: 0,
           }}
         >

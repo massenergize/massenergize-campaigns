@@ -213,5 +213,5 @@
 }
 
 .g-s-container {
-  background: var(--app-main-color);
+  background: var(--theme-lighter-color);
 }

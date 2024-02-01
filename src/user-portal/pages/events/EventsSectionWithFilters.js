@@ -18,9 +18,7 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
     if (filters?.length)
       data = events?.filter((ev) => {
         // const techsRelatedToEvent = ev?.campaign_technology?.map((t) => t.id); // pick only the campaign technology ids
-        return filters.some(
-          (f) => f.campaign_technology_id === ev?.campaign_technology?.id,
-        );
+        return filters.some((f) => f.campaign_technology_id === ev?.campaign_technology?.id);
       });
     else data = events;
 
@@ -62,7 +60,7 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
           <div className="row-flex t-with-filter-top">
             <h2
               style={{
-                color: "var(--app-accent-3)",
+                color: "var(--theme-main-color)",
                 fontWeight: "bold",
                 marginBottom: 20,
               }}

@@ -50,7 +50,7 @@ function OneBox({
             // style={{ height: 100, width: 100, objectFit: "contain" }}
           />
         )}
-        <h5 style={{ textTransform: "capitalize", color: "var(--app-main-color)" }}>{name}</h5>
+        <h5 style={{ textTransform: "capitalize", color: "var(--theme-main-color)" }}>{name}</h5>
         {/* <RenderHTML tag={"p"} html={!isEmpty(description) ? ellipsify(description, 80) : "..."} /> */}
         <p style={{ textAlign: "center" }}>{summary?.substring(0, 80) || "..."}</p>
         <Button
@@ -61,21 +61,19 @@ function OneBox({
             trackActivity && trackActivity({ ...common, button_type: "learn_more" });
             navigator(route);
           }}
-          style={{ fontWeight: "bold", color: "var(--app-accent-3)" }}
+          style={{ fontWeight: "bold", color: "var(--theme-accent-color)" }}
         >
           Learn More...
         </Button>
       </div>
-      <div
-        className="one-box-footer phone-vanish"
-      >
+      <div className="one-box-footer phone-vanish">
         <Button
           onClick={() => {
             trackActivity && trackActivity({ ...common, button_type: "quote" });
             navigator(`${route}?section=vendors`);
           }}
           className="tech-btn elevate-2 touchable-opacity mr-2"
-          style={{ background: "var(--app-accent-3)", marginRight: 20 }}
+          style={{ background: "var(--theme-accent-color)", marginRight: 20 }}
         >
           QUOTE
         </Button>
@@ -84,7 +82,7 @@ function OneBox({
             trackActivity && trackActivity({ ...common, button_type: "coach" });
             navigator(`${route}?section=coaches`);
           }}
-          style={{ background: "var(--app-main-color)" }}
+          style={{ background: "var(--theme-main-color)" }}
           className="tech-btn elevate-2 touchable-opacity"
         >
           COACH

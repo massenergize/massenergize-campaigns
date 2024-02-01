@@ -16,7 +16,7 @@ function DoMore({ campaign }) {
               color: "black",
               fontWeight: "bold",
               marginBottom: 20,
-              color: "var(--app-accent-3)",
+              color: "var(--theme-main-color)",
             }}
           >
             {title || " Participating Communities"}

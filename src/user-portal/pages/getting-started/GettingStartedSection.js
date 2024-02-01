@@ -34,16 +34,14 @@ function GettingStartedSection({
 }) {
   // console.log("these are the technologies", technologies);
   return (
-    <div
-      id={sectionId}
-      className="mt-5 g-s-container"
-
-    >
+    <div id={sectionId} className="mt-5 g-s-container">
       <Container>
         <Row>
           <Col lg={{ span: 12 }}>
-            <h2 style={{ color: "white", fontWeight: "bold" }}>{customization?.title || "Getting Started"}</h2>
-            <p style={{ color: "white", marginBottom: 20 }}>
+            <h2 style={{ color: "var(--theme-main-color)", fontWeight: "bold" }}>
+              {customization?.title || "Getting Started"}
+            </h2>
+            <p style={{ color: "black", marginBottom: 20 }}>
               {/* This section should be edited via the admin portal */}
               {customization?.description ||
                 "Explore the actions we have under these technologies and get started right away!"}
@@ -76,20 +74,14 @@ export default GettingStartedSection;
 
 const DoMoreBox = ({ scrollToCommunities }) => {
   return (
-    <div
-      className="elevate-float-pro one-box-container"
-   
-    >
-      <div
-        className="one-box"
-      >
+    <div className="elevate-float-pro one-box-container">
+      <div className="one-box">
         <img
           // src={"https://placehold.co/100x100"}
           src={people}
           alt="people"
-         
         />
-        <h5 style={{ color: "var(--app-main-color)"  }}>Communities</h5>
+        <h5 style={{ color: "var(--app-main-color)" }}>Communities</h5>
         <p style={{ textAlign: "center" }}>Connect with your community and check out other actions</p>
 
         <Button
@@ -105,9 +97,7 @@ const DoMoreBox = ({ scrollToCommunities }) => {
         </Button>
       </div>
 
-      <div
-        className="one-box-footer phone-vanish"
-      >
+      <div className="one-box-footer phone-vanish">
         <Button
           onClick={() => scrollToCommunities()}
           style={{ background: "var(--app-main-color)" }}

@@ -24,8 +24,9 @@ import CreateCampaignAccount from "../admin-portal/pages/campaign-account/Create
 import { CampaignStatistics } from "../admin-portal/pages/campaign/campaign-statistics/campaign-statistics";
 import Login from "../admin-portal/pages/auth/Login";
 import Dummy from "../admin-portal/pages/auth/Dummy";
-import { portalIsAdmin, setPageTitle } from "../utils/utils";
+import { lighterOpacity, portalIsAdmin, setPageTitle } from "../utils/utils";
 import JoinUsForm from "../user-portal/pages/forms/JoinUsForm";
+import { DEFAULT_THEME_COLOR } from "../utils/Constants";
 
 export const NavigateWithParams = ({ to, ...props }) => {
   const params = useParams();
@@ -158,6 +159,7 @@ function AppRouter({
 }) {
   const params = useParams();
 
+  console.log("LIGHTER VERSION", lighterOpacity("#3030d0", 40));
   useEffect(() => {
     let pageName = "ME Campaign";
     if (isAdminPortal) pageName = "Admin Portal";
@@ -179,21 +181,21 @@ function AppRouter({
       ),
     });
   };
-  const triggerProtectedFunctionality = (
-    authUser,
-    { cb, registrationOptions } = {},
-  ) => {
+  const triggerProtectedFunctionality = (authUser, { cb, registrationOptions } = {}) => {
     const { user } = authUser || {};
     if (!user) return register(registrationOptions);
     cb && cb();
   };
 
   return (
-    <>
-      <CustomModal
-        close={() => toggleModal({ show: false, component: <></> })}
-        {...modalOptions}
-      />
+    <div
+      style={{
+        "--theme-main-color": DEFAULT_THEME_COLOR.main_color,
+        "--theme-lighter-color": lighterOpacity(DEFAULT_THEME_COLOR.main_color),
+        "--theme-accent-color": DEFAULT_THEME_COLOR.accent_color,
+      }}
+    >
+      <CustomModal close={() => toggleModal({ show: false, component: <></> })} {...modalOptions} />
       <Routes>
         <Route
           path="/campaign/:campaignId"
@@ -214,9 +216,7 @@ function AppRouter({
           const routeProps = {
             path,
             ...(replace && { replace: true }),
-            element: (
-              <route.component toggleModal={addToggleModal ? toggleModal : null} />
-            ),
+            element: <route.component toggleModal={addToggleModal ? toggleModal : null} />,
           };
 
           return <Route key={index} {...routeProps} />;
@@ -241,7 +241,7 @@ function AppRouter({
           element={<OneTestimonial toggleModal={toggleModal} />}
         />
       </Routes>
-    </>
+    </div>
   );
 }
 
