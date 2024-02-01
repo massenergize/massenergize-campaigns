@@ -80,13 +80,14 @@ function Footer({ toggleModal, campaign, authUser }) {
             <Button
               className="elevate-float-pro touchable-opacity"
               style={{
-                background: "var(--app-accent-3)",
+                background: "white",
                 borderWidth: 0,
                 padding: "8px 30px",
                 marginTop: 15,
                 borderRadius: 5,
                 fontWeight: "bold",
                 width: "100%",
+                color: "black",
               }}
               onClick={() => signUpForNewsletter()}
             >
@@ -167,12 +168,13 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
         <Button
           className="elevate-float-pro touchable-opacity"
           style={{
-            background: "var(--app-accent-3)",
+            background: "white",
             borderWidth: 0,
             padding: "8px 30px",
             marginTop: 5,
             borderRadius: 5,
             fontWeight: "bold",
+            color: "black",
             width: "100%",
           }}
           onClick={() => signUpForNewsletter()}
