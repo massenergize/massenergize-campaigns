@@ -43,7 +43,7 @@ function AppNavigationBar({ menu, campaign }) {
                     className="c-nav-item"
                     key={menu?.key}
                     style={{
-                      textTransform: "uppercase",
+                      textTransform: "capitalize",
                       marginRight: 20,
                       fontWeight: "bold",
                     }}
@@ -60,7 +60,7 @@ function AppNavigationBar({ menu, campaign }) {
               return (
                 <NavDropdown
                   style={{
-                    textTransform: "uppercase",
+                    textTransform: "capitalize",
                     marginRight: 20,
                     fontWeight: "bold",
                   }}
@@ -84,7 +84,7 @@ function AppNavigationBar({ menu, campaign }) {
                     return (
                       <NavDropdown.Item
                         className="f-dropdown-override c-nav-item"
-                        style={{ textTransform: "uppercase" }}
+                        style={{ textTransform: "capitalize" }}
                         key={child?.key}
                         onClick={() => {
                           navigator(`${child.url}&salt=${salt}` || "#");
