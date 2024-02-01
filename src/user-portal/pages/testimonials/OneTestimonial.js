@@ -20,7 +20,7 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init, togg
   const [testimonial, setTestimonial] = useState(LOADING);
   const [error, setError] = useState("");
   const { id, campaign_id } = useParams();
-  const [showTestimonialForm, setShowTestimonialForm] = useState(true);
+  const [showTestimonialForm, setShowTestimonialForm] = useState(false);
 
   const navigator = useNavigate();
   const { title, body, image } = testimonial || {};
@@ -245,7 +245,7 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init, togg
               marginBottom: 15,
             }}
           >
-            <p style={{ margin: 0, fontWeight: "bold" }}>Add Testimonial</p>
+            <p style={{ margin: 0, fontWeight: "bold" }}>{showTestimonialForm ? "Hide Form" : "Add Testimonial"}</p>
           </div>
         </Col>
       </Row>

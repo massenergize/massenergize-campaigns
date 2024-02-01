@@ -284,7 +284,7 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
             }}
           >
             {loading && <Spinner size="sm" style={{ marginRight: 6 }}></Spinner>}
-            Create
+            Submit
           </Button>
         </ModalFooter>
       </div>
