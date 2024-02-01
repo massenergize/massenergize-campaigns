@@ -41,7 +41,6 @@ function OneTechTestimonialsSection({ sectionId, testimonials, campaign, links }
   const firstTestimonial = (testimonials || [])[0];
 
   const home = links?.find((item) => item?.key === "home");
-  console.log("thi sis home", links);
   const testimonialRoute = `${home?.url}?section=testimonial&show=${TESTIMONIAL_FORM_SHOW_KEY}`;
   // const testimonialRoute = `/campaign/${campaign?.slug}/technology/testimonial/${firstTestimonial?.id}?open=true`;
 
