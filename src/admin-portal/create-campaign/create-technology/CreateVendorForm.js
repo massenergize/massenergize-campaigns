@@ -44,6 +44,7 @@ function CreateVendorForm({ setEditObj, notifyError, tech_id, data, vendors, not
     setLoading(true);
     data = {
       ...data,
+      ...(isEditing ? {} : { is_published: true }),
       ...(isEditing && !data.logo ? { logo: "reset" } : data.logo ? { logo: data.logo } : {}),
     };
     apiCall(url, data).then((res) => {

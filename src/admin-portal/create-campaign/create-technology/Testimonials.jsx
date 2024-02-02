@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import "../../../assets/styles/admin-styles.scss";
-import {
-  addTestimonials,
-  fetchAllTechnologyTestimonials,
-} from "../../../requests/technology-requests";
+import { addTestimonials, fetchAllTechnologyTestimonials } from "../../../requests/technology-requests";
 import { Spinner } from "@kehillahglobal/ui";
 import useSWR from "swr";
 import Button from "src/components/admin-components/Button";
@@ -12,6 +9,7 @@ import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import { Col, Row } from "react-bootstrap";
 import Dropdown from "src/components/admin-components/Dropdown";
 import { NoItems } from "@kehillahglobal/ui";
+import { useSelector } from "react-redux";
 
 export const Testimonials = ({ campaign_id, techs, onModalClose, updateTestimonial }) => {
   const [loading, setLoading] = useState(false);
@@ -20,14 +18,16 @@ export const Testimonials = ({ campaign_id, techs, onModalClose, updateTestimoni
   const [selectedTestimonials, setSelectedTestimonials] = useState([]);
   const [selectedTech, setSelectedTech] = useState();
 
-  let {
-    data: payloadTestimonials,
-    isValidating,
-    isLoading,
-    error,
-  } = useSWR("testimonials.list", async () => await fetchAllTechnologyTestimonials(campaign_id),
-    {shouldRetryOnError: false},
-  );
+  const payloadTestimonials = useSelector((state) => state.portalTestimonials);
+
+  // let {
+  //   data: payloadTestimonials,
+  //   isValidating,
+  //   isLoading,
+  //   error,
+  // } = useSWR("testimonials.list", async () => await fetchAllTechnologyTestimonials(campaign_id),
+  //   {shouldRetryOnError: false},
+  // );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,20 +64,20 @@ export const Testimonials = ({ campaign_id, techs, onModalClose, updateTestimoni
     }
   };
 
-  if (isLoading)
-    return (
-      <div
-        className=""
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          height: "100vh",
-        }}
-      >
-        <Spinner color="#6e207c" radius={56} variation="TwoHalfCirclesType" />
-      </div>
-    );
+  // if (isLoading)
+  //   return (
+  //     <div
+  //       className=""
+  //       style={{
+  //         width: "100%",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         height: "100vh",
+  //       }}
+  //     >
+  //       <Spinner color="#6e207c" radius={56} variation="TwoHalfCirclesType" />
+  //     </div>
+  //   );
 
   return (
     <div className="px-4 py-5">
@@ -85,9 +85,7 @@ export const Testimonials = ({ campaign_id, techs, onModalClose, updateTestimoni
         <form>
           <Row className="mt-2" style={{ height: "180px" }}>
             <Col>
-              <Form.Label>
-                Select the Testimonial to feature on this campaign
-              </Form.Label>
+              <Form.Label>Select the Testimonial to feature on this campaign</Form.Label>
               <Dropdown
                 displayTextToggle="Select a testimonial for this campaign"
                 data={(payloadTestimonials || [])?.map((testimonial) => {
@@ -98,9 +96,7 @@ export const Testimonials = ({ campaign_id, techs, onModalClose, updateTestimoni
                   };
                 })}
                 valueExtractor={(item) => item}
-                labelExtractor={(item) =>
-                  `${item?.title} - ${item?.community?.name}`
-                }
+                labelExtractor={(item) => `${item?.title} - ${item?.community?.name}`}
                 multiple={false}
                 onItemSelect={(selectedItem, allSelected) => {
                   setSelectedTestimonials([selectedItem]);
@@ -108,9 +104,7 @@ export const Testimonials = ({ campaign_id, techs, onModalClose, updateTestimoni
               />
 
               <Row className="my-4">
-                <Form.Label>
-                  Select the technology this Testimonial belong to
-                </Form.Label>
+                <Form.Label>Select the technology this testimonial belongs to</Form.Label>
                 <Col>
                   <Dropdown
                     displayTextToggle="Select Technology for this testimonial on this campaign"

@@ -15,6 +15,7 @@ import {
   SET_IS_ADMIN_PORTAL,
   SET_MASSENERGISE_USERS,
   SET_NAVIGATION_MENU,
+  SET_PORTAL_TESTIMONIALS,
   SET_TESTIMONIALS,
   SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
@@ -141,6 +142,14 @@ export const campaignCommentsReducer = (state =[], action) => {
 export const campaignTestimonialsReducer = (state =[], action) => {
   switch (action.type) {
     case SET_CAMPAIGN_TESTIMONIALS:
+      return action.payload; // return new state
+    default:
+      return state; // return current state if action is not handled
+  }
+};
+export const setPortalTestimonialsReducer = (state =[], action) => {
+  switch (action.type) {
+    case SET_PORTAL_TESTIMONIALS:
       return action.payload; // return new state
     default:
       return state; // return current state if action is not handled

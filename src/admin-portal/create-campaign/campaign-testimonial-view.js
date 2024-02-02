@@ -3,13 +3,14 @@ import { Col, Container, Button as BTN, Modal, Row } from "react-bootstrap";
 import TestimonialCard from "../../components/admin-components/TestimonialCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAd, faAdd } from "@fortawesome/free-solid-svg-icons";
-import { fetchAllCampaignTestimonials } from "src/requests/technology-requests";
+import { fetchAllCampaignTestimonials, fetchAllTechnologyTestimonials } from "src/requests/technology-requests";
 import useSWR from "swr";
 import Testimonials from "../../components/admin-components/Testimonials";
 import { Testimonials as TestPortal } from "./create-technology/Testimonials";
 import Loading from "src/components/pieces/Loading";
 import { useDispatch, useSelector } from "react-redux";
-import { setCampaignTestimonialsAction } from "src/redux/actions/actions";
+import { setCampaignTestimonialsAction, setPortalTestimonialsAction } from "src/redux/actions/actions";
+import { apiCall } from "src/api/messenger";
 
 const opts = ["All", "Only Featured"];
 // const allOpts = ["On Campaign", "From Communities"];
@@ -38,14 +39,18 @@ export function CampaignTestimonialsView({ campaignDetails }) {
 
   const fetchTestimonials = async () => {
     setLoading(true);
-    try {
-      const data = await fetchAllCampaignTestimonials(campaignDetails?.id);
-      reduxDispatch(setCampaignTestimonialsAction(data));
-      setLoading(false);
-    } catch (e) {
-      setLoading(false);
-      console.log("ERROR LOADING TESTIMONIALS", e?.toString());
-    }
+    const campaign_id = campaignDetails?.id;
+    Promise.all([fetchAllCampaignTestimonials(campaign_id), fetchAllTechnologyTestimonials(campaign_id)])
+      .then((response) => {
+        const [campTestimonials, technologyTestimonials] = response;
+        setLoading(false);
+        reduxDispatch(setCampaignTestimonialsAction(campTestimonials));
+        reduxDispatch(setPortalTestimonialsAction(technologyTestimonials));
+      })
+      .catch((e) => {
+        setLoading(false);
+        console.log("ERROR_LOADING_TESTIMONIALS:", e?.toString());
+      });
   };
 
   const updateTestimonialsInRedux = (newItems) => {
@@ -56,17 +61,6 @@ export function CampaignTestimonialsView({ campaignDetails }) {
     const rem = payloadTestimonials?.filter((t) => t?.id !== item?.id);
     updateTestimonialsInRedux(rem);
   };
-  // let {
-  //   data: payloadTestimonials,
-  //   isValidating,
-  //   isLoading,
-  //   error,
-  //   mutate,
-  // } = useSWR("campaigns.testimonials.list", async () => await fetchAllCampaignTestimonials(campaignDetails?.id), {
-  //   shouldRetryOnError: true,
-  //   errorRetryCount: 3,
-  //   errorRetryInterval: 3000,
-  // });
 
   const updateTestimonial = (testimonial) => {
     const index = payloadTestimonials.findIndex((test) => test?.id === testimonial?.id);

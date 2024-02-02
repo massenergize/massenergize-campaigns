@@ -17,7 +17,7 @@ import {
   UPDATE_TESTIMONIALS_OBJ,
   SET_CAMPAIGN_ACCOUNT,
   SET_IS_ADMIN_PORTAL,
-  SET_MASSENERGISE_USERS, SET_CAMPAIGN_COMMUNITIES_EVENTS, SET_CAMPAIGN_COMMENTS, SET_CAMPAIGN_TESTIMONIALS
+  SET_MASSENERGISE_USERS, SET_CAMPAIGN_COMMUNITIES_EVENTS, SET_CAMPAIGN_COMMENTS, SET_CAMPAIGN_TESTIMONIALS, SET_PORTAL_TESTIMONIALS
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
 
@@ -184,4 +184,7 @@ export const setCampaignCommentsAction = (payload =[]) => {
 };
 export const setCampaignTestimonialsAction = (payload =[]) => {
   return { type: SET_CAMPAIGN_TESTIMONIALS, payload };
+};
+export const setPortalTestimonialsAction = (payload =[]) => {
+  return { type: SET_PORTAL_TESTIMONIALS, payload };
 };

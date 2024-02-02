@@ -12,6 +12,7 @@ import {
   fullTechnologiesReducer,
   massEnergizeUsersReducer,
   navigationMenuReducer,
+  setPortalTestimonialsReducer,
   testimonialsListReducer,
   testimonialsReducer,
   universalModalReducer,
@@ -36,5 +37,6 @@ export default combineReducers({
   massUsers: massEnergizeUsersReducer,
   communitiesEvents:CampaignCommunitiesEventsReducer,
   campaignComments: campaignCommentsReducer, 
-  campaignTestimonials:campaignTestimonialsReducer
+  campaignTestimonials:campaignTestimonialsReducer, 
+  portalTestimonials: setPortalTestimonialsReducer
 });
