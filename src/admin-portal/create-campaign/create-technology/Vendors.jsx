@@ -261,10 +261,12 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
 
         <MultiSelect
           options={(allVendors || []).map((vendor) => {
+            let communityName = vendor?.communities[0]?.name || "";
+            communityName = communityName ? ` --- ${communityName} community` : "";
             return {
               ...vendor,
               value: vendor?.id,
-              label: `${vendor?.name} --- ${vendor?.communities[0]?.name} community`,
+              label: `${vendor?.name} ${communityName}`,
             };
           })}
           hasSelectAll={true}
