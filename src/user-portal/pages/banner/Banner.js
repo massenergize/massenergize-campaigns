@@ -60,13 +60,6 @@ function Banner ({ title, secondary_logo, primary_logo, tagline,handleShareCampa
             <img
               src={secondary_logo?.url}
               className="site-logo"
-              // style={{
-              //   // borderRadius: "100%",
-              //   width: 190,
-              //   height: 190,
-              //   marginBlock: 10,
-              //   objectFit: "contain",
-              // }}
               alt={"logo"}
             ></img>
           )}
