@@ -67,8 +67,8 @@ export const technologyPages = [
     component: Vendors,
   },
   {
-    key: "incentives",
-    name: "Incentives",
+    key: "overview",
+    name: "Overview",
     component: Incentives,
   },
   {
