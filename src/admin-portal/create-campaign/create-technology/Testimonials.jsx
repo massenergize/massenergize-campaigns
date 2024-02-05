@@ -96,7 +96,10 @@ export const Testimonials = ({ campaign_id, techs, onModalClose, updateTestimoni
                   };
                 })}
                 valueExtractor={(item) => item}
-                labelExtractor={(item) => `${item?.title} - ${item?.community?.name}`}
+                labelExtractor={(item) => {
+                  const comName = item?.community?.alias || item?.community?.name || "";
+                  return `${item?.title} - ${comName}`;
+                }}
                 multiple={false}
                 onItemSelect={(selectedItem, allSelected) => {
                   setSelectedTestimonials([selectedItem]);

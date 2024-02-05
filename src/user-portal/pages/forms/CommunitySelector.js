@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { COMMUNITY_LIST } from "../../data/user-portal-dummy-data";
 import { Form, InputGroup } from "react-bootstrap";
 import { connect } from "react-redux";
+import { sortByProperty } from "src/utils/utils";
 
 export const OTHER = "other";
 export const OTHER_JSON = { name: OTHER, id: OTHER };
@@ -23,6 +24,8 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
   }, [data]);
 
   const isOther = comId === OTHER;
+
+  communities = sortByProperty(communities, (com) => (com.alias || com.community.name || "").toLowerCase());
 
   return (
     <div>

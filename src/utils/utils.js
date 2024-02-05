@@ -181,3 +181,23 @@ export function findItemAtIndexAndRemainder(arr, comparator) {
 
   return { index, foundItem, remainder };
 }
+
+
+export function sortByProperty(arr, getProperty) {
+  if (!Array.isArray(arr) || typeof getProperty !== 'function') {
+    throw new Error('Invalid input. Please provide an array of objects and a valid function to retrieve the property.');
+  }
+
+  return arr.sort((a, b) => {
+    const propertyA = getProperty(a);
+    const propertyB = getProperty(b);
+
+    if (propertyA < propertyB) {
+      return -1;
+    } else if (propertyA > propertyB) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+}
