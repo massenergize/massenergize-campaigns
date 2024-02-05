@@ -47,6 +47,7 @@ function LandingPage({
   const incentivesRef = useRef();
   const testimonialsRef = useRef();
   const communitiesRef = useRef();
+  const homeRef = useRef();
 
   const idsToRefMap = {
     coaches: coachesRef,
@@ -54,9 +55,10 @@ function LandingPage({
     events: eventsRef,
     testimonial: testimonialsRef,
     communities: communitiesRef,
+    home: homeRef,
   };
 
-  const { image, config, key_contact, advert, is_published, description, technologies_section, coaches_section } =
+  const { image, key_contact, advert, is_published, description, technologies_section, coaches_section } =
     campaign || {};
 
   const technologies = campaign?.technologies || [];
@@ -106,12 +108,6 @@ function LandingPage({
     const firstTime = !user || user === "null";
 
     if (!firstTime) return;
-    // console.log("DID YOU RUN THIS THING?");
-    // whereIsUserFrom({
-    //   show: true,
-    //   title: "Please tell us where you are from",
-    //   componentProps: { noForm: true, okText: "Okay, Done!" },
-    // });
     toggleModal({
       show: true,
       title: `Please tell us where you are from`,
@@ -124,7 +120,6 @@ function LandingPage({
           onConfirm={(props) => stashUserCommunity({ ...props, campaign: justLoadedCampaign })}
         />
       ),
-      // modalNativeProps: { size: "md" },
       fullControl: true,
     });
   };
@@ -142,16 +137,16 @@ function LandingPage({
     });
   };
 
-  const handleShareCampaign = ()=>{
-      toggleModal({
-        show: true,
-        title: "Share Campaign",
-        // iconName: "fa-comment",
-        component: () => <ShareBox campaign={campaign} authUser={authUser} />,
-        modalNativeProps: { size: "lg" },
-        fullControl: true,
-      });
-  }
+  const handleShareCampaign = () => {
+    toggleModal({
+      show: true,
+      title: "Share Campaign",
+      // iconName: "fa-comment",
+      component: () => <ShareBox campaign={campaign} authUser={authUser} />,
+      modalNativeProps: { size: "lg" },
+      fullControl: true,
+    });
+  };
 
   useEffect(() => {
     if (!preview) init(campaignId);
@@ -181,6 +176,7 @@ function LandingPage({
 
   return (
     <div style={{}}>
+      <div ref={homeRef}></div>
       {previewMode && (
         <p
           className="elevate-3"
