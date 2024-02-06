@@ -5,9 +5,10 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { MOBILE_WIDTH } from "../../../utils/Constants";
 import { useMediaQuery } from "react-responsive";
+import { generateUniqueRandomString } from "../../../utils/utils";
 import URLS from "../../../api/urls";
 
-const EXCLUDED_FOOTER_MENU_KEYS = ["incentives", "vendors"];
+const EXCLUDED_FOOTER_MENU_KEYS = ["deals", "vendors"];
 function Footer({ toggleModal, campaign, authUser }) {
   const navigator = useNavigate();
   const { navigation, newsletter_section: customization, communities } = campaign || {};
@@ -28,6 +29,7 @@ function Footer({ toggleModal, campaign, authUser }) {
     return [...(navigation || []), ...coms].map(({ text, key, url, newTab }) => {
       const isExcluded = EXCLUDED_FOOTER_MENU_KEYS.includes(key);
       if (isExcluded) return <></>;
+      const salt = generateUniqueRandomString(6);
       return (
         <li
           role={"button"}
@@ -35,7 +37,7 @@ function Footer({ toggleModal, campaign, authUser }) {
           className="touchable-opacity"
           onClick={() => {
             if (newTab) return window.open(url, "_blank");
-            navigator(url);
+            navigator(`${url}&salt=${salt}`);
           }}
           style={{
             padding: "10px 20px",

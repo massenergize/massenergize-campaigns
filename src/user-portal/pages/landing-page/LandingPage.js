@@ -48,6 +48,7 @@ function LandingPage({
   const testimonialsRef = useRef();
   const communitiesRef = useRef();
   const homeRef = useRef();
+  const technologyRef = useRef();
 
   const idsToRefMap = {
     coaches: coachesRef,
@@ -56,7 +57,9 @@ function LandingPage({
     testimonial: testimonialsRef,
     communities: communitiesRef,
     home: homeRef,
+    technologies: technologyRef,
   };
+  const salt = fetchUrlParams("salt");
 
   const { image, key_contact, advert, is_published, description, technologies_section, coaches_section } =
     campaign || {};
@@ -75,7 +78,7 @@ function LandingPage({
 
   useEffect(() => {
     scrollToSection(target?.trim());
-  }, [mounted, target]);
+  }, [mounted, target, salt]);
 
   useEffect(() => {
     init(campaignId, (justLoadedCampaign, passed) => {
@@ -210,14 +213,16 @@ function LandingPage({
           showMore={showMoreAboutAdvert}
         />
       </Container>
-      <GettingStartedSection
-        customization={technologies_section || {}}
-        scrollToCommunities={() => scrollToSection("communities")}
-        technologies={technologies}
-        sectionId="getting-started-section"
-        trackActivity={trackActivity}
-        authUser={authUser}
-      />
+      <div ref={technologyRef}>
+        <GettingStartedSection
+          customization={technologies_section || {}}
+          scrollToCommunities={() => scrollToSection("communities")}
+          technologies={technologies}
+          sectionId="getting-started-section"
+          trackActivity={trackActivity}
+          authUser={authUser}
+        />
+      </div>
 
       <div ref={testimonialsRef}>
         <TestimonialSectionWithFilters
