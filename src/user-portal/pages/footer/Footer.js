@@ -5,15 +5,27 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { MOBILE_WIDTH } from "../../../utils/Constants";
 import { useMediaQuery } from "react-responsive";
+import URLS from "../../../api/urls";
 
 const EXCLUDED_FOOTER_MENU_KEYS = ["incentives", "vendors"];
 function Footer({ toggleModal, campaign, authUser }) {
   const navigator = useNavigate();
-  const { navigation, newsletter_section: customization } = campaign || {};
+  const { navigation, newsletter_section: customization, communities } = campaign || {};
   const { user } = authUser || {};
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
   const renderMenus = (styles = {}) => {
-    return (navigation || []).map(({ text, key, url }, index) => {
+    const coms =
+      communities?.map((com) => {
+        const comName = com?.alias || com?.community?.name || "";
+        const url = `${URLS.COMMUNITIES}/${com?.community?.subdomain}`;
+        return {
+          text: comName,
+          key: com?.id,
+          url,
+          newTab: true,
+        };
+      }) || [];
+    return [...(navigation || []), ...coms].map(({ text, key, url, newTab }) => {
       const isExcluded = EXCLUDED_FOOTER_MENU_KEYS.includes(key);
       if (isExcluded) return <></>;
       return (
@@ -21,7 +33,10 @@ function Footer({ toggleModal, campaign, authUser }) {
           role={"button"}
           tabIndex={0}
           className="touchable-opacity"
-          onClick={() => navigator(url)}
+          onClick={() => {
+            if (newTab) return window.open(url, "_blank");
+            navigator(url);
+          }}
           style={{
             padding: "10px 20px",
             color: "white",
@@ -151,7 +166,7 @@ export default connect(mapState)(Footer);
 
 const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
   return (
-    <div style={{ height: 250, margin: 0 }}>
+    <div style={{ minHeight: 250, margin: 0 }}>
       <div
         style={{
           padding: 20,
@@ -182,7 +197,7 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
           Subscribe
         </Button>
       </div>
-      <div style={{ display: "flex", background: "#000010", minHeight: "20%" }}>
+      <div style={{ display: "flex", background: "#000010", minHeight: "20%", padding: 20 }}>
         <ul
           style={{
             display: "flex",
