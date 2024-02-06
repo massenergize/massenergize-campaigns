@@ -182,10 +182,9 @@ export function findItemAtIndexAndRemainder(arr, comparator) {
   return { index, foundItem, remainder };
 }
 
-
 export function sortByProperty(arr, getProperty) {
-  if (!Array.isArray(arr) || typeof getProperty !== 'function') {
-    throw new Error('Invalid input. Please provide an array of objects and a valid function to retrieve the property.');
+  if (!Array.isArray(arr) || typeof getProperty !== "function") {
+    throw new Error("Invalid input. Please provide an array of objects and a valid function to retrieve the property.");
   }
 
   return arr.sort((a, b) => {
@@ -200,4 +199,39 @@ export function sortByProperty(arr, getProperty) {
       return 0;
     }
   });
+}
+
+// This function takes in a url, and adds the json data as search params to the url
+export function addUrlSearchParams(url, jsonData) {
+  // Check if both URL and JSON data are provided
+  if (!url || !jsonData) {
+    console.error("URL and JSON data are required.", url, jsonData);
+    return;
+  }
+
+  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    const linkObj = new URL(window.location.href);
+    url = linkObj.origin + url;
+  }
+  // Convert JSON data to URL search params
+  const searchParams = new URLSearchParams();
+  for (const key in jsonData) {
+    if (Object.hasOwnProperty.call(jsonData, key)) {
+      searchParams.append(key, jsonData[key]);
+    }
+  }
+  // Parse the provided URL
+  const urlObject = new URL(url);
+  // Check if URL already has search parameters
+  if (urlObject.search) {
+    // If search parameters already exist, append the new search params
+    const existingSearchParams = new URLSearchParams(urlObject.search);
+    for (const [key, value] of existingSearchParams) {
+      searchParams.append(key, value);
+    }
+  }
+  // Attach search params to the URL
+  urlObject.search = searchParams;
+  // Return the pathname with the query search params
+  return urlObject.pathname + urlObject.search;
 }

@@ -7,6 +7,7 @@ import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import { AddNewTestimonial } from "../testimonials/TestimonialSection";
 import { useNavigate } from "react-router-dom";
 import { TESTIMONIAL_FORM_SHOW_KEY } from "../testimonials/TestimonialSectionWithFilters";
+import { addUrlSearchParams } from "../../../utils/utils";
 
 const dummies = [
   {
@@ -40,8 +41,13 @@ function OneTechTestimonialsSection({ sectionId, testimonials, campaign, links }
   const navigator = useNavigate();
   const firstTestimonial = (testimonials || [])[0];
 
+  console.log("lets see the links", links)
   const home = links?.find((item) => item?.key === "home");
-  const testimonialRoute = `${home?.url}?section=testimonial&show=${TESTIMONIAL_FORM_SHOW_KEY}`;
+  const testimonialRoute = addUrlSearchParams(home?.url, {
+    section: "testimonial",
+    show: TESTIMONIAL_FORM_SHOW_KEY,
+  });
+  // const testimonialRoute = `${home?.url}?section=testimonial&show=${TESTIMONIAL_FORM_SHOW_KEY}`;
   // const testimonialRoute = `/campaign/${campaign?.slug}/technology/testimonial/${firstTestimonial?.id}?open=true`;
 
   return (

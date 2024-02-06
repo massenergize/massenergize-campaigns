@@ -81,7 +81,7 @@ function CommentComponentForModal({
       user_id: user?.id || null,
     }).then((response) => {
       setLoading(false);
-      if (!response || !response.success) return setError(response.error);
+      if (!response || !response.success) return setError(response?.error || "Sorry something happened!");
       const latestComments = response.data;
       const updated = { ...(technology || {}), comments: latestComments };
       setCommentItems([...latestComments].reverse());
@@ -98,12 +98,18 @@ function CommentComponentForModal({
         style={{
           padding: 20,
           overflowY: "scroll",
-          height: 500,
+          minHeight: 250,
+          maxHeight: 500,
           paddingBottom: 130,
         }}
         ref={comBox}
       >
-        {data?.map((com, index) => {
+        {data?.length === 0 && (
+          <center>
+            <small>No comments yet, be the first!</small>
+          </center>
+        )}
+        {data?.map((com) => {
           const { user, text, created_at } = com || {};
           const message = text || "...";
           const community = user?.community;
