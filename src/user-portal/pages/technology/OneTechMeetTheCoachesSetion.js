@@ -32,13 +32,7 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
   },
 ];
-function OneTechMeetTheCoachesSection({
-  toggleModal,
-  sectionId,
-  coaches,
-  data,
-  ref,
-}) {
+function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, ref }) {
   const { title, description } = data || {};
 
   const scrollContainerRef = useRef(null);
@@ -67,20 +61,14 @@ function OneTechMeetTheCoachesSection({
             <SectionTitle className="mb-5" style={{ color: "black" }}>
               {title || "Meet the Coaches"}
             </SectionTitle>
-            {hasScrollableCoaches && (
+            {/* {hasScrollableCoaches && (
               <p style={{ fontSize: "var(--mob-paragraph-font-size)" }}>
-                Scroll from left to right, or use the arrow buttons to see all
-                coaches
+                Scroll from left to right, or use the arrow buttons to see all coaches
               </p>
-            )}
+            )} */}
           </div>
 
-          {hasScrollableCoaches && (
-            <ArrowButtons
-              style={{ marginLeft: "auto" }}
-              containerRef={scrollContainerRef}
-            />
-          )}
+          {hasScrollableCoaches && <ArrowButtons style={{ marginLeft: "auto" }} containerRef={scrollContainerRef} />}
         </div>
 
         <Row
@@ -119,7 +107,7 @@ function OneTechMeetTheCoachesSection({
               className="touchable-opacity elevate-2 mt-5"
               style={{
                 borderRadius: 55,
-                padding: "8px 20px",
+                padding: "15px 40px",
                 fontWeight: "bold",
                 background: "var(--app-main-color)",
                 borderWidth: 0,

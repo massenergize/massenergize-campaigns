@@ -6,18 +6,9 @@ import CustomTabView from "../../../components/tab-view/CustomTabView";
 import JoinUsForm from "../forms/JoinUsForm";
 import GetHelpForm from "../forms/GetHelpForm";
 
-function CoachesSection ({ toggleModal, sectionId, technologies }) {
+function CoachesSection({ toggleModal, sectionId, technologies }) {
   const coachesForEachTech = technologies?.map(
-    ({
-      campaign_technology,
-      coaches,
-      is_icon,
-      is_image,
-      image,
-      icon,
-      name,
-      id,
-    }) => ({
+    ({ campaign_technology, coaches, is_icon, is_image, image, icon, name, id }) => ({
       id,
       campaign_technology,
       coaches,
@@ -26,7 +17,7 @@ function CoachesSection ({ toggleModal, sectionId, technologies }) {
       image,
       icon,
       name,
-    })
+    }),
   );
   const firstOne = coachesForEachTech[0];
 
@@ -81,19 +72,14 @@ function CoachesSection ({ toggleModal, sectionId, technologies }) {
             </h2>
             <p>Click on any of the tabs to see coaches under each technology</p>
 
-            <CustomTabView
-              defaultTab={firstOne?.id}
-              data={intoTabs}
-            ></CustomTabView>
+            <CustomTabView defaultTab={firstOne?.id} data={intoTabs}></CustomTabView>
 
             <div className="coaches-description">
               <p>
-                In publishing and graphic design, Lorem ipsum is a placeholder
-                text commonly used to demonstrate the visual form of a document
-                or a typeface without relying on meaningful content. Lorem ipsum
-                may be used as a placeholder before final copy is availa a
-                typeface without relying on meaningful content. Lorem ipsum may
-                be used as a placeholder before final copy is availa
+                In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the
+                visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used
+                as a placeholder before final copy is availa a typeface without relying on meaningful content. Lorem
+                ipsum may be used as a placeholder before final copy is availa
               </p>
               <div
                 style={{
@@ -116,7 +102,7 @@ function CoachesSection ({ toggleModal, sectionId, technologies }) {
                   className="touchable-opacity elevate-2 mt-5"
                   style={{
                     borderRadius: 55,
-                    padding: "8px 27px",
+                    padding: "15px 40px",
                     fontWeight: "bold",
                     background: "var(--app-deep-green)",
                     borderWidth: 0,

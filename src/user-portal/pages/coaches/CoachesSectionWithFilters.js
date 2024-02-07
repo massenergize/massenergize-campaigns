@@ -76,9 +76,9 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
                 >
                   {customization?.title || " Meet the coaches"}
                 </h2>
-                <OurParagraph>
+                {/* <OurParagraph>
                   Scroll from left to right to see more coaches, or use the arrow buttons(top right) to scroll
-                </OurParagraph>
+                </OurParagraph> */}
               </div>
               {hasScrollableCoaches && <ArrowButtons containerRef={containerRef} style={{ marginLeft: "auto" }} />}
             </div>
@@ -116,7 +116,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
                   className="touchable-opacity elevate-2 mt-5"
                   style={{
                     borderRadius: 55,
-                    padding: "8px 27px",
+                    padding: "15px 40px",
                     fontWeight: "bold",
                     background: "var(--app-main-color)",
                     borderWidth: 0,
