@@ -34,7 +34,7 @@ function Footer({ toggleModal, campaign, authUser }) {
         <li
           role={"button"}
           tabIndex={0}
-          className="touchable-opacity"
+          className="touchable-opacity small-font"
           onClick={() => {
             if (newTab) return window.open(url, "_blank");
             navigator(`${url}&salt=${salt}`);
@@ -90,8 +90,10 @@ function Footer({ toggleModal, campaign, authUser }) {
         <Container>
           <Col lg={{ span: 6, offset: 3 }}>
             {/* We should be able to change this part tooo from the admin portal */}
-            <h4 style={{ color: "white" }}>{customization?.title || "Newsletter"}</h4>
-            <p style={{ color: "white" }}>
+            <h4 className="subheader-font" style={{ color: "white" }}>
+              {customization?.title || "Newsletter"}
+            </h4>
+            <p className="body-font" style={{ color: "white" }}>
               {customization?.description || "Sign up for email updates with the latest info on events and incentives!"}
             </p>
             <Button
@@ -139,7 +141,9 @@ function Footer({ toggleModal, campaign, authUser }) {
         <Container>
           <Row>
             <Col lg={{ span: 9, offset: 1 }} style={{}}>
-              <h4 style={{ color: "white" }}>Quick Links</h4>
+              <h4 className="subheader-font" style={{ color: "white" }}>
+                Quick Links
+              </h4>
               <ul
                 style={{
                   listStyleType: "none",
@@ -178,8 +182,10 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
           flexDirection: "column",
         }}
       >
-        <h5 style={{ color: "white" }}>{customization?.title || "Newsletter"}</h5>
-        <p style={{ color: "white", fontSize: "var(--mob-normal-font-size" }}>
+        <h5 className="subheader-font" style={{ color: "white" }}>
+          {customization?.title || "Newsletter"}
+        </h5>
+        <p className="body-font" style={{ color: "white" }}>
           {customization?.description || "Sign up for email updates with the latest info on events and incentives!"}
         </p>
         <Button

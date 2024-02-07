@@ -2,6 +2,7 @@ import React from "react";
 import OneBox from "./OneBox";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import people from "./../../../assets/imgs/g_people.png";
+import SectionTitle from "../../../components/pieces/SectionTitle";
 
 const dummies = [
   {
@@ -32,18 +33,14 @@ function GettingStartedSection({
   trackActivity,
   authUser,
 }) {
-  // console.log("these are the technologies", technologies);
   return (
-    <div
-      id={sectionId}
-      className="mt-5 g-s-container"
-
-    >
+    <div id={sectionId} className="mt-5 g-s-container">
       <Container>
         <Row>
           <Col lg={{ span: 12 }}>
-            <h2 style={{ color: "white", fontWeight: "bold" }}>{customization?.title || "Getting Started"}</h2>
-            <p style={{ color: "white", marginBottom: 20 }}>
+            <SectionTitle style={{ color: "white" }}>{customization?.title || "Getting Started"}</SectionTitle>
+
+            <p className="body-font" style={{ color: "white", marginBottom: 20 }}>
               {/* This section should be edited via the admin portal */}
               {customization?.description ||
                 "Explore the actions we have under these technologies and get started right away!"}
@@ -76,21 +73,19 @@ export default GettingStartedSection;
 
 const DoMoreBox = ({ scrollToCommunities }) => {
   return (
-    <div
-      className="elevate-float-pro one-box-container"
-   
-    >
-      <div
-        className="one-box"
-      >
+    <div className="elevate-float-pro one-box-container">
+      <div className="one-box">
         <img
           // src={"https://placehold.co/100x100"}
           src={people}
           alt="people"
-         
         />
-        <h5 style={{ color: "var(--app-main-color)"  }}>Communities</h5>
-        <p style={{ textAlign: "center" }}>Connect with your community and check out other actions</p>
+        <h5 className="subheader-font" style={{ color: "var(--app-main-color)" }}>
+          Communities
+        </h5>
+        <p className="body-font" style={{ textAlign: "center" }}>
+          Connect with your community and check out other actions
+        </p>
 
         <Button
           variant={"link"}
@@ -105,9 +100,7 @@ const DoMoreBox = ({ scrollToCommunities }) => {
         </Button>
       </div>
 
-      <div
-        className="one-box-footer phone-vanish"
-      >
+      <div className="one-box-footer phone-vanish">
         <Button
           onClick={() => scrollToCommunities()}
           style={{ background: "var(--app-main-color)" }}

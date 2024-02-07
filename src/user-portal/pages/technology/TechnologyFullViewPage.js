@@ -40,6 +40,7 @@ import OneTechEventSection from "./OneTechEventSection";
 import { useMediaQuery } from "react-responsive";
 import CampaignNotLive from "../landing-page/CampaignNotLive";
 import SmartRichText from "../../../components/SmartRichText";
+import SectionTitle from "../../../components/pieces/SectionTitle";
 
 const DEFAULT_READ_HEIGHT = 190;
 const PREVIEW_TEXT_LENGHT = 1000;
@@ -301,14 +302,8 @@ function TechnologyFullViewPage({
       <div style={{ marginTop: 100 }} className="one-tech-wrapper">
         <OptimumWrapper>
           <CampaignNotLive />
-          <h2
-            style={{
-              color: "var(--app-accent-3)",
-              fontSize: "var(--mob-title-font-size)",
-            }}
-          >
-            {name || "..."}
-          </h2>
+          <SectionTitle>{name || "..."}</SectionTitle>
+
           <Row>
             <Col lg={9} className="one-tech-main">
               {image?.url && <img className="elevate-float-pro mt-2" src={image?.url || carPhoto} alt={"event"} />}

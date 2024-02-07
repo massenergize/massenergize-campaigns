@@ -39,8 +39,6 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
       style={{
         background: "white",
         width: "100%",
-        // padding: "80px 0px",
-        // minHeight: 200,
       }}
     >
       <OptimumWrapper>
