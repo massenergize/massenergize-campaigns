@@ -79,7 +79,7 @@ function OneBox({
           className="tech-btn elevate-2 touchable-opacity mr-2"
           style={{ background: "var(--app-accent-3)", marginRight: 20 }}
         >
-          QUOTE
+          Quote
         </Button>
         <Button
           onClick={() => {
@@ -89,7 +89,7 @@ function OneBox({
           style={{ background: "var(--app-main-color)" }}
           className="tech-btn elevate-2 touchable-opacity"
         >
-          COACH
+          Coach
         </Button>
       </div>
     </div>

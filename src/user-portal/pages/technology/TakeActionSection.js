@@ -30,8 +30,6 @@ const dummies = [
     url: "vendors",
     type: "vendors",
   },
-
- 
 ];
 function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, campaign, vendors }) {
   const navigator = useNavigate();
@@ -81,18 +79,19 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
               >
                 <i className={`fa ${item.icon} mb-1 mt-2`} style={{ fontSize: 60, color: "var(--app-accent-3)" }} />
                 <h6
-                  className="mt-2 mb-2"
+                  className="mt-2 mb-2 body-font"
                   style={{
                     color: "var(--app-accent-3)",
                     textTransform: "uppercase",
                     textAlign: "center",
-                    fontSize: 13,
-                    fontWeight:"bold"
+                    // fontSize: 13,
+                    fontWeight: "bold",
                   }}
                 >
                   {item.title}
                 </h6>
                 <p
+                  className="body-font"
                   style={{
                     // fontSize: "medium",
                     textAlign: "center",
@@ -120,7 +119,9 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
                     borderRadius: 500,
                   }}
                 >
-                  <p style={{ margin: 0, fontSize: 13, fontWeight: "bold" }}>{item.actionText}</p>
+                  <p className="small-font" style={{ margin: 0, fontWeight: "bold" }}>
+                    {item.actionText}
+                  </p>
                 </div>
               </Col>
             );

@@ -114,9 +114,10 @@ function Footer({ toggleModal, campaign, authUser }) {
             </Button>
             {user?.email && (
               <p
+                className="small-font"
                 style={{
                   marginTop: 10,
-                  fontSize: 12,
+                  // fontSize: 12,
                   color: "#e1efce",
                 }}
               >

@@ -106,7 +106,7 @@ const DoMoreBox = ({ scrollToCommunities }) => {
           style={{ background: "var(--app-main-color)" }}
           className="tech-btn elevate-2 touchable-opacity"
         >
-          <span style={{ fontSize: 15 }}> Communities</span>
+          <span> Communities</span>
         </Button>
       </div>
     </div>
