@@ -19,7 +19,7 @@ import GetHelpForm from "../forms/GetHelpForm";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { COMMENTS, ONE_TECH_DATA } from "../../data/user-portal-dummy-data";
-import { fetchUrlParams, relativeTimeAgo, setPageTitle } from "../../../utils/utils";
+import { fetchUrlParams, relativeTimeAgo, scrollIntoView, setPageTitle } from "../../../utils/utils";
 import { useParams } from "react-router-dom";
 import NotFound from "../error/404";
 import { LOADING, MOBILE_WIDTH } from "../../../utils/Constants";
@@ -93,7 +93,7 @@ function TechnologyFullViewPage({
 
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
-    if (ref?.current) ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollIntoView(ref, 100);
   };
   const recorderAView = () => {
     const { user } = authUser || {};
