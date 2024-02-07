@@ -18,7 +18,7 @@ import { USER_STORAGE_KEY, appInnitAction, loadUserObjAction, trackActivity } fr
 import { LOADING } from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
-import { fetchUrlParams, setPageTitle } from "../../../utils/utils";
+import { fetchUrlParams, scrollIntoView, setPageTitle } from "../../../utils/utils";
 import RoamingModalSheet from "./RoamingModalSheet";
 import DoMore from "./DoMore";
 import JoinUsForm from "../forms/JoinUsForm";
@@ -71,7 +71,7 @@ function LandingPage({
 
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
-    if (ref?.current) ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollIntoView(ref, 100);
   };
   const target = fetchUrlParams("section");
   const show = fetchUrlParams("show");

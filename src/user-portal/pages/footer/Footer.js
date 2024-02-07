@@ -138,7 +138,7 @@ function Footer({ toggleModal, campaign, authUser }) {
       >
         <Container>
           <Row>
-            <Col lg={{ span: 9, offset: 1 }} style={{}}>
+            <Col lg={{ span: 10, offset: 1 }} style={{}}>
               <h4 style={{ color: "white" }}>Quick Links</h4>
               <ul
                 style={{
@@ -149,6 +149,7 @@ function Footer({ toggleModal, campaign, authUser }) {
                   flexDirection: "column",
                   flexWrap: "wrap",
                   paddingLeft: 0,
+                  overflow: "scroll",
                 }}
               >
                 {renderMenus()}
