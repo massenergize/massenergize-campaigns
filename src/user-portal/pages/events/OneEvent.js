@@ -55,7 +55,7 @@ function OneEvent({ events, updateEvents, init, campaign }) {
       <Row>
         <Col lg={9}>
           <img
-            className="elevate-float-pro mt-3"
+            className="mt-3"
             src={image?.url}
             style={{
               width: "100%",

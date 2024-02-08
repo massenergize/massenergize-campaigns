@@ -21,7 +21,7 @@ function AppNavigationBar({ menu, campaign }) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto mx-auto" style={{ alignItems: "center" }}>
             {/* <Nav.Link> */}
-            {primary_logo?.url && (
+            {/* {primary_logo?.url && (
               <img
                 src={primary_logo?.url}
                 style={{
@@ -32,7 +32,7 @@ function AppNavigationBar({ menu, campaign }) {
                 }}
                 alt={"logo"}
               />
-            )}
+            )} */}
             {/* </Nav.Link> */}
             {menu?.map((menu) => {
               const excluded = EXCLUDE_FROM_NAV.includes(menu?.key?.toLowerCase());
@@ -93,7 +93,7 @@ function AppNavigationBar({ menu, campaign }) {
               );
             })}
 
-            {secondary_logo?.url && (
+            {/* {secondary_logo?.url && (
               <img
                 src={secondary_logo?.url}
                 style={{
@@ -104,7 +104,7 @@ function AppNavigationBar({ menu, campaign }) {
                 }}
                 alt={"logo"}
               />
-            )}
+            )} */}
           </Nav>
         </Navbar.Collapse>
       </Container>
