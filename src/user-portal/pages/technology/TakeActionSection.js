@@ -50,7 +50,7 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
       style={{
         background: "var(--app-main-color)",
         width: "100%",
-        padding: "80px 0px",
+        padding: "30px 0px",
         minHeight: 200,
       }}
     >
@@ -77,11 +77,11 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
                 key={index?.toString()}
                 lg={3}
               >
-                <i className={`fa ${item.icon} mb-1 mt-2`} style={{ fontSize: 60, color: "var(--app-accent-3)" }} />
+                <i className={`fa ${item.icon} mb-1 mt-2`} style={{ fontSize: 60, color: "var(--app-main-color)" }} />
                 <h6
                   className="mt-2 mb-2 body-font"
                   style={{
-                    color: "var(--app-accent-3)",
+                    color: "black",
                     textTransform: "uppercase",
                     textAlign: "center",
                     // fontSize: 13,
