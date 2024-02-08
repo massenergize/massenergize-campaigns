@@ -96,7 +96,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
 
             <div className="coaches-description">
               {customization?.description && (
-                <div dangerouslySetInnerHTML={{ __html: customization?.description }}></div>
+                <div className="body-font" dangerouslySetInnerHTML={{ __html: customization?.description }}></div>
               )}
               <div
                 style={{

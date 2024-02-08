@@ -58,7 +58,7 @@ function DoMore({ campaign }) {
                         onClick={() => {
                           window.open(`${COMMUNITY_PORTAL_URL}${community?.subdomain}`);
                         }}
-                        className="touchable-opacity small-font"
+                        className="touchable-opacity body-font"
                         style={{
                           textDecoration: "underline",
                           color: "var(--app-accent-3)",
