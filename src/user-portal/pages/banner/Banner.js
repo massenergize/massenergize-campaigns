@@ -4,6 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import partnerLogo from "./../../../assets/imgs/me-round-logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
+import CampaignNotLive from "../landing-page/CampaignNotLive";
 
 function Banner(props) {
   const { title, secondary_logo, primary_logo, tagline, handleShareCampaign, is_published } = props;
@@ -60,6 +61,7 @@ function Banner(props) {
           {secondary_logo?.url && <img src={secondary_logo?.url} className="site-logo" alt={"logo"}></img>}
         </Col>
       </Row>
+      <CampaignNotLive />
     </Container>
   );
 }

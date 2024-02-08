@@ -1,5 +1,4 @@
 import React from "react";
-
 function HeroWithBelt({ campaign, handleShareCampaign }) {
   const { image, primary_logo, secondary_logo, title, tagline } = campaign;
   return (

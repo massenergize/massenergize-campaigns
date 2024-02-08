@@ -10,8 +10,9 @@ function Hero({ handleShareCampaign, v2 }) {
   if (v2) return <HeroWithBelt campaign={campaign} handleShareCampaign={handleShareCampaign} />;
   return (
     <Container>
-      <Banner {...(campaign || {})} handleShareCampaign={handleShareCampaign} />
 
+      <Banner {...(campaign || {})} handleShareCampaign={handleShareCampaign} />
+        
       <Container>
         <img className="elevate-float-pro campaign-focus-image" src={image?.url || planetB} alt={"campaign banner"} />
       </Container>
