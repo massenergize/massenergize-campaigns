@@ -10,7 +10,6 @@ import EventsSection from "../events/EventsSection";
 import GettingStartedSection from "../getting-started/GettingStartedSection";
 import CoachesSection from "../coaches/CoachesSection";
 import Banner from "../banner/Banner";
-import planetB from "./../../../assets/imgs/planet-b.jpeg";
 import { connect, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
@@ -28,6 +27,7 @@ import EventsSectionWithFilters from "../events/EventsSectionWithFilters";
 import CoachesSectionWithFilters from "../coaches/CoachesSectionWithFilters";
 import CampaignNotLive from "./CampaignNotLive";
 import ShareBox from "../sharing/ShareBox";
+import Hero from "../banner/Hero";
 
 function LandingPage({
   toggleModal,
@@ -200,12 +200,13 @@ function LandingPage({
         </p>
       )}
       <AppNavigationBar menu={menu} campaign={campaign} />
+      <Hero v2 handleShareCampaign={handleShareCampaign} />
       <Container>
-        <Banner {...campaign} handleShareCampaign={handleShareCampaign} />
+        {/* <Banner {...campaign} handleShareCampaign={handleShareCampaign} /> */}
         <CampaignNotLive />
-        <Container>
+        {/* <Container>
           <img className="elevate-float-pro campaign-focus-image" src={image?.url || planetB} alt={"campaign banner"} />
-        </Container>
+        </Container> */}
         <RoamingBox
           id="roaming-box"
           advert={{ description, title: `About ${campaign?.title || ""}` }}

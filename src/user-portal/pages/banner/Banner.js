@@ -5,7 +5,8 @@ import partnerLogo from "./../../../assets/imgs/me-round-logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
 
-function Banner ({ title, secondary_logo, primary_logo, tagline,handleShareCampaign, is_published }) {
+function Banner(props) {
+  const { title, secondary_logo, primary_logo, tagline, handleShareCampaign, is_published } = props;
   return (
     <Container style={{ marginTop: 70 }}>
       <Row>
@@ -40,7 +41,7 @@ function Banner ({ title, secondary_logo, primary_logo, tagline,handleShareCampa
             </h5>
           )}
           {is_published && (
-            <span className="touchable-opacity share-campaign-btn" onClick={()=> handleShareCampaign()}>
+            <span className="touchable-opacity share-campaign-btn" onClick={() => handleShareCampaign()}>
               <FontAwesomeIcon icon={faShare} /> Share
             </span>
           )}
@@ -56,13 +57,7 @@ function Banner ({ title, secondary_logo, primary_logo, tagline,handleShareCampa
             justifyContent: "center",
           }}
         >
-          {secondary_logo?.url && (
-            <img
-              src={secondary_logo?.url}
-              className="site-logo"
-              alt={"logo"}
-            ></img>
-          )}
+          {secondary_logo?.url && <img src={secondary_logo?.url} className="site-logo" alt={"logo"}></img>}
         </Col>
       </Row>
     </Container>
