@@ -14,7 +14,7 @@ import { connect, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { USER_STORAGE_KEY, appInnitAction, loadUserObjAction, trackActivity } from "../../../redux/actions/actions";
-import { LOADING } from "../../../utils/Constants";
+import { LOADING, MOBILE_WIDTH } from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
 import { fetchUrlParams, scrollIntoView, setPageTitle } from "../../../utils/utils";
@@ -28,6 +28,7 @@ import CoachesSectionWithFilters from "../coaches/CoachesSectionWithFilters";
 import CampaignNotLive from "./CampaignNotLive";
 import ShareBox from "../sharing/ShareBox";
 import Hero from "../banner/Hero";
+import { useMediaQuery } from "react-responsive";
 
 function LandingPage({
   toggleModal,
@@ -42,6 +43,8 @@ function LandingPage({
   triggerProtectedFunctionality,
 }) {
   const [mounted, setMounted] = useState(false);
+  const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
+
   const coachesRef = useRef();
   const eventsRef = useRef();
   const incentivesRef = useRef();
@@ -61,8 +64,7 @@ function LandingPage({
   };
   const salt = fetchUrlParams("salt");
 
-  const { image, key_contact, advert, is_published, description, technologies_section, coaches_section } =
-    campaign || {};
+  const { image, key_contact, is_published, description, technologies_section, coaches_section } = campaign || {};
 
   const technologies = campaign?.technologies || [];
   const { campaignId } = useParams();
@@ -200,13 +202,9 @@ function LandingPage({
         </p>
       )}
       <AppNavigationBar menu={menu} campaign={campaign} />
-      <Hero v2 handleShareCampaign={handleShareCampaign} />
+      <Hero v2={!isMobile} handleShareCampaign={handleShareCampaign} />
       <Container>
-        {/* <Banner {...campaign} handleShareCampaign={handleShareCampaign} /> */}
         <CampaignNotLive />
-        {/* <Container>
-          <img className="elevate-float-pro campaign-focus-image" src={image?.url || planetB} alt={"campaign banner"} />
-        </Container> */}
         <RoamingBox
           id="roaming-box"
           advert={{ description, title: `About ${campaign?.title || ""}` }}

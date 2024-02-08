@@ -301,7 +301,7 @@ function TechnologyFullViewPage({
 
           <Row>
             <Col lg={9} className="one-tech-main">
-              {image?.url && <img className="elevate-float-pro mt-2" src={image?.url || carPhoto} alt={"event"} />}
+              {image?.url && <img className="mt-2" src={image?.url || carPhoto} alt={"event"} />}
               <InteractionsPanel
                 openShareBox={openShareBox}
                 openCommentBox={() => triggerCommentBox(authUser)}
@@ -594,7 +594,11 @@ function TechnologyFullViewPage({
               toggleModal({
                 show: true,
                 component: (props) => (
-                  <div style={{ padding: 20 }} dangerouslySetInnerHTML={{ __html: deal?.description }} />
+                  <div
+                    style={{ padding: 20 }}
+                    className="body-font"
+                    dangerouslySetInnerHTML={{ __html: deal?.description }}
+                  />
                 ),
                 fullControl: true,
                 title: deal?.title,

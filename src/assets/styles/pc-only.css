@@ -142,19 +142,19 @@
   }
 
   .section-title {
-    font-size: var(--app-header-font)
-  }
-
-  .header-font { 
     font-size: var(--app-header-font);
   }
-  .body-font { 
+
+  .header-font {
+    font-size: var(--app-header-font);
+  }
+  .body-font {
     font-size: var(--app-body-font) !important;
   }
-  .subheader-font { 
+  .subheader-font {
     font-size: var(--app-subheader-font);
   }
-  .small-font { 
+  .small-font {
     font-size: var(--app-small-font);
   }
 
@@ -163,6 +163,18 @@
   }
 
   /* --------------------------------- END OF PC SPECIFIC ---------------------- */
+}
+
+.camp-share-btn-v2 {
+  position: absolute;
+  bottom: -26px;
+  background: white;
+  padding: 10px 20px;
+  color: var(--app-main-color);
+  left: 47vw;
+  border-radius: 55px;
+  font-weight: bold;
+  font-size: var(--app-body-font);
 }
 
 .hero-belt {
