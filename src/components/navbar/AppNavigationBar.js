@@ -40,7 +40,7 @@ function AppNavigationBar({ menu, campaign }) {
               if (!menu?.children)
                 return (
                   <Nav.Link
-                    className="c-nav-item"
+                    className="c-nav-item body-font"
                     key={menu?.key}
                     style={{
                       textTransform: "capitalize",
@@ -65,7 +65,7 @@ function AppNavigationBar({ menu, campaign }) {
                     marginRight: 20,
                     fontWeight: "bold",
                   }}
-                  className={"mx-2"}
+                  className={"mx-2 body-font"}
                   title={
                     <span className="c-nav-item">
                       <i className={`fa ${menu.icon}`} style={{ marginRight: 6 }}></i>

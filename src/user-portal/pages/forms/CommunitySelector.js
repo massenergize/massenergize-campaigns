@@ -29,7 +29,7 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
 
   return (
     <div>
-      <Form.Text>What community do you live in?</Form.Text>
+      <Form.Text className="small-font">What community do you live in?</Form.Text>
       {/* <p>Please tell us where you are from (Editable)</p> */}
       <Form
         className="m-2 pb-2"
@@ -45,11 +45,12 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
             <Form.Check inline type="radio" id={`check-api-${id}`} className="touchable-opacity">
               <Form.Check.Input checked={comId === id?.toString()} type={"radio"} value={id} />
               <Form.Check.Label
+                className="body-font"
                 style={{
                   textTransform: "Capitalize",
-                  fontWeight: "bold",
+                  // fontWeight: "bold",
                   color: "var(--app-main-color)",
-                  fontSize: 15,
+                  // fontSize: 15,
                   cursor: "pointer",
                 }}
               >

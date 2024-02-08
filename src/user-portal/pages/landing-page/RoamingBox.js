@@ -12,12 +12,12 @@ function RoamingBox({ advert, keyContact, showMore }) {
   return (
     <div className="roaming-container">
       <Container>
-        <Col lg={{ span: 9, offset: 1 }}>
+        <Col lg={{ span: 10, offset: 1 }}>
           <Row>
             <Col lg={8}>
               <div style={{}}>
                 <div className="roaming-header">
-                  <h3 className="m-0">{advert?.title}</h3>
+                  <h3 className="m-0 subheader-font">{advert?.title}</h3>
                 </div>
                 <div
                   className="flex-column"
@@ -78,7 +78,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
               </div>
             </Col>
             <Col
-              lg={{ span: 2, offset: 2 }}
+              lg={{ span: 3, offset: 1 }}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -98,17 +98,15 @@ function RoamingBox({ advert, keyContact, showMore }) {
                 }}
                 alt={keyContact?.image?.name || "Key Contact"}
               ></img>
-              <span className="mb-1" style={{ fontSize: 12, color: "#c8c8c8" }}>
-                KEY CONTACT
-              </span>
+              <span className="mb-1 small-font text-muted">Key Contact</span>
               <h6
-                className="mb-1"
+                className="mb-1 body-font"
                 style={{
                   color: "var(--app-accent-3)",
                   fontWeight: "800",
-                  textTransform: "uppercase",
+                  textTransform: "capitalize",
                   textAlign: "center",
-                  fontSize: 15,
+                  // fontSize: 15,
                 }}
               >
                 <span>{keyContact?.name || "..."}</span>
@@ -120,7 +118,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
                   onClick={() => {
                     window.open(`mailto:${keyContact?.email}`, "_blank");
                   }}
-                  className="mb-1 touchable-opacity"
+                  className="mb-1 touchable-opacity small-font"
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -137,7 +135,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
                 <p
                   role={"button"}
                   tabIndex={0}
-                  className="touchable-opacity"
+                  className="touchable-opacity small-font"
                   onClick={() => {
                     window.open(`tel:${keyContact?.phone_number}`, "_blank");
                   }}

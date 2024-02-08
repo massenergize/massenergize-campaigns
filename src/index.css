@@ -2,35 +2,35 @@
 @import url(./assets/styles/universal.css);
 
 body {
-	font-family: "Manrope", sans-serif;
+  font-family: "Manrope", sans-serif;
 }
 
 .table-trashcan {
-	padding: 0.5rem;
-	/* width: 2rem;
+  padding: 0.5rem;
+  /* width: 2rem;
 	height: 2rem; */
-	font-size: 0.875rem;
-	border-radius: 9999px;
-	transition-property: all;
-	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-	transition-duration: 300ms;
-	transition-duration: 300ms;
-	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-	text-align: center;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  font-size: 0.875rem;
+  border-radius: 9999px;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  transition-duration: 300ms;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .table-trashcan:hover {
-	background-color: red;
-	color: white;
+  background-color: red;
+  color: white;
 }
 .tech-btn {
-	border-radius: 500px !important;
-	padding: 8px 23px !important;
-	margin: 6px;
-	font-size: 12px !important;
-	border-width: 0px !important;
-	font-weight: bold !important;
-  }
+  border-radius: 500px !important;
+  padding: 8px 23px !important;
+  margin: 6px;
+  font-size: var(--small-font) !important;
+  border-width: 0px !important;
+  font-weight: bold !important;
+}

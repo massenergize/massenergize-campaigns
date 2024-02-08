@@ -12,13 +12,11 @@ function InteractionsPanel({ openCommentBox, likes, views, comments, openShareBo
   const [likeCount, setLikeCount] = useState(0);
 
   useEffect(() => {
-    // setHasLiked(liked);
     setLikeCount(likes);
   }, [likes, liked]);
 
   const doLike = () => {
     setLikeCount(hasLiked ? likeCount - 1 : likeCount + 1);
-    // setHasLiked(!hasLiked);
     like();
   };
 
@@ -30,7 +28,7 @@ function InteractionsPanel({ openCommentBox, likes, views, comments, openShareBo
 
   return (
     <div
-      className="mt-3"
+      className="mt-3 small-font"
       style={{
         border: "solid 2px black",
         padding: "10px 15px",
@@ -41,9 +39,7 @@ function InteractionsPanel({ openCommentBox, likes, views, comments, openShareBo
       }}
     >
       <div
-        // key={index?.toString()}
         onClick={() => {
-          // setHasLiked(!hasLiked); // Just for immediate reflection
           doLike();
         }}
         style={{
@@ -53,23 +49,14 @@ function InteractionsPanel({ openCommentBox, likes, views, comments, openShareBo
           margin: "0px 10px",
         }}
       >
-        <i
-          // className={`fa fa-heart interact ${hasLiked ? "already-liked" : ""}`}
-          className={`fa fa-heart interact`}
-          style={{ marginRight: 6, ...commonTheme }}
-        />
+        <i className={`fa fa-heart interact`} style={{ marginRight: 6, ...commonTheme }} />
 
-        <small
-          className="touchable-opacity phone-vanish"
-          // style={{ fontWeight: "bold", textDecoration: "underline" }}
-          style={{ fontWeight: "bold", ...commonTheme }}
-        >
+        <small className="touchable-opacity phone-vanish" style={{ fontWeight: "bold", ...commonTheme }}>
           {`${likeCount ? likeCount : ""} `}
           <span className="phone-vanish">{`${!likeCount || likeCount === 1 ? " Like" : " Likes"}`}</span>
         </small>
       </div>
       <div
-        // key={index?.toString()}
         onClick={() => openCommentBox && openCommentBox()}
         style={{
           display: "flex",

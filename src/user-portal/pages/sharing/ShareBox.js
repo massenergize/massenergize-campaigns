@@ -67,7 +67,9 @@ function ShareBox({ data, onChange, campaign, authUser }) {
     <div>
       <div style={{ padding: 20 }}>
         <div style={{ marginBottom: 10 }}>
-          <Form.Text>Please select a platform that you would like to share this technology to</Form.Text>
+          <Form.Text className="small-font">
+            Please select a platform that you would like to share this technology to
+          </Form.Text>
         </div>
         <Form
           className="m-2 pb-2"
@@ -88,18 +90,18 @@ function ShareBox({ data, onChange, campaign, authUser }) {
                 <Form.Check className="touchable-opacity" inline type="radio" id={`check-api-${key}`}>
                   <Form.Check.Input checked={platform === key} type={"radio"} value={key} />
                   <i
-                    className={`fa ${icon}`}
+                    className={`fa ${icon} body-font`}
                     style={{
                       marginRight: 3,
-                      fontSize: 16,
+                      // fontSize: 16,
                       color: "var(--app-main-color)",
                     }}
                   ></i>
                   <Form.Check.Label
-                    className="touchable-opacity"
+                    className="touchable-opacity body-font"
                     style={{
                       // textTransform: "capitalize",
-                      fontWeight: "bold",
+                      // fontWeight: "bold",
                       fontSize: 16,
                       color: "var(--app-main-color)",
                     }}
@@ -132,7 +134,7 @@ function ShareBox({ data, onChange, campaign, authUser }) {
               {copied ? "Copied!" : "Copy Link"}
             </Button>
           </InputGroup>
-          <Form.Text>
+          <Form.Text className="small-font">
             You can copy the link and share it {state?.platform === "other" ? "" : ` on ${state.platform}`}
           </Form.Text>
         </div>

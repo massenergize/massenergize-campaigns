@@ -4,9 +4,10 @@ import { Button, Form, ModalFooter } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const DEFAULT_HELP_LINK = "https://docs.google.com/forms/d/e/1FAIpQLSeb7oZ2XRTdGWuasXmGmjjF8xAbE8jryu8SJxZlCOqWTJNKMA/viewform"; // to be provided by Amie
+const DEFAULT_HELP_LINK =
+  "https://docs.google.com/forms/d/e/1FAIpQLSeb7oZ2XRTdGWuasXmGmjjF8xAbE8jryu8SJxZlCOqWTJNKMA/viewform"; // to be provided by Amie
 
-function GetHelpForm ({ close, communities, authUser }) {
+function GetHelpForm({ close, communities, authUser }) {
   const [form, setForm] = useState({});
 
   useEffect(() => {
@@ -21,33 +22,30 @@ function GetHelpForm ({ close, communities, authUser }) {
   const onChange = (data) => {
     const isOther = data?.comId === OTHER;
     const { comId } = data || {};
-    const campaign_community = communities?.find(
-      ({ community }) => community?.id?.toString() === comId
-    );
+    const campaign_community = communities?.find(({ community }) => community?.id?.toString() === comId);
 
     setForm({
-      campaign_community: isOther
-        ? { help_link: DEFAULT_HELP_LINK }
-        : campaign_community,
       ...(data || {}),
+      campaign_community: isOther ? { help_link: DEFAULT_HELP_LINK } : campaign_community,
     });
   };
 
   const { campaign_community } = form || {};
-  const { community } = campaign_community || {};
+  const { community, alias } = campaign_community || {};
+
   const findHelp = () => {
     window.open(campaign_community?.help_link || DEFAULT_HELP_LINK, "_blank");
   };
 
-  // useEffect(() => {}, []);
+  const comName = alias || community?.name || "";
 
   return (
     <div>
       <div style={{ padding: 20 }}>
         <CommunitySelector onChange={onChange} data={form} readOnly />
-        <Form.Text>
+        <Form.Text className="small-font">
           We will direct you to the right resources based on where you are from
-          {!community?.name ? "" : `(${community?.name}) `}
+          {` ${comName}`}
         </Form.Text>
       </div>
       <ModalFooter style={{ padding: 0 }}>
