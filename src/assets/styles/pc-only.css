@@ -158,7 +158,25 @@
     font-size: var(--app-small-font);
   }
 
+  .b-hero-img {
+    height: 45vh;
+  }
+
   /* --------------------------------- END OF PC SPECIFIC ---------------------- */
+}
+
+.hero-belt {
+  align-items: center;
+  justify-content: center;
+  background: white;
+  width: 100%;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: row;
+}
+.b-hero-img {
+  width: 100%;
+  object-fit: cover;
 }
 
 .vendor-list-group li {
