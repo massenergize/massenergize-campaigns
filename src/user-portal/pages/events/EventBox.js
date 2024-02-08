@@ -32,7 +32,7 @@ function EventBox({ event, campaign_technology }) {
       )}
       <div style={{ padding: "15px 15px" }}>
         <h6
-          className="touchable-opacity"
+          className="touchable-opacity body-font"
           role={"button"}
           tabIndex={0}
           onClick={() => navigator(`/campaign/${campaign?.slug}/technology/event/${id}`)}
@@ -52,9 +52,10 @@ function EventBox({ event, campaign_technology }) {
         </h6>
 
         <p
+          className="small-font"
           style={{
             marginTop: 15,
-            fontWeight: "bold",
+            // fontWeight: "bold",
             color: "var(--app-accent-3)",
           }}
         >

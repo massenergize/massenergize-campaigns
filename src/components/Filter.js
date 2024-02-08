@@ -9,14 +9,7 @@ const DATA = [
 const labAc = (item) => item.name;
 const valAc = (item) => item.id;
 
-function Filter ({
-  filterOptions ,
-  valueAccessor = valAc,
-  labelAccessor = labAc,
-  render,
-  contentRoot,
-  title,
-}) {
+function Filter({ filterOptions, valueAccessor = valAc, labelAccessor = labAc, render, contentRoot, title }) {
   const [selection, setSelection] = useState([]);
 
   const addToSelection = (item) => {
@@ -45,12 +38,11 @@ function Filter ({
 
   return (
     <div>
-      <div>
+      <div style={{ marginTop: 10 }}>
         <NavDropdown
           title={
-            <span style={{ fontWeight: "bold" }}>
-              <i className="fa fa-filter" style={{ marginRight: 6 }}></i>{" "}
-              {title || "Filter items by"}
+            <span className="body-font" style={{ fontWeight: "bold" }}>
+              <i className="fa fa-filter" style={{ marginRight: 6 }}></i> {title || "Filter items by"}
             </span>
           }
         >
@@ -65,12 +57,7 @@ function Filter ({
                 }}
               >
                 {getLabel(item)}
-                {isChecked && (
-                  <i
-                    className="fa fa-check"
-                    style={{ marginLeft: 6, color: "var(--app-main-color)" }}
-                  />
-                )}
+                {isChecked && <i className="fa fa-check" style={{ marginLeft: 6, color: "var(--app-main-color)" }} />}
               </NavDropdown.Item>
             );
           })}
@@ -94,20 +81,14 @@ function Filter ({
                 }}
               >
                 {getLabel(item)}
-                <i
-                  className="fa fa-times"
-                  onClick={() => addToSelection(item)}
-                  style={{ marginLeft: 6 }}
-                ></i>
+                <i className="fa fa-times" onClick={() => addToSelection(item)} style={{ marginLeft: 6 }}></i>
               </span>
             );
           })}
         </div>
       )}
 
-      <div style={{ marginTop: 15, ...(contentRoot || {}) }}>
-        {render && render(selection)}
-      </div>
+      <div style={{ marginTop: 15, ...(contentRoot || {}) }}>{render && render(selection)}</div>
     </div>
   );
 }

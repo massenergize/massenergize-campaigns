@@ -7,6 +7,7 @@ import Filter from "../../../components/Filter";
 import { mergeArrays } from "../../../utils/utils";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import OurParagraph from "../../../components/OurParagraph";
+import SectionTitle from "../../../components/pieces/SectionTitle";
 
 function EventsSectionWithFilters({ sectionId, technologies }) {
   const containerRef = useRef();
@@ -18,9 +19,7 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
     if (filters?.length)
       data = events?.filter((ev) => {
         // const techsRelatedToEvent = ev?.campaign_technology?.map((t) => t.id); // pick only the campaign technology ids
-        return filters.some(
-          (f) => f.campaign_technology_id === ev?.campaign_technology?.id,
-        );
+        return filters.some((f) => f.campaign_technology_id === ev?.campaign_technology?.id);
       });
     else data = events;
 
@@ -60,7 +59,9 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
       <CenteredWrapper>
         <Container>
           <div className="row-flex t-with-filter-top">
-            <h2
+            <SectionTitle>Events</SectionTitle>
+            {/* <h2
+
               style={{
                 color: "var(--app-accent-3)",
                 fontWeight: "bold",
@@ -68,7 +69,7 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
               }}
             >
               Events
-            </h2>
+            </h2> */}
 
             {hasScrollableEvents && <ArrowButtons containerRef={containerRef} style={{ marginLeft: "auto" }} />}
           </div>

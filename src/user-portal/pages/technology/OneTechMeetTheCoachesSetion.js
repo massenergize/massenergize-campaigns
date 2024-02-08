@@ -61,11 +61,6 @@ function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, r
             <SectionTitle className="mb-5" style={{ color: "black" }}>
               {title || "Meet the Coaches"}
             </SectionTitle>
-            {/* {hasScrollableCoaches && (
-              <p style={{ fontSize: "var(--mob-paragraph-font-size)" }}>
-                Scroll from left to right, or use the arrow buttons to see all coaches
-              </p>
-            )} */}
           </div>
 
           {hasScrollableCoaches && <ArrowButtons style={{ marginLeft: "auto" }} containerRef={scrollContainerRef} />}
@@ -76,10 +71,7 @@ function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, r
           style={{
             flexWrap: "nowrap",
             overflowX: "scroll",
-            // justifyContent: "center",
-            // scrollBehavior: "smooth",
           }}
-          // onScroll={(e) => handleScroll(e.target.scrollLeft)}
         >
           {coaches?.map((coach, index) => {
             return (
@@ -90,11 +82,8 @@ function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, r
           })}
         </Row>
 
-        <div
-          // style={{ textTransform: "justify", marginTop: 20 }}
-          className="coaches-description"
-        >
-          <p dangerouslySetInnerHTML={{ __html: description }}></p>
+        <div className="coaches-description">
+          <p className="body-font" dangerouslySetInnerHTML={{ __html: description }}></p>
           <div
             style={{
               display: "flex",
@@ -104,7 +93,7 @@ function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, r
             }}
           >
             <Button
-              className="touchable-opacity elevate-2 mt-5"
+              className="touchable-opacity elevate-2 mt-5 small-font"
               style={{
                 borderRadius: 55,
                 padding: "15px 40px",

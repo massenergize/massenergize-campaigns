@@ -1,7 +1,7 @@
 @media only screen and (min-width: 768px) {
   .page-title {
     text-align: center;
-    font-size: 3rem;
+    font-size: var(--app-header-font);
     color: var(--app-accent-3);
     /* text-transform: uppercase; */
   }
@@ -15,7 +15,7 @@
     /* text-transform: capitalize; */
     line-height: 1.5;
     width: 85%;
-    font-size: 1.2rem;
+    font-size: var(--app-subheader-font);
     font-weight: 600;
   }
 
@@ -141,9 +141,27 @@
     display: none !important;
   }
 
+  .section-title {
+    font-size: var(--app-header-font)
+  }
+
+  .header-font { 
+    font-size: var(--app-header-font);
+  }
+  .body-font { 
+    font-size: var(--app-body-font) !important;
+  }
+  .subheader-font { 
+    font-size: var(--app-subheader-font);
+  }
+  .small-font { 
+    font-size: var(--app-small-font);
+  }
+
   .b-hero-img {
     height: 45vh;
   }
+
   /* --------------------------------- END OF PC SPECIFIC ---------------------- */
 }
 

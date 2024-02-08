@@ -39,8 +39,6 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
       style={{
         background: "white",
         width: "100%",
-        // padding: "80px 0px",
-        // minHeight: 200,
       }}
     >
       <OptimumWrapper>
@@ -65,7 +63,7 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
               >
                 <img src={image?.url} style={{ height: 70, width: 70, objectFit: "contain" }} alt={image?.name} />
                 <h6
-                  className="mt-3 mb-3"
+                  className="mt-3 mb-3 subheader-font"
                   style={{
                     color: "var(--app-accent-3)",
                     textTransform: "uppercase",
@@ -75,6 +73,7 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
                   {title || {}}
                 </h6>
                 <p
+                  className="body-font"
                   dangerouslySetInnerHTML={{ __html: description }}
                   style={{ textAlign: "justify", lineHeight: "1.5" }}
                 ></p>

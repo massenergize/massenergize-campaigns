@@ -40,6 +40,7 @@ import OneTechEventSection from "./OneTechEventSection";
 import { useMediaQuery } from "react-responsive";
 import CampaignNotLive from "../landing-page/CampaignNotLive";
 import SmartRichText from "../../../components/SmartRichText";
+import SectionTitle from "../../../components/pieces/SectionTitle";
 
 const DEFAULT_READ_HEIGHT = 190;
 const PREVIEW_TEXT_LENGHT = 1000;
@@ -287,13 +288,8 @@ function TechnologyFullViewPage({
       .catch((e) => console.log("COMMENT_DELETION_ERROR_SYNT: ", e?.toString()));
   };
 
-  // const READ_HEIGHT = isMobile ? 100 : DEFAULT_READ_HEIGHT;
   const READ_HEIGHT = DEFAULT_READ_HEIGHT;
   const LENGTH = isMobile ? MOBILE_PREVIEW_TEXT_LENGTH : PREVIEW_TEXT_LENGHT;
-
-  // const { truncatedContent, isLong } = truncateRichText(description, READ_HEIGHT);
-  // console.log("IS REALLY LONG", isLong);
-  // const isReallyLong = description.length > LENGTH; // This is not a good way of checking, change it later
 
   return (
     <div>
@@ -301,14 +297,8 @@ function TechnologyFullViewPage({
       <div style={{ marginTop: 100 }} className="one-tech-wrapper">
         <OptimumWrapper>
           <CampaignNotLive />
-          <h2
-            style={{
-              color: "var(--app-accent-3)",
-              fontSize: "var(--mob-title-font-size)",
-            }}
-          >
-            {name || "..."}
-          </h2>
+          <SectionTitle>{name || "..."}</SectionTitle>
+
           <Row>
             <Col lg={9} className="one-tech-main">
               {image?.url && <img className="elevate-float-pro mt-2" src={image?.url || carPhoto} alt={"event"} />}
@@ -322,7 +312,7 @@ function TechnologyFullViewPage({
                 comments={comments?.length || 0}
               />
 
-              <SmartRichText>{description}</SmartRichText>
+              <SmartRichText className="body-font">{description}</SmartRichText>
             </Col>
             <Col lg={3}>
               <div
@@ -345,12 +335,13 @@ function TechnologyFullViewPage({
                   }}
                 >
                   <p
+                    className="small-font"
                     style={{
                       alignSelf: "center",
                       justifySelf: "center",
                       textAlign: "center",
                       margin: 0,
-                      fontSize: 13,
+                      // fontSize: 13,
                       fontWeight: "bold",
                       width: "83%",
                     }}
@@ -388,18 +379,16 @@ function TechnologyFullViewPage({
                   style={{
                     background: "black",
                     padding: "10px 20px",
-
-                    // borderBottomRightRadius: 5,
                     marginTop: "auto",
                   }}
                 >
                   <p
+                    className="body-font"
                     style={{
                       color: "white",
                       margin: 0,
-                      //   padding: "7px 30px",
                       textAlign: "center",
-                      fontSize: 16,
+                      // fontSize: 16,
                       fontWeight: "bold",
                     }}
                   >
@@ -419,7 +408,7 @@ function TechnologyFullViewPage({
                     alignItems: "center",
                   }}
                 >
-                  <p style={{ margin: 0 }}>
+                  <p className="body-font" style={{ margin: 0 }}>
                     <i
                       className="fa fa-comment"
                       style={{
@@ -438,7 +427,9 @@ function TechnologyFullViewPage({
                   </p>
                 </div>
                 <div className="mt-2">
-                  <small style={{ color: "" }}>This is what people think</small>
+                  <small className="small-font" style={{ color: "" }}>
+                    This is what people think
+                  </small>
                   <div className="mt-2">
                     {comments?.slice(0, 3)?.map((com, index) => {
                       const isForCurrentUser = commentIsForUser(com, authUser);
@@ -456,16 +447,17 @@ function TechnologyFullViewPage({
                           key={com?.id}
                         >
                           <h6
+                            className="small-font"
                             style={{
                               // textDecoration: "underline",
-                              fontSize: 14,
+                              // fontSize: 14,
                               fontWeight: "bold",
                               color: !isForCurrentUser ? "var(--app-main-color)" : "var(--app-accent-3)",
                             }}
                           >
                             {user?.full_name || "..."} {isForCurrentUser ? " (Yours)" : ""}
                           </h6>
-                          <small>
+                          <small className="small-font">
                             {message.substr(0, COMMENT_LENGTH)}
                             {message.length > COMMENT_LENGTH ? (
                               <span
@@ -522,6 +514,7 @@ function TechnologyFullViewPage({
                   onClick={() => triggerCommentBox(authUser)}
                 >
                   <p
+                    className="body-font"
                     style={{
                       margin: 0,
                       color: "var(--app-main-color)",
@@ -533,7 +526,7 @@ function TechnologyFullViewPage({
                   </p>
                 </div>
                 <div
-                  className="touchable-opacity mt-2"
+                  className="touchable-opacity mt-2 body-font"
                   style={{
                     background: "var(--app-main-color)",
                     display: "flex",

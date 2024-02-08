@@ -19,8 +19,9 @@ function Loading({ text = "Loading...", fullPage, children, spinnerStyle }) {
       };
   return (
     <div style={styles}>
-      <Spinner style={{ ...(spinnerStyle || {}) }} animation="border"/>
+      <Spinner style={{ ...(spinnerStyle || {}) }} animation="border" />
       <small
+        className="small-font"
         style={{
           margin: 10,
           fontWeight: "bold",
