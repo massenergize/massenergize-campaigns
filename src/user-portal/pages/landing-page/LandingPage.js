@@ -204,7 +204,6 @@ function LandingPage({
       <AppNavigationBar menu={menu} campaign={campaign} />
       <Hero v2={!isMobile} handleShareCampaign={handleShareCampaign} />
       <Container>
-        <CampaignNotLive />
         <RoamingBox
           id="roaming-box"
           advert={{ description, title: `About ${campaign?.title || ""}` }}
