@@ -154,6 +154,7 @@ function Footer({ toggleModal, campaign, authUser }) {
                   flexDirection: "column",
                   flexWrap: "wrap",
                   paddingLeft: 0,
+                  overflow: "scroll",
                 }}
               >
                 {renderMenus()}

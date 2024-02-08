@@ -39,9 +39,7 @@ const dummies = [
 function OneTechTestimonialsSection({ sectionId, testimonials, campaign, links }) {
   const containerRef = useRef();
   const navigator = useNavigate();
-  const firstTestimonial = (testimonials || [])[0];
 
-  console.log("lets see the links", links)
   const home = links?.find((item) => item?.key === "home");
   const testimonialRoute = addUrlSearchParams(home?.url, {
     section: "testimonial",

@@ -6,7 +6,7 @@ import { NAVIGATION_MENU } from "../../user-portal/data/user-portal-dummy-data";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addUrlParams, generateUniqueRandomString } from "../../utils/utils";
+import { addUrlParams, addUrlSearchParams, generateUniqueRandomString } from "../../utils/utils";
 
 const EXCLUDE_FROM_NAV = ["communities"];
 function AppNavigationBar({ menu, campaign }) {
@@ -48,7 +48,8 @@ function AppNavigationBar({ menu, campaign }) {
                       fontWeight: "bold",
                     }}
                     onClick={() => {
-                      navigator(menu.url || "#");
+                      const route = addUrlSearchParams(menu?.url, { salt: generateUniqueRandomString(6) });
+                      navigator(route || "#");
                     }}
                   >
                     <span>
@@ -75,12 +76,6 @@ function AppNavigationBar({ menu, campaign }) {
                 >
                   {menu?.children?.map((child) => {
                     const salt = generateUniqueRandomString(6);
-                    const params = {
-                      section: menu.key,
-                      tab: child.key,
-                    };
-                    const route = addUrlParams(window.location.href, params);
-
                     return (
                       <NavDropdown.Item
                         className="f-dropdown-override c-nav-item"

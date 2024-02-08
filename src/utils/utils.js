@@ -235,3 +235,13 @@ export function addUrlSearchParams(url, jsonData) {
   // Return the pathname with the query search params
   return urlObject.pathname + urlObject.search;
 }
+
+export const scrollIntoView = (ref, offset = 0) => {
+  // params = params || {};
+  offset = offset * -1;
+  if (ref && ref?.current) {
+    const element = ref.current;
+    const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ behavior: "smooth", top: elementPosition + offset });
+  }
+};
