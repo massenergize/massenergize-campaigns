@@ -18,10 +18,10 @@ body {
 }
 
 :root {
-  --app-main-color: #3030d0;
-  --app-accent-1: #00deb530;
+  /* --app-main-color: #3030d0; */
+  /* --app-accent-1: #00deb530; */
   --app-accent-2: #ffc50180;
-  --app-accent-3: #ff4b00;
+  /* --app-accent-3: #ff4b00; */
   --app-accent-4: #ff97d6;
   --app-deep-green: #3c5b11;
   --app-medium-green: #8bb256;

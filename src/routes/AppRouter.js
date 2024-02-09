@@ -26,6 +26,7 @@ import Login from "../admin-portal/pages/auth/Login";
 import Dummy from "../admin-portal/pages/auth/Dummy";
 import { portalIsAdmin, setPageTitle } from "../utils/utils";
 import JoinUsForm from "../user-portal/pages/forms/JoinUsForm";
+import { THEMES } from "../utils/color-schemes";
 
 export const NavigateWithParams = ({ to, ...props }) => {
   const params = useParams();
@@ -179,21 +180,25 @@ function AppRouter({
       ),
     });
   };
-  const triggerProtectedFunctionality = (
-    authUser,
-    { cb, registrationOptions } = {},
-  ) => {
+  const triggerProtectedFunctionality = (authUser, { cb, registrationOptions } = {}) => {
     const { user } = authUser || {};
     if (!user) return register(registrationOptions);
     cb && cb();
   };
 
+  const colorScheme = THEMES.plugin;
+
   return (
     <>
-      <CustomModal
-        close={() => toggleModal({ show: false, component: <></> })}
-        {...modalOptions}
-      />
+      <div
+        className="for-defining-color-scheme"
+        style={{
+          "--app-main-color": colorScheme?.mainColor,
+          "--app-accent-1": colorScheme?.accentOne,
+          "--app-accent-3": colorScheme?.accentTwo,
+        }}
+      ></div>
+      <CustomModal close={() => toggleModal({ show: false, component: <></> })} {...modalOptions} />
       <Routes>
         <Route
           path="/campaign/:campaignId"
@@ -214,9 +219,7 @@ function AppRouter({
           const routeProps = {
             path,
             ...(replace && { replace: true }),
-            element: (
-              <route.component toggleModal={addToggleModal ? toggleModal : null} />
-            ),
+            element: <route.component toggleModal={addToggleModal ? toggleModal : null} />,
           };
 
           return <Route key={index} {...routeProps} />;
