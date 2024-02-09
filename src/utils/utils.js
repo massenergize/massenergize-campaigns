@@ -245,3 +245,26 @@ export const scrollIntoView = (ref, offset = 0) => {
     window.scrollTo({ behavior: "smooth", top: elementPosition + offset });
   }
 };
+
+
+export function lighterOpacity(hexColor, opacityPercent = 10) {
+  // Ensure the hexColor starts with a hash
+  if (hexColor[0] !== "#") {
+    hexColor = "#" + hexColor;
+  }
+
+  // Convert hex to RGB
+  const rgbColor = [
+    parseInt(hexColor.slice(1, 3), 16),
+    parseInt(hexColor.slice(3, 5), 16),
+    parseInt(hexColor.slice(5, 7), 16),
+  ];
+
+  // Calculate the new alpha value based on opacityPercent
+  const alpha = opacityPercent / 100.0;
+
+  // Format the rgba color
+  const rgbaColor = `rgba(${rgbColor[0]}, ${rgbColor[1]}, ${rgbColor[2]}, ${alpha})`;
+
+  return rgbaColor;
+}

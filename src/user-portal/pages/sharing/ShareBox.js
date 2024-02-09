@@ -90,20 +90,20 @@ function ShareBox({ data, onChange, campaign, authUser }) {
                 <Form.Check className="touchable-opacity" inline type="radio" id={`check-api-${key}`}>
                   <Form.Check.Input checked={platform === key} type={"radio"} value={key} />
                   <i
-                    className={`fa ${icon} body-font`}
+                    className={`fa ${icon} body-font text-main-color`}
                     style={{
                       marginRight: 3,
                       // fontSize: 16,
-                      color: "var(--app-main-color)",
+                      // color: "var(--app-main-color)",
                     }}
                   ></i>
                   <Form.Check.Label
-                    className="touchable-opacity body-font"
+                    className="touchable-opacity body-font text-main-color"
                     style={{
                       // textTransform: "capitalize",
                       // fontWeight: "bold",
                       fontSize: 16,
-                      color: "var(--app-main-color)",
+                      // color: "var(--app-main-color)",
                     }}
                   >
                     {text}

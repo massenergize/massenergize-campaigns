@@ -45,11 +45,11 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
             <Form.Check inline type="radio" id={`check-api-${id}`} className="touchable-opacity">
               <Form.Check.Input checked={comId === id?.toString()} type={"radio"} value={id} />
               <Form.Check.Label
-                className="body-font"
+                className="body-font text-main-color"
                 style={{
                   textTransform: "Capitalize",
                   // fontWeight: "bold",
-                  color: "var(--app-main-color)",
+                  // color: "var(--app-main-color)",
                   // fontSize: 15,
                   cursor: "pointer",
                 }}
@@ -63,10 +63,11 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
         <Form.Check inline type="radio" id={`check-api-other`}>
           <Form.Check.Input checked={comId === OTHER} type={"radio"} value={OTHER} />
           <Form.Check.Label
+            className="text-main-color"
             style={{
               textTransform: "Capitalize",
               fontWeight: "bold",
-              color: "var(--app-main-color)",
+              // color: "var(--app-main-color)",
               fontSize: 15,
               cursor: "pointer",
             }}

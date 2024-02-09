@@ -1,5 +1,6 @@
 import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
+import WrapWithColorScheme from "../../user-portal/pages/wrappers/WrapWithColorScheme";
 
 function CustomModal(props) {
   const { show, component, modalNativeProps, fullControl, style, close } = props || {};
@@ -20,7 +21,9 @@ function CustomModal(props) {
     >
       <SmartHeader {...props} />
       {fullControl ? (
-        <Modal.Body style={{ padding: 0 }}>{renderComponent()}</Modal.Body>
+        <Modal.Body style={{ padding: 0 }}>
+          <WrapWithColorScheme>{renderComponent()}</WrapWithColorScheme>
+        </Modal.Body>
       ) : (
         <>
           <Modal.Body>{renderComponent()}</Modal.Body>
@@ -57,34 +60,34 @@ const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName }) => {
     return <></>;
   };
   return (
-    <Modal.Header
-      style={{
-        background: "var(--app-main-color)",
-        color: "white",
-        padding: "10px 25px",
-      }}
-    >
-      <div
+    <WrapWithColorScheme>
+      <Modal.Header
+        className="background-main-color"
         style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
+          color: "white",
+          padding: "10px 25px",
         }}
       >
-        {renderHeaderMedia()}
-        <Modal.Title id="contained-modal-title-vcenter body-font">
-          {title || "..."}
-        </Modal.Title>
-      </div>
-      <Button
-        className="touchable-opacity"
-        variant="link"
-        style={{ color: "white", textDecoration: "none" }}
-        onClick={() => close && close()}
-      >
-        <span aria-hidden="true" className="fa fa-times" style={{ fontSize: 20 }}></span>
-      </Button>
-    </Modal.Header>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          {renderHeaderMedia()}
+          <Modal.Title id="contained-modal-title-vcenter body-font">{title || "..."}</Modal.Title>
+        </div>
+        <Button
+          className="touchable-opacity"
+          variant="link"
+          style={{ color: "white", textDecoration: "none" }}
+          onClick={() => close && close()}
+        >
+          <span aria-hidden="true" className="fa fa-times" style={{ fontSize: 20 }}></span>
+        </Button>
+      </Modal.Header>
+    </WrapWithColorScheme>
   );
 };
 

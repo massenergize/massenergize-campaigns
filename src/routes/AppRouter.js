@@ -27,6 +27,7 @@ import Dummy from "../admin-portal/pages/auth/Dummy";
 import { portalIsAdmin, setPageTitle } from "../utils/utils";
 import JoinUsForm from "../user-portal/pages/forms/JoinUsForm";
 import { THEMES } from "../utils/color-schemes";
+import WrapWithColorScheme from "../user-portal/pages/wrappers/WrapWithColorScheme";
 
 export const NavigateWithParams = ({ to, ...props }) => {
   const params = useParams();
@@ -186,18 +187,8 @@ function AppRouter({
     cb && cb();
   };
 
-  const colorScheme = THEMES.plugin;
-
   return (
-    <>
-      <div
-        className="for-defining-color-scheme"
-        style={{
-          "--app-main-color": colorScheme?.mainColor,
-          "--app-accent-1": colorScheme?.accentOne,
-          "--app-accent-3": colorScheme?.accentTwo,
-        }}
-      ></div>
+    <WrapWithColorScheme>
       <CustomModal close={() => toggleModal({ show: false, component: <></> })} {...modalOptions} />
       <Routes>
         <Route
@@ -244,7 +235,7 @@ function AppRouter({
           element={<OneTestimonial toggleModal={toggleModal} />}
         />
       </Routes>
-    </>
+    </WrapWithColorScheme>
   );
 }
 

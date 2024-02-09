@@ -165,6 +165,12 @@
   /* --------------------------------- END OF PC SPECIFIC ---------------------- */
 }
 
+.background-main-color {
+  background: var(--app-main-color) !important;
+}
+.text-main-color {
+  color: var(--app-main-color) !important;
+}
 .camp-share-btn-v2 {
   position: absolute;
   bottom: -26px;
