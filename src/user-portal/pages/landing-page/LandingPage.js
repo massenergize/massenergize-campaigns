@@ -2,14 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 
 import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
 
-import { Alert, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import RoamingBox from "./RoamingBox";
 import Footer from "../footer/Footer";
-import TestimonialSection from "../testimonials/TestimonialSection";
-import EventsSection from "../events/EventsSection";
 import GettingStartedSection from "../getting-started/GettingStartedSection";
-import CoachesSection from "../coaches/CoachesSection";
-import Banner from "../banner/Banner";
 import { connect, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
@@ -25,7 +21,6 @@ import { OTHER, OTHER_JSON } from "../forms/CommunitySelector";
 import TestimonialSectionWithFilters from "../testimonials/TestimonialSectionWithFilters";
 import EventsSectionWithFilters from "../events/EventsSectionWithFilters";
 import CoachesSectionWithFilters from "../coaches/CoachesSectionWithFilters";
-import CampaignNotLive from "./CampaignNotLive";
 import ShareBox from "../sharing/ShareBox";
 import Hero from "../banner/Hero";
 import { useMediaQuery } from "react-responsive";
@@ -202,6 +197,7 @@ function LandingPage({
         </p>
       )}
       <AppNavigationBar menu={menu} campaign={campaign} />
+    
       <Hero v2={!isMobile} handleShareCampaign={handleShareCampaign} />
       <Container>
         <RoamingBox
