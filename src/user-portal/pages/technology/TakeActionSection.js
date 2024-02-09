@@ -7,7 +7,7 @@ import { FULL_TECHNOLOGY } from "../../../utils/Constants";
 
 const dummies = [
   {
-    icon: "fa-lightbulb-o",
+    icon: "fa-question",
     title: "Ask A Question ",
     actionText: "Get Help",
     content: "Questions large to small, we have community volunteers ready to answer them all.",
