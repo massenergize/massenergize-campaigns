@@ -79,7 +79,7 @@ function JoinUsForm ({
     };
     payload = processPayload ? processPayload(payload) : payload;
     makeNotification(
-      "Well done, thank you for joining us! (This modal will close shortly)",
+      "Well done, thank you for joining us!",
       true
     );
     apiCall(apiURL || "/campaigns.follow", payload).then((response) => {

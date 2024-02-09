@@ -9,16 +9,7 @@ import Filter from "../../../components/Filter";
 function TestimonialSection({ sectionId, technologies, defaultTab, campaign }) {
   const navigator = useNavigate();
   const testimonialsOfEachTech = technologies?.map(
-    ({
-      campaign_technology,
-      testimonials,
-      is_icon,
-      is_image,
-      image,
-      icon,
-      name,
-      id,
-    }) => ({
+    ({ campaign_technology, testimonials, is_icon, is_image, image, icon, name, id }) => ({
       id,
       campaign_technology,
       testimonials,
@@ -87,10 +78,7 @@ function TestimonialSection({ sectionId, technologies, defaultTab, campaign }) {
             <AddNewTestimonial onClick={() => navigator(testimonialRoute)} />
           </div>
 
-          <CustomTabView
-            defaultTab={defaultTab || firstOne?.id}
-            data={intoTabs}
-          ></CustomTabView>
+          <CustomTabView defaultTab={defaultTab || firstOne?.id} data={intoTabs}></CustomTabView>
         </Container>
       </CenteredWrapper>
     </div>
@@ -111,7 +99,7 @@ export const AddNewTestimonial = ({ style, onClick, text, icon }) => {
           e.preventDefault();
           onClick && onClick();
         }}
-        className="touchable-opacity link-text"
+        className="touchable-opacity link-text body-font"
         style={{
           color: "var(--app-accent-3)",
           fontWeight: "bold",
@@ -119,10 +107,7 @@ export const AddNewTestimonial = ({ style, onClick, text, icon }) => {
           ...(style || {}),
         }}
       >
-        <i
-          className={`fa fa-${icon || "plus"}`}
-          style={{ marginRight: 10, fontWeight: "bold" }}
-        />
+        <i className={`fa fa-${icon || "plus"}`} style={{ marginRight: 10, fontWeight: "bold" }} />
         {text || "Add your own testimonial here"}
         {/* <i
           className="fa fa-long-arrow-right"

@@ -6,7 +6,7 @@ import { NAVIGATION_MENU } from "../../user-portal/data/user-portal-dummy-data";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addUrlParams, generateUniqueRandomString } from "../../utils/utils";
+import { addUrlParams, addUrlSearchParams, generateUniqueRandomString } from "../../utils/utils";
 
 const EXCLUDE_FROM_NAV = ["communities"];
 function AppNavigationBar({ menu, campaign }) {
@@ -21,7 +21,7 @@ function AppNavigationBar({ menu, campaign }) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto mx-auto" style={{ alignItems: "center" }}>
             {/* <Nav.Link> */}
-            {primary_logo?.url && (
+            {/* {primary_logo?.url && (
               <img
                 src={primary_logo?.url}
                 style={{
@@ -32,7 +32,7 @@ function AppNavigationBar({ menu, campaign }) {
                 }}
                 alt={"logo"}
               />
-            )}
+            )} */}
             {/* </Nav.Link> */}
             {menu?.map((menu) => {
               const excluded = EXCLUDE_FROM_NAV.includes(menu?.key?.toLowerCase());
@@ -40,7 +40,7 @@ function AppNavigationBar({ menu, campaign }) {
               if (!menu?.children)
                 return (
                   <Nav.Link
-                    className="c-nav-item"
+                    className="c-nav-item body-font"
                     key={menu?.key}
                     style={{
                       textTransform: "capitalize",
@@ -48,7 +48,8 @@ function AppNavigationBar({ menu, campaign }) {
                       fontWeight: "bold",
                     }}
                     onClick={() => {
-                      navigator(menu.url || "#");
+                      const route = addUrlSearchParams(menu?.url, { salt: generateUniqueRandomString(6) });
+                      navigator(route || "#");
                     }}
                   >
                     <span>
@@ -64,7 +65,7 @@ function AppNavigationBar({ menu, campaign }) {
                     marginRight: 20,
                     fontWeight: "bold",
                   }}
-                  className={"mx-2"}
+                  className={"mx-2 body-font"}
                   title={
                     <span className="c-nav-item">
                       <i className={`fa ${menu.icon}`} style={{ marginRight: 6 }}></i>
@@ -75,12 +76,6 @@ function AppNavigationBar({ menu, campaign }) {
                 >
                   {menu?.children?.map((child) => {
                     const salt = generateUniqueRandomString(6);
-                    const params = {
-                      section: menu.key,
-                      tab: child.key,
-                    };
-                    const route = addUrlParams(window.location.href, params);
-
                     return (
                       <NavDropdown.Item
                         className="f-dropdown-override c-nav-item"
@@ -98,7 +93,7 @@ function AppNavigationBar({ menu, campaign }) {
               );
             })}
 
-            {secondary_logo?.url && (
+            {/* {secondary_logo?.url && (
               <img
                 src={secondary_logo?.url}
                 style={{
@@ -109,7 +104,7 @@ function AppNavigationBar({ menu, campaign }) {
                 }}
                 alt={"logo"}
               />
-            )}
+            )} */}
           </Nav>
         </Navbar.Collapse>
       </Container>

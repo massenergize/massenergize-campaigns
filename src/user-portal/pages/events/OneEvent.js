@@ -55,7 +55,7 @@ function OneEvent({ events, updateEvents, init, campaign }) {
       <Row>
         <Col lg={9}>
           <img
-            className="elevate-float-pro mt-3"
+            className="mt-3"
             src={image?.url}
             style={{
               width: "100%",
@@ -66,7 +66,7 @@ function OneEvent({ events, updateEvents, init, campaign }) {
             alt={"event"}
           />
 
-          <p className="mt-4" style={{ textAlign: "justify" }}>
+          <p className="mt-4 body-font" style={{ textAlign: "justify" }}>
             <span
               dangerouslySetInnerHTML={{ __html: description }}
               style={{ display: "block", overflowY: "hidden" }}
@@ -75,8 +75,12 @@ function OneEvent({ events, updateEvents, init, campaign }) {
         </Col>
         <Col lg={3} className="mt-2">
           <div>
-            <h6 style={{ color: "black", fontWeight: "bold" }}>Date</h6>
-            <small>{formatTimeRange(start_date_and_time, end_date_and_time)}</small>
+            <h6 className="body-font text-muted" style={{ fontWeight: "" }}>
+              Date
+            </h6>
+            <small className="small-font" style={{ fontWeight: "bold" }}>
+              {formatTimeRange(start_date_and_time, end_date_and_time)}
+            </small>
           </div>
 
           {external_link && (
@@ -85,7 +89,7 @@ function OneEvent({ events, updateEvents, init, campaign }) {
                 e.preventDefault();
                 window.open(external_link || "#", "_blank");
               }}
-              className="mt-2 touchable-opacity"
+              className="mt-2 touchable-opacity body-font"
               style={{
                 background: "var(--app-main-color)",
                 padding: 10,

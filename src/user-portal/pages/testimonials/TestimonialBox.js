@@ -12,58 +12,28 @@ function TestimonialBox({ title, user, image, body, campaign_technology, campaig
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
   const route = `/campaign/${campaign?.slug}/technology/testimonial/${id}`;
 
-  // const preview = body?.substr(0, !isMobile ? LONG_LENGTH : PREVIEW_LENGTH);
   const preview = smartString(body, !isMobile ? LONG_LENGTH : PREVIEW_LENGTH);
   const userName = user?.preferred_name || user?.full_name;
+  const comName = community?.alias || community?.name || "";
 
   return (
     <div className="testi-container flex-column">
-      <h5 style={{ fontSize: "1.07rem" }}>{title || "..."}</h5>
-      <h6 style={{ fontSize: 15, color: "var(--app-main-color)" }}>
-        {" "}
-        {/* {user?.preferred_name || user?.full_name || "...."} */}
-        {userName ? `${userName} ${community?.name ? "from" : ""} ${community?.name || ""}` : "..."}
+      <h5 className="small-font" style={{ fontWeight: "bold", color: "var(--app-main-color)" }}>
+        {title || "..."}
+      </h5>
+      <h6 className="small-font text-muted" style={{}}>
+        {userName ? `${userName} ${comName ? "from" : ""} ${comName || ""}` : "..."}
       </h6>
       <div
         style={{
           fontSize: 14,
-          // maxHeight: 60,
-          // height: 60,
           margin: 0,
           position: "relative",
           overflow: "auto",
         }}
         dangerouslySetInnerHTML={{ __html: preview }}
       ></div>
-      {/* <a
-        className="touchable-opacity"
-        onClick={(e) => {
-          e.preventDefault();
-          navigator(route);
-        }}
-        style={{
-          marginLeft: 10,
-          color: "var(--app-medium-green)",
-          fontSize: 14,
-          // margin: "30px 0px",
-        }}
-      >
-        Read More...
-      </a> */}
-      {/*
-      {image?.url && (
-        <img
-          className="phone-vanish"
-          style={{
-            width: "100%",
-            height: 140,
-            objectFit: "cover",
-            borderRadius: 5,
-            marginTop: 7,
-          }}
-          src={image?.url}
-        />
-      )} */}
+
       <div
         style={{
           display: "flex",
@@ -92,10 +62,10 @@ function TestimonialBox({ title, user, image, body, campaign_technology, campaig
         <p
           role={"button"}
           tabIndex={0}
-          className="touchable-opacity"
+          className="touchable-opacity small-font"
           onClick={() => navigator(route)}
           style={{
-            fontSize: 15,
+            // fontSize: 15,
             marginLeft: "auto",
             fontWeight: "bold",
             color: "var(--app-main-color)",

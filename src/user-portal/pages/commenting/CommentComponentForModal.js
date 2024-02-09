@@ -81,7 +81,7 @@ function CommentComponentForModal({
       user_id: user?.id || null,
     }).then((response) => {
       setLoading(false);
-      if (!response || !response.success) return setError(response.error);
+      if (!response || !response.success) return setError(response?.error || "Sorry something happened!");
       const latestComments = response.data;
       const updated = { ...(technology || {}), comments: latestComments };
       setCommentItems([...latestComments].reverse());
@@ -98,23 +98,34 @@ function CommentComponentForModal({
         style={{
           padding: 20,
           overflowY: "scroll",
-          height: 500,
+          minHeight: 250,
+          maxHeight: 500,
           paddingBottom: 130,
         }}
         ref={comBox}
       >
-        {data?.map((com, index) => {
+        {data?.length === 0 && (
+          <center>
+            <small>No comments yet, be the first!</small>
+          </center>
+        )}
+        {data?.map((com) => {
           const { user, text, created_at } = com || {};
           const message = text || "...";
           const community = user?.community;
 
           const isForCurrentUser = commentIsForUser(com, authUser);
           return (
-            <div className="mb-2 mt-1 pb-2" style={{ border: "solid 0px #f5f5f5", borderBottomWidth: 1 }} key={com?.id}>
+            <div
+              className="mb-2 mt-1 pb-2 "
+              style={{ border: "solid 0px #f5f5f5", borderBottomWidth: 1 }}
+              key={com?.id}
+            >
               <h6
+                className="small-font"
                 style={{
                   // textDecoration: "underline",
-                  fontSize: 14,
+                  // fontSize: 14,
                   fontWeight: "bold",
                   color: !isForCurrentUser ? "var(--app-main-color)" : "var(--app-accent-3)",
                 }}
@@ -125,7 +136,7 @@ function CommentComponentForModal({
                 {community && " from "}
                 <span style={{ color: "var(--app-medium-green)" }}>{community} </span>
               </h6>
-              <small>{message}</small>
+              <small className="small-font">{message}</small>
               <small
                 style={{
                   width: "100%",

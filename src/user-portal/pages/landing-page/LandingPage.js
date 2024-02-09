@@ -2,23 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 
 import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
 
-import { Alert, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import RoamingBox from "./RoamingBox";
 import Footer from "../footer/Footer";
-import TestimonialSection from "../testimonials/TestimonialSection";
-import EventsSection from "../events/EventsSection";
 import GettingStartedSection from "../getting-started/GettingStartedSection";
-import CoachesSection from "../coaches/CoachesSection";
-import Banner from "../banner/Banner";
-import planetB from "./../../../assets/imgs/planet-b.jpeg";
 import { connect, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { USER_STORAGE_KEY, appInnitAction, loadUserObjAction, trackActivity } from "../../../redux/actions/actions";
-import { LOADING } from "../../../utils/Constants";
+import { LOADING, MOBILE_WIDTH } from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
-import { fetchUrlParams, setPageTitle } from "../../../utils/utils";
+import { fetchUrlParams, scrollIntoView, setPageTitle } from "../../../utils/utils";
 import RoamingModalSheet from "./RoamingModalSheet";
 import DoMore from "./DoMore";
 import JoinUsForm from "../forms/JoinUsForm";
@@ -26,8 +21,9 @@ import { OTHER, OTHER_JSON } from "../forms/CommunitySelector";
 import TestimonialSectionWithFilters from "../testimonials/TestimonialSectionWithFilters";
 import EventsSectionWithFilters from "../events/EventsSectionWithFilters";
 import CoachesSectionWithFilters from "../coaches/CoachesSectionWithFilters";
-import CampaignNotLive from "./CampaignNotLive";
 import ShareBox from "../sharing/ShareBox";
+import Hero from "../banner/Hero";
+import { useMediaQuery } from "react-responsive";
 
 function LandingPage({
   toggleModal,
@@ -42,11 +38,15 @@ function LandingPage({
   triggerProtectedFunctionality,
 }) {
   const [mounted, setMounted] = useState(false);
+  const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
+
   const coachesRef = useRef();
   const eventsRef = useRef();
   const incentivesRef = useRef();
   const testimonialsRef = useRef();
   const communitiesRef = useRef();
+  const homeRef = useRef();
+  const technologyRef = useRef();
 
   const idsToRefMap = {
     coaches: coachesRef,
@@ -54,10 +54,12 @@ function LandingPage({
     events: eventsRef,
     testimonial: testimonialsRef,
     communities: communitiesRef,
+    home: homeRef,
+    technologies: technologyRef,
   };
+  const salt = fetchUrlParams("salt");
 
-  const { image, config, key_contact, advert, is_published, description, technologies_section, coaches_section } =
-    campaign || {};
+  const { image, key_contact, is_published, description, technologies_section, coaches_section } = campaign || {};
 
   const technologies = campaign?.technologies || [];
   const { campaignId } = useParams();
@@ -66,14 +68,14 @@ function LandingPage({
 
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
-    if (ref?.current) ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollIntoView(ref, 100);
   };
   const target = fetchUrlParams("section");
   const show = fetchUrlParams("show");
 
   useEffect(() => {
     scrollToSection(target?.trim());
-  }, [mounted, target]);
+  }, [mounted, target, salt]);
 
   useEffect(() => {
     init(campaignId, (justLoadedCampaign, passed) => {
@@ -106,12 +108,6 @@ function LandingPage({
     const firstTime = !user || user === "null";
 
     if (!firstTime) return;
-    // console.log("DID YOU RUN THIS THING?");
-    // whereIsUserFrom({
-    //   show: true,
-    //   title: "Please tell us where you are from",
-    //   componentProps: { noForm: true, okText: "Okay, Done!" },
-    // });
     toggleModal({
       show: true,
       title: `Please tell us where you are from`,
@@ -124,7 +120,6 @@ function LandingPage({
           onConfirm={(props) => stashUserCommunity({ ...props, campaign: justLoadedCampaign })}
         />
       ),
-      // modalNativeProps: { size: "md" },
       fullControl: true,
     });
   };
@@ -142,16 +137,16 @@ function LandingPage({
     });
   };
 
-  const handleShareCampaign = ()=>{
-      toggleModal({
-        show: true,
-        title: "Share Campaign",
-        // iconName: "fa-comment",
-        component: () => <ShareBox campaign={campaign} authUser={authUser} />,
-        modalNativeProps: { size: "lg" },
-        fullControl: true,
-      });
-  }
+  const handleShareCampaign = () => {
+    toggleModal({
+      show: true,
+      title: "Share Campaign",
+      // iconName: "fa-comment",
+      component: () => <ShareBox campaign={campaign} authUser={authUser} />,
+      modalNativeProps: { size: "lg" },
+      fullControl: true,
+    });
+  };
 
   useEffect(() => {
     if (!preview) init(campaignId);
@@ -181,6 +176,7 @@ function LandingPage({
 
   return (
     <div style={{}}>
+      <div ref={homeRef}></div>
       {previewMode && (
         <p
           className="elevate-3"
@@ -201,12 +197,9 @@ function LandingPage({
         </p>
       )}
       <AppNavigationBar menu={menu} campaign={campaign} />
+    
+      <Hero v2={!isMobile} handleShareCampaign={handleShareCampaign} />
       <Container>
-        <Banner {...campaign} handleShareCampaign={handleShareCampaign} />
-        <CampaignNotLive />
-        <Container>
-          <img className="elevate-float-pro campaign-focus-image" src={image?.url || planetB} alt={"campaign banner"} />
-        </Container>
         <RoamingBox
           id="roaming-box"
           advert={{ description, title: `About ${campaign?.title || ""}` }}
@@ -214,14 +207,16 @@ function LandingPage({
           showMore={showMoreAboutAdvert}
         />
       </Container>
-      <GettingStartedSection
-        customization={technologies_section || {}}
-        scrollToCommunities={() => scrollToSection("communities")}
-        technologies={technologies}
-        sectionId="getting-started-section"
-        trackActivity={trackActivity}
-        authUser={authUser}
-      />
+      <div ref={technologyRef}>
+        <GettingStartedSection
+          customization={technologies_section || {}}
+          scrollToCommunities={() => scrollToSection("communities")}
+          technologies={technologies}
+          sectionId="getting-started-section"
+          trackActivity={trackActivity}
+          authUser={authUser}
+        />
+      </div>
 
       <div ref={testimonialsRef}>
         <TestimonialSectionWithFilters

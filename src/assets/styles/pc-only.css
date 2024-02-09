@@ -1,7 +1,7 @@
 @media only screen and (min-width: 768px) {
   .page-title {
     text-align: center;
-    font-size: 3rem;
+    font-size: var(--app-header-font);
     color: var(--app-accent-3);
     /* text-transform: uppercase; */
   }
@@ -15,7 +15,7 @@
     /* text-transform: capitalize; */
     line-height: 1.5;
     width: 85%;
-    font-size: 1.2rem;
+    font-size: var(--app-subheader-font);
     font-weight: 600;
   }
 
@@ -75,7 +75,7 @@
   }
 
   .coach-main img {
-    margin-top: 50px;
+    /* margin-top: 50px; */
     width: 120px;
     height: 120px;
   }
@@ -141,7 +141,54 @@
     display: none !important;
   }
 
+  .section-title {
+    font-size: var(--app-header-font);
+  }
+
+  .header-font {
+    font-size: var(--app-header-font);
+  }
+  .body-font {
+    font-size: var(--app-body-font) !important;
+  }
+  .subheader-font {
+    font-size: var(--app-subheader-font);
+  }
+  .small-font {
+    font-size: var(--app-small-font);
+  }
+
+  .b-hero-img {
+    height: 68vh;
+  }
+
   /* --------------------------------- END OF PC SPECIFIC ---------------------- */
+}
+
+.camp-share-btn-v2 {
+  position: absolute;
+  bottom: -26px;
+  background: white;
+  padding: 10px 20px;
+  color: var(--app-main-color);
+  left: 47vw;
+  border-radius: 55px;
+  font-weight: bold;
+  font-size: var(--app-body-font);
+}
+
+.hero-belt {
+  align-items: center;
+  justify-content: center;
+  background: white;
+  width: 100%;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: row;
+}
+.b-hero-img {
+  width: 100%;
+  object-fit: cover;
 }
 
 .vendor-list-group li {

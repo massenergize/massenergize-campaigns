@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { COMMUNITY_LIST } from "../../data/user-portal-dummy-data";
 import { Form, InputGroup } from "react-bootstrap";
 import { connect } from "react-redux";
+import { sortByProperty } from "src/utils/utils";
 
 export const OTHER = "other";
 export const OTHER_JSON = { name: OTHER, id: OTHER };
@@ -24,9 +25,11 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
 
   const isOther = comId === OTHER;
 
+  communities = sortByProperty(communities, (com) => (com.alias || com.community.name || "").toLowerCase());
+
   return (
     <div>
-      <Form.Text>What community do you live in?</Form.Text>
+      <Form.Text className="small-font">What community do you live in?</Form.Text>
       {/* <p>Please tell us where you are from (Editable)</p> */}
       <Form
         className="m-2 pb-2"
@@ -42,11 +45,12 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
             <Form.Check inline type="radio" id={`check-api-${id}`} className="touchable-opacity">
               <Form.Check.Input checked={comId === id?.toString()} type={"radio"} value={id} />
               <Form.Check.Label
+                className="body-font"
                 style={{
                   textTransform: "Capitalize",
-                  fontWeight: "bold",
+                  // fontWeight: "bold",
                   color: "var(--app-main-color)",
-                  fontSize: 15,
+                  // fontSize: 15,
                   cursor: "pointer",
                 }}
               >

@@ -123,14 +123,14 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init, togg
       <SectionTitle>{title || "..."}</SectionTitle>
       <Row>
         <Col lg={9}>
-          <p className="mt-4" style={{ textAlign: "justify" }}>
+          <p className="mt-4 body-font" style={{ textAlign: "justify" }}>
             <span dangerouslySetInnerHTML={{ __html: body }} style={{ display: "block", overflowY: "hidden" }}></span>
           </p>
 
           <p
             role="button"
             onClick={() => initiateTestimonialCreation(authUser)}
-            className="touchable-opacity"
+            className="touchable-opacity body-font"
             style={{
               textDecoration: "underline",
               fontWeight: "bold",
@@ -180,6 +180,7 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init, togg
               }}
             >
               <h6
+                className="body-font"
                 style={{
                   color: "white",
                   fontWeight: "bold",
@@ -211,7 +212,7 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init, togg
                     tabIndex={0}
                     key={index?.toString()}
                     onClick={() => navigator(`/campaign/${item?.campaign?.id}/technology/testimonial/${item?.id}`)}
-                    className="touchable-opacity"
+                    className="touchable-opacity small-font"
                     style={{
                       color: "var(--app-main-color)",
                       fontWeight: "bold",
@@ -235,7 +236,7 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init, togg
           )}
           <div
             onClick={() => initiateTestimonialCreation(authUser)}
-            className="mt-2 touchable-opacity"
+            className="mt-2 touchable-opacity body-font"
             style={{
               background: "var(--app-main-color)",
               padding: 10,

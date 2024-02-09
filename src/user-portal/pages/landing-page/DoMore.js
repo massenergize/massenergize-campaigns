@@ -1,6 +1,7 @@
 import React from "react";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import { Col, Container, Row } from "react-bootstrap";
+import SectionTitle from "../../../components/pieces/SectionTitle";
 
 function DoMore({ campaign }) {
   const { communities, communities_section } = campaign || {};
@@ -11,7 +12,8 @@ function DoMore({ campaign }) {
     <div className="do-more-root">
       <CenteredWrapper>
         <Container>
-          <h2
+          <SectionTitle>{title || " Participating Communities"}</SectionTitle>
+          {/* <h2
             style={{
               color: "black",
               fontWeight: "bold",
@@ -20,9 +22,9 @@ function DoMore({ campaign }) {
             }}
           >
             {title || " Participating Communities"}
-          </h2>
+          </h2> */}
           <p>{description}</p>
-          <Row style={{ flexWrap: "wrap", display: "flex" }}>
+          <Row style={{ flexWrap: "wrap", display: "flex", marginTop: 20 }}>
             {(communities || []).map(({ community, id, alias, extra_links: links }, index) => {
               return (
                 <Col
@@ -50,13 +52,13 @@ function DoMore({ campaign }) {
                       src={community?.logo?.url}
                       alt={"logo"}
                     />
-                    <ul style={{ padding: 0, listStyleType:'none' }}>
+                    <ul style={{ padding: 0, listStyleType: "none" }}>
                       <li
                         role={"button"}
                         onClick={() => {
                           window.open(`${COMMUNITY_PORTAL_URL}${community?.subdomain}`);
                         }}
-                        className="touchable-opacity"
+                        className="touchable-opacity body-font"
                         style={{
                           textDecoration: "underline",
                           color: "var(--app-accent-3)",
