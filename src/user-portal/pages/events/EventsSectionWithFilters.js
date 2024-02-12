@@ -18,7 +18,6 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
     let data = [];
     if (filters?.length)
       data = events?.filter((ev) => {
-        // const techsRelatedToEvent = ev?.campaign_technology?.map((t) => t.id); // pick only the campaign technology ids
         return filters.some((f) => f.campaign_technology_id === ev?.campaign_technology?.id);
       });
     else data = events;
@@ -51,8 +50,6 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
       id={sectionId}
       className="g-s-container"
       style={{
-        // margin: "40px 0px",
-        // padding: "100px 0px",
         background: "white",
         width: "100%",
       }}
@@ -61,17 +58,6 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
         <Container>
           <div className="row-flex t-with-filter-top">
             <SectionTitle>Events</SectionTitle>
-            {/* <h2
-
-              style={{
-                color: "var(--app-accent-3)",
-                fontWeight: "bold",
-                marginBottom: 20,
-              }}
-            >
-              Events
-            </h2> */}
-
             {hasScrollableEvents && <ArrowButtons containerRef={containerRef} style={{ marginLeft: "auto" }} />}
           </div>
           <OurParagraph>
