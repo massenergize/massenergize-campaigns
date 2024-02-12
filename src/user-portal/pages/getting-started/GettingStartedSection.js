@@ -3,6 +3,8 @@ import OneBox from "./OneBox";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import people from "./../../../assets/imgs/g_people.png";
 import SectionTitle from "../../../components/pieces/SectionTitle";
+import { useMediaQuery } from "react-responsive";
+import { MOBILE_WIDTH } from "../../../utils/Constants";
 
 const dummies = [
   {
@@ -33,6 +35,7 @@ function GettingStartedSection({
   trackActivity,
   authUser,
 }) {
+  const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
   return (
     <div id={sectionId} className="g-s-container">
       <Container>
@@ -54,12 +57,15 @@ function GettingStartedSection({
               {technologies?.map((box) => {
                 return (
                   <Col key={box.id} md={4} lg={3} sm={6} xs={6} className="one-tech-wrapper mb-4">
-                    <OneBox v2 {...box} trackActivity={trackActivity} authUser={authUser} />
+                    <OneBox v2={!isMobile} {...box} trackActivity={trackActivity} authUser={authUser} />
                   </Col>
                 );
               })}
               <Col md={3} lg={3} sm={6} xs={6} className="one-tech-wrapper">
-                <DoMoreBox scrollToCommunities={() => scrollToCommunities && scrollToCommunities()} />
+                <DoMoreBox
+                  isMobile={isMobile}
+                  scrollToCommunities={() => scrollToCommunities && scrollToCommunities()}
+                />
               </Col>
             </Row>
           </Col>
@@ -71,9 +77,9 @@ function GettingStartedSection({
 
 export default GettingStartedSection;
 
-const DoMoreBox = ({ scrollToCommunities }) => {
+const DoMoreBox = ({ scrollToCommunities, isMobile }) => {
   return (
-    <div className="elevate-float-pro one-box-container" style={{ height: 475 }}>
+    <div className="elevate-float-pro one-box-container" style={{ height: isMobile ? 287 : 475 }}>
       <div className="one-box">
         <img
           // src={"https://placehold.co/100x100"}

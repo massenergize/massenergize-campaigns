@@ -38,7 +38,10 @@ function OneBox(props) {
           />
         )}
         {image && <img src={image?.url} alt={image?.name} />}
-        <h5 className="subheader-font" style={{ textTransform: "capitalize", color: "var(--app-main-color)" }}>
+        <h5
+          className="subheader-font"
+          style={{ textAlign: "center", textTransform: "capitalize", color: "var(--app-main-color)" }}
+        >
           {name}
         </h5>
         <p className="body-font" style={{ textAlign: "center" }}>
