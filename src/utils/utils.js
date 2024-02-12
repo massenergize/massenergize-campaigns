@@ -14,9 +14,18 @@ export function formatTimeRange(startDateString, endDateString) {
   } else {
     const formattedStartDate = format(startDate, "do MMM, yyyy");
     const formattedEndDate = format(endDate, "do MMM, yyyy");
-
     return `${formattedStartDate} - ${formattedEndDate}`;
   }
+}
+
+export function formatDate(dateString, formatString = "MMM d, yyyy") {
+  const date = parseISO(dateString);
+  return format(date, formatString);
+}
+
+export function formatTime(dateString, formatString = "HH:mm aaa") {
+  const date = parseISO(dateString);
+  return format(date, formatString);
 }
 
 export function relativeTimeAgo(datetimeString) {
