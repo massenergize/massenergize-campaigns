@@ -6,7 +6,6 @@ import LandingPage from "../../user-portal/pages/landing-page/LandingPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLink } from "@fortawesome/free-solid-svg-icons";
 import { useCampaignContext } from "../../hooks/use-campaign-context";
-import { DisguisedInput } from "../../components/disguised-input/disguised-input";
 
 export function CampaignDetailsAndPreview ({setStep,}) {
   const [activeTab, setActiveTab] = useState(campaignPages[0].name);
@@ -18,10 +17,7 @@ export function CampaignDetailsAndPreview ({setStep,}) {
     <>
       <Row className="justify-content-between mb-4 mt-4">
         <Col className={"px-4"}>
-          <DisguisedInput
-            value={campaignDetails.title}
-            plainTextClassName={"h4 mb-0"}
-            onChange={(e) => setCampaignDetails("title", e.target.value)}/>
+          <h4 className="mb-0">{campaignDetails.title}</h4>
         </Col>
         <div className="text-right col-auto px-4">
           <ButtonGroup className="mr-2">
