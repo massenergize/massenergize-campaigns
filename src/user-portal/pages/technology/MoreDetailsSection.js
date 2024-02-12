@@ -10,7 +10,7 @@ function MoreDetailsSection({ sectionId, data }) {
   return (
     <div
       id={sectionId}
-      className="mt-5 mb-2 g-s-container"
+      className=" g-s-container"
       style={{
         background: "white",
         width: "100%",

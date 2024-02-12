@@ -46,7 +46,7 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
   return (
     <div
       id={sectionId}
-      className="mt-5 elevate-float-pro"
+      className="elevate-float-pro"
       style={{
         background: "var(--app-main-color)",
         width: "100%",
