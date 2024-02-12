@@ -4,18 +4,9 @@ import { Col, Container, Row } from "react-bootstrap";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
 
-function EventsSection ({ sectionId, technologies }) {
+function EventsSection({ sectionId, technologies }) {
   const eventsOfEachTech = technologies?.map(
-    ({
-      events,
-      id,
-      name,
-      is_icon,
-      is_image,
-      image,
-      icon,
-      campaign_technology,
-    }) => ({
+    ({ events, id, name, is_icon, is_image, image, icon, campaign_technology }) => ({
       id,
       campaign_technology,
       events,
@@ -24,14 +15,14 @@ function EventsSection ({ sectionId, technologies }) {
       image,
       icon,
       name,
-    })
+    }),
   );
   const firstOne = eventsOfEachTech[0];
 
   const intoTabs = eventsOfEachTech?.map(({ id, name, events }) => ({
     key: id,
     title: (
-      <span style={{ color: "var(--app-deep-green)", fontWeight: "bold", }}>
+      <span style={{ color: "var(--app-deep-green)", fontWeight: "bold" }}>
         <span>
           <i className=" fa fa-pump" /> {name}
         </span>
@@ -55,7 +46,6 @@ function EventsSection ({ sectionId, technologies }) {
       className="g-s-container"
       style={{
         margin: "40px 0px",
-        // padding: "100px 0px",
         background: "white",
         width: "100%",
       }}
