@@ -31,22 +31,17 @@ function EventsSection ({ sectionId, technologies }) {
   const intoTabs = eventsOfEachTech?.map(({ id, name, events }) => ({
     key: id,
     title: (
-      <span
-        style={{
-          color: "var(--app-deep-green)",
-          fontWeight: "bold",
-        }}
-      >
+      <span style={{ color: "var(--app-deep-green)", fontWeight: "bold", }}>
         <span>
           <i className=" fa fa-pump" /> {name}
         </span>
       </span>
     ),
     component: (
-      <Row style={{ marginTop: 50 }}>
+      <Row className={""} style={{ marginTop: 50 }}>
         {events?.map((item) => {
           return (
-            <Col key={item.id} xs={12} lg={3}>
+            <Col key={item.id} md={4} lg={4}>
               <EventBox {...item} />
             </Col>
           );
@@ -75,7 +70,7 @@ function EventsSection ({ sectionId, technologies }) {
                 marginBottom: 20,
               }}
             >
-              Featured Events
+              Events
             </h2>
             <p>Click on any of the tabs to see events under each technology</p>
 

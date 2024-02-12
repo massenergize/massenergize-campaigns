@@ -9,26 +9,16 @@ import Loading from "../../../components/pieces/Loading";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { apiCall } from "../../../api/messenger";
-import {
-  appInnitAction,
-  updateEventsObj,
-} from "../../../redux/actions/actions";
+import { appInnitAction, updateEventsObj } from "../../../redux/actions/actions";
 import { formatTimeRange, setPageTitle } from "../../../utils/utils";
 
-function OneEvent ({ events, updateEvents, init, campaign }) {
+function OneEvent({ events, updateEvents, init, campaign }) {
   const [event, setEvent] = useState(LOADING);
   const [error, setError] = useState("");
   const { eventId, campaign_id } = useParams();
   const id = eventId;
 
-  const {
-    name,
-    start_date_and_time,
-    description,
-    end_date_and_time,
-    image,
-    external_link,
-  } = event || {};
+  const { name, start_date_and_time, description, end_date_and_time, image, external_link } = event || {};
 
   const campaignExists = campaign && campaign !== LOADING;
 
@@ -57,8 +47,7 @@ function OneEvent ({ events, updateEvents, init, campaign }) {
 
   if (!id || !event) return <NotFound>{error}</NotFound>;
 
-  if (event === LOADING)
-    return <Loading fullPage>Fetching event information...</Loading>;
+  if (event === LOADING) return <Loading fullPage>Fetching event information...</Loading>;
 
   return (
     <PageWrapper>
@@ -66,7 +55,7 @@ function OneEvent ({ events, updateEvents, init, campaign }) {
       <Row>
         <Col lg={9}>
           <img
-            className="elevate-float-pro mt-3"
+            className="mt-3"
             src={image?.url}
             style={{
               width: "100%",
@@ -77,32 +66,19 @@ function OneEvent ({ events, updateEvents, init, campaign }) {
             alt={"event"}
           />
 
-          <p className="mt-4" style={{ textAlign: "justify" }}>
+          <p className="mt-4 body-font" style={{ textAlign: "justify" }}>
             <span
               dangerouslySetInnerHTML={{ __html: description }}
               style={{ display: "block", overflowY: "hidden" }}
             ></span>
-            {/* <span
-              //   onClick={() => setHeight(readMore ? "100%" : 100)}
-              className="touchable-opacity"
-              style={{
-                fontWeight: "bold",
-                color: "var(--app-orange)",
-                textDecoration: "underline",
-              }}
-            >
-              Read More...
-            </span> */}
           </p>
         </Col>
         <Col lg={3} className="mt-2">
           <div>
-            <h6
-              style={{ color: "var(--app-medium-green)", fontWeight: "bold" }}
-            >
+            <h6 className="body-font text-muted" style={{ fontWeight: "" }}>
               Date
             </h6>
-            <small>
+            <small className="small-font" style={{ fontWeight: "bold" }}>
               {formatTimeRange(start_date_and_time, end_date_and_time)}
             </small>
           </div>
@@ -113,9 +89,9 @@ function OneEvent ({ events, updateEvents, init, campaign }) {
                 e.preventDefault();
                 window.open(external_link || "#", "_blank");
               }}
-              className="mt-2 touchable-opacity"
+              className="mt-2 touchable-opacity body-font"
               style={{
-                background: "var(--app-medium-green)",
+                background: "var(--app-main-color)",
                 padding: 10,
                 color: "white",
                 textAlign: "center",
