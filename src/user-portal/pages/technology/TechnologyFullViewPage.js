@@ -335,7 +335,7 @@ function TechnologyFullViewPage({
                   }}
                 >
                   <p
-                    className="small-font"
+                    className="body-font"
                     style={{
                       alignSelf: "center",
                       justifySelf: "center",
