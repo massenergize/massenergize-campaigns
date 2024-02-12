@@ -43,7 +43,7 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
     >
       <OptimumWrapper>
         {/* <SectionTitle className="mb-5">{overview_title || `Why ${campaignName}?`}</SectionTitle> BRING IT BACK WHEN THERE IS AN ADMIN SECTION TO FIX IT */}
-        <SectionTitle className="mb-5">{`Why ${campaignName}?`}</SectionTitle>
+        <SectionTitle className="mb-3">{`Why ${campaignName}?`}</SectionTitle>
 
         <Row>
           {(overview || []).map((item, index) => {
