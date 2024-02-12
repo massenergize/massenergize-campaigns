@@ -21,7 +21,7 @@ function InteractionsPanel({ openCommentBox, likes, views, comments, openShareBo
   };
 
   const commonTheme = {
-    color: "var(--app-main-color)",
+    // color: "var(--app-main-color)",
     color: "black",
     // fontWeight:'bold'
   };

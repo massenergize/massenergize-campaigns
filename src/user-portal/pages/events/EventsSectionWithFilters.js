@@ -28,11 +28,12 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
         style={{
           flexWrap: "nowrap",
           overflowX: "auto",
+          overflowY: "hidden",
         }}
       >
         {data?.map((item) => {
           return (
-            <Col key={item.id} xs={12} lg={3}>
+            <Col key={item.id} xs={12} md={4} xl={3}>
               <EventBox {...item} />
             </Col>
           );

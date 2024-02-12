@@ -29,10 +29,10 @@ function EventsSection({ sectionId, technologies }) {
       </span>
     ),
     component: (
-      <Row style={{ marginTop: 50 }}>
+      <Row className={""} style={{ marginTop: 50 }}>
         {events?.map((item) => {
           return (
-            <Col key={item.id} xs={12} lg={3}>
+            <Col key={item.id} md={4} lg={3} xl={4}>
               <EventBox {...item} />
             </Col>
           );

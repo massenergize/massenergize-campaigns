@@ -14,7 +14,6 @@ export function formatTimeRange(startDateString, endDateString) {
   } else {
     const formattedStartDate = format(startDate, "do MMM, yyyy");
     const formattedEndDate = format(endDate, "do MMM, yyyy");
-
     return `${formattedStartDate} - ${formattedEndDate}`;
   }
 }
