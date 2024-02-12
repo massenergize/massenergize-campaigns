@@ -50,7 +50,7 @@ function SmartRichText({ text, richText, children, maxHeight = DEFAULT_MAX, styl
   return (
     <>
       <div
-        className={` ${className || ""}`}
+        className={`body-font ${className || ""}`}
         style={{
           padding: `${PADDING}px 0px`,
           //   padding: `15px 0px`,

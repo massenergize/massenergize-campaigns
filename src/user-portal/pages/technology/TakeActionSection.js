@@ -10,7 +10,7 @@ const dummies = [
     icon: "fa-question",
     title: "Ask A Question ",
     actionText: "Get Help",
-    content: "Questions large to small, we have community volunteers ready to answer them all.",
+    content: "Community volunteers are ready to answer questions, big or small",
     url: "coaches",
     type: "help",
   },
@@ -46,7 +46,7 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
   return (
     <div
       id={sectionId}
-      className="mt-5 elevate-float-pro"
+      className="elevate-float-pro"
       style={{
         background: "var(--app-main-color)",
         width: "100%",

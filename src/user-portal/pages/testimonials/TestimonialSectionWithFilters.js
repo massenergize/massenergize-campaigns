@@ -89,7 +89,7 @@ function TestimonialSectionWithFilters({ sectionId, technologies, defaultTab, ca
       id={sectionId}
       className="elevate-float-pro g-s-container"
       style={{
-        margin: "10px 0px",
+        margin: "0px",
         background: "white",
         width: "100%",
       }}

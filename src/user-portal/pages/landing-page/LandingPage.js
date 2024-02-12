@@ -33,7 +33,6 @@ function LandingPage({
   trackActivity,
   authUser,
   preview,
-  whereIsUserFrom,
   updateUserInRedux,
   triggerProtectedFunctionality,
 }) {
@@ -58,8 +57,10 @@ function LandingPage({
     technologies: technologyRef,
   };
   const salt = fetchUrlParams("salt");
+  const heroAB = fetchUrlParams("hero");
+  const showHeroV1 = heroAB && heroAB === "v2";
 
-  const { image, key_contact, is_published, description, technologies_section, coaches_section } = campaign || {};
+  const { key_contact, is_published, description, technologies_section, coaches_section } = campaign || {};
 
   const technologies = campaign?.technologies || [];
   const { campaignId } = useParams();
@@ -88,7 +89,6 @@ function LandingPage({
   }, [campaignId]);
 
   const stashUserCommunity = ({ data, close, campaign }) => {
-    // return console.log("THIS IS THE DATA", data)
     let communities = campaign?.communities || [];
     communities = communities?.map((com) => com.community);
     const id = data?.comId;
@@ -125,14 +125,11 @@ function LandingPage({
   };
 
   const showMoreAboutAdvert = () => {
-    // const data = advert || {};
     const data = { description };
     toggleModal({
       show: true,
       title: `About ${campaign?.title || ""}`,
-      // iconName: "fa-comment",
       component: ({ close }) => <RoamingModalSheet close={close} data={data} />,
-      // modalNativeProps: { size: "md" },
       fullControl: true,
     });
   };
@@ -197,8 +194,8 @@ function LandingPage({
         </p>
       )}
       <AppNavigationBar menu={menu} campaign={campaign} />
-    
-      <Hero v2={!isMobile} handleShareCampaign={handleShareCampaign} />
+
+      <Hero v2={showHeroV1 && !isMobile} handleShareCampaign={handleShareCampaign} />
       <Container>
         <RoamingBox
           id="roaming-box"

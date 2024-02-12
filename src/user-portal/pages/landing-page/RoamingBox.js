@@ -38,7 +38,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
                           <Button
                             style={{ marginTop: 10 }}
                             onClick={() => showMore && showMore()}
-                            className="elevate-2 touchable-opacity app-btn"
+                            className="elevate-2 touchable-opacity app-btn body-font"
                           >
                             Learn More
                           </Button>

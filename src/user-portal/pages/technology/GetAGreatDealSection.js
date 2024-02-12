@@ -10,7 +10,7 @@ function GetAGreatDealSection({ sectionId, data, image, deals, toggleDealModal }
   return (
     <div
       id={sectionId}
-      className="mt-5 g-s-container"
+      className="g-s-container"
       style={{
         background: "white",
         width: "100%",

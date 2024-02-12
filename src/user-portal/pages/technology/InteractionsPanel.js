@@ -21,23 +21,13 @@ function InteractionsPanel({ openCommentBox, likes, views, comments, openShareBo
   };
 
   const commonTheme = {
-    color: "var(--app-main-color)",
+    // color: "var(--app-main-color)",
     color: "black",
     // fontWeight:'bold'
   };
 
   return (
-    <div
-      className="mt-3 small-font"
-      style={{
-        border: "solid 2px black",
-        padding: "10px 15px",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        borderRadius: 3,
-      }}
-    >
+    <div className="mt-3 body-font int-panel" style={{}}>
       <div
         onClick={() => {
           doLike();
