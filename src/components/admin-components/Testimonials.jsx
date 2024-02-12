@@ -149,7 +149,7 @@ const Testimonials = ({ campaign, onModalClose, startOfPage, updateTestimonial }
                   placeholder="Select the Community "
                   data={communities}
                   valueExtractor={(item) => item?.community?.id}
-                  labelExtractor={(item) => item?.community?.name}
+                  labelExtractor={(item) => item?.alias ||item?.community?.name}
                   onItemSelected={(selectedItem, allSelected) => {
                     handleFieldChange("community_id", selectedItem?.community?.id);
                   }}
