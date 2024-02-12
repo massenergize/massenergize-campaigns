@@ -34,7 +34,7 @@ function GettingStartedSection({
   authUser,
 }) {
   return (
-    <div id={sectionId} className="mt-5 g-s-container">
+    <div id={sectionId} className="g-s-container">
       <Container>
         <Row>
           <Col lg={{ span: 12 }}>
@@ -51,10 +51,10 @@ function GettingStartedSection({
                 marginLeft: 0,
               }}
             >
-              {technologies?.map((box, index) => {
+              {technologies?.map((box) => {
                 return (
                   <Col key={box.id} md={4} lg={3} sm={6} xs={6} className="one-tech-wrapper mb-4">
-                    <OneBox {...box} trackActivity={trackActivity} authUser={authUser} />
+                    <OneBox v2 {...box} trackActivity={trackActivity} authUser={authUser} />
                   </Col>
                 );
               })}
@@ -73,7 +73,7 @@ export default GettingStartedSection;
 
 const DoMoreBox = ({ scrollToCommunities }) => {
   return (
-    <div className="elevate-float-pro one-box-container">
+    <div className="elevate-float-pro one-box-container" style={{ height: 475 }}>
       <div className="one-box">
         <img
           // src={"https://placehold.co/100x100"}
@@ -100,7 +100,7 @@ const DoMoreBox = ({ scrollToCommunities }) => {
         </Button>
       </div>
 
-      <div className="one-box-footer phone-vanish">
+      <div className="new-one-box-footer phone-vanish">
         <Button
           onClick={() => scrollToCommunities()}
           style={{ background: "var(--app-main-color)" }}

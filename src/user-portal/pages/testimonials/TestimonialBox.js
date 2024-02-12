@@ -18,18 +18,20 @@ function TestimonialBox({ title, user, image, body, campaign_technology, campaig
 
   return (
     <div className="testi-container flex-column">
-      <h5 className="small-font" style={{ fontWeight: "bold", color: "var(--app-main-color)" }}>
+      <h5 className="body-font" style={{ fontWeight: "bold", marginBottom: 10, color: "var(--app-main-color)" }}>
         {title || "..."}
       </h5>
-      <h6 className="small-font text-muted" style={{}}>
+      <h6 className="body-font" style={{ color: "var(--app-accent-3)", marginBottom:15, }}>
         {userName ? `${userName} ${comName ? "from" : ""} ${comName || ""}` : "..."}
       </h6>
       <div
+        className="body-font text-muted"
         style={{
           fontSize: 14,
           margin: 0,
           position: "relative",
           overflow: "auto",
+          marginBottom: 15,
         }}
         dangerouslySetInnerHTML={{ __html: preview }}
       ></div>
@@ -62,7 +64,7 @@ function TestimonialBox({ title, user, image, body, campaign_technology, campaig
         <p
           role={"button"}
           tabIndex={0}
-          className="touchable-opacity small-font"
+          className="touchable-opacity body-font"
           onClick={() => navigator(route)}
           style={{
             // fontSize: 15,

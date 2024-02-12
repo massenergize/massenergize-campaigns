@@ -1,3 +1,5 @@
+import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 function HeroWithBelt({ campaign, handleShareCampaign }) {
   const { image, primary_logo, secondary_logo, title, tagline } = campaign;
@@ -9,9 +11,15 @@ function HeroWithBelt({ campaign, handleShareCampaign }) {
           onClick={() => handleShareCampaign && handleShareCampaign()}
           role="button"
           tabIndex={0}
-          className="touchable-opacity elevate-float-pro camp-share-btn-v2"
+          className="touchable-opacity elevate-5 camp-share-btn-v2 row-flex"
+          style={{ alignItems: "center" }}
         >
-          <i className="fa fa-share" /> <small className="body"> Share</small>
+          <FontAwesomeIcon icon={faShareNodes} />
+          <small className="body" style={{ marginLeft: 6 }}>
+            {" "}
+            Share
+          </small>
+          {/* <i className="fa fa-share-nodes" /> <small className="body"> Share</small> */}
         </div>
         <div className="elevate-float-pro hero-belt">
           <img src={primary_logo?.url} alt="logo" style={{ width: 150, height: 150, objectFit: "contain" }} />
