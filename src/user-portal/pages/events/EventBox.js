@@ -28,16 +28,6 @@ function EventBox({ event, campaign_technology }) {
       <div>
         <h6 className="touchable-opacity body-font mt-2 mb-1" role={"button"} tabIndex={0} onClick={() => gotoEvent()}>
           {smartString(name, 50) || "..."}
-          {/*<i className="fa fa-long-arrow-right" style={{ marginLeft: 10, color: "var(--app-accent-3)" }} />*/}
-          {/* <span
-            style={{
-              marginLeft: 7,
-              color: "var(--app-medium-green)",
-              textDecoration: "underline",
-            }}
-          >
-            See More...
-          </span> */}
         </h6>
 
         <Row>
