@@ -172,10 +172,10 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
             onChange={(e) => setState("chosenCommunity", value(e))}
           >
             <option value={NULL}>--- Select your community ---</option>
-            {listOfCommunities?.map(({ community }, index) => {
+            {listOfCommunities?.map(({ community, alias }, index) => {
               return (
                 <option key={index?.toString()} value={community?.id}>
-                  {community?.name || "..."}
+                  {alias || community?.name || "..."}
                 </option>
               );
             })}
