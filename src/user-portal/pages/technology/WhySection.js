@@ -49,34 +49,25 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
           {(overview || []).map((item, index) => {
             const { image, title, description } = item || {};
             return (
-              <Col
-                className="overview-item"
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  // justifyContent: "center",
-                }}
-                key={index?.toString()}
-                lg={6}
-                gap={3}
-              >
-                <img src={image?.url} style={{ height: 70, width: 70, objectFit: "contain" }} alt={image?.name} />
-                <h6
-                  className="mt-3 mb-3 subheader-font"
-                  style={{
-                    color: "var(--app-accent-3)",
-                    textTransform: "uppercase",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {title || {}}
-                </h6>
-                <p
-                  className="body-font"
-                  dangerouslySetInnerHTML={{ __html: description }}
-                  style={{ textAlign: "justify", lineHeight: "1.5" }}
-                ></p>
+              <Col lg={6} className="overview-item d-flex align-items-center justify-content-center mb-4" key={index?.toString()}>
+                <div className={"w-100 p-3 border h-100 rounded-4"}>
+                  <img src={image?.url || "/img/fallback-img.png"} className={"w-100 rounded-2"} style={{ objectFit: "cover", minHeight : 150, maxHeight : 220 }} alt={image?.name}/>
+                  <h6
+                    className="mt-3 mb-2 subheader-font"
+                    style={{
+                      color: "var(--app-accent-3)",
+                      textTransform: "capitalize",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {title || {}}
+                  </h6>
+                  <div
+                    className="body-font lh-sm"
+                    dangerouslySetInnerHTML={{ __html: description }}
+                    style={{ textAlign: "justify", }}
+                  ></div>
+                </div>
               </Col>
             );
           })}
