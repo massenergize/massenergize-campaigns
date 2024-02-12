@@ -79,7 +79,7 @@ export default GettingStartedSection;
 
 const DoMoreBox = ({ scrollToCommunities, isMobile }) => {
   return (
-    <div className="elevate-float-pro one-box-container" style={{ height: isMobile ? 287 : 475 }}>
+    <div className="elevate-float-pro one-box-container h-100" style={{ height: isMobile ? 287 : 475 }}>
       <div className="one-box">
         <img
           // src={"https://placehold.co/100x100"}
