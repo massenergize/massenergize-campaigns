@@ -154,7 +154,7 @@ const Comments = ({ campaign, comments }) => {
                   displayTextToggle="Select the Community "
                   data={communities}
                   valueExtractor={(item) => item?.community?.id}
-                  labelExtractor={(item) => item?.community?.name}
+                  labelExtractor={(item) => item.alias ||item?.community?.name}
                   multiple={false}
                   onItemSelect={(selectedItem, allSelected) => {
                     handleFieldChange("community_id", selectedItem);

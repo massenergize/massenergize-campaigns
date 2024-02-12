@@ -51,12 +51,10 @@ function OneTechTestimonialsSection({ sectionId, testimonials, campaign, links }
   return (
     <div
       id={sectionId}
-      className="mt-5 g-s-container"
+      className="g-s-container"
       style={{
         background: "white",
         width: "100%",
-        // padding: "80px 0px",
-        // minHeight: 200,
       }}
     >
       <OptimumWrapper>

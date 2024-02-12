@@ -92,7 +92,7 @@ export const Testimonials = ({ campaign_id, techs, onModalClose, updateTestimoni
                   return {
                     ...testimonial,
                     value: testimonial?.id,
-                    label: `${testimonial?.title} - ${testimonial?.community?.name}`,
+                    label: `${testimonial?.title} - ${testimonial?.community?.alias || testimonial?.community?.name || ""}`,
                   };
                 })}
                 valueExtractor={(item) => item}

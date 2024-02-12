@@ -335,7 +335,7 @@ function TechnologyFullViewPage({
                   }}
                 >
                   <p
-                    className="small-font"
+                    className="body-font"
                     style={{
                       alignSelf: "center",
                       justifySelf: "center",
@@ -397,7 +397,7 @@ function TechnologyFullViewPage({
                 </div>
               </div>
 
-              <div className="mt-5">
+              <div className="mt-3">
                 <div
                   style={{
                     border: "solid 1px var(--app-main-color)",
@@ -427,10 +427,10 @@ function TechnologyFullViewPage({
                   </p>
                 </div>
                 <div className="mt-2">
-                  <small className="small-font" style={{ color: "" }}>
+                  {/* <small className="small-font" style={{ color: "" }}>
                     This is what people think
-                  </small>
-                  <div className="mt-2">
+                  </small> */}
+                  <div className="mt-3">
                     {comments?.slice(0, 3)?.map((com, index) => {
                       const isForCurrentUser = commentIsForUser(com, authUser);
 
@@ -615,7 +615,9 @@ function TechnologyFullViewPage({
         <div ref={eventsRef}>
           <OneTechEventSection style={{ background: "white" }} wrapperStyle={{ padding: 24 }} events={events} />
         </div>
-        {/* <div ref={communitiesRef}><DoMore campaign={campaign} /></div> */}
+        <div ref={communitiesRef} className="mt-3">
+          <DoMore optimum />
+        </div>
       </div>
       <Footer toggleModal={toggleModal} />
     </div>

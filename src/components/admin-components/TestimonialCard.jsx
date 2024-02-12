@@ -141,7 +141,7 @@ const TestimonialCard = ({
           }}
           className="absolute bg-white py-1 px-3 border rounded-5"
         >
-          {test?.community?.name}
+          {test?.community?.alias||test?.community?.name}
         </p>
       )}
 
