@@ -22,7 +22,7 @@ function MERichText (props) {
                 }}
                 {...props}
                 onEditorChange={handleEditorChange}
-                toolbar="undo redo | blocks | formatselect | media_library | bold italic backcolor forecolor | alignleft aligncenter alignright alignjustify | link | bullist numlist outdent indent | fontfamily | fontsize |"
+                toolbar="undo redo | blocks | formatselect| bold italic backcolor forecolor|  link | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | fontfamily | fontsize |"
                 plugins="advlist media_library autolink lists link charmap print preview anchor forecolor"
                 init={{
                     height: 350,

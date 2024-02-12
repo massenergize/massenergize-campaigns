@@ -9,8 +9,9 @@ import Filter from "../../../components/Filter";
 import OurParagraph from "../../../components/OurParagraph";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import { mergeArrays } from "../../../utils/utils";
+import SectionTitle from "../../../components/pieces/SectionTitle";
 
-function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
+function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, customization }) {
   const containerRef = useRef();
 
   let coaches = technologies?.map((tech) => {
@@ -24,9 +25,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
   const renderCoaches = (filters) => {
     let data = [];
     if (filters?.length)
-      data = coaches?.filter((t) =>
-        filters.some((f) => f.campaign_technology_id === t.campaign_technology?.id),
-      );
+      data = coaches?.filter((t) => filters.some((f) => f.campaign_technology_id === t.campaign_technology?.id));
     else data = coaches;
 
     return (
@@ -59,7 +58,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
       style={{
         margin: "40px 0px",
         // padding: "100px 0px",
-        background: "antiquewhite",
+        background: "var(--app-accent-1)",
         width: "100%",
       }}
     >
@@ -68,26 +67,23 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
           <div>
             <div className="row-flex t-with-filter-top">
               <div>
-                <h2
+                <SectionTitle style={{ color: "black" }}>{customization?.title || " Meet the coaches"}</SectionTitle>
+                {/* <h2
+                  className="header-font"
                   style={{
                     color: "black",
                     fontWeight: "bold",
                     marginBottom: 20,
+                    // color: "var(--app-main-color)",
                   }}
                 >
-                  Meet The Coaches
-                </h2>
-                <OurParagraph>
-                  Scroll from left to right to see more testimonials, or use the
-                  arrow buttons(top right) to scroll
-                </OurParagraph>
+                  {customization?.title || " Meet the coaches"}
+                </h2> */}
+                {/* <OurParagraph>
+                  Scroll from left to right to see more coaches, or use the arrow buttons(top right) to scroll
+                </OurParagraph> */}
               </div>
-              {hasScrollableCoaches && (
-                <ArrowButtons
-                  containerRef={containerRef}
-                  style={{ marginLeft: "auto" }}
-                />
-              )}
+              {hasScrollableCoaches && <ArrowButtons containerRef={containerRef} style={{ marginLeft: "auto" }} />}
             </div>
 
             <Filter
@@ -99,14 +95,9 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
             />
 
             <div className="coaches-description">
-              <p>
-                In publishing and graphic design, Lorem ipsum is a placeholder text
-                commonly used to demonstrate the visual form of a document or a
-                typeface without relying on meaningful content. Lorem ipsum may be
-                used as a placeholder before final copy is availa a typeface without
-                relying on meaningful content. Lorem ipsum may be used as a
-                placeholder before final copy is availa
-              </p>
+              {customization?.description && (
+                <div className="body-font" dangerouslySetInnerHTML={{ __html: customization?.description }}></div>
+              )}
               <div
                 style={{
                   display: "flex",
@@ -128,9 +119,9 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies }) {
                   className="touchable-opacity elevate-2 mt-5"
                   style={{
                     borderRadius: 55,
-                    padding: "8px 27px",
+                    padding: "15px 40px",
                     fontWeight: "bold",
-                    background: "var(--app-deep-green)",
+                    background: "var(--app-main-color)",
                     borderWidth: 0,
                   }}
                 >

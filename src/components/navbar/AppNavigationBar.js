@@ -6,7 +6,7 @@ import { NAVIGATION_MENU } from "../../user-portal/data/user-portal-dummy-data";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addUrlParams, generateUniqueRandomString } from "../../utils/utils";
+import { addUrlParams, addUrlSearchParams, generateUniqueRandomString } from "../../utils/utils";
 
 const EXCLUDE_FROM_NAV = ["communities"];
 function AppNavigationBar({ menu, campaign }) {
@@ -14,20 +14,14 @@ function AppNavigationBar({ menu, campaign }) {
   const { secondary_logo, primary_logo } = campaign || {};
 
   return (
-    <Navbar
-      variant="dark"
-      expand="lg"
-      style={{ background: "var(--app-deep-green)" }}
-      fixed="top"
-      className="elevate-2"
-    >
+    <Navbar variant="light" expand="lg" style={{ background: "white" }} fixed="top" className="elevate-2">
       <Container>
         {/* <Navbar.Brand href="#home">MassEnergize Campaigns</Navbar.Brand> */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto mx-auto" style={{ alignItems: "center" }}>
             {/* <Nav.Link> */}
-            {primary_logo?.url && (
+            {/* {primary_logo?.url && (
               <img
                 src={primary_logo?.url}
                 style={{
@@ -38,7 +32,7 @@ function AppNavigationBar({ menu, campaign }) {
                 }}
                 alt={"logo"}
               />
-            )}
+            )} */}
             {/* </Nav.Link> */}
             {menu?.map((menu) => {
               const excluded = EXCLUDE_FROM_NAV.includes(menu?.key?.toLowerCase());
@@ -46,22 +40,20 @@ function AppNavigationBar({ menu, campaign }) {
               if (!menu?.children)
                 return (
                   <Nav.Link
-                    // className="f-dropdown-override"
+                    className="c-nav-item body-font"
                     key={menu?.key}
                     style={{
-                      textTransform: "uppercase",
+                      textTransform: "capitalize",
                       marginRight: 20,
                       fontWeight: "bold",
                     }}
                     onClick={() => {
-                      navigator(menu.url || "#");
+                      const route = addUrlSearchParams(menu?.url, { salt: generateUniqueRandomString(6) });
+                      navigator(route || "#");
                     }}
                   >
                     <span>
-                      <i
-                        className={`fa ${menu.icon}`}
-                        style={{ marginRight: 6 }}
-                      ></i>
+                      <i className={`fa ${menu.icon}`} style={{ marginRight: 6 }}></i>
                       <span>{menu.text}</span>
                     </span>
                   </Nav.Link>
@@ -69,17 +61,14 @@ function AppNavigationBar({ menu, campaign }) {
               return (
                 <NavDropdown
                   style={{
-                    textTransform: "uppercase",
+                    textTransform: "capitalize",
                     marginRight: 20,
                     fontWeight: "bold",
                   }}
-                  className={"mx-2"}
+                  className={"mx-2 body-font"}
                   title={
-                    <span>
-                      <i
-                        className={`fa ${menu.icon}`}
-                        style={{ marginRight: 6 }}
-                      ></i>
+                    <span className="c-nav-item">
+                      <i className={`fa ${menu.icon}`} style={{ marginRight: 6 }}></i>
                       <span>{menu?.text}</span>
                     </span>
                   }
@@ -87,55 +76,24 @@ function AppNavigationBar({ menu, campaign }) {
                 >
                   {menu?.children?.map((child) => {
                     const salt = generateUniqueRandomString(6);
-                    const params = {
-                      section: menu.key,
-                      tab: child.key,
-                    };
-                    const route = addUrlParams(window.location.href, params);
-
                     return (
                       <NavDropdown.Item
-                        className="f-dropdown-override"
-                        style={{ textTransform: "uppercase" }}
+                        className="f-dropdown-override c-nav-item"
+                        style={{ textTransform: "capitalize" }}
                         key={child?.key}
                         onClick={() => {
                           navigator(`${child.url}&salt=${salt}` || "#");
                         }}
-                        // onClick={() => navigator(`${route}`)}
                       >
                         {child.text}
                       </NavDropdown.Item>
                     );
                   })}
-                  {/*
-                  <NavDropdown.Item href="#action/3.2">
-                    Another action
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">
-                    Something
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4">
-                    Separated link
-                  </NavDropdown.Item> */}
                 </NavDropdown>
               );
             })}
-            {/* <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="INCENTIVES" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown> */}
 
-            {secondary_logo?.url && (
+            {/* {secondary_logo?.url && (
               <img
                 src={secondary_logo?.url}
                 style={{
@@ -146,7 +104,7 @@ function AppNavigationBar({ menu, campaign }) {
                 }}
                 alt={"logo"}
               />
-            )}
+            )} */}
           </Nav>
         </Navbar.Collapse>
       </Container>

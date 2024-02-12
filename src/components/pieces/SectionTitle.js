@@ -4,9 +4,10 @@ function SectionTitle (props) {
   let classes = `${props?.className || ""} section-title`;
   return (
     <h2
-      style={{ color: "var(--app-deep-green)" }}
+      
       {...props}
       className={classes}
+      style={{ color: "var(--app-accent-3)", ...(props?.style || {}) }}
     >
       {props?.children}
     </h2>

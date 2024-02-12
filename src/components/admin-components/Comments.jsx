@@ -7,17 +7,18 @@ import Dropdown from "./Dropdown";
 import { NoItems } from "@kehillahglobal/ui";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import Button from "../../components/admin-components/Button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createCampaignComment, deleteCampaignComment } from "../../requests/campaign-requests";
 import { mutate } from "swr";
 import { relativeTimeAgo } from "src/utils/utils";
 import classes from "classnames"; // import Dropdown from "./Dropdown";
+import { setCampaignCommentsAction } from "src/redux/actions/actions";
 
-
-const Comments = ({ campaign, comments: campaignComments }) => {
+const Comments = ({ campaign, comments }) => {
   const { blow, pop } = useBubblyBalloons();
 
-  const [comments, setComments] = useState([...campaignComments]);
+  // const [comments, setComments] = useState([...campaignComments]);
+  const reduxDispatch = useDispatch();
 
   const communities = campaign?.communities;
   const technologies = campaign?.technologies;
@@ -41,6 +42,10 @@ const Comments = ({ campaign, comments: campaignComments }) => {
     campaign_technology_id: "",
   };
 
+  const updateInRedux = (items) => {
+    reduxDispatch(setCampaignCommentsAction(items));
+  };
+
   const reducer = (state, action) => {
     switch (action.type) {
       case "SET_FIELD_VALUE":
@@ -55,9 +60,11 @@ const Comments = ({ campaign, comments: campaignComments }) => {
     setLoading(true);
 
     try {
-      const res = await createCampaignComment(formData);
+      const res = await createCampaignComment({ ...formData, is_from_admin_site: true });
+      const together = [...comments, res];
+      updateInRedux(together);
       setOpenModal(false);
-      setComments(res)
+      // setComments(res);
       setLoading(false);
       blow({
         title: "Success",
@@ -83,16 +90,17 @@ const Comments = ({ campaign, comments: campaignComments }) => {
    */
   const handleDeleteComment = async (id) => {
     setLoading(true);
+    const without = comments.filter((comment) => comment?.id !== id);
     // let's do pre-optimistic update
-    let allComments = [...comments]; // copy the comments
-    setComments(comments.filter((comment) => comment?.id !== id));
+    // let allComments = [...comments]; // copy the comments
+    updateInRedux(without);
 
     try {
       const res = await deleteCampaignComment({ id, user_id: loggedInAdmin?.id });
       if (res) {
         blow({
           title: "Success",
-          message: "Comment created successfully",
+          message: "Comment deleted successfully",
           type: "success",
           duration: 5000,
         });
@@ -105,10 +113,11 @@ const Comments = ({ campaign, comments: campaignComments }) => {
         duration: 5000,
       });
       // revert back to original comments
-      setComments(allComments);
+      // setComments(allComments);
+      updateInRedux(comments);
     } finally {
       setLoading(false);
-      allComments = null; // set allComments up for garbage collection
+      // allComments = null; // set allComments up for garbage collection
     }
   };
 
@@ -172,7 +181,7 @@ const Comments = ({ campaign, comments: campaignComments }) => {
               <Col>
                 <Input
                   label="Comment"
-                  placeholder="Eneter the comment here..."
+                  placeholder="Enter the comment here..."
                   required={true}
                   type="textarea"
                   onChange={(val) => {
@@ -187,7 +196,7 @@ const Comments = ({ campaign, comments: campaignComments }) => {
           <Row className="mt-3">
             <Col>
               <div>
-                <Button text="Create Comment" loading={loading} disabled={loading} onSubmit={handleCreateComment}/>
+                <Button text="Create Comment" loading={loading} disabled={loading} onSubmit={handleCreateComment} />
               </div>
             </Col>
           </Row>
@@ -200,57 +209,56 @@ const Comments = ({ campaign, comments: campaignComments }) => {
             <Col>
               <h3>Comments</h3>
               <Row className="  mb-3 ">
-                {
-                  comments?.map((comment, i) => {
-                    return (
-                      <Col
-                        md={4}
-                        key={comment?.id}
-                        className={classes("me-3 mb-3", selectedId === comment?.id ? "comment-card-expand" : "comment-card")}
+                {comments?.map((comment, i) => {
+                  return (
+                    <Col
+                      md={4}
+                      key={comment?.id}
+                      className={classes(
+                        "me-3 mb-3",
+                        selectedId === comment?.id ? "comment-card-expand" : "comment-card",
+                      )}
+                    >
+                      <h6 style={{ textDecoration: "underline" }} className={"mb-1"}>
+                        {comment?.user?.preferred_name ? comment?.user?.preferred_name : comment?.user?.full_name}
+                      </h6>
+                      <p
+                        tabIndex={0}
+                        role={"button"}
+                        className="comment-text"
+                        onClick={() => {
+                          setSelectedId(selectedId === comment?.id ? null : comment?.id);
+                        }}
                       >
-                        <h6 style={{ textDecoration: "underline" }} className={"mb-1"}>
-                          {comment?.user?.preferred_name
-                            ? comment?.user?.preferred_name
-                            : comment?.user?.full_name}
-                        </h6>
-                        <p
-                          tabIndex={0}
-                          role={"button"}
-                          className="comment-text"
-                          onClick={() => {
-                            setSelectedId(selectedId === comment?.id ? null : comment?.id);
+                        {comment?.text && (
+                          <>
+                            {selectedId === comment.id || comment.text.length <= 60
+                              ? comment.text
+                              : `${comment.text.slice(0, 60)}...`}
+                            {selectedId !== comment.id && comment.text.length > 60 && <span> Read More</span>}
+                          </>
+                        )}
+                      </p>
+                      <div className={"mt-2"} style={{ display: "flex", justifyContent: "space-between" }}>
+                        {/* {comment?.user?.id === loggedInAdmin?.id ? ( */}
+                        <div
+                          className="comment-delete-btn"
+                          onClick={async () => {
+                            if (window.confirm("Are you sure you want to delete this comment ?")) {
+                              await handleDeleteComment(comment?.id);
+                            }
                           }}
                         >
-                          {comment?.text && (
-                            <>
-                              {selectedId === comment.id || comment.text.length <= 60
-                                ? comment.text
-                                : `${comment.text.slice(0, 60)}...`}
-                              {selectedId !== comment.id && comment.text.length > 60 && <span> Read More</span>}
-                            </>
-                          )}
-                        </p>
-                        <div className={"mt-2"} style={{ display: "flex", justifyContent: "space-between" }}>
-                          {comment?.user?.id === loggedInAdmin?.id ? (
-                            <div
-                              className="comment-delete-btn"
-                              onClick={async () => {
-                                if (window.confirm("Are you sure you want to delete this comment ?")) {
-                                  await handleDeleteComment(comment?.id);
-                                }
-                              }}
-                            >
-                              <p>Delete</p>
-                            </div>
-                          ) : null}
-                          <div className="comment-date">
-                            <p>{relativeTimeAgo(comment?.created_at)}</p>
-                          </div>
+                          <p>Delete</p>
                         </div>
-                      </Col>
-                    )
-                  })
-                }
+                        {/* ) : null} */}
+                        <div className="comment-date">
+                          <p>{relativeTimeAgo(comment?.created_at)}</p>
+                        </div>
+                      </div>
+                    </Col>
+                  );
+                })}
               </Row>
             </Col>
           ) : (

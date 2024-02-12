@@ -8,16 +8,19 @@ import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
   SET_AUTH_USER,
-  SET_CAMPAIGN_ACCOUNT,
+  SET_CAMPAIGN_ACCOUNT, SET_CAMPAIGN_COMMENTS, SET_CAMPAIGN_COMMUNITIES_EVENTS,
+  SET_CAMPAIGN_TESTIMONIALS,
   SET_FIRE_AUTH,
   SET_FULL_TECH_OBJ,
   SET_IS_ADMIN_PORTAL,
+  SET_MASSENERGISE_USERS,
   SET_NAVIGATION_MENU,
+  SET_PORTAL_TESTIMONIALS,
   SET_TESTIMONIALS,
   SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
   UPDATE_EVENT_OBJ,
-  UPDATE_TESTIMONIALS_OBJ,
+  UPDATE_TESTIMONIALS_OBJ
 } from "../redux-action-types";
 
 export const doNothingReducer = (state = [], action = {}) => {
@@ -107,6 +110,46 @@ export const campaignAccountReducer = (state = {}, action) => {
 export const adminPortalReducer = (state = portalIsAdmin(), action) => {
   switch (action.type) {
     case SET_IS_ADMIN_PORTAL:
+      return action.payload; // return new state
+    default:
+      return state; // return current state if action is not handled
+  }
+};
+export const massEnergizeUsersReducer = (state =[], action) => {
+  switch (action.type) {
+    case SET_MASSENERGISE_USERS:
+      return action.payload; // return new state
+    default:
+      return state; // return current state if action is not handled
+  }
+};
+export const CampaignCommunitiesEventsReducer = (state =[], action) => {
+  switch (action.type) {
+    case SET_CAMPAIGN_COMMUNITIES_EVENTS:
+      return action.payload; // return new state
+    default:
+      return state; // return current state if action is not handled
+  }
+};
+export const campaignCommentsReducer = (state =[], action) => {
+  switch (action.type) {
+    case SET_CAMPAIGN_COMMENTS:
+      return action.payload; // return new state
+    default:
+      return state; // return current state if action is not handled
+  }
+};
+export const campaignTestimonialsReducer = (state =[], action) => {
+  switch (action.type) {
+    case SET_CAMPAIGN_TESTIMONIALS:
+      return action.payload; // return new state
+    default:
+      return state; // return current state if action is not handled
+  }
+};
+export const setPortalTestimonialsReducer = (state =[], action) => {
+  switch (action.type) {
+    case SET_PORTAL_TESTIMONIALS:
       return action.payload; // return new state
     default:
       return state; // return current state if action is not handled

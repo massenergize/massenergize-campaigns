@@ -2,14 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 const DEFAULT_MAX = 150;
 const PADDING = 15;
-function SmartRichText({
-  text,
-  richText,
-  children,
-  maxHeight = DEFAULT_MAX,
-  style,
-  renderSeeMore,
-}) {
+function SmartRichText({ text, richText, children, maxHeight = DEFAULT_MAX, style, renderSeeMore, className }) {
   const ref = useRef();
   const [stashedHeight, setStashedHeight] = useState(0);
   const [displayHeight, setDisplayHeight] = useState(maxHeight);
@@ -42,10 +35,10 @@ function SmartRichText({
 
     return (
       <small
-        className="touchable-opacity"
+        className="touchable-opacity small-font"
         style={{
           fontWeight: "bold",
-          color: "var(--app-orange)",
+          color: "var(--app-accent-3)",
           textDecoration: "underline",
         }}
         onClick={() => toggleReadMore()}
@@ -57,6 +50,7 @@ function SmartRichText({
   return (
     <>
       <div
+        className={` ${className || ""}`}
         style={{
           padding: `${PADDING}px 0px`,
           //   padding: `15px 0px`,

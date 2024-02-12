@@ -7,11 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { LOADING } from "../../../utils/Constants";
-import {
-  appInnitAction,
-  toggleUniversalModal,
-  updateTestimonialsObjAction,
-} from "../../../redux/actions/actions";
+import { appInnitAction, toggleUniversalModal, updateTestimonialsObjAction } from "../../../redux/actions/actions";
 import NotFound from "../error/404";
 import Loading from "../../../components/pieces/Loading";
 import { apiCall } from "../../../api/messenger";
@@ -19,19 +15,12 @@ import JoinUsForm from "../forms/JoinUsForm";
 import NewTestimonialForm from "./NewTestimonialForm";
 import { fetchUrlParams, setPageTitle } from "../../../utils/utils";
 
-function OneTestimonial({
-  testimonials,
-  updateTestimonials,
-  campaign,
-  init,
-  toggleModal,
-  authUser,
-}) {
+function OneTestimonial({ testimonials, updateTestimonials, campaign, init, toggleModal, authUser }) {
   const testimonialRef = useRef();
   const [testimonial, setTestimonial] = useState(LOADING);
   const [error, setError] = useState("");
   const { id, campaign_id } = useParams();
-  const [showTestimonialForm, setShowTestimonialForm] = useState(true);
+  const [showTestimonialForm, setShowTestimonialForm] = useState(false);
 
   const navigator = useNavigate();
   const { title, body, image } = testimonial || {};
@@ -53,8 +42,7 @@ function OneTestimonial({
   };
 
   const scrollToSection = () => {
-    if (testimonialRef?.current)
-      testimonialRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (testimonialRef?.current) testimonialRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   const initiateTestimonialCreation = (userObject) => {
     const { user } = userObject || {};
@@ -126,8 +114,7 @@ function OneTestimonial({
 
   if (!id || !testimonial) return <NotFound>{error}</NotFound>;
 
-  if (testimonial === LOADING)
-    return <Loading fullPage>Fetching event information...</Loading>;
+  if (testimonial === LOADING) return <Loading fullPage>Fetching event information...</Loading>;
 
   const hasOtherTestimonials = otherTestimonials?.length ? true : false;
 
@@ -136,28 +123,23 @@ function OneTestimonial({
       <SectionTitle>{title || "..."}</SectionTitle>
       <Row>
         <Col lg={9}>
-          <p className="mt-4" style={{ textAlign: "justify" }}>
-            <span
-              dangerouslySetInnerHTML={{ __html: body }}
-              style={{ display: "block", overflowY: "hidden" }}
-            ></span>
+          <p className="mt-4 body-font" style={{ textAlign: "justify" }}>
+            <span dangerouslySetInnerHTML={{ __html: body }} style={{ display: "block", overflowY: "hidden" }}></span>
           </p>
 
           <p
             role="button"
             onClick={() => initiateTestimonialCreation(authUser)}
-            className="touchable-opacity"
+            className="touchable-opacity body-font"
             style={{
               textDecoration: "underline",
               fontWeight: "bold",
-              color: "var(--app-medium-green)",
+              color: "var(--app-main-color)",
               display: "inline-block",
             }}
           >
             <i className={`fa fa-${showTestimonialForm ? "minus" : "plus"}`}></i>{" "}
-            {showTestimonialForm
-              ? "Hide testimonial form"
-              : "Add your own testimonial"}
+            {showTestimonialForm ? "Hide testimonial form" : "Add your own testimonial"}
           </p>
           <div ref={testimonialRef}>
             {showTestimonialForm && (
@@ -166,9 +148,7 @@ function OneTestimonial({
                 // style={{ border: "1px dashed #e6e2e2", marginTop: 40, padding: 20 }}
               >
                 <SectionTitle>Add your own testimonial</SectionTitle>
-                <NewTestimonialForm
-                  cancel={() => setShowTestimonialForm(!showTestimonialForm)}
-                />
+                <NewTestimonialForm cancel={() => setShowTestimonialForm(!showTestimonialForm)} />
               </div>
             )}
           </div>
@@ -191,15 +171,16 @@ function OneTestimonial({
           {hasOtherTestimonials && (
             <div
               style={{
-                border: "solid 1px var(--app-deep-green)",
+                border: "solid 1px var(--app-main-color)",
                 padding: 10,
                 //   marginBottom: 10,
-                background: "var(--app-deep-green)",
+                background: "var(--app-main-color)",
                 borderTopLeftRadius: 5,
                 borderTopRightRadius: 5,
               }}
             >
               <h6
+                className="body-font"
                 style={{
                   color: "white",
                   fontWeight: "bold",
@@ -216,7 +197,7 @@ function OneTestimonial({
               style={{
                 listStyleType: "",
                 padding: "15px 15px",
-                border: "solid 1px green",
+                border: "solid 1px var(--app-main-color)",
                 listStyle: "none",
                 borderBottomRightRadius: 6,
                 borderBottomLeftRadius: 6,
@@ -230,14 +211,10 @@ function OneTestimonial({
                     role={"button"}
                     tabIndex={0}
                     key={index?.toString()}
-                    onClick={() =>
-                      navigator(
-                        `/campaign/${item?.campaign?.id}/technology/testimonial/${item?.id}`,
-                      )
-                    }
-                    className="touchable-opacity"
+                    onClick={() => navigator(`/campaign/${item?.campaign?.id}/technology/testimonial/${item?.id}`)}
+                    className="touchable-opacity small-font"
                     style={{
-                      color: "var(--app-deep-green)",
+                      color: "var(--app-main-color)",
                       fontWeight: "bold",
                       fontSize: 14,
                       textDecoration: "underline",
@@ -259,9 +236,9 @@ function OneTestimonial({
           )}
           <div
             onClick={() => initiateTestimonialCreation(authUser)}
-            className="mt-2 touchable-opacity"
+            className="mt-2 touchable-opacity body-font"
             style={{
-              background: "var(--app-medium-green)",
+              background: "var(--app-main-color)",
               padding: 10,
               color: "white",
               textAlign: "center",
@@ -269,7 +246,7 @@ function OneTestimonial({
               marginBottom: 15,
             }}
           >
-            <p style={{ margin: 0, fontWeight: "bold" }}>Add Testimonial</p>
+            <p style={{ margin: 0, fontWeight: "bold" }}>{showTestimonialForm ? "Hide Form" : "Add Testimonial"}</p>
           </div>
         </Col>
       </Row>

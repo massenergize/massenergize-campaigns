@@ -1,20 +1,22 @@
 @media only screen and (min-width: 768px) {
   .page-title {
     text-align: center;
-    font-size: 3rem;
-    text-transform: uppercase;
+    font-size: var(--app-header-font);
+    color: var(--app-accent-3);
+    /* text-transform: uppercase; */
   }
   .roaming-container {
     margin: 100px 0px;
   }
   .page-slogan {
     font-weight: 400;
-    color: var(--app-medium-green);
+    color: var(--app-main-color);
     text-align: center;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     line-height: 1.5;
     width: 85%;
-    font-size: 1.2rem;
+    font-size: var(--app-subheader-font);
+    font-weight: 600;
   }
 
   .site-logo {
@@ -73,7 +75,7 @@
   }
 
   .coach-main img {
-    margin-top: 50px;
+    /* margin-top: 50px; */
     width: 120px;
     height: 120px;
   }
@@ -93,7 +95,9 @@
     /* width: 80%; */
   }
   .one-coach-main h6 {
-    margin: 20px 0px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin: 10px 0px;
     font-weight: bold;
   }
 
@@ -133,7 +137,58 @@
     padding: 20px;
   }
 
+  .pc-vanish {
+    display: none !important;
+  }
+
+  .section-title {
+    font-size: var(--app-header-font);
+  }
+
+  .header-font {
+    font-size: var(--app-header-font);
+  }
+  .body-font {
+    font-size: var(--app-body-font) !important;
+  }
+  .subheader-font {
+    font-size: var(--app-subheader-font);
+  }
+  .small-font {
+    font-size: var(--app-small-font);
+  }
+
+  .b-hero-img {
+    height: 68vh;
+  }
+
   /* --------------------------------- END OF PC SPECIFIC ---------------------- */
+}
+
+.camp-share-btn-v2 {
+  position: absolute;
+  bottom: -26px;
+  background: white;
+  padding: 10px 20px;
+  color: var(--app-main-color);
+  left: 47vw;
+  border-radius: 55px;
+  font-weight: bold;
+  font-size: var(--app-body-font);
+}
+
+.hero-belt {
+  align-items: center;
+  justify-content: center;
+  background: white;
+  width: 100%;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: row;
+}
+.b-hero-img {
+  width: 100%;
+  object-fit: cover;
 }
 
 .vendor-list-group li {
@@ -148,8 +203,8 @@
 .coach-main p {
   font-weight: bold;
   /* font-size: 15px; */
-  color: var(--app-orange);
-  text-transform: uppercase;
+  color: var(--app-main-color);
+  /* text-transform: uppercase; */
 }
 .coach-main img {
   border-radius: 100%;
@@ -189,7 +244,9 @@
 }
 .roaming-header {
   padding: 10px 30px;
-  background: var(--app-kicking-yellow);
+  /* background: var(--app-kicking-yellow); */
+  color: white;
+  background: var(--app-main-color);
   /* border-radius: 5px; */
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
@@ -198,10 +255,10 @@
 .app-btn {
   margin-left: auto;
   border-radius: 100px !important;
-  background: var(--app-deep-green) !important;
+  background: var(--app-main-color) !important;
   border-width: 0px !important;
 }
 
 .g-s-container {
-  background: var(--app-medium-green);
+  background: var(--app-main-color);
 }

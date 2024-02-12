@@ -2,6 +2,7 @@ import React from "react";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
+import SmartRichText from "../../../components/SmartRichText";
 
 const dummies = [
   {
@@ -38,12 +39,11 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
       style={{
         background: "white",
         width: "100%",
-        // padding: "80px 0px",
-        // minHeight: 200,
       }}
     >
       <OptimumWrapper>
-        <SectionTitle className="mb-5">{overview_title || `Why ${campaignName}?`}</SectionTitle>
+        {/* <SectionTitle className="mb-5">{overview_title || `Why ${campaignName}?`}</SectionTitle> BRING IT BACK WHEN THERE IS AN ADMIN SECTION TO FIX IT */}
+        <SectionTitle className="mb-5">{`Why ${campaignName}?`}</SectionTitle>
 
         <Row>
           {(overview || []).map((item, index) => {
@@ -55,7 +55,7 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  justifyContent: "center",
+                  // justifyContent: "center",
                 }}
                 key={index?.toString()}
                 lg={6}
@@ -63,15 +63,17 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
               >
                 <img src={image?.url} style={{ height: 70, width: 70, objectFit: "contain" }} alt={image?.name} />
                 <h6
-                  className="mt-3 mb-3"
+                  className="mt-3 mb-3 subheader-font"
                   style={{
-                    color: "var(--app-medium-green)",
+                    color: "var(--app-accent-3)",
                     textTransform: "uppercase",
+                    fontWeight: "bold",
                   }}
                 >
                   {title || {}}
                 </h6>
                 <p
+                  className="body-font"
                   dangerouslySetInnerHTML={{ __html: description }}
                   style={{ textAlign: "justify", lineHeight: "1.5" }}
                 ></p>

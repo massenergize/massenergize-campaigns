@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Button as BTN, Modal, Form } from "react-bootstrap";
 import { MultiSelect } from "react-multi-select-component";
 import Button from "src/components/admin-components/Button";
@@ -15,45 +15,76 @@ import Chip from "src/components/admin-components/Chip";
 import { fetchEvents } from "src/requests/technology-requests";
 import { NoItems } from "@kehillahglobal/ui";
 import Dropdown from "src/components/admin-components/Dropdown";
+import { useDispatch, useSelector } from "react-redux";
+import { setCampaignCommunityEventsAction } from "../../redux/actions/actions";
+import { useCampaignContext } from "src/hooks/use-campaign-context";
+import Loading from "src/components/pieces/Loading";
 
-export function CampaignEventsView ({ events, campaign }) {
-  //@Todo: Add a mutate to update main
+export function CampaignEventsView ({campaign }) {
 
-  const [loading, setLoading] = useState(false);
-  const { id : ID } = useParams();
-
-  let id = campaign?.id || ID
-
-  const { data: allEvents, isLoading } = useSWR(
-    `campaigns.communities.events.list/${id}`,
-    () => fetchEvents(campaign?.id || id), {
-      shouldRetryOnError: true,
-      errorRetryCount: 3,
-      errorRetryInterval: 3000,
-    },
-  );
-
-  const techs = campaign?.technologies;
-
-  const existingEvents = [
-    ...campaign?.technologies?.map((tech) => tech?.events),
-  ].flat();
-  const [selectedEvents, setSelectedEvents] = useState(existingEvents);
+  const { setNewCampaignDetails,} = useCampaignContext();
+  const [loadingEvents, setLoadingEvents] = useState(false);
+  const [selectedEvents, setSelectedEvents] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [toAddEvents, setToAddEvents] = useState([]);
   const [selectedTech, setSelectedTech] = useState("");
   const { blow, pop } = useBubblyBalloons();
+  //@Todo: Add a mutate to update main
+
+  const [loading, setLoading] = useState(false);
+  const { id } = useParams();
+  const allEvents = useSelector(state=> state.communitiesEvents)
+  const dispatch = useDispatch()
+
+  const fetchEventsIfNone = async () => {
+    try {
+      if (!allEvents?.length) {
+        setLoadingEvents(true);
+        const data = await fetchEvents(campaign?.id || id);
+        dispatch(setCampaignCommunityEventsAction(data));
+        setLoadingEvents(false);
+      }
+    } catch (error) {
+      setLoadingEvents(false);
+      console.error("An error occurred:", error);
+    }
+  };
+
+  useEffect(()=>{
+    fetchEventsIfNone()
+  },[])
+
+  useEffect(() => {
+    const existingEvents = [
+      ...campaign?.technologies?.map((tech) => tech?.events),
+    ].flat();
+    setSelectedEvents(existingEvents);
+
+  },[campaign?.technologies])
+
+  
+  if (loadingEvents) {
+    return <Loading text="Loading events..." />;
+  }
+
+
+  const techs = campaign?.technologies;
 
   const handleRemove = async (tech_event_id) => {
     setLoading(true);
     const _old = [...selectedEvents];
-    const filteredTechnologies = selectedEvents.filter(
-      (event) => event?.id !== tech_event_id,
-    );
-    setSelectedEvents(filteredTechnologies);
     try {
       const removedEvent = await removeCampaignTechnologyEvent(tech_event_id);
       if (removedEvent) {
+        let tech = techs?.find((tech) => tech?.campaign_technology_id === removedEvent?.campaign_technology?.id);
+        let newEvents = tech?.events?.filter((event) => event?.id !== tech_event_id);
+        tech = { ...tech, events: newEvents };
+
+        const newTechs = techs?.map((t) => {
+          if (t?.campaign_technology_id === removedEvent?.campaign_technology?.id) return tech;
+          return t;
+        })
+        setNewCampaignDetails({ ...campaign, technologies: newTechs });
         setLoading(false);
         blow({
           title: "Success",
@@ -100,8 +131,16 @@ export function CampaignEventsView ({ events, campaign }) {
 
       if (res) {
         setLoading(false);
+        const tech = techs?.find((tech) => tech?.campaign_technology_id === selectedTech);
+        const newTech = { ...tech, events: [...tech?.events, ...res] };
+        const newTechs = techs?.map((tech) => {
+          if (tech?.campaign_technology_id === selectedTech) return newTech;
+          return tech;
+        });
         onModalClose();
-        setSelectedEvents([...selectedEvents, ...res]);
+        const newCampaign = { ...campaign, technologies: newTechs };
+        setNewCampaignDetails(newCampaign);
+
         blow({
           title: "Success",
           message: "Campaign Event Added successfully.",
@@ -110,6 +149,7 @@ export function CampaignEventsView ({ events, campaign }) {
         });
       }
     } catch (e) {
+      console.log("=== e ==", e)
       setLoading(false);
       pop({
         title: "Error",
@@ -120,8 +160,8 @@ export function CampaignEventsView ({ events, campaign }) {
     }
   };
 
-  if (isLoading || loading)
-    return <GhostLoader loading={isLoading} text="Loading Events..." />;
+  // if (isLoading || loading)
+  //   return <GhostLoader loading={isLoading} text="Loading Events..." />;
   const EVENTS_SIZE = (selectedEvents || [])?.length;
 
   const onModalClose = () => {
@@ -135,8 +175,9 @@ export function CampaignEventsView ({ events, campaign }) {
     (event) => !selectedEventIds.includes(event.id),
   );
 
+
   return (
-    <Container style={{ height: "100vh" }}>
+    <Container fluid style={{ height: "100vh" }}>
       {EVENTS_SIZE > 0 && (
         <Container>
           <div
@@ -146,14 +187,14 @@ export function CampaignEventsView ({ events, campaign }) {
               marginBottom: 10,
             }}
           >
-            <BTN onClick={() => setOpenModal(true)}>
-              <span>Add Events</span>
+            <BTN variant="success" onClick={() => setOpenModal(true)}>
+              <span>Add Event</span>
             </BTN>
           </div>
         </Container>
       )}
 
-      <Container>
+      <div>
         <Row className=" pb-4 justify-content-start mt-4">
           {EVENTS_SIZE > 0 ? (
             <>
@@ -206,16 +247,13 @@ export function CampaignEventsView ({ events, campaign }) {
                         <td className="text-center">
                           <BTN
                             // style={{ marginLeft: 10 }}
-                            onClick={() => {
-                              if (
-                                window.confirm(
-                                  "Are you sure you want to remove this Event?",
-                                )
-                              ) {
+                            onClick={(e) => {
+                              e.preventDefault()
+                              if (window.confirm("Are you sure you want to remove this Event?")) {
                                 handleRemove(event?.id);
                               }
                             }}
-                            variant="primary"
+                            variant="danger"
                           >
                             <span>Remove</span>
                           </BTN>
@@ -243,13 +281,13 @@ export function CampaignEventsView ({ events, campaign }) {
             </div>
           )}
         </Row>
-      </Container>
+      </div>
 
       <Modal size={"xl"} show={openModal} onHide={onModalClose}>
         <Modal.Header closeButton>
           <Modal.Title className={"text-sm"}>Events Selection</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ height: "70vh" }}>
+        <Modal.Body style={{ height: "40vh" }}>
           {eventsToShow?.length > 0 ? (
             <form>
               <Row className="mt-2" style={{ height: "180px" }}>
@@ -293,30 +331,13 @@ export function CampaignEventsView ({ events, campaign }) {
                           setSelectedTech(selectedItem);
                         }}
                       />
-                      {/* <Form.Select
-                        onChange={(e) => {
-                          setSelectedTech(e.target.value);
-                        }}
-                      >
-                        <option> ----- -----</option>
-                        {(techs || []).map((tech) => {
-                          return (
-                            <option
-                              key={tech?.id}
-                              value={tech?.campaign_technology_id}
-                            >
-                              {tech?.name}
-                            </option>
-                          );
-                        })}
-                      </Form.Select> */}
                     </Col>
                   </Row>
                 </Col>
               </Row>
             </form>
           ) : (
-            <NoItems />
+            <NoItems text="The participating communities in this campaign do not have published events" />
           )}
 
           <Row className="mt-4">

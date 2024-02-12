@@ -1,16 +1,19 @@
-import React, { useReducer, useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import { Col, Container, Button as BTN, Modal, Row } from "react-bootstrap";
 import TestimonialCard from "../../components/admin-components/TestimonialCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAd, faAdd } from "@fortawesome/free-solid-svg-icons";
-import { fetchAllCampaignTestimonials } from "src/requests/technology-requests";
+import { fetchAllCampaignTestimonials, fetchAllTechnologyTestimonials } from "src/requests/technology-requests";
 import useSWR from "swr";
 import Testimonials from "../../components/admin-components/Testimonials";
 import { Testimonials as TestPortal } from "./create-technology/Testimonials";
 import Loading from "src/components/pieces/Loading";
+import { useDispatch, useSelector } from "react-redux";
+import { setCampaignTestimonialsAction, setPortalTestimonialsAction } from "src/redux/actions/actions";
+import { apiCall } from "src/api/messenger";
 
-const opts = ["All", "Featured"];
-const allOpts = ["On Campaign", "From Communities"];
+const opts = ["All", "Only Featured"];
+// const allOpts = ["On Campaign", "From Communities"];
 
 export function CampaignTestimonialsView({ campaignDetails }) {
   const [show, setShow] = useState({
@@ -25,24 +28,58 @@ export function CampaignTestimonialsView({ campaignDetails }) {
 
   const startOfPage = useRef(null);
 
-  let {
-    data: payloadTestimonials,
-    isValidating,
-    isLoading,
-    error,
-  } = useSWR("campaigns.testimonials.list", async () => await fetchAllCampaignTestimonials(campaignDetails?.id), {
-    shouldRetryOnError: true,
-    errorRetryCount: 3,
-    errorRetryInterval: 3000,
-  });
+  const payloadTestimonials = useSelector((state) => state.campaignTestimonials);
+  const reduxDispatch = useDispatch();
+  const [isLoading, setLoading] = useState(true);
 
-  const testimonials = payloadTestimonials || [];
+  useEffect(() => {
+    if (payloadTestimonials?.length) return setLoading(false);
+    fetchTestimonials();
+  }, []);
 
-  const portalTestimonials = testimonials?.filter((test) => {
+  const fetchTestimonials = async () => {
+    setLoading(true);
+    const campaign_id = campaignDetails?.id;
+    Promise.all([fetchAllCampaignTestimonials(campaign_id), fetchAllTechnologyTestimonials(campaign_id)])
+      .then((response) => {
+        const [campTestimonials, technologyTestimonials] = response;
+        setLoading(false);
+        reduxDispatch(setCampaignTestimonialsAction(campTestimonials));
+        reduxDispatch(setPortalTestimonialsAction(technologyTestimonials));
+      })
+      .catch((e) => {
+        setLoading(false);
+        console.log("ERROR_LOADING_TESTIMONIALS:", e?.toString());
+      });
+  };
+
+  const updateTestimonialsInRedux = (newItems) => {
+    reduxDispatch(setCampaignTestimonialsAction(newItems));
+  };
+
+  const removeTestimonial = (item) => {
+    const rem = payloadTestimonials?.filter((t) => t?.id !== item?.id);
+    updateTestimonialsInRedux(rem);
+  };
+
+  const updateTestimonial = (testimonial) => {
+    const index = payloadTestimonials.findIndex((test) => test?.id === testimonial?.id);
+
+    if (index > -1) {
+      payloadTestimonials[index] = testimonial;
+      updateTestimonialsInRedux([...payloadTestimonials]);
+      // mutate([...payloadTestimonials]);
+    } else {
+      // mutate([testimonial, ...payloadTestimonials]);
+      updateTestimonialsInRedux([testimonial, ...payloadTestimonials]);
+    }
+  };
+
+  const portalTestimonials = (payloadTestimonials || [])?.filter((test) => {
     return test?.is_imported;
   });
 
-  const campaignTestimonials = testimonials?.filter((test) => {
+  const campaignTestimonials = (payloadTestimonials || [])?.filter((test) => {
     return !test?.is_imported;
   });
 
@@ -116,7 +153,7 @@ export function CampaignTestimonialsView({ campaignDetails }) {
                 setOpenModal(true);
               }}
             >
-              <span>Add Testimonial from Communities</span>
+              <span>Import from Communities</span>
             </BTN>
           </Col>
         </Row>
@@ -127,6 +164,7 @@ export function CampaignTestimonialsView({ campaignDetails }) {
               {opts?.map((opt) => {
                 return (
                   <button
+                    style={{ marginRight: 5 }}
                     key={opt}
                     className={`py-2 px-5 text-dark tracking-wide rounded cursor-pointer border test-tab-opts ${
                       opt === show?.tabOne && "test-show-opt"
@@ -185,7 +223,15 @@ export function CampaignTestimonialsView({ campaignDetails }) {
                             {(show?.tabOne === "All" ? chx?.data : chx?.featuredTestimonials)?.map((test) => {
                               return (
                                 <div key={test?.id}>
-                                  <TestimonialCard className={"mt-3"} test={test} />
+                                  <TestimonialCard
+                                    className={"mt-3"}
+                                    test={test}
+                                    removeTestimonial={removeTestimonial}
+                                    updateTestimonial={(data, reset = false) => {
+                                      if (reset) return updateTestimonialsInRedux(data);
+                                      updateTestimonial(data);
+                                    }}
+                                  />
                                 </div>
                               );
                             })}
@@ -217,7 +263,12 @@ export function CampaignTestimonialsView({ campaignDetails }) {
             {show?.showFormFor === "campaign" && (
               <div ref={formRef}>
                 <h4 className="my-5">Create New Testimonial</h4>
-                <Testimonials campaign={campaignDetails} onModalClose={hideForm} startOfPage={startOfPage} />
+                <Testimonials
+                  campaign={campaignDetails}
+                  onModalClose={hideForm}
+                  startOfPage={startOfPage}
+                  updateTestimonial={updateTestimonial}
+                />
               </div>
             )}
           </Col>
@@ -231,12 +282,17 @@ export function CampaignTestimonialsView({ campaignDetails }) {
           </Modal.Header>
           <Modal.Body style={{ height: "70vh" }}>
             {show?.showFormFor === "campaign" ? (
-              <Testimonials campaign={campaignDetails} onModalClose={onModalClose} />
+              <Testimonials
+                campaign={campaignDetails}
+                onModalClose={onModalClose}
+                updateTestimonial={updateTestimonial}
+              />
             ) : (
               <TestPortal
                 campaign_id={campaignDetails?.id}
                 techs={campaignDetails?.technologies}
                 onModalClose={onModalClose}
+                updateTestimonial={updateTestimonial}
               />
             )}
           </Modal.Body>

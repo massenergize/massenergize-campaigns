@@ -32,7 +32,6 @@ const Incentives = () => {
       const res = await removeTechnologyIncentive(incentiveToDelete);
 
       if (res) {
-
         handleRemoveOverview(incentiveToDelete);
         setShowDeleteModal(false);
         notify({
@@ -56,7 +55,7 @@ const Incentives = () => {
     <div>
       <Row className={"mt-3"}>
         <Col>
-          <p>What are the incentives for participating in this technology</p>
+          <p>Dive in! Help your visitors understand every bit of this technology.</p>
         </Col>
         <Col sm={"auto"}>
           <Button text="" rounded onClick={() => setShowIncentiveModal(true)}>
@@ -77,7 +76,7 @@ const Incentives = () => {
                     handleUpdateOverview(incentive);
                   }}
                   onRemove={() => {
-                    incentiveToDelete = { id : incentive?.id };
+                    incentiveToDelete = { id: incentive?.id };
                     setShowDeleteModal(true);
                   }}
                 />
@@ -96,7 +95,7 @@ const Incentives = () => {
         }}
       />
 
-      <Modal show={showDeleteModal} onHide={() => hideDeleteModal}>
+      <Modal show={showDeleteModal} onHide={() => hideDeleteModal} enforceFocus={false}>
         <Modal.Header closeButton>
           <Modal.Title className={"text-sm"}>Delete incentive.</Modal.Title>
         </Modal.Header>
@@ -111,7 +110,9 @@ const Incentives = () => {
           <Button variant="secondary" onClick={hideDeleteModal}>
             Close
           </Button>
-          <ProgressButton loading={loading} onClick={handleRemove}>Delete</ProgressButton>
+          <ProgressButton loading={loading} onClick={handleRemove}>
+            Delete
+          </ProgressButton>
         </Modal.Footer>
       </Modal>
     </div>

@@ -11,29 +11,9 @@ function OneCoach({ full_name, image, community }) {
         justifyContent: "center",
       }}
     >
-      <img
-        className=""
-        src={image?.url || noCoach}
-        // style={{
-        //   borderRadius: "100%",
-        //   width: 120,
-        //   height: 120,
-        //   marginBlock: 10,
-        //   objectFit: "cover",
-        // }}
-        alt={"logo"}
-      ></img>
-      {/* <span style={{ fontSize: 12, color: "grey" }}>KEY CONTACT</span> */}
-      <h6 className="">{full_name}</h6>
-      <p
-        className=""
-        // style={{
-        //   fontWeight: "bold",
-        //   fontSize: 15,
-        //   color: "var(--app-orange)",
-        //   textTransform: "uppercase",
-        // }}
-      >
+      <img className="" src={image?.url || noCoach} alt={"logo"}></img>
+      <h6 className="body-font">{full_name}</h6>
+      <p className="small-font" style={{}}>
         {community}
       </p>
     </div>

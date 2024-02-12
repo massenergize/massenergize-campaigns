@@ -1,8 +1,9 @@
 import React from "react";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import { Col, Container, Row } from "react-bootstrap";
+import SectionTitle from "../../../components/pieces/SectionTitle";
 
-function DoMore ({ campaign }) {
+function DoMore({ campaign }) {
   const { communities, communities_section } = campaign || {};
   const { title, description } = communities_section || {};
 
@@ -11,59 +12,81 @@ function DoMore ({ campaign }) {
     <div className="do-more-root">
       <CenteredWrapper>
         <Container>
-          <h2
+          <SectionTitle>{title || " Participating Communities"}</SectionTitle>
+          {/* <h2
             style={{
               color: "black",
               fontWeight: "bold",
               marginBottom: 20,
+              color: "var(--app-accent-3)",
             }}
           >
             {title || " Participating Communities"}
-          </h2>
+          </h2> */}
           <p>{description}</p>
-          <Row>
-            {(communities || []).map(({ community, id }, index) => {
+          <Row style={{ flexWrap: "wrap", display: "flex", marginTop: 20 }}>
+            {(communities || []).map(({ community, id, alias, extra_links: links }, index) => {
               return (
                 <Col
                   key={index?.toString() + id?.toString()}
-                  lg={4}
+                  lg={3}
                   style={{
                     display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
                     // justifyContent: "center",
                     flexWrap: "wrap",
-                    margin: "10px 5px",
+                    margin: "10px 0px",
 
                     // flexBasis:"30%"
                   }}
                 >
-                  <img
-                    style={{
-                      width: 100,
-                      height: 60,
-                      marginRight: 10,
-                      objectFit: "contain",
-                    }}
-                    src={community?.logo?.url}
-                    alt={"logo"}
-                  />
-                  <h6
-                    role={"button"}
-                    onClick={() => {
-                      window.open(
-                        `${COMMUNITY_PORTAL_URL}${community?.subdomain}`
-                      );
-                    }}
-                    className="touchable-opacity"
-                    style={{
-                      textDecoration: "underline",
-                      color: "var(--app-deep-green)",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {community?.name || "..."}
-                  </h6>
+                  <center className="m-for-center" style={{ display: "inline" }}>
+                    <img
+                      style={{
+                        width: 100,
+                        height: 60,
+                        marginBottom: 10,
+                        objectFit: "contain",
+                      }}
+                      src={community?.logo?.url}
+                      alt={"logo"}
+                    />
+                    <ul style={{ padding: 0, listStyleType: "none" }}>
+                      <li
+                        role={"button"}
+                        onClick={() => {
+                          window.open(`${COMMUNITY_PORTAL_URL}${community?.subdomain}`);
+                        }}
+                        className="touchable-opacity body-font"
+                        style={{
+                          textDecoration: "underline",
+                          color: "var(--app-accent-3)",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {alias || community?.name || "..."}
+                      </li>
+                      {links?.map((linkObj) => {
+                        return (
+                          <li
+                            role={"button"}
+                            onClick={() => {
+                              window.open(`${linkObj?.link}`);
+                            }}
+                            className="touchable-opacity"
+                            style={{
+                              textDecoration: "underline",
+                              color: "var(--app-accent-3)",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {linkObj?.label || "..."}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </center>
                 </Col>
               );
             })}

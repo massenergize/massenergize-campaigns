@@ -32,28 +32,10 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
   },
 ];
-function OneTechMeetTheCoachesSection({
-  toggleModal,
-  sectionId,
-  coaches,
-  data,
-  ref,
-}) {
+function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, ref }) {
   const { title, description } = data || {};
-  // const [scrollPosition, setScrollPosition] = useState(0);
+
   const scrollContainerRef = useRef(null);
-
-  // const handleScroll = (scrollContainerRef, scrollValue) => {
-  //   const maxScroll =
-  //     scrollContainerRef.current.scrollWidth -
-  //     scrollContainerRef.current.clientWidth;
-
-  //   if (!(scrollValue >= 0 && scrollValue <= maxScroll)) return;
-  //   setScrollPosition(scrollValue);
-  //   if (scrollContainerRef.current) {
-  //     scrollContainerRef.current.scrollLeft = scrollValue;
-  //   }
-  // };
 
   const hasScrollableCoaches = coaches?.length > 4;
   return (
@@ -62,7 +44,7 @@ function OneTechMeetTheCoachesSection({
       id={sectionId}
       className="mt-5 elevate-float-pro g-s-container"
       style={{
-        background: "antiquewhite",
+        background: "var(--app-accent-1)",
         width: "100%",
         // padding: "80px 0px",
         // minHeight: 200,
@@ -79,20 +61,9 @@ function OneTechMeetTheCoachesSection({
             <SectionTitle className="mb-5" style={{ color: "black" }}>
               {title || "Meet the Coaches"}
             </SectionTitle>
-            {hasScrollableCoaches && (
-              <p style={{ fontSize: "var(--mob-paragraph-font-size)" }}>
-                Scroll from left to right, or use the arrow buttons to see all
-                coaches
-              </p>
-            )}
           </div>
 
-          {hasScrollableCoaches && (
-            <ArrowButtons
-              style={{ marginLeft: "auto" }}
-              containerRef={scrollContainerRef}
-            />
-          )}
+          {hasScrollableCoaches && <ArrowButtons style={{ marginLeft: "auto" }} containerRef={scrollContainerRef} />}
         </div>
 
         <Row
@@ -100,10 +71,7 @@ function OneTechMeetTheCoachesSection({
           style={{
             flexWrap: "nowrap",
             overflowX: "scroll",
-            // justifyContent: "center",
-            // scrollBehavior: "smooth",
           }}
-          // onScroll={(e) => handleScroll(e.target.scrollLeft)}
         >
           {coaches?.map((coach, index) => {
             return (
@@ -114,11 +82,8 @@ function OneTechMeetTheCoachesSection({
           })}
         </Row>
 
-        <div
-          // style={{ textTransform: "justify", marginTop: 20 }}
-          className="coaches-description"
-        >
-          <p dangerouslySetInnerHTML={{ __html: description }}></p>
+        <div className="coaches-description">
+          <p className="body-font" dangerouslySetInnerHTML={{ __html: description }}></p>
           <div
             style={{
               display: "flex",
@@ -128,12 +93,12 @@ function OneTechMeetTheCoachesSection({
             }}
           >
             <Button
-              className="touchable-opacity elevate-2 mt-5"
+              className="touchable-opacity elevate-2 mt-5 small-font"
               style={{
                 borderRadius: 55,
-                padding: "8px 20px",
+                padding: "15px 40px",
                 fontWeight: "bold",
-                background: "var(--app-deep-green)",
+                background: "var(--app-main-color)",
                 borderWidth: 0,
               }}
               onClick={() => toggleModal()}

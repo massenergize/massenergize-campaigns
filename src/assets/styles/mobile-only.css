@@ -3,18 +3,24 @@
     display: none !important;
   }
   .page-title {
-    font-size: var(--mob-title-font-size);
+    font-size: var(--app-mobile-header-font);
+    text-align: center;
+    color: var(--app-accent-3);
   }
   .page-slogan {
     font-weight: 400;
-    color: var(--app-medium-green);
+    color: var(--app-main-color);
     text-align: center;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     line-height: 1.5;
     width: 85%;
-    font-size: var(--mob-normal-font-size);
+    font-size: var(--app-mobile-body-font);
+    font-weight: 600;
   }
 
+  .m-for-center {
+    width: 100%;
+  }
   .site-logo {
     height: 70px;
     width: 70px;
@@ -144,7 +150,7 @@
   }
 
   .section-title {
-    font-size: 1.3rem;
+    font-size: var(--app-mobile-header-font);
   }
 
   .overview-item p {
@@ -168,5 +174,22 @@
     margin-top: 40px;
     /* padding: 20px; */
   }
+
+  .body-font {
+    font-size: var(--app-mobile-body-font);
+  }
+
+  .subheader-font {
+    font-size: var(--app-mobile-subheader-font);
+  }
+
+  .header-font {
+    font-size: var(--app-mobile-header-font);
+  }
+
+  .small-font {
+    font-size: var(--app-mobile-small-font);
+  }
+
   /* ---------------------------- END OF PHONE SPECIFIC STYLES ----------- */
 }

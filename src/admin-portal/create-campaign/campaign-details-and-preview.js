@@ -12,12 +12,7 @@ export function CampaignDetailsAndPreview ({setStep,}) {
   const [activeTab, setActiveTab] = useState(campaignPages[0].name);
   const [preview, setPreview] = useState(false);
 
-  const {
-    campaignDetails,
-    originalCampaignDetails,
-    lists,
-    handleCampaignDetailsChange : setCampaignDetails,
-  } = useCampaignContext();
+  const {campaignDetails,originalCampaignDetails,lists,handleCampaignDetailsChange : setCampaignDetails} = useCampaignContext();
 
   return (
     <>
@@ -30,16 +25,11 @@ export function CampaignDetailsAndPreview ({setStep,}) {
         </Col>
         <div className="text-right col-auto px-4">
           <ButtonGroup className="mr-2">
-            {/*<Button variant="primary" onClick={() => setPreview(!preview)}>
-              <FontAwesomeIcon icon={faEye}/> {preview ? "Hide Preview" : "Show Preview"}
-            </Button>*/}
-            {/*<Link to={`/campaign/${campaignDetails.id}?preview=true`} target={"_blank"}>*/}
             <Button variant="primary" onClick={() => {
               window.open(`/campaign/${campaignDetails.slug}?preview=true`, "_blank")
             }}>
               Preview <FontAwesomeIcon icon={faExternalLink}/>
             </Button>
-            {/*</Link>*/}
           </ButtonGroup>
         </div>
       </Row>
@@ -68,7 +58,7 @@ export function CampaignDetailsAndPreview ({setStep,}) {
           {/*endregion*/}
 
           {/*region Body: Content goes here*/}
-          <Row className="mt-4 pt-4">
+          <Row className=" pt-4">
             <Col className={"px-4"}>
               {
                 campaignPages?.map((tab) => {
@@ -87,12 +77,7 @@ export function CampaignDetailsAndPreview ({setStep,}) {
                 })}
             </Col>
           </Row>
-          {/*endregion*/}
 
-          {/*region Footer*/}
-
-          {/*endregion*/}
-          {/*</Container>*/}
         </Col>
         {
           preview && (

@@ -12,18 +12,21 @@ function RoamingBox({ advert, keyContact, showMore }) {
   return (
     <div className="roaming-container">
       <Container>
-        <Col lg={{ span: 9, offset: 1 }}>
+        <Col lg={{ span: 10, offset: 1 }}>
           <Row>
             <Col lg={8}>
               <div style={{}}>
                 <div className="roaming-header">
-                  <h3 className="m-0">{advert?.title}</h3>
+                  <h3 className="m-0 subheader-font">{advert?.title}</h3>
                 </div>
                 <div
                   className="flex-column"
                   style={{
                     minHeight: 200,
-                    background: "antiquewhite",
+                    // background: "var(--app-accent-2)",
+                    border: "solid 2px var(--app-main-color)",
+                    borderBottomLeftRadius: 5,
+                    borderBottomRightRadius: 5,
                   }}
                 >
                   <div style={{ padding: "15px 25px" }}>
@@ -75,7 +78,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
               </div>
             </Col>
             <Col
-              lg={{ span: 2, offset: 2 }}
+              lg={{ span: 3, offset: 1 }}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -95,17 +98,15 @@ function RoamingBox({ advert, keyContact, showMore }) {
                 }}
                 alt={keyContact?.image?.name || "Key Contact"}
               ></img>
-              <span className="mb-1" style={{ fontSize: 12, color: "#c8c8c8" }}>
-                KEY CONTACT
-              </span>
+              <span className="mb-1 small-font text-muted">Key Contact</span>
               <h6
-                className="mb-1"
+                className="mb-1 body-font"
                 style={{
-                  color: "var(--app-medium-green)",
+                  color: "var(--app-accent-3)",
                   fontWeight: "800",
-                  textTransform: "uppercase",
+                  textTransform: "capitalize",
                   textAlign: "center",
-                  fontSize: 15,
+                  // fontSize: 15,
                 }}
               >
                 <span>{keyContact?.name || "..."}</span>
@@ -117,12 +118,13 @@ function RoamingBox({ advert, keyContact, showMore }) {
                   onClick={() => {
                     window.open(`mailto:${keyContact?.email}`, "_blank");
                   }}
-                  className="mb-1 touchable-opacity"
+                  className="mb-1 touchable-opacity small-font"
                   style={{
                     display: "flex",
                     flexDirection: "row",
                     textDecoration: "underline",
                     alignItems: "center",
+                    fontWeight: "bold",
                   }}
                 >
                   <i className=" fa fa-envelope" style={{ marginRight: 6 }} />
@@ -133,14 +135,13 @@ function RoamingBox({ advert, keyContact, showMore }) {
                 <p
                   role={"button"}
                   tabIndex={0}
-                  className="touchable-opacity"
+                  className="touchable-opacity small-font"
                   onClick={() => {
                     window.open(`tel:${keyContact?.phone_number}`, "_blank");
                   }}
                   style={{ textDecoration: "underline" }}
                 >
-                  <i className="fa fa-phone" />{" "}
-                  <span>{keyContact?.phone_number}</span>
+                  <i className="fa fa-phone" /> <span>{keyContact?.phone_number}</span>
                 </p>
               )}
             </Col>

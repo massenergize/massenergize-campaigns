@@ -1,10 +1,8 @@
 import { createContext, useReducer } from "react";
 import { CAMPAIGN } from "../mocks/campaign";
-import useFetch from "../hooks/useFetch";
 import useSWR, { } from "swr";
 import { fetchCommunitiesList } from "../requests/community-routes";
 import {
-  fetchAllCampaignEventsBySuperAdmins,
   fetchAllPartners,
   fetchAllTechnologies
 } from "../requests/campaign-requests";
@@ -87,24 +85,28 @@ export function CampaignProvider ({ children }) {
     isLoading: allCommunitiesIsLoading,
   } = useSWR("communities.list", async () => {
     return await fetchCommunitiesList("communities.list")
-  }, { ...SWR_CONFIG, });
+  }, { ...SWR_CONFIG,revalidateOnMount: true,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false });
 
   const {
     data: allTechnologies,
     isLoading: allTechnologiesLoading,
   } = useSWR(`technologies.list`, async () => {
     return await fetchAllTechnologies(getAccFromLocalStorage());
-  }, { ...SWR_CONFIG, });
+  }, { ...SWR_CONFIG,      revalidateOnMount: true,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false });
 
-  const {
-    // initialData: allPartnersInitialData,
-    data: allPartners,
-    error: allPartnersError,
-    isValidating: allPartnersIsValidating,
-    isLoading: allPartnersIsLoading,
-  } = useSWR("partners.list", async () => {
-    await fetchAllPartners("partners.list")
-  }, { ...SWR_CONFIG, });
+  // const {
+  //   // initialData: allPartnersInitialData,
+  //   data: allPartners,
+  //   error: allPartnersError,
+  //   isValidating: allPartnersIsValidating,
+  //   isLoading: allPartnersIsLoading,
+  // } = useSWR("partners.list", async () => {
+  //   await fetchAllPartners("partners.list")
+  // }, { ...SWR_CONFIG, });
 
   // const {
   //   data: allEvents,
@@ -128,12 +130,12 @@ export function CampaignProvider ({ children }) {
   // });
 
   const lists = {
-    allPartners: {
-      data: addLabelsAndValues(allPartners || []),
-      error: allPartnersError,
-      isValidating: allPartnersIsValidating,
-      isLoading: allPartnersIsLoading,
-    },
+    // allPartners: {
+    //   data: addLabelsAndValues(allPartners || []),
+    //   error: allPartnersError,
+    //   isValidating: allPartnersIsValidating,
+    //   isLoading: allPartnersIsLoading,
+    // },
     allManagers: {
       // data: allManagers,
       // error: allManagersError,

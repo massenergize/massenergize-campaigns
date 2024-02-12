@@ -14,43 +14,33 @@ function Vendors({ sectionId, data, vendors }) {
       id={sectionId}
       className="mt-5 elevate-float-pro g-s-container"
       style={{
-        background: "antiquewhite",
+        background: "var(--app-accent-1)",
         width: "100%",
-        // padding: "80px 0px",
-        // minHeight: 200,
       }}
     >
       <OptimumWrapper>
-        <SectionTitle className="mb-3">{title || "Vendors"}</SectionTitle>
+        <SectionTitle className="mb-3" style={{ color: "black" }}>
+          {title || "Vendors"}
+        </SectionTitle>
         <p
           dangerouslySetInnerHTML={{ __html: description }}
           style={{ textAlign: "justify" }}
-          className="mb-4 paragraph-font"
+          className="mb-4 body-font"
         ></p>
 
         <Row>
-          <ul
-            // style={{ display: "flex", flexWrap: "wrap" }}
-            className="vendor-list-group"
-          >
+          <ul className="vendor-list-group">
             {vendors?.map(({ vendor }) => {
               return (
                 <li
                   role={"button"}
                   tabIndex={0}
                   onClick={() => {
-                    const link = vendor?.link;
+                    const link = vendor?.website;
                     if (!link) return;
                     window.open(link, "_blank");
                   }}
-                  className="touchable-opacity paragraph-font"
-                  // style={{
-                  //   flexBasis: "calc(33.33% - 10px)",
-                  //   margin: "5px",
-                  //   fontWeight: "bold",
-                  //   textDecoration: "underline",
-                  //   color: "black",
-                  // }}
+                  className="touchable-opacity body-font"
                   key={vendor?.id?.toString()}
                 >
                   {vendor?.name || "..."}

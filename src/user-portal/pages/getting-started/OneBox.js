@@ -5,7 +5,7 @@ import { HOMEPAGE } from "../../../utils/Constants";
 import RenderHTML from "../../../components/RenderHtml";
 import { ellipsify, isEmpty } from "../../../helpers/utils/string";
 
-function OneBox ({
+function OneBox({
   icon,
   description,
   name,
@@ -31,29 +31,8 @@ function OneBox ({
   };
 
   return (
-    <div
-      className="elevate-float-pro one-box-container"
-      // style={{
-      //   width: "100%",
-      //   minHeight: 390,
-      //   borderRadius: 5,
-      //   display: "flex",
-      //   flexDirection: "column",
-      //   background: "white",
-      // }}
-    >
-      <div
-        className="one-box p-4"
-        // style={{
-        //   height: "100%",
-        //   display: "flex",
-        //   flexDirection: "column",
-        //   alignItems: "center",
-        //   justifyContent: "center",
-        //   borderRadius: 5,
-        //   padding: "40px 40px 10px 40px",
-        // }}
-      >
+    <div className="elevate-float-pro one-box-container">
+      <div className="one-box p-4">
         {isIcon && (
           <i
             className={`fa ${icon}`}
@@ -71,55 +50,46 @@ function OneBox ({
             // style={{ height: 100, width: 100, objectFit: "contain" }}
           />
         )}
-        <h5>{name}</h5>
+        <h5 className="subheader-font" style={{ textTransform: "capitalize", color: "var(--app-main-color)" }}>
+          {name}
+        </h5>
         {/* <RenderHTML tag={"p"} html={!isEmpty(description) ? ellipsify(description, 80) : "..."} /> */}
-        <p style={{ textAlign: "center" }}>
+        <p className="body-font" style={{ textAlign: "center" }}>
           {summary?.substring(0, 80) || "..."}
         </p>
         <Button
           variant={"link"}
-          className="touchable-opacity link-accent"
+          className="touchable-opacity link-accent small-font"
           // href={`/technology/${campaign_technology_id}`}
           onClick={() => {
             trackActivity && trackActivity({ ...common, button_type: "learn_more" });
             navigator(route);
           }}
-          style={{ fontWeight: "bold", color: "var(--app-orange)" }}
+          style={{ fontWeight: "bold", color: "var(--app-accent-3)" }}
         >
           Learn More...
         </Button>
       </div>
-      <div
-        className="one-box-footer phone-vanish"
-        // style={{
-        //   marginTop: "auto",
-        //   display: "flex",
-        //   flexDirection: "row",
-        //   alignItems: "center",
-        //   justifyContent: "center",
-        //   padding: 30,
-        //   paddingTop: 20,
-        // }}
-      >
+      <div className="one-box-footer phone-vanish">
         <Button
           onClick={() => {
             trackActivity && trackActivity({ ...common, button_type: "quote" });
             navigator(`${route}?section=vendors`);
           }}
           className="tech-btn elevate-2 touchable-opacity mr-2"
-          style={{ background: "var(--app-medium-green)", marginRight: 20 }}
+          style={{ background: "var(--app-accent-3)", marginRight: 20 }}
         >
-          QUOTE
+          Quote
         </Button>
         <Button
           onClick={() => {
             trackActivity && trackActivity({ ...common, button_type: "coach" });
             navigator(`${route}?section=coaches`);
           }}
-          style={{ background: "var(--app-deep-green)" }}
+          style={{ background: "var(--app-main-color)" }}
           className="tech-btn elevate-2 touchable-opacity"
         >
-          COACH
+          Coach
         </Button>
       </div>
     </div>

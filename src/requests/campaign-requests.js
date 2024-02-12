@@ -368,6 +368,7 @@ export async function removeCampaignTechnology(data, url = "campaigns.technologi
       handleRequestError(response?.error, "REMOVE_CAMPAIGN_TECHNOLOGY_ERROR_BE");
     }
 
+    window.location.reload() // So many things depend on a tech so its easier to reload
     return response?.data;
   } catch (e) {
     handleRequestError(e, "REMOVE_CAMPAIGN_TECHNOLOGY_ERROR");
