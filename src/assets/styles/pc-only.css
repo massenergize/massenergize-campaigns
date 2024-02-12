@@ -188,7 +188,8 @@
 }
 
 .int-panel {
-  border: 2px solid var(--app-accent-3);
+  /* border: 2px solid var(--app-accent-3); */
+  border: 2px solid var(--app-main-color);
   padding: 13px 20px;
   display: flex;
   flex-direction: row;
@@ -196,10 +197,12 @@
   border-radius: 3px;
 }
 .int-panel i {
-  color: var(--app-accent-3) !important;
+  /* color: var(--app-accent-3) !important;  */
+  color: var(--app-main-color) !important; 
 }
 .int-panel small {
   color: #383838 !important;
+  /* color: var(--app-main-color) !important; */
 }
 
 .camp-share-btn-v2 {
