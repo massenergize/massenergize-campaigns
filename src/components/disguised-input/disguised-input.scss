@@ -1,0 +1,41 @@
+$admin-accent-color: #6e207c;
+
+:root {
+  --input-border-color: #999;
+  --input-border-color-hover: #6e207c;
+  --input-border-color-focus: #202020;
+
+  --input-border-color-error: tomato;
+  --input-border-color-success: #28b333;
+  --input-border-color-disabled: #dedede;
+  --input-border-color-readonly: transparent;
+  //--input-border-color-editable: #202020;
+}
+
+input {
+  &.disguised-input {
+    border-color: var(--input-border-color-readonly);
+
+    //&:hover {
+    //  border-color: var(--input-border-color-hover);
+    //}
+    //
+    //&:focus {
+    //  border-color: var(--input-border-color-focus);
+    //  outline: solid #6e207c82;
+    //}
+
+    &.editable {
+      border-color: var(--input-border-color);
+
+      &:hover {
+        border-color: var(--input-border-color-hover);
+      }
+
+      &:focus {
+        border-color: var(--input-border-color-focus);
+        outline: solid #6e207c82;
+      }
+    }
+  }
+}
