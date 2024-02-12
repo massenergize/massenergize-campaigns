@@ -41,7 +41,7 @@ function EventsSection ({ sectionId, technologies }) {
       <Row className={""} style={{ marginTop: 50 }}>
         {events?.map((item) => {
           return (
-            <Col key={item.id} md={4} lg={4}>
+            <Col key={item.id} md={4} lg={3} xl={4}>
               <EventBox {...item} />
             </Col>
           );
