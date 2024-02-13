@@ -23,7 +23,7 @@ function AppNavigationBar({ menu, campaign }) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" className={" mb-2"} />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className=" w-md-100">
-            <Row className={"w-md-100 justify-content-between"}>
+            <Row className={"w-md-100 justify-content-center"}>
               <Col xs={12} md="auto" className={"mb-3 mb-md-0 d-flex"}>
                 <Row className={"justify-content-between w-100"}>
                   <Col xs={"auto"} sm={"auto"}>
