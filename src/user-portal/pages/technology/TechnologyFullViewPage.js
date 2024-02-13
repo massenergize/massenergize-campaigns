@@ -327,7 +327,6 @@ function TechnologyFullViewPage({
                 <div
                   style={{
                     height: "100%",
-
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -341,7 +340,6 @@ function TechnologyFullViewPage({
                       justifySelf: "center",
                       textAlign: "center",
                       margin: 0,
-                      // fontSize: 13,
                       fontWeight: "bold",
                       width: "83%",
                     }}
@@ -364,12 +362,10 @@ function TechnologyFullViewPage({
                               ...(payload || {}),
                               campaign_technology_id,
                             };
-
-                            delete data?.campaign_id;
+                            delete data?.campaign_id; // FIXME: Never use the delete keyword. It's unpredictable
                             return data;
                           }}
                           callbackOnSubmit={({ close }) => close && close()}
-                          // onConfirm={finaliseGetUpdates}
                         />
                       ),
                       fullControl: true,

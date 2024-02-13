@@ -171,8 +171,8 @@
   }
 
   .new-one-box-body {
-    padding: 20px;
-    text-align: center;
+    /*padding: 20px;*/
+    /*text-align: center;*/
   }
 
   .new-one-box-footer {
@@ -198,7 +198,7 @@
 }
 .int-panel i {
   /* color: var(--app-accent-3) !important;  */
-  color: var(--app-main-color) !important; 
+  color: var(--app-main-color) !important;
 }
 .int-panel small {
   color: #383838 !important;

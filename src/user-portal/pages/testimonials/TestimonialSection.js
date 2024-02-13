@@ -56,7 +56,7 @@ function TestimonialSection({ sectionId, technologies, defaultTab, campaign }) {
       id={sectionId}
       className="elevate-float-pro g-s-container"
       style={{
-        margin: "40px 0px",
+        // margin: "40px 0px",
         // padding: "100px 0px",
         background: "white",
         width: "100%",
