@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
+import AppNavigationBar, { CommonNavSpace } from "../../../components/navbar/AppNavigationBar";
 
 import { Container } from "react-bootstrap";
 import RoamingBox from "./RoamingBox";
@@ -182,7 +182,7 @@ function LandingPage({
             padding: "10px 20px",
             position: "fixed",
             right: 0,
-            top: 100,
+            top: 120,
             zIndex: 10,
             fontWeight: "bold",
             color: "white",
@@ -194,6 +194,7 @@ function LandingPage({
         </p>
       )}
       <AppNavigationBar menu={menu} campaign={campaign} />
+      <CommonNavSpace />
 
       <Hero v2={!isMobile} handleShareCampaign={handleShareCampaign} />
       <Container>

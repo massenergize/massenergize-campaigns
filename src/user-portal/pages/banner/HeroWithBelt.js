@@ -5,7 +5,7 @@ function HeroWithBelt({ campaign, handleShareCampaign }) {
   const { image, primary_logo, secondary_logo, title, tagline } = campaign;
 
   return (
-    <div className="belt-hero-root" style={{ marginTop: 60 }}>
+    <div className="belt-hero-root">
       <img role="button" className="b-hero-img " alt="Hero img" src={image?.url} />
       <div style={{ position: "relative" }}>
         <div

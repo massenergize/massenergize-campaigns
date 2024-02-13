@@ -3,7 +3,7 @@ import PageWrapper from "../wrappers/PageWrapper";
 import carPhoto from "./../../../assets/imgs/car.jpeg";
 import { Button, Col, Row } from "react-bootstrap";
 import InteractionsPanel from "./InteractionsPanel";
-import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
+import AppNavigationBar, { CommonNavSpace } from "../../../components/navbar/AppNavigationBar";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import Footer from "../footer/Footer";
 import WhySection from "./WhySection";
@@ -294,7 +294,8 @@ function TechnologyFullViewPage({
   return (
     <div>
       <AppNavigationBar />
-      <div style={{ marginTop: 100 }} className="one-tech-wrapper">
+      <CommonNavSpace top={150} />
+      <div className="one-tech-wrapper">
         <OptimumWrapper>
           <CampaignNotLive />
           <SectionTitle>{name || "..."}</SectionTitle>
@@ -551,7 +552,7 @@ function TechnologyFullViewPage({
           campaignName={name}
           overview_title={technology?.overview_title}
         />
-        <div className="phone-vanish" style={{ marginTop: 20 }}>
+        <div className="phone-vanish">
           <TakeActionSection
             campaign={campaign}
             sectionId="take-action-section"

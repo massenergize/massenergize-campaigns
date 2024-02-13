@@ -33,10 +33,10 @@ function AppNavigationBar({ menu, campaign }) {
                 }}
                 src={primary_logo?.url}
                 style={{
-                  height: 44,
-                  width: 94,
+                  height: 85,
+                  width: 100,
                   objectFit: "contain",
-                  marginRight: 5,
+                  marginRight: 10,
                 }}
                 alt={"logo"}
               />
@@ -105,10 +105,10 @@ function AppNavigationBar({ menu, campaign }) {
               <img
                 src={secondary_logo?.url}
                 style={{
-                  height: 44,
-                  width: 94,
+                  height: 85,
+                  width: 100,
                   objectFit: "contain",
-                  // marginLeft: 5,
+                  marginLeft: 10,
                 }}
                 alt={"logo"}
               />
@@ -129,3 +129,7 @@ const mapDispatch = (dispatch) => {
 };
 
 export default connect(mapState)(AppNavigationBar);
+
+export const CommonNavSpace = ({ top }) => {
+  return <div style={{ marginTop: top || 105 }}></div>;
+};

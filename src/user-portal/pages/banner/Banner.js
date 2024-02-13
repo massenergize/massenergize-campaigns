@@ -9,7 +9,7 @@ import CampaignNotLive from "../landing-page/CampaignNotLive";
 function Banner(props) {
   const { title, secondary_logo, primary_logo, tagline, handleShareCampaign, is_published } = props;
   return (
-    <Container style={{ marginTop: 70 }}>
+    <Container>
       <Row>
         <Col
           className="mob-clear-padding"
