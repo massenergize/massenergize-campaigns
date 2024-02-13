@@ -60,11 +60,11 @@ function Banner(props) {
               {tagline}
             </h5>
           )}
-          {is_published && (
-            <span className="touchable-opacity share-campaign-btn" onClick={() => handleShareCampaign()}>
-              <FontAwesomeIcon icon={faShare} /> Share
-            </span>
-          )}
+          {/*{is_published && (*/}
+          {/*  <span className="touchable-opacity share-campaign-btn" onClick={() => handleShareCampaign()}>*/}
+          {/*    <FontAwesomeIcon icon={faShare} /> Share*/}
+          {/*  </span>*/}
+          {/*)}*/}
         </Col>
         {
           showSecondaryLogo && (
