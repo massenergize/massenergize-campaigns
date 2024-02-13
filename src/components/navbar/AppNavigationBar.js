@@ -29,8 +29,8 @@ function AppNavigationBar({ menu, campaign }) {
                      <img
                        src={primary_logo?.url}
                        style={{
-                         height: 50,
-                         width: 50,
+                         maxWidth: 140,
+                         height: 70,
                          objectFit: "contain",
                        }}
                        alt={"logo"}
@@ -38,6 +38,7 @@ function AppNavigationBar({ menu, campaign }) {
                    )}
                  </Nav.Link>
                </Col>
+
                <Col sm={"auto"} className={"d-flex"}>
                  {menu?.map((menu) => {
                    const excluded = EXCLUDE_FROM_NAV.includes(menu?.key?.toLowerCase());
@@ -45,7 +46,7 @@ function AppNavigationBar({ menu, campaign }) {
                    if (!menu?.children)
                      return (
                        <Nav.Link
-                         className="c-nav-item body-font"
+                         className="c-nav-item body-font d-flex"
                          key={menu?.key}
                          style={{
                            textTransform: "capitalize",
@@ -57,7 +58,7 @@ function AppNavigationBar({ menu, campaign }) {
                            navigator(route || "#");
                          }}
                        >
-                    <span>
+                    <span className={"my-auto"}>
                       <i className={`fa ${menu.icon}`} style={{ marginRight: 6 }}></i>
                       <span>{menu.text}</span>
                     </span>
@@ -70,9 +71,9 @@ function AppNavigationBar({ menu, campaign }) {
                          marginRight: 20,
                          fontWeight: "bold",
                        }}
-                       className={"mx-2 body-font"}
+                       className={"mx-2 body-font d-flex"}
                        title={
-                         <span className="c-nav-item">
+                         <span className="c-nav-item my-auto d-inline-block">
                       <i className={`fa ${menu.icon}`} style={{ marginRight: 6 }}></i>
                       <span>{menu?.text}</span>
                     </span>
@@ -83,7 +84,7 @@ function AppNavigationBar({ menu, campaign }) {
                          const salt = generateUniqueRandomString(6);
                          return (
                            <NavDropdown.Item
-                             className="f-dropdown-override c-nav-item"
+                             className="f-dropdown-override c-nav-item my-auto"
                              style={{ textTransform: "capitalize" }}
                              key={child?.key}
                              onClick={() => {
@@ -98,6 +99,7 @@ function AppNavigationBar({ menu, campaign }) {
                    );
                  })}
                </Col>
+
                <Col sm="auto d-flex">
                  {secondary_logo?.url && (
                    <img
@@ -105,8 +107,8 @@ function AppNavigationBar({ menu, campaign }) {
                      src={secondary_logo?.url}
                      style={{
                        // width: 100,
-                       width: 50,
-                       // width: 50,
+                       maxWidth: 140,
+                       height: 70,
                        objectFit: "contain",
                        // marginLeft: 5,
                      }}

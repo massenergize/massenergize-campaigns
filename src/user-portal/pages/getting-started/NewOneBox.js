@@ -57,7 +57,7 @@ function NewOneBox({
             </Button>
           </Col>
         </Row>
-        <Row className={"justify-content-start d-none d-md-flex"}>
+        <Row className={"justify-content-center d-none d-md-flex"}>
           <Col sm={"auto"}>
             <Button
               onClick={() => {
