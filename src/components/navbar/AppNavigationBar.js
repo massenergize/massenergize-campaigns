@@ -20,8 +20,8 @@ function AppNavigationBar({ menu, campaign }) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto mx-auto" style={{ alignItems: "center" }}>
-            {/* <Nav.Link> */}
-            {/* {primary_logo?.url && (
+             <Nav.Link>
+             {primary_logo?.url && (
               <img
                 src={primary_logo?.url}
                 style={{
@@ -32,8 +32,8 @@ function AppNavigationBar({ menu, campaign }) {
                 }}
                 alt={"logo"}
               />
-            )} */}
-            {/* </Nav.Link> */}
+            )}
+             </Nav.Link>
             {menu?.map((menu) => {
               const excluded = EXCLUDE_FROM_NAV.includes(menu?.key?.toLowerCase());
               if (excluded) return <></>;
@@ -93,7 +93,7 @@ function AppNavigationBar({ menu, campaign }) {
               );
             })}
 
-            {/* {secondary_logo?.url && (
+             {secondary_logo?.url && (
               <img
                 src={secondary_logo?.url}
                 style={{
@@ -104,7 +104,7 @@ function AppNavigationBar({ menu, campaign }) {
                 }}
                 alt={"logo"}
               />
-            )} */}
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
