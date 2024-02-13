@@ -67,7 +67,7 @@ function AppNavigationBar({ menu, campaign }) {
                       return (
                         <Col sm={12} md={"auto"} key={i} className={"d-flex  align-items-center px-0"}>
                           <Nav.Link
-                            className="c-nav-item body-font d-flex mx-md-2 mx-auto"
+                            className="c-nav-item body-font d-flex mx-md-2 mx-auto px-0"
                             key={menu?.key}
                             style={{
                               textTransform: "capitalize",
@@ -89,7 +89,7 @@ function AppNavigationBar({ menu, campaign }) {
                     return (
                       <Col key={i} sm={12} md={"auto"} className={"d-flex align-items-center px-0"}>
                         <NavDropdown
-                          className={"fw-bold text-capitalize mx-md-2 mx-auto body-font d-flex"}
+                          className={"fw-bold text-capitalize mx-md-2 mx-auto body-font d-flex px-0"}
                           title={
                             <span className="c-nav-item my-auto d-inline-block">
                           <i className={`fa ${menu.icon}`} style={{ marginRight: 6 }}></i>
