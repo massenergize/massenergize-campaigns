@@ -25,7 +25,7 @@ function OneBox(props) {
   if (v2) return <NewOneBox {...props} />;
 
   return (
-    <div className="elevate-float-pro one-box-container h-100">
+    <div className="elevate-float-pro one-box-container">
       <div className="one-box p-4">
         {isIcon && (
           <i

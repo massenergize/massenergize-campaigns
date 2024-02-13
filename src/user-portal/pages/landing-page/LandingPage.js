@@ -195,7 +195,7 @@ function LandingPage({
       )}
       <AppNavigationBar menu={menu} campaign={campaign} />
 
-      <Hero v2={showHeroV1 && !isMobile} handleShareCampaign={handleShareCampaign} />
+      <Hero v2={!isMobile} handleShareCampaign={handleShareCampaign} />
       <Container>
         <RoamingBox
           id="roaming-box"
