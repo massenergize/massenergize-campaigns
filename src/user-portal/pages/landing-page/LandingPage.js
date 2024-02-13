@@ -58,7 +58,7 @@ function LandingPage({
   };
   const salt = fetchUrlParams("salt");
   const heroAB = fetchUrlParams("hero");
-  const showHeroV1 = heroAB && heroAB === "v2";
+  const showHeroV2 = heroAB && heroAB === "v2";
 
   const { key_contact, is_published, description, technologies_section, coaches_section } = campaign || {};
 
@@ -196,7 +196,7 @@ function LandingPage({
       <AppNavigationBar menu={menu} campaign={campaign} />
       <CommonNavSpace />
 
-      <Hero v2={!isMobile} handleShareCampaign={handleShareCampaign} />
+      <Hero v2 = {showHeroV2} handleShareCampaign={handleShareCampaign} />
       <Container>
         <RoamingBox
           id="roaming-box"

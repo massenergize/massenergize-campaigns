@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 // import partnerLogo from "./../../../assets/imgs/me-logo.png";
 import partnerLogo from "./../../../assets/imgs/me-round-logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShare } from "@fortawesome/free-solid-svg-icons";
+import { faShare, faShareNodes } from "@fortawesome/free-solid-svg-icons";
 import CampaignNotLive from "../landing-page/CampaignNotLive";
 
 function Banner(props) {
@@ -11,7 +11,7 @@ function Banner(props) {
   return (
     <Container>
       <Row>
-        <Col
+        {/* <Col
           className="mob-clear-padding"
           lg={3}
           style={{
@@ -23,9 +23,9 @@ function Banner(props) {
           }}
         >
           <img className="site-logo" src={primary_logo?.url} alt={"logo"} />
-        </Col>
+        </Col> */}
         <Col
-          lg={6}
+          lg={12}
           className="mob-clear-padding"
           style={{
             padding: 20,
@@ -41,13 +41,30 @@ function Banner(props) {
               {tagline}
             </h5>
           )}
-          {is_published && (
+
+          <div style={{ position: "relative" }}>
+            <div
+              onClick={() => handleShareCampaign && handleShareCampaign()}
+              role="button"
+              tabIndex={0}
+              className="touchable-opacity elevate-5 camp-share-btn-v2 row-flex"
+              style={{ alignItems: "center" }}
+            >
+              <FontAwesomeIcon icon={faShareNodes} />
+              <small className="body" style={{ marginLeft: 6 }}>
+                {" "}
+                Share
+              </small>
+              {/* <i className="fa fa-share-nodes" /> <small className="body"> Share</small> */}
+            </div>
+          </div>
+          {/* {is_published && (
             <span className="touchable-opacity share-campaign-btn" onClick={() => handleShareCampaign()}>
               <FontAwesomeIcon icon={faShare} /> Share
             </span>
-          )}
+          )} */}
         </Col>
-        <Col
+        {/* <Col
           lg={3}
           className="mob-clear-padding"
           style={{
@@ -59,7 +76,7 @@ function Banner(props) {
           }}
         >
           {secondary_logo?.url && <img src={secondary_logo?.url} className="site-logo" alt={"logo"}></img>}
-        </Col>
+        </Col> */}
       </Row>
       <CampaignNotLive />
     </Container>

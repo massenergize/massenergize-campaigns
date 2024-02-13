@@ -12,7 +12,8 @@ function RoamingBox({ advert, keyContact, showMore }) {
   return (
     <div className="roaming-container">
       <Container>
-        <Col lg={{ span: 10, offset: 1 }}>
+        {/* <Col lg={{ span: 10, offset: 1 }}> */}
+        <Col lg={{ span: 12 }}>
           <Row>
             <Col lg={8}>
               <div style={{}}>
@@ -78,7 +79,8 @@ function RoamingBox({ advert, keyContact, showMore }) {
               </div>
             </Col>
             <Col
-              lg={{ span: 3, offset: 1 }}
+              // lg={{ span: 3, offset: 1 }}
+              lg={{ span: 4 }}
               style={{
                 display: "flex",
                 flexDirection: "column",
