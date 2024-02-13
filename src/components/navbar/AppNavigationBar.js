@@ -18,7 +18,7 @@ function AppNavigationBar({ menu, campaign }) {
 
   return (
     <Navbar variant="light" expand="lg" style={{ background: "white" }} fixed="top" className="app-nav-bar elevate-1">
-      <Container className={""}>
+      <Container fluid >
         {/* <Navbar.Brand href="#home">MassEnergize Campaigns</Navbar.Brand> */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" className={" mb-2"} />
         <Navbar.Collapse id="basic-navbar-nav">
