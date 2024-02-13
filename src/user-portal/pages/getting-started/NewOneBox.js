@@ -27,9 +27,9 @@ function NewOneBox({
   };
 
   return (
-    <div className="card rounded-4 one-box-container h-100">
-      <div className="card-body p-0 new-one-box">
-        {image && <img src={image?.url} alt={image?.name} className={" rounded-top-4"} />}
+    <div className="card border-0 rounded-4 one-box-container h-100">
+      <div className="card-body p-0 new-one-box overflow-hidden">
+        {image && <img src={image?.url} alt={image?.name} className={"overflow-hidden rounded-top-4 w-100"} style={{}} />}
         <div className="new-one-box-body p-3">
           <h5 className="subheader-font mb-1" style={{ textTransform: "capitalize", color: "var(--app-main-color)" }}>
             {name}
