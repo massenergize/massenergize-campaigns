@@ -14,6 +14,8 @@ function AppNavigationBar({ menu, campaign }) {
   const navigator = useNavigate();
   const { secondary_logo, primary_logo } = campaign || {};
 
+  const home = menu?.find((m) => m?.key?.toLowerCase() === "home");
+
   return (
     <Navbar variant="light" expand="lg" style={{ background: "white" }} fixed="top" className="app-nav-bar elevate-1">
       <Container className={""}>
