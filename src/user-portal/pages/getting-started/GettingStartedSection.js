@@ -5,6 +5,8 @@ import people from "./../../../assets/imgs/g_people.png";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { useMediaQuery } from "react-responsive";
 import { MOBILE_WIDTH } from "../../../utils/Constants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
 
 const dummies = [
   {
@@ -79,13 +81,17 @@ export default GettingStartedSection;
 
 const DoMoreBox = ({ scrollToCommunities, isMobile }) => {
   return (
-    <div className="elevate-float-pro one-box-container h-100" style={{ height: isMobile ? 287 : 475 }}>
+    <div className="elevate-float-pro one-box-container" style={{ height: isMobile ? 271 : 475 }}>
       <div className="one-box">
-        <img
+        <i>
+          <FontAwesomeIcon icon={faUsers} />
+        </i>
+        {/* <i className="fa fa-globe" /> */}
+        {/* <img
           // src={"https://placehold.co/100x100"}
           src={people}
           alt="people"
-        />
+        /> */}
         <h5 className="subheader-font" style={{ color: "var(--app-main-color)" }}>
           Communities
         </h5>

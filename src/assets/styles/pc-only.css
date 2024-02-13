@@ -52,12 +52,17 @@
   .one-box {
     padding: 40px 40px 10px;
   }
+  .one-box i {
+    margin-top: 12px;
+    font-size: 70px;
+    color: var(--app-main-color);
+  }
   .one-box img {
     height: 100px;
     width: 100px;
   }
   .one-box-container {
-    min-height: 390px;
+    min-height: 475px;
   }
   .one-box-footer {
     margin-top: auto;
@@ -198,7 +203,7 @@
 }
 .int-panel i {
   /* color: var(--app-accent-3) !important;  */
-  color: var(--app-main-color) !important; 
+  color: var(--app-main-color) !important;
 }
 .int-panel small {
   color: #383838 !important;

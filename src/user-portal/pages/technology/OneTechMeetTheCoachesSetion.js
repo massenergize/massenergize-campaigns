@@ -42,7 +42,7 @@ function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, r
     <div
       ref={ref}
       id={sectionId}
-      className="elevate-float-pro g-s-container"
+      className=" g-s-container"
       style={{
         background: "var(--app-accent-1)",
         width: "100%",

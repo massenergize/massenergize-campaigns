@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NAVIGATION_MENU } from "../../user-portal/data/user-portal-dummy-data";
 import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addUrlParams, addUrlSearchParams, generateUniqueRandomString } from "../../utils/utils";
 
@@ -12,6 +12,8 @@ const EXCLUDE_FROM_NAV = ["communities"];
 function AppNavigationBar({ menu, campaign }) {
   const navigator = useNavigate();
   const { secondary_logo, primary_logo } = campaign || {};
+  const links = useSelector((state) => state?.navigation);
+  const home = links?.find((l) => l.key?.toLowerCase() === "home");
 
   return (
     <Navbar variant="light" expand="lg" style={{ background: "white" }} fixed="top" className="elevate-2">
@@ -23,10 +25,16 @@ function AppNavigationBar({ menu, campaign }) {
             {/* <Nav.Link> */}
             {primary_logo?.url && (
               <img
+                role="button"
+                className="touchable-opacity"
+                onClick={() => {
+                  const route = addUrlSearchParams(home?.url, { salt: generateUniqueRandomString(6) });
+                  navigator(route || "#");
+                }}
                 src={primary_logo?.url}
                 style={{
-                  height: 45,
-                  width: 45,
+                  height: 44,
+                  width: 94,
                   objectFit: "contain",
                   marginRight: 5,
                 }}
@@ -97,8 +105,8 @@ function AppNavigationBar({ menu, campaign }) {
               <img
                 src={secondary_logo?.url}
                 style={{
-                  height: 45,
-                  width: 45,
+                  height: 44,
+                  width: 94,
                   objectFit: "contain",
                   // marginLeft: 5,
                 }}

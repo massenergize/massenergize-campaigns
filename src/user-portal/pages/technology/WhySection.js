@@ -49,9 +49,13 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
           {(overview || []).map((item, index) => {
             const { image, title, description } = item || {};
             return (
-              <Col lg={6} className="overview-item d-flex align-items-center justify-content-center mb-4" key={index?.toString()}>
-                <div className={"w-100 p-3 border h-100 rounded-4"}>
-                  <img src={image?.url || "/img/fallback-img.png"} className={"w-100 rounded-2"} style={{ objectFit: "cover", minHeight : 150, maxHeight : 220 }} alt={image?.name}/>
+              <Col lg={6} className="overview-item column-flex  mb-4" key={index?.toString()}>
+                <div className="column-flex" style={{ alignItems: "center" }}>
+                  <img
+                    src={image?.url || "/img/fallback-img.png"}
+                    style={{ objectFit: "contain", height: 70, width: 70 }}
+                    alt={image?.name}
+                  />
                   <h6
                     className="mt-3 mb-2 subheader-font"
                     style={{
@@ -65,7 +69,7 @@ function WhySection({ sectionId, overview, campaignName, overview_title }) {
                   <div
                     className="body-font lh-sm"
                     dangerouslySetInnerHTML={{ __html: description }}
-                    style={{ textAlign: "justify", }}
+                    style={{ textAlign: "justify" }}
                   ></div>
                 </div>
               </Col>

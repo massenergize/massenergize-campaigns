@@ -65,13 +65,18 @@
   .one-box h5 {
     font-size: 1rem;
   }
+  .one-box i {
+    margin-top: 12px;
+    font-size: 40px;
+    color:var(--app-main-color);
+  }
   .one-box img {
     margin-top: 12px;
     height: 60px;
     width: 60px;
   }
   .one-box-container {
-    min-height: 250px;
+    height: 271px;
     margin-bottom: 20px;
   }
 

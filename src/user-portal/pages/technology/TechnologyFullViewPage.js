@@ -551,7 +551,7 @@ function TechnologyFullViewPage({
           campaignName={name}
           overview_title={technology?.overview_title}
         />
-        <div className="phone-vanish">
+        <div className="phone-vanish" style={{ marginTop: 20 }}>
           <TakeActionSection
             campaign={campaign}
             sectionId="take-action-section"

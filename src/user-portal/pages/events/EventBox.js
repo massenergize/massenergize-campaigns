@@ -6,11 +6,11 @@ import { Col, Row } from "react-bootstrap";
 function EventBox({ event, campaign_technology }) {
   const { campaign } = campaign_technology || {};
 
-  const { name, image, start_date, end_date, id } = event || {};
+  const { name, image, start_date, end_date, id, event_type } = event || {};
   const navigator = useNavigate();
 
-  function gotoEvent () {
-    navigator(`/campaign/${campaign?.slug}/technology/event/${id}`)
+  function gotoEvent() {
+    navigator(`/campaign/${campaign?.slug}/technology/event/${id}`);
   }
 
   return (
@@ -21,19 +21,27 @@ function EventBox({ event, campaign_technology }) {
           style={{ height: 180, objectFit: "cover", borderRadius: 5 }}
           src={image?.url}
           alt={"event"}
-          role={"button"} tabIndex={0}
+          role={"button"}
+          tabIndex={0}
           onClick={gotoEvent}
         />
       )}
       <div>
-        <h6 className="touchable-opacity body-font mt-2 mb-1" role={"button"} tabIndex={0} onClick={() => gotoEvent()}>
+        <h6
+          style={{ textDecoration: "underline" }}
+          className="touchable-opacity body-font mt-2 mb-1"
+          role={"button"}
+          tabIndex={0}
+          onClick={() => gotoEvent()}
+        >
           {smartString(name, 50) || "..."}
         </h6>
 
         <Row>
           <Col className={"pe-0"}>
             <p className="text-sm fw-medium text-accent-3">
-              <span>{formatDate(start_date)}</span><span className={"text-dark"}> &mdash; </span>
+              <span>{formatDate(start_date)}</span>
+              <span className={"text-dark"}> &mdash; </span>
               <span>{formatDate(end_date)}</span>
             </p>
           </Col>
@@ -43,6 +51,13 @@ function EventBox({ event, campaign_technology }) {
             </p>
           </Col>
         </Row>
+        {event_type && (
+          <Row>
+            <p className="text-sm fw-medium" style={{ color: "var(--app-accent-3)" }}>
+              <span>{event_type}</span>
+            </p>
+          </Row>
+        )}
       </div>
     </div>
   );
