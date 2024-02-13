@@ -103,6 +103,7 @@ function LandingPage({
     if (community) updateUserInRedux(json);
     close && close();
   };
+
   const tellUsWhereYouAreFrom = (justLoadedCampaign) => {
     const user = authUser || localStorage.getItem(USER_STORAGE_KEY);
     const firstTime = !user || user === "null";

@@ -27,7 +27,7 @@ function NewOneBox({
   };
 
   return (
-    <div className="card rounded-4 one-box-container">
+    <div className="card rounded-4 one-box-container h-100">
       <div className="card-body p-0 new-one-box">
         {image && <img src={image?.url} alt={image?.name} className={" rounded-top-4"} />}
         <div className="new-one-box-body p-3">
@@ -56,7 +56,7 @@ function NewOneBox({
       </div>
 
       <div className="card-footer border-0 bg-transparent p-3">
-        <Row className={"justify-content-end d-none d-md-flex"}>
+        <Row className={"justify-content-center d-none d-md-flex"}>
           <Col sm={"auto"}>
             <Button
               onClick={() => {
