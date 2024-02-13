@@ -24,7 +24,7 @@ function AppNavigationBar({ menu, campaign }) {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="w-100">
-             <Row className={"w-100 justify-content-between"}>
+             <Row className={"w-100 justify-content-center"}>
                <Col sm="auto d-flex">
                  <Nav.Link className={"p-0 m-auto"}>
                    {primary_logo?.url && (
@@ -115,7 +115,7 @@ function AppNavigationBar({ menu, campaign }) {
                      src={secondary_logo?.url}
                      style={{
                        // width: 100,
-                       maxWidth: 140,
+                       width: 140,
                        height: 70,
                        objectFit: "contain",
                        // marginLeft: 5,
