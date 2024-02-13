@@ -1,35 +1,41 @@
+:root {
+  --site-logo: 100px;
+}
 @media only screen and (min-width: 768px) {
   .page-title {
     text-align: center;
-    font-size: var(--app-header-font);
+    //font-size: var(--app-header-font);
     color: var(--app-accent-3);
     /* text-transform: uppercase; */
   }
   .roaming-container {
-    margin: 100px 0px;
+    //margin: 100px 0px;
   }
   .page-slogan {
-    font-weight: 400;
+    /*font-weight: 400;*/
     color: var(--app-main-color);
     text-align: center;
     /* text-transform: capitalize; */
     line-height: 1.5;
     width: 85%;
-    font-size: var(--app-subheader-font);
+    //font-size: var(--app-subheader-font);
     font-weight: 600;
   }
 
+
+
   .site-logo {
-    width: 190px;
-    height: 190px;
+
+    width: var(--site-logo);
+    height: var(--site-logo);
     margin-block: 10px;
     object-fit: contain;
   }
 
   .campaign-focus-image {
     width: 80%;
-    margin: 20px 10% 0px;
-    height: 530px;
+    //margin: 20px 10% 0px;
+    height: 560px;
     border-radius: 10px;
     object-fit: cover;
   }
@@ -291,8 +297,8 @@
   color: white;
   background: var(--app-main-color);
   /* border-radius: 5px; */
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
+  //border-top-right-radius: 5px;
+  //border-top-left-radius: 5px;
 }
 
 .app-btn {

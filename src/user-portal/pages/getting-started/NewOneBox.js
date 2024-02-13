@@ -38,10 +38,14 @@ function NewOneBox({
             {smartString(summary, 75) || "..."}
           </p>
         </div>
+
+      </div>
+
+      <div className="card-footer border-0 bg-transparent p-3">
         <Row className={"justify-content-start mb-2"}>
           <Col sm={"auto"}>
             <Button
-              variant={"link"}
+              variant={"link px-0"}
               className="touchable-opacity link-accent small-font"
               onClick={() => {
                 trackActivity && trackActivity({ ...common, button_type: "learn_more" });
@@ -53,10 +57,7 @@ function NewOneBox({
             </Button>
           </Col>
         </Row>
-      </div>
-
-      <div className="card-footer border-0 bg-transparent p-3">
-        <Row className={"justify-content-center d-none d-md-flex"}>
+        <Row className={"justify-content-start d-none d-md-flex"}>
           <Col sm={"auto"}>
             <Button
               onClick={() => {
