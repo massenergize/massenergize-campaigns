@@ -50,7 +50,7 @@ function SmartRichText({ text, richText, children, maxHeight = DEFAULT_MAX, styl
   return (
     <>
       <div
-        className={`body-font ${className || ""}`}
+        className={`body-font smart-rich-text ${className || ""}`}
         style={{
           padding: `${PADDING}px 0px`,
           //   padding: `15px 0px`,
@@ -62,6 +62,7 @@ function SmartRichText({ text, richText, children, maxHeight = DEFAULT_MAX, styl
         <p
           // style={{ overflowY: "hidden" }}
           ref={ref}
+          // className={"lh-sm"}
           dangerouslySetInnerHTML={{ __html: text || richText || children }}
         ></p>
       </div>

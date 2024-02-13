@@ -7,104 +7,114 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addUrlParams, addUrlSearchParams, generateUniqueRandomString } from "../../utils/utils";
+import { Col, Row } from "react-bootstrap";
 
 const EXCLUDE_FROM_NAV = ["communities"];
+
 function AppNavigationBar({ menu, campaign }) {
   const navigator = useNavigate();
   const { secondary_logo, primary_logo } = campaign || {};
 
   return (
-    <Navbar variant="light" expand="lg" style={{ background: "white" }} fixed="top" className="elevate-2">
+    <Navbar variant="light" expand="lg" style={{ background: "white" }} fixed="top" className="elevate-1">
       <Container>
         {/* <Navbar.Brand href="#home">MassEnergize Campaigns</Navbar.Brand> */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto mx-auto" style={{ alignItems: "center" }}>
-             <Nav.Link>
-             {primary_logo?.url && (
-              <img
-                src={primary_logo?.url}
-                style={{
-                  height: 45,
-                  width: 45,
-                  objectFit: "contain",
-                  marginRight: 5,
-                }}
-                alt={"logo"}
-              />
-            )}
-             </Nav.Link>
-            {menu?.map((menu) => {
-              const excluded = EXCLUDE_FROM_NAV.includes(menu?.key?.toLowerCase());
-              if (excluded) return <></>;
-              if (!menu?.children)
-                return (
-                  <Nav.Link
-                    className="c-nav-item body-font"
-                    key={menu?.key}
-                    style={{
-                      textTransform: "capitalize",
-                      marginRight: 20,
-                      fontWeight: "bold",
-                    }}
-                    onClick={() => {
-                      const route = addUrlSearchParams(menu?.url, { salt: generateUniqueRandomString(6) });
-                      navigator(route || "#");
-                    }}
-                  >
+          <Nav className="w-100">
+             <Row className={"w-100 justify-content-between"}>
+               <Col sm="auto d-flex">
+                 <Nav.Link className={"p-0 m-auto"}>
+                   {primary_logo?.url && (
+                     <img
+                       src={primary_logo?.url}
+                       style={{
+                         height: 50,
+                         width: 50,
+                         objectFit: "contain",
+                       }}
+                       alt={"logo"}
+                     />
+                   )}
+                 </Nav.Link>
+               </Col>
+               <Col sm={"auto"} className={"d-flex"}>
+                 {menu?.map((menu) => {
+                   const excluded = EXCLUDE_FROM_NAV.includes(menu?.key?.toLowerCase());
+                   if (excluded) return <></>;
+                   if (!menu?.children)
+                     return (
+                       <Nav.Link
+                         className="c-nav-item body-font"
+                         key={menu?.key}
+                         style={{
+                           textTransform: "capitalize",
+                           marginRight: 20,
+                           fontWeight: "bold",
+                         }}
+                         onClick={() => {
+                           const route = addUrlSearchParams(menu?.url, { salt: generateUniqueRandomString(6) });
+                           navigator(route || "#");
+                         }}
+                       >
                     <span>
                       <i className={`fa ${menu.icon}`} style={{ marginRight: 6 }}></i>
                       <span>{menu.text}</span>
                     </span>
-                  </Nav.Link>
-                );
-              return (
-                <NavDropdown
-                  style={{
-                    textTransform: "capitalize",
-                    marginRight: 20,
-                    fontWeight: "bold",
-                  }}
-                  className={"mx-2 body-font"}
-                  title={
-                    <span className="c-nav-item">
+                       </Nav.Link>
+                     );
+                   return (
+                     <NavDropdown
+                       style={{
+                         textTransform: "capitalize",
+                         marginRight: 20,
+                         fontWeight: "bold",
+                       }}
+                       className={"mx-2 body-font"}
+                       title={
+                         <span className="c-nav-item">
                       <i className={`fa ${menu.icon}`} style={{ marginRight: 6 }}></i>
                       <span>{menu?.text}</span>
                     </span>
-                  }
-                  id="basic-nav-dropdown"
-                >
-                  {menu?.children?.map((child) => {
-                    const salt = generateUniqueRandomString(6);
-                    return (
-                      <NavDropdown.Item
-                        className="f-dropdown-override c-nav-item"
-                        style={{ textTransform: "capitalize" }}
-                        key={child?.key}
-                        onClick={() => {
-                          navigator(`${child.url}&salt=${salt}` || "#");
-                        }}
-                      >
-                        {child.text}
-                      </NavDropdown.Item>
-                    );
-                  })}
-                </NavDropdown>
-              );
-            })}
-
-             {secondary_logo?.url && (
-              <img
-                src={secondary_logo?.url}
-                style={{
-                  height: 45,
-                  width: 45,
-                  objectFit: "contain",
-                  // marginLeft: 5,
-                }}
-                alt={"logo"}
-              />
-            )}
+                       }
+                       id="basic-nav-dropdown"
+                     >
+                       {menu?.children?.map((child) => {
+                         const salt = generateUniqueRandomString(6);
+                         return (
+                           <NavDropdown.Item
+                             className="f-dropdown-override c-nav-item"
+                             style={{ textTransform: "capitalize" }}
+                             key={child?.key}
+                             onClick={() => {
+                               navigator(`${child.url}&salt=${salt}` || "#");
+                             }}
+                           >
+                             {child.text}
+                           </NavDropdown.Item>
+                         );
+                       })}
+                     </NavDropdown>
+                   );
+                 })}
+               </Col>
+               <Col sm="auto d-flex">
+                 {secondary_logo?.url && (
+                   <img
+                     className={"m-auto"}
+                     src={secondary_logo?.url}
+                     style={{
+                       // width: 100,
+                       width: 50,
+                       // width: 50,
+                       objectFit: "contain",
+                       // marginLeft: 5,
+                     }}
+                     alt={"logo"}
+                   />
+                 )}
+               </Col>
+             </Row>
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -10,12 +10,14 @@ function RoamingBox({ advert, keyContact, showMore }) {
 
   const { phone_number, email } = keyContact || {};
   return (
-    <div className="roaming-container">
+    <div className="roaming-container my-5">
       <Container>
-        <Col lg={{ span: 10, offset: 1 }}>
+        {/*<Col lg={{ span: 10,}}>*/}
           <Row>
             <Col lg={8}>
-              <div style={{}}>
+              <div className={"rounded-4 overflow-hidden"} style={{
+                border: "solid 2px var(--app-main-color)",
+              }}>
                 <div className="roaming-header">
                   <h3 className="m-0 subheader-font">{advert?.title}</h3>
                 </div>
@@ -23,14 +25,11 @@ function RoamingBox({ advert, keyContact, showMore }) {
                   className="flex-column"
                   style={{
                     minHeight: 200,
-                    // background: "var(--app-accent-2)",
-                    border: "solid 2px var(--app-main-color)",
-                    borderBottomLeftRadius: 5,
-                    borderBottomRightRadius: 5,
                   }}
                 >
-                  <div style={{ padding: "15px 25px" }}>
+                  {/*<div className={"px-3 h-100"}>*/}
                     <SmartRichText
+                      className={"px-3"}
                       maxHeight={120}
                       renderSeeMore={(_, isLong) => {
                         if (!isLong) return <></>;
@@ -38,16 +37,18 @@ function RoamingBox({ advert, keyContact, showMore }) {
                           <Button
                             style={{ marginTop: 10 }}
                             onClick={() => showMore && showMore()}
-                            className="elevate-2 touchable-opacity app-btn body-font"
+                            className="elevate-2 touchable-opacity app-btn body-font ms-3 mt-4"
                           >
                             Learn More
                           </Button>
                         );
                       }}
                     >
-                      {advert?.description}
+                      {advert?.description + "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur hic minus nostrum saepe temporibus. Eveniet iure nemo sit sunt. A aliquam consequuntur illo inventore modi non quae quod tenetur vero.300 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci aliquam, atque ducimus eligendi eos, est et, exercitationem molestias nulla placeat quidem sunt. Aperiam deleniti, dolorem eveniet expedita facere facilis id laborum minus molestiae nesciunt odit pariatur quae quasi quia quidem quod, repellendus reprehenderit sed temporibus voluptatem. Cumque ex, reiciendis."}
                     </SmartRichText>
-                  </div>
+
+
+                  {/*</div>*/}
                   {/* <p className="roaming-text" style={{ padding: "15px 25px" }}>
                     {preview}
                     {isLong ? "..." : ""}
@@ -77,6 +78,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
                 </div>
               </div>
             </Col>
+
             <Col
               lg={{ span: 3, offset: 1 }}
               style={{
@@ -89,7 +91,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
             >
               <img
                 className="mb-2"
-                src={keyContact?.image?.url || phone_call}
+                src={keyContact?.image?.url || "/img/customer-support.svg"}
                 style={{
                   borderRadius: "100%",
                   width: 90,
@@ -146,7 +148,7 @@ function RoamingBox({ advert, keyContact, showMore }) {
               )}
             </Col>
           </Row>
-        </Col>
+        {/*</Col>*/}
       </Container>
     </div>
   );
