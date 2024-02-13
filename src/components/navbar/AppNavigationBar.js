@@ -91,7 +91,7 @@ function AppNavigationBar({ menu, campaign }) {
                     return (
                       <Col key={i} sm={12} md={"auto"} className={"d-flex align-items-center px-0"}>
                         <NavDropdown
-                          className={"fw-bold text-capitalize mx-md-2 mx-auto body-font d-flex px-0"}
+                          className={"fw-bold text-capitalize mx-md-1 mx-auto body-font d-flex px-0"}
                           title={
                             <span className="c-nav-item my-auto d-inline-block">
                           <i className={`fa ${menu.icon}`} style={{ marginRight: 6 }}></i>
