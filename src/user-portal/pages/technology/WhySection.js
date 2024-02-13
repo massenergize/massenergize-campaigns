@@ -105,7 +105,7 @@ function ReasonCardV2({ image, title, html }) {
 
 function ReasonCardV3(props) {
   return (
-    <div className={"w-100 p-3 border h-100 rounded-4"}>
+    <div className={"w-100 p-3  h-100 rounded-4"}>
       <Row>
         <Col className={"d-flex"}>
           <img

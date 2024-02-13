@@ -23,7 +23,7 @@ const dummies = [
     type: "incentives",
   },
   {
-    icon: "fa-globe",
+    icon: "fa-handshake-o",
     title: "Find A Vendor",
     actionText: "Vendors",
     content: "The critical question - who should you have quote your project?",

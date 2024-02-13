@@ -79,7 +79,8 @@ const DoMoreBox = ({ scrollToCommunities, isMobile }) => {
       <div className="one-box">
         <img
           // src={"https://placehold.co/100x100"}
-          src={people}
+          // src={people}
+          src={"/img/diversity.svg"}
           alt="people"
         />
         <h5 className="subheader-font" style={{ color: "var(--app-main-color)" }}>
