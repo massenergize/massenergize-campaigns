@@ -17,6 +17,7 @@ const DoMore = (props) => {
     </CenteredWrapper>
   );
 };
+
 function DoMoreComponent() {
   const campaign = useSelector((state) => state.campaign);
   const { communities, communities_section } = campaign || {};
@@ -27,8 +28,10 @@ function DoMoreComponent() {
     <div className="do-more-root">
       {/* <OptimumWrapper> */}
       <Container>
-        <SectionTitle>{title || " Participating Communities"}</SectionTitle>
-        {/* <h2
+        <Row>
+          <Col className={"pt-3"}>
+            <SectionTitle>{title || " Participating Communities"}</SectionTitle>
+            {/* <h2
             style={{
               color: "black",
               fontWeight: "bold",
@@ -38,7 +41,9 @@ function DoMoreComponent() {
           >
             {title || " Participating Communities"}
           </h2> */}
-        <p>{description}</p>
+            <p>{description}</p>
+          </Col>
+        </Row>
         <Row style={{ flexWrap: "wrap", display: "flex", marginTop: 20 }}>
           {(communities || []).map(({ community, id, alias, extra_links: links }, index) => {
             return (

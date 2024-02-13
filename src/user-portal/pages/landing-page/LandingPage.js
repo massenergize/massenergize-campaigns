@@ -224,7 +224,7 @@ function LandingPage({
           protectedFunction={(options) => triggerProtectedFunctionality(authUser, options)}
         />
       </div>
-      <br />
+      {/*<br />*/}
 
       <div ref={eventsRef}>
         <EventsSectionWithFilters technologies={technologies} sectionId="event-section" />

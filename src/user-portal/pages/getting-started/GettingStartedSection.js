@@ -49,19 +49,15 @@ function GettingStartedSection({
                 "Explore the actions we have under these technologies and get started right away!"}
               {/* Explore the actions we have under these technologies and get started right away! */}
             </p>
-            <Row
-              style={{
-                marginLeft: 0,
-              }}
-            >
+            <Row>
               {technologies?.map((box) => {
                 return (
-                  <Col key={box.id} md={4} lg={3} sm={6} xs={6} className="one-tech-wrapper mb-4">
+                  <Col key={box.id} md={4} xl={3} className="one-tech-wrapper mb-4">
                     <OneBox v2={!isMobile} {...box} trackActivity={trackActivity} authUser={authUser} />
                   </Col>
                 );
               })}
-              <Col md={3} lg={3} sm={6} xs={6} className="one-tech-wrapper">
+              <Col md={3} lg={3} sm={6} xs={6} className="one-tech-wrapper mb-4">
                 <DoMoreBox
                   isMobile={isMobile}
                   scrollToCommunities={() => scrollToCommunities && scrollToCommunities()}
@@ -79,7 +75,7 @@ export default GettingStartedSection;
 
 const DoMoreBox = ({ scrollToCommunities, isMobile }) => {
   return (
-    <div className="elevate-float-pro one-box-container h-100" style={{ height: isMobile ? 287 : 475 }}>
+    <div className="card rounded-4 one-box-container h-100" style={{ height: isMobile ? 287 : 475 }}>
       <div className="one-box">
         <img
           // src={"https://placehold.co/100x100"}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { HOMEPAGE } from "../../../utils/Constants";
 import { smartString } from "../../../utils/utils";
@@ -27,50 +27,61 @@ function NewOneBox({
   };
 
   return (
-    <div className="elevate-float-pro one-box-container">
-      <div className="new-one-box">
-        {image && <img src={image?.url} alt={image?.name} />}
-        <div className="new-one-box-body">
-          <h5 className="subheader-font" style={{ textTransform: "capitalize", color: "var(--app-main-color)" }}>
+    <div className="card rounded-4 one-box-container">
+      <div className="card-body p-0 new-one-box">
+        {image && <img src={image?.url} alt={image?.name} className={" rounded-top-4"} />}
+        <div className="new-one-box-body p-3">
+          <h5 className="subheader-font mb-1" style={{ textTransform: "capitalize", color: "var(--app-main-color)" }}>
             {name}
           </h5>
-          <p className="body-font" style={{ textAlign: "center" }}>
+          <p className="body-font lh-sm">
             {smartString(summary, 75) || "..."}
           </p>
-          <Button
-            variant={"link"}
-            className="touchable-opacity link-accent small-font"
-            onClick={() => {
-              trackActivity && trackActivity({ ...common, button_type: "learn_more" });
-              navigator(route);
-            }}
-            style={{ fontWeight: "bold", color: "var(--app-accent-3)" }}
-          >
-            Learn More...
-          </Button>
         </div>
+        <Row className={"justify-content-start mb-2"}>
+          <Col sm={"auto"}>
+            <Button
+              variant={"link"}
+              className="touchable-opacity link-accent small-font"
+              onClick={() => {
+                trackActivity && trackActivity({ ...common, button_type: "learn_more" });
+                navigator(route);
+              }}
+              style={{ fontWeight: "bold", color: "var(--app-accent-3)" }}
+            >
+              Learn More...
+            </Button>
+          </Col>
+        </Row>
       </div>
-      <div className="new-one-box-footer phone-vanish">
-        <Button
-          onClick={() => {
-            trackActivity && trackActivity({ ...common, button_type: "quote" });
-            navigator(`${route}?section=vendors`);
-          }}
-          className="tech-btn elevate-2 touchable-opacity mr-2"
-          style={{ background: "var(--app-accent-3)", marginRight: 20 }}
-        >
-          Quote
-        </Button>
-        <Button
-          onClick={() => {
-            trackActivity && trackActivity({ ...common, button_type: "coach" });
-            navigator(`${route}?section=coaches`);
-          }}
-          style={{ background: "var(--app-main-color)" }}
-          className="tech-btn elevate-2 touchable-opacity"
-        >
-          Coach
-        </Button>
+
+      <div className="card-footer border-0 bg-transparent p-3">
+        <Row className={"justify-content-end d-none d-md-flex"}>
+          <Col sm={"auto"}>
+            <Button
+              onClick={() => {
+                trackActivity && trackActivity({ ...common, button_type: "quote" });
+                navigator(`${route}?section=vendors`);
+              }}
+              className="tech-btn touchable-opacity"
+              style={{ background: "var(--app-accent-3)",}}
+            >
+              Quote
+            </Button>
+          </Col>
+          <Col sm={"auto"}>
+            <Button
+              onClick={() => {
+                trackActivity && trackActivity({ ...common, button_type: "coach" });
+                navigator(`${route}?section=coaches`);
+              }}
+              style={{ background: "var(--app-main-color)" }}
+              className="tech-btn touchable-opacity"
+            >
+              Coach
+            </Button>
+          </Col>
+        </Row>
       </div>
     </div>
   );

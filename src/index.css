@@ -14,7 +14,6 @@ body {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
-  transition-duration: 300ms;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   text-align: center;
   display: flex;
@@ -29,7 +28,7 @@ body {
 .tech-btn {
   border-radius: 500px !important;
   padding: 8px 23px !important;
-  margin: 6px;
+  margin: 6px 0;
   font-size: var(--small-font) !important;
   border-width: 0px !important;
   font-weight: bold !important;

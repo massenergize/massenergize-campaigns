@@ -22,10 +22,10 @@ function OneBox(props) {
     email: user?.email,
   };
 
-  if (v2) return <NewOneBox {...props} />;
+  return <NewOneBox {...props} />;
 
-  return (
-    <div className="elevate-float-pro one-box-container h-100">
+  /*return (
+    <div className="card elevate-float-pro one-box-container h-100">
       <div className="one-box p-4">
         {isIcon && (
           <i
@@ -82,7 +82,7 @@ function OneBox(props) {
         </Button>
       </div>
     </div>
-  );
+  );*/
 }
 
 export default OneBox;
