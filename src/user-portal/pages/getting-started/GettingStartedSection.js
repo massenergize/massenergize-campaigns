@@ -52,19 +52,9 @@ function GettingStartedSection({
             <Row>
               {technologies?.map((box) => {
                 return (
-                  <>
                   <Col key={box.id} md={4} xl={3} className="one-tech-wrapper mb-4">
                     <OneBox v2={!isMobile} {...box} trackActivity={trackActivity} authUser={authUser} />
                   </Col>
-                    <Col key={box.id} md={4} xl={3} className="one-tech-wrapper mb-4">
-                      <OneBox v2={!isMobile} {...box} trackActivity={trackActivity} authUser={authUser} />
-                    </Col>
-                    <Col key={box.id} md={4} xl={3} className="one-tech-wrapper mb-4">
-                      <OneBox v2={!isMobile} {...box} trackActivity={trackActivity} authUser={authUser} />
-                    </Col>
-                <Col key={box.id} md={4} xl={3} className="one-tech-wrapper mb-4">
-                  <OneBox v2={!isMobile} {...box} trackActivity={trackActivity} authUser={authUser} />
-                </Col></>
                 );
               })}
               <Col md={3} lg={3} sm={6} xs={6} className="one-tech-wrapper mb-4">
