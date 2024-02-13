@@ -23,7 +23,7 @@ const dummies = [
     type: "incentives",
   },
   {
-    icon: "fa-globe",
+    icon: "fa-handshake-o",
     title: "Find A Vendor",
     actionText: "Vendors",
     content: "The critical question - who should you have quote your project?",
@@ -62,7 +62,7 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
           {dummies.map((item, index) => {
             return (
               <Col
-                className="elevate-float-pro m-3"
+                className="elevate-float-pro m-3 rounded-4"
                 style={{
                   background: "white",
                   display: "flex",
@@ -75,7 +75,7 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
                   opacity: thereAreNoVendors && item?.type === "vendors" ? 0.3 : 1,
                 }}
                 key={index?.toString()}
-                lg={3}
+                md={4} lg={3}
               >
                 <i className={`fa ${item.icon} mb-1 mt-2`} style={{ fontSize: 60, color: "var(--app-main-color)" }} />
                 <h6

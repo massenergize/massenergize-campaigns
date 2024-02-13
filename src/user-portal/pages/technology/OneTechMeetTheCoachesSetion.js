@@ -43,20 +43,10 @@ function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, r
       ref={ref}
       id={sectionId}
       className="elevate-float-pro g-s-container"
-      style={{
-        background: "var(--app-accent-1)",
-        width: "100%",
-        // padding: "80px 0px",
-        // minHeight: 200,
-      }}
+      style={{ background: "var(--app-accent-1)", width: "100%", }}
     >
       <OptimumWrapper>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
+        <div style={{ display: "flex", flexDirection: "row", }}>
           <div>
             <SectionTitle className="mb-5" style={{ color: "black" }}>
               {title || "Meet the Coaches"}
@@ -70,7 +60,8 @@ function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, r
           ref={scrollContainerRef}
           style={{
             flexWrap: "nowrap",
-            overflowX: "scroll",
+            overflowX: "auto",
+            overflowY: "hidden",
           }}
         >
           {coaches?.map((coach, index) => {

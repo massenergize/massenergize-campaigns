@@ -103,6 +103,7 @@ function LandingPage({
     if (community) updateUserInRedux(json);
     close && close();
   };
+
   const tellUsWhereYouAreFrom = (justLoadedCampaign) => {
     const user = authUser || localStorage.getItem(USER_STORAGE_KEY);
     const firstTime = !user || user === "null";
@@ -174,15 +175,16 @@ function LandingPage({
   return (
     <div style={{}}>
       <div ref={homeRef}></div>
+
       {previewMode && (
         <p
           className="elevate-3"
           style={{
             background: "var(--app-accent-3)",
-            padding: "10px 20px",
+            padding: "10px 5px 10px 15px",
             position: "fixed",
             right: 0,
-            top: 100,
+            top: 280,
             zIndex: 10,
             fontWeight: "bold",
             color: "white",
@@ -196,6 +198,7 @@ function LandingPage({
       <AppNavigationBar menu={menu} campaign={campaign} />
 
       <Hero v2={showHeroV1 && !isMobile} handleShareCampaign={handleShareCampaign} />
+
       <Container>
         <RoamingBox
           id="roaming-box"
@@ -204,6 +207,7 @@ function LandingPage({
           showMore={showMoreAboutAdvert}
         />
       </Container>
+
       <div ref={technologyRef}>
         <GettingStartedSection
           customization={technologies_section || {}}
@@ -224,7 +228,7 @@ function LandingPage({
           protectedFunction={(options) => triggerProtectedFunctionality(authUser, options)}
         />
       </div>
-      <br />
+      {/*<br />*/}
 
       <div ref={eventsRef}>
         <EventsSectionWithFilters technologies={technologies} sectionId="event-section" />

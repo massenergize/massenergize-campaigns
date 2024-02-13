@@ -79,7 +79,7 @@
   a,
   Button {
     /* font-size: var(--mob-normal-font-size); */
-    font-size: 0.77rem !important;
+    /*font-size: 0.77rem !important;*/
   }
 
   .one-box-footer {
@@ -191,5 +191,17 @@
     font-size: var(--app-mobile-small-font);
   }
 
+
   /* ---------------------------- END OF PHONE SPECIFIC STYLES ----------- */
+}
+
+@media screen and (max-width: 576px){
+  .app-nav-bar{
+    .navbar-collapse.show{
+      /*min-height: 650px;*/
+      /* set the height to the available viewport height */
+      height: 100vh;
+    }
+    align-items: start !important;
+  }
 }
