@@ -65,7 +65,7 @@ function AppNavigationBar({ menu, campaign }) {
                     if (excluded) return <></>;
                     if (!menu?.children)
                       return (
-                        <Col sm={12} md={"auto"} key={i} className={"d-flex  align-items-center"}>
+                        <Col sm={12} md={"auto"} key={i} className={"d-flex  align-items-center px-0"}>
                           <Nav.Link
                             className="c-nav-item body-font d-flex mx-md-2 mx-auto"
                             key={menu?.key}
@@ -87,7 +87,7 @@ function AppNavigationBar({ menu, campaign }) {
                         </Col>
                       );
                     return (
-                      <Col key={i} sm={12} md={"auto"} className={"d-flex align-items-center"}>
+                      <Col key={i} sm={12} md={"auto"} className={"d-flex align-items-center px-0"}>
                         <NavDropdown
                           className={"fw-bold text-capitalize mx-md-2 mx-auto body-font d-flex"}
                           title={
