@@ -26,7 +26,7 @@ function Banner(props) {
     is_published,
   } = props;
   return (
-    <Container style={{ marginTop: 70 }}>
+    <Container className="nav-top-margin">
       <Row>
         <Col>
           <CampaignNotLive />
