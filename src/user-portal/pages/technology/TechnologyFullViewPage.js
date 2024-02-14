@@ -295,7 +295,7 @@ function TechnologyFullViewPage({
   return (
     <div>
       <AppNavigationBar />
-      <div style={{ marginTop: 100 }} className="one-tech-wrapper">
+      <div className="one-tech-wrapper">
         <OptimumWrapper>
           <CampaignNotLive />
           <SectionTitle>{name || "..."}</SectionTitle>
