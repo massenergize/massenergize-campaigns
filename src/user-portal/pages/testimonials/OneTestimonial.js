@@ -156,12 +156,12 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init, togg
         <Col lg={3} className="mt-3">
           {image?.url && (
             <img
-              className="elevate-float-pro mt-3"
+              className=" mt-3"
               src={image?.url}
               style={{
                 width: "100%",
                 height: 150,
-                objectFit: "cover",
+                objectFit: "contain",
                 borderRadius: 10,
                 marginBottom: 20,
               }}
@@ -236,7 +236,7 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init, togg
           )}
           <div
             onClick={() => initiateTestimonialCreation(authUser)}
-            className="mt-2 touchable-opacity body-font"
+            className="mt-2 touchable-opacity body-font phone-vanish"
             style={{
               background: "var(--app-main-color)",
               padding: 10,
