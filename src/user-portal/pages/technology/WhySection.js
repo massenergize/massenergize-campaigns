@@ -40,7 +40,7 @@ function ReasonCard(props) {
           <img
             src={props.image?.url || "/img/fallback-img.png"}
             className={"rounded-2 mx-auto"}
-            style={{ objectFit: "cover", height: 70, width: 70 }}
+            style={{ objectFit: "contain", height: 70, width: 70 }}
             alt={props.image?.name}
           />
         </Col>
@@ -77,7 +77,7 @@ function ReasonCardV2({ image, title, html }) {
           <img
             src={image?.url || "/img/fallback-img.png"}
             className={"rounded mx-auto"}
-            style={{ objectFit: "cover", height: 50, width: 50 }}
+            style={{ objectFit: "contain", height: 50, width: 50 }}
             alt={image?.name}
           />
         </Col>
@@ -111,7 +111,7 @@ function ReasonCardV3(props) {
           <img
             src={props.image?.url || "/img/fallback-img.png"}
             className={"rounded-2 mx-auto"}
-            style={{ objectFit: "cover", height: 70, width: 70 }}
+            style={{ objectFit: "contain", height: 70, width: 70 }}
             alt={props.image?.name}
           />
         </Col>
