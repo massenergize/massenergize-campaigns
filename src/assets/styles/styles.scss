@@ -846,7 +846,7 @@ a.dropdown-toggle.nav-link {
   display: flex !important;
 
   &::after {
-    display: inline-block;
+    //display: inline-block;
     margin-left: .255em;
     vertical-align: .255em;
     content: "";
@@ -856,6 +856,15 @@ a.dropdown-toggle.nav-link {
     border-left: .3em solid transparent;
     margin-top: auto;
     margin-bottom: auto;
+    display: none;
+  }
+
+  svg.down-chevron {
+    transition: transform 0.05s ease-in-out;
+  }
+
+  &.show svg.down-chevron {
+    transform: rotate(180deg);
   }
 }
 

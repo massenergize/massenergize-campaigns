@@ -7,8 +7,49 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addUrlSearchParams, generateUniqueRandomString } from "../../utils/utils";
 import { Col, Row } from "react-bootstrap";
+import * as PropTypes from "prop-types";
 
 const EXCLUDE_FROM_NAV = ["communities"];
+
+function DropdownTitle(props) {
+  return (
+    <div className="c-nav-item nav-content mx-auto mx-md-0 row">
+      <Col xs={2} md={"auto"} className={"px-0 me-1"}>
+        <i className={`fa ${props.menu.icon}`}></i>
+      </Col>
+      <Col className={"px-0"}>
+        <span>{props.menu?.text}</span>
+      </Col>
+      <Col xs={"auto"} className={"px-0 ms-md-1"}>
+        {/*<i className="fa fa-light fa-chevron-down"></i>*/}
+        <svg
+          className={"down-chevron"}
+          id="Layer_1"
+          enableBackground="new 0 0 128 128"
+          height="17"
+          viewBox="0 0 128 128"
+          width="17"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            id="Down_Arrow_3_"
+            d="m64 88c-1.023 0-2.047-.391-2.828-1.172l-40-40c-1.563-1.563-1.563-4.094 0-5.656s4.094-1.563 5.656 0l37.172 37.172 37.172-37.172c1.563-1.563 4.094-1.563 5.656 0s1.563 4.094 0 5.656l-40 40c-.781.781-1.805 1.172-2.828 1.172z"
+          />
+        </svg>
+        {/*<svg fill="none" height="20" viewBox="0 0 32 32" width="20" xmlns="http://www.w3.org/2000/svg" id="fi_9126125">
+          <path
+            clipRule="evenodd"
+            d="m4.93934 10.9393c.58579-.5857 1.53553-.5857 2.12132 0l8.93934 8.9394 8.9393-8.9394c.5858-.5857 1.5356-.5857 2.1214 0 .5857.5858.5857 1.5356 0 2.1214l-10 10c-.5858.5857-1.5356.5857-2.1214 0l-9.99996-10c-.58579-.5858-.58579-1.5356 0-2.1214z"
+            fill="rgb(0,0,0)"
+            fillRule="evenodd"
+          ></path>
+        </svg>*/}
+      </Col>
+    </div>
+  );
+}
+
+DropdownTitle.propTypes = { menu: PropTypes.any };
 
 function AppNavigationBar({ menu, campaign }) {
   const navigator = useNavigate();
@@ -18,7 +59,7 @@ function AppNavigationBar({ menu, campaign }) {
 
   return (
     <Navbar variant="light" expand="lg" style={{ background: "white" }} fixed="top" className="app-nav-bar elevate-1">
-      <Container fluid >
+      <Container className={""} style={{ maxWidth: 1420 }}>
         {/* <Navbar.Brand href="#home">MassEnergize Campaigns</Navbar.Brand> */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" className={" mb-2"} />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -69,7 +110,7 @@ function AppNavigationBar({ menu, campaign }) {
                       return (
                         <Col sm={12} md={"auto"} key={i} className={"d-flex  align-items-center px-0"}>
                           <Nav.Link
-                            className="c-nav-item body-font d-flex mx-md-2 mx-auto"
+                            className="c-nav-item body-font d-flex mx-md-2 mx-auto px-0"
                             key={menu?.key}
                             style={{
                               textTransform: "capitalize",
@@ -81,30 +122,26 @@ function AppNavigationBar({ menu, campaign }) {
                               navigator(route || "#");
                             }}
                           >
-                        <span className={"my-auto"}>
-                          <i className={`fa ${menu.icon}`} style={{ marginRight: 6 }}></i>
-                          <span>{menu.text}</span>
-                        </span>
+                            <span className={"my-auto nav-content"}>
+                              <i className={`fa ${menu.icon}`} style={{ marginRight: 6 }}></i>
+                              <span>{menu.text}</span>
+                            </span>
                           </Nav.Link>
                         </Col>
                       );
+
                     return (
                       <Col key={i} sm={12} md={"auto"} className={"d-flex align-items-center px-0"}>
                         <NavDropdown
-                          className={"fw-bold text-capitalize mx-md-2 mx-auto body-font d-flex"}
-                          title={
-                            <span className="c-nav-item my-auto d-inline-block">
-                          <i className={`fa ${menu.icon}`} style={{ marginRight: 6 }}></i>
-                          <span>{menu?.text}</span>
-                        </span>
-                          }
+                          className={"fw-bold text-capitalize mx-md-1 mx-auto body-font d-md-flex px-0 w-100"}
+                          title={<DropdownTitle menu={menu} />}
                           id="basic-nav-dropdown"
                         >
                           {menu?.children?.map((child) => {
                             const salt = generateUniqueRandomString(6);
                             return (
                               <NavDropdown.Item
-                                className="f-dropdown-override c-nav-item my-auto"
+                                className="f-dropdown-override c-nav-item my-auto text-center text-md-start "
                                 style={{ textTransform: "capitalize" }}
                                 key={child?.key}
                                 onClick={() => {

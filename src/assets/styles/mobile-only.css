@@ -203,5 +203,18 @@
       height: 100vh;
     }
     align-items: start !important;
+
+    a.dropdown-toggle.nav-link {
+      width: 100%;
+      /*text-align: center;*/
+
+      .nav-content {
+        min-width: 250px;
+      }
+
+      &::after{
+        display: none !important;
+      }
+    }
   }
 }
