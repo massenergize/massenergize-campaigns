@@ -124,13 +124,13 @@ function OneEvent({ events, updateEvents, init, campaign }) {
 const mapState = (state) => {
   return {
     events: state.events,
-    init: appInnitAction,
+
     campaign: state.campaign,
   };
 };
 
 const mapDispatch = (dispatch) => {
-  return bindActionCreators({ updateEvents: updateEventsObj }, dispatch);
+  return bindActionCreators({ updateEvents: updateEventsObj, init: appInnitAction }, dispatch);
 };
 
 export default connect(mapState, mapDispatch)(OneEvent);
