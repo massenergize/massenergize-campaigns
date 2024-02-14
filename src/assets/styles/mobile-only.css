@@ -35,6 +35,7 @@
     height: 240px;
     object-fit: cover;
     border-radius: 6px;
+    margin-top: 15px;
   }
 
   .roaming-container {
@@ -191,6 +192,9 @@
     font-size: var(--app-mobile-small-font);
   }
 
+  .nav-top-margin { 
+    margin-top: 75px;
+  }
 
   /* ---------------------------- END OF PHONE SPECIFIC STYLES ----------- */
 }
@@ -203,5 +207,18 @@
       height: 100vh;
     }
     align-items: start !important;
+
+    a.dropdown-toggle.nav-link {
+      width: 100%;
+      /*text-align: center;*/
+
+      .nav-content {
+        min-width: 250px;
+      }
+
+      &::after{
+        display: none !important;
+      }
+    }
   }
 }

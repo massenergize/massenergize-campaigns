@@ -37,14 +37,14 @@ function RoamingBox({ advert, keyContact, showMore }) {
                           <Button
                             style={{ marginTop: 10 }}
                             onClick={() => showMore && showMore()}
-                            className="elevate-2 touchable-opacity app-btn body-font ms-3 mt-4"
+                            className=" touchable-opacity app-btn body-font ms-3 mt-4"
                           >
                             Learn More
                           </Button>
                         );
                       }}
                     >
-                      {advert?.description + "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur hic minus nostrum saepe temporibus. Eveniet iure nemo sit sunt. A aliquam consequuntur illo inventore modi non quae quod tenetur vero.300 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci aliquam, atque ducimus eligendi eos, est et, exercitationem molestias nulla placeat quidem sunt. Aperiam deleniti, dolorem eveniet expedita facere facilis id laborum minus molestiae nesciunt odit pariatur quae quasi quia quidem quod, repellendus reprehenderit sed temporibus voluptatem. Cumque ex, reiciendis."}
+                      {advert?.description}
                     </SmartRichText>
 
 

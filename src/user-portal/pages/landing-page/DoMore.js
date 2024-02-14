@@ -30,7 +30,7 @@ function DoMoreComponent() {
       <Container>
         <Row>
           <Col className={"pt-3"}>
-            <SectionTitle>{title || " Participating Communities"}</SectionTitle>
+            <SectionTitle className={"text-center text-md-start"}>{title || " Participating Communities"}</SectionTitle>
             {/* <h2
             style={{
               color: "black",
@@ -72,6 +72,7 @@ function DoMoreComponent() {
                     src={community?.logo?.url}
                     alt={"logo"}
                   />
+                  {alias && <h6 className="text-muted body-font">{alias}</h6>}
                   <ul style={{ padding: 0, listStyleType: "none" }}>
                     <li
                       role={"button"}
@@ -85,7 +86,7 @@ function DoMoreComponent() {
                         fontWeight: "bold",
                       }}
                     >
-                      {alias || community?.name || "..."}
+                      {community?.name || "..."}
                     </li>
                     {links?.map((linkObj) => {
                       return (
