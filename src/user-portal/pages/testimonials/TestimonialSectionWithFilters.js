@@ -83,6 +83,7 @@ function TestimonialSectionWithFilters({ sectionId, technologies, defaultTab, ca
   };
 
   const noTestimonials = !allTestimonials?.length;
+  const hasScrollableTestimonials = allTestimonials?.length > 4;
 
   return (
     <div
@@ -118,7 +119,7 @@ function TestimonialSectionWithFilters({ sectionId, technologies, defaultTab, ca
               />
             </div>
 
-            {!noTestimonials && !showForm && (
+            {!noTestimonials && !showForm && hasScrollableTestimonials && (
               <ArrowButtons containerRef={containerRef} style={{ marginLeft: "auto" }} />
             )}
           </div>
@@ -127,9 +128,11 @@ function TestimonialSectionWithFilters({ sectionId, technologies, defaultTab, ca
 
           {!showForm && !noTestimonials && (
             <>
-              <OurParagraph>
-                Scroll from left to right to see more testimonials, or use the arrow buttons(top right) to scroll
-              </OurParagraph>
+              {hasScrollableTestimonials && (
+                <OurParagraph>
+                  Scroll from left to right to see more testimonials, or use the arrow buttons(top right) to scroll
+                </OurParagraph>
+              )}
               <Filter
                 title="Filter testimonials by"
                 filterOptions={technologies}

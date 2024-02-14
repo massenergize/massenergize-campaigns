@@ -99,7 +99,7 @@ function CreateVendorForm({ setEditObj, notifyError, tech_id, data, vendors, not
         <Col>
           <Input
             label="Website *"
-            placeholder="www.vendors-website.com"
+            placeholder="https://www.vendors-website.com"
             // required={true}
             type="text"
             value={getValue("website")}
