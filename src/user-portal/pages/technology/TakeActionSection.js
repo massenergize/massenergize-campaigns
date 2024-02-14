@@ -111,7 +111,7 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
                     });
                     scrollToSection(item.url);
                   }}
-                  className="elevate-2 touchable-opacity"
+                  className="touchable-opacity"
                   style={{
                     padding: "7px 30px",
                     color: "white",

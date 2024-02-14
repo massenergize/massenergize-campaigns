@@ -42,11 +42,11 @@ function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, r
     <div
       ref={ref}
       id={sectionId}
-      className="elevate-float-pro g-s-container"
-      style={{ background: "var(--app-accent-1)", width: "100%", }}
+      className=" g-s-container"
+      style={{ background: "var(--app-accent-1)", width: "100%" }}
     >
       <OptimumWrapper>
-        <div style={{ display: "flex", flexDirection: "row", }}>
+        <div style={{ display: "flex", flexDirection: "row" }}>
           <div>
             <SectionTitle className="mb-5" style={{ color: "black" }}>
               {title || "Meet the Coaches"}
@@ -84,10 +84,10 @@ function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, r
             }}
           >
             <Button
-              className="touchable-opacity elevate-2 mt-5 small-font"
+              className="touchable-opacity mt-5 body-font"
               style={{
                 borderRadius: 55,
-                padding: "15px 40px",
+                padding: "12px 35px",
                 fontWeight: "bold",
                 background: "var(--app-main-color)",
                 borderWidth: 0,
