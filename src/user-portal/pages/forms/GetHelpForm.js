@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import CommunitySelector, { OTHER } from "./CommunitySelector";
 import { Button, Form, ModalFooter } from "react-bootstrap";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const DEFAULT_HELP_LINK =
-  "https://docs.google.com/forms/d/e/1FAIpQLSeb7oZ2XRTdGWuasXmGmjjF8xAbE8jryu8SJxZlCOqWTJNKMA/viewform"; // to be provided by Amie
+  "https://docs.google.com/forms/d/e/1FAIpQLSerSiKJ1QRWnmpES82KtEY3amru4CRgRHscXDu14ty97cADVg/viewform"; // to be provided by Amie
 
-function GetHelpForm({ close, communities, authUser }) {
+function GetHelpForm({ close, communities, authUser, campaign }) {
   const [form, setForm] = useState({});
 
   useEffect(() => {
@@ -15,7 +15,14 @@ function GetHelpForm({ close, communities, authUser }) {
     const { community } = authUser || {};
     const name = community?.name || "";
     const isOther = name?.toLowerCase() === OTHER;
-    const initialData = { comId: isOther ? OTHER : community?.id?.toString() };
+    const community_id = community?.id?.toString();
+    const foundCom = campaign?.communities?.find(({ community }) => community?.id?.toString() === community_id);
+
+    const initialData = {
+      comId: isOther ? OTHER : community?.id?.toString(),
+      campaign_community: foundCom,
+    };
+
     setForm(initialData);
   }, [authUser]);
 
@@ -90,6 +97,7 @@ const mapState = (state) => {
   return {
     communities: state.campaign?.communities || [],
     authUser: state.user,
+    campaign: state.campaign,
   };
 };
 export default connect(mapState)(GetHelpForm);
