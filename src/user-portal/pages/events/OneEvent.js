@@ -54,17 +54,19 @@ function OneEvent({ events, updateEvents, init, campaign }) {
       <SectionTitle>{name || "..."}</SectionTitle>
       <Row>
         <Col lg={9}>
-          <img
-            className="mt-3"
-            src={image?.url}
-            style={{
-              width: "100%",
-              height: 420,
-              objectFit: "cover",
-              borderRadius: 10,
-            }}
-            alt={"event"}
-          />
+          {image?.url && (
+            <img
+              className="mt-3"
+              src={image?.url}
+              style={{
+                width: "100%",
+                height: 420,
+                objectFit: "cover",
+                borderRadius: 10,
+              }}
+              alt={"event"}
+            />
+          )}
 
           <p className="mt-4 body-font" style={{ textAlign: "justify" }}>
             <span
