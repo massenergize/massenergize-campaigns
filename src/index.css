@@ -33,3 +33,8 @@ body {
   border-width: 0px !important;
   font-weight: bold !important;
 }
+
+
+::-webkit-scrollbar {
+  display: none;
+}
