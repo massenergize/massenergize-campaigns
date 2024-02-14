@@ -30,7 +30,7 @@ function DoMoreComponent() {
       <Container>
         <Row>
           <Col className={"pt-3"}>
-            <SectionTitle>{title || " Participating Communities"}</SectionTitle>
+            <SectionTitle className={"text-center text-md-start"}>{title || " Participating Communities"}</SectionTitle>
             {/* <h2
             style={{
               color: "black",
