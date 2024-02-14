@@ -10,7 +10,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { apiCall } from "../../../api/messenger";
 import { appInnitAction, updateEventsObj } from "../../../redux/actions/actions";
-import { formatTimeRange, setPageTitle } from "../../../utils/utils";
+import { formatDate, formatTime, formatTimeRange, setPageTitle } from "../../../utils/utils";
 
 function OneEvent({ events, updateEvents, init, campaign }) {
   const [event, setEvent] = useState(LOADING);
@@ -78,10 +78,24 @@ function OneEvent({ events, updateEvents, init, campaign }) {
             <h6 className="body-font text-muted" style={{ fontWeight: "" }}>
               Date
             </h6>
-            <small className="small-font" style={{ fontWeight: "bold" }}>
+            <p className="small-font fw-medium text-accent-3">
+              <span>{formatDate(start_date_and_time)}</span>
+              <span className={"text-dark"}> &mdash; </span>
+              <span>{formatDate(end_date_and_time)}</span>
+              <span className={"text-muted"} style={{ marginLeft: 10 }}>
+                {formatTime(start_date_and_time)}
+              </span>
+            </p>
+            {/* <small className="small-font" style={{ fontWeight: "bold" }}>
               {formatTimeRange(start_date_and_time, end_date_and_time)}
-            </small>
+            </small> */}
           </div>
+
+          {event?.event_type && (
+            <div style={{ marginTop: 10 }}>
+              <p style={{ color: "var(--app-accent-3)" }}>{event?.event_type}</p>
+            </div>
+          )}
 
           {external_link && (
             <div
@@ -110,13 +124,13 @@ function OneEvent({ events, updateEvents, init, campaign }) {
 const mapState = (state) => {
   return {
     events: state.events,
-    init: appInnitAction,
+
     campaign: state.campaign,
   };
 };
 
 const mapDispatch = (dispatch) => {
-  return bindActionCreators({ updateEvents: updateEventsObj }, dispatch);
+  return bindActionCreators({ updateEvents: updateEventsObj, init: appInnitAction }, dispatch);
 };
 
 export default connect(mapState, mapDispatch)(OneEvent);
