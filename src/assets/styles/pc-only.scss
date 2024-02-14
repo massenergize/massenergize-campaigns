@@ -1,35 +1,41 @@
+:root {
+  --site-logo: 100px;
+}
 @media only screen and (min-width: 768px) {
   .page-title {
     text-align: center;
-    font-size: 3rem;
+    //font-size: var(--app-header-font);
     color: var(--app-accent-3);
     /* text-transform: uppercase; */
   }
   .roaming-container {
-    margin: 100px 0px;
+    //margin: 100px 0px;
   }
   .page-slogan {
-    font-weight: 400;
+    /*font-weight: 400;*/
     color: var(--app-main-color);
     text-align: center;
     /* text-transform: capitalize; */
     line-height: 1.5;
     width: 85%;
-    font-size: 1.2rem;
+    //font-size: var(--app-subheader-font);
     font-weight: 600;
   }
 
+
+
   .site-logo {
-    width: 190px;
-    height: 190px;
+
+    width: var(--site-logo);
+    height: var(--site-logo);
     margin-block: 10px;
     object-fit: contain;
   }
 
   .campaign-focus-image {
     width: 80%;
-    margin: 20px 10% 0px;
-    height: 530px;
+    //margin: 20px 10% 0px;
+    height: 560px;
     border-radius: 10px;
     object-fit: cover;
   }
@@ -75,7 +81,7 @@
   }
 
   .coach-main img {
-    margin-top: 50px;
+    /* margin-top: 50px; */
     width: 120px;
     height: 120px;
   }
@@ -106,6 +112,7 @@
     width: 100%;
     object-fit: contain;
     border-radius: 5px;
+    margin:15px;
   }
 
   .vendor-list-group li {
@@ -127,9 +134,9 @@
     /* width: 80%; */
   }
 
-  .link-text {
+  /* .link-text {
     font-size: 1.1rem;
-  }
+  } */
 
   .testi-form-wrapper {
     border: 1px dashed rgb(230, 226, 226);
@@ -141,7 +148,105 @@
     display: none !important;
   }
 
+  .section-title {
+    font-size: var(--app-header-font);
+  }
+
+  .header-font {
+    font-size: var(--app-header-font);
+  }
+  .body-font {
+    font-size: var(--app-body-font) !important;
+  }
+  .subheader-font {
+    font-size: var(--app-subheader-font);
+  }
+  .small-font {
+    font-size: var(--app-small-font);
+  }
+
+  .b-hero-img {
+    height: 68vh;
+  }
+
+  .new-one-box img {
+    object-fit: cover;
+    width: 100%;
+    height: 202px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  .new-one-box-body {
+    /*padding: 20px;*/
+    /*text-align: center;*/
+  }
+
+  .new-one-box-footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 30px 15px;
+  }
+  .nav-top-margin { 
+    margin-top: 100px;
+  }
+
+  .one-tech-wrapper { 
+    margin-top:120px
+  }
+
   /* --------------------------------- END OF PC SPECIFIC ---------------------- */
+}
+
+.int-panel {
+  /* border: 2px solid var(--app-accent-3); */
+  border: 2px solid var(--app-main-color);
+  padding: 13px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 3px;
+}
+.int-panel i {
+  /* color: var(--app-accent-3) !important;  */
+  color: var(--app-main-color) !important;
+}
+.int-panel small {
+  color: #383838 !important;
+  /* color: var(--app-main-color) !important; */
+}
+
+.camp-share-btn-v2 {
+  z-index: 1000;
+  position: fixed;
+  right: 0;
+  top: 200px;
+  background: white;
+  padding: 10px 20px;
+  color: var(--app-main-color);
+  /* left: 47vw; */
+  border-radius: 55px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  font-weight: bold;
+  font-size: var(--app-body-font);
+}
+
+.hero-belt {
+  align-items: center;
+  justify-content: center;
+  background: white;
+  width: 100%;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: row;
+}
+.b-hero-img {
+  width: 100%;
+  object-fit: cover;
 }
 
 .vendor-list-group li {
@@ -201,8 +306,8 @@
   color: white;
   background: var(--app-main-color);
   /* border-radius: 5px; */
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
+  //border-top-right-radius: 5px;
+  //border-top-left-radius: 5px;
 }
 
 .app-btn {

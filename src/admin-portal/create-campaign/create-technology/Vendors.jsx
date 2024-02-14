@@ -261,7 +261,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
 
         <MultiSelect
           options={(allVendors || []).map((vendor) => {
-            let communityName = vendor?.communities[0]?.name || "";
+            let communityName = vendor?.communities[0]?.alias || vendor?.communities[0]?.name || "";
             communityName = communityName ? ` --- ${communityName} community` : "";
             return {
               ...vendor,

@@ -2,6 +2,9 @@ import React from "react";
 import OneBox from "./OneBox";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import people from "./../../../assets/imgs/g_people.png";
+import SectionTitle from "../../../components/pieces/SectionTitle";
+import { useMediaQuery } from "react-responsive";
+import { MOBILE_WIDTH } from "../../../utils/Constants";
 
 const dummies = [
   {
@@ -32,37 +35,33 @@ function GettingStartedSection({
   trackActivity,
   authUser,
 }) {
-  // console.log("these are the technologies", technologies);
+  const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
   return (
-    <div
-      id={sectionId}
-      className="mt-5 g-s-container"
-
-    >
+    <div id={sectionId} className="g-s-container">
       <Container>
         <Row>
           <Col lg={{ span: 12 }}>
-            <h2 style={{ color: "white", fontWeight: "bold" }}>{customization?.title || "Getting Started"}</h2>
-            <p style={{ color: "white", marginBottom: 20 }}>
+            <SectionTitle style={{ color: "white" }}>{customization?.title || "Getting Started"}</SectionTitle>
+
+            <p className="body-font" style={{ color: "white", marginBottom: 20 }}>
               {/* This section should be edited via the admin portal */}
               {customization?.description ||
                 "Explore the actions we have under these technologies and get started right away!"}
               {/* Explore the actions we have under these technologies and get started right away! */}
             </p>
-            <Row
-              style={{
-                marginLeft: 0,
-              }}
-            >
-              {technologies?.map((box, index) => {
+            <Row>
+              {technologies?.map((box) => {
                 return (
-                  <Col key={box.id} md={4} lg={3} sm={6} xs={6} className="one-tech-wrapper mb-4">
-                    <OneBox {...box} trackActivity={trackActivity} authUser={authUser} />
+                  <Col key={box.id} md={6} lg={3} className="one-tech-wrapper mb-4">
+                    <OneBox v2={!isMobile} {...box} trackActivity={trackActivity} authUser={authUser} />
                   </Col>
                 );
               })}
-              <Col md={3} lg={3} sm={6} xs={6} className="one-tech-wrapper">
-                <DoMoreBox scrollToCommunities={() => scrollToCommunities && scrollToCommunities()} />
+              <Col md={6} lg={3} sm={12} className="one-tech-wrapper mb-4">
+                <DoMoreBox
+                  isMobile={isMobile}
+                  scrollToCommunities={() => scrollToCommunities && scrollToCommunities()}
+                />
               </Col>
             </Row>
           </Col>
@@ -74,23 +73,22 @@ function GettingStartedSection({
 
 export default GettingStartedSection;
 
-const DoMoreBox = ({ scrollToCommunities }) => {
+const DoMoreBox = ({ scrollToCommunities, isMobile }) => {
   return (
-    <div
-      className="elevate-float-pro one-box-container"
-   
-    >
-      <div
-        className="one-box"
-      >
+    <div className="card rounded-4 one-box-container h-100" style={{ height: isMobile ? 287 : 475 }}>
+      <div className="one-box">
         <img
           // src={"https://placehold.co/100x100"}
-          src={people}
+          // src={people}
+          src={"/img/diversity.svg"}
           alt="people"
-         
         />
-        <h5 style={{ color: "var(--app-main-color)"  }}>Communities</h5>
-        <p style={{ textAlign: "center" }}>Connect with your community and check out other actions</p>
+        <h5 className="subheader-font" style={{ color: "var(--app-main-color)" }}>
+          Communities
+        </h5>
+        <p className="body-font" style={{ textAlign: "center" }}>
+          Connect with your community and check out other actions
+        </p>
 
         <Button
           variant={"link"}
@@ -105,15 +103,13 @@ const DoMoreBox = ({ scrollToCommunities }) => {
         </Button>
       </div>
 
-      <div
-        className="one-box-footer phone-vanish"
-      >
+      <div className="new-one-box-footer phone-vanish">
         <Button
           onClick={() => scrollToCommunities()}
           style={{ background: "var(--app-main-color)" }}
-          className="tech-btn elevate-2 touchable-opacity"
+          className="tech-btn touchable-opacity"
         >
-          <span style={{ fontSize: 15 }}> Communities</span>
+          <span> Communities</span>
         </Button>
       </div>
     </div>

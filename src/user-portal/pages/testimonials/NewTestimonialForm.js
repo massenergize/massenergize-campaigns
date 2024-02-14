@@ -129,7 +129,7 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
             }}
           />
         </InputGroup> */}
-        <InputGroup className="mb-3 mt-2">
+        <InputGroup className="mb-3 mt-2 body-font">
           <InputGroup.Text style={{ fontWeight: "bold" }} id="basic-addon1">
             Title*
           </InputGroup.Text>
@@ -172,10 +172,10 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
             onChange={(e) => setState("chosenCommunity", value(e))}
           >
             <option value={NULL}>--- Select your community ---</option>
-            {listOfCommunities?.map(({ community }, index) => {
+            {listOfCommunities?.map(({ community, alias }, index) => {
               return (
                 <option key={index?.toString()} value={community?.id}>
-                  {community?.name || "..."}
+                  {alias || community?.name || "..."}
                 </option>
               );
             })}

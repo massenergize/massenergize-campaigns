@@ -32,13 +32,7 @@ const dummies = [
       "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
   },
 ];
-function OneTechMeetTheCoachesSection({
-  toggleModal,
-  sectionId,
-  coaches,
-  data,
-  ref,
-}) {
+function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, ref }) {
   const { title, description } = data || {};
 
   const scrollContainerRef = useRef(null);
@@ -48,50 +42,27 @@ function OneTechMeetTheCoachesSection({
     <div
       ref={ref}
       id={sectionId}
-      className="mt-5 elevate-float-pro g-s-container"
-      style={{
-        background: "var(--app-accent-1)",
-        width: "100%",
-        // padding: "80px 0px",
-        // minHeight: 200,
-      }}
+      className=" g-s-container"
+      style={{ background: "var(--app-accent-1)", width: "100%" }}
     >
       <OptimumWrapper>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
+        <div style={{ display: "flex", flexDirection: "row" }}>
           <div>
             <SectionTitle className="mb-5" style={{ color: "black" }}>
               {title || "Meet the Coaches"}
             </SectionTitle>
-            {hasScrollableCoaches && (
-              <p style={{ fontSize: "var(--mob-paragraph-font-size)" }}>
-                Scroll from left to right, or use the arrow buttons to see all
-                coaches
-              </p>
-            )}
           </div>
 
-          {hasScrollableCoaches && (
-            <ArrowButtons
-              style={{ marginLeft: "auto" }}
-              containerRef={scrollContainerRef}
-            />
-          )}
+          {hasScrollableCoaches && <ArrowButtons style={{ marginLeft: "auto" }} containerRef={scrollContainerRef} />}
         </div>
 
         <Row
           ref={scrollContainerRef}
           style={{
             flexWrap: "nowrap",
-            overflowX: "scroll",
-            // justifyContent: "center",
-            // scrollBehavior: "smooth",
+            overflowX: "auto",
+            overflowY: "hidden",
           }}
-          // onScroll={(e) => handleScroll(e.target.scrollLeft)}
         >
           {coaches?.map((coach, index) => {
             return (
@@ -102,11 +73,8 @@ function OneTechMeetTheCoachesSection({
           })}
         </Row>
 
-        <div
-          // style={{ textTransform: "justify", marginTop: 20 }}
-          className="coaches-description"
-        >
-          <p dangerouslySetInnerHTML={{ __html: description }}></p>
+        <div className="coaches-description">
+          <p className="body-font" dangerouslySetInnerHTML={{ __html: description }}></p>
           <div
             style={{
               display: "flex",
@@ -116,10 +84,10 @@ function OneTechMeetTheCoachesSection({
             }}
           >
             <Button
-              className="touchable-opacity elevate-2 mt-5"
+              className="touchable-opacity mt-5 body-font"
               style={{
                 borderRadius: 55,
-                padding: "8px 20px",
+                padding: "12px 35px",
                 fontWeight: "bold",
                 background: "var(--app-main-color)",
                 borderWidth: 0,

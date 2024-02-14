@@ -7,6 +7,7 @@ import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import { AddNewTestimonial } from "../testimonials/TestimonialSection";
 import { useNavigate } from "react-router-dom";
 import { TESTIMONIAL_FORM_SHOW_KEY } from "../testimonials/TestimonialSectionWithFilters";
+import { addUrlSearchParams } from "../../../utils/utils";
 
 const dummies = [
   {
@@ -38,21 +39,22 @@ const dummies = [
 function OneTechTestimonialsSection({ sectionId, testimonials, campaign, links }) {
   const containerRef = useRef();
   const navigator = useNavigate();
-  const firstTestimonial = (testimonials || [])[0];
 
   const home = links?.find((item) => item?.key === "home");
-  const testimonialRoute = `${home?.url}?section=testimonial&show=${TESTIMONIAL_FORM_SHOW_KEY}`;
+  const testimonialRoute = addUrlSearchParams(home?.url, {
+    section: "testimonial",
+    show: TESTIMONIAL_FORM_SHOW_KEY,
+  });
+  // const testimonialRoute = `${home?.url}?section=testimonial&show=${TESTIMONIAL_FORM_SHOW_KEY}`;
   // const testimonialRoute = `/campaign/${campaign?.slug}/technology/testimonial/${firstTestimonial?.id}?open=true`;
 
   return (
     <div
       id={sectionId}
-      className="mt-5 g-s-container"
+      className="g-s-container"
       style={{
         background: "white",
         width: "100%",
-        // padding: "80px 0px",
-        // minHeight: 200,
       }}
     >
       <OptimumWrapper>

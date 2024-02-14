@@ -299,11 +299,11 @@ export function CampaignEventsView ({campaign }) {
                       return {
                         ...event,
                         value: event?.id,
-                        label: `${event?.name} - ${event?.community?.name}`,
+                        label: `${event?.name} - ${event?.community?.alias || event?.community?.name}`,
                       };
                     })}
                     valueExtractor={(item) => item}
-                    labelExtractor={(item) =>`${item?.name} - ${item?.community?.name}`}
+                    labelExtractor={(item) =>`${item?.name} - ${item?.community?.alias || item?.community?.name}`}
                     multiple={false}
                     onItemSelect={(selectedItem, allSelected) => {
                       setToAddEvents([selectedItem]);

@@ -5,23 +5,40 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { MOBILE_WIDTH } from "../../../utils/Constants";
 import { useMediaQuery } from "react-responsive";
+import { generateUniqueRandomString } from "../../../utils/utils";
+import URLS from "../../../api/urls";
 
-const EXCLUDED_FOOTER_MENU_KEYS = ["incentives", "vendors"];
+const EXCLUDED_FOOTER_MENU_KEYS = ["deals", "vendors"];
 function Footer({ toggleModal, campaign, authUser }) {
   const navigator = useNavigate();
-  const { navigation, newsletter_section: customization } = campaign || {};
+  const { navigation, newsletter_section: customization, communities } = campaign || {};
   const { user } = authUser || {};
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
   const renderMenus = (styles = {}) => {
-    return (navigation || []).map(({ text, key, url }, index) => {
+    const coms =
+      communities?.map((com) => {
+        const comName = com?.alias || com?.community?.name || "";
+        const url = `${URLS.COMMUNITIES}/${com?.community?.subdomain}`;
+        return {
+          text: comName,
+          key: com?.id,
+          url,
+          newTab: true,
+        };
+      }) || [];
+    return [...(navigation || []), ...coms].map(({ text, key, url, newTab }) => {
       const isExcluded = EXCLUDED_FOOTER_MENU_KEYS.includes(key);
       if (isExcluded) return <></>;
+      const salt = generateUniqueRandomString(6);
       return (
         <li
           role={"button"}
           tabIndex={0}
-          className="touchable-opacity"
-          onClick={() => navigator(url)}
+          className="touchable-opacity small-font"
+          onClick={() => {
+            if (newTab) return window.open(url, "_blank");
+            navigator(`${url}&salt=${salt}`);
+          }}
           style={{
             padding: "10px 20px",
             color: "white",
@@ -73,12 +90,14 @@ function Footer({ toggleModal, campaign, authUser }) {
         <Container>
           <Col lg={{ span: 6, offset: 3 }}>
             {/* We should be able to change this part tooo from the admin portal */}
-            <h4 style={{ color: "white" }}>{customization?.title || "Newsletter"}</h4>
-            <p style={{ color: "white" }}>
+            <h4 className="subheader-font" style={{ color: "white" }}>
+              {customization?.title || "Newsletter"}
+            </h4>
+            <p className="body-font" style={{ color: "white" }}>
               {customization?.description || "Sign up for email updates with the latest info on events and incentives!"}
             </p>
             <Button
-              className="elevate-float-pro touchable-opacity"
+              className=" touchable-opacity"
               style={{
                 background: "white",
                 borderWidth: 0,
@@ -95,9 +114,10 @@ function Footer({ toggleModal, campaign, authUser }) {
             </Button>
             {user?.email && (
               <p
+                className="small-font"
                 style={{
                   marginTop: 10,
-                  fontSize: 12,
+                  // fontSize: 12,
                   color: "#e1efce",
                 }}
               >
@@ -122,7 +142,9 @@ function Footer({ toggleModal, campaign, authUser }) {
         <Container>
           <Row>
             <Col lg={{ span: 9, offset: 1 }} style={{}}>
-              <h4 style={{ color: "white" }}>Quick Links</h4>
+              <h4 className="subheader-font" style={{ color: "white" }}>
+                Quick Links
+              </h4>
               <ul
                 style={{
                   listStyleType: "none",
@@ -132,6 +154,7 @@ function Footer({ toggleModal, campaign, authUser }) {
                   flexDirection: "column",
                   flexWrap: "wrap",
                   paddingLeft: 0,
+                  overflow: "scroll",
                 }}
               >
                 {renderMenus()}
@@ -151,7 +174,7 @@ export default connect(mapState)(Footer);
 
 const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
   return (
-    <div style={{ height: 250, margin: 0 }}>
+    <div style={{ minHeight: 250, margin: 0 }}>
       <div
         style={{
           padding: 20,
@@ -161,8 +184,10 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
           flexDirection: "column",
         }}
       >
-        <h5 style={{ color: "white" }}>{customization?.title || "Newsletter"}</h5>
-        <p style={{ color: "white", fontSize: "var(--mob-normal-font-size" }}>
+        <h5 className="subheader-font" style={{ color: "white" }}>
+          {customization?.title || "Newsletter"}
+        </h5>
+        <p className="body-font" style={{ color: "white" }}>
           {customization?.description || "Sign up for email updates with the latest info on events and incentives!"}
         </p>
         <Button
@@ -182,7 +207,7 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
           Subscribe
         </Button>
       </div>
-      <div style={{ display: "flex", background: "#000010", minHeight: "20%" }}>
+      <div style={{ display: "flex", background: "#000010", minHeight: "20%", padding: 20 }}>
         <ul
           style={{
             display: "flex",

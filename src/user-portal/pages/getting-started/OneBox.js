@@ -4,21 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { HOMEPAGE } from "../../../utils/Constants";
 import RenderHTML from "../../../components/RenderHtml";
 import { ellipsify, isEmpty } from "../../../helpers/utils/string";
+import { smartString } from "../../../utils/utils";
+import NewOneBox from "./NewOneBox";
 
-function OneBox({
-  icon,
-  description,
-  name,
-  campaign_technology_id,
-  isImage,
-  isIcon,
-  image,
-  id,
-  summary,
-  campaign_id,
-  trackActivity,
-  authUser,
-}) {
+function OneBox(props) {
+  const { icon, v2, name, campaign_technology_id, isIcon, image, summary, campaign_id, trackActivity, authUser } =
+    props;
+
   const navigator = useNavigate();
   const { user } = authUser || {};
   const route = `/campaign/${campaign_id}/technology/${campaign_technology_id}`;
@@ -30,8 +22,10 @@ function OneBox({
     email: user?.email,
   };
 
-  return (
-    <div className="elevate-float-pro one-box-container">
+  return <NewOneBox {...props} />;
+
+  /*return (
+    <div className="card elevate-float-pro one-box-container h-100">
       <div className="one-box p-4">
         {isIcon && (
           <i
@@ -43,20 +37,19 @@ function OneBox({
             }}
           />
         )}
-        {image && (
-          <img
-            src={image?.url}
-            alt={image?.name}
-            // style={{ height: 100, width: 100, objectFit: "contain" }}
-          />
-        )}
-        <h5 style={{ textTransform: "capitalize", color: "var(--app-main-color)" }}>{name}</h5>
-        {/* <RenderHTML tag={"p"} html={!isEmpty(description) ? ellipsify(description, 80) : "..."} /> */}
-        <p style={{ textAlign: "center" }}>{summary?.substring(0, 80) || "..."}</p>
+        {image && <img src={image?.url} alt={image?.name} />}
+        <h5
+          className="subheader-font"
+          style={{ textAlign: "center", textTransform: "capitalize", color: "var(--app-main-color)" }}
+        >
+          {name}
+        </h5>
+        <p className="body-font" style={{ textAlign: "center" }}>
+          {smartString(summary, 75) || "..."}
+        </p>
         <Button
           variant={"link"}
-          className="touchable-opacity link-accent"
-          // href={`/technology/${campaign_technology_id}`}
+          className="touchable-opacity link-accent small-font"
           onClick={() => {
             trackActivity && trackActivity({ ...common, button_type: "learn_more" });
             navigator(route);
@@ -66,9 +59,7 @@ function OneBox({
           Learn More...
         </Button>
       </div>
-      <div
-        className="one-box-footer phone-vanish"
-      >
+      <div className="one-box-footer phone-vanish">
         <Button
           onClick={() => {
             trackActivity && trackActivity({ ...common, button_type: "quote" });
@@ -77,7 +68,7 @@ function OneBox({
           className="tech-btn elevate-2 touchable-opacity mr-2"
           style={{ background: "var(--app-accent-3)", marginRight: 20 }}
         >
-          QUOTE
+          Quote
         </Button>
         <Button
           onClick={() => {
@@ -87,11 +78,11 @@ function OneBox({
           style={{ background: "var(--app-main-color)" }}
           className="tech-btn elevate-2 touchable-opacity"
         >
-          COACH
+          Coach
         </Button>
       </div>
     </div>
-  );
+  );*/
 }
 
 export default OneBox;

@@ -119,14 +119,14 @@ function Info({
         <Row className="mt-3">
           <Col>
             <Input
-              label="Summary (100 Chars)"
+              label="Summary (75 Chars)"
               placeholder="Add a Summary for this focus......."
               required={true}
               type="textbox"
               onChange={(val) => {
                 handleFieldChange("summary", val);
               }}
-              maxLength="100"
+              maxLength="75"
               value={getValue("summary")}
             />
           </Col>

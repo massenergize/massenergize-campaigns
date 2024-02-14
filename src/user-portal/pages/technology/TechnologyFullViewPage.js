@@ -19,7 +19,7 @@ import GetHelpForm from "../forms/GetHelpForm";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { COMMENTS, ONE_TECH_DATA } from "../../data/user-portal-dummy-data";
-import { fetchUrlParams, relativeTimeAgo, setPageTitle } from "../../../utils/utils";
+import { fetchUrlParams, relativeTimeAgo, scrollIntoView, setPageTitle } from "../../../utils/utils";
 import { useParams } from "react-router-dom";
 import NotFound from "../error/404";
 import { LOADING, MOBILE_WIDTH } from "../../../utils/Constants";
@@ -40,6 +40,8 @@ import OneTechEventSection from "./OneTechEventSection";
 import { useMediaQuery } from "react-responsive";
 import CampaignNotLive from "../landing-page/CampaignNotLive";
 import SmartRichText from "../../../components/SmartRichText";
+import SectionTitle from "../../../components/pieces/SectionTitle";
+import BlurWrapper from "../../../components/BlurWrapper";
 
 const DEFAULT_READ_HEIGHT = 190;
 const PREVIEW_TEXT_LENGHT = 1000;
@@ -93,7 +95,7 @@ function TechnologyFullViewPage({
 
   const scrollToSection = (id) => {
     const ref = idsToRefMap[id];
-    if (ref?.current) ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollIntoView(ref, 100);
   };
   const recorderAView = () => {
     const { user } = authUser || {};
@@ -287,31 +289,26 @@ function TechnologyFullViewPage({
       .catch((e) => console.log("COMMENT_DELETION_ERROR_SYNT: ", e?.toString()));
   };
 
-  // const READ_HEIGHT = isMobile ? 100 : DEFAULT_READ_HEIGHT;
   const READ_HEIGHT = DEFAULT_READ_HEIGHT;
   const LENGTH = isMobile ? MOBILE_PREVIEW_TEXT_LENGTH : PREVIEW_TEXT_LENGHT;
-
-  // const { truncatedContent, isLong } = truncateRichText(description, READ_HEIGHT);
-  // console.log("IS REALLY LONG", isLong);
-  // const isReallyLong = description.length > LENGTH; // This is not a good way of checking, change it later
 
   return (
     <div>
       <AppNavigationBar />
-      <div style={{ marginTop: 100 }} className="one-tech-wrapper">
+      <div className="one-tech-wrapper">
         <OptimumWrapper>
           <CampaignNotLive />
-          <h2
-            style={{
-              color: "var(--app-accent-3)",
-              fontSize: "var(--mob-title-font-size)",
-            }}
-          >
-            {name || "..."}
-          </h2>
+          <SectionTitle>{name || "..."}</SectionTitle>
+
           <Row>
             <Col lg={9} className="one-tech-main">
-              {image?.url && <img className="elevate-float-pro mt-2" src={image?.url || carPhoto} alt={"event"} />}
+              {/* DONT REMOVE YET */}
+              {/* {image?.url && (
+                <BlurWrapper src={image?.url}>
+                  <img className="mt-2" src={image?.url} alt={"event"} style={{ borderRadius: 10 }} />
+                </BlurWrapper>
+              )} */}
+              {image?.url && <img className="mt-2" src={image?.url || carPhoto} alt={"event"} />}
               <InteractionsPanel
                 openShareBox={openShareBox}
                 openCommentBox={() => triggerCommentBox(authUser)}
@@ -322,7 +319,7 @@ function TechnologyFullViewPage({
                 comments={comments?.length || 0}
               />
 
-              <SmartRichText>{description}</SmartRichText>
+              <SmartRichText className="body-font">{description}</SmartRichText>
             </Col>
             <Col lg={3}>
               <div
@@ -337,7 +334,6 @@ function TechnologyFullViewPage({
                 <div
                   style={{
                     height: "100%",
-
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -345,12 +341,12 @@ function TechnologyFullViewPage({
                   }}
                 >
                   <p
+                    className="body-font"
                     style={{
                       alignSelf: "center",
                       justifySelf: "center",
                       textAlign: "center",
                       margin: 0,
-                      fontSize: 13,
                       fontWeight: "bold",
                       width: "83%",
                     }}
@@ -373,12 +369,10 @@ function TechnologyFullViewPage({
                               ...(payload || {}),
                               campaign_technology_id,
                             };
-
-                            delete data?.campaign_id;
+                            delete data?.campaign_id; // FIXME: Never use the delete keyword. It's unpredictable
                             return data;
                           }}
                           callbackOnSubmit={({ close }) => close && close()}
-                          // onConfirm={finaliseGetUpdates}
                         />
                       ),
                       fullControl: true,
@@ -388,18 +382,16 @@ function TechnologyFullViewPage({
                   style={{
                     background: "black",
                     padding: "10px 20px",
-
-                    // borderBottomRightRadius: 5,
                     marginTop: "auto",
                   }}
                 >
                   <p
+                    className="body-font"
                     style={{
                       color: "white",
                       margin: 0,
-                      //   padding: "7px 30px",
                       textAlign: "center",
-                      fontSize: 16,
+                      // fontSize: 16,
                       fontWeight: "bold",
                     }}
                   >
@@ -408,7 +400,7 @@ function TechnologyFullViewPage({
                 </div>
               </div>
 
-              <div className="mt-5">
+              <div className="mt-3">
                 <div
                   style={{
                     border: "solid 1px var(--app-main-color)",
@@ -419,7 +411,7 @@ function TechnologyFullViewPage({
                     alignItems: "center",
                   }}
                 >
-                  <p style={{ margin: 0 }}>
+                  <p className="body-font" style={{ margin: 0 }}>
                     <i
                       className="fa fa-comment"
                       style={{
@@ -438,8 +430,10 @@ function TechnologyFullViewPage({
                   </p>
                 </div>
                 <div className="mt-2">
-                  <small style={{ color: "" }}>This is what people think</small>
-                  <div className="mt-2">
+                  {/* <small className="small-font" style={{ color: "" }}>
+                    This is what people think
+                  </small> */}
+                  <div className="mt-3">
                     {comments?.slice(0, 3)?.map((com, index) => {
                       const isForCurrentUser = commentIsForUser(com, authUser);
 
@@ -456,16 +450,17 @@ function TechnologyFullViewPage({
                           key={com?.id}
                         >
                           <h6
+                            className="small-font"
                             style={{
                               // textDecoration: "underline",
-                              fontSize: 14,
+                              // fontSize: 14,
                               fontWeight: "bold",
                               color: !isForCurrentUser ? "var(--app-main-color)" : "var(--app-accent-3)",
                             }}
                           >
                             {user?.full_name || "..."} {isForCurrentUser ? " (Yours)" : ""}
                           </h6>
-                          <small>
+                          <small className="small-font">
                             {message.substr(0, COMMENT_LENGTH)}
                             {message.length > COMMENT_LENGTH ? (
                               <span
@@ -522,6 +517,7 @@ function TechnologyFullViewPage({
                   onClick={() => triggerCommentBox(authUser)}
                 >
                   <p
+                    className="body-font"
                     style={{
                       margin: 0,
                       color: "var(--app-main-color)",
@@ -533,7 +529,7 @@ function TechnologyFullViewPage({
                   </p>
                 </div>
                 <div
-                  className="touchable-opacity mt-2"
+                  className="touchable-opacity mt-2 body-font"
                   style={{
                     background: "var(--app-main-color)",
                     display: "flex",
@@ -601,7 +597,11 @@ function TechnologyFullViewPage({
               toggleModal({
                 show: true,
                 component: (props) => (
-                  <div style={{ padding: 20 }} dangerouslySetInnerHTML={{ __html: deal?.description }} />
+                  <div
+                    style={{ padding: 20 }}
+                    className="body-font"
+                    dangerouslySetInnerHTML={{ __html: deal?.description }}
+                  />
                 ),
                 fullControl: true,
                 title: deal?.title,
@@ -618,7 +618,9 @@ function TechnologyFullViewPage({
         <div ref={eventsRef}>
           <OneTechEventSection style={{ background: "white" }} wrapperStyle={{ padding: 24 }} events={events} />
         </div>
-        {/* <div ref={communitiesRef}><DoMore campaign={campaign} /></div> */}
+        <div ref={communitiesRef} className="mt-3">
+          <DoMore optimum />
+        </div>
       </div>
       <Footer toggleModal={toggleModal} />
     </div>

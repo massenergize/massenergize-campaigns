@@ -10,29 +10,15 @@ import { fetchUrlParams, mergeArrays } from "../../../utils/utils";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import OurParagraph from "../../../components/OurParagraph";
 import NewTestimonialForm from "./NewTestimonialForm";
+import SectionTitle from "../../../components/pieces/SectionTitle";
 
 export const TESTIMONIAL_FORM_SHOW_KEY = "testimonial-form";
-function TestimonialSectionWithFilters({
-  sectionId,
-  technologies,
-  defaultTab,
-  campaign,
-  protectedFunction,
-}) {
+function TestimonialSectionWithFilters({ sectionId, technologies, defaultTab, campaign, protectedFunction }) {
   const [showForm, setShowForm] = useState(false);
   const containerRef = useRef();
   const navigator = useNavigate();
   const testimonialsOfEachTech = technologies?.map(
-    ({
-      campaign_technology,
-      testimonials,
-      is_icon,
-      is_image,
-      image,
-      icon,
-      name,
-      id,
-    }) => ({
+    ({ campaign_technology, testimonials, is_icon, is_image, image, icon, name, id }) => ({
       id,
       campaign_technology,
       testimonials,
@@ -103,7 +89,7 @@ function TestimonialSectionWithFilters({
       id={sectionId}
       className="elevate-float-pro g-s-container"
       style={{
-        margin: "10px 0px",
+        margin: "0px",
         background: "white",
         width: "100%",
       }}
@@ -112,7 +98,9 @@ function TestimonialSectionWithFilters({
         <Container>
           <div className="row-flex t-with-filter-top">
             <div>
-              <h2
+              <SectionTitle>Testimonials</SectionTitle>
+              {/* <h2
+                className="header-font"
                 style={{
                   color: "var(--app-accent-3)",
                   fontWeight: "bold",
@@ -120,12 +108,10 @@ function TestimonialSectionWithFilters({
                 }}
               >
                 Testimonials
-              </h2>
+              </h2> */}
               <AddNewTestimonial
                 icon={showForm ? "minus" : "plus"}
-                text={
-                  showForm ? "Hide testimonial form" : "Add your testimonial here"
-                }
+                text={showForm ? "Hide testimonial form" : "Add your testimonial here"}
                 onClick={() => {
                   addTestimonial();
                 }}
@@ -133,10 +119,7 @@ function TestimonialSectionWithFilters({
             </div>
 
             {!noTestimonials && !showForm && (
-              <ArrowButtons
-                containerRef={containerRef}
-                style={{ marginLeft: "auto" }}
-              />
+              <ArrowButtons containerRef={containerRef} style={{ marginLeft: "auto" }} />
             )}
           </div>
 
@@ -145,8 +128,7 @@ function TestimonialSectionWithFilters({
           {!showForm && !noTestimonials && (
             <>
               <OurParagraph>
-                Scroll from left to right to see more testimonials, or use the arrow
-                buttons(top right) to scroll
+                Scroll from left to right to see more testimonials, or use the arrow buttons(top right) to scroll
               </OurParagraph>
               <Filter
                 title="Filter testimonials by"

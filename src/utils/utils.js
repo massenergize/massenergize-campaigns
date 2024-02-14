@@ -12,11 +12,20 @@ export function formatTimeRange(startDateString, endDateString) {
 
     return `${formattedStartDate} ${formattedStartTime} - ${formattedEndTime}`;
   } else {
-    const formattedStartDate = format(startDate, "do MMMM yyyy");
-    const formattedEndDate = format(endDate, "do MMMM yyyy");
-
+    const formattedStartDate = format(startDate, "do MMM, yyyy");
+    const formattedEndDate = format(endDate, "do MMM, yyyy");
     return `${formattedStartDate} - ${formattedEndDate}`;
   }
+}
+
+export function formatDate(dateString, formatString = "MMM d, yyyy") {
+  const date = parseISO(dateString);
+  return format(date, formatString);
+}
+
+export function formatTime(dateString, formatString = "HH:mm aaa") {
+  const date = parseISO(dateString);
+  return format(date, formatString);
 }
 
 export function relativeTimeAgo(datetimeString) {
@@ -181,3 +190,67 @@ export function findItemAtIndexAndRemainder(arr, comparator) {
 
   return { index, foundItem, remainder };
 }
+
+export function sortByProperty(arr, getProperty) {
+  if (!Array.isArray(arr) || typeof getProperty !== "function") {
+    throw new Error("Invalid input. Please provide an array of objects and a valid function to retrieve the property.");
+  }
+
+  return arr.sort((a, b) => {
+    const propertyA = getProperty(a);
+    const propertyB = getProperty(b);
+
+    if (propertyA < propertyB) {
+      return -1;
+    } else if (propertyA > propertyB) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+}
+
+// This function takes in a url, and adds the json data as search params to the url
+export function addUrlSearchParams(url, jsonData) {
+  // Check if both URL and JSON data are provided
+  if (!url || !jsonData) {
+    console.error("URL and JSON data are required.", url, jsonData);
+    return;
+  }
+
+  if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    const linkObj = new URL(window.location.href);
+    url = linkObj.origin + url;
+  }
+  // Convert JSON data to URL search params
+  const searchParams = new URLSearchParams();
+  for (const key in jsonData) {
+    if (Object.hasOwnProperty.call(jsonData, key)) {
+      searchParams.append(key, jsonData[key]);
+    }
+  }
+  // Parse the provided URL
+  const urlObject = new URL(url);
+  // Check if URL already has search parameters
+  if (urlObject.search) {
+    // If search parameters already exist, append the new search params
+    const existingSearchParams = new URLSearchParams(urlObject.search);
+    for (const [key, value] of existingSearchParams) {
+      searchParams.append(key, value);
+    }
+  }
+  // Attach search params to the URL
+  urlObject.search = searchParams;
+  // Return the pathname with the query search params
+  return urlObject.pathname + urlObject.search;
+}
+
+export const scrollIntoView = (ref, offset = 0) => {
+  // params = params || {};
+  offset = offset * -1;
+  if (ref && ref?.current) {
+    const element = ref.current;
+    const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ behavior: "smooth", top: elementPosition + offset });
+  }
+};

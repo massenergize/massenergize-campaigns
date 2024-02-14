@@ -3,7 +3,8 @@
     display: none !important;
   }
   .page-title {
-    font-size: var(--mob-title-font-size);
+    font-size: var(--app-mobile-header-font);
+    text-align: center;
     color: var(--app-accent-3);
   }
   .page-slogan {
@@ -13,7 +14,7 @@
     /* text-transform: capitalize; */
     line-height: 1.5;
     width: 85%;
-    font-size: var(--mob-normal-font-size);
+    font-size: var(--app-mobile-body-font);
     font-weight: 600;
   }
 
@@ -34,6 +35,7 @@
     height: 240px;
     object-fit: cover;
     border-radius: 6px;
+    margin-top: 15px;
   }
 
   .roaming-container {
@@ -78,7 +80,7 @@
   a,
   Button {
     /* font-size: var(--mob-normal-font-size); */
-    font-size: 0.77rem !important;
+    /*font-size: 0.77rem !important;*/
   }
 
   .one-box-footer {
@@ -91,6 +93,7 @@
   }
   .one-tech-wrapper {
     padding: 0px 4px !important;
+    margin-top: 90px;
   }
 
   .testi-container {
@@ -149,7 +152,7 @@
   }
 
   .section-title {
-    font-size: 1.3rem;
+    font-size: var(--app-mobile-header-font);
   }
 
   .overview-item p {
@@ -173,5 +176,50 @@
     margin-top: 40px;
     /* padding: 20px; */
   }
+
+  .body-font {
+    font-size: var(--app-mobile-body-font);
+  }
+
+  .subheader-font {
+    font-size: var(--app-mobile-subheader-font);
+  }
+
+  .header-font {
+    font-size: var(--app-mobile-header-font);
+  }
+
+  .small-font {
+    font-size: var(--app-mobile-small-font);
+  }
+
+  .nav-top-margin { 
+    margin-top: 75px;
+  }
+
   /* ---------------------------- END OF PHONE SPECIFIC STYLES ----------- */
+}
+
+@media screen and (max-width: 576px){
+  .app-nav-bar{
+    .navbar-collapse.show{
+      /*min-height: 650px;*/
+      /* set the height to the available viewport height */
+      height: 100vh;
+    }
+    align-items: start !important;
+
+    a.dropdown-toggle.nav-link {
+      width: 100%;
+      /*text-align: center;*/
+
+      .nav-content {
+        min-width: 250px;
+      }
+
+      &::after{
+        display: none !important;
+      }
+    }
+  }
 }

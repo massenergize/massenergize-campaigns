@@ -12,8 +12,8 @@ function OneCoach({ full_name, image, community }) {
       }}
     >
       <img className="" src={image?.url || noCoach} alt={"logo"}></img>
-      <h6 className="">{full_name}</h6>
-      <p className="" style={{  }}>
+      <h6 className="body-font">{full_name}</h6>
+      <p className="small-font" style={{}}>
         {community}
       </p>
     </div>

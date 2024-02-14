@@ -72,7 +72,7 @@ const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName }) => {
         }}
       >
         {renderHeaderMedia()}
-        <Modal.Title id="contained-modal-title-vcenter" style={{ fontSize: 18 }}>
+        <Modal.Title id="contained-modal-title-vcenter body-font">
           {title || "..."}
         </Modal.Title>
       </div>

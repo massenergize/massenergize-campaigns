@@ -12,12 +12,10 @@ function Vendors({ sectionId, data, vendors }) {
   return (
     <div
       id={sectionId}
-      className="mt-5 elevate-float-pro g-s-container"
+      className=" g-s-container"
       style={{
         background: "var(--app-accent-1)",
         width: "100%",
-        // padding: "80px 0px",
-        // minHeight: 200,
       }}
     >
       <OptimumWrapper>
@@ -27,7 +25,7 @@ function Vendors({ sectionId, data, vendors }) {
         <p
           dangerouslySetInnerHTML={{ __html: description }}
           style={{ textAlign: "justify" }}
-          className="mb-4 paragraph-font"
+          className="mb-4 body-font"
         ></p>
 
         <Row>
@@ -42,7 +40,7 @@ function Vendors({ sectionId, data, vendors }) {
                     if (!link) return;
                     window.open(link, "_blank");
                   }}
-                  className="touchable-opacity paragraph-font"
+                  className="touchable-opacity body-font"
                   key={vendor?.id?.toString()}
                 >
                   {vendor?.name || "..."}

@@ -9,6 +9,7 @@ import Filter from "../../../components/Filter";
 import OurParagraph from "../../../components/OurParagraph";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import { mergeArrays } from "../../../utils/utils";
+import SectionTitle from "../../../components/pieces/SectionTitle";
 
 function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, customization }) {
   const containerRef = useRef();
@@ -53,9 +54,9 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
   return (
     <div
       id={sectionId}
-      className="elevate-float-pro g-s-container"
+      className=" g-s-container"
       style={{
-        margin: "40px 0px",
+        // margin: "40px 0px",
         // padding: "100px 0px",
         background: "var(--app-accent-1)",
         width: "100%",
@@ -66,7 +67,9 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
           <div>
             <div className="row-flex t-with-filter-top">
               <div>
-                <h2
+                <SectionTitle style={{ color: "black" }}>{customization?.title || " Meet the coaches"}</SectionTitle>
+                {/* <h2
+                  className="header-font"
                   style={{
                     color: "black",
                     fontWeight: "bold",
@@ -75,10 +78,10 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
                   }}
                 >
                   {customization?.title || " Meet the coaches"}
-                </h2>
-                <OurParagraph>
+                </h2> */}
+                {/* <OurParagraph>
                   Scroll from left to right to see more coaches, or use the arrow buttons(top right) to scroll
-                </OurParagraph>
+                </OurParagraph> */}
               </div>
               {hasScrollableCoaches && <ArrowButtons containerRef={containerRef} style={{ marginLeft: "auto" }} />}
             </div>
@@ -93,7 +96,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
 
             <div className="coaches-description">
               {customization?.description && (
-                <div dangerouslySetInnerHTML={{ __html: customization?.description }}></div>
+                <div className="body-font" dangerouslySetInnerHTML={{ __html: customization?.description }}></div>
               )}
               <div
                 style={{
@@ -113,10 +116,10 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
                       title: "Get Help",
                     })
                   }
-                  className="touchable-opacity elevate-2 mt-5"
+                  className="touchable-opacity body-font mt-5"
                   style={{
                     borderRadius: 55,
-                    padding: "8px 27px",
+                    padding: "12px 35px",
                     fontWeight: "bold",
                     background: "var(--app-main-color)",
                     borderWidth: 0,

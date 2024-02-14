@@ -7,10 +7,10 @@ import { FULL_TECHNOLOGY } from "../../../utils/Constants";
 
 const dummies = [
   {
-    icon: "fa-lightbulb-o",
+    icon: "fa-question",
     title: "Ask A Question ",
     actionText: "Get Help",
-    content: "Questions large to small, we have community volunteers ready to answer them all.",
+    content: "Community volunteers are ready to answer questions, big or small",
     url: "coaches",
     type: "help",
   },
@@ -23,15 +23,13 @@ const dummies = [
     type: "incentives",
   },
   {
-    icon: "fa-globe",
+    icon: "fa-handshake-o",
     title: "Find A Vendor",
     actionText: "Vendors",
     content: "The critical question - who should you have quote your project?",
     url: "vendors",
     type: "vendors",
   },
-
- 
 ];
 function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, campaign, vendors }) {
   const navigator = useNavigate();
@@ -48,11 +46,11 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
   return (
     <div
       id={sectionId}
-      className="mt-5 elevate-float-pro"
+      className="elevate-float-pro"
       style={{
         background: "var(--app-main-color)",
         width: "100%",
-        padding: "80px 0px",
+        padding: "30px 0px",
         minHeight: 200,
       }}
     >
@@ -64,7 +62,7 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
           {dummies.map((item, index) => {
             return (
               <Col
-                className="elevate-float-pro m-3"
+                className="elevate-float-pro m-3 rounded-4"
                 style={{
                   background: "white",
                   display: "flex",
@@ -77,22 +75,23 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
                   opacity: thereAreNoVendors && item?.type === "vendors" ? 0.3 : 1,
                 }}
                 key={index?.toString()}
-                lg={3}
+                md={4} lg={3}
               >
-                <i className={`fa ${item.icon} mb-1 mt-2`} style={{ fontSize: 60, color: "var(--app-accent-3)" }} />
+                <i className={`fa ${item.icon} mb-1 mt-2`} style={{ fontSize: 60, color: "var(--app-main-color)" }} />
                 <h6
-                  className="mt-2 mb-2"
+                  className="mt-2 mb-2 body-font"
                   style={{
-                    color: "var(--app-accent-3)",
+                    color: "black",
                     textTransform: "uppercase",
                     textAlign: "center",
-                    fontSize: 13,
-                    fontWeight:"bold"
+                    // fontSize: 13,
+                    fontWeight: "bold",
                   }}
                 >
                   {item.title}
                 </h6>
                 <p
+                  className="body-font"
                   style={{
                     // fontSize: "medium",
                     textAlign: "center",
@@ -112,7 +111,7 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
                     });
                     scrollToSection(item.url);
                   }}
-                  className="elevate-2 touchable-opacity"
+                  className="touchable-opacity"
                   style={{
                     padding: "7px 30px",
                     color: "white",
@@ -120,7 +119,9 @@ function TakeAtionSetion({ sectionId, scrollToSection, authUser, trackActivity, 
                     borderRadius: 500,
                   }}
                 >
-                  <p style={{ margin: 0, fontSize: 13, fontWeight: "bold" }}>{item.actionText}</p>
+                  <p className="small-font" style={{ margin: 0, fontWeight: "bold" }}>
+                    {item.actionText}
+                  </p>
                 </div>
               </Col>
             );
