@@ -107,7 +107,7 @@ const DoMoreBox = ({ scrollToCommunities, isMobile }) => {
         <Button
           onClick={() => scrollToCommunities()}
           style={{ background: "var(--app-main-color)" }}
-          className="tech-btn elevate-2 touchable-opacity"
+          className="tech-btn touchable-opacity"
         >
           <span> Communities</span>
         </Button>

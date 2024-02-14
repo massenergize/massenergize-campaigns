@@ -112,6 +112,7 @@
     width: 100%;
     object-fit: contain;
     border-radius: 5px;
+    margin:15px;
   }
 
   .vendor-list-group li {
@@ -212,6 +213,7 @@
 }
 
 .camp-share-btn-v2 {
+  z-index: 1000;
   position: fixed;
   right: 0;
   top: 200px;

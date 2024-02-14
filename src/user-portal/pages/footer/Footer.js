@@ -97,7 +97,7 @@ function Footer({ toggleModal, campaign, authUser }) {
               {customization?.description || "Sign up for email updates with the latest info on events and incentives!"}
             </p>
             <Button
-              className="elevate-float-pro touchable-opacity"
+              className=" touchable-opacity"
               style={{
                 background: "white",
                 borderWidth: 0,
