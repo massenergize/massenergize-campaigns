@@ -119,7 +119,7 @@ function TestimonialSectionWithFilters({ sectionId, technologies, defaultTab, ca
               />
             </div>
 
-            {!noTestimonials && !showForm && (
+            {!noTestimonials && !showForm && hasScrollableTestimonials && (
               <ArrowButtons containerRef={containerRef} style={{ marginLeft: "auto" }} />
             )}
           </div>
