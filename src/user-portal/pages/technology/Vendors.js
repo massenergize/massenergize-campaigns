@@ -1,14 +1,13 @@
 import React from "react";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
-import { Row } from "react-bootstrap";
+import {Row} from "react-bootstrap";
 
-function Vendors({ sectionId, data, vendors }) {
-  const { title, description } = data;
+function Vendors({sectionId, data, vendors}) {
+  const {title, description} = data;
 
   if (!description && !vendors?.length) return <></>;
 
-  // if(!vendors?.length)
   return (
     <div
       id={sectionId}
@@ -19,18 +18,19 @@ function Vendors({ sectionId, data, vendors }) {
       }}
     >
       <OptimumWrapper>
-        <SectionTitle className="mb-3" style={{ color: "black" }}>
+        <SectionTitle className="mb-3" style={{color: "black"}}>
           {title || "Vendors"}
         </SectionTitle>
         <p
-          dangerouslySetInnerHTML={{ __html: description }}
-          style={{ textAlign: "justify" }}
+          dangerouslySetInnerHTML={{__html: description}}
+          style={{textAlign: "justify"}}
           className="mb-4 body-font"
         ></p>
 
         <Row>
           <ul className="vendor-list-group">
-            {vendors?.map(({ vendor }) => {
+            {vendors?.map(({vendor}) => {
+
               return (
                 <li
                   role={"button"}
@@ -43,6 +43,13 @@ function Vendors({ sectionId, data, vendors }) {
                   className="touchable-opacity body-font"
                   key={vendor?.id?.toString()}
                 >
+                  {vendor?.logo && <img src={vendor?.logo?.url} alt={vendor?.name}
+                                        style={{
+                                          margin: "0px 20px",
+                                          width: "60px",
+                                          height: "60px",
+                                          objectFit: "contain"
+                                        }}/>}
                   {vendor?.name || "..."}
                 </li>
               );
