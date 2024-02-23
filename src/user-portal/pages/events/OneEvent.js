@@ -10,7 +10,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { apiCall } from "../../../api/messenger";
 import { appInnitAction, updateEventsObj } from "../../../redux/actions/actions";
-import { formatTimeRange, setPageTitle } from "../../../utils/utils";
+import { formatDate, formatTimeRange, setPageTitle } from "../../../utils/utils";
 
 function OneEvent({ events, updateEvents, init, campaign }) {
   const [event, setEvent] = useState(LOADING);
@@ -19,7 +19,6 @@ function OneEvent({ events, updateEvents, init, campaign }) {
   const id = eventId;
 
   const { name, start_date_and_time, description, end_date_and_time, image, external_link } = event || {};
-
   const campaignExists = campaign && campaign !== LOADING;
 
   useEffect(() => {
@@ -51,17 +50,16 @@ function OneEvent({ events, updateEvents, init, campaign }) {
 
   return (
     <PageWrapper>
-      <SectionTitle>{name || "..."}</SectionTitle>
+      <SectionTitle className={"text-large"}>{name || "..."}</SectionTitle>
       <Row>
         <Col lg={9}>
           <img
-            className="mt-3"
+            className="mt-3 rounded-4"
             src={image?.url}
             style={{
               width: "100%",
               height: 420,
               objectFit: "cover",
-              borderRadius: 10,
             }}
             alt={"event"}
           />
@@ -78,9 +76,15 @@ function OneEvent({ events, updateEvents, init, campaign }) {
             <h6 className="body-font text-muted" style={{ fontWeight: "" }}>
               Date
             </h6>
-            <small className="small-font" style={{ fontWeight: "bold" }}>
+            {/*<small className="small-font" style={{ fontWeight: "bold" }}>
               {formatTimeRange(start_date_and_time, end_date_and_time)}
-            </small>
+            </small>*/}
+
+            <p className="text-sm fw-medium text-accent-3">
+              <span>{formatDate(start_date_and_time)}</span>
+              {/*<span className={"text-dark"}> &mdash; </span>
+              <span>{formatDate(end_date_and_time)}</span>*/}
+            </p>
           </div>
 
           {external_link && (
