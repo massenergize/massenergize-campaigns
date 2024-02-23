@@ -10,7 +10,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { apiCall } from "../../../api/messenger";
 import { appInnitAction, updateEventsObj } from "../../../redux/actions/actions";
-import { formatDate, formatTime, formatTimeRange, setPageTitle } from "../../../utils/utils";
+import { formatDate, formatTimeRange, setPageTitle } from "../../../utils/utils";
 
 function OneEvent({ events, updateEvents, init, campaign }) {
   const [event, setEvent] = useState(LOADING);
@@ -19,7 +19,6 @@ function OneEvent({ events, updateEvents, init, campaign }) {
   const id = eventId;
 
   const { name, start_date_and_time, description, end_date_and_time, image, external_link } = event || {};
-
   const campaignExists = campaign && campaign !== LOADING;
 
   useEffect(() => {
@@ -51,9 +50,10 @@ function OneEvent({ events, updateEvents, init, campaign }) {
 
   return (
     <PageWrapper>
-      <SectionTitle>{name || "..."}</SectionTitle>
+      <SectionTitle className={"text-large"}>{name || "..."}</SectionTitle>
       <Row>
         <Col lg={9}>
+
           {image?.url && (
             <img
               className="mt-3"
@@ -80,17 +80,15 @@ function OneEvent({ events, updateEvents, init, campaign }) {
             <h6 className="body-font text-muted" style={{ fontWeight: "" }}>
               Date
             </h6>
-            <p className="small-font fw-medium text-accent-3">
-              <span>{formatDate(start_date_and_time)}</span>
-              <span className={"text-dark"}> &mdash; </span>
-              <span>{formatDate(end_date_and_time)}</span>
-              <span className={"text-muted"} style={{ marginLeft: 10 }}>
-                {formatTime(start_date_and_time)}
-              </span>
-            </p>
-            {/* <small className="small-font" style={{ fontWeight: "bold" }}>
+            {/*<small className="small-font" style={{ fontWeight: "bold" }}>
               {formatTimeRange(start_date_and_time, end_date_and_time)}
-            </small> */}
+            </small>*/}
+
+            <p className="text-sm fw-medium text-accent-3">
+              <span>{formatDate(start_date_and_time)}</span>
+              {/*<span className={"text-dark"}> &mdash; </span>
+              <span>{formatDate(end_date_and_time)}</span>*/}
+            </p>
           </div>
 
           {event?.event_type && (
@@ -126,7 +124,6 @@ function OneEvent({ events, updateEvents, init, campaign }) {
 const mapState = (state) => {
   return {
     events: state.events,
-
     campaign: state.campaign,
   };
 };
