@@ -41,6 +41,7 @@ import { useMediaQuery } from "react-responsive";
 import CampaignNotLive from "../landing-page/CampaignNotLive";
 import SmartRichText from "../../../components/SmartRichText";
 import SectionTitle from "../../../components/pieces/SectionTitle";
+import BlurWrapper from "../../../components/BlurWrapper";
 
 const DEFAULT_READ_HEIGHT = 190;
 const PREVIEW_TEXT_LENGHT = 1000;
@@ -294,13 +295,19 @@ function TechnologyFullViewPage({
   return (
     <div>
       <AppNavigationBar />
-      <div style={{ marginTop: 100 }} className="one-tech-wrapper">
+      <div className="one-tech-wrapper">
         <OptimumWrapper>
           <CampaignNotLive />
           <SectionTitle>{name || "..."}</SectionTitle>
 
           <Row>
             <Col lg={9} className="one-tech-main">
+              {/* DONT REMOVE YET */}
+              {/* {image?.url && (
+                <BlurWrapper src={image?.url}>
+                  <img className="mt-2" src={image?.url} alt={"event"} style={{ borderRadius: 10 }} />
+                </BlurWrapper>
+              )} */}
               {image?.url && <img className="mt-2" src={image?.url || carPhoto} alt={"event"} />}
               <InteractionsPanel
                 openShareBox={openShareBox}

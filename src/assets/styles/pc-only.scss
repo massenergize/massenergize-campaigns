@@ -112,6 +112,7 @@
     width: 100%;
     object-fit: contain;
     border-radius: 5px;
+    margin:15px;
   }
 
   .vendor-list-group li {
@@ -189,6 +190,13 @@
     justify-content: center;
     padding: 0px 30px 15px;
   }
+  .nav-top-margin { 
+    margin-top: 100px;
+  }
+
+  .one-tech-wrapper { 
+    margin-top:120px
+  }
 
   /* --------------------------------- END OF PC SPECIFIC ---------------------- */
 }
@@ -212,6 +220,7 @@
 }
 
 .camp-share-btn-v2 {
+  z-index: 1000;
   position: fixed;
   right: 0;
   top: 200px;

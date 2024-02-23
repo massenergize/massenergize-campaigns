@@ -63,9 +63,10 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
         <Form.Check inline type="radio" id={`check-api-other`}>
           <Form.Check.Input checked={comId === OTHER} type={"radio"} value={OTHER} />
           <Form.Check.Label
+            className="body-font"
             style={{
               textTransform: "Capitalize",
-              fontWeight: "bold",
+              // fontWeight: "bold",
               color: "var(--app-main-color)",
               fontSize: 15,
               cursor: "pointer",
