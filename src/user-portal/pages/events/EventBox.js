@@ -7,7 +7,6 @@ function EventBox({ event, campaign_technology }) {
   const { campaign } = campaign_technology || {};
 
   const { name, image, start_date, end_date, event_type, id } = event || {};
-  console.log(event)
   const navigator = useNavigate();
 
   function gotoEvent() {
