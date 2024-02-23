@@ -48,6 +48,7 @@ function OneTechTestimonialsSection({ sectionId, testimonials, campaign, links }
   // const testimonialRoute = `${home?.url}?section=testimonial&show=${TESTIMONIAL_FORM_SHOW_KEY}`;
   // const testimonialRoute = `/campaign/${campaign?.slug}/technology/testimonial/${firstTestimonial?.id}?open=true`;
 
+  const hasScrollableTestimonials = testimonials?.length > 3;
   return (
     <div
       id={sectionId}
@@ -65,14 +66,16 @@ function OneTechTestimonialsSection({ sectionId, testimonials, campaign, links }
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
-            justifyContent: "center",
+            // justifyContent: "center",
           }}
         >
           <SectionTitle style={{ margin: 0 }}>Testimonials</SectionTitle>
 
-          <div style={{ marginLeft: "auto" }}>
-            <ArrowButtons containerRef={containerRef} />
-          </div>
+          {hasScrollableTestimonials && (
+            <div style={{ marginLeft: "auto" }}>
+              <ArrowButtons containerRef={containerRef} />
+            </div>
+          )}
         </div>
 
         <AddNewTestimonial onClick={() => navigator(testimonialRoute)} />

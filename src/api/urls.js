@@ -10,7 +10,9 @@ else if (IS_CANARY) apiHost = "https://api-canary.massenergize.org";
 // else apiHost = "http://localhost:8000/api";
 // else apiHost = "https://api.massenergize.dev";
 
-export const API_HOST = apiHost;
+// export const API_HOST = apiHost;
+export const API_HOST = "https://api.massenergize.dev";
+
 
 let platform = "";
 const URLS = {};

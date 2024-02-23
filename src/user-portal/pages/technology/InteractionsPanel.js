@@ -41,7 +41,7 @@ function InteractionsPanel({ openCommentBox, likes, views, comments, openShareBo
       >
         <i className={`fa fa-heart interact`} style={{ marginRight: 6, ...commonTheme }} />
 
-        <small className="touchable-opacity phone-vanish" style={{ fontWeight: "bold", ...commonTheme }}>
+        <small className="touchable-opacity" style={{ fontWeight: "bold", ...commonTheme }}>
           {`${likeCount ? likeCount : ""} `}
           <span className="phone-vanish">{`${!likeCount || likeCount === 1 ? " Like" : " Likes"}`}</span>
         </small>

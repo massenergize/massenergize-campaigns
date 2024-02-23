@@ -10,7 +10,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { apiCall } from "../../../api/messenger";
 import { appInnitAction, updateEventsObj } from "../../../redux/actions/actions";
-import { formatDate, formatTimeRange, setPageTitle } from "../../../utils/utils";
+import { formatDate, formatTime, formatTimeRange, setPageTitle } from "../../../utils/utils";
 
 function OneEvent({ events, updateEvents, init, campaign }) {
   const [event, setEvent] = useState(LOADING);
@@ -53,16 +53,19 @@ function OneEvent({ events, updateEvents, init, campaign }) {
       <SectionTitle className={"text-large"}>{name || "..."}</SectionTitle>
       <Row>
         <Col lg={9}>
-          <img
-            className="mt-3 rounded-4"
-            src={image?.url}
-            style={{
-              width: "100%",
-              height: 420,
-              objectFit: "cover",
-            }}
-            alt={"event"}
-          />
+          {image?.url && (
+            <img
+              className="mt-3"
+              src={image?.url}
+              style={{
+                width: "100%",
+                height: 420,
+                objectFit: "cover",
+                borderRadius: 10,
+              }}
+              alt={"event"}
+            />
+          )}
 
           <p className="mt-4 body-font" style={{ textAlign: "justify" }}>
             <span
@@ -86,6 +89,12 @@ function OneEvent({ events, updateEvents, init, campaign }) {
               <span>{formatDate(end_date_and_time)}</span>*/}
             </p>
           </div>
+
+          {event?.event_type && (
+            <div style={{ marginTop: 10 }}>
+              <p style={{ color: "var(--app-accent-3)" }}>{event?.event_type}</p>
+            </div>
+          )}
 
           {external_link && (
             <div
@@ -114,13 +123,13 @@ function OneEvent({ events, updateEvents, init, campaign }) {
 const mapState = (state) => {
   return {
     events: state.events,
-    init: appInnitAction,
+
     campaign: state.campaign,
   };
 };
 
 const mapDispatch = (dispatch) => {
-  return bindActionCreators({ updateEvents: updateEventsObj }, dispatch);
+  return bindActionCreators({ updateEvents: updateEventsObj, init: appInnitAction }, dispatch);
 };
 
 export default connect(mapState, mapDispatch)(OneEvent);

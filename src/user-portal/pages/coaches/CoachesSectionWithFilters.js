@@ -116,10 +116,10 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
                       title: "Get Help",
                     })
                   }
-                  className="touchable-opacity elevate-2 mt-5"
+                  className="touchable-opacity body-font mt-5"
                   style={{
                     borderRadius: 55,
-                    padding: "15px 40px",
+                    padding: "12px 35px",
                     fontWeight: "bold",
                     background: "var(--app-main-color)",
                     borderWidth: 0,

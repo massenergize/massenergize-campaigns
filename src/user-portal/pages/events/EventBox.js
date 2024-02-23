@@ -6,8 +6,7 @@ import { Col, Row } from "react-bootstrap";
 function EventBox({ event, campaign_technology }) {
   const { campaign } = campaign_technology || {};
 
-  const { name, image, start_date, end_date, event_type, id } = event || {};
-  console.log(event)
+  const { name, image, start_date, end_date, id, event_type } = event || {};
   const navigator = useNavigate();
 
   function gotoEvent() {
@@ -17,11 +16,21 @@ function EventBox({ event, campaign_technology }) {
   return (
     <div className="card border rounded-4 p-3 bg-white mb-3 h-100 d-flex flex-col justify-content-between">
       <div className="card-body p-0">
-        {image?.url && (
+        {image?.url ? (
           <img
             className={"rounded-3 w-100 cursor-pointer"}
             style={{ height: 180, objectFit: "cover", borderRadius: 5 }}
             src={image?.url}
+            alt={"event"}
+            role={"button"}
+            tabIndex={0}
+            onClick={gotoEvent}
+          />
+        ) : (
+          <img
+            className={"rounded-3 w-100 cursor-pointer"}
+            style={{ height: 180, objectFit: "cover", borderRadius: 5 }}
+            src="/img/fallback-img.png"
             alt={"event"}
             role={"button"}
             tabIndex={0}
