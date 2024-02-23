@@ -1,7 +1,7 @@
 import React from "react";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
-import {Row} from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 
 function Vendors({sectionId, data, vendors}) {
   const {title, description} = data;
@@ -40,17 +40,29 @@ function Vendors({sectionId, data, vendors}) {
                     if (!link) return;
                     window.open(link, "_blank");
                   }}
-                  className="touchable-opacity body-font"
+                  className="touchable-opacity body-font mb-3 list-unstyled d-flex"
                   key={vendor?.id?.toString()}
                 >
-                  {vendor?.logo && <img src={vendor?.logo?.url} alt={vendor?.name}
-                                        style={{
-                                          margin: "0px 20px",
-                                          width: "60px",
-                                          height: "60px",
-                                          objectFit: "contain"
-                                        }}/>}
-                  {vendor?.name || "..."}
+                  <Row className={"m-auto"}>
+                   <Col className={"text-center"}>
+                     {
+                        vendor?.logo?.url && (
+                          <img
+                            src={vendor?.logo?.url}
+                            alt={vendor?.name}
+                            className={"mb-2"}
+                            style={{
+                              width: 100,
+                              height: 70,
+                              objectFit: "contain",
+                              borderRadius: 5,
+                            }}
+                          />
+                        )
+                     }
+                     <p>{vendor?.name || "..."}</p>
+                   </Col>
+                  </Row>
                 </li>
               );
             })}

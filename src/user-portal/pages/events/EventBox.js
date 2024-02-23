@@ -71,9 +71,6 @@ function EventBox({ event, campaign_technology }) {
             </p>
           </Col>
         </Row>
-        <Row>
-          <p className="small-font text-muted">{event_type}</p>
-        </Row>
       </div>
     </div>
   );
