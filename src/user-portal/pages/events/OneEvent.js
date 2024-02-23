@@ -10,7 +10,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { apiCall } from "../../../api/messenger";
 import { appInnitAction, updateEventsObj } from "../../../redux/actions/actions";
-import { formatDate, formatTime, formatTimeRange, setPageTitle } from "../../../utils/utils";
+import { formatDate, formatTimeRange, setPageTitle } from "../../../utils/utils";
 
 function OneEvent({ events, updateEvents, init, campaign }) {
   const [event, setEvent] = useState(LOADING);
@@ -53,6 +53,7 @@ function OneEvent({ events, updateEvents, init, campaign }) {
       <SectionTitle className={"text-large"}>{name || "..."}</SectionTitle>
       <Row>
         <Col lg={9}>
+
           {image?.url && (
             <img
               className="mt-3"
@@ -123,7 +124,6 @@ function OneEvent({ events, updateEvents, init, campaign }) {
 const mapState = (state) => {
   return {
     events: state.events,
-
     campaign: state.campaign,
   };
 };
