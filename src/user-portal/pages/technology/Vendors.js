@@ -3,12 +3,11 @@ import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
 
-function Vendors({ sectionId, data, vendors }) {
-  const { title, description } = data;
+function Vendors({sectionId, data, vendors}) {
+  const {title, description} = data;
 
   if (!description && !vendors?.length) return <></>;
 
-  // if(!vendors?.length)
   return (
     <div
       id={sectionId}
@@ -19,18 +18,19 @@ function Vendors({ sectionId, data, vendors }) {
       }}
     >
       <OptimumWrapper>
-        <SectionTitle className="mb-3" style={{ color: "black" }}>
+        <SectionTitle className="mb-3" style={{color: "black"}}>
           {title || "Vendors"}
         </SectionTitle>
         <p
-          dangerouslySetInnerHTML={{ __html: description }}
-          style={{ textAlign: "justify" }}
+          dangerouslySetInnerHTML={{__html: description}}
+          style={{textAlign: "justify"}}
           className="mb-4 body-font"
         ></p>
 
         <Row>
           <ul className="vendor-list-group">
-            {vendors?.map(({ vendor }) => {
+            {vendors?.map(({vendor}) => {
+
               return (
                 <li
                   role={"button"}
