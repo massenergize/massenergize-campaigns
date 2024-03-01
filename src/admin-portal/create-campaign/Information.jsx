@@ -177,8 +177,8 @@ const Information = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
           />
         </Col>
       </Row>
-      <Row className="mt-2">
-        <Col>
+      <Row className="py-4">
+        <Col style = {{marginBottom:10}}>
           <Input
             id="about-us-title"
             name="about_us_title"
