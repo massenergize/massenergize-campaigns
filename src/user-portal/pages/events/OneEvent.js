@@ -10,7 +10,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { apiCall } from "../../../api/messenger";
 import { appInnitAction, updateEventsObj } from "../../../redux/actions/actions";
-import { formatDate, formatTime, formatTimeRange, setPageTitle } from "../../../utils/utils";
+import { formatDate, formatTimeRange, setPageTitle } from "../../../utils/utils";
 
 function OneEvent({ events, updateEvents, init, campaign }) {
   const [event, setEvent] = useState(LOADING);
@@ -64,7 +64,6 @@ function OneEvent({ events, updateEvents, init, campaign }) {
               }}
               alt={"event"}
             />
-
           <p className="mt-4 body-font" style={{ textAlign: "justify" }}>
             <span
               dangerouslySetInnerHTML={{ __html: description }}
@@ -121,7 +120,6 @@ function OneEvent({ events, updateEvents, init, campaign }) {
 const mapState = (state) => {
   return {
     events: state.events,
-
     campaign: state.campaign,
   };
 };

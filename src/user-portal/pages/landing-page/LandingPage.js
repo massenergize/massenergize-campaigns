@@ -60,7 +60,7 @@ function LandingPage({
   const heroAB = fetchUrlParams("hero");
   const showHeroV1 = heroAB && heroAB === "v2";
 
-  const { key_contact, is_published, description, technologies_section, coaches_section } = campaign || {};
+  const { key_contact, is_published, description, technologies_section, coaches_section, about_us_title } = campaign || {};
 
   const technologies = campaign?.technologies || [];
   const { campaignId } = useParams();
@@ -202,7 +202,7 @@ function LandingPage({
       <Container>
         <RoamingBox
           id="roaming-box"
-          advert={{ description, title: `About ${campaign?.title || ""}` }}
+          advert={{ description, title: about_us_title || `About ${campaign?.title || ""}` }}
           keyContact={key_contact}
           showMore={showMoreAboutAdvert}
         />

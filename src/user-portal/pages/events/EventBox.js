@@ -6,6 +6,7 @@ import { Col, Row } from "react-bootstrap";
 function EventBox({ event, campaign_technology }) {
   const { campaign } = campaign_technology || {};
 
+
   const { name, image, start_date, end_date, id, event_type } = event || {};
   const navigator = useNavigate();
 
