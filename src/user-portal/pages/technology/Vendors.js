@@ -2,6 +2,7 @@ import React from "react";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { Col, Row } from "react-bootstrap";
+import { isEmpty } from "../../../helpers/utils/string";
 
 function Vendors({ sectionId, data, vendors }) {
   const { title, description } = data;
@@ -31,6 +32,8 @@ function Vendors({ sectionId, data, vendors }) {
         <Row>
           <ul className="vendor-list-group">
             {vendors?.map(({ vendor }) => {
+              const NO_LOGO = isEmpty(vendor?.logo?.url)
+
               return (
                 <li
                   role={"button"}
@@ -45,10 +48,10 @@ function Vendors({ sectionId, data, vendors }) {
                 >
                   <Row className={"m-auto"}>
                    <Col className={"text-center"}>
-                     {
-                        vendor?.logo?.url && (
+                     {/*{
+                        vendor?.logo?.url && (*/}
                           <img
-                            src={vendor?.logo?.url}
+                            src={NO_LOGO ? "/img/store.svg" : vendor?.logo?.url}
                             alt={vendor?.name}
                             className={"mb-2"}
                             style={{
@@ -56,10 +59,14 @@ function Vendors({ sectionId, data, vendors }) {
                               height: 70,
                               objectFit: "contain",
                               borderRadius: 5,
+                              ...(NO_LOGO && {
+                                opacity: 0.2,
+                                pointerEvents: "none",
+                                 }),
                             }}
                           />
-                        )
-                     }
+                    {/*    )
+                     }*/}
                      <p>{vendor?.name || "..."}</p>
                    </Col>
                   </Row>
