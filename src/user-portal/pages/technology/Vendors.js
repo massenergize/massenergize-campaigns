@@ -47,8 +47,6 @@ function Vendors({sectionId, data, vendors}) {
                 >
                   <Row className={"m-auto"}>
                    <Col className={"text-center"}>
-                     {/*{
-                        vendor?.logo?.url && (*/}
                           <img
                             src={NO_LOGO ? "/img/store.svg" : vendor?.logo?.url}
                             alt={vendor?.name}
@@ -64,8 +62,6 @@ function Vendors({sectionId, data, vendors}) {
                                  }),
                             }}
                           />
-                    {/*    )
-                     }*/}
                      <p>{vendor?.name || "..."}</p>
                    </Col>
                   </Row>
