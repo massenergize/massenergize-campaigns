@@ -58,28 +58,28 @@ function OneEvent({ events, updateEvents, init, campaign }) {
             src={image?.url || "/img/fallback-img.png"}
             style={{
               width: "100%",
-              height:200,
+              height: 200,
               // ...(image?.url ? { minHeight: 200 } : { height: 200 }),
-              objectFit: "cover",
+              objectFit: "contain",
               borderRadius: 10,
               marginBottom: 10,
             }}
             alt={"event"}
           />
           <div>
-            <h6 className="body-font" style={{ fontWeight: "", color: "black" }}>
+            {/* <h6 className="small-font" style={{ fontWeight: "", color: "black" }}>
               <span>Date</span>
-              {event?.event_type && (
-                // <div style={{ marginTop: 10 }}>
-                <small style={{ marginLeft: 5 }}>({event?.event_type})</small>
-                // </div>
-              )}
-            </h6>
+            </h6> */}
 
-            <p className="text-sm fw-medium text-accent-3">
+            <p className="body-font fw-medium text-accent-3">
               <span>{formatDate(start_date_and_time)}</span>
             </p>
           </div>
+          {event?.event_type && (
+            <div style={{ marginTop: 10, color: "var(--app-main-color)" }}>
+              <p>{event?.event_type}</p>
+            </div>
+          )}
 
           {external_link && (
             <div
