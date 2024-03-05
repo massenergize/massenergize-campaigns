@@ -52,46 +52,34 @@ function OneEvent({ events, updateEvents, init, campaign }) {
     <PageWrapper>
       <SectionTitle className={"text-large"}>{name || "..."}</SectionTitle>
       <Row>
-        <Col lg={9}>
-            <img
-              className="mt-3"
-              src={image?.url || "/img/fallback-img.png"}
-              style={{
-                width: "100%",
-                ...(image?.url ? {minHeight: 420,} : { height: 420, }),
-                objectFit: "cover",
-                borderRadius: 10,
-              }}
-              alt={"event"}
-            />
-          <p className="mt-4 body-font" style={{ textAlign: "justify" }}>
-            <span
-              dangerouslySetInnerHTML={{ __html: description }}
-              style={{ display: "block", overflowY: "hidden" }}
-            ></span>
-          </p>
-        </Col>
-        <Col lg={3} className="mt-2">
+        <Col lg={4} className="mt-2">
+          <img
+            className="mt-3"
+            src={image?.url || "/img/fallback-img.png"}
+            style={{
+              width: "100%",
+              height:200,
+              // ...(image?.url ? { minHeight: 200 } : { height: 200 }),
+              objectFit: "cover",
+              borderRadius: 10,
+              marginBottom: 10,
+            }}
+            alt={"event"}
+          />
           <div>
-            <h6 className="body-font text-muted" style={{ fontWeight: "" }}>
-              Date
+            <h6 className="body-font" style={{ fontWeight: "", color: "black" }}>
+              <span>Date</span>
+              {event?.event_type && (
+                // <div style={{ marginTop: 10 }}>
+                <small style={{ marginLeft: 5 }}>({event?.event_type})</small>
+                // </div>
+              )}
             </h6>
-            {/*<small className="small-font" style={{ fontWeight: "bold" }}>
-              {formatTimeRange(start_date_and_time, end_date_and_time)}
-            </small>*/}
 
             <p className="text-sm fw-medium text-accent-3">
               <span>{formatDate(start_date_and_time)}</span>
-              {/*<span className={"text-dark"}> &mdash; </span>
-              <span>{formatDate(end_date_and_time)}</span>*/}
             </p>
           </div>
-
-          {event?.event_type && (
-            <div style={{ marginTop: 10 }}>
-              <p style={{ color: "var(--app-accent-3)" }}>{event?.event_type}</p>
-            </div>
-          )}
 
           {external_link && (
             <div
@@ -111,6 +99,14 @@ function OneEvent({ events, updateEvents, init, campaign }) {
               <p style={{ margin: 0 }}>Register / Join</p>
             </div>
           )}
+        </Col>
+        <Col lg={8}>
+          <p className="mt-4 body-font" style={{ textAlign: "justify" }}>
+            <span
+              dangerouslySetInnerHTML={{ __html: description }}
+              style={{ display: "block", overflowY: "hidden" }}
+            ></span>
+          </p>
         </Col>
       </Row>
     </PageWrapper>
