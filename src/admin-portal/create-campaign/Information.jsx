@@ -1,24 +1,25 @@
-import React, {useContext, useReducer, useState} from "react";
+import React, { useContext, useReducer, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Input from "../../components/admin-components/Input";
 import FileUploader from "../../components/admin-components/FileUploader";
 import "../../assets/styles/admin-styles.scss";
-import {ProgressButton} from "../../components/progress-button/progress-button";
+import { ProgressButton } from "../../components/progress-button/progress-button";
 import dayjs from "dayjs";
-import {updateCampaign} from "../../requests/campaign-requests";
-import {useBubblyBalloons} from "../../lib/bubbly-balloon/use-bubbly-balloons";
-import {useNamedState} from "../../hooks/useNamedState";
-import {isEmpty} from "../../helpers/utils/string";
-import {BubblyBalloonContext} from "../../lib/bubbly-balloon/bubbly-balloon-context";
-import {getImageValue} from "../../helpers/utils";
+import { updateCampaign } from "../../requests/campaign-requests";
+import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
+import { useNamedState } from "../../hooks/useNamedState";
+import { isEmpty } from "../../helpers/utils/string";
+import { BubblyBalloonContext } from "../../lib/bubbly-balloon/bubbly-balloon-context";
+import { getImageValue } from "../../helpers/utils";
 import CustomAccordion from "src/components/admin-components/CustomAccordion";
 import LandingPageCustomization from "./LandingPageCustomization";
 import Button from "src/components/admin-components/Button";
-import {useCampaignContext} from "src/hooks/use-campaign-context";
+import { useCampaignContext } from "src/hooks/use-campaign-context";
+import { IS_DEV, IS_LOCAL } from "src/config/environment";
 
-const Information = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
+const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
   const [showError, setShowError] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -39,10 +40,10 @@ const Information = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
     key_contact_image: "",
   };
 
-  const {blow} = useBubblyBalloons();
+  const { blow } = useBubblyBalloons();
 
   const [errors, setErrors] = useNamedState("Error", {});
-  const {setNewCampaignDetails} = useCampaignContext();
+  const { setNewCampaignDetails } = useCampaignContext();
 
   const handleFieldChange = (field, value) => {
     setCampaignDetails(field, value);
@@ -59,17 +60,17 @@ const Information = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
         title: campaignDetails.title,
         tagline: campaignDetails.tagline,
         description: campaignDetails.description,
-        about_us_title: campaignDetails.about_us_title ,
+        about_us_title: campaignDetails.about_us_title,
 
-        ...(campaignDetails.start_date && {start_date: dayjs(campaignDetails.start_date).format("YYYY-MM-DD")}),
-        ...(campaignDetails.end_date && {end_date: dayjs(campaignDetails.end_date).format("YYYY-MM-DD")}),
+        ...(campaignDetails.start_date && { start_date: dayjs(campaignDetails.start_date).format("YYYY-MM-DD") }),
+        ...(campaignDetails.end_date && { end_date: dayjs(campaignDetails.end_date).format("YYYY-MM-DD") }),
         ...getImageValue(campaignDetails, "primary_logo"),
         ...getImageValue(campaignDetails, "secondary_logo"),
         ...getImageValue(campaignDetails, "campaign_image"),
       };
 
       let response = await updateCampaign(payload);
-      setNewCampaignDetails({...(campaignDetails || {}), ...response});
+      setNewCampaignDetails({ ...(campaignDetails || {}), ...response });
 
       if (response) {
         setLoading(false);
@@ -88,9 +89,9 @@ const Information = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
 
   return (
     <>
-      <div style={{marginBottom: 20}}>
+      <div style={{ marginBottom: 20 }}>
         <CustomAccordion title="Add other page customizations to your main campaign page">
-          <LandingPageCustomization/>
+          <LandingPageCustomization />
         </CustomAccordion>
       </div>
       <Row className="mt-0">
@@ -167,33 +168,35 @@ const Information = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
             value={campaignDetails?.end_date}
             onChange={(val) => {
               if (dayjs(val).isBefore(campaignDetails?.start_date)) {
-                setErrors({...errors, end_date: "End date cannot be before start date"});
+                setErrors({ ...errors, end_date: "End date cannot be before start date" });
                 handleFieldChange("end_date", "");
               } else {
                 handleFieldChange("end_date", val);
-                setErrors({...errors, end_date: null});
+                setErrors({ ...errors, end_date: null });
               }
             }}
           />
         </Col>
       </Row>
-      <Row className="py-4">
-        <Col style = {{marginBottom:10}}>
-          <Input
-            id="about-us-title"
-            name="about_us_title"
-            label="About us title"
-            placeholder="Add a custom title for the about us section..."
-            required={false}
-            // type="richText"
-            error={errors?.about_us_title}
-            value={campaignDetails?.about_us_title}
-            onChange={(val) => {
-              handleFieldChange("about_us_title", val);
-            }}
-          />
-        </Col>
-      </Row>
+      {(IS_LOCAL || IS_DEV) && (
+        <Row className="py-4">
+          <Col style={{ marginBottom: 10 }}>
+            <Input
+              id="about-us-title"
+              name="about_us_title"
+              label="About us title"
+              placeholder="Add a custom title for the about us section..."
+              required={false}
+              // type="richText"
+              error={errors?.about_us_title}
+              value={campaignDetails?.about_us_title}
+              onChange={(val) => {
+                handleFieldChange("about_us_title", val);
+              }}
+            />
+          </Col>
+        </Row>
+      )}
       <Row className="mt-2">
         <Col>
           <Input
@@ -217,14 +220,14 @@ const Information = ({campaignDetails, setCampaignDetails, setStep, lists}) => {
             /*imageExists("primary_logo") ? (
                 <img src={campaignDetails?.primary_logo?.url} alt={campaignDetails.primary_logo?.name || "Primary Logo"} />
               ) : */ <FileUploader
-            defaultValue={campaignDetails?.primary_logo?.url || ""}
-            required={false}
-            id="primary_logo"
-            text="Upload a primary logo"
-            onChange={(val) => {
-              handleFieldChange("primary_logo", val);
-            }}
-          />
+              defaultValue={campaignDetails?.primary_logo?.url || ""}
+              required={false}
+              id="primary_logo"
+              text="Upload a primary logo"
+              onChange={(val) => {
+                handleFieldChange("primary_logo", val);
+              }}
+            />
           }
         </Col>
         <Col>
