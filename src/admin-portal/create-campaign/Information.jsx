@@ -60,7 +60,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
         title: campaignDetails.title,
         tagline: campaignDetails.tagline,
         description: campaignDetails.description,
-        about_us_title: campaignDetails.about_us_title,
+        ...(IS_LOCAL || IS_DEV ? { about_us_title: campaignDetails.about_us_title } : {}),
 
         ...(campaignDetails.start_date && { start_date: dayjs(campaignDetails.start_date).format("YYYY-MM-DD") }),
         ...(campaignDetails.end_date && { end_date: dayjs(campaignDetails.end_date).format("YYYY-MM-DD") }),
