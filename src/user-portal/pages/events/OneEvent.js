@@ -53,19 +53,21 @@ function OneEvent({ events, updateEvents, init, campaign }) {
       <SectionTitle className={"text-large"}>{name || "..."}</SectionTitle>
       <Row>
         <Col lg={4} className="mt-2">
-          <img
-            className="mt-3"
-            src={image?.url || "/img/fallback-img.png"}
-            style={{
-              width: "100%",
-              height: 200,
-              // ...(image?.url ? { minHeight: 200 } : { height: 200 }),
-              objectFit: "contain",
-              borderRadius: 10,
-              marginBottom: 10,
-            }}
-            alt={"event"}
-          />
+          {image?.url && (
+            <img
+              className="mt-3"
+              src={image?.url}
+              style={{
+                width: "100%",
+                // height: 200,
+                // ...(image?.url ? { minHeight: 200 } : { height: 200 }),
+                // objectFit: "contain",
+                borderRadius: 10,
+                marginBottom: 10,
+              }}
+              alt={"event"}
+            />
+          )}
           <div>
             {/* <h6 className="small-font" style={{ fontWeight: "", color: "black" }}>
               <span>Date</span>
