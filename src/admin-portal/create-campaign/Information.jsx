@@ -17,7 +17,6 @@ import CustomAccordion from "src/components/admin-components/CustomAccordion";
 import LandingPageCustomization from "./LandingPageCustomization";
 import Button from "src/components/admin-components/Button";
 import { useCampaignContext } from "src/hooks/use-campaign-context";
-import { IS_DEV, IS_LOCAL } from "src/config/environment";
 
 const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
   const [showError, setShowError] = useState(false);
@@ -60,8 +59,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
         title: campaignDetails.title,
         tagline: campaignDetails.tagline,
         description: campaignDetails.description,
-        ...(IS_LOCAL || IS_DEV ? { about_us_title: campaignDetails.about_us_title } : {}),
-
+        about_us_title: campaignDetails.about_us_title ,
         ...(campaignDetails.start_date && { start_date: dayjs(campaignDetails.start_date).format("YYYY-MM-DD") }),
         ...(campaignDetails.end_date && { end_date: dayjs(campaignDetails.end_date).format("YYYY-MM-DD") }),
         ...getImageValue(campaignDetails, "primary_logo"),
@@ -178,25 +176,23 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
           />
         </Col>
       </Row>
-      {(IS_LOCAL || IS_DEV) && (
-        <Row className="py-4">
-          <Col style={{ marginBottom: 10 }}>
-            <Input
-              id="about-us-title"
-              name="about_us_title"
-              label="About us title"
-              placeholder="Add a custom title for the about us section..."
-              required={false}
-              // type="richText"
-              error={errors?.about_us_title}
-              value={campaignDetails?.about_us_title}
-              onChange={(val) => {
-                handleFieldChange("about_us_title", val);
-              }}
-            />
-          </Col>
-        </Row>
-      )}
+      <Row className="py-4">
+        <Col style={{ marginBottom: 10 }}>
+          <Input
+            id="about-us-title"
+            name="about_us_title"
+            label="About us title"
+            placeholder="Add a custom title for the about us section..."
+            required={false}
+            // type="richText"
+            error={errors?.about_us_title}
+            value={campaignDetails?.about_us_title}
+            onChange={(val) => {
+              handleFieldChange("about_us_title", val);
+            }}
+          />
+        </Col>
+      </Row>
       <Row className="mt-2">
         <Col>
           <Input
