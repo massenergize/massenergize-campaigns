@@ -1,4 +1,9 @@
 import { format, formatDistanceToNow, isSameDay, parseISO } from "date-fns";
+import { ME_STATES } from "./States";
+
+export const stateAbbreviation = (stateName) => {
+  return ME_STATES.find((s) => s?.name?.toLowerCase() === stateName?.toLowerCase());
+};
 
 export function formatTimeRange(startDateString, endDateString) {
   if (!startDateString || !endDateString) return "";

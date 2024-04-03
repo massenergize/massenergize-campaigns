@@ -11,6 +11,8 @@ import { connect } from "react-redux";
 import { apiCall } from "../../../api/messenger";
 import { appInnitAction, updateEventsObj } from "../../../redux/actions/actions";
 import { formatDate, formatTimeRange, setPageTitle } from "../../../utils/utils";
+import AddToGoogleCalendar from "./AddToGoogleCalendar";
+import ICSEventCreator from "./ICSEventCreator";
 
 function OneEvent({ events, updateEvents, init, campaign }) {
   const [event, setEvent] = useState(LOADING);
@@ -83,7 +85,16 @@ function OneEvent({ events, updateEvents, init, campaign }) {
             </div>
           )}
 
-          {external_link && (
+          <div>
+            <h6 style={{ color: "var(--app-main-color)" }}>
+              <i className=" fa fa-download" /> Download to your calendar
+            </h6>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <ICSEventCreator  data = {event} /> <AddToGoogleCalendar data = {event} />
+            </div>
+          </div>
+
+          {true && (
             <div
               onClick={(e) => {
                 e.preventDefault();
