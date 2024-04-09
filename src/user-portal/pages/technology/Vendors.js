@@ -1,14 +1,14 @@
 import React from "react";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 import SectionTitle from "../../../components/pieces/SectionTitle";
-import { Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
+import { isEmpty } from "../../../helpers/utils/string";
 
-function Vendors({ sectionId, data, vendors }) {
-  const { title, description } = data;
+function Vendors({sectionId, data, vendors}) {
+  const {title, description} = data;
 
   if (!description && !vendors?.length) return <></>;
 
-  // if(!vendors?.length)
   return (
     <div
       id={sectionId}
@@ -19,18 +19,20 @@ function Vendors({ sectionId, data, vendors }) {
       }}
     >
       <OptimumWrapper>
-        <SectionTitle className="mb-3" style={{ color: "black" }}>
+        <SectionTitle className="mb-3" style={{color: "black"}}>
           {title || "Vendors"}
         </SectionTitle>
         <p
-          dangerouslySetInnerHTML={{ __html: description }}
-          style={{ textAlign: "justify" }}
+          dangerouslySetInnerHTML={{__html: description}}
+          style={{textAlign: "justify"}}
           className="mb-4 body-font"
         ></p>
 
         <Row>
           <ul className="vendor-list-group">
             {vendors?.map(({ vendor }) => {
+              const NO_LOGO = isEmpty(vendor?.logo?.url)
+
               return (
                 <li
                   role={"button"}
@@ -40,10 +42,29 @@ function Vendors({ sectionId, data, vendors }) {
                     if (!link) return;
                     window.open(link, "_blank");
                   }}
-                  className="touchable-opacity body-font"
+                  className="touchable-opacity body-font mb-3 list-unstyled d-flex"
                   key={vendor?.id?.toString()}
                 >
-                  {vendor?.name || "..."}
+                  <Row className={"m-auto"}>
+                   <Col className={"text-center"}>
+                          <img
+                            src={NO_LOGO ? "/img/store.svg" : vendor?.logo?.url}
+                            alt={vendor?.name}
+                            className={"mb-2"}
+                            style={{
+                              width: 100,
+                              height: 70,
+                              objectFit: "contain",
+                              borderRadius: 5,
+                              ...(NO_LOGO && {
+                                opacity: 0.2,
+                                pointerEvents: "none",
+                                 }),
+                            }}
+                          />
+                     <p>{vendor?.name || "..."}</p>
+                   </Col>
+                  </Row>
                 </li>
               );
             })}
