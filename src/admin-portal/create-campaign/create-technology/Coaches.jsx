@@ -12,7 +12,7 @@ import BootButton from "react-bootstrap/Button";
 import CustomAccordion from "../../../components/admin-components/CustomAccordion";
 import SectionForm from "./SectionsForm";
 import noCoach from "./../../../assets/imgs/no-coach.png";
-import { objHasContent } from "src/utils/utils";
+import { objHasContent, validateEmail } from "src/utils/utils";
 import MeModal from "src/components/MEModal/MeModal";
 const INITIAL_COACH_STATE = {
   technology_id: "",
@@ -64,6 +64,10 @@ function Coaches({
     const { full_name, image, email, community } = data || {};
     if (!full_name || !community) {
       notifyError("(Full Name,Community) Please make sure none of them is empty...");
+      return false;
+    }
+    if (!validateEmail(email)) {
+      notifyError("Please enter a valid email...");
       return false;
     }
     return true;
@@ -287,9 +291,10 @@ function Coaches({
             <Col>
               <Input
                 label="Phone Number"
-                placeholder="Enter email here..."
+                placeholder="Enter phone number here..."
                 required={false}
                 type="textbox"
+                inputType="number"
                 value={getValue("phone_number")}
                 onChange={(val) => {
                   handleFieldChange("phone_number", val);
