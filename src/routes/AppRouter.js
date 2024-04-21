@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes, useParams, Navigate, generatePath } from "react-router-dom";
+import { Route, Routes, useParams, Navigate, generatePath, useNavigate } from "react-router-dom";
 import LandingPage from "../user-portal/pages/landing-page/LandingPage";
 import { bindActionCreators } from "redux";
 import {
@@ -26,6 +26,8 @@ import Login from "../admin-portal/pages/auth/Login";
 import Dummy from "../admin-portal/pages/auth/Dummy";
 import { portalIsAdmin, setPageTitle } from "../utils/utils";
 import JoinUsForm from "../user-portal/pages/forms/JoinUsForm";
+import SiteUnderMaintenance from "../views/site-under-maintenance/SiteUnderMaintenance";
+import { UNDER_MAINTENANCE } from "../utils/Constants";
 
 export const NavigateWithParams = ({ to, ...props }) => {
   const params = useParams();
@@ -141,6 +143,10 @@ const ROUTE_TABLE = [
     path: "/dummy-for-auth",
     component: Dummy,
   },
+  // {
+  //   path: "/ongoing-maintenance",
+  //   component: SiteUnderMaintenance,
+  // },
 ];
 
 function AppRouter({
@@ -157,11 +163,17 @@ function AppRouter({
   // navigation,
 }) {
   const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    let pageName = "ME Campaign";
-    if (isAdminPortal) pageName = "Admin Portal";
-    setPageTitle(pageName);
+    if (UNDER_MAINTENANCE) {
+      setPageTitle("Site Under Maintenance");
+      navigate("/ongoing-maintenance");
+    } else {
+      let pageName = "ME Campaign";
+      if (isAdminPortal) pageName = "Admin Portal";
+      setPageTitle(pageName);
+    }
   }, []);
 
   const register = (registrationProps) => {
@@ -179,10 +191,7 @@ function AppRouter({
       ),
     });
   };
-  const triggerProtectedFunctionality = (
-    authUser,
-    { cb, registrationOptions } = {},
-  ) => {
+  const triggerProtectedFunctionality = (authUser, { cb, registrationOptions } = {}) => {
     const { user } = authUser || {};
     if (!user) return register(registrationOptions);
     cb && cb();
@@ -190,56 +199,57 @@ function AppRouter({
 
   return (
     <>
-      <CustomModal
-        close={() => toggleModal({ show: false, component: <></> })}
-        {...modalOptions}
-      />
+      <CustomModal close={() => toggleModal({ show: false, component: <></> })} {...modalOptions} />
       <Routes>
-        <Route
-          path="/campaign/:campaignId"
-          element={
-            <LandingPage
-              test={test}
-              testFunction={testFunction}
-              toggleModal={toggleModal}
-              triggerProtectedFunctionality={triggerProtectedFunctionality}
-              // menu={navigation}
+        {UNDER_MAINTENANCE ? (
+          <Route path="ongoing-maintenance" element={<SiteUnderMaintenance />} />
+        ) : (
+          <>
+            <Route
+              path="/campaign/:campaignId"
+              element={
+                <LandingPage
+                  test={test}
+                  testFunction={testFunction}
+                  toggleModal={toggleModal}
+                  triggerProtectedFunctionality={triggerProtectedFunctionality}
+                  // menu={navigation}
+                />
+              }
             />
-          }
-        />
 
-        {ROUTE_TABLE.map((route, index) => {
-          const { path, addToggleModal, replace } = route;
+            {ROUTE_TABLE.map((route, index) => {
+              const { path, addToggleModal, replace } = route;
 
-          const routeProps = {
-            path,
-            ...(replace && { replace: true }),
-            element: (
-              <route.component toggleModal={addToggleModal ? toggleModal : null} />
-            ),
-          };
+              const routeProps = {
+                path,
+                ...(replace && { replace: true }),
+                element: <route.component toggleModal={addToggleModal ? toggleModal : null} />,
+              };
 
-          return <Route key={index} {...routeProps} />;
-        })}
+              return <Route key={index} {...routeProps} />;
+            })}
 
-        <Route
-          path={`/campaign/:campaign_id/technology/:campaign_technology_id`}
-          element={
-            <TechnologyFullViewPage
-              toggleModal={toggleModal}
-              triggerProtectedFunctionality={triggerProtectedFunctionality}
-              // menu={navigation}
+            <Route
+              path={`/campaign/:campaign_id/technology/:campaign_technology_id`}
+              element={
+                <TechnologyFullViewPage
+                  toggleModal={toggleModal}
+                  triggerProtectedFunctionality={triggerProtectedFunctionality}
+                  // menu={navigation}
+                />
+              }
             />
-          }
-        />
-        <Route
-          path="/campaign/:campaign_id/technology/event/:eventId"
-          element={<OneEvent toggleModal={toggleModal} />}
-        />
-        <Route
-          path="/campaign/:campaign_id/technology/testimonial/:id"
-          element={<OneTestimonial toggleModal={toggleModal} />}
-        />
+            <Route
+              path="/campaign/:campaign_id/technology/event/:eventId"
+              element={<OneEvent toggleModal={toggleModal} />}
+            />
+            <Route
+              path="/campaign/:campaign_id/technology/testimonial/:id"
+              element={<OneTestimonial toggleModal={toggleModal} />}
+            />
+          </>
+        )}
       </Routes>
     </>
   );
