@@ -4,10 +4,7 @@ import { MultiSelect } from "react-multi-select-component";
 import Button from "src/components/admin-components/Button";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import { daysOfWeek, monthsOfYear } from "src/utils/Constants";
-import {
-  AddSelectedEvents,
-  removeCampaignTechnologyEvent,
-} from "src/requests/campaign-requests";
+import { AddSelectedEvents, removeCampaignTechnologyEvent } from "src/requests/campaign-requests";
 import useSWR from "swr";
 import GhostLoader from "src/components/admin-components/GhostLoader";
 import { useParams } from "react-router-dom";
@@ -19,22 +16,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCampaignCommunityEventsAction } from "../../redux/actions/actions";
 import { useCampaignContext } from "src/hooks/use-campaign-context";
 import Loading from "src/components/pieces/Loading";
+import { limitItems } from "src/utils/utils";
 
-export function CampaignEventsView ({campaign }) {
-
-  const { setNewCampaignDetails,} = useCampaignContext();
+export function CampaignEventsView({ campaign }) {
+  const { setNewCampaignDetails } = useCampaignContext();
   const [loadingEvents, setLoadingEvents] = useState(false);
   const [selectedEvents, setSelectedEvents] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [toAddEvents, setToAddEvents] = useState([]);
-  const [selectedTech, setSelectedTech] = useState("");
+  const [selectedTech, setSelectedTech] = useState(null);
   const { blow, pop } = useBubblyBalloons();
   //@Todo: Add a mutate to update main
 
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
-  const allEvents = useSelector(state=> state.communitiesEvents)
-  const dispatch = useDispatch()
+  const allEvents = useSelector((state) => state.communitiesEvents);
+  const dispatch = useDispatch();
 
   const fetchEventsIfNone = async () => {
     try {
@@ -50,23 +47,18 @@ export function CampaignEventsView ({campaign }) {
     }
   };
 
-  useEffect(()=>{
-    fetchEventsIfNone()
-  },[])
+  useEffect(() => {
+    fetchEventsIfNone();
+  }, []);
 
   useEffect(() => {
-    const existingEvents = [
-      ...campaign?.technologies?.map((tech) => tech?.events),
-    ].flat();
+    const existingEvents = [...campaign?.technologies?.map((tech) => tech?.events)].flat();
     setSelectedEvents(existingEvents);
+  }, [campaign?.technologies]);
 
-  },[campaign?.technologies])
-
-  
   if (loadingEvents) {
     return <Loading text="Loading events..." />;
   }
-
 
   const techs = campaign?.technologies;
 
@@ -83,7 +75,7 @@ export function CampaignEventsView ({campaign }) {
         const newTechs = techs?.map((t) => {
           if (t?.campaign_technology_id === removedEvent?.campaign_technology?.id) return tech;
           return t;
-        })
+        });
         setNewCampaignDetails({ ...campaign, technologies: newTechs });
         setLoading(false);
         blow({
@@ -149,7 +141,7 @@ export function CampaignEventsView ({campaign }) {
         });
       }
     } catch (e) {
-      console.log("=== e ==", e)
+      console.log("=== e ==", e);
       setLoading(false);
       pop({
         title: "Error",
@@ -171,10 +163,7 @@ export function CampaignEventsView ({campaign }) {
   };
 
   const selectedEventIds = selectedEvents.map((event) => event.event.id);
-  const eventsToShow = allEvents.filter(
-    (event) => !selectedEventIds.includes(event.id),
-  );
-
+  const eventsToShow = allEvents.filter((event) => !selectedEventIds.includes(event.id));
 
   return (
     <Container fluid style={{ height: "100vh" }}>
@@ -238,17 +227,13 @@ export function CampaignEventsView ({campaign }) {
                           />
                         </td>
                         <td className="tex-center">{event?.event?.name}</td>
-                        <td className="text-ceter">
-                          {event?.campaign_technology?.technology?.name}
-                        </td>
-                        <td className="text-ceter">
-                          {formatDate(event?.event?.start_date)}
-                        </td>
+                        <td className="text-ceter">{event?.campaign_technology?.technology?.name}</td>
+                        <td className="text-ceter">{formatDate(event?.event?.start_date)}</td>
                         <td className="text-center">
                           <BTN
                             // style={{ marginLeft: 10 }}
                             onClick={(e) => {
-                              e.preventDefault()
+                              e.preventDefault();
                               if (window.confirm("Are you sure you want to remove this Event?")) {
                                 handleRemove(event?.id);
                               }
@@ -293,29 +278,47 @@ export function CampaignEventsView ({campaign }) {
               <Row className="mt-2" style={{ height: "180px" }}>
                 <Col>
                   <Form.Label>Select events to feature on this campaign</Form.Label>
-                  <Dropdown
+                  {/* <Dropdown
                     displayTextToggle="Select Events for this campaign"
                     data={(eventsToShow || [])?.map((event) => {
+                      // console.log("Lets see the events", event)
                       return {
                         ...event,
                         value: event?.id,
-                        label: `${event?.name} - ${event?.community?.alias || event?.community?.name}`,
+                        label: `${event?.start_date} ${event?.name} - ${event?.community?.alias || event?.community?.name}`,
                       };
                     })}
                     valueExtractor={(item) => item}
                     labelExtractor={(item) =>`${item?.name} - ${item?.community?.alias || item?.community?.name}`}
                     multiple={false}
                     onItemSelect={(selectedItem, allSelected) => {
+                      console.log("DEY CHANGE EWHAT", selectedItem)
                       setToAddEvents([selectedItem]);
+                    }}
+                  /> */}
+
+                  <MultiSelect
+                    placeholder="Select Events for this campaign"
+                    value={toAddEvents}
+                    hasSelectAll={false}
+                    options={(eventsToShow || [])?.map((event) => {
+                      return {
+                        ...event,
+                        value: event?.id,
+                        label: `${event?.start_date || ""} ${event?.name} - ${
+                          event?.community?.alias || event?.community?.name
+                        }`,
+                      };
+                    })}
+                    onChange={(selectedItem) => {
+                      setToAddEvents(limitItems(selectedItem, 1));
                     }}
                   />
 
                   <Row className="my-4">
-                    <Form.Label>
-                      Select the technology these events belong to
-                    </Form.Label>
+                    <Form.Label>Select the technology these events belong to</Form.Label>
                     <Col>
-                      <Dropdown
+                      {/* <Dropdown
                         displayTextToggle="Select Technology for this campaign"
                         data={(techs || [])?.map((event) => {
                           return {
@@ -329,6 +332,20 @@ export function CampaignEventsView ({campaign }) {
                         multiple={false}
                         onItemSelect={(selectedItem, allSelected) => {
                           setSelectedTech(selectedItem);
+                        }}
+                      /> */}
+                      <MultiSelect
+                        value={selectedTech ? [selectedTech] : []}
+                        options={(techs || [])?.map((tech) => {
+                          return {
+                            ...tech,
+                            value: tech?.id,
+                            label: tech?.name,
+                          };
+                        })}
+                        hasSelectAll={false}
+                        onChange={(selectedItem) => {
+                          setSelectedTech(limitItems(selectedItem, 1)[0]);
                         }}
                       />
                     </Col>
@@ -353,9 +370,7 @@ export function CampaignEventsView ({campaign }) {
                         size={"sm"}
                         className="mr-2 mb-5"
                         onDismiss={(id) => {
-                          setToAddEvents(
-                            toAddEvents?.filter((event) => event?.id !== id),
-                          );
+                          setToAddEvents(toAddEvents?.filter((event) => event?.id !== id));
                         }}
                       />
                     </Col>
@@ -384,4 +399,4 @@ export function CampaignEventsView ({campaign }) {
       </Modal>
     </Container>
   );
-};
+}

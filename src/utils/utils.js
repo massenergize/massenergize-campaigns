@@ -259,3 +259,10 @@ export const scrollIntoView = (ref, offset = 0) => {
     window.scrollTo({ behavior: "smooth", top: elementPosition + offset });
   }
 };
+
+export const limitItems = (selected, limit = 1) => {
+  if (selected?.length > limit) {
+    selected = selected?.slice(selected.length - limit);
+  }
+  return selected ||[];
+};
