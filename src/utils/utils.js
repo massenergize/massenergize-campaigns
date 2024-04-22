@@ -1,6 +1,9 @@
 import { format, formatDistanceToNow, isSameDay, parseISO } from "date-fns";
 import { ME_STATES } from "./States";
 
+export function sortEvents(events) {
+  return events?.sort((a, b) => new Date(a?.event?.start_date) - new Date(b?.event?.start_date));
+}
 export const stateAbbreviation = (stateName) => {
   return ME_STATES.find((s) => s?.name?.toLowerCase() === stateName?.toLowerCase());
 };
