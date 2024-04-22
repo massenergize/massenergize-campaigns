@@ -19,6 +19,7 @@
   justify-content: space-between;
   max-width: 80rem;
   flex-direction: column;
+  scale: 0.75;
 }
 
 .image-img {
@@ -42,5 +43,17 @@
   }
   .inner-cont- {
     flex-direction: row;
+  }
+}
+
+@media (min-width: 640px) {
+  .inner-cont- {
+    scale: 0.9;
+  }
+}
+
+@media (min-width: 768px) {
+  .inner-cont- {
+    scale: 1;
   }
 }
