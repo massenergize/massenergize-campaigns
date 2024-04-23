@@ -171,9 +171,11 @@ export function CampaignEventsView({ campaign }) {
   };
 
   const selectedEventIds = selectedEvents.map((event) => event.event.id);
-  const eventsToShow = allEvents.filter((event) => !selectedEventIds.includes(event.id));
+  const eventsToShow = allEvents.filter(
+    (event) => !selectedEventIds.includes(event.id) && filters.includes(event.community.id),
+  );
 
-  console.log("LEts see filters", filters);
+  const thereAreNoEvents = allEvents?.length === 0;
   return (
     <Container fluid style={{ height: "100vh" }}>
       {EVENTS_SIZE > 0 && (
@@ -282,29 +284,12 @@ export function CampaignEventsView({ campaign }) {
           <Modal.Title className={"text-sm"}>Events Selection</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ height: "40vh" }}>
-          {eventsToShow?.length > 0 ? (
+          {!thereAreNoEvents ? (
             <form>
               <Row className="mt-2" style={{ height: "180px" }}>
                 <Col>
                   <Form.Label>Select events to feature on this campaign</Form.Label>
-                  {/* <Dropdown
-                    displayTextToggle="Select Events for this campaign"
-                    data={(eventsToShow || [])?.map((event) => {
-                      // console.log("Lets see the events", event)
-                      return {
-                        ...event,
-                        value: event?.id,
-                        label: `${event?.start_date} ${event?.name} - ${event?.community?.alias || event?.community?.name}`,
-                      };
-                    })}
-                    valueExtractor={(item) => item}
-                    labelExtractor={(item) =>`${item?.name} - ${item?.community?.alias || item?.community?.name}`}
-                    multiple={false}
-                    onItemSelect={(selectedItem, allSelected) => {
-                      console.log("DEY CHANGE EWHAT", selectedItem)
-                      setToAddEvents([selectedItem]);
-                    }}
-                  /> */}
+                
                   <div style={{ padding: "10px 5px", display: "flex", alignItems: "center", flexDirection: "row" }}>
                     <small>Filter event list by: </small>
                     {campaignCommunities?.map(({ community, alias }) => {
@@ -313,7 +298,13 @@ export function CampaignEventsView({ campaign }) {
                         <small
                           onClick={() => addFilter(community?.id)}
                           className="touchable-opacity"
-                          style={{ display: "flex", alignItems: "center", flexDirection: "row", marginLeft: 10 }}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            flexDirection: "row",
+                            marginLeft: 10,
+                            textTransform: "capitalize",
+                          }}
                         >
                           <input onChange={() => addFilter(community?.id)} type="checkbox" checked={isChecked} />{" "}
                           <span style={{ marginLeft: 4, fontWeight: "bold" }}> {alias || community?.name}</span>
@@ -365,22 +356,6 @@ export function CampaignEventsView({ campaign }) {
                   <Row className="my-4">
                     <Form.Label>Select the technology these events belong to</Form.Label>
                     <Col>
-                      {/* <Dropdown
-                        displayTextToggle="Select Technology for this campaign"
-                        data={(techs || [])?.map((event) => {
-                          return {
-                            ...event,
-                            value: event?.id,
-                            label: event?.name,
-                          };
-                        })}
-                        valueExtractor={(item) => item?.campaign_technology_id}
-                        labelExtractor={(item) => item?.name}
-                        multiple={false}
-                        onItemSelect={(selectedItem, allSelected) => {
-                          setSelectedTech(selectedItem);
-                        }}
-                      /> */}
                       <MultiSelect
                         value={selectedTech ? [selectedTech] : []}
                         options={(techs || [])?.map((tech) => {
