@@ -115,22 +115,25 @@ export function CampaignEventsView({ campaign }) {
     e.preventDefault();
     setLoading(true);
 
+    const {campaign_technology_id} = selectedTech || {};
     try {
       const payload = {
-        campaign_technology_id: selectedTech,
+        campaign_technology_id,
         event_ids: toAddEvents?.map((event) => {
           return event?.id;
         }),
       };
 
+
+
       const res = await AddSelectedEvents(payload);
 
       if (res) {
         setLoading(false);
-        const tech = techs?.find((tech) => tech?.campaign_technology_id === selectedTech);
+        const tech = techs?.find((tech) => tech?.campaign_technology_id === campaign_technology_id);
         const newTech = { ...tech, events: [...tech?.events, ...res] };
         const newTechs = techs?.map((tech) => {
-          if (tech?.campaign_technology_id === selectedTech) return newTech;
+          if (tech?.campaign_technology_id === campaign_technology_id) return newTech;
           return tech;
         });
         onModalClose();
@@ -167,7 +170,7 @@ export function CampaignEventsView({ campaign }) {
   const onModalClose = () => {
     setOpenModal(false);
     setToAddEvents([]);
-    setSelectedTech("");
+    setSelectedTech();
   };
 
   const selectedEventIds = selectedEvents.map((event) => event.event.id);
