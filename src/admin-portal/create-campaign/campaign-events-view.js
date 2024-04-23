@@ -17,8 +17,10 @@ import { setCampaignCommunityEventsAction } from "../../redux/actions/actions";
 import { useCampaignContext } from "src/hooks/use-campaign-context";
 import Loading from "src/components/pieces/Loading";
 import { limitItems } from "src/utils/utils";
+import Checkbox from "src/components/admin-components/Checkbox";
 
 export function CampaignEventsView({ campaign }) {
+  const campaignCommunities = campaign?.communities || [];
   const { setNewCampaignDetails } = useCampaignContext();
   const [loadingEvents, setLoadingEvents] = useState(false);
   const [selectedEvents, setSelectedEvents] = useState([]);
@@ -26,11 +28,13 @@ export function CampaignEventsView({ campaign }) {
   const [toAddEvents, setToAddEvents] = useState([]);
   const [selectedTech, setSelectedTech] = useState(null);
   const { blow, pop } = useBubblyBalloons();
+  const [filters, setFilters] = useState(campaignCommunities?.map(({ community }) => community?.id));
   //@Todo: Add a mutate to update main
 
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const allEvents = useSelector((state) => state.communitiesEvents);
+
   const dispatch = useDispatch();
 
   const fetchEventsIfNone = async () => {
@@ -152,6 +156,10 @@ export function CampaignEventsView({ campaign }) {
     }
   };
 
+  const addFilter = (id) => {
+    if (filters.includes(id)) return setFilters(filters.filter((f) => f !== id));
+    setFilters([...filters, id]);
+  };
   // if (isLoading || loading)
   //   return <GhostLoader loading={isLoading} text="Loading Events..." />;
   const EVENTS_SIZE = (selectedEvents || [])?.length;
@@ -165,6 +173,7 @@ export function CampaignEventsView({ campaign }) {
   const selectedEventIds = selectedEvents.map((event) => event.event.id);
   const eventsToShow = allEvents.filter((event) => !selectedEventIds.includes(event.id));
 
+  console.log("LEts see filters", filters);
   return (
     <Container fluid style={{ height: "100vh" }}>
       {EVENTS_SIZE > 0 && (
@@ -296,11 +305,27 @@ export function CampaignEventsView({ campaign }) {
                       setToAddEvents([selectedItem]);
                     }}
                   /> */}
-
+                  <div style={{ padding: "10px 5px", display: "flex", alignItems: "center", flexDirection: "row" }}>
+                    <small>Filter event list by: </small>
+                    {campaignCommunities?.map(({ community, alias }) => {
+                      const isChecked = filters?.includes(community?.id);
+                      return (
+                        <small
+                          onClick={() => addFilter(community?.id)}
+                          className="touchable-opacity"
+                          style={{ display: "flex", alignItems: "center", flexDirection: "row", marginLeft: 10 }}
+                        >
+                          <input onChange={() => addFilter(community?.id)} type="checkbox" checked={isChecked} />{" "}
+                          <span style={{ marginLeft: 4, fontWeight: "bold" }}> {alias || community?.name}</span>
+                        </small>
+                      );
+                    })}
+                  </div>
                   <MultiSelect
                     placeholder="Select Events for this campaign"
                     value={toAddEvents}
                     hasSelectAll={false}
+                    overrideStrings={{ selectSomeItems: "Select event..." }}
                     options={(eventsToShow || [])?.map((event) => {
                       return {
                         ...event,
@@ -314,6 +339,28 @@ export function CampaignEventsView({ campaign }) {
                       setToAddEvents(limitItems(selectedItem, 1));
                     }}
                   />
+                  <Row className="mt-2">
+                    <Col>
+                      <Row>
+                        {toAddEvents?.map((event) => {
+                          return (
+                            <Col sm={"auto mb-2"} key={event?.id}>
+                              <Chip
+                                text={event?.name}
+                                icon={event?.icon}
+                                id={event?.id}
+                                size={"sm"}
+                                className="mr-2 mb-5"
+                                onDismiss={(id) => {
+                                  setToAddEvents(toAddEvents?.filter((event) => event?.id !== id));
+                                }}
+                              />
+                            </Col>
+                          );
+                        })}
+                      </Row>
+                    </Col>
+                  </Row>
 
                   <Row className="my-4">
                     <Form.Label>Select the technology these events belong to</Form.Label>
@@ -347,6 +394,7 @@ export function CampaignEventsView({ campaign }) {
                         onChange={(selectedItem) => {
                           setSelectedTech(limitItems(selectedItem, 1)[0]);
                         }}
+                        overrideStrings={{ selectSomeItems: "Select technology..." }}
                       />
                     </Col>
                   </Row>
@@ -356,29 +404,6 @@ export function CampaignEventsView({ campaign }) {
           ) : (
             <NoItems text="The participating communities in this campaign do not have published events" />
           )}
-
-          <Row className="mt-4">
-            <Col>
-              <Row>
-                {toAddEvents?.map((event) => {
-                  return (
-                    <Col sm={"auto mb-2"} key={event?.id}>
-                      <Chip
-                        text={event?.name}
-                        icon={event?.icon}
-                        id={event?.id}
-                        size={"sm"}
-                        className="mr-2 mb-5"
-                        onDismiss={(id) => {
-                          setToAddEvents(toAddEvents?.filter((event) => event?.id !== id));
-                        }}
-                      />
-                    </Col>
-                  );
-                })}
-              </Row>
-            </Col>
-          </Row>
         </Modal.Body>
         <Modal.Footer>
           <Button
