@@ -26,7 +26,7 @@ jobs:
           echo "Old BUILD_VERSION: $OLD_VERSION"
 
       - name: Set Prod/Canary Environment Variables 🚀
-        if: startsWith(github.ref, 'refs/tags/master') || startsWith(github.ref, 'refs/tags/canary')
+        if: startsWith(github.ref, 'refs/tags/main') || startsWith(github.ref, 'refs/tags/canary')
         run: |
           echo "Setting prod branch secrets..."
           echo "REACT_APP_FIREBASE_API_KEY=${{ secrets.REACT_APP_FIREBASE_API_KEY_FOR_PROD }}" >> $GITHUB_ENV
@@ -58,7 +58,7 @@ jobs:
             npm  i --legacy-peer-deps
       
       - name: Build App For Dev 🏗
-        if:  startsWith(github.ref, 'refs/tags/dev')
+        if:  startsWith(github.ref, 'refs/tags/dev') || startsWith(github.ref, 'refs/tags/setup-better-ci-cd') 
         run: |
             npm run build:dev
 
@@ -68,14 +68,14 @@ jobs:
             npm run build:canary
 
       - name: Build App For Production 🏗
-        if:  startsWith(github.ref, 'refs/tags/master')
+        if:  startsWith(github.ref, 'refs/tags/main')
         run: |
             npm run build:prod
 
 
         
       - name: Deploying to Prod 🚀 
-        if:  startsWith(github.ref, 'refs/tags/master') 
+        if:  startsWith(github.ref, 'refs/tags/main') 
         uses: data-intuitive/netlify-deploy-site@v1
         with:
           auth: ${{ secrets.NETLIFY_AUTH_TOKEN }}
