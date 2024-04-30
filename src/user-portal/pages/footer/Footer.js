@@ -7,6 +7,7 @@ import { MOBILE_WIDTH } from "../../../utils/Constants";
 import { useMediaQuery } from "react-responsive";
 import { generateUniqueRandomString } from "../../../utils/utils";
 import URLS from "../../../api/urls";
+import CONFIG from "../../../config/config.json";
 
 const EXCLUDED_FOOTER_MENU_KEYS = ["deals", "vendors"];
 function Footer({ toggleModal, campaign, authUser }) {
@@ -128,6 +129,9 @@ function Footer({ toggleModal, campaign, authUser }) {
               </p>
             )}
           </Col>
+          <small style={{ color: "white", fontWeight: "bold", width: "100%", opacity:.6 }}>
+            Build Version {CONFIG.BUILD_VERSION}
+          </small>
         </Container>
       </div>
       <div
@@ -206,6 +210,9 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
         >
           Subscribe
         </Button>
+        <small style={{ marginTop: 15, color: "white", fontWeight: "bold", width: "100%", textAlign: "center", opacity:.6 }}>
+          Build Version {CONFIG.BUILD_VERSION}
+        </small>
       </div>
       <div style={{ display: "flex", background: "#000010", minHeight: "20%", padding: 20 }}>
         <ul
