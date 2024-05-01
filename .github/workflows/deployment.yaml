@@ -40,7 +40,7 @@ jobs:
 
         
       - name: Set Dev Environment Variables 🚀
-        if:  startsWith(github.ref, 'refs/tags/dev') || startsWith(github.ref, 'refs/tags/setup-better-ci-cd') 
+        if:  startsWith(github.ref, 'refs/tags/dev') 
         run: |
           echo "Setting prod branch secrets..."
           echo "REACT_APP_TINY_MCE_KEY=${{ secrets.REACT_APP_TINY_MCE_KEY }}" >> $GITHUB_ENV
@@ -58,7 +58,7 @@ jobs:
             npm  i --legacy-peer-deps
       
       - name: Build App For Dev 🏗
-        if:  startsWith(github.ref, 'refs/tags/dev') || startsWith(github.ref, 'refs/tags/setup-better-ci-cd') 
+        if:  startsWith(github.ref, 'refs/tags/dev') 
         run: |
             npm run build:dev
 
