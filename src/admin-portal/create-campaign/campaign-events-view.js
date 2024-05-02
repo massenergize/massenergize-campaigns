@@ -115,7 +115,7 @@ export function CampaignEventsView({ campaign }) {
     e.preventDefault();
     setLoading(true);
 
-    const {campaign_technology_id} = selectedTech || {};
+    const { campaign_technology_id } = selectedTech || {};
     try {
       const payload = {
         campaign_technology_id,
@@ -123,8 +123,6 @@ export function CampaignEventsView({ campaign }) {
           return event?.id;
         }),
       };
-
-
 
       const res = await AddSelectedEvents(payload);
 
@@ -178,6 +176,7 @@ export function CampaignEventsView({ campaign }) {
     (event) => !selectedEventIds.includes(event.id) && filters.includes(event.community.id),
   );
 
+  console.log("Lets see allEvents", allEvents)
   const thereAreNoEvents = allEvents?.length === 0;
   return (
     <Container fluid style={{ height: "100vh" }}>
@@ -292,8 +291,16 @@ export function CampaignEventsView({ campaign }) {
               <Row className="mt-2" style={{ height: "180px" }}>
                 <Col>
                   <Form.Label>Select events to feature on this campaign</Form.Label>
-                
-                  <div style={{ padding: "10px 5px", display: "flex", alignItems: "center", flexDirection: "row" }}>
+
+                  <div
+                    style={{
+                      padding: "10px 5px",
+                      display: "flex",
+                      alignItems: "center",
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                    }}
+                  >
                     <small>Filter event list by: </small>
                     {campaignCommunities?.map(({ community, alias }) => {
                       const isChecked = filters?.includes(community?.id);
@@ -320,6 +327,25 @@ export function CampaignEventsView({ campaign }) {
                     value={toAddEvents}
                     hasSelectAll={false}
                     overrideStrings={{ selectSomeItems: "Select event..." }}
+                    ItemRenderer={({ option, checked, onClick }) => {
+                      return (
+                        <div onClick={() => onClick()} style={{ display: "flex", alignItems: "center" }}>
+                          <input type="checkbox" checked={checked} />{" "}
+                          <span style={{ margin: "0px 5px" }}> {option?.label}</span>
+                          <small
+                            onClick={() => window.open(`/events/${option?.value}`, "_blank")}
+                            style={{
+                              marginLeft: 5,
+                              color: "var(--admin-theme-color)",
+                              fontWeight: "bold",
+                              textDecoration: "underline",
+                            }}
+                          >
+                            See Event <i className="fa fa-long-arrow-right" />{" "}
+                          </small>
+                        </div>
+                      );
+                    }}
                     options={(eventsToShow || [])?.map((event) => {
                       return {
                         ...event,
