@@ -15,6 +15,8 @@ import {
 } from "../../../redux/actions/actions";
 import { useNavigate } from "react-router-dom";
 import { PLATFORM } from "../../../api/urls";
+import CONFIG from "../../../config/config.json";
+
 
 const GOOGLE = "GOOGLE";
 const EMAIL = "EMAIL";
@@ -176,7 +178,9 @@ function Login({ logUserOut, fetchMassenergizeUser, putFirebaseAuthInRedux }) {
           </div>
 
           <div style={{ display: "flex", flexDirection: "row", padding: "0px 20px", alignItems: "center" }}>
-            <small style={{ fontWeight: "bold", fontSize: 12, color: "rgb(227 227 227)" }}>{PLATFORM}</small>
+            <small style={{ fontWeight: "bold", fontSize: 12, color: "rgb(227 227 227)" }}>
+              {PLATFORM} <span>{CONFIG.BUILD_VERSION}</span>
+            </small>
             {/* <Button onClick={() => logUserOut()}>Sign Out</Button> */}
             <div style={{ display: "inline-block", marginLeft: "auto" }}>
               {/* <div> */}
