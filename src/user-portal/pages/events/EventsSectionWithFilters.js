@@ -4,7 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import CenteredWrapper from "../wrappers/CenteredWrapper";
 import CustomTabView from "../../../components/tab-view/CustomTabView";
 import Filter from "../../../components/Filter";
-import { mergeArrays } from "../../../utils/utils";
+import { mergeArrays, sortEvents } from "../../../utils/utils";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import OurParagraph from "../../../components/OurParagraph";
 import SectionTitle from "../../../components/pieces/SectionTitle";
@@ -22,6 +22,7 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
       });
     else data = events;
 
+    data = sortEvents(data)
     return (
       <Row
         ref={containerRef}
