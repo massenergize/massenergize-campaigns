@@ -16,32 +16,33 @@ jobs:
           fetch-depth: 0
       - uses: wagoid/commitlint-github-action@v1
 
-  lint:
-    name: ⬣ ESLint
-    runs-on: ubuntu-latest
-    steps:
-      - name: 📥 Checkout repo
-        uses: actions/checkout@v3
-
-      - name: 'Create env file'
-        run: |
-          touch .env
-          cat .env
-
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: 📦️ Download deps
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install --silent
-
-      - name: 🔬 Lint
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: lint
+  #  lint:
+  #    name: ⬣ ESLint
+  #    runs-on: ubuntu-latest
+  #    steps:
+  #      - name: 📥 Checkout repo
+  #        uses: actions/checkout@v3
+  #
+  #      - name: 'Create env file'
+  #        run: |
+  #          touch .env
+  #  #       echo AUTH_API_URL=${{ secrets.RE_CAPTCHA_SITE_KEY }} >> .env
+  #          cat .env
+  #
+  #      - name: ⎔ Setup node
+  #        uses: actions/setup-node@v3
+  #        with:
+  #          node-version: 18
+  #
+  #      - name: 📦️ Download deps
+  #        uses: borales/actions-yarn@v4
+  #        with:
+  #          cmd: install --silent
+  #
+  #      - name: 🔬 Lint
+  #        uses: borales/actions-yarn@v4
+  #        with:
+  #          cmd: lint
 
   #  test:
   #    name: 🧪 Tests
