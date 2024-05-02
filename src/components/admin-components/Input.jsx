@@ -16,6 +16,7 @@ const Input = ({
   error,
   format,
   disabled,
+  inputType
 }) => {
   const inputProps = {
     id: id || name,
@@ -27,7 +28,7 @@ const Input = ({
     placeholder,
     required,
     disabled,
-    type: type === "textbox" ? "text" : type,
+    type: !inputType ? "text" : inputType,
     maxLength,
     value,
     ...(format && { format }),
@@ -80,9 +81,7 @@ const Input = ({
       )}
 
       {renderField()}
-      {error && typeof error === "string" ? (
-        <small className="text-danger">{error}</small>
-      ) : null}
+      {error && typeof error === "string" ? <small className="text-danger">{error}</small> : null}
     </div>
   );
 };

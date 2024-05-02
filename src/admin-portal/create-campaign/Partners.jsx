@@ -175,6 +175,7 @@ const Partners = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
                 placeholder="Enter contact of partner here..."
                 required={false}
                 type="textbox"
+                inputType="number"
                 onChange={(val) => {
                   handleFieldChange("phone_number", val);
                 }}

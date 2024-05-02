@@ -167,7 +167,7 @@ const TestimonialCard = ({
               src={(test?.image || test?.file)?.url}
               alt=""
               style={{ height: "50px", objectFit: "cover", cursor: "pointer" }}
-              className="rounded-4"
+              className="rounded-2"
             />
           </div>
         )}
@@ -192,7 +192,7 @@ const TestimonialCard = ({
           )}
           {!test?.is_imported && (
             <button
-              className={`text-white py-2 px-4 rounded-5 bg-primary flex items-center gap-2 ${
+              className={`text-white py-2 px-3 rounded-2 bg-primary flex items-center gap-2 ${
                 test?.is_published ? "bg-danger" : "bg-success"
               }`}
               onClick={handleApprove}
