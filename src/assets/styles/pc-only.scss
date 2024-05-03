@@ -198,6 +198,10 @@
     margin-top:120px
   }
 
+  .normal-btn{ 
+    font-size: 16px !important;
+  }
+
   /* --------------------------------- END OF PC SPECIFIC ---------------------- */
 }
 
@@ -319,4 +323,16 @@
 
 .g-s-container {
   background: var(--app-main-color);
+}
+
+.normal-btn { 
+  background: var(--app-main-color);
+  padding: 10px;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  display: flex ;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }

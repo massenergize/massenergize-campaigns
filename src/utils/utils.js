@@ -1,4 +1,12 @@
 import { format, formatDistanceToNow, isSameDay, parseISO } from "date-fns";
+import { ME_STATES } from "./States";
+
+export function sortEvents(events) {
+  return events?.sort((a, b) => new Date(a?.event?.start_date) - new Date(b?.event?.start_date));
+}
+export const stateAbbreviation = (stateName) => {
+  return ME_STATES.find((s) => s?.name?.toLowerCase() === stateName?.toLowerCase());
+};
 
 export function formatTimeRange(startDateString, endDateString) {
   if (!startDateString || !endDateString) return "";
@@ -135,7 +143,6 @@ export function truncateRichText(richText, maxHeight) {
   // If the content height is within the specified limit, no need to truncate
   if (contentHeight <= maxHeight) {
     document.body.removeChild(tempDiv);
-    console.log("Its coming inside here mom ooo");
     return { truncatedContent: richText, isLong };
   }
 
@@ -254,3 +261,21 @@ export const scrollIntoView = (ref, offset = 0) => {
     window.scrollTo({ behavior: "smooth", top: elementPosition + offset });
   }
 };
+
+
+
+export function isEmpty(value) {
+  if (typeof value === "undefined" || value === null) {
+    return true;
+  }
+  if (typeof value === "string" && value.trim() === "") {
+    return true;
+  }
+  if (Array.isArray(value) && value.length === 0) {
+    return true;
+  }
+  if (typeof value === "object" && Object.keys(value).length === 0) {
+    return true;
+  }
+  return false;
+}

@@ -45,6 +45,7 @@ body {
   --app-mobile-small-font: 0.9rem;
 }
 
+
 .already-liked {
   color: var(--app-orange) !important;
 }
