@@ -13,6 +13,7 @@ import "./sideNav.css";
 import { useDispatch, useSelector } from "react-redux";
 import { apiCall } from "src/api/messenger";
 import { setMassEnergizeUsersAction } from "src/redux/actions/actions";
+import { validateEmail } from "src/utils/utils";
 
 const USER_TYPES = {
   MYSELF: "Myself",
@@ -23,8 +24,6 @@ const USER_TYPES = {
 const Testimonials = ({ campaign, onModalClose, startOfPage, updateTestimonial }) => {
   const techs = campaign?.technologies;
   const communities = campaign?.communities;
-
-
 
   const { blow, pop } = useBubblyBalloons();
 
@@ -89,6 +88,16 @@ const Testimonials = ({ campaign, onModalClose, startOfPage, updateTestimonial }
         toSend.user_id = loggedInUser?.id;
       }
 
+      if (!validateEmail(toSend?.email)) {
+        setLoading(false);
+        return pop({
+          title: "Error",
+          message: "Please enter a valid email",
+          type: "error",
+          duration: 5000,
+        });
+      }
+
       const createdTestimonial = await createCampaignTestimonial(toSend);
 
       if (createdTestimonial) {
@@ -116,14 +125,13 @@ const Testimonials = ({ campaign, onModalClose, startOfPage, updateTestimonial }
 
   const onCancel = () => {
     onModalClose();
-    dispatch({ type: "RESET_FORM",value:initialState })
+    dispatch({ type: "RESET_FORM", value: initialState });
     if (startOfPage.current) {
       startOfPage.current.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
       console.error("Target element not found");
     }
-  }
-
+  };
 
   return (
     <div>
@@ -149,7 +157,7 @@ const Testimonials = ({ campaign, onModalClose, startOfPage, updateTestimonial }
                   placeholder="Select the Community "
                   data={communities}
                   valueExtractor={(item) => item?.community?.id}
-                  labelExtractor={(item) => item?.alias ||item?.community?.name}
+                  labelExtractor={(item) => item?.alias || item?.community?.name}
                   onItemSelected={(selectedItem, allSelected) => {
                     handleFieldChange("community_id", selectedItem?.community?.id);
                   }}
@@ -283,8 +291,9 @@ const Testimonials = ({ campaign, onModalClose, startOfPage, updateTestimonial }
                   <BTN
                     variant="danger"
                     disabled={loading}
-                    onClick={() => {onCancel()}
-                  }
+                    onClick={() => {
+                      onCancel();
+                    }}
                   >
                     Cancel
                   </BTN>
