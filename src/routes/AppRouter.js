@@ -201,11 +201,9 @@ function AppRouter({
     <>
       <CustomModal close={() => toggleModal({ show: false, component: <></> })} {...modalOptions} />
       <Routes>
-        {UNDER_MAINTENANCE ? (
-          <Route path="ongoing-maintenance" element={<SiteUnderMaintenance />} />
-        ) : (
-          <>
-            <Route
+
+        <>
+          {/* <Route
               path="/campaign/:campaignId"
               element={
                 <LandingPage
@@ -216,9 +214,12 @@ function AppRouter({
                   // menu={navigation}
                 />
               }
-            />
+              /> */}
 
-            {ROUTE_TABLE.map((route, index) => {
+          <Route path="*" element={<SiteUnderMaintenance />} />
+
+
+          {/* {ROUTE_TABLE.map((route, index) => {
               const { path, addToggleModal, replace } = route;
 
               const routeProps = {
@@ -228,9 +229,9 @@ function AppRouter({
               };
 
               return <Route key={index} {...routeProps} />;
-            })}
+            })} */}
 
-            <Route
+          {/* <Route
               path={`/campaign/:campaign_id/technology/:campaign_technology_id`}
               element={
                 <TechnologyFullViewPage
@@ -247,9 +248,8 @@ function AppRouter({
             <Route
               path="/campaign/:campaign_id/technology/testimonial/:id"
               element={<OneTestimonial toggleModal={toggleModal} />}
-            />
-          </>
-        )}
+            /> */}
+        </>
       </Routes>
     </>
   );

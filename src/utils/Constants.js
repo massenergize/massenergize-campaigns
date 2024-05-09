@@ -1593,4 +1593,3 @@ export const monthsOfYear = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "A
 
 export const MOBILE_WIDTH = 768;
 
-export const UNDER_MAINTENANCE = true;
