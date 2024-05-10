@@ -183,8 +183,6 @@ export function CampaignEventsView({ campaign }) {
     setEventAndTech({ ...eventAndTech, [eventKey]: techs })
   }
 
-
-  console.log("Where is the event and tech", eventAndTech)
   const thereAreNoEvents = allEvents?.length === 0;
   return (
     <Container fluid style={{ height: "100vh" }}>
@@ -406,7 +404,6 @@ export function CampaignEventsView({ campaign }) {
                           <>
                             <p style={{ textTransform: "capitalize", fontWeight: "bold" }}>{event?.name}</p>
                             <MultiSelect
-                              // value={selectedTech ? [selectedTech] : []}
                               value={values}
                               options={(techs || [])?.map((tech) => {
                                 return {
@@ -417,10 +414,7 @@ export function CampaignEventsView({ campaign }) {
                               })}
                               hasSelectAll={false}
                               onChange={(selectedItems) => {
-                                ///setSelectedTech(limitItems(selectedItem, 1)[0]);
-                                console.log("These are the selected", selectedItems);
                                 chooseTech(event?.id, selectedItems);
-                                // setSelectedTech(selectedItem);
                               }}
                               overrideStrings={{ selectSomeItems: "Select technology..." }}
                             />
