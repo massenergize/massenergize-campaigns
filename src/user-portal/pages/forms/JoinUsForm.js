@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Form,
-  InputGroup,
-  ModalFooter,
-  Spinner,
-} from "react-bootstrap";
+import { Button, Form, InputGroup, ModalFooter, Spinner } from "react-bootstrap";
 import { COMMUNITY_LIST } from "../../data/user-portal-dummy-data";
 import CommunitySelector, { OTHER } from "./CommunitySelector";
 import Notification from "../../../components/pieces/Notification";
@@ -15,7 +9,7 @@ import { apiCall } from "../../../api/messenger";
 import { bindActionCreators } from "redux";
 import { loadUserObjAction } from "../../../redux/actions/actions";
 
-function JoinUsForm ({
+function JoinUsForm({
   campaign,
   close,
   setUserObj,
@@ -54,20 +48,19 @@ function JoinUsForm ({
     setError({ message, good });
   };
 
+  console.log("Then lets see form", form)
+
   const joinUs = () => {
     if (onConfirm) return onConfirm({ data: form, close });
     // if (authUser) return alert("You've already followed. Thank you very much!");
     const emailIsValid = validateEmail(email);
-    if (!emailIsValid)
-      return makeNotification("Please provide a valid email address...");
+    if (!emailIsValid) return makeNotification("Please provide a valid email address...");
     const { comId, zipcode, valueForOther } = form || {};
     var otherContent = {};
+    if (!comId) return makeNotification("Please select a community...");
     if (comId === OTHER) {
       otherContent = { community_name: valueForOther, zipcode, is_other: true };
-      if (!zipcode || !valueForOther)
-        return makeNotification(
-          "Please provide the zipcode & community name..."
-        );
+      if (!zipcode || !valueForOther) return makeNotification("Please provide the zipcode & community name...");
     }
 
     setLoading(true);
@@ -78,10 +71,7 @@ function JoinUsForm ({
       ...otherContent,
     };
     payload = processPayload ? processPayload(payload) : payload;
-    makeNotification(
-      "Well done, thank you for joining us!",
-      true
-    );
+    makeNotification("Well done, thank you for joining us!", true);
     apiCall(apiURL || "/campaigns.follow", payload).then((response) => {
       setLoading(false);
       if (!response?.success) {
@@ -173,7 +163,7 @@ const mapDispatch = (dispatch) => {
     {
       setUserObj: loadUserObjAction,
     },
-    dispatch
+    dispatch,
   );
 };
 export default connect(mapState, mapDispatch)(JoinUsForm);
