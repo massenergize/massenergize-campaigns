@@ -27,6 +27,7 @@ export function CampaignEventsView({ campaign }) {
   const [openModal, setOpenModal] = useState(false);
   const [toAddEvents, setToAddEvents] = useState([]);
   const [selectedTech, setSelectedTech] = useState(null);
+  const [eventAndTech, setEventAndTech] = useState({});
   const { blow, pop } = useBubblyBalloons();
   const [filters, setFilters] = useState(campaignCommunities?.map(({ community }) => community?.id));
   //@Todo: Add a mutate to update main
@@ -124,6 +125,8 @@ export function CampaignEventsView({ campaign }) {
         }),
       };
 
+      return console.log("Payload Items", payload, selectedTech);
+
       const res = await AddSelectedEvents(payload);
 
       if (res) {
@@ -176,7 +179,12 @@ export function CampaignEventsView({ campaign }) {
     (event) => !selectedEventIds.includes(event.id) && filters.includes(event.community.id),
   );
 
-  console.log("Lets see allEvents", allEvents)
+  const chooseTech = (eventKey, techs) => { 
+    setEventAndTech({ ...eventAndTech, [eventKey]: techs })
+  }
+
+
+  console.log("Where is the event and tech", eventAndTech)
   const thereAreNoEvents = allEvents?.length === 0;
   return (
     <Container fluid style={{ height: "100vh" }}>
@@ -285,7 +293,7 @@ export function CampaignEventsView({ campaign }) {
         <Modal.Header closeButton>
           <Modal.Title className={"text-sm"}>Events Selection</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ height: "40vh" }}>
+        <Modal.Body style={{ height: 600, minHeight: 200, overflowY: "scroll", paddingBottom: 20 }}>
           {!thereAreNoEvents ? (
             <form>
               <Row className="mt-2" style={{ height: "180px" }}>
@@ -356,7 +364,9 @@ export function CampaignEventsView({ campaign }) {
                       };
                     })}
                     onChange={(selectedItem) => {
-                      setToAddEvents(limitItems(selectedItem, 1));
+                      // setToAddEvents(limitItems(selectedItem, 1));
+                      console.log("This is the selected item", selectedItem)
+                      setToAddEvents(selectedItem);
                     }}
                   />
                   <Row className="mt-2">
@@ -382,25 +392,42 @@ export function CampaignEventsView({ campaign }) {
                     </Col>
                   </Row>
 
+          {/* ---------------------------- SELECTING TECHNOLOGIES ------------------------------- */}
                   <Row className="my-4">
-                    <Form.Label>Select the technology these events belong to</Form.Label>
-                    <Col>
-                      <MultiSelect
-                        value={selectedTech ? [selectedTech] : []}
-                        options={(techs || [])?.map((tech) => {
-                          return {
-                            ...tech,
-                            value: tech?.id,
-                            label: tech?.name,
-                          };
-                        })}
-                        hasSelectAll={false}
-                        onChange={(selectedItem) => {
-                          setSelectedTech(limitItems(selectedItem, 1)[0]);
-                        }}
-                        overrideStrings={{ selectSomeItems: "Select technology..." }}
-                      />
-                    </Col>
+                    {toAddEvents?.length ? (
+                      <Form.Label>Select the technologies that these events belong to</Form.Label>
+                    ) : (
+                      <></>
+                    )}
+                    {toAddEvents?.map((event) => {
+                      const values = eventAndTech[event?.id] || [];
+                      return (
+                        <Col md={12} style={{ marginTop: 15 }}>
+                          <>
+                            <p style={{ textTransform: "capitalize", fontWeight: "bold" }}>{event?.name}</p>
+                            <MultiSelect
+                              // value={selectedTech ? [selectedTech] : []}
+                              value={values}
+                              options={(techs || [])?.map((tech) => {
+                                return {
+                                  ...tech,
+                                  value: tech?.id,
+                                  label: tech?.name,
+                                };
+                              })}
+                              hasSelectAll={false}
+                              onChange={(selectedItems) => {
+                                ///setSelectedTech(limitItems(selectedItem, 1)[0]);
+                                console.log("These are the selected", selectedItems);
+                                chooseTech(event?.id, selectedItems);
+                                // setSelectedTech(selectedItem);
+                              }}
+                              overrideStrings={{ selectSomeItems: "Select technology..." }}
+                            />
+                          </>
+                        </Col>
+                      );
+                    })}
                   </Row>
                 </Col>
               </Row>
