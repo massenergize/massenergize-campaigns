@@ -39,7 +39,7 @@
     "**/*.tsx",
     "dependency-stub",
     ".next/types/**/*.ts"
-  ],
+, "cypress/e2e/admin portal/02 create campaign/createCampaign.cy.ts", "cypress/e2e/admin portal/01 login/loginTest.cy.ts"  ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"
