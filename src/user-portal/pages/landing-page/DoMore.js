@@ -81,12 +81,17 @@ function DoMoreComponent() {
                       }}
                       className="touchable-opacity body-font"
                       style={{
-                        textDecoration: "underline",
                         color: "var(--app-accent-3)",
-                        fontWeight: "bold",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
                     >
-                      {community?.name || "..."}
+                      <span style={{ textDecoration: "underline", fontWeight: "bold" }}>
+                        {community?.name || "..."}
+                      </span>
+                      <i style={{ marginLeft: 5, textDecoration: "none" }} className="fa  fa-external-link"></i>
                     </li>
                     {links?.map((linkObj) => {
                       return (
@@ -97,12 +102,17 @@ function DoMoreComponent() {
                           }}
                           className="touchable-opacity"
                           style={{
-                            textDecoration: "underline",
                             color: "var(--app-accent-3)",
-                            fontWeight: "bold",
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "center",
                           }}
                         >
-                          {linkObj?.label || "..."}
+                          <span style={{ textDecoration: "underline", fontWeight: "bold" }}>
+                            {linkObj?.label || "..."}
+                          </span>
+                          <i style={{ marginLeft: 5, textDecoration: "none" }} className="fa  fa-external-link"></i>
                         </li>
                       );
                     })}
