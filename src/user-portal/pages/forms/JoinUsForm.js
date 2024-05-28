@@ -85,7 +85,8 @@ function JoinUsForm ({
     apiCall(apiURL || "/campaigns.follow", payload).then((response) => {
       setLoading(false);
       if (!response?.success) {
-        setError("Error: ", response.error);
+        makeNotification(response.error)
+        // setError("Error: ", response.error);
         return console.log("FOLLOW_ERROR_BE: ", response.error);
       }
       setTimeout(() => {
