@@ -136,6 +136,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
             placeholder="MM-DD-YYYY"
             required={false}
             type="date"
+            inputType="date"
             error={errors?.start_date}
             format="mm-dd-yyyy"
             value={campaignDetails?.start_date}
@@ -160,6 +161,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
             placeholder="mm-dd-yyyy"
             required={false}
             type="date"
+            inputType="date"
             disabled={isEmpty(campaignDetails?.start_date)}
             error={errors?.end_date}
             format="mm-dd-yyyy"
