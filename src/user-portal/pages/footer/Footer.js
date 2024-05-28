@@ -7,6 +7,7 @@ import { MOBILE_WIDTH } from "../../../utils/Constants";
 import { useMediaQuery } from "react-responsive";
 import { generateUniqueRandomString } from "../../../utils/utils";
 import URLS from "../../../api/urls";
+import { useLocale } from "../../../contexts/locale-context";
 
 const EXCLUDED_FOOTER_MENU_KEYS = ["deals", "vendors"];
 function Footer({ toggleModal, campaign, authUser }) {
@@ -65,6 +66,12 @@ function Footer({ toggleModal, campaign, authUser }) {
     });
   };
 
+  const {
+    locale,
+    setLocale,
+    t
+  } = useLocale()
+
   if (isMobile)
     return (
       <MobileFooter signUpForNewsletter={signUpForNewsletter} renderMenus={renderMenus} customization={customization} />
@@ -91,10 +98,10 @@ function Footer({ toggleModal, campaign, authUser }) {
           <Col lg={{ span: 6, offset: 3 }}>
             {/* We should be able to change this part tooo from the admin portal */}
             <h4 className="subheader-font" style={{ color: "white" }}>
-              {customization?.title || "Newsletter"}
+              {customization?.title || t("NEWSLETTER")}
             </h4>
             <p className="body-font" style={{ color: "white" }}>
-              {customization?.description || "Sign up for email updates with the latest info on events and incentives!"}
+              {customization?.description || t("SIGNUP FOR NEWSLETTER")}
             </p>
             <Button
               className=" touchable-opacity"
@@ -110,7 +117,7 @@ function Footer({ toggleModal, campaign, authUser }) {
               }}
               onClick={() => signUpForNewsletter()}
             >
-              Subscribe to our Newsletter
+              {t("Subscribe to our Newsletter")}
             </Button>
             {user?.email && (
               <p
@@ -123,7 +130,7 @@ function Footer({ toggleModal, campaign, authUser }) {
               >
                 <i>
                   {" "}
-                  You've already subscribed with <b style={{}}>'{user?.email || ""}' </b>
+                  {t("You've already subscribed with")} <b style={{}}>'{user?.email || ""}' </b>
                 </i>
               </p>
             )}
@@ -160,6 +167,32 @@ function Footer({ toggleModal, campaign, authUser }) {
                 {renderMenus()}
               </ul>
             </Col>
+
+            <div className="col">
+              Lang
+              <select
+                name="selectLanguage"
+                id="selectLanguage"
+                value={locale}
+                onChange={(e) => {
+                  setLocale(e.target.value);
+                  // setLanguage({ locale: e.target.value });
+                }}
+                style={{
+                  // margin: "5",
+                  marginBottom: "4rem",
+                  padding: "5px",
+                  fontSize: "1rem",
+                  height: "45px",
+                  // minWidth: "200px",
+                }}
+              >
+                <option value="en">EN</option>
+                <option value="es">ES</option>
+                <option value="fr">FR</option>
+              </select>
+            </div>
+
           </Row>
         </Container>
       </div>
@@ -173,6 +206,8 @@ const mapState = (state) => {
 export default connect(mapState)(Footer);
 
 const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
+  const {t} = useLocale();
+
   return (
     <div style={{ minHeight: 250, margin: 0 }}>
       <div
@@ -188,7 +223,7 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
           {customization?.title || "Newsletter"}
         </h5>
         <p className="body-font" style={{ color: "white" }}>
-          {customization?.description || "Sign up for email updates with the latest info on events and incentives!"}
+          {customization?.description || t()}
         </p>
         <Button
           className="elevate-float-pro touchable-opacity"
@@ -204,7 +239,7 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
           }}
           onClick={() => signUpForNewsletter()}
         >
-          Subscribe
+          {t("Subscribe")}
         </Button>
       </div>
       <div style={{ display: "flex", background: "#000010", minHeight: "20%", padding: 20 }}>

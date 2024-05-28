@@ -24,6 +24,8 @@ import CoachesSectionWithFilters from "../coaches/CoachesSectionWithFilters";
 import ShareBox from "../sharing/ShareBox";
 import Hero from "../banner/Hero";
 import { useMediaQuery } from "react-responsive";
+import { useLocale } from "../../../contexts/locale-context";
+import usePrevious from "../../../hooks/use-previous";
 
 function LandingPage({
   toggleModal,
@@ -38,6 +40,11 @@ function LandingPage({
 }) {
   const [mounted, setMounted] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
+  const { locale } = useLocale();
+  const previousLocale = usePrevious(locale)
+
+  console.log({locale})
+  console.log("here")
 
   const coachesRef = useRef();
   const eventsRef = useRef();
@@ -147,8 +154,23 @@ function LandingPage({
   };
 
   useEffect(() => {
-    if (!preview) init(campaignId);
-  }, []);
+    if (!preview) init(campaignId, null, locale);
+  }, [locale]);
+
+  useEffect(() => {
+    async function fetchTranslation () {
+      try {
+        if (previousLocale === locale) {
+          return;
+        }
+
+        await init(campaignId, null, locale);
+      } catch (e) {
+        console.log("An error occurred", e)
+      }
+    }
+    fetchTranslation();
+  }, [locale]);
 
   if (campaign === LOADING && !preview) return <Loading fullPage>Fetching campaign details...</Loading>;
 
@@ -157,7 +179,7 @@ function LandingPage({
   let previewMode = fetchUrlParams("preview");
   previewMode = previewMode?.trim() === "true";
 
-  if (!is_published && !previewMode && !(loggedInAdmin?.is_community_admin || loggedInAdmin?.is_super_admin))
+  if (!is_published && !previewMode && !(loggedInAdmin?.is_community_admin || loggedInAdmin?.is_super_admin)) {
     return (
       <Container
         style={{
@@ -171,6 +193,9 @@ function LandingPage({
         <h1>This campaign is not Live. Contact Admin</h1>
       </Container>
     );
+  }
+
+
 
   return (
     <div style={{}}>

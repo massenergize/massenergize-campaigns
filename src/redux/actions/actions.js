@@ -114,7 +114,7 @@ export const updateUserAction = (payload, cb) => {
   };
 };
 
-export const appInnitAction = (campaignId, cb) => {
+export const appInnitAction = (campaignId, cb, locale = "en") => {
   let savedUser = localStorage.getItem(USER_STORAGE_KEY);
   savedUser = JSON.parse(savedUser);
   const { user } = savedUser || {};
@@ -122,11 +122,13 @@ export const appInnitAction = (campaignId, cb) => {
   return (dispatch) => {
     dispatch(loadUserObjAction(savedUser)); // use saved user to run a request to bring in the most recent changes to the user
     const userContent = user?.email ? { email: user.email } : {};
+
     Promise.all([
-      apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
+      apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, locale, ...userContent }),
       apiCall(CAMPAIGN_VIEW_URL, {
         campaign_id: campaignId,
         url: window.location.href,
+        locale,
       }),
     ])
       .then((response) => {

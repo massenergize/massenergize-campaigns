@@ -11,6 +11,8 @@ else if (IS_CANARY) apiHost = "https://api-canary.massenergize.org";
 // else apiHost = "https://api.massenergize.dev";
 
 export const API_HOST = apiHost;
+// export const API_HOST = "https://api.massenergize.dev";
+
 
 let platform = "";
 const URLS = {};
@@ -35,6 +37,8 @@ if (IS_LOCAL) {
   URLS["SHARE"] = "https://share.massenergize.dev";
   platform = "DEVELOPMENT";
 }
+
+console.log("API_HOST", { API_HOST, IS_LOCAL });
 
 export const PLATFORM = platform;
 export const CAMPAIGN_INFORMATION_URL = "campaigns.infoForUser";

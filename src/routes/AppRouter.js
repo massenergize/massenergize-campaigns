@@ -98,12 +98,10 @@ const ROUTE_TABLE = [
     path: "/admin/campaign/:id/stats/",
     component: CampaignStatistics,
   },
-
   {
     path: "/admin/campaign-account/new",
     component: CreateCampaignAccount,
   },
-
   {
     path: "/admin/technology/new/:campaign_id",
     component: CreateTechnology,
@@ -120,7 +118,6 @@ const ROUTE_TABLE = [
     path: "/admin/technology/all",
     component: AllTechnologies,
   },
-
   {
     path: "/admin/campaign-preview/:id",
     component: CampaignStatistics,

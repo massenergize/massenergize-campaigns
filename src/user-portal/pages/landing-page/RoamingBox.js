@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import phone_call from "./../../../assets/imgs/phone_call.png";
 import SmartRichText from "../../../components/SmartRichText";
+import { useLocale } from "../../../contexts/locale-context";
 const LEN = 250;
 function RoamingBox({ advert, keyContact, showMore }) {
   const desc = advert?.description;
@@ -9,6 +10,59 @@ function RoamingBox({ advert, keyContact, showMore }) {
   const isLong = desc?.length > LEN;
 
   const { phone_number, email } = keyContact || {};
+
+  // const { locale } = useLocale()
+  // const [content, setContent] = useState({
+  //   en: {
+  //     title: "",
+  //     description: "",
+  //   }
+  // })
+  //
+  // useEffect(() => {
+  //   async function fetchTranslation () {
+  //     try {
+  //       if (content[locale]) {
+  //         return;
+  //       }
+  //
+  //       const response = await fetch("http://localhost:4040/api/translation", {
+  //         method: "POST",
+  //         body: JSON.stringify({
+  //           text: [content.en.title, content.en.description],
+  //           target: locale,
+  //         }),
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
+  //
+  //       const { translation, translations } = await response.json();
+  //       console.log({
+  //         translation,
+  //         translations
+  //       })
+  //       if (translations) {
+  //         setContent({
+  //           ...content,
+  //           [locale] : {
+  //             title : translations[0],
+  //             description : translations[1]
+  //           }
+  //         })
+  //         return;
+  //       }
+  //
+  //       console.log("An error occurred")
+  //     } catch (e) {
+  //       console.log("An error occurred", e)
+  //     }
+  //   }
+  //   fetchTranslation();
+  // }, [locale]);
+
+
+
   return (
     <div className="roaming-container my-5">
       <Container>

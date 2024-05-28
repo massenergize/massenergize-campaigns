@@ -12,6 +12,8 @@
     "node_modules/",
     "build/",
     "src/serviceWorker.ts",
+    "**/*.ts",
+    "**/*.tsx",
     "**/*.d.ts",
     "**/*.test.tsx",
     "**/*.test.ts",
