@@ -10,7 +10,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { apiCall } from "../../../api/messenger";
 import { appInnitAction, updateEventsObj } from "../../../redux/actions/actions";
-import { formatDate, formatTimeRange, setPageTitle } from "../../../utils/utils";
+import { formatDate, formatTime, formatTimeRange, setPageTitle } from "../../../utils/utils";
 import AddToGoogleCalendar from "./AddToGoogleCalendar";
 import ICSEventCreator from "./ICSEventCreator";
 
@@ -75,8 +75,12 @@ function OneEvent({ events, updateEvents, init, campaign }) {
               <span>Date</span>
             </h6> */}
 
-            <p className="body-font fw-medium text-accent-3">
+            <p
+              className="body-font fw-medium text-accent-3"
+              style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+            >
               <span>{formatDate(start_date_and_time)}</span>
+              <span style={{ marginLeft: "auto" }}>{formatTime(start_date_and_time, "K:mm aa")}</span>
             </p>
           </div>
           {event?.event_type && (
@@ -90,7 +94,7 @@ function OneEvent({ events, updateEvents, init, campaign }) {
               <i className=" fa fa-download" /> Download to your calendar
             </h6>
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <ICSEventCreator  data = {event} /> <AddToGoogleCalendar data = {event} />
+              <ICSEventCreator data={event} /> <AddToGoogleCalendar data={event} />
             </div>
           </div>
 
