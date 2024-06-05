@@ -59,7 +59,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
         title: campaignDetails.title,
         tagline: campaignDetails.tagline,
         description: campaignDetails.description,
-        about_us_title: campaignDetails.about_us_title ,
+        about_us_title: campaignDetails.about_us_title,
         ...(campaignDetails.start_date && { start_date: dayjs(campaignDetails.start_date).format("YYYY-MM-DD") }),
         ...(campaignDetails.end_date && { end_date: dayjs(campaignDetails.end_date).format("YYYY-MM-DD") }),
         ...getImageValue(campaignDetails, "primary_logo"),
@@ -135,7 +135,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
             label="Start Date"
             placeholder="MM-DD-YYYY"
             required={false}
-            type="date"
+            inputType="date"
             error={errors?.start_date}
             format="mm-dd-yyyy"
             value={campaignDetails?.start_date}
@@ -159,7 +159,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
             label="End Date"
             placeholder="mm-dd-yyyy"
             required={false}
-            type="date"
+            inputType="date"
             disabled={isEmpty(campaignDetails?.start_date)}
             error={errors?.end_date}
             format="mm-dd-yyyy"
