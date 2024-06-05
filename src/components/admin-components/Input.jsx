@@ -21,7 +21,7 @@ const Input = ({
   const inputProps = {
     id: id || name,
     name: name || id,
-    className: classes(inputType === "date" ? "date-input" : "input", {
+    className: classes(type === "date" ? "date-input" : "input", {
       "border-danger": error,
       disabled,
     }),
