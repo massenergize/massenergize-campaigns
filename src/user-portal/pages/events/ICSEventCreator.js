@@ -12,7 +12,7 @@ const ICSEventCreator = ({ data }) => {
         : `${location.address || ""}`;
     const state = location.state ? stateAbbreviation(location.state) : "";
 
-    return `${firstLine}${location.city ? `, ${location.city}` : ""}${state ? `, ${state}` : ""}`;
+    return `${firstLine}${location.city ? `, ${location.city}` : ""}${state ? `, ${state?.value}` : ""}`;
   };
 
   const getDateArr = (str) => {
