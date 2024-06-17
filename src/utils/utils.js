@@ -27,11 +27,13 @@ export function formatTimeRange(startDateString, endDateString) {
 }
 
 export function formatDate(dateString, formatString = "MMM d, yyyy") {
+  if(!dateString) return '';
   const date = parseISO(dateString);
   return format(date, formatString);
 }
 
 export function formatTime(dateString, formatString = "HH:mm aaa") {
+  if(!dateString) return '';
   const date = parseISO(dateString);
   return format(date, formatString);
 }

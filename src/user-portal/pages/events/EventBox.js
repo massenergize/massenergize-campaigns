@@ -19,7 +19,7 @@ function EventBox({ event, campaign_technology }) {
         {image?.url ? (
           <img
             className={"rounded-3 w-100 cursor-pointer"}
-            style={{ height: 180, objectFit: "cover", borderRadius: 5 }}
+            style={{ height: 180, objectFit: "contain", borderRadius: 5, background:'grey', backgroundColor:'#f8f8f8' }}
             src={image?.url}
             alt={"event"}
             role={"button"}

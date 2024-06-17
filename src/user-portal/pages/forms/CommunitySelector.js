@@ -24,7 +24,6 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
   }, [data]);
 
   const isOther = comId === OTHER;
-
   communities = sortByProperty(communities, (com) => (com.alias || com.community.name || "").toLowerCase());
 
   return (
