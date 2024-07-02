@@ -12,7 +12,9 @@ import {
   fullTechnologiesReducer,
   massEnergizeUsersReducer,
   navigationMenuReducer,
+  offeredLanguagesReducer,
   setPortalTestimonialsReducer,
+  staticTextHeapReducer,
   testimonialsListReducer,
   testimonialsReducer,
   universalModalReducer,
@@ -38,5 +40,7 @@ export default combineReducers({
   communitiesEvents:CampaignCommunitiesEventsReducer,
   campaignComments: campaignCommentsReducer, 
   campaignTestimonials:campaignTestimonialsReducer, 
-  portalTestimonials: setPortalTestimonialsReducer
+  portalTestimonials: setPortalTestimonialsReducer, 
+  offeredLanguages: offeredLanguagesReducer, 
+  staticTextHeap : staticTextHeapReducer
 });

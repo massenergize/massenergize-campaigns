@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addUrlSearchParams, generateUniqueRandomString } from "../../utils/utils";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import * as PropTypes from "prop-types";
 
 const EXCLUDE_FROM_NAV = ["communities"];
@@ -176,6 +176,17 @@ function AppNavigationBar({ menu, campaign }) {
                 )}
               </Col>
             </Row>
+
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+              <div className="l-drop">
+                <select className="undefault">
+                  <option>EN</option>
+                  <option>FR</option>
+                  <option>PT</option>
+                  <option>RS</option>
+                </select>
+              </div>
+            </div>
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -7,6 +7,7 @@ import { portalIsAdmin } from "../../utils/utils";
 import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
+  LOAD_OFFERED_LANGUAGES,
   SET_AUTH_USER,
   SET_CAMPAIGN_ACCOUNT, SET_CAMPAIGN_COMMENTS, SET_CAMPAIGN_COMMUNITIES_EVENTS,
   SET_CAMPAIGN_TESTIMONIALS,
@@ -16,6 +17,7 @@ import {
   SET_MASSENERGISE_USERS,
   SET_NAVIGATION_MENU,
   SET_PORTAL_TESTIMONIALS,
+  SET_STATIC_TEXT_HEAP,
   SET_TESTIMONIALS,
   SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
@@ -34,6 +36,18 @@ export const universalModalReducer = (
   action = {}
 ) => {
   if (action.type === TOGGLE_UNIVERSAL_MODAL) {
+    return action.payload;
+  }
+  return state;
+};
+export const staticTextHeapReducer = (state = {}, action = {}) => {
+  if (action.type === SET_STATIC_TEXT_HEAP) {
+    return action.payload;
+  }
+  return state;
+};
+export const offeredLanguagesReducer = (state = [], action = {}) => {
+  if (action.type === LOAD_OFFERED_LANGUAGES) {
     return action.payload;
   }
   return state;

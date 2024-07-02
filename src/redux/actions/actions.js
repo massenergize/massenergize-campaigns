@@ -17,11 +17,19 @@ import {
   UPDATE_TESTIMONIALS_OBJ,
   SET_CAMPAIGN_ACCOUNT,
   SET_IS_ADMIN_PORTAL,
-  SET_MASSENERGISE_USERS, SET_CAMPAIGN_COMMUNITIES_EVENTS, SET_CAMPAIGN_COMMENTS, SET_CAMPAIGN_TESTIMONIALS, SET_PORTAL_TESTIMONIALS
+  SET_MASSENERGISE_USERS, SET_CAMPAIGN_COMMUNITIES_EVENTS, SET_CAMPAIGN_COMMENTS, SET_CAMPAIGN_TESTIMONIALS, SET_PORTAL_TESTIMONIALS,
+  SET_STATIC_TEXT_HEAP,
+  LOAD_OFFERED_LANGUAGES
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
 
 export const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
+export const loadStaticTextHeapAction = (data = {}) => {
+  return { type: SET_STATIC_TEXT_HEAP, payload: data };
+};
+export const loadOfferedLanguagesAction = (data = []) => {
+  return { type: LOAD_OFFERED_LANGUAGES, payload: data };
+};
 export const testReduxAction = (someValue = []) => {
   return { type: DO_NOTHING, payload: someValue };
 };

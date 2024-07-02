@@ -1,4 +1,7 @@
 {
+  "loader": {
+    "text": "Fetching details..."
+  },
   "share": { "text": "share" },
   "footer": {
     "news_letter": { "subscribe_button": { "text": "Subscribe to our Newsletter" } },
@@ -15,9 +18,7 @@
   "pages": {
     "homepage": {
       "sections": {
-        "loader": {
-          "text": "Fetching details..."
-        },
+       
         "key_contact": {
           "text": "Key Contact"
         },
