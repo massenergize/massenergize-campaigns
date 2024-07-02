@@ -1,0 +1,95 @@
+{
+  "share": { "text": "share" },
+  "footer": {
+    "news_letter": { "subscribe_button": { "text": "Subscribe to our Newsletter" } },
+    "quick_links": { "text": "Quick Links" }
+  },
+  "navbar": {
+    "home": { "text": "Home" },
+    "tech": { "text": "Technologies" },
+    "coaches": { "text": "Coaches" },
+    "events": { "text": "Events" },
+    "vendors": { "text": "vendors" },
+    "Deals": { "text": "Deals" }
+  },
+  "pages": {
+    "homepage": {
+      "sections": {
+        "loader": {
+          "text": "Fetching details..."
+        },
+        "key_contact": {
+          "text": "Key Contact"
+        },
+
+        "about_box": {
+          "button": "Learn More"
+        },
+        "action_box_buttons": {
+          "quote": { "text": "Quote" },
+          "coach": { "text": "Coach" },
+          "learn_more": { "text": "Learn More" },
+          "communities": { "text": "Communities" }
+        },
+        "testimonials_section": {
+          "call_to_add_testimonial": { "text": "Add your testimonial here" },
+          "call_to_filter": { "text": "Filter testimonials by" },
+          "full_view": { "text": "Full View" }
+        },
+        "events_section": {
+          "call_to_filter": { "text": "Filter testimonials by" }
+        },
+        "coaches_section": {
+          "call_to_filter": { "text": "Filter testimonials by" }
+        }
+      }
+    },
+    "one_technology_page": {
+      "sections": {
+        "get_updates": {
+          "button": { "text": "Get Updates" },
+          "description": { "text": "Get Updates on Home Scapes" }
+        },
+        "comments": {
+          "title": { "text": "Comments" },
+          "see_more": { "text": "See More Comments" },
+          "call_to_add": { "text": "Add a comment" }
+        },
+        "interactions": {
+          "like": { "text": "Like" },
+          "comment": { "text": "Comment" },
+          "view": { "text": "View" },
+          "share": { "text": "Share" }
+        },
+        "testimonials_section": {
+          "call_to_filter": { "text": "Filter testimonials by" },
+          "call_to_add_testimonial": { "text": "Add your testimonial here" },
+          "full_view": { "text": "Full View" }
+        },
+        "event_section": {
+          "card": { "online": { "text": "Online" }, "both": { "text": "Both" } }
+        }
+      }
+    },
+
+    "one_testimonial_page": {
+      "sections": {
+        "call_to_add_testimonial": { "text": "Add your testimonial here" },
+        "sidebar": {
+          "other_testimonials": { "text": "Other Testimonials" },
+          "call_to_add_testimonial": { "text": "Add Testimonial" }
+        }
+      }
+    },
+    "one_event_page": {
+      "sections": {
+        "online": { "text": "Online" },
+        "both": { "text": "Both" },
+        "call_to_download": { "text": "Download to your calendar" },
+        "apple_calendar": { "text": "ICAL" },
+        "google_calendar": { "text": "Google Calendar" },
+        "call_to_register": { "text": "Register/Join" }
+      }
+    }
+  }
+}
