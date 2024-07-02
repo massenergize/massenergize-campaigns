@@ -91,5 +91,35 @@
         "call_to_register": { "text": "Register/Join" }
       }
     }
+  },
+  "modals": {
+    "community_selection": {
+      "selection_label": { "text": "What community do you live in?" },
+      "text_after_selection": { "text": "We will direct you to the right resources based on wehere you are from -" },
+      "buttons": {
+        "close": { "text": "Close" },
+        "submit": { "text": "Let's Go" }
+      },
+      "success": { "text": "Thanks for joining" }
+    },
+    "share": {
+      "title": { "text": "Share" },
+      "platform_choice_label": { "text": "Please select a platform that you would like to share this technology to" },
+      "hint": { "text": "You can copy the link and share it" },
+      "copy_button": { "text": "Copy Link" }
+    },
+    "comment": {
+      "title": { "text": "Before you continue, we would like to know you" },
+      "relative_data": { "text": "50 days ago" },
+      "form": {
+        "name": { "text": "Your name" },
+        "comment_placeholder": { "text": "Type comment here " },
+        "button": { "text": "Comment" }
+      },
+      "buttons": {
+        "cancel": { "text": "Cancel" },
+        "continue": { "text": "Continue" }
+      }
+    }
   }
 }
