@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addUrlSearchParams, generateUniqueRandomString } from "../../utils/utils";
 import { Button, Col, Row } from "react-bootstrap";
@@ -52,6 +52,7 @@ function DropdownTitle(props) {
 DropdownTitle.propTypes = { menu: PropTypes.any };
 
 function AppNavigationBar({ menu, campaign }) {
+  const languages = useSelector((state) => state?.offeredLanguages);
   const navigator = useNavigate();
   const { secondary_logo, primary_logo } = campaign || {};
 
@@ -179,11 +180,12 @@ function AppNavigationBar({ menu, campaign }) {
 
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <div className="l-drop">
-                <select className="undefault">
-                  <option>EN</option>
-                  <option>FR</option>
-                  <option>PT</option>
-                  <option>RS</option>
+                <select style={{ textTransform: "uppercase" }} className="undefault">
+                  {languages?.map((lang, index) => (
+                    <option key={index?.toString()} value={lang?.languageISO}>
+                      {lang?.languageISO}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>

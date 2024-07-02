@@ -3,6 +3,7 @@ import {
   ONE_TECH_DATA,
 } from "../../user-portal/data/user-portal-dummy-data";
 import { LOADING } from "../../utils/Constants";
+import { LANGUAGES } from "../../utils/internationalization/languages";
 import { portalIsAdmin } from "../../utils/utils";
 import {
   DO_NOTHING,
@@ -46,7 +47,7 @@ export const staticTextHeapReducer = (state = {}, action = {}) => {
   }
   return state;
 };
-export const offeredLanguagesReducer = (state = [], action = {}) => {
+export const offeredLanguagesReducer = (state = LANGUAGES, action = {}) => {
   if (action.type === LOAD_OFFERED_LANGUAGES) {
     return action.payload;
   }
