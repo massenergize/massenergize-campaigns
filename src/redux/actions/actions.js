@@ -17,13 +17,30 @@ import {
   UPDATE_TESTIMONIALS_OBJ,
   SET_CAMPAIGN_ACCOUNT,
   SET_IS_ADMIN_PORTAL,
-  SET_MASSENERGISE_USERS, SET_CAMPAIGN_COMMUNITIES_EVENTS, SET_CAMPAIGN_COMMENTS, SET_CAMPAIGN_TESTIMONIALS, SET_PORTAL_TESTIMONIALS,
+  SET_MASSENERGISE_USERS,
+  SET_CAMPAIGN_COMMUNITIES_EVENTS,
+  SET_CAMPAIGN_COMMENTS,
+  SET_CAMPAIGN_TESTIMONIALS,
+  SET_PORTAL_TESTIMONIALS,
   SET_STATIC_TEXT_HEAP,
-  LOAD_OFFERED_LANGUAGES
+  LOAD_OFFERED_LANGUAGES,
+  SET_ACTIVE_LANGUAGE,
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
+import { LANGUAGES } from "../../utils/internationalization/languages";
 
 export const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
+export const PREFERRED_LANGUAGE_STORAGE_KEY = "PREFERRED_LANGUAGE";
+
+export const getPreferredLanguageISO = () => localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || LANGUAGES?.en_US;
+
+export const setActiveLanguageInStorage = (isoCode) => {
+  localStorage.setItem(PREFERRED_LANGUAGE_STORAGE_KEY, isoCode);
+};
+
+export const loadActiveLanguageAction = (isoCode) => {
+  return { type: SET_ACTIVE_LANGUAGE, payload: isoCode };
+};
 export const loadStaticTextHeapAction = (data = {}) => {
   return { type: SET_STATIC_TEXT_HEAP, payload: data };
 };
@@ -177,22 +194,22 @@ export const logUserOut = () => {
       // dispatch(s(null))
     });
 };
-export const setAdminPortalBooleanAction = (payload =false) => {
+export const setAdminPortalBooleanAction = (payload = false) => {
   return { type: SET_IS_ADMIN_PORTAL, payload };
 };
-export const setMassEnergizeUsersAction = (payload =[]) => {
+export const setMassEnergizeUsersAction = (payload = []) => {
   return { type: SET_MASSENERGISE_USERS, payload };
 };
 
-export const setCampaignCommunityEventsAction = (payload =[]) => {
+export const setCampaignCommunityEventsAction = (payload = []) => {
   return { type: SET_CAMPAIGN_COMMUNITIES_EVENTS, payload };
 };
-export const setCampaignCommentsAction = (payload =[]) => {
+export const setCampaignCommentsAction = (payload = []) => {
   return { type: SET_CAMPAIGN_COMMENTS, payload };
 };
-export const setCampaignTestimonialsAction = (payload =[]) => {
+export const setCampaignTestimonialsAction = (payload = []) => {
   return { type: SET_CAMPAIGN_TESTIMONIALS, payload };
 };
-export const setPortalTestimonialsAction = (payload =[]) => {
+export const setPortalTestimonialsAction = (payload = []) => {
   return { type: SET_PORTAL_TESTIMONIALS, payload };
 };

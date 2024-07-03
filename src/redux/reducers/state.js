@@ -2,7 +2,9 @@ import { combineReducers } from "redux";
 import {
   adminPortalReducer,
   authenticatedAdminReducer,
-  campaignAccountReducer, campaignCommentsReducer, CampaignCommunitiesEventsReducer,
+  campaignAccountReducer,
+  campaignCommentsReducer,
+  CampaignCommunitiesEventsReducer,
   campaignInformationReducer,
   campaignTestimonialsReducer,
   commentsListReducer,
@@ -13,12 +15,13 @@ import {
   massEnergizeUsersReducer,
   navigationMenuReducer,
   offeredLanguagesReducer,
+  setActiveLanguageReducer,
   setPortalTestimonialsReducer,
   staticTextHeapReducer,
   testimonialsListReducer,
   testimonialsReducer,
   universalModalReducer,
-  userObjectReducer
+  userObjectReducer,
 } from "./reducers";
 import { loadCampaignInformation } from "../actions/actions";
 
@@ -37,10 +40,11 @@ export default combineReducers({
   campaignAccount: campaignAccountReducer,
   isAdminPortal: adminPortalReducer,
   massUsers: massEnergizeUsersReducer,
-  communitiesEvents:CampaignCommunitiesEventsReducer,
-  campaignComments: campaignCommentsReducer, 
-  campaignTestimonials:campaignTestimonialsReducer, 
-  portalTestimonials: setPortalTestimonialsReducer, 
-  offeredLanguages: offeredLanguagesReducer, 
-  staticTextHeap : staticTextHeapReducer
+  communitiesEvents: CampaignCommunitiesEventsReducer,
+  campaignComments: campaignCommentsReducer,
+  campaignTestimonials: campaignTestimonialsReducer,
+  portalTestimonials: setPortalTestimonialsReducer,
+  offeredLanguages: offeredLanguagesReducer,
+  staticTextHeap: staticTextHeapReducer,
+  activeLanguage: setActiveLanguageReducer,
 });

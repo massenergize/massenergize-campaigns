@@ -1,16 +1,17 @@
-import {
-  CAMPAIGN_DATA,
-  ONE_TECH_DATA,
-} from "../../user-portal/data/user-portal-dummy-data";
+import { CAMPAIGN_DATA, ONE_TECH_DATA } from "../../user-portal/data/user-portal-dummy-data";
 import { LOADING } from "../../utils/Constants";
 import { LANGUAGES } from "../../utils/internationalization/languages";
 import { portalIsAdmin } from "../../utils/utils";
+import { getPreferredLanguageISO } from "../actions/actions";
 import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
   LOAD_OFFERED_LANGUAGES,
+  SET_ACTIVE_LANGUAGE,
   SET_AUTH_USER,
-  SET_CAMPAIGN_ACCOUNT, SET_CAMPAIGN_COMMENTS, SET_CAMPAIGN_COMMUNITIES_EVENTS,
+  SET_CAMPAIGN_ACCOUNT,
+  SET_CAMPAIGN_COMMENTS,
+  SET_CAMPAIGN_COMMUNITIES_EVENTS,
   SET_CAMPAIGN_TESTIMONIALS,
   SET_FIRE_AUTH,
   SET_FULL_TECH_OBJ,
@@ -23,7 +24,7 @@ import {
   SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
   UPDATE_EVENT_OBJ,
-  UPDATE_TESTIMONIALS_OBJ
+  UPDATE_TESTIMONIALS_OBJ,
 } from "../redux-action-types";
 
 export const doNothingReducer = (state = [], action = {}) => {
@@ -32,11 +33,18 @@ export const doNothingReducer = (state = [], action = {}) => {
   }
   return state;
 };
-export const universalModalReducer = (
-  state = { show: false, component: <></> },
-  action = {}
-) => {
+export const universalModalReducer = (state = { show: false, component: <></> }, action = {}) => {
   if (action.type === TOGGLE_UNIVERSAL_MODAL) {
+    return action.payload;
+  }
+  return state;
+};
+export const setActiveLanguageReducer = (state = undefined, action = {}) => {
+  if (state == undefined) {
+    state = getPreferredLanguageISO();
+    state = state || LANGUAGES.en_US;
+  }
+  if (action.type === SET_ACTIVE_LANGUAGE) {
     return action.payload;
   }
   return state;
@@ -130,7 +138,7 @@ export const adminPortalReducer = (state = portalIsAdmin(), action) => {
       return state; // return current state if action is not handled
   }
 };
-export const massEnergizeUsersReducer = (state =[], action) => {
+export const massEnergizeUsersReducer = (state = [], action) => {
   switch (action.type) {
     case SET_MASSENERGISE_USERS:
       return action.payload; // return new state
@@ -138,7 +146,7 @@ export const massEnergizeUsersReducer = (state =[], action) => {
       return state; // return current state if action is not handled
   }
 };
-export const CampaignCommunitiesEventsReducer = (state =[], action) => {
+export const CampaignCommunitiesEventsReducer = (state = [], action) => {
   switch (action.type) {
     case SET_CAMPAIGN_COMMUNITIES_EVENTS:
       return action.payload; // return new state
@@ -146,7 +154,7 @@ export const CampaignCommunitiesEventsReducer = (state =[], action) => {
       return state; // return current state if action is not handled
   }
 };
-export const campaignCommentsReducer = (state =[], action) => {
+export const campaignCommentsReducer = (state = [], action) => {
   switch (action.type) {
     case SET_CAMPAIGN_COMMENTS:
       return action.payload; // return new state
@@ -154,7 +162,7 @@ export const campaignCommentsReducer = (state =[], action) => {
       return state; // return current state if action is not handled
   }
 };
-export const campaignTestimonialsReducer = (state =[], action) => {
+export const campaignTestimonialsReducer = (state = [], action) => {
   switch (action.type) {
     case SET_CAMPAIGN_TESTIMONIALS:
       return action.payload; // return new state
@@ -162,7 +170,7 @@ export const campaignTestimonialsReducer = (state =[], action) => {
       return state; // return current state if action is not handled
   }
 };
-export const setPortalTestimonialsReducer = (state =[], action) => {
+export const setPortalTestimonialsReducer = (state = [], action) => {
   switch (action.type) {
     case SET_PORTAL_TESTIMONIALS:
       return action.payload; // return new state
