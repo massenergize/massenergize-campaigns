@@ -1,6 +1,6 @@
 {
   "loader": {
-    "text": "Fetching details..."
+    "text": "Fetching Campaign Details..."
   },
   "share": { "text": "share" },
   "footer": {
@@ -18,7 +18,6 @@
   "pages": {
     "homepage": {
       "sections": {
-       
         "key_contact": {
           "text": "Key Contact"
         },
@@ -26,14 +25,23 @@
         "about_box": {
           "button": "Learn More"
         },
-        "action_box_buttons": {
+        "getting_started_section": {
           "quote": { "text": "Quote" },
           "coach": { "text": "Coach" },
           "learn_more": { "text": "Learn More" },
-          "communities": { "text": "Communities" }
+          "communities": {
+            "text": "Communities",
+            "title": "Communities",
+            "description": "Connect with your community and check out other actions"
+          }
         },
         "testimonials_section": {
+          "scrollable": {
+            "text": "Scroll from left to right to see more testimonials, or use the arrow buttons(top right) to scroll"
+          },
+          "title": { "text": "Testimonials" },
           "call_to_add_testimonial": { "text": "Add your testimonial here" },
+          "call_to_hide_testimonial": { "text": "Hide testimonial form" },
           "call_to_filter": { "text": "Filter testimonials by" },
           "full_view": { "text": "Full View" }
         },
@@ -41,7 +49,9 @@
           "call_to_filter": { "text": "Filter testimonials by" }
         },
         "coaches_section": {
-          "call_to_filter": { "text": "Filter testimonials by" }
+          "call_to_filter": { "text": "Filter testimonials by" },
+          "get_help": { "text": "Get Help" },
+          "help_modal": { "title": "Get Help" }
         }
       }
     },

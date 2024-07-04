@@ -28,12 +28,17 @@ import {
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
 import { LANGUAGES } from "../../utils/internationalization/languages";
+import store from "./../store";
+import { PREFERRED_LANGUAGE_STORAGE_KEY } from "src/utils/utils";
 
 export const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
-export const PREFERRED_LANGUAGE_STORAGE_KEY = "PREFERRED_LANGUAGE";
 
-export const getPreferredLanguageISO = () => localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || LANGUAGES?.en_US;
-
+export const getStaticText = () => {
+  const state = store.getState();
+  const activeLanguage = state?.activeLanguage;
+  const staticTextHeap = state?.staticTextHeap;
+  return staticTextHeap[activeLanguage] || staticTextHeap?.en_US || {};
+};
 export const setActiveLanguageInStorage = (isoCode) => {
   localStorage.setItem(PREFERRED_LANGUAGE_STORAGE_KEY, isoCode);
 };

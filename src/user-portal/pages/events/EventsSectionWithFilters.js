@@ -9,7 +9,7 @@ import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import OurParagraph from "../../../components/OurParagraph";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 
-function EventsSectionWithFilters({ sectionId, technologies }) {
+function EventsSectionWithFilters({ sectionId, technologies, staticT }) {
   const containerRef = useRef();
 
   let events = technologies?.map((tech) => tech?.events);
@@ -67,7 +67,7 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
             </OurParagraph>
           )}
           <Filter
-            title="Filter events by"
+            title={staticT?.call_to_filter?.text || "Filter events by"}
             filterOptions={technologies}
             labelAccessor={(tech) => tech?.name}
             valueAccessor={(tech) => tech?.campaign_technology_id}

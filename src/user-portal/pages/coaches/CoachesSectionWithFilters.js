@@ -11,7 +11,7 @@ import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import { mergeArrays } from "../../../utils/utils";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 
-function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, customization }) {
+function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, customization, staticT }) {
   const containerRef = useRef();
 
   let coaches = technologies?.map((tech) => {
@@ -87,7 +87,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
             </div>
 
             <Filter
-              title="Filter coaches by"
+              title={staticT?.call_to_filter?.text || "Filter coaches by"}
               filterOptions={technologies}
               labelAccessor={(tech) => tech?.name}
               valueAccessor={(tech) => tech?.campaign_technology_id}
@@ -113,7 +113,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
                       icon: "fa-help",
                       component: ({ close }) => <GetHelpForm close={close} />,
                       fullControl: true,
-                      title: "Get Help",
+                      title: staticT?.help_modal?.title || "Get Help",
                     })
                   }
                   className="touchable-opacity body-font mt-5"
@@ -125,7 +125,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
                     borderWidth: 0,
                   }}
                 >
-                  Get Help
+                  {staticT?.get_help?.text || "Get Help"}
                 </Button>
               </div>
             </div>

@@ -1,8 +1,8 @@
 import { CAMPAIGN_DATA, ONE_TECH_DATA } from "../../user-portal/data/user-portal-dummy-data";
 import { LOADING } from "../../utils/Constants";
 import { LANGUAGES } from "../../utils/internationalization/languages";
-import { portalIsAdmin } from "../../utils/utils";
-import { getPreferredLanguageISO } from "../actions/actions";
+import { getPreferredLanguageISO, portalIsAdmin } from "../../utils/utils";
+
 import {
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
@@ -27,6 +27,9 @@ import {
   UPDATE_TESTIMONIALS_OBJ,
 } from "../redux-action-types";
 
+import defaultStaticText from "./../../utils/default-static-text.json";
+const DEFAULT_STATIC_TEXT = { en_US: defaultStaticText };
+
 export const doNothingReducer = (state = [], action = {}) => {
   if (action.type === DO_NOTHING) {
     return action.payload;
@@ -49,7 +52,7 @@ export const setActiveLanguageReducer = (state = undefined, action = {}) => {
   }
   return state;
 };
-export const staticTextHeapReducer = (state = {}, action = {}) => {
+export const staticTextHeapReducer = (state = DEFAULT_STATIC_TEXT, action = {}) => {
   if (action.type === SET_STATIC_TEXT_HEAP) {
     return action.payload;
   }
