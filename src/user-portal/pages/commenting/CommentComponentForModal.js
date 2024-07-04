@@ -16,6 +16,7 @@ function CommentComponentForModal({
   updateUserInRedux,
   commentIsForUser,
   onDelete,
+  staticT,
 }) {
   const [commentItems, setCommentItems] = useState([]);
   const [name, setName] = useState("");
@@ -179,12 +180,12 @@ function CommentComponentForModal({
       >
         <div>
           <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1">Your Name</InputGroup.Text>
+            <InputGroup.Text id="basic-addon1">{staticT?.name?.text || "Your Name"}</InputGroup.Text>
             <Form.Control
               value={name}
               onChange={(e) => setName(e.target.value)}
               type="text"
-              placeholder="Who is making this comment?..."
+              placeholder={staticT?.name_placeholder?.text || "Who is making this comment?..."}
               aria-label="text"
               aria-describedby="basic-addon1"
             />
@@ -201,7 +202,7 @@ function CommentComponentForModal({
             />
             <Button variant="outline-success" id="button-addon2" onClick={() => sendComment()}>
               {loading && <Spinner size="sm" style={{ marginRight: 5 }} />}
-              Comment
+              {staticT?.button?.text || " Comment"}
             </Button>
           </InputGroup>
         </div>

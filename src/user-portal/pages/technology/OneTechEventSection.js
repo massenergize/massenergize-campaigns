@@ -6,7 +6,7 @@ import TestimonialBox from "../testimonials/TestimonialBox";
 import EventBox from "../events/EventBox";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 
-function OneTechEventSection({ events, style, wrapperStyle }) {
+function OneTechEventSection({ events, style, wrapperStyle, staticT }) {
   const containerRef = useRef();
 
   if (!events?.length) return <></>;
@@ -48,7 +48,7 @@ function OneTechEventSection({ events, style, wrapperStyle }) {
           {events.map((item, index) => {
             return (
               <Col key={index?.toString()} lg={4} className="mb-2">
-                <EventBox {...item} />
+                <EventBox {...item} staticT={staticT} />
               </Col>
             );
           })}
