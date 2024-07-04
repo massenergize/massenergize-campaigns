@@ -4,7 +4,10 @@
   },
   "share": { "text": "share" },
   "footer": {
-    "news_letter": { "subscribe_button": { "text": "Subscribe to our Newsletter" } },
+    "news_letter": {
+      "subscribe_button": { "text": "Subscribe to our Newsletter" },
+      "subscribe_message": { "text": "You've already subscribed with " }
+    },
     "quick_links": { "text": "Quick Links" }
   },
   "navbar": {
@@ -102,18 +105,26 @@
     },
 
     "one_testimonial_page": {
+      "loader": {
+        "text": "Fetching testimonial details..."
+      },
       "sections": {
         "call_to_add_testimonial": { "text": "Add your testimonial here" },
+        "call_to_hide_testimonial": { "text": "Hide testimonial form" },
+        "form": { "title": { "text": "Add your testimonial" } },
         "sidebar": {
           "other_testimonials": { "text": "Other Testimonials" },
-          "call_to_add_testimonial": { "text": "Add Testimonial" }
+          "call_to_add_testimonial": { "text": "Add Testimonial" },
+          "call_to_hide_testimonial": { "text": "Hide Form" }
         }
       }
     },
     "one_event_page": {
+      "loader": {
+        "text": "Fetching event details..."
+      },
       "sections": {
-        "online": { "text": "Online" },
-        "both": { "text": "Both" },
+        "card": { "online": { "text": "Online" }, "both": { "text": "Both" }, "in_person": { "text": "In Person" } },
         "call_to_download": { "text": "Download to your calendar" },
         "apple_calendar": { "text": "ICAL" },
         "google_calendar": { "text": "Google Calendar" },
@@ -136,19 +147,6 @@
       "platform_choice_label": { "text": "Please select a platform that you would like to share this technology to" },
       "hint": { "text": "You can copy the link and share it" },
       "copy_button": { "text": "Copy Link" }
-    },
-    "comment": {
-      "title": { "text": "Before you continue, we would like to know you" },
-      "relative_data": { "text": "50 days ago" },
-      "form": {
-        "name": { "text": "Your name" },
-        "comment_placeholder": { "text": "Type comment here " },
-        "button": { "text": "Comment" }
-      },
-      "buttons": {
-        "cancel": { "text": "Cancel" },
-        "continue": { "text": "Continue" }
-      }
     }
   }
 }

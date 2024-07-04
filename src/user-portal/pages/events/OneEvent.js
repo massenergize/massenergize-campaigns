@@ -9,12 +9,15 @@ import Loading from "../../../components/pieces/Loading";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { apiCall } from "../../../api/messenger";
-import { appInnitAction, updateEventsObj } from "../../../redux/actions/actions";
+import { appInnitAction, getStaticText, updateEventsObj } from "../../../redux/actions/actions";
 import { formatDate, formatTime, formatTimeRange, setPageTitle } from "../../../utils/utils";
 import AddToGoogleCalendar from "./AddToGoogleCalendar";
 import ICSEventCreator from "./ICSEventCreator";
+import { translatedEventType } from "./EventBox";
 
 function OneEvent({ events, updateEvents, init, campaign }) {
+  const { pages } = getStaticText();
+  const one_event_page = pages?.one_event_page || {};
   const [event, setEvent] = useState(LOADING);
   const [error, setError] = useState("");
   const { eventId, campaign_id } = useParams();
@@ -48,7 +51,8 @@ function OneEvent({ events, updateEvents, init, campaign }) {
 
   if (!id || !event) return <NotFound>{error}</NotFound>;
 
-  if (event === LOADING) return <Loading fullPage>Fetching event information...</Loading>;
+  if (event === LOADING)
+    return <Loading fullPage>{one_event_page?.loader?.text || "Fetching event information..."}</Loading>;
 
   return (
     <PageWrapper>
@@ -85,20 +89,22 @@ function OneEvent({ events, updateEvents, init, campaign }) {
           </div>
           {event?.event_type && (
             <div style={{ marginTop: 10, color: "var(--app-main-color)" }}>
-              <p>{event?.event_type}</p>
+              <p>{translatedEventType(event?.event_type, one_event_page?.sections?.card)}</p>
             </div>
           )}
 
           <div>
             <h6 style={{ color: "var(--app-main-color)" }}>
-              <i className=" fa fa-download" /> Download to your calendar
+              <i className=" fa fa-download" />{" "}
+              {one_event_page?.sections?.call_to_download?.text || "Download to your calendar"}
             </h6>
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <ICSEventCreator data={event} /> <AddToGoogleCalendar data={event} />
+              <ICSEventCreator data={event} staticT={one_event_page?.sections} />{" "}
+              <AddToGoogleCalendar data={event} staticT={one_event_page?.sections} />
             </div>
           </div>
 
-          {true && (
+          {external_link && (
             <div
               onClick={(e) => {
                 e.preventDefault();
@@ -113,7 +119,7 @@ function OneEvent({ events, updateEvents, init, campaign }) {
                 borderRadius: 5,
               }}
             >
-              <p style={{ margin: 0 }}>Register / Join</p>
+              <p style={{ margin: 0 }}>{one_event_page?.sections?.call_to_register?.text || "Register / Join"}</p>
             </div>
           )}
         </Col>

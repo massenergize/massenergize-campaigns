@@ -6,21 +6,21 @@ import { Col, Row } from "react-bootstrap";
 const ONLINE = "online";
 const IN_PERSON = "in person";
 const BOTH = "both";
+export const translatedEventType = (eventType, staticT) => {
+  if (eventType === ONLINE) {
+    return staticT?.card?.online?.text || "Online";
+  }
+  if (eventType === IN_PERSON) {
+    return staticT?.card?.in_person?.text || "In Person";
+  }
+  if (eventType === BOTH) {
+    return staticT?.card?.in_person?.text || "In Person";
+  }
+  return eventType;
+};
 function EventBox({ event, campaign_technology, staticT }) {
   const { campaign } = campaign_technology || {};
 
-  const translatedEventType = (eventType) => {
-    if (eventType === ONLINE) {
-      return staticT?.card?.online?.text || "Online";
-    }
-    if (eventType === IN_PERSON) {
-      return staticT?.card?.in_person?.text || "In Person";
-    }
-    if (eventType === BOTH) {
-      return staticT?.card?.in_person?.text || "In Person";
-    }
-    return eventType;
-  };
   const { name, image, start_date, end_date, id, event_type } = event || {};
   const navigator = useNavigate();
 
@@ -73,7 +73,7 @@ function EventBox({ event, campaign_technology, staticT }) {
         <Row>
           <Col className={"pe-0"}>
             <p className="text-sm fw-medium text-accent mb-0">
-              <span>{translatedEventType(event_type)}</span>
+              <span>{translatedEventType(event_type, staticT)}</span>
             </p>
           </Col>
         </Row>
