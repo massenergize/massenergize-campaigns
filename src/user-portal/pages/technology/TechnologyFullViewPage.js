@@ -66,7 +66,7 @@ function TechnologyFullViewPage({
   const [mounted, setMounted] = useState(false);
   const { pages } = getStaticText();
   const one_technology_page = pages?.one_technology_page || {};
-  const { sections } = one_technology_page;
+  const { sections, loader, share: shareStaticT } = one_technology_page;
   // const [idsToRefMap, setidsToRefMap] = useState({});
   const coachesRef = useRef();
   const vendorsRef = useRef();
@@ -163,8 +163,7 @@ function TechnologyFullViewPage({
 
   if (!id || !technology) return <NotFound>{error}</NotFound>;
 
-  if (technology === LOADING)
-    return <Loading fullPage>{sections?.loader?.text || "Fetching technology information..."}</Loading>;
+  if (technology === LOADING) return <Loading fullPage>{loader?.text || "Fetching technology information..."}</Loading>;
 
   const {
     name,
@@ -258,9 +257,9 @@ function TechnologyFullViewPage({
   const openShareBox = () => {
     toggleModal({
       show: true,
-      title: "Share",
+      title: shareStaticT?.title?.text || "Share",
       // iconName: "fa-comment",
-      component: () => <ShareBox campaign={campaign} authUser={authUser} />,
+      component: () => <ShareBox campaign={campaign} authUser={authUser} staticT={shareStaticT} />,
       modalNativeProps: { size: "lg" },
       fullControl: true,
     });
@@ -591,6 +590,7 @@ function TechnologyFullViewPage({
         </div>
         <div ref={coachesRef}>
           <OneTechMeetTheCoachesSection
+            staticT={sections?.coaches_section}
             coaches={coaches}
             sectionId="meet-coach"
             data={coaches_section}

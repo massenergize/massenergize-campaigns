@@ -48,7 +48,6 @@ function JoinUsForm({
     setError({ message, good });
   };
 
-  console.log("Then lets see form", form)
 
   const joinUs = () => {
     if (onConfirm) return onConfirm({ data: form, close });

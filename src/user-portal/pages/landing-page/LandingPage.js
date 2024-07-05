@@ -44,7 +44,7 @@ function LandingPage({
 }) {
   const [mounted, setMounted] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
-  const { loader, pages } = getStaticText();
+  const { loader, pages, share: shareStaticT } = getStaticText();
   const homepageStaticT = pages?.homepage || {};
 
   const coachesRef = useRef();
@@ -147,9 +147,9 @@ function LandingPage({
   const handleShareCampaign = () => {
     toggleModal({
       show: true,
-      title: "Share Campaign",
+      title: shareStaticT?.title?.text || "XShare Campaign",
       // iconName: "fa-comment",
-      component: () => <ShareBox campaign={campaign} authUser={authUser} />,
+      component: () => <ShareBox campaign={campaign} authUser={authUser} staticT={homepageStaticT?.share} />,
       modalNativeProps: { size: "lg" },
       fullControl: true,
     });
@@ -207,7 +207,7 @@ function LandingPage({
       )}
       <AppNavigationBar menu={menu} campaign={campaign} />
 
-      <Hero v2={showHeroV1 && !isMobile} handleShareCampaign={handleShareCampaign} />
+      <Hero v2={showHeroV1 && !isMobile} handleShareCampaign={handleShareCampaign} staticT={{ share: shareStaticT }} />
 
       <Container>
         <RoamingBox

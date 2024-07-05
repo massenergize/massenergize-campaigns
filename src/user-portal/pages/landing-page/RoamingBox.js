@@ -42,7 +42,7 @@ function RoamingBox({ advert, keyContact, showMore, staticT }) {
                         onClick={() => showMore && showMore()}
                         className=" touchable-opacity app-btn body-font ms-3 mt-4"
                       >
-                        {staticT?.button || "Learn More"}
+                        {staticT?.learnMore?.button || "Learn More"}
                       </Button>
                     );
                   }}

@@ -22,7 +22,7 @@ function EventsSectionWithFilters({ sectionId, technologies, staticT }) {
       });
     else data = events;
 
-    data = sortEvents(data)
+    data = sortEvents(data);
     return (
       <Row
         ref={containerRef}
@@ -35,7 +35,7 @@ function EventsSectionWithFilters({ sectionId, technologies, staticT }) {
         {data?.map((item) => {
           return (
             <Col key={item.id} xs={12} md={4} xl={3}>
-              <EventBox {...item} />
+              <EventBox {...item} staticT={staticT} />
             </Col>
           );
         })}
@@ -63,7 +63,8 @@ function EventsSectionWithFilters({ sectionId, technologies, staticT }) {
           </div>
           {hasScrollableEvents && (
             <OurParagraph>
-              Scroll from left to right to see more events, or use the arrow buttons(top right) to scroll
+              {staticT?.scrollable?.text ||
+                " Scroll from left to right to see more events, or use the arrow buttons(top right) to scroll"}
             </OurParagraph>
           )}
           <Filter

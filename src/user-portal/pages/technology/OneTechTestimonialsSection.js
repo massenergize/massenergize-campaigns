@@ -51,7 +51,10 @@ function OneTechTestimonialsSection({ sectionId, testimonials, campaign, links, 
           )}
         </div>
 
-        <AddNewTestimonial onClick={() => navigator(testimonialRoute)} text={staticT?.call_to_add?.text || ""} />
+        <AddNewTestimonial
+          onClick={() => navigator(testimonialRoute)}
+          text={staticT?.call_to_add_testimonial?.text || ""}
+        />
         <Row ref={containerRef} style={{ overflowX: "auto", flexWrap: "nowrap" }}>
           {testimonials.map((item, index) => {
             return (

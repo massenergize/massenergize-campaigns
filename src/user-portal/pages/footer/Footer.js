@@ -11,7 +11,7 @@ import CONFIG from "../../../config/config.json";
 import { getStaticText } from "../../../redux/actions/actions";
 
 const EXCLUDED_FOOTER_MENU_KEYS = ["deals", "vendors"];
-function Footer({ toggleModal, campaign, authUser }) {
+function Footer({ toggleModal, campaign, authUser, staticT }) {
   const { footer } = getStaticText();
   const navigator = useNavigate();
   const { navigation, newsletter_section: customization, communities } = campaign || {};
@@ -118,7 +118,7 @@ function Footer({ toggleModal, campaign, authUser }) {
               }}
               onClick={() => signUpForNewsletter()}
             >
-              {footer?.subscribe_button?.text || " Subscribe to our Newsletter"}
+              {footer?.news_letter?.subscribe_button?.text || " Subscribe to our Newsletter"}
             </Button>
             {user?.email && (
               <p
@@ -131,7 +131,8 @@ function Footer({ toggleModal, campaign, authUser }) {
               >
                 <i>
                   {" "}
-                  {footer?.subscribe_message?.text || "You've already subscribed with"} <b style={{}}>'{user?.email || ""}' </b>
+                  {footer?.news_letter?.subscribe_message?.text || "You've already subscribed with"}{" "}
+                  <b style={{}}>'{user?.email || ""}' </b>
                 </i>
               </p>
             )}

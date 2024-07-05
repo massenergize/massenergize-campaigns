@@ -27,8 +27,10 @@ import {
   UPDATE_TESTIMONIALS_OBJ,
 } from "../redux-action-types";
 
-import defaultStaticText from "./../../utils/default-static-text.json";
-const DEFAULT_STATIC_TEXT = { en_US: defaultStaticText };
+// import defaultStaticText from "./../../utils/default-static-text.json";
+import { CHINESE, ENGLISH, FRENCH, SPANISH } from "./../../utils/internationalization/json-statics";
+
+const DEFAULT_STATIC_TEXT = { en_US: ENGLISH, es_ES: SPANISH, fr_FR: FRENCH, zh_TW: CHINESE };
 
 export const doNothingReducer = (state = [], action = {}) => {
   if (action.type === DO_NOTHING) {
