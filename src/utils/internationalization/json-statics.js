@@ -1,3 +1,5 @@
+// All items here are dummies used to test the internationalization feature
+
 export const FRENCH = {
   loader: {
     text: "Récupération des détails de la campagne...",

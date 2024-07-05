@@ -196,7 +196,7 @@ function CommentComponentForModal({
             <Form.Control
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              placeholder="Type comment here..."
+              placeholder={staticT?.comment_placeholder?.text || "Type comment here..."}
               aria-label="User comment"
               aria-describedby="basic-addon2"
             />

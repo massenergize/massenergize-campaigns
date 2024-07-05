@@ -230,7 +230,7 @@ function TechnologyFullViewPage({
     if (!user) return triggerRegistration();
     toggleModal({
       show: true,
-      title: sections?.comments?.title || "Read comments or add yours",
+      title: sections?.comments?.title?.text || "Read comments or add yours",
       iconName: "fa-comment",
       component: () => (
         <CommentComponentForModal
@@ -338,7 +338,7 @@ function TechnologyFullViewPage({
                 className="mt-2"
                 style={{
                   border: "solid 2px black",
-                  height: 140,
+                  height: "auto",
                   display: "flex",
                   flexDirection: "column",
                 }}

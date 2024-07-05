@@ -147,7 +147,7 @@ function LandingPage({
   const handleShareCampaign = () => {
     toggleModal({
       show: true,
-      title: shareStaticT?.title?.text || "XShare Campaign",
+      title: homepageStaticT?.share?.title?.text || "Share Campaign",
       // iconName: "fa-comment",
       component: () => <ShareBox campaign={campaign} authUser={authUser} staticT={homepageStaticT?.share} />,
       modalNativeProps: { size: "lg" },

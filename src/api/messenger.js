@@ -29,7 +29,6 @@ export async function apiCall (destinationUrl, dataToSend = {}, relocationPage =
   const formData = new FormData();
   Object.keys(data).map((k) => formData.append(k, data[k]));
   formData.append("language", lang);
-  console.log("INSIDE API CALL", lang);
 
   if (!destinationUrl || destinationUrl.length < 2) {
     return { success: false, error: "Invalid URL passed to apiCall" };
