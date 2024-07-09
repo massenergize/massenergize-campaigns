@@ -599,7 +599,7 @@ function TechnologyFullViewPage({
                 show: true,
                 component: (props) => <GetHelpForm {...props} />,
                 fullControl: true,
-                title: "Get Help",
+                title: sections?.coaches_section?.button?.text || "Get Help",
               })
             }
           />

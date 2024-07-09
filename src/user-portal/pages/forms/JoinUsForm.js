@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { validateEmail } from "../../../utils/utils";
 import { apiCall } from "../../../api/messenger";
 import { bindActionCreators } from "redux";
-import { loadUserObjAction } from "../../../redux/actions/actions";
+import { getStaticText, loadUserObjAction } from "../../../redux/actions/actions";
 
 function JoinUsForm({
   campaign,
@@ -27,6 +27,8 @@ function JoinUsForm({
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { modals } = getStaticText();
+  const staticT = modals?.join || {};
 
   useState(() => {
     if (authUser) {
@@ -47,7 +49,6 @@ function JoinUsForm({
   const makeNotification = (message, good = false) => {
     setError({ message, good });
   };
-
 
   const joinUs = () => {
     if (onConfirm) return onConfirm({ data: form, close });
@@ -74,7 +75,7 @@ function JoinUsForm({
     apiCall(apiURL || "/campaigns.follow", payload).then((response) => {
       setLoading(false);
       if (!response?.success) {
-        makeNotification(response.error)
+        makeNotification(response.error);
         // setError("Error: ", response.error);
         return console.log("FOLLOW_ERROR_BE: ", response.error);
       }
@@ -96,11 +97,11 @@ function JoinUsForm({
           <div>
             {/* <Form.Text>Join us because we are great!</Form.Text> */}
             <InputGroup className="mb-3 mt-2">
-              <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
+              <InputGroup.Text id="basic-addon1">{staticT?.email?.text || "Email"}</InputGroup.Text>
               <Form.Control
                 value={email}
                 type="email"
-                placeholder="Enter Email Here..."
+                placeholder={staticT?.email?.placeholder || "Enter Email Here..."}
                 aria-label="email"
                 aria-describedby="basic-addon1"
                 onChange={(e) => {
@@ -128,7 +129,7 @@ function JoinUsForm({
             background: "#292929",
           }}
         >
-          {cancelText || "Cancel"}
+          {cancelText || staticT?.buttons?.cancel?.text || "Cancel"}
         </Button>
         <Button
           className="touchable-opacity"
@@ -147,7 +148,7 @@ function JoinUsForm({
           }}
         >
           {loading && <Spinner size="sm" style={{ marginRight: 6 }}></Spinner>}
-          {confirmText || "Join Us"}
+          {confirmText || staticT?.buttons?.ok?.text || "Join Us"}
         </Button>
       </ModalFooter>
     </div>

@@ -11,6 +11,7 @@ function LanguageSelector() {
   const setActiveLanguage = (lang) => {
     setActiveLanguageInStorage(lang);
     dispatch(loadActiveLanguageAction(lang));
+    window.location.reload();
   };
 
 

@@ -28,9 +28,23 @@ import {
 } from "../redux-action-types";
 
 // import defaultStaticText from "./../../utils/default-static-text.json";
-import { CHINESE, ENGLISH, FRENCH, SPANISH } from "./../../utils/internationalization/json-statics";
+import {
+  CHINESE,
+  ENGLISH,
+  FRENCH,
+  ITALIAN,
+  PORTUGUESE,
+  SPANISH,
+} from "./../../utils/internationalization/json-statics";
 
-const DEFAULT_STATIC_TEXT = { en_US: ENGLISH, es_ES: SPANISH, fr_FR: FRENCH, zh_TW: CHINESE };
+const DEFAULT_STATIC_TEXT = {
+  en_US: ENGLISH,
+  es_ES: SPANISH,
+  fr_FR: FRENCH,
+  zh_TW: CHINESE,
+  pt_BR: PORTUGUESE,
+  it_IT: ITALIAN,
+};
 
 export const doNothingReducer = (state = [], action = {}) => {
   if (action.type === DO_NOTHING) {
