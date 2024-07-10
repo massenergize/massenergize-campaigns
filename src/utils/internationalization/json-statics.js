@@ -1,6 +1,17 @@
 // All items here are dummies used to test the internationalization feature
 
 export const ENGLISH = {
+  forms: {
+    testimonials: {
+      title: { text: "Title*", placeholder: "Enter the title of the testimonial...", label: "Tell us your story!" },
+      image: { label: "Include an image in your testimonial", text: "Choose file", placeholder: "No file Chosen" },
+      community: { label: "Select your community", placeholder: "---Select your community---" },
+      technology: { label: "What technology is this testimonial under?", placeholder: "---Select the technology---" },
+      description: { placeholder: "Start telling your story here..." },
+      buttons: { cancel: { text: "Cancel" }, submit: { text: "Submit" } },
+    },
+  },
+
   loader: {
     text: "Fetching Campaign Details...",
   },
@@ -185,6 +196,28 @@ export const ENGLISH = {
 };
 
 export const GERMAN = {
+  forms: {
+    testimonials: {
+      title: {
+        text: "Titel*",
+        placeholder: "Geben Sie den Titel des Testimonials ein...",
+        label: "Erzählen Sie uns Ihre Geschichte!",
+      },
+      image: {
+        label: "Fügen Sie ein Bild in Ihr Testimonial ein",
+        text: "Datei wählen",
+        placeholder: "Keine Datei ausgewählt",
+      },
+      community: { label: "Wählen Sie Ihre Gemeinschaft", placeholder: "---Wählen Sie Ihre Gemeinschaft---" },
+      technology: {
+        label: "Unter welcher Technologie fällt dieses Testimonial?",
+        placeholder: "---Wählen Sie die Technologie---",
+      },
+      description: { placeholder: "Beginnen Sie hier, Ihre Geschichte zu erzählen..." },
+      buttons: { cancel: { text: "Abbrechen" }, submit: { text: "Einreichen" } },
+    },
+  },
+
   loader: {
     text: "Kampagnendetails abrufen...",
   },
@@ -369,6 +402,24 @@ export const GERMAN = {
 };
 
 export const SPANISH = {
+  forms: {
+    testimonials: {
+      title: { text: "Título*", placeholder: "Ingrese el título del testimonio...", label: "¡Cuéntenos su historia!" },
+      image: {
+        label: "Incluya una imagen en su testimonio",
+        text: "Elegir archivo",
+        placeholder: "Ningún archivo seleccionado",
+      },
+      community: { label: "Seleccione su comunidad", placeholder: "---Seleccione su comunidad---" },
+      technology: {
+        label: "¿Bajo qué tecnología está este testimonio?",
+        placeholder: "---Seleccione la tecnología---",
+      },
+      description: { placeholder: "Comience a contar su historia aquí..." },
+      buttons: { cancel: { text: "Cancelar" }, submit: { text: "Enviar" } },
+    },
+  },
+
   loader: {
     text: "Obteniendo detalles de la campaña...",
   },
@@ -553,6 +604,28 @@ export const SPANISH = {
 };
 
 export const FRENCH = {
+  forms: {
+    testimonials: {
+      title: {
+        text: "Titre*",
+        placeholder: "Entrez le titre du témoignage...",
+        label: "Racontez-nous votre histoire!",
+      },
+      image: {
+        label: "Inclure une image dans votre témoignage",
+        text: "Choisir un fichier",
+        placeholder: "Aucun fichier choisi",
+      },
+      community: { label: "Sélectionnez votre communauté", placeholder: "---Sélectionnez votre communauté---" },
+      technology: {
+        label: "Quelle technologie concerne ce témoignage?",
+        placeholder: "---Sélectionnez la technologie---",
+      },
+      description: { placeholder: "Commencez à raconter votre histoire ici..." },
+      buttons: { cancel: { text: "Annuler" }, submit: { text: "Soumettre" } },
+    },
+  },
+
   loader: {
     text: "Récupération des détails de la campagne...",
   },
@@ -739,6 +812,17 @@ export const FRENCH = {
 };
 
 export const CHINESE = {
+  forms: {
+    testimonials: {
+      title: { text: "標題*", placeholder: "輸入推薦書的標題...", label: "告訴我們你的故事!" },
+      image: { label: "在你的推薦書中包含圖片", text: "選擇文件", placeholder: "未選擇文件" },
+      community: { label: "選擇你的社區", placeholder: "---選擇你的社區---" },
+      technology: { label: "此推薦書是針對哪項技術？", placeholder: "---選擇技術---" },
+      description: { placeholder: "從這裡開始講述你的故事..." },
+      buttons: { cancel: { text: "取消" }, submit: { text: "提交" } },
+    },
+  },
+
   loader: {
     text: "正在获取活动详情...",
   },
@@ -923,6 +1007,21 @@ export const CHINESE = {
 };
 
 export const PORTUGUESE = {
+  forms: {
+    testimonials: {
+      title: { text: "Título*", placeholder: "Insira o título do depoimento...", label: "Conte-nos sua história!" },
+      image: {
+        label: "Inclua uma imagem no seu depoimento",
+        text: "Escolher arquivo",
+        placeholder: "Nenhum arquivo escolhido",
+      },
+      community: { label: "Selecione sua comunidade", placeholder: "---Selecione sua comunidade---" },
+      technology: { label: "A qual tecnologia pertence este depoimento?", placeholder: "---Selecione a tecnologia---" },
+      description: { placeholder: "Comece a contar sua história aqui..." },
+      buttons: { cancel: { text: "Cancelar" }, submit: { text: "Enviar" } },
+    },
+  },
+
   loader: {
     text: "Buscando detalhes da campanha...",
   },
@@ -1106,8 +1205,29 @@ export const PORTUGUESE = {
   },
 };
 
-
 export const ITALIAN = {
+  forms: {
+    testimonials: {
+      title: {
+        text: "Titolo*",
+        placeholder: "Inserisci il titolo del testimoniale...",
+        label: "Raccontaci la tua storia!",
+      },
+      image: {
+        label: "Includi un'immagine nel tuo testimoniale",
+        text: "Scegli file",
+        placeholder: "Nessun file scelto",
+      },
+      community: { label: "Seleziona la tua comunità", placeholder: "---Seleziona la tua comunità---" },
+      technology: {
+        label: "Quale tecnologia riguarda questo testimoniale?",
+        placeholder: "---Seleziona la tecnologia---",
+      },
+      description: { placeholder: "Inizia a raccontare la tua storia qui..." },
+      buttons: { cancel: { text: "Annulla" }, submit: { text: "Invia" } },
+    },
+  },
+
   loader: {
     text: "Recupero dei dettagli della campagna...",
   },
@@ -1289,4 +1409,4 @@ export const ITALIAN = {
       selection_hint: { text: "Ti indirizzeremo alle risorse corrette in base alla tua posizione" },
     },
   },
-}
+};

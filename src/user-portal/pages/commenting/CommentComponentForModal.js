@@ -25,6 +25,7 @@ function CommentComponentForModal({
   const [loading, setLoading] = useState(false);
   const comBox = useRef();
   // comments = comments?.reverse();
+  console.log("what is staticT", staticT)
 
   const { user } = authUser || {};
 
@@ -107,7 +108,7 @@ function CommentComponentForModal({
       >
         {data?.length === 0 && (
           <center>
-            <small>No comments yet, be the first!</small>
+            <small>{staticT?.no_comments?.text || "No comments yet, be the first!"}</small>
           </center>
         )}
         {data?.map((com) => {
