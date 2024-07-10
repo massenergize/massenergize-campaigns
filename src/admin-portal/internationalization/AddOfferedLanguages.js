@@ -3,53 +3,98 @@ import { AdminLayout } from "../../layouts/admin-layout";
 import { Container, Row } from "react-bootstrap";
 import { MultiSelect } from "react-multi-select-component";
 import { LANGUAGES } from "../../utils/internationalization/languages";
+import { useDispatch, useSelector } from "react-redux";
+import { updateOfferedLanguageAction } from "src/redux/actions/actions";
 
-function AddOfferedLanguages() {
+const DEFAULT_OFFERED_PER_CAMPAIGN = [{ label: "English (US)", value: "en-US" }];
+function AddOfferedLanguages({ campaignDetails: campaign }) {
   const languages = Object.entries(LANGUAGES);
-  return (
-    <AdminLayout>
-      <Container fluid className={"p-5"}>
-        <Row style={{ height: "100vh" }}>
-          <h3>Add Offered Languages</h3>
-          <p>Add all languages that you want to offer on your campaign sites here</p>
-          <div style={{ height: "100%", marginTop: 20 }}>
-            <MultiSelect
-              options={(languages || []).map(([value, label]) => {
-                return {
-                  value,
-                  label,
-                };
-              })}
-              
-              valueRenderer={(selected, _options) => {
-                if (selected.length === 0) return "Select languages";
-                if (selected.length === _options.length) return "All languages selected";
-                if (selected.length > 5) return `${selected.length} languages Selected`;
-                return selected
-                  ?.map(({ label }) => label)
-                  .join(", ")
-                  .concat(" Selected");
-              }}
-              onChange={(langs) => {
-                
-              }}
-              labelledBy="Select"
-            />
+  const cOffered = useSelector((state) => state?.campaignOfferedLanguages);
+  const dispatch = useDispatch();
+  const campaignId = campaign?.id;
 
-            <div
-              style={{
-                //   height: "100%",
-                width: "100%",
-                background: "#f8f8f8",
-                borderRadius: 10,
-                minHeight: 200,
-                marginTop: 10,
-              }}
-            ></div>
+  const getOfferedForThisCampaign = () => {
+    if (!cOffered) return DEFAULT_OFFERED_PER_CAMPAIGN;
+    return cOffered[campaignId];
+  };
+
+  const updateInRedux = (data) => {
+    return dispatch(updateOfferedLanguageAction({ ...(cOffered || {}), [campaignId]: data }));
+  };
+
+  const getLangWithKey = (key) => {
+    return languages?.find(([k]) => key === k);
+  };
+  const offered = getOfferedForThisCampaign();
+
+  return (
+    // <AdminLayout>
+    <Container className={""}>
+      <Row style={{ height: "100vh" }}>
+        {/* <Row style={{}}> */}
+        {/* <h3>Add Offered Languages</h3> */}
+        <p>Add all languages that you want to offer on your campaign sites here</p>
+        <div style={{ height: "100%", marginTop: 20 }}>
+          {/* <div style={{ marginTop: 20 }}> */}
+          <MultiSelect
+            multiple
+            values={offered}
+            options={(languages || []).map(([value, label]) => {
+              return {
+                value,
+                label,
+              };
+            })}
+            onChange={(vals) => updateInRedux(vals)}
+            valueRenderer={(selected, _options) => {
+              if (selected.length === 0) return "Select languages";
+              if (selected.length === _options.length) return "All languages selected";
+              if (selected.length > 5) return `${selected.length} languages Selected`;
+              return selected
+                ?.map(({ label }) => label)
+                .join(", ")
+                .concat(" Selected");
+            }}
+            // onChange={(langs) => {}}
+            labelledBy="Select"
+          />
+
+          <div
+            style={{
+              //   height: "100%",
+              width: "100%",
+              background: "#f8f8f8",
+              borderRadius: 10,
+              minHeight: 200,
+              marginTop: 10,
+              padding: 30,
+            }}
+          >
+            {offered?.map((lang) => {
+              return (
+                <h5
+                  className="touchable-opacity"
+                  style={{
+                    marginBottom: 15,
+                    paddingBottom: 7,
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    border: "solid 0px #e9e9e9",
+                    borderBottomWidth: 2,
+                  }}
+                >
+                  {lang?.label}
+
+                  <span style={{ marginLeft: "auto", color: "#c83131", fontSize: 16 }}>Remove</span>
+                </h5>
+              );
+            })}
           </div>
-        </Row>
-      </Container>
-    </AdminLayout>
+        </div>
+      </Row>
+    </Container>
+    // </AdminLayout>
   );
 }
 

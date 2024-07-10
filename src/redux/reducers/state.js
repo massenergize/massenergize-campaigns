@@ -22,6 +22,7 @@ import {
   testimonialsReducer,
   universalModalReducer,
   userObjectReducer,
+  reducerForCampaignOfferedLanguages,
 } from "./reducers";
 import { loadCampaignInformation } from "../actions/actions";
 
@@ -47,4 +48,5 @@ export default combineReducers({
   offeredLanguages: offeredLanguagesReducer,
   staticTextHeap: staticTextHeapReducer,
   activeLanguage: setActiveLanguageReducer,
+  campaignOfferedLanguages: reducerForCampaignOfferedLanguages,
 });

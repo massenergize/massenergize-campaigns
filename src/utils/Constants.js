@@ -11,6 +11,7 @@ import CampaignTestimonials from "../admin-portal/create-campaign/CampaignTestim
 import CampaignComments from "../admin-portal/create-campaign/CampaignComments";
 import CampaignCommunities from "../admin-portal/create-campaign/CampaignCommunities";
 import TechnologyActions from "../admin-portal/create-campaign/create-technology/TechnologyActions";
+import AddOfferedLanguages from "../admin-portal/internationalization/AddOfferedLanguages"
 export const campaignPages = [
   {
     name: "Information",
@@ -39,6 +40,10 @@ export const campaignPages = [
   {
     name: "Comments",
     component: CampaignComments,
+  },
+  {
+    name: "Translation",
+    component: AddOfferedLanguages,
   },
   // {
   // 	name: "Partners",

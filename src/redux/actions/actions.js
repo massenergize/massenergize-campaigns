@@ -25,6 +25,7 @@ import {
   SET_STATIC_TEXT_HEAP,
   LOAD_OFFERED_LANGUAGES,
   SET_ACTIVE_LANGUAGE,
+  ADMIN_UPDATE_OFFERED_LANGUAGES,
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
 import { LANGUAGES } from "../../utils/internationalization/languages";
@@ -43,6 +44,9 @@ export const setActiveLanguageInStorage = (isoCode) => {
   localStorage.setItem(PREFERRED_LANGUAGE_STORAGE_KEY, isoCode);
 };
 
+export const updateOfferedLanguageAction = (data) => {
+  return { type: ADMIN_UPDATE_OFFERED_LANGUAGES, payload: data };
+};
 export const loadActiveLanguageAction = (isoCode) => {
   return { type: SET_ACTIVE_LANGUAGE, payload: isoCode };
 };

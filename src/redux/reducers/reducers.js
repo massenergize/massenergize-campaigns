@@ -4,6 +4,7 @@ import { LANGUAGES } from "../../utils/internationalization/languages";
 import { getPreferredLanguageISO, portalIsAdmin } from "../../utils/utils";
 
 import {
+  ADMIN_UPDATE_OFFERED_LANGUAGES,
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
   LOAD_OFFERED_LANGUAGES,
@@ -88,6 +89,12 @@ export const campaignInformationReducer = (state = LOADING, action = {}) => {
 };
 export const fullTechnologiesReducer = (state = {}, action = {}) => {
   if (action.type === SET_FULL_TECH_OBJ) {
+    return action.payload;
+  }
+  return state;
+};
+export const reducerForCampaignOfferedLanguages = (state = null, action = {}) => {
+  if (action.type === ADMIN_UPDATE_OFFERED_LANGUAGES) {
     return action.payload;
   }
   return state;
