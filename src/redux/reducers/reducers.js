@@ -38,12 +38,12 @@ import {
 } from "./../../utils/internationalization/json-statics";
 
 const DEFAULT_STATIC_TEXT = {
-  en_US: ENGLISH,
-  es_ES: SPANISH,
-  fr_FR: FRENCH,
-  zh_TW: CHINESE,
-  pt_BR: PORTUGUESE,
-  it_IT: ITALIAN,
+  "en-US": ENGLISH,
+  "es-ES": SPANISH,
+  "fr-FR": FRENCH,
+  "zh-TW": CHINESE,
+  "pt-BR": PORTUGUESE,
+  "it-IT": ITALIAN,
 };
 
 export const doNothingReducer = (state = [], action = {}) => {

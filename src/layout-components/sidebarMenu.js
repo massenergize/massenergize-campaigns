@@ -5,7 +5,9 @@ import {
   faPen,
   faArrowRightFromBracket,
   faHeadset,
-  faCog
+  faCog,
+  faGlobe,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -40,7 +42,21 @@ export const SIDE_BAR_MENU = [
           },
         ],
       },
-     /* {
+      {
+        id: "translation",
+        name: "Translation",
+        icon: <FontAwesomeIcon icon={faGlobe} />,
+        children: [
+          {
+            id: "add_offered_languages",
+            disabled: false,
+            name: "Add Languages",
+            link: "/admin/campaign/languages/add",
+            icon: <FontAwesomeIcon icon={faPlus} />,
+          },
+        ],
+      },
+      /* {
         id: "technologies",
         name: "Technologies",
         icon: <FontAwesomeIcon icon={faBullseye} />,
@@ -64,7 +80,6 @@ export const SIDE_BAR_MENU = [
     ],
   },
 ];
-
 
 export const BOTTOM_MENU = [
   // {

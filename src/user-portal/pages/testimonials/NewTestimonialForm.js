@@ -88,7 +88,6 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
   }, []);
 
   const technologies = campaign?.technologies || [];
-  console.log("Lets see staticT", staticT)
 
   return (
     <div>

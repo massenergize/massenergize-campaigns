@@ -26,6 +26,7 @@ import Login from "../admin-portal/pages/auth/Login";
 import Dummy from "../admin-portal/pages/auth/Dummy";
 import { portalIsAdmin, setPageTitle } from "../utils/utils";
 import JoinUsForm from "../user-portal/pages/forms/JoinUsForm";
+import AddOfferedLanguages from "../admin-portal/internationalization/AddOfferedLanguages";
 
 export const NavigateWithParams = ({ to, ...props }) => {
   const params = useParams();
@@ -138,6 +139,10 @@ const ROUTE_TABLE = [
     component: CreateCampaignAccount,
   },
   {
+    path: "/admin/campaign/languages/add",
+    component: AddOfferedLanguages,
+  },
+  {
     path: "/dummy-for-auth",
     component: Dummy,
   },
@@ -179,10 +184,7 @@ function AppRouter({
       ),
     });
   };
-  const triggerProtectedFunctionality = (
-    authUser,
-    { cb, registrationOptions } = {},
-  ) => {
+  const triggerProtectedFunctionality = (authUser, { cb, registrationOptions } = {}) => {
     const { user } = authUser || {};
     if (!user) return register(registrationOptions);
     cb && cb();
@@ -190,10 +192,7 @@ function AppRouter({
 
   return (
     <>
-      <CustomModal
-        close={() => toggleModal({ show: false, component: <></> })}
-        {...modalOptions}
-      />
+      <CustomModal close={() => toggleModal({ show: false, component: <></> })} {...modalOptions} />
       <Routes>
         <Route
           path="/campaign/:campaignId"
@@ -214,9 +213,7 @@ function AppRouter({
           const routeProps = {
             path,
             ...(replace && { replace: true }),
-            element: (
-              <route.component toggleModal={addToggleModal ? toggleModal : null} />
-            ),
+            element: <route.component toggleModal={addToggleModal ? toggleModal : null} />,
           };
 
           return <Route key={index} {...routeProps} />;
