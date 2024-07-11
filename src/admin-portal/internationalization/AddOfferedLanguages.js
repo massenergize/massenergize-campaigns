@@ -7,17 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateOfferedLanguageAction } from "src/redux/actions/actions";
 import Button from "src/components/admin-components/Button";
 
+export const getOfferedForThisCampaign = (objFromRedux, id) => {
+  if (!objFromRedux) return DEFAULT_OFFERED_PER_CAMPAIGN;
+  return objFromRedux[id];
+};
+
 const DEFAULT_OFFERED_PER_CAMPAIGN = [{ label: "English (US)", value: "en-US" }];
 function AddOfferedLanguages({ campaignDetails: campaign }) {
   const languages = Object.entries(LANGUAGES);
   const cOffered = useSelector((state) => state?.campaignOfferedLanguages);
   const dispatch = useDispatch();
   const campaignId = campaign?.id;
-
-  const getOfferedForThisCampaign = () => {
-    if (!cOffered) return DEFAULT_OFFERED_PER_CAMPAIGN;
-    return cOffered[campaignId];
-  };
 
   const updateInRedux = (data) => {
     return dispatch(updateOfferedLanguageAction({ ...(cOffered || {}), [campaignId]: data }));
@@ -28,11 +28,11 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
   };
 
   const removeLang = (key) => {
-    const offered = getOfferedForThisCampaign();
+    const offered = getOfferedForThisCampaign(cOffered, campaignId);
     const newOffered = offered?.filter(({ value }) => value !== key);
     updateInRedux(newOffered);
   };
-  const offered = getOfferedForThisCampaign();
+  const offered = getOfferedForThisCampaign(cOffered, campaignId);
 
   return (
     // <AdminLayout>

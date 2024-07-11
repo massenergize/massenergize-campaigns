@@ -26,7 +26,7 @@ export function CampaignDetailsAndPreview({ setStep }) {
           <h4 className="mb-0">{campaignDetails.title}</h4>
         </Col>
         <div className="text-right col-auto px-4">
-          <ToggleLanguage />
+          <ToggleLanguage campaignId={campaignDetails?.id} />
           <ButtonGroup className="mr-2">
             <Button
               variant="primary"

@@ -1,8 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { getOfferedForThisCampaign } from "./AddOfferedLanguages";
 
-function ToggleLanguage({}) {
-  const languages = useSelector((state) => state?.offeredLanguages);
+function ToggleLanguage({ campaignId }) {
+  const offeredLangs = useSelector((state) => state?.campaignOfferedLanguages);
+  const content = getOfferedForThisCampaign(offeredLangs, campaignId);
 
   return (
     // <div className="l-drop">
@@ -11,7 +13,7 @@ function ToggleLanguage({}) {
         <select
           // value={activeLanguage}
           onChange={(e) => {
-            const langs = Object.keys(languages || {});
+            // const langs = Object.keys(offeredLangs || {});
             //   const key = e?.target?.value; // languageISO
             //   const obj = langs.find((k) => k === key);
             //   setActiveLanguage(obj);
@@ -19,10 +21,11 @@ function ToggleLanguage({}) {
           // style={{ textTransform: "uppercase" }}
           className="undefault"
         >
-          {Object.entries(languages || {})?.map(([key, name]) => (
-            <option key={key} value={key}>
+          {/* {Object.entries(offeredLangs || {})?.map(([key, name]) => ( */}
+          {content?.map(({ label }, key) => (
+            <option key={key} value={key} style={{ width: "100%" }}>
               {/* {smartString(name, 12)} */}
-              {name}
+              {label}
             </option>
           ))}
         </select>
