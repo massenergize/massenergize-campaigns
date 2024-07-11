@@ -5,6 +5,7 @@ import { MultiSelect } from "react-multi-select-component";
 import { LANGUAGES } from "../../utils/internationalization/languages";
 import { useDispatch, useSelector } from "react-redux";
 import { updateOfferedLanguageAction } from "src/redux/actions/actions";
+import Button from "src/components/admin-components/Button";
 
 const DEFAULT_OFFERED_PER_CAMPAIGN = [{ label: "English (US)", value: "en-US" }];
 function AddOfferedLanguages({ campaignDetails: campaign }) {
@@ -25,6 +26,12 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
   const getLangWithKey = (key) => {
     return languages?.find(([k]) => key === k);
   };
+
+  const removeLang = (key) => {
+    const offered = getOfferedForThisCampaign();
+    const newOffered = offered?.filter(({ value }) => value !== key);
+    updateInRedux(newOffered);
+  };
   const offered = getOfferedForThisCampaign();
 
   return (
@@ -38,7 +45,7 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
           {/* <div style={{ marginTop: 20 }}> */}
           <MultiSelect
             multiple
-            values={offered}
+            value={offered}
             options={(languages || []).map(([value, label]) => {
               return {
                 value,
@@ -55,7 +62,6 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
                 .join(", ")
                 .concat(" Selected");
             }}
-            // onChange={(langs) => {}}
             labelledBy="Select"
           />
 
@@ -63,7 +69,7 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
             style={{
               //   height: "100%",
               width: "100%",
-              background: "#f8f8f8",
+              background: "rgb(248 248 248 / 44%)",
               borderRadius: 10,
               minHeight: 200,
               marginTop: 10,
@@ -72,7 +78,7 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
           >
             {offered?.map((lang) => {
               return (
-                <h5
+                <h6
                   className="touchable-opacity"
                   style={{
                     marginBottom: 15,
@@ -86,10 +92,19 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
                 >
                   {lang?.label}
 
-                  <span style={{ marginLeft: "auto", color: "#c83131", fontSize: 16 }}>Remove</span>
-                </h5>
+                  <span
+                    onClick={() => removeLang(lang?.value)}
+                    style={{ marginLeft: "auto", color: "#c83131", fontSize: 16 }}
+                  >
+                    Remove
+                  </span>
+                </h6>
               );
             })}
+          </div>
+
+          <div style={{ padding: "20px 00px" }}>
+            <Button>Save</Button>
           </div>
         </div>
       </Row>

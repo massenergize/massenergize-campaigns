@@ -42,20 +42,20 @@ export const SIDE_BAR_MENU = [
           },
         ],
       },
-      {
-        id: "translation",
-        name: "Translation",
-        icon: <FontAwesomeIcon icon={faGlobe} />,
-        children: [
-          {
-            id: "add_offered_languages",
-            disabled: false,
-            name: "Add Languages",
-            link: "/admin/campaign/languages/add",
-            icon: <FontAwesomeIcon icon={faPlus} />,
-          },
-        ],
-      },
+      // {
+      //   id: "translation",
+      //   name: "Translation",
+      //   icon: <FontAwesomeIcon icon={faGlobe} />,
+      //   children: [
+      //     {
+      //       id: "add_offered_languages",
+      //       disabled: false,
+      //       name: "Add Languages",
+      //       link: "/admin/campaign/languages/add",
+      //       icon: <FontAwesomeIcon icon={faPlus} />,
+      //     },
+      //   ],
+      // },
       /* {
         id: "technologies",
         name: "Technologies",
