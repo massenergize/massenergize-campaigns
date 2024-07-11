@@ -48,8 +48,9 @@ body {
   cursor: pointer;
   /* border: solid 2px var(--app-main-color); */
   border: solid 2px #e4e4ff;
-  margin-left: 10px;
+  margin: 0px 20px;
   border-radius: 3px;
+  display: inline-block;
 }
 
 .l-drop > select {
