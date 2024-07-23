@@ -25,7 +25,6 @@ function CommentComponentForModal({
   const [loading, setLoading] = useState(false);
   const comBox = useRef();
   // comments = comments?.reverse();
-  console.log("what is staticT", staticT)
 
   const { user } = authUser || {};
 
