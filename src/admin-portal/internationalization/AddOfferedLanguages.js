@@ -1,12 +1,12 @@
 import React from "react";
 import { AdminLayout } from "../../layouts/admin-layout";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, ToggleButton } from "react-bootstrap";
 import { MultiSelect } from "react-multi-select-component";
 import { LANGUAGES } from "../../utils/internationalization/languages";
 import { useDispatch, useSelector } from "react-redux";
 import { updateOfferedLanguageAction } from "src/redux/actions/actions";
 import Button from "src/components/admin-components/Button";
-
+import ToggleSwitch from "src/components/toggle-switch/ToggleSwitch";
 export const getOfferedForThisCampaign = (objFromRedux, id) => {
   if (!objFromRedux) return DEFAULT_OFFERED_PER_CAMPAIGN;
   return objFromRedux[id];
@@ -19,12 +19,29 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
   const dispatch = useDispatch();
   const campaignId = campaign?.id;
 
+  const offered = getOfferedForThisCampaign(cOffered, campaignId);
+
   const updateInRedux = (data) => {
     return dispatch(updateOfferedLanguageAction({ ...(cOffered || {}), [campaignId]: data }));
   };
 
+  const includeNewLanguage = (add, key) => {
+    const offered = getOfferedForThisCampaign(cOffered, campaignId);
+    let data = offered;
+    if (add) {
+      const found = getLangWithKey(key);
+      if (!found) return console.log("Error: Did not find language with key -> ", key);
+      data = [...offered, { label: found[1], value: key }];
+    } else data = offered?.filter(({ value }) => value !== key);
+    updateInRedux(data);
+  };
+
   const getLangWithKey = (key) => {
     return languages?.find(([k]) => key === k);
+  };
+  const isToggled = (key) => {
+    const offered = getOfferedForThisCampaign(cOffered, campaignId);
+    return offered?.find(({ value }) => value === key);
   };
 
   const removeLang = (key) => {
@@ -32,18 +49,17 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
     const newOffered = offered?.filter(({ value }) => value !== key);
     updateInRedux(newOffered);
   };
-  const offered = getOfferedForThisCampaign(cOffered, campaignId);
 
   return (
     // <AdminLayout>
-    <Container className={""}>
+    <div style={{ padding: "" }}>
       <Row style={{ height: "100vh" }}>
         {/* <Row style={{}}> */}
         {/* <h3>Add Offered Languages</h3> */}
         <p>Add all languages that you want to offer on your campaign sites here</p>
         <div style={{ height: "100%", marginTop: 20 }}>
           {/* <div style={{ marginTop: 20 }}> */}
-          <MultiSelect
+          {/* <MultiSelect
             multiple
             value={offered}
             options={(languages || []).map(([value, label]) => {
@@ -63,7 +79,7 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
                 .concat(" Selected");
             }}
             labelledBy="Select"
-          />
+          /> */}
 
           <div
             style={{
@@ -76,10 +92,14 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
               padding: 30,
             }}
           >
-            {offered?.map((lang) => {
+            <div style={{ display: "flex", flexDirection: "row", paddingBottom: 20 }}>
+              <h5 style={{ display: "inline", color: "grey" }}>LANGUAGES</h5>
+              <h5 style={{ marginLeft: "auto", display: "inline", color: "grey" }}>Toggle OFF/ON</h5>
+            </div>
+            {languages?.map(([k, label]) => {
               return (
                 <h6
-                  className="touchable-opacity"
+                  // className="touchable-opacity"
                   style={{
                     marginBottom: 15,
                     paddingBottom: 7,
@@ -90,14 +110,17 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
                     borderBottomWidth: 2,
                   }}
                 >
-                  {lang?.label}
+                  {label}
 
-                  <span
+                  <div style={{ marginLeft: "auto" }}>
+                    <ToggleSwitch onChange={(state) => includeNewLanguage(state, k)} ON={isToggled(k)} />
+                  </div>
+                  {/* <span
                     onClick={() => removeLang(lang?.value)}
                     style={{ marginLeft: "auto", color: "#c83131", fontSize: 16 }}
                   >
                     Remove
-                  </span>
+                  </span> */}
                 </h6>
               );
             })}
@@ -108,7 +131,7 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
           </div>
         </div>
       </Row>
-    </Container>
+    </div>
     // </AdminLayout>
   );
 }

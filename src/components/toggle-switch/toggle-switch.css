@@ -1,0 +1,35 @@
+.toggle-switch {
+  /* width: 60px; */
+  width: 40px;
+  height: 20px;
+  border-radius: 15px;
+  background-color: #ccc;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-switch.on {
+  /* background-color: var(--admin-theme-color); */
+  background-color: #4caf50;
+}
+
+.switch-handle {
+  /* width: 26px;
+    height: 26px; */
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  top: -4px;
+  /* top: 2px; */
+  /* left: 2px; */
+  left: -10px;
+  transition: left 0.3s ease;
+}
+
+.toggle-switch.on .switch-handle {
+  left: 25px;
+  /* left: 32px; */
+}
