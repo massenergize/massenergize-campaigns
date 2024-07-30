@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 
 const DoMore = (props) => {
-  console.log("STATIC", props.staticT);
   const { optimum } = props;
 
   if (optimum) return <OptimumWrapper>{<DoMoreComponent {...props} />}</OptimumWrapper>;
