@@ -28,7 +28,7 @@ export async function apiCall (destinationUrl, dataToSend = {}, relocationPage =
 
   const formData = new FormData();
   Object.keys(data).map((k) => formData.append(k, data[k]));
-  // formData.append("language", lang); // TODO: Uncomment this when you are making a PR
+  formData.append("language", lang); 
 
   if (!destinationUrl || destinationUrl.length < 2) {
     return { success: false, error: "Invalid URL passed to apiCall" };
