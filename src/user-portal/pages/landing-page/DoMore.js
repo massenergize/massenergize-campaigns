@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
 
 const DoMore = (props) => {
+  console.log("STATIC", props.staticT);
   const { optimum } = props;
 
   if (optimum) return <OptimumWrapper>{<DoMoreComponent {...props} />}</OptimumWrapper>;
@@ -18,7 +19,7 @@ const DoMore = (props) => {
   );
 };
 
-function DoMoreComponent() {
+function DoMoreComponent({ staticT }) {
   const campaign = useSelector((state) => state.campaign);
   const { communities, communities_section } = campaign || {};
   const { title, description } = communities_section || {};
@@ -30,7 +31,9 @@ function DoMoreComponent() {
       <Container>
         <Row>
           <Col className={"pt-3"}>
-            <SectionTitle className={"text-center text-md-start"}>{title || " Participating Communities"}</SectionTitle>
+            <SectionTitle className={"text-center text-md-start"}>
+              {title || staticT?.title?.text || "..."}
+            </SectionTitle>
             {/* <h2
             style={{
               color: "black",

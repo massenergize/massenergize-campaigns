@@ -641,7 +641,7 @@ function TechnologyFullViewPage({
           />
         </div>
         <div ref={communitiesRef} className="mt-3">
-          <DoMore optimum />
+          <DoMore staticT = {sections?.do_more} optimum />
         </div>
       </div>
       <Footer toggleModal={toggleModal} />

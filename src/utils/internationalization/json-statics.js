@@ -134,6 +134,9 @@ export const ENGLISH = {
         coaches_section: {
           button: { text: "Get Help" },
         },
+        do_more: {
+          title: { text: " Participating Communities" },
+        },
       },
     },
 
@@ -340,6 +343,11 @@ export const GERMAN = {
         coaches_section: {
           button: { text: "Hilfe erhalten" },
         },
+        do_more: {
+          title: {
+            text: "Teilnehmende Gemeinschaften",
+          },
+        },
       },
     },
 
@@ -541,6 +549,11 @@ export const SPANISH = {
         },
         coaches_section: {
           button: { text: "Obtener ayuda" },
+        },
+        do_more: {
+          title: {
+            text: "Comunidades Participantes",
+          },
         },
       },
     },
@@ -748,6 +761,11 @@ export const FRENCH = {
         coaches_section: {
           button: { text: "Obtenir de l'aide" },
         },
+        do_more: {
+          title: {
+            text: "Communautés Participantes",
+          },
+        },
       },
     },
 
@@ -944,6 +962,11 @@ export const CHINESE = {
         },
         coaches_section: {
           button: { text: "获取帮助" },
+        },
+        do_more: {
+          title: {
+            text: "参与社区",
+          },
         },
       },
     },
@@ -1143,6 +1166,11 @@ export const PORTUGUESE = {
         },
         coaches_section: {
           button: { text: "Obter Ajuda" },
+        },
+        do_more: {
+          title: {
+            text: "Comunidades Participantes",
+          },
         },
       },
     },
@@ -1349,6 +1377,11 @@ export const ITALIAN = {
         },
         coaches_section: {
           button: { text: "Ottieni Aiuto" },
+        },
+        do_more: {
+          title: {
+            text: "Comunità Partecipanti",
+          },
         },
       },
     },
