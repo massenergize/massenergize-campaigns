@@ -56,7 +56,7 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
       <Row style={{ height: "100vh" }}>
         {/* <Row style={{}}> */}
         {/* <h3>Add Offered Languages</h3> */}
-        <p>Add all languages that you want to offer on your campaign sites here</p>
+        <p>Add all the translation languages that you want to offer on your campaign site here</p>
         <div style={{ height: "100%", marginTop: 20 }}>
           {/* <div style={{ marginTop: 20 }}> */}
           {/* <MultiSelect
@@ -93,8 +93,8 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
             }}
           >
             <div style={{ display: "flex", flexDirection: "row", paddingBottom: 20 }}>
-              <h5 style={{ display: "inline", color: "grey" }}>LANGUAGES</h5>
-              <h5 style={{ marginLeft: "auto", display: "inline", color: "grey" }}>Toggle OFF/ON</h5>
+              <h5 style={{ display: "inline", color: "#d8d8d8" }}>LANGUAGES</h5>
+              <h5 style={{ marginLeft: "auto", display: "inline", color: "#d8d8d8" }}>Toggle OFF/ON</h5>
             </div>
             {languages?.map(([k, label]) => {
               return (
