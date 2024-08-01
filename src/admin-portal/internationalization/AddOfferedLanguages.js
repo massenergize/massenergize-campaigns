@@ -14,7 +14,8 @@ export const getOfferedForThisCampaign = (objFromRedux, id) => {
 
 const DEFAULT_OFFERED_PER_CAMPAIGN = [{ label: "English (US)", value: "en-US" }];
 function AddOfferedLanguages({ campaignDetails: campaign }) {
-  const languages = Object.entries(LANGUAGES);
+  let languages = Object.entries(LANGUAGES);
+  languages?.sort((a, b) => a[1].localeCompare(b[1]));
   const cOffered = useSelector((state) => state?.campaignOfferedLanguages);
   const dispatch = useDispatch();
   const campaignId = campaign?.id;
@@ -94,7 +95,7 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
           >
             <div style={{ display: "flex", flexDirection: "row", paddingBottom: 20 }}>
               <h5 style={{ display: "inline", color: "#d8d8d8" }}>LANGUAGES</h5>
-              <h5 style={{ marginLeft: "auto", display: "inline", color: "#d8d8d8" }}>Toggle OFF/ON</h5>
+              <h5 style={{ marginLeft: "auto", display: "inline", color: "#d8d8d8" }}>Toggle ON/OFF</h5>
             </div>
             {languages?.map(([k, label]) => {
               return (
