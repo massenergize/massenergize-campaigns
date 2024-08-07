@@ -30,7 +30,7 @@ function OneTechEventSection({ events, style, wrapperStyle, staticT }) {
             // justifyContent: "center",
           }}
         >
-          <SectionTitle style={{ margin: 0 }}>Events</SectionTitle>
+          <SectionTitle style={{ margin: 0 }}>{staticT?.title?.text || "..."}</SectionTitle>
 
           <div style={{ marginLeft: "auto" }}>
             <ArrowButtons containerRef={containerRef} />

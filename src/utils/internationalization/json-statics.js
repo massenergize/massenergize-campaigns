@@ -128,14 +128,40 @@ export const ENGLISH = {
           call_to_add_testimonial: { text: "Add your testimonial here" },
           full_view: { text: "Full View" },
         },
-        events_section: {
-          card: { online: { text: "Online" }, both: { text: "Both" }, in_person: { text: "In Person" } },
-        },
+
         coaches_section: {
           button: { text: "Get Help" },
         },
         do_more: {
           title: { text: " Participating Communities" },
+        },
+        events_section: {
+          title: { text: "Events" },
+          card: { online: { text: "Online" }, both: { text: "Both" }, in_person: { text: "In Person" } },
+        },
+        why_section: {
+          why: { text: "Why" },
+        },
+        take_action_section: {
+          title: { text: "Take Action" },
+          coaches: {
+            title: "Ask a question",
+            description: "Community volunteers are ready to answer questions, big or small",
+            button: { text: "Get Help" },
+          },
+          incentives: {
+            title: "Show me the money",
+            description: "It gets better! See all the incentives available to you.",
+            button: { text: "Incentives" },
+          },
+          vendors: {
+            title: "Find a Vendor",
+            description: "The critical question - who should you have quote your project?",
+            button: { text: "Vendors" },
+          },
+        },
+        vendors_section: {
+          title: { text: "Vendors" },
         },
       },
     },
@@ -337,9 +363,6 @@ export const GERMAN = {
           call_to_add_testimonial: { text: "Fügen Sie hier Ihr Testimonial hinzu" },
           full_view: { text: "Vollansicht" },
         },
-        events_section: {
-          card: { online: { text: "Online" }, both: { text: "Beide" }, in_person: { text: "Persönlich" } },
-        },
         coaches_section: {
           button: { text: "Hilfe erhalten" },
         },
@@ -347,6 +370,38 @@ export const GERMAN = {
           title: {
             text: "Teilnehmende Gemeinschaften",
           },
+        },
+        events_section: {
+          title: { text: "Veranstaltungen" },
+          card: {
+            online: { text: "Online" },
+            both: { text: "Beides" },
+            in_person: { text: "Persönlich" },
+          },
+        },
+        why_section: {
+          why: { text: "Warum" },
+        },
+        take_action_section: {
+          title: { text: "Handeln" },
+          coaches: {
+            title: "Stellen Sie eine Frage",
+            description: "Freiwillige aus der Gemeinschaft sind bereit, Fragen zu beantworten, egal ob groß oder klein",
+            button: { text: "Hilfe bekommen" },
+          },
+          incentives: {
+            title: "Zeig mir das Geld",
+            description: "Es wird besser! Sehen Sie alle Anreize, die Ihnen zur Verfügung stehen.",
+            button: { text: "Anreize" },
+          },
+          vendors: {
+            title: "Finden Sie einen Anbieter",
+            description: "Die entscheidende Frage - wer sollte Ihr Projekt anbieten?",
+            button: { text: "Anbieter" },
+          },
+        },
+        vendors_section: {
+          title: { text: "Anbieter" },
         },
       },
     },
@@ -544,9 +599,6 @@ export const SPANISH = {
           call_to_add_testimonial: { text: "Agrega tu testimonio aquí" },
           full_view: { text: "Vista completa" },
         },
-        events_section: {
-          card: { online: { text: "En línea" }, both: { text: "Ambos" }, in_person: { text: "En persona" } },
-        },
         coaches_section: {
           button: { text: "Obtener ayuda" },
         },
@@ -554,6 +606,38 @@ export const SPANISH = {
           title: {
             text: "Comunidades Participantes",
           },
+        },
+        events_section: {
+          title: { text: "Eventos" },
+          card: {
+            online: { text: "En línea" },
+            both: { text: "Ambos" },
+            in_person: { text: "En persona" },
+          },
+        },
+        why_section: {
+          why: { text: "Por qué" },
+        },
+        take_action_section: {
+          title: { text: "Tomar Acción" },
+          coaches: {
+            title: "Haz una pregunta",
+            description: "Voluntarios de la comunidad están listos para responder preguntas, grandes o pequeñas",
+            button: { text: "Obtener Ayuda" },
+          },
+          incentives: {
+            title: "Enséñame el dinero",
+            description: "¡Mejora! Vea todos los incentivos disponibles para usted.",
+            button: { text: "Incentivos" },
+          },
+          vendors: {
+            title: "Encuentra un Vendedor",
+            description: "La pregunta crítica - ¿quién debería cotizar su proyecto?",
+            button: { text: "Vendedores" },
+          },
+        },
+        vendors_section: {
+          title: { text: "Vendedores" },
         },
       },
     },
@@ -755,9 +839,7 @@ export const FRENCH = {
           call_to_add_testimonial: { text: "Ajoutez votre témoignage ici" },
           full_view: { text: "Vue complète" },
         },
-        events_section: {
-          card: { online: { text: "En ligne" }, both: { text: "Les deux" }, in_person: { text: "En personne" } },
-        },
+
         coaches_section: {
           button: { text: "Obtenir de l'aide" },
         },
@@ -765,6 +847,38 @@ export const FRENCH = {
           title: {
             text: "Communautés Participantes",
           },
+        },
+        events_section: {
+          title: { text: "Événements" },
+          card: {
+            online: { text: "En ligne" },
+            both: { text: "Les deux" },
+            in_person: { text: "En personne" },
+          },
+        },
+        why_section: {
+          why: { text: "Pourquoi" },
+        },
+        take_action_section: {
+          title: { text: "Agir" },
+          coaches: {
+            title: "Poser une question",
+            description: "Des bénévoles communautaires sont prêts à répondre à vos questions, grandes ou petites",
+            button: { text: "Obtenir de l'aide" },
+          },
+          incentives: {
+            title: "Montrez-moi l'argent",
+            description: "Ça s'améliore! Voir tous les incitatifs disponibles pour vous.",
+            button: { text: "Incitatifs" },
+          },
+          vendors: {
+            title: "Trouver un Vendeur",
+            description: "La question cruciale - qui devrait soumissionner votre projet?",
+            button: { text: "Vendeurs" },
+          },
+        },
+        vendors_section: {
+          title: { text: "Vendeurs" },
         },
       },
     },
@@ -957,9 +1071,7 @@ export const CHINESE = {
           call_to_add_testimonial: { text: "在此添加你的评价" },
           full_view: { text: "完整视图" },
         },
-        events_section: {
-          card: { online: { text: "在线" }, both: { text: "两者" }, in_person: { text: "现场" } },
-        },
+
         coaches_section: {
           button: { text: "获取帮助" },
         },
@@ -967,6 +1079,38 @@ export const CHINESE = {
           title: {
             text: "参与社区",
           },
+        },
+        events_section: {
+          title: { text: "活动" },
+          card: {
+            online: { text: "在线" },
+            both: { text: "两者都有" },
+            in_person: { text: "亲自" },
+          },
+        },
+        why_section: {
+          why: { text: "为什么" },
+        },
+        take_action_section: {
+          title: { text: "采取行动" },
+          coaches: {
+            title: "问一个问题",
+            description: "社区志愿者准备回答大大小小的问题",
+            button: { text: "获取帮助" },
+          },
+          incentives: {
+            title: "给我看钱",
+            description: "会更好！查看所有可用的激励措施。",
+            button: { text: "激励措施" },
+          },
+          vendors: {
+            title: "找供应商",
+            description: "关键问题 - 谁应该为您的项目报价？",
+            button: { text: "供应商" },
+          },
+        },
+        vendors_section: {
+          title: { text: "供应商" },
         },
       },
     },
@@ -1161,9 +1305,6 @@ export const PORTUGUESE = {
           call_to_add_testimonial: { text: "Adicione seu depoimento aqui" },
           full_view: { text: "Visualização Completa" },
         },
-        events_section: {
-          card: { online: { text: "Online" }, both: { text: "Ambos" }, in_person: { text: "Presencial" } },
-        },
         coaches_section: {
           button: { text: "Obter Ajuda" },
         },
@@ -1171,6 +1312,38 @@ export const PORTUGUESE = {
           title: {
             text: "Comunidades Participantes",
           },
+        },
+        events_section: {
+          title: { text: "Eventos" },
+          card: {
+            online: { text: "Online" },
+            both: { text: "Ambos" },
+            in_person: { text: "Presencial" },
+          },
+        },
+        why_section: {
+          why: { text: "Por quê" },
+        },
+        take_action_section: {
+          title: { text: "Tomar Ação" },
+          coaches: {
+            title: "Faça uma pergunta",
+            description: "Voluntários da comunidade estão prontos para responder perguntas, grandes ou pequenas",
+            button: { text: "Obter Ajuda" },
+          },
+          incentives: {
+            title: "Mostre-me o dinheiro",
+            description: "Fica melhor! Veja todos os incentivos disponíveis para você.",
+            button: { text: "Incentivos" },
+          },
+          vendors: {
+            title: "Encontre um Fornecedor",
+            description: "A questão crítica - quem deve cotar seu projeto?",
+            button: { text: "Fornecedores" },
+          },
+        },
+        vendors_section: {
+          title: { text: "Fornecedores" },
         },
       },
     },
@@ -1372,9 +1545,6 @@ export const ITALIAN = {
           call_to_add_testimonial: { text: "Aggiungi qui la tua testimonianza" },
           full_view: { text: "Vista Completa" },
         },
-        events_section: {
-          card: { online: { text: "Online" }, both: { text: "Entrambi" }, in_person: { text: "In presenza" } },
-        },
         coaches_section: {
           button: { text: "Ottieni Aiuto" },
         },
@@ -1382,6 +1552,38 @@ export const ITALIAN = {
           title: {
             text: "Comunità Partecipanti",
           },
+        },
+        events_section: {
+          title: { text: "Eventi" },
+          card: {
+            online: { text: "Online" },
+            both: { text: "Entrambi" },
+            in_person: { text: "Di persona" },
+          },
+        },
+        why_section: {
+          why: { text: "Perché" },
+        },
+        take_action_section: {
+          title: { text: "Agire" },
+          coaches: {
+            title: "Fai una domanda",
+            description: "I volontari della comunità sono pronti a rispondere a domande, grandi o piccole",
+            button: { text: "Ricevi aiuto" },
+          },
+          incentives: {
+            title: "Mostrami i soldi",
+            description: "Migliora! Vedi tutti gli incentivi disponibili per te.",
+            button: { text: "Incentivi" },
+          },
+          vendors: {
+            title: "Trova un Fornitore",
+            description: "La domanda critica - chi dovrebbe fare un preventivo per il tuo progetto?",
+            button: { text: "Fornitori" },
+          },
+        },
+        vendors_section: {
+          title: { text: "Fornitori" },
         },
       },
     },

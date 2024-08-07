@@ -568,6 +568,7 @@ function TechnologyFullViewPage({
           overview={overview}
           campaignName={name}
           overview_title={technology?.overview_title}
+          staticT={sections?.why_section}
         />
         <div className="phone-vanish">
           <TakeActionSection
@@ -577,6 +578,7 @@ function TechnologyFullViewPage({
             trackActivity={trackActivity}
             authUser={authUser}
             vendors={vendors}
+            staticT = {sections?.take_action_section}
           />
         </div>
         <div ref={testimonialsRef}>
@@ -627,7 +629,12 @@ function TechnologyFullViewPage({
           />
         </div>
         <div ref={vendorsRef}>
-          <Vendors sectionId="vendors" data={vendors_section || {}} vendors={vendors} />
+          <Vendors
+            sectionId="vendors"
+            data={vendors_section || {}}
+            vendors={vendors}
+            staticT={sections?.vendors_section}
+          />
         </div>
 
         <MoreDetailsSection data={more_info_section} sectionId="more-detail" />
@@ -641,7 +648,7 @@ function TechnologyFullViewPage({
           />
         </div>
         <div ref={communitiesRef} className="mt-3">
-          <DoMore staticT = {sections?.do_more} optimum />
+          <DoMore staticT={sections?.do_more} optimum />
         </div>
       </div>
       <Footer toggleModal={toggleModal} />
