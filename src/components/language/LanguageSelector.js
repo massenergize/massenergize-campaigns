@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadActiveLanguageAction, setActiveLanguageInStorage } from "../../redux/actions/actions";
-import { smartString } from "../../utils/utils";
+import { PREFERRED_LANGUAGE_STORAGE_KEY, smartString } from "../../utils/utils";
 
 function LanguageSelector() {
   const campaign = useSelector((state) => state?.campaign);
@@ -16,6 +16,9 @@ function LanguageSelector() {
     window.location.reload();
   };
 
+  if (!languages || languages.length === 0) {
+    return null;
+  }
   return (
     // <div className="l-drop">
     <div className="floating-l-drop">
