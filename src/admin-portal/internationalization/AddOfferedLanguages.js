@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AdminLayout } from "../../layouts/admin-layout";
 import { Container, Row, ToggleButton } from "react-bootstrap";
 import { MultiSelect } from "react-multi-select-component";
 import { LANGUAGES } from "../../utils/internationalization/languages";
 import { useDispatch, useSelector } from "react-redux";
-import { updateOfferedLanguageAction } from "src/redux/actions/actions";
+import { loadLanguagesAction, updateOfferedLanguageAction } from "src/redux/actions/actions";
 import Button from "src/components/admin-components/Button";
 import ToggleSwitch from "src/components/toggle-switch/ToggleSwitch";
+import Loading from "src/components/pieces/Loading";
+import { apiCall } from "src/api/messenger";
 export const getOfferedForThisCampaign = (objFromRedux, id) => {
   if (!objFromRedux) return DEFAULT_OFFERED_PER_CAMPAIGN;
   return objFromRedux[id];
@@ -14,14 +16,22 @@ export const getOfferedForThisCampaign = (objFromRedux, id) => {
 
 const DEFAULT_OFFERED_PER_CAMPAIGN = [{ label: "English (US)", value: "en-US" }];
 function AddOfferedLanguages({ campaignDetails: campaign }) {
-  let languages = Object.entries(LANGUAGES);
-  languages?.sort((a, b) => a[1].localeCompare(b[1]));
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const languages = useSelector((state) => state?.languageList);
+  // let languages = Object.entries(langsFromSadmin || {});
+  languages?.sort((a, b) => a?.name?.localeCompare(b?.name));
+  console.log("What is Lang", languages);
+
   const cOffered = useSelector((state) => state?.campaignOfferedLanguages);
   const dispatch = useDispatch();
   const campaignId = campaign?.id;
 
   const offered = getOfferedForThisCampaign(cOffered, campaignId);
 
+  const putLanguageListInRedux = (data) => {
+    return dispatch(loadLanguagesAction(data));
+  };
   const updateInRedux = (data) => {
     return dispatch(updateOfferedLanguageAction({ ...(cOffered || {}), [campaignId]: data }));
   };
@@ -37,6 +47,23 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
     updateInRedux(data);
   };
 
+  const fetchEssentials = () => {
+    Promise.all([apiCall("supported_languages.list")]).then(([langList]) => {
+      setLoading(false);
+      if (!langList?.success) {
+        return setError(langList?.error || "Sorry, could not load list of languages");
+      }
+      console.log("LANGLIST", langList);
+      putLanguageListInRedux(langList?.data);
+      // updateInRedux(offeredList?.data);
+    });
+  };
+
+  useEffect(() => {
+    if (!languages?.length) fetchEssentials();
+    else setLoading(false);
+  }, []);
+
   const getLangWithKey = (key) => {
     return languages?.find(([k]) => key === k);
   };
@@ -50,6 +77,9 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
     const newOffered = offered?.filter(({ value }) => value !== key);
     updateInRedux(newOffered);
   };
+
+  if (error) return <p style={{ width: "100%", textAlign: "center", fontWeight: "bold", color: "#df5555" }}>{error}</p>;
+  if (loading) return <Loading text="Fetching languages...." />;
 
   return (
     // <AdminLayout>
@@ -97,7 +127,7 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
               <h5 style={{ display: "inline", color: "#d8d8d8" }}>LANGUAGES</h5>
               <h5 style={{ marginLeft: "auto", display: "inline", color: "#d8d8d8" }}>Toggle ON/OFF</h5>
             </div>
-            {languages?.map(([k, label]) => {
+            {languages?.map(({ name: label, code: k }) => {
               return (
                 <h6
                   // className="touchable-opacity"

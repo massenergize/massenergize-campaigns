@@ -75,7 +75,7 @@ export const staticTextHeapReducer = (state = DEFAULT_STATIC_TEXT, action = {}) 
   }
   return state;
 };
-export const offeredLanguagesReducer = (state = LANGUAGES, action = {}) => {
+export const offeredLanguagesReducer = (state = null, action = {}) => {
   if (action.type === LOAD_OFFERED_LANGUAGES) {
     return action.payload;
   }

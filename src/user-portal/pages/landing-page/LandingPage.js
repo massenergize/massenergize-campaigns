@@ -67,8 +67,6 @@ function LandingPage({
   const salt = fetchUrlParams("salt");
   const heroAB = fetchUrlParams("hero");
   const showHeroV1 = heroAB && heroAB === "v2";
-
-  console.log("Preview static", previewStaticT)
   const { key_contact, is_published, description, technologies_section, coaches_section, about_us_title } =
     campaign || {};
 

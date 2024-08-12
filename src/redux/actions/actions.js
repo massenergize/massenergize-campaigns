@@ -53,7 +53,7 @@ export const loadActiveLanguageAction = (isoCode) => {
 export const loadStaticTextHeapAction = (data = {}) => {
   return { type: SET_STATIC_TEXT_HEAP, payload: data };
 };
-export const loadOfferedLanguagesAction = (data = []) => {
+export const loadLanguagesAction = (data = []) => {
   return { type: LOAD_OFFERED_LANGUAGES, payload: data };
 };
 export const testReduxAction = (someValue = []) => {
