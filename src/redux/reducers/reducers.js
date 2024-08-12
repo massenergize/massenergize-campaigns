@@ -62,7 +62,7 @@ export const universalModalReducer = (state = { show: false, component: <></> },
 export const setActiveLanguageReducer = (state = undefined, action = {}) => {
   if (state == undefined) {
     state = getPreferredLanguageISO();
-    state = state || LANGUAGES["en-US"];
+    state = state || "en-US";
   }
   if (action.type === SET_ACTIVE_LANGUAGE) {
     return action.payload;
