@@ -1,6 +1,12 @@
 // All items here are dummies used to test the internationalization feature
 
 export const ENGLISH = {
+  inPreview: {
+    button: { text: "Preview Mode" },
+    notice: {
+      text: " is not published yet. Admins are still working on it. Please come back later when its complete...",
+    },
+  },
   forms: {
     testimonials: {
       title: { text: "Title*", placeholder: "Enter the title of the testimonial...", label: "Tell us your story!" },
@@ -69,6 +75,7 @@ export const ENGLISH = {
           full_view: { text: "Full View" },
         },
         events_section: {
+          title: { text: "Events" },
           scrollable: {
             text: "Scroll from left to right to see more events, or use the arrow buttons(top right) to scroll",
           },
@@ -225,6 +232,12 @@ export const ENGLISH = {
 };
 
 export const GERMAN = {
+  inPreview: {
+    button: { text: "Vorschau-Modus" },
+    notice: {
+      text: "ist noch nicht veröffentlicht. Die Administratoren arbeiten noch daran. Bitte kommen Sie später zurück, wenn es fertig ist...",
+    },
+  },
   forms: {
     testimonials: {
       title: {
@@ -304,6 +317,7 @@ export const GERMAN = {
           full_view: { text: "Vollansicht" },
         },
         events_section: {
+          title: { text: "Veranstaltungen" },
           scrollable: {
             text: "Scrollen Sie von links nach rechts, um weitere Veranstaltungen zu sehen, oder verwenden Sie die Pfeiltasten (oben rechts), um zu scrollen",
           },
@@ -465,6 +479,12 @@ export const GERMAN = {
 };
 
 export const SPANISH = {
+  inPreview: {
+    button: { text: "Modo de Vista Previa" },
+    notice: {
+      text: "aún no está publicado. Los administradores siguen trabajando en ello. Por favor, vuelva más tarde cuando esté completo...",
+    },
+  },
   forms: {
     testimonials: {
       title: { text: "Título*", placeholder: "Ingrese el título del testimonio...", label: "¡Cuéntenos su historia!" },
@@ -540,6 +560,7 @@ export const SPANISH = {
           full_view: { text: "Vista completa" },
         },
         events_section: {
+          title: { text: "Testimonios" },
           scrollable: {
             text: "Desplázate de izquierda a derecha para ver más eventos, o usa los botones de flecha (arriba a la derecha) para desplazarte",
           },
@@ -701,6 +722,12 @@ export const SPANISH = {
 };
 
 export const FRENCH = {
+  inPreview: {
+    button: { text: "Mode Prévisualisation" },
+    notice: {
+      text: "n'est pas encore publié. Les administrateurs y travaillent encore. Veuillez revenir plus tard lorsqu'il sera terminé...",
+    },
+  },
   forms: {
     testimonials: {
       title: {
@@ -780,6 +807,7 @@ export const FRENCH = {
           full_view: { text: "Vue complète" },
         },
         events_section: {
+          title: { text: "Témoignages" },
           scrollable: {
             text: "Faites défiler de gauche à droite pour voir plus d'événements, ou utilisez les boutons fléchés (en haut à droite) pour faire défiler",
           },
@@ -944,6 +972,12 @@ export const FRENCH = {
 };
 
 export const CHINESE = {
+  inPreview: {
+    button: { text: "预览模式" },
+    notice: {
+      text: "尚未发布。管理员仍在处理。请稍后再回来查看完成的内容...",
+    },
+  },
   forms: {
     testimonials: {
       title: { text: "標題*", placeholder: "輸入推薦書的標題...", label: "告訴我們你的故事!" },
@@ -1012,6 +1046,7 @@ export const CHINESE = {
           full_view: { text: "完整视图" },
         },
         events_section: {
+          title: { text: "活动" },
           scrollable: {
             text: "从左到右滚动查看更多活动，或使用右上角的箭头按钮滚动",
           },
@@ -1174,6 +1209,12 @@ export const CHINESE = {
 };
 
 export const PORTUGUESE = {
+  inPreview: {
+    button: { text: "Modo de Pré-visualização" },
+    notice: {
+      text: "ainda não foi publicado. Os administradores ainda estão trabalhando nisso. Por favor, volte mais tarde quando estiver completo...",
+    },
+  },
   forms: {
     testimonials: {
       title: { text: "Título*", placeholder: "Insira o título do depoimento...", label: "Conte-nos sua história!" },
@@ -1246,6 +1287,7 @@ export const PORTUGUESE = {
           full_view: { text: "Visualização Completa" },
         },
         events_section: {
+          title: { text: "Eventos" },
           scrollable: {
             text: "Role da esquerda para a direita para ver mais eventos, ou use os botões de seta (canto superior direito) para rolar",
           },
@@ -1407,6 +1449,12 @@ export const PORTUGUESE = {
 };
 
 export const ITALIAN = {
+  inPreview: {
+    button: { text: "Modalità Anteprima" },
+    notice: {
+      text: "non è ancora pubblicato. Gli amministratori ci stanno ancora lavorando. Torna più tardi quando sarà completo...",
+    },
+  },
   forms: {
     testimonials: {
       title: {
@@ -1486,6 +1534,7 @@ export const ITALIAN = {
           full_view: { text: "Vista Completa" },
         },
         events_section: {
+          title: { text: "Eventi" },
           scrollable: {
             text: "Scorri da sinistra a destra per vedere più eventi, o usa i pulsanti freccia (in alto a destra) per scorrere",
           },

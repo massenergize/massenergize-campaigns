@@ -44,7 +44,7 @@ function LandingPage({
 }) {
   const [mounted, setMounted] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
-  const { loader, pages, share: shareStaticT } = getStaticText();
+  const { loader, pages, share: shareStaticT, inPreview: previewStaticT } = getStaticText();
   const homepageStaticT = pages?.homepage || {};
 
   const coachesRef = useRef();
@@ -68,6 +68,7 @@ function LandingPage({
   const heroAB = fetchUrlParams("hero");
   const showHeroV1 = heroAB && heroAB === "v2";
 
+  console.log("Preview static", previewStaticT)
   const { key_contact, is_published, description, technologies_section, coaches_section, about_us_title } =
     campaign || {};
 
@@ -202,7 +203,7 @@ function LandingPage({
             borderBottomLeftRadius: 55,
           }}
         >
-          <span>PREVIEW MODE</span>
+          <span>{previewStaticT?.button?.text || "PREVIEW MODE"}</span>
         </p>
       )}
       <AppNavigationBar menu={menu} campaign={campaign} />

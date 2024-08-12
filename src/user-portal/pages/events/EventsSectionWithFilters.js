@@ -58,7 +58,7 @@ function EventsSectionWithFilters({ sectionId, technologies, staticT }) {
       <CenteredWrapper>
         <Container>
           <div className="row-flex t-with-filter-top">
-            <SectionTitle>Events</SectionTitle>
+            <SectionTitle>{staticT?.title?.text || "Events"}</SectionTitle>
             {hasScrollableEvents && <ArrowButtons containerRef={containerRef} style={{ marginLeft: "auto" }} />}
           </div>
           {hasScrollableEvents && (
