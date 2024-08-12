@@ -168,7 +168,7 @@ export function TechnologyEditView() {
               <h4 className="text-center">{information?.name || ""}</h4>
             </Col>
             <Col md="auto">
-              <ToggleLanguage campaignId={campaign_id} />
+              {/* <ToggleLanguage campaignId={campaign_id} /> */}
               {(technology_id || techObject?.technology?.id) && (
                 <Button
                   variant="primary"
