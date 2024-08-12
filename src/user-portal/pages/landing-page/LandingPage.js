@@ -139,7 +139,7 @@ function LandingPage({
     const data = { description };
     toggleModal({
       show: true,
-      title: `About ${campaign?.title || ""}`,
+      title: `${campaign?.title || ""}`,
       component: ({ close }) => <RoamingModalSheet close={close} data={data} />,
       fullControl: true,
     });
