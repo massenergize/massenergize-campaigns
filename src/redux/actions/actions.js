@@ -17,11 +17,45 @@ import {
   UPDATE_TESTIMONIALS_OBJ,
   SET_CAMPAIGN_ACCOUNT,
   SET_IS_ADMIN_PORTAL,
-  SET_MASSENERGISE_USERS, SET_CAMPAIGN_COMMUNITIES_EVENTS, SET_CAMPAIGN_COMMENTS, SET_CAMPAIGN_TESTIMONIALS, SET_PORTAL_TESTIMONIALS
+  SET_MASSENERGISE_USERS,
+  SET_CAMPAIGN_COMMUNITIES_EVENTS,
+  SET_CAMPAIGN_COMMENTS,
+  SET_CAMPAIGN_TESTIMONIALS,
+  SET_PORTAL_TESTIMONIALS,
+  SET_STATIC_TEXT_HEAP,
+  LOAD_OFFERED_LANGUAGES,
+  SET_ACTIVE_LANGUAGE,
+  ADMIN_UPDATE_OFFERED_LANGUAGES,
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
+import { LANGUAGES } from "../../utils/internationalization/languages";
+import store from "./../store";
+import { PREFERRED_LANGUAGE_STORAGE_KEY } from "src/utils/utils";
 
 export const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
+
+export const getStaticText = () => {
+  const state = store.getState();
+  const activeLanguage = state?.activeLanguage;
+  const staticTextHeap = state?.staticTextHeap;
+  return staticTextHeap[activeLanguage] || staticTextHeap?.en_US || {};
+};
+export const setActiveLanguageInStorage = (isoCode) => {
+  localStorage.setItem(PREFERRED_LANGUAGE_STORAGE_KEY, isoCode);
+};
+
+export const updateOfferedLanguageAction = (data) => {
+  return { type: ADMIN_UPDATE_OFFERED_LANGUAGES, payload: data };
+};
+export const loadActiveLanguageAction = (isoCode) => {
+  return { type: SET_ACTIVE_LANGUAGE, payload: isoCode };
+};
+export const loadStaticTextHeapAction = (data = {}) => {
+  return { type: SET_STATIC_TEXT_HEAP, payload: data };
+};
+export const loadOfferedLanguagesAction = (data = []) => {
+  return { type: LOAD_OFFERED_LANGUAGES, payload: data };
+};
 export const testReduxAction = (someValue = []) => {
   return { type: DO_NOTHING, payload: someValue };
 };
@@ -122,6 +156,8 @@ export const appInnitAction = (campaignId, cb) => {
   return (dispatch) => {
     dispatch(loadUserObjAction(savedUser)); // use saved user to run a request to bring in the most recent changes to the user
     const userContent = user?.email ? { email: user.email } : {};
+    const activeLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || "en_US";
+    dispatch(loadActiveLanguageAction(activeLang));
     Promise.all([
       apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
       apiCall(CAMPAIGN_VIEW_URL, {
@@ -169,22 +205,22 @@ export const logUserOut = () => {
       // dispatch(s(null))
     });
 };
-export const setAdminPortalBooleanAction = (payload =false) => {
+export const setAdminPortalBooleanAction = (payload = false) => {
   return { type: SET_IS_ADMIN_PORTAL, payload };
 };
-export const setMassEnergizeUsersAction = (payload =[]) => {
+export const setMassEnergizeUsersAction = (payload = []) => {
   return { type: SET_MASSENERGISE_USERS, payload };
 };
 
-export const setCampaignCommunityEventsAction = (payload =[]) => {
+export const setCampaignCommunityEventsAction = (payload = []) => {
   return { type: SET_CAMPAIGN_COMMUNITIES_EVENTS, payload };
 };
-export const setCampaignCommentsAction = (payload =[]) => {
+export const setCampaignCommentsAction = (payload = []) => {
   return { type: SET_CAMPAIGN_COMMENTS, payload };
 };
-export const setCampaignTestimonialsAction = (payload =[]) => {
+export const setCampaignTestimonialsAction = (payload = []) => {
   return { type: SET_CAMPAIGN_TESTIMONIALS, payload };
 };
-export const setPortalTestimonialsAction = (payload =[]) => {
+export const setPortalTestimonialsAction = (payload = []) => {
   return { type: SET_PORTAL_TESTIMONIALS, payload };
 };

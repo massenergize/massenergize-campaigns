@@ -5,7 +5,7 @@ import Notification from "../../../components/pieces/Notification";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { apiCall } from "../../../api/messenger";
-import { setTestimonialsActions } from "../../../redux/actions/actions";
+import { getStaticText, setTestimonialsActions } from "../../../redux/actions/actions";
 
 const NULL = "null";
 function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updateTestimonials, testimonials, cancel }) {
@@ -14,6 +14,8 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
   const [form, setForm] = useState({});
   const [loading, setLoading] = useState(false);
   const editorRef = useRef(null);
+  const { forms } = getStaticText();
+  const staticT = forms?.testimonials || {};
 
   const setState = (name, value) => {
     setForm({ ...form, [name]: value });
@@ -97,7 +99,7 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
           // overflowX: "scroll",
         }}
       >
-        <Form.Text>Tell us your story!</Form.Text>
+        <Form.Text>{staticT?.title?.label || "Tell us your story!"}</Form.Text>
         {/* <InputGroup className="mb-3 mt-2">
           <InputGroup.Text style={{ fontWeight: "bold" }} id="basic-addon1">
             Your Name*
@@ -131,12 +133,12 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
         </InputGroup> */}
         <InputGroup className="mb-3 mt-2 body-font">
           <InputGroup.Text style={{ fontWeight: "bold" }} id="basic-addon1">
-            Title*
+            {staticT?.title?.title || "Title*"}
           </InputGroup.Text>
           <Form.Control
             type="text"
             value={getValue("title") || ""}
-            placeholder="Enter the title of the testimonial..."
+            placeholder={staticT?.title?.placeholder || "Enter the title of the testimonial..."}
             aria-label="title"
             aria-describedby="basic-addon1"
             onChange={(e) => {
@@ -146,7 +148,7 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
         </InputGroup>
 
         <Form.Group controlId="formFileMultiple" className="mb-3">
-          <Form.Text>Include an image in your testimonial</Form.Text>
+          <Form.Text>{staticT?.image?.label || "Include an image in your testimonial"}</Form.Text>
           <Form.Control
             className="mt-2"
             type="file"
@@ -161,7 +163,7 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
         </Form.Group>
 
         <div style={{ marginBottom: 15 }}>
-          <Form.Text>Select your community</Form.Text>
+          <Form.Text>{staticT?.community?.label || "Select your community"}</Form.Text>
           <Form.Select
             value={getValue("chosenCommunity") || ""}
             style={{
@@ -171,7 +173,7 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
             }}
             onChange={(e) => setState("chosenCommunity", value(e))}
           >
-            <option value={NULL}>--- Select your community ---</option>
+            <option value={NULL}>{staticT?.community?.placeholder || "--- Select your community ---"}</option>
             {listOfCommunities?.map(({ community, alias }, index) => {
               return (
                 <option key={index?.toString()} value={community?.id}>
@@ -182,7 +184,7 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
           </Form.Select>
         </div>
         <div style={{ marginBottom: 15 }}>
-          <Form.Text>What technology is this testimonial under?</Form.Text>
+          <Form.Text>{staticT?.technology?.label || "What technology is this testimonial under?"}</Form.Text>
           <Form.Select
             value={getValue("campaign_technology_id") || ""}
             style={{
@@ -192,7 +194,7 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
             }}
             onChange={(e) => setState("campaign_technology_id", value(e))}
           >
-            <option value={NULL}>--- Select a technology ---</option>
+            <option value={NULL}>{staticT?.technology?.placeholder || "--- Select a technology ---"}</option>
             {technologies?.map(({ campaign_technology_id, name }, index) => {
               return (
                 <option key={campaign_technology_id?.toString() || index?.toString()} value={campaign_technology_id}>
@@ -207,7 +209,7 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
           <Editor
             apiKey="6pg5u1ebssmbyjcba68sak0bfhx28w247y9lcdnq1m5q94t1" // TODO: Put it somewhere safer later
             onInit={(evt, editor) => (editorRef.current = editor)}
-            initialValue="<p>Start telling your story here...</p>"
+            initialValue={`<p>${staticT?.description?.placeholder || "Start telling your story here..."}</p>`}
             init={{
               height: 300,
               menubar: false,
@@ -265,7 +267,7 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
               background: "var(--app-accent-3)",
             }}
           >
-            Cancel
+            {staticT?.buttons?.cancel?.text || "Cancel"}
           </Button>
           <Button
             className="touchable-opacity"
@@ -284,7 +286,7 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
             }}
           >
             {loading && <Spinner size="sm" style={{ marginRight: 6 }}></Spinner>}
-            Submit
+            {staticT?.buttons?.submit?.text || "Submit"}
           </Button>
         </ModalFooter>
       </div>

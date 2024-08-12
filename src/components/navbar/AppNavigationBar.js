@@ -3,11 +3,13 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addUrlSearchParams, generateUniqueRandomString } from "../../utils/utils";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import * as PropTypes from "prop-types";
+import { loadActiveLanguageAction } from "../../redux/actions/actions";
+import LanguageSelector from "../language/LanguageSelector";
 
 const EXCLUDE_FROM_NAV = ["communities"];
 
@@ -54,8 +56,6 @@ DropdownTitle.propTypes = { menu: PropTypes.any };
 function AppNavigationBar({ menu, campaign }) {
   const navigator = useNavigate();
   const { secondary_logo, primary_logo } = campaign || {};
-
-  const home = menu?.find((m) => m?.key?.toLowerCase() === "home");
 
   return (
     <Navbar variant="light" expand="lg" style={{ background: "white" }} fixed="top" className="app-nav-bar elevate-1">
@@ -176,6 +176,10 @@ function AppNavigationBar({ menu, campaign }) {
                 )}
               </Col>
             </Row>
+
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+              <LanguageSelector />
+            </div>
           </Nav>
         </Navbar.Collapse>
       </Container>

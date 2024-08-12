@@ -1,5 +1,10 @@
 import { format, formatDistanceToNow, isSameDay, parseISO } from "date-fns";
 import { ME_STATES } from "./States";
+import { LANGUAGES } from "./internationalization/languages";
+
+
+export const PREFERRED_LANGUAGE_STORAGE_KEY = "PREFERRED_LANGUAGE";
+export const getPreferredLanguageISO = () => localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || LANGUAGES?.en_US;
 
 export function sortEvents(events) {
   return events?.sort((a, b) => new Date(a?.event?.start_date) - new Date(b?.event?.start_date));

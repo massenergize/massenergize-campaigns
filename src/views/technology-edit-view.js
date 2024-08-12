@@ -13,18 +13,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLink } from "@fortawesome/free-solid-svg-icons";
 import { HorizontalPushLoader } from "../components/horizontal-push-loader/horizontal-push-loader";
 import usePrevious from "../hooks/use-previous";
+import ToggleLanguage from "../admin-portal/internationalization/ToggleLanguage";
 
 const INFO_INITIAL_STATE = {
   name: "",
   image: "",
   description: "",
   summary: "",
-  help_link:""
+  help_link: "",
 };
 
 const UNPROTECTED = ["information"];
 
-export function TechnologyEditView () {
+export function TechnologyEditView() {
   const { setNewTechnologyDetails } = useTechnologyContext();
   let TABS = technologyPages;
 
@@ -41,8 +42,7 @@ export function TechnologyEditView () {
 
   const techIsNotCreatedYet = !getTechnologyId();
 
-  const params = useParams()
-
+  const params = useParams();
 
   if (techIsNotCreatedYet) {
     TABS = TABS.map((tab) => {
@@ -65,7 +65,7 @@ export function TechnologyEditView () {
   const updateTechObject = (data) => {
     const obj = { ...techObject, ...(data || {}) };
     setTechObject(obj);
-    setNewTechnologyDetails(obj)
+    setNewTechnologyDetails(obj);
     inflate(obj);
   };
 
@@ -74,7 +74,8 @@ export function TechnologyEditView () {
     error: technologyError,
     isValidating: technologyIsValidating,
     isLoading: technologyIsLoading,
-  } = useSWR(technology_id ? `/technologies.info?id=${technology_id}` : null,
+  } = useSWR(
+    technology_id ? `/technologies.info?id=${technology_id}` : null,
     async () => {
       return await fetchTechnology(technology_id);
     },
@@ -148,7 +149,7 @@ export function TechnologyEditView () {
   if (technologyIsLoading) {
     return (
       <Container className="d-flex m-auto" style={{ height: "70vh" }}>
-        <HorizontalPushLoader className={"mt-5"}/>
+        <HorizontalPushLoader className={"mt-5"} />
       </Container>
     );
   }
@@ -158,28 +159,26 @@ export function TechnologyEditView () {
       {/*region Header*/}
       <Row className="overflow-scroll">
         <Col>
-          <Row className="w-10 justify-content-between">
+          <Row className="w-10 justify-content-between" style={{ alignItems: "center" }}>
             <Col md="auto">
               <BackButton />
             </Col>
+
             <Col>
-              <h4 className="text-center">{information?.name|| ""}</h4>
+              <h4 className="text-center">{information?.name || ""}</h4>
             </Col>
             <Col md="auto">
-              {(technology_id ||
-                techObject?.technology?.id) && (
-                 <Button
-                   variant="primary"
-                   onClick={() => {
-                     window.open(
-                       `/campaign/${campaign_id}/technology/${campaign_technology_id}?preview=true`,
-                       "_blank",
-                     );
-                   }}
-                 >
-                   Preview Technology <FontAwesomeIcon icon={faExternalLink} />
-                 </Button>
-               )}
+              <ToggleLanguage campaignId={campaign_id} />
+              {(technology_id || techObject?.technology?.id) && (
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    window.open(`/campaign/${campaign_id}/technology/${campaign_technology_id}?preview=true`, "_blank");
+                  }}
+                >
+                  Preview Technology <FontAwesomeIcon icon={faExternalLink} />
+                </Button>
+              )}
             </Col>
           </Row>
 
@@ -190,7 +189,7 @@ export function TechnologyEditView () {
                   tabIndex={0}
                   key={key}
                   style={{ opacity: deactivate ? 0.6 : 1 }}
-                  className={classes("nav-tabs-main tab", { "tab-active": activeTab === key, })}
+                  className={classes("nav-tabs-main tab", { "tab-active": activeTab === key })}
                   onClick={() => {
                     if (deactivate) return;
                     setActiveTab(key);

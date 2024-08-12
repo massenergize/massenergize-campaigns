@@ -8,9 +8,11 @@ import { useMediaQuery } from "react-responsive";
 import { generateUniqueRandomString } from "../../../utils/utils";
 import URLS from "../../../api/urls";
 import CONFIG from "../../../config/config.json";
+import { getStaticText } from "../../../redux/actions/actions";
 
 const EXCLUDED_FOOTER_MENU_KEYS = ["deals", "vendors"];
-function Footer({ toggleModal, campaign, authUser }) {
+function Footer({ toggleModal, campaign, authUser, staticT }) {
+  const { footer } = getStaticText();
   const navigator = useNavigate();
   const { navigation, newsletter_section: customization, communities } = campaign || {};
   const { user } = authUser || {};
@@ -59,16 +61,25 @@ function Footer({ toggleModal, campaign, authUser }) {
     toggleModal({
       show: true,
       component: (props) => (
-        <JoinUsForm {...(props || {})} confirmText="Subscribe" callbackOnSubmit={({ close }) => close && close()} />
+        <JoinUsForm
+          {...(props || {})}
+          confirmText={footer?.modal?.ok?.text || "XSubscribe"}
+          callbackOnSubmit={({ close }) => close && close()}
+        />
       ),
-      title: `Follow ${campaign?.title}` || "...",
+      title: `${footer?.modal?.title?.prefix || "Follow"} ${campaign?.title}` || "...",
       fullControl: true,
     });
   };
 
   if (isMobile)
     return (
-      <MobileFooter signUpForNewsletter={signUpForNewsletter} renderMenus={renderMenus} customization={customization} />
+      <MobileFooter
+        staticT={footer}
+        signUpForNewsletter={signUpForNewsletter}
+        renderMenus={renderMenus}
+        customization={customization}
+      />
     );
   return (
     <div
@@ -111,7 +122,7 @@ function Footer({ toggleModal, campaign, authUser }) {
               }}
               onClick={() => signUpForNewsletter()}
             >
-              Subscribe to our Newsletter
+              {footer?.news_letter?.subscribe_button?.text || " Subscribe to our Newsletter"}
             </Button>
             {user?.email && (
               <p
@@ -124,12 +135,13 @@ function Footer({ toggleModal, campaign, authUser }) {
               >
                 <i>
                   {" "}
-                  You've already subscribed with <b style={{}}>'{user?.email || ""}' </b>
+                  {footer?.news_letter?.subscribe_message?.text || "You've already subscribed with"}{" "}
+                  <b style={{}}>'{user?.email || ""}' </b>
                 </i>
               </p>
             )}
           </Col>
-          <small style={{ color: "white", fontWeight: "bold", width: "100%", opacity:.6 }}>
+          <small style={{ color: "white", fontWeight: "bold", width: "100%", opacity: 0.6 }}>
             Build Version {CONFIG.BUILD_VERSION}
           </small>
         </Container>
@@ -147,7 +159,7 @@ function Footer({ toggleModal, campaign, authUser }) {
           <Row>
             <Col lg={{ span: 9, offset: 1 }} style={{}}>
               <h4 className="subheader-font" style={{ color: "white" }}>
-                Quick Links
+                {footer?.quick_links?.text || " Quick Links"}
               </h4>
               <ul
                 style={{
@@ -176,7 +188,7 @@ const mapState = (state) => {
 };
 export default connect(mapState)(Footer);
 
-const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
+const MobileFooter = ({ signUpForNewsletter, renderMenus, customization, staticT }) => {
   return (
     <div style={{ minHeight: 250, margin: 0 }}>
       <div
@@ -208,9 +220,18 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
           }}
           onClick={() => signUpForNewsletter()}
         >
-          Subscribe
+          {staticT?.subscribe_button?.text || " Subscribe"}
         </Button>
-        <small style={{ marginTop: 15, color: "white", fontWeight: "bold", width: "100%", textAlign: "center", opacity:.6 }}>
+        <small
+          style={{
+            marginTop: 15,
+            color: "white",
+            fontWeight: "bold",
+            width: "100%",
+            textAlign: "center",
+            opacity: 0.6,
+          }}
+        >
           Build Version {CONFIG.BUILD_VERSION}
         </small>
       </div>

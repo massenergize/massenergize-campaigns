@@ -9,34 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { TESTIMONIAL_FORM_SHOW_KEY } from "../testimonials/TestimonialSectionWithFilters";
 import { addUrlSearchParams } from "../../../utils/utils";
 
-const dummies = [
-  {
-    icon: "fa-globe",
-    title: "ENVIRONMENTALLY FRIENDLY",
-    content:
-      "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
-  },
-  {
-    icon: "fa-lightbulb-o",
-    title: "ECONOMIC BENEFITS ",
-    content:
-      "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
-  },
-  {
-    icon: "fa-fire",
-    title: "HEALTH & WELLNESS",
-    content:
-      "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
-  },
-  {
-    icon: "fa-cog",
-    title: "COMFORT",
-    content:
-      "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
-  },
-];
-
-function OneTechTestimonialsSection({ sectionId, testimonials, campaign, links }) {
+function OneTechTestimonialsSection({ sectionId, testimonials, campaign, links, staticT }) {
   const containerRef = useRef();
   const navigator = useNavigate();
 
@@ -69,7 +42,7 @@ function OneTechTestimonialsSection({ sectionId, testimonials, campaign, links }
             // justifyContent: "center",
           }}
         >
-          <SectionTitle style={{ margin: 0 }}>Testimonials</SectionTitle>
+          <SectionTitle style={{ margin: 0 }}>{staticT?.title?.text || "Testimonials"}</SectionTitle>
 
           {hasScrollableTestimonials && (
             <div style={{ marginLeft: "auto" }}>
@@ -78,12 +51,15 @@ function OneTechTestimonialsSection({ sectionId, testimonials, campaign, links }
           )}
         </div>
 
-        <AddNewTestimonial onClick={() => navigator(testimonialRoute)} />
+        <AddNewTestimonial
+          onClick={() => navigator(testimonialRoute)}
+          text={staticT?.call_to_add_testimonial?.text || ""}
+        />
         <Row ref={containerRef} style={{ overflowX: "auto", flexWrap: "nowrap" }}>
           {testimonials.map((item, index) => {
             return (
               <Col key={index?.toString()} lg={4} className="mb-2">
-                <TestimonialBox {...item} />
+                <TestimonialBox {...item} staticT={staticT} />
               </Col>
             );
           })}

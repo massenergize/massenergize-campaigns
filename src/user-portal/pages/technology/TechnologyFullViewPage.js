@@ -27,6 +27,7 @@ import { apiCall } from "../../../api/messenger";
 import Loading from "../../../components/pieces/Loading";
 import {
   appInnitAction,
+  getStaticText,
   loadUserObjAction,
   setCommentsAction,
   trackActivity,
@@ -63,6 +64,9 @@ function TechnologyFullViewPage({
   const authUser = user;
   // const hasUser = authUser?.user;
   const [mounted, setMounted] = useState(false);
+  const { pages } = getStaticText();
+  const one_technology_page = pages?.one_technology_page || {};
+  const { sections, loader, share: shareStaticT } = one_technology_page;
   // const [idsToRefMap, setidsToRefMap] = useState({});
   const coachesRef = useRef();
   const vendorsRef = useRef();
@@ -159,7 +163,7 @@ function TechnologyFullViewPage({
 
   if (!id || !technology) return <NotFound>{error}</NotFound>;
 
-  if (technology === LOADING) return <Loading fullPage>Fetching technology information...</Loading>;
+  if (technology === LOADING) return <Loading fullPage>{loader?.text || "Fetching technology information..."}</Loading>;
 
   const {
     name,
@@ -226,7 +230,7 @@ function TechnologyFullViewPage({
     if (!user) return triggerRegistration();
     toggleModal({
       show: true,
-      title: "Read comments or add yours",
+      title: sections?.comments?.title?.text || "Read comments or add yours",
       iconName: "fa-comment",
       component: () => (
         <CommentComponentForModal
@@ -237,6 +241,7 @@ function TechnologyFullViewPage({
           technology={technology}
           commentIsForUser={commentIsForUser}
           onDelete={deleteComment}
+          staticT={sections?.comments?.modal}
           updateTechList={(data) => {
             // setTechnology(data);
             updateTechList(data, id);
@@ -252,9 +257,9 @@ function TechnologyFullViewPage({
   const openShareBox = () => {
     toggleModal({
       show: true,
-      title: "Share",
+      title: shareStaticT?.title?.text || "Share",
       // iconName: "fa-comment",
-      component: () => <ShareBox campaign={campaign} authUser={authUser} />,
+      component: () => <ShareBox campaign={campaign} authUser={authUser} staticT={shareStaticT} />,
       modalNativeProps: { size: "lg" },
       fullControl: true,
     });
@@ -317,16 +322,23 @@ function TechnologyFullViewPage({
                 like={() => like(authUser?.user)}
                 views={campaign_technology_views}
                 comments={comments?.length || 0}
+                staticT={sections?.interactions}
               />
 
-              <SmartRichText className="body-font">{description}</SmartRichText>
+              <SmartRichText
+                className="body-font"
+                seeMoreText={sections?.see_more?.text}
+                seeLessText={sections?.see_less?.text}
+              >
+                {description}
+              </SmartRichText>
             </Col>
             <Col lg={3}>
               <div
                 className="mt-2"
                 style={{
                   border: "solid 2px black",
-                  height: 140,
+                  height: "auto",
                   display: "flex",
                   flexDirection: "column",
                 }}
@@ -351,18 +363,19 @@ function TechnologyFullViewPage({
                       width: "83%",
                     }}
                   >
-                    {`Get updates on ${technology?.name || "..."}`}
+                    {`${sections?.get_updates?.title?.text || "Get updates on"} ${technology?.name || "..."}`}
                   </p>
                 </div>
                 <div
                   onClick={() =>
                     toggleModal({
                       show: true,
-                      title: `Get updates on ${technology?.name || "..."}`,
+                      title: `${sections?.get_updates?.title?.text || "Get updates on"} ${technology?.name || "..."}`,
                       component: ({ close }) => (
                         <JoinUsForm
                           close={close}
-                          confirmText="Get Updates"
+                          confirmText={sections?.get_updates?.confirm_button?.text || "Get Updates"}
+                          cancelText={sections?.get_updates?.cancel_text?.text || "Cancel"}
                           apiURL="/campaigns.technology.follow"
                           processPayload={(payload) => {
                             const data = {
@@ -395,7 +408,7 @@ function TechnologyFullViewPage({
                       fontWeight: "bold",
                     }}
                   >
-                    Get Updates!
+                    {sections?.get_updates?.button?.text || "Get Updates!"}
                   </p>
                 </div>
               </div>
@@ -425,7 +438,7 @@ function TechnologyFullViewPage({
                         fontWeight: "bold",
                       }}
                     >
-                      Comments {comments?.length ? `(${comments?.length})` : ""}
+                      {sections?.comments?.title?.text || "Comments"} {comments?.length ? `(${comments?.length})` : ""}
                     </span>
                   </p>
                 </div>
@@ -473,7 +486,7 @@ function TechnologyFullViewPage({
                                 }}
                                 onClick={() => triggerCommentBox(authUser)}
                               >
-                                See more...
+                                {sections?.comments?.see_more_trunc?.text || "See more..."}
                               </span>
                             ) : (
                               <></>
@@ -525,7 +538,7 @@ function TechnologyFullViewPage({
                       textDecoration: "underline",
                     }}
                   >
-                    See More Comments
+                    {sections?.comments?.see_more?.text || "See More Comments"}
                   </p>
                 </div>
                 <div
@@ -542,7 +555,9 @@ function TechnologyFullViewPage({
                   onClick={() => triggerCommentBox(authUser)}
                 >
                   <i className=" fa fa-plus" style={{ marginRight: 4 }}></i>
-                  <p style={{ margin: 0, fontWeight: "bold" }}>Add a Comment</p>
+                  <p style={{ margin: 0, fontWeight: "bold" }}>
+                    {sections?.comments?.call_to_add?.text || "Add a Comment"}
+                  </p>
                 </div>
               </div>
             </Col>
@@ -553,6 +568,7 @@ function TechnologyFullViewPage({
           overview={overview}
           campaignName={name}
           overview_title={technology?.overview_title}
+          staticT={sections?.why_section}
         />
         <div className="phone-vanish">
           <TakeActionSection
@@ -562,6 +578,7 @@ function TechnologyFullViewPage({
             trackActivity={trackActivity}
             authUser={authUser}
             vendors={vendors}
+            staticT = {sections?.take_action_section}
           />
         </div>
         <div ref={testimonialsRef}>
@@ -570,10 +587,12 @@ function TechnologyFullViewPage({
             sectionId="testimonial-section"
             campaign={campaign}
             links={navigation}
+            staticT={sections?.testimonials_section}
           />
         </div>
         <div ref={coachesRef}>
           <OneTechMeetTheCoachesSection
+            staticT={sections?.coaches_section}
             coaches={coaches}
             sectionId="meet-coach"
             data={coaches_section}
@@ -582,7 +601,7 @@ function TechnologyFullViewPage({
                 show: true,
                 component: (props) => <GetHelpForm {...props} />,
                 fullControl: true,
-                title: "Get Help",
+                title: sections?.coaches_section?.button?.text || "Get Help",
               })
             }
           />
@@ -610,16 +629,26 @@ function TechnologyFullViewPage({
           />
         </div>
         <div ref={vendorsRef}>
-          <Vendors sectionId="vendors" data={vendors_section || {}} vendors={vendors} />
+          <Vendors
+            sectionId="vendors"
+            data={vendors_section || {}}
+            vendors={vendors}
+            staticT={sections?.vendors_section}
+          />
         </div>
 
         <MoreDetailsSection data={more_info_section} sectionId="more-detail" />
 
         <div ref={eventsRef}>
-          <OneTechEventSection style={{ background: "white" }} wrapperStyle={{ padding: 24 }} events={events} />
+          <OneTechEventSection
+            staticT={sections?.events_section}
+            style={{ background: "white" }}
+            wrapperStyle={{ padding: 24 }}
+            events={events}
+          />
         </div>
         <div ref={communitiesRef} className="mt-3">
-          <DoMore optimum />
+          <DoMore staticT={sections?.do_more} optimum />
         </div>
       </div>
       <Footer toggleModal={toggleModal} />

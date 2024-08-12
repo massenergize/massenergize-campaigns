@@ -3,12 +3,15 @@ import CommunitySelector, { OTHER } from "./CommunitySelector";
 import { Button, Form, ModalFooter } from "react-bootstrap";
 import { connect, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getStaticText } from "../../../redux/actions/actions";
 
 const DEFAULT_HELP_LINK =
   "https://docs.google.com/forms/d/e/1FAIpQLSerSiKJ1QRWnmpES82KtEY3amru4CRgRHscXDu14ty97cADVg/viewform"; // to be provided by Amie
 
 function GetHelpForm({ close, communities, authUser, campaign }) {
   const [form, setForm] = useState({});
+  const { modals } = getStaticText();
+  const staticT = modals?.help || {};
 
   useEffect(() => {
     if (!authUser) return;
@@ -51,7 +54,7 @@ function GetHelpForm({ close, communities, authUser, campaign }) {
       <div style={{ padding: 20 }}>
         <CommunitySelector onChange={onChange} data={form} readOnly />
         <Form.Text className="small-font">
-          We will direct you to the right resources based on where you are from
+          {staticT?.selection_hint?.text || "We will direct you to the right resources based on where you are from"}
           {` ${comName}`}
         </Form.Text>
       </div>
@@ -68,7 +71,7 @@ function GetHelpForm({ close, communities, authUser, campaign }) {
             background: "#292929",
           }}
         >
-          Close
+          {staticT?.buttons?.cancel?.text || "Close"}
         </Button>
         <Button
           className="touchable-opacity"
@@ -86,7 +89,7 @@ function GetHelpForm({ close, communities, authUser, campaign }) {
             alignItems: "center",
           }}
         >
-          Let's Go
+        {staticT?.buttons?.ok?.text || "Let's Go"}
         </Button>
       </ModalFooter>
     </div>

@@ -7,7 +7,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { LOADING } from "../../../utils/Constants";
-import { appInnitAction, toggleUniversalModal, updateTestimonialsObjAction } from "../../../redux/actions/actions";
+import {
+  appInnitAction,
+  getStaticText,
+  toggleUniversalModal,
+  updateTestimonialsObjAction,
+} from "../../../redux/actions/actions";
 import NotFound from "../error/404";
 import Loading from "../../../components/pieces/Loading";
 import { apiCall } from "../../../api/messenger";
@@ -16,6 +21,9 @@ import NewTestimonialForm from "./NewTestimonialForm";
 import { fetchUrlParams, setPageTitle } from "../../../utils/utils";
 
 function OneTestimonial({ testimonials, updateTestimonials, campaign, init, toggleModal, authUser }) {
+  const { pages } = getStaticText();
+  const one_testimonial_page = pages?.one_testimonial_page;
+  const { sections, loader } = one_testimonial_page || {};
   const testimonialRef = useRef();
   const [testimonial, setTestimonial] = useState(LOADING);
   const [error, setError] = useState("");
@@ -114,7 +122,8 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init, togg
 
   if (!id || !testimonial) return <NotFound>{error}</NotFound>;
 
-  if (testimonial === LOADING) return <Loading fullPage>Fetching event information...</Loading>;
+  if (testimonial === LOADING)
+    return <Loading fullPage>{loader?.text || "Fetching testimonial information..."}</Loading>;
 
   const hasOtherTestimonials = otherTestimonials?.length ? true : false;
 
@@ -139,7 +148,9 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init, togg
             }}
           >
             <i className={`fa fa-${showTestimonialForm ? "minus" : "plus"}`}></i>{" "}
-            {showTestimonialForm ? "Hide testimonial form" : "Add your own testimonial"}
+            {showTestimonialForm
+              ? sections?.call_to_hide_testimonial?.text || " Hide testimonial form"
+              : sections?.call_to_add_testimonial?.text || "Add your own testimonial"}
           </p>
           <div ref={testimonialRef}>
             {showTestimonialForm && (
@@ -147,7 +158,7 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init, togg
                 className="testi-form-wrapper"
                 // style={{ border: "1px dashed #e6e2e2", marginTop: 40, padding: 20 }}
               >
-                <SectionTitle>Add your own testimonial</SectionTitle>
+                <SectionTitle>{sections?.form?.title?.text || "Add your own testimonial"}</SectionTitle>
                 <NewTestimonialForm cancel={() => setShowTestimonialForm(!showTestimonialForm)} />
               </div>
             )}
@@ -187,7 +198,7 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init, togg
                   margin: 0,
                 }}
               >
-                Other Testimonials
+                {sections?.sidebar?.other_testimonials?.text || " Other Testimonials"}
               </h6>
             </div>
           )}
@@ -246,7 +257,11 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init, togg
               marginBottom: 15,
             }}
           >
-            <p style={{ margin: 0, fontWeight: "bold" }}>{showTestimonialForm ? "Hide Form" : "Add Testimonial"}</p>
+            <p style={{ margin: 0, fontWeight: "bold" }}>
+              {showTestimonialForm
+                ? sections?.sidebar?.call_to_hide_testimonial?.text || "Hide Form"
+                : sections?.sidebar?.call_to_add_testimonial?.text || "Add Testimonial"}
+            </p>
           </div>
         </Col>
       </Row>
