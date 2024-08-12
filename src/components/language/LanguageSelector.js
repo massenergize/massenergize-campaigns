@@ -4,7 +4,9 @@ import { loadActiveLanguageAction, setActiveLanguageInStorage } from "../../redu
 import { smartString } from "../../utils/utils";
 
 function LanguageSelector() {
-  const languages = useSelector((state) => state?.offeredLanguages);
+  const campaign = useSelector((state) => state?.campaign);
+  const languages = campaign?.languages || [];
+  // const languages = useSelector((state) => state?.offeredLanguages);
   const activeLanguage = useSelector((state) => state?.activeLanguage);
   const dispatch = useDispatch();
 
@@ -14,24 +16,23 @@ function LanguageSelector() {
     window.location.reload();
   };
 
-
-
   return (
     // <div className="l-drop">
     <div className="floating-l-drop">
       <select
         value={activeLanguage}
         onChange={(e) => {
-          const langs = Object.keys(languages || {});
+          const langs = languages;
           const key = e?.target?.value; // languageISO
-          const obj = langs.find((k) => k === key);
-          setActiveLanguage(obj);
+          const obj = langs.find((l) => l?.code === key);
+
+          setActiveLanguage(obj?.code);
         }}
         // style={{ textTransform: "uppercase" }}
         className="undefault"
       >
-        {Object.entries(languages || {})?.map(([key, name]) => (
-          <option key={key} value={key}>
+        {languages?.map(({ name, code }) => (
+          <option key={code} value={code}>
             {/* {smartString(name, 12)} */}
             {name}
           </option>
