@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadActiveLanguageAction, setActiveLanguageInStorage } from "../../redux/actions/actions";
 import { PREFERRED_LANGUAGE_STORAGE_KEY, smartString } from "../../utils/utils";
 
+const DEFAULT = { name: "--", code: "---" };
 function LanguageSelector() {
   const campaign = useSelector((state) => state?.campaign);
   const languages = campaign?.languages || [];
@@ -10,13 +11,15 @@ function LanguageSelector() {
   const activeLanguage = useSelector((state) => state?.activeLanguage);
   const dispatch = useDispatch();
 
-  const setActiveLanguage = (lang) => {
+  const setActiveLanguage = (lang, reload = true) => {
+    // if (lang === DEFAULT?.code) return console.log("Lets see", lang);
     setActiveLanguageInStorage(lang);
     dispatch(loadActiveLanguageAction(lang));
-    window.location.reload();
+    if (reload) window.location.reload();
   };
 
   if (!languages || languages.length === 0) {
+    setActiveLanguage("en-US", false);
     return null;
   }
   return (
@@ -27,14 +30,14 @@ function LanguageSelector() {
         onChange={(e) => {
           const langs = languages;
           const key = e?.target?.value; // languageISO
+          if (key === DEFAULT?.code) return;
           const obj = langs.find((l) => l?.code === key);
-
           setActiveLanguage(obj?.code);
         }}
         // style={{ textTransform: "uppercase" }}
         className="undefault"
       >
-        {languages?.map(({ name, code }) => (
+        {[DEFAULT, ...languages]?.map(({ name, code }) => (
           <option key={code} value={code}>
             {/* {smartString(name, 12)} */}
             {name}
