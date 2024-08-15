@@ -1,9 +1,9 @@
 import { format, formatDistanceToNow, isSameDay, parseISO } from "date-fns";
 import { ME_STATES } from "./States";
-import { LANGUAGES } from "./internationalization/languages";
+// import { LANGUAGES } from "./internationalization/languages";
 import { enUS, es, ptBR } from "date-fns/locale";
-export const PREFERRED_LANGUAGE_STORAGE_KEY = "PREFERRED_LANGUAGE";
-export const getPreferredLanguageISO = () => localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || LANGUAGES?.en_US;
+import { DEFAULT_ENGLISH_CODE, PREFERRED_LANGUAGE_STORAGE_KEY } from "src/redux/redux-action-types";
+import { getPreferredLanguageISO } from "src/redux/actions/actions";
 
 const LANG_CODE_TO_DATE_OBJ = { en: enUS, es, pt: ptBR }; // means when a new language is approved, we wld have to add it in here as well
 export function sortEvents(events) {
@@ -117,10 +117,7 @@ export function smartString(inputString, maxLength = 30) {
   return inputString.slice(0, maxLength) + "...";
 }
 
-export const portalIsAdmin = () => {
-  const url = window.location.href;
-  return url.includes("admin/");
-};
+
 
 export function mergeArrays(arrays, reducer) {
   const mergedArray = [];

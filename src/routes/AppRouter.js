@@ -25,7 +25,7 @@ import CreateCampaignAccount from "../admin-portal/pages/campaign-account/Create
 import { CampaignStatistics } from "../admin-portal/pages/campaign/campaign-statistics/campaign-statistics";
 import Login from "../admin-portal/pages/auth/Login";
 import Dummy from "../admin-portal/pages/auth/Dummy";
-import { portalIsAdmin, setPageTitle } from "../utils/utils";
+import { setPageTitle } from "../utils/utils";
 import JoinUsForm from "../user-portal/pages/forms/JoinUsForm";
 import AddOfferedLanguages from "../admin-portal/internationalization/AddOfferedLanguages";
 
@@ -163,7 +163,6 @@ function AppRouter({
   // navigation,
 }) {
   const { modals } = getStaticText();
-  console.log("this is the modal", modals);
   const params = useParams();
 
   useEffect(() => {

@@ -27,19 +27,29 @@ import {
   SET_ACTIVE_LANGUAGE,
   ADMIN_UPDATE_OFFERED_LANGUAGES,
   DEFAULT_ENGLISH_CODE,
+  PREFERRED_LANGUAGE_STORAGE_KEY,
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
-import { LANGUAGES } from "../../utils/internationalization/languages";
 import store from "./../store";
-import { PREFERRED_LANGUAGE_STORAGE_KEY } from "src/utils/utils";
 
 export const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
 
-export const getStaticText = () => {
+export const getPreferredLanguageISO = () => {
+  const code = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY);
+  // return code;
+  return findInLanguageList(code) || DEFAULT_ENGLISH_CODE;
+};
+export const findInLanguageList = (code) => {
   const state = store.getState();
   const languages = state?.campaign?.languages || [];
+  return languages.find((l) => l?.code === code);
+};
+export const getStaticText = () => {
+  const state = store.getState();
+  // const languages = state?.campaign?.languages || [];
   let activeLanguage = state?.activeLanguage;
-  const isNotInList = !languages.find((l) => l?.code === activeLanguage);
+  // const isNotInList = !languages.find((l) => l?.code === activeLanguage);
+  const isNotInList = !findInLanguageList(activeLanguage);
   if (isNotInList) activeLanguage = DEFAULT_ENGLISH_CODE;
   const staticTextHeap = state?.staticTextHeap || {};
   return staticTextHeap[activeLanguage] || staticTextHeap[DEFAULT_ENGLISH_CODE] || {};

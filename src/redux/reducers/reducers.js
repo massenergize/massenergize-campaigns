@@ -1,7 +1,9 @@
 import { CAMPAIGN_DATA, ONE_TECH_DATA } from "../../user-portal/data/user-portal-dummy-data";
 import { LOADING } from "../../utils/Constants";
 import { LANGUAGES } from "../../utils/internationalization/languages";
-import { getPreferredLanguageISO, portalIsAdmin } from "../../utils/utils";
+// import { portalIsAdmin } from "../../utils/utils";
+// import { getPreferredLanguageISO } from "../actions/actions";
+
 import {
   ADMIN_UPDATE_OFFERED_LANGUAGES,
   DEFAULT_ENGLISH_CODE,
@@ -38,6 +40,10 @@ import {
   SPANISH,
 } from "./../../utils/internationalization/json-statics";
 
+export const portalIsAdmin = () => {
+  const url = window.location.href;
+  return url.includes("admin/");
+};
 const DEFAULT_STATIC_TEXT = {
   [DEFAULT_ENGLISH_CODE]: ENGLISH,
   "es-ES": SPANISH,
@@ -59,11 +65,11 @@ export const universalModalReducer = (state = { show: false, component: <></> },
   }
   return state;
 };
-export const setActiveLanguageReducer = (state = undefined, action = {}) => {
-  if (state == undefined) {
-    state = getPreferredLanguageISO();
-    state = state || LANGUAGES[DEFAULT_ENGLISH_CODE];
-  }
+export const setActiveLanguageReducer = (state = null, action = {}) => {
+  // if (state == undefined) {
+  //   state = getPreferredLanguageISO();
+  //   state = state || LANGUAGES[DEFAULT_ENGLISH_CODE];
+  // }
   if (action.type === SET_ACTIVE_LANGUAGE) {
     return action.payload;
   }
