@@ -177,7 +177,8 @@ function AppNavigationBar({ menu, campaign }) {
               </Col>
             </Row>
 
-            <div
+            <LanguageSelector />
+            {/* <div
               className="touchable-opacity"
               style={{
                 position: "absolute",
@@ -195,10 +196,10 @@ function AppNavigationBar({ menu, campaign }) {
                 textTransform: "uppercase",
               }}
             >
-              {/* <LanguageSelector /> */}
+            
               <i className="fa fa-globe" style={{ marginRight: 3 }}></i>
               <span>EN</span>
-            </div>
+            </div> */}
           </Nav>
         </Navbar.Collapse>
       </Container>
