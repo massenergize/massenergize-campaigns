@@ -177,8 +177,27 @@ function AppNavigationBar({ menu, campaign }) {
               </Col>
             </Row>
 
-            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-              <LanguageSelector />
+            <div
+              className="touchable-opacity"
+              style={{
+                position: "absolute",
+                top: 0,
+                right: 40,
+                display: "flex",
+                flexDirection: "row",
+                // justifyContent: "center",
+                alignItems: "center",
+                fontSize: 18,
+                // background: "red",
+                height: "100%",
+                fontWeight: "bold",
+                color: "var(--app-main-color)",
+                textTransform: "uppercase",
+              }}
+            >
+              {/* <LanguageSelector /> */}
+              <i className="fa fa-globe" style={{ marginRight: 3 }}></i>
+              <span>EN</span>
             </div>
           </Nav>
         </Navbar.Collapse>

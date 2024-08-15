@@ -202,6 +202,10 @@ export const ENGLISH = {
     },
   },
   modals: {
+    preTestimonial: {
+      title: { text: "Before you add a testimonial, we would like to know you" },
+      buttons: { continue: { text: "Continue" }, cancel: { text: "Cancel" } },
+    },
     community_selection: {
       selection_label: { text: "What community do you live in?" },
       text_after_selection: { text: "We will direct you to the right resources based on where you are from -" },
@@ -449,6 +453,13 @@ export const GERMAN = {
     },
   },
   modals: {
+    preTestimonial: {
+      title: { text: "Bevor Sie ein Testimonial hinzufügen, möchten wir Sie kennenlernen" },
+      buttons: {
+        continue: { text: "Fortfahren" },
+        cancel: { text: "Abbrechen" },
+      },
+    },
     community_selection: {
       selection_label: { text: "In welcher Gemeinschaft leben Sie?" },
       text_after_selection: { text: "Wir leiten Sie basierend auf Ihrem Standort zu den richtigen Ressourcen -" },
@@ -692,6 +703,13 @@ export const SPANISH = {
     },
   },
   modals: {
+    preTestimonial: {
+      title: { text: "Antes de agregar un testimonio, nos gustaría conocerte" },
+      buttons: {
+        continue: { text: "Continuar" },
+        cancel: { text: "Cancelar" },
+      },
+    },
     community_selection: {
       selection_label: { text: "¿En qué comunidad vives?" },
       text_after_selection: { text: "Te dirigiremos a los recursos adecuados según tu ubicación -" },
@@ -940,6 +958,13 @@ export const FRENCH = {
     },
   },
   modals: {
+    preTestimonial: {
+      title: { text: "Avant d'ajouter un témoignage, nous aimerions vous connaître" },
+      buttons: {
+        continue: { text: "Continuer" },
+        cancel: { text: "Annuler" },
+      },
+    },
     community_selection: {
       selection_label: { text: "Dans quelle communauté vivez-vous?" },
       text_after_selection: {
@@ -1179,6 +1204,13 @@ export const CHINESE = {
     },
   },
   modals: {
+    preTestimonial: {
+      title: { text: "在添加推荐之前，我们想了解您" },
+      buttons: {
+        continue: { text: "继续" },
+        cancel: { text: "取消" },
+      },
+    },
     community_selection: {
       selection_label: { text: "你居住在哪个社区?" },
       text_after_selection: { text: "我们将根据你的位置为你指引到正确的资源 -" },
@@ -1419,6 +1451,13 @@ export const PORTUGUESE = {
     },
   },
   modals: {
+    preTestimonial: {
+      title: { text: "Antes de adicionar um depoimento, gostaríamos de conhecê-lo" },
+      buttons: {
+        continue: { text: "Continuar" },
+        cancel: { text: "Cancelar" },
+      },
+    },
     community_selection: {
       selection_label: { text: "Em qual comunidade você mora?" },
       text_after_selection: { text: "Nós direcionaremos você para os recursos corretos com base na sua localização -" },
@@ -1666,6 +1705,13 @@ export const ITALIAN = {
     },
   },
   modals: {
+    preTestimonial: {
+      title: { text: "Prima di aggiungere una testimonianza, vorremmo conoscerti" },
+      buttons: {
+        continue: { text: "Continua" },
+        cancel: { text: "Annulla" },
+      },
+    },
     community_selection: {
       selection_label: { text: "In quale comunità vivi?" },
       text_after_selection: { text: "Ti indirizzeremo alle risorse corrette in base alla tua posizione -" },

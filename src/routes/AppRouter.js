@@ -8,6 +8,7 @@ import {
   appInnitAction,
   testReduxAction,
   toggleUniversalModal,
+  getStaticText,
 } from "../redux/actions/actions";
 import { connect } from "react-redux";
 import CustomModal from "../components/modal/CustomModal";
@@ -161,6 +162,8 @@ function AppRouter({
   isAdminPortal,
   // navigation,
 }) {
+  const { modals } = getStaticText();
+  console.log("this is the modal", modals);
   const params = useParams();
 
   useEffect(() => {
@@ -173,11 +176,11 @@ function AppRouter({
     toggleModal({
       fullControl: true,
       show: true,
-      title: `Before you add a testimonial, we would like to know you`,
+      title: modals?.preTestimonial?.title?.text || `Before you add a testimonial, we would like to know you`,
       component: (props) => (
         <JoinUsForm
           {...(props || {})}
-          confirmText="Continue"
+          confirmText={modals?.preTestimonial?.buttons?.continue?.text || "Continue"}
           callbackOnSubmit={({ close }) => close && close()}
           {...(registrationProps || {})}
         />
