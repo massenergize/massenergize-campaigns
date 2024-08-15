@@ -1,11 +1,11 @@
 import { format, formatDistanceToNow, isSameDay, parseISO } from "date-fns";
 import { ME_STATES } from "./States";
 import { LANGUAGES } from "./internationalization/languages";
-
-
+import { enUS, es, ptBR } from "date-fns/locale";
 export const PREFERRED_LANGUAGE_STORAGE_KEY = "PREFERRED_LANGUAGE";
 export const getPreferredLanguageISO = () => localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || LANGUAGES?.en_US;
 
+const LANG_CODE_TO_DATE_OBJ = { en: enUS, es, pt: ptBR }; // means when a new language is approved, we wld have to add it in here as well
 export function sortEvents(events) {
   return events?.sort((a, b) => new Date(a?.event?.start_date) - new Date(b?.event?.start_date));
 }
@@ -32,21 +32,28 @@ export function formatTimeRange(startDateString, endDateString) {
 }
 
 export function formatDate(dateString, formatString = "MMM d, yyyy") {
-  if(!dateString) return '';
+  if (!dateString) return "";
   const date = parseISO(dateString);
   return format(date, formatString);
 }
 
 export function formatTime(dateString, formatString = "HH:mm aaa") {
-  if(!dateString) return '';
+  if (!dateString) return "";
   const date = parseISO(dateString);
   return format(date, formatString);
 }
 
-export function relativeTimeAgo(datetimeString) {
-  const date = parseISO(datetimeString);
+const pruneLanuguage = (code) => {
+  const DEFAULT = "en";
+  if (!code) return DEFAULT;
+  return code.split("-")[0] || DEFAULT;
+};
 
-  return formatDistanceToNow(date, { addSuffix: true });
+export function relativeTimeAgo(datetimeString) {
+  let locale = pruneLanuguage(getPreferredLanguageISO());
+  locale = LANG_CODE_TO_DATE_OBJ[locale] || enUS;
+  const date = parseISO(datetimeString);
+  return formatDistanceToNow(date, { addSuffix: true, locale });
 }
 
 export const validateEmail = (email) => {
@@ -228,7 +235,7 @@ export function sortByProperty(arr, getProperty) {
 export function addUrlSearchParams(url, jsonData) {
   // Check if both URL and JSON data are provided
   if (!url || !jsonData) {
-    console.error("URL and JSON data are required.", url, jsonData);
+    console.log("URL and JSON data are required.", url, jsonData);
     return;
   }
 
@@ -268,8 +275,6 @@ export const scrollIntoView = (ref, offset = 0) => {
     window.scrollTo({ behavior: "smooth", top: elementPosition + offset });
   }
 };
-
-
 
 export function isEmpty(value) {
   if (typeof value === "undefined" || value === null) {

@@ -2,9 +2,9 @@ import { CAMPAIGN_DATA, ONE_TECH_DATA } from "../../user-portal/data/user-portal
 import { LOADING } from "../../utils/Constants";
 import { LANGUAGES } from "../../utils/internationalization/languages";
 import { getPreferredLanguageISO, portalIsAdmin } from "../../utils/utils";
-
 import {
   ADMIN_UPDATE_OFFERED_LANGUAGES,
+  DEFAULT_ENGLISH_CODE,
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
   LOAD_OFFERED_LANGUAGES,
@@ -39,7 +39,7 @@ import {
 } from "./../../utils/internationalization/json-statics";
 
 const DEFAULT_STATIC_TEXT = {
-  "en-US": ENGLISH,
+  [DEFAULT_ENGLISH_CODE]: ENGLISH,
   "es-ES": SPANISH,
   "fr-FR": FRENCH,
   "zh-TW": CHINESE,
@@ -62,7 +62,7 @@ export const universalModalReducer = (state = { show: false, component: <></> },
 export const setActiveLanguageReducer = (state = undefined, action = {}) => {
   if (state == undefined) {
     state = getPreferredLanguageISO();
-    state = state || LANGUAGES["en-US"];
+    state = state || LANGUAGES[DEFAULT_ENGLISH_CODE];
   }
   if (action.type === SET_ACTIVE_LANGUAGE) {
     return action.payload;

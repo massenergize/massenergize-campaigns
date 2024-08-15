@@ -26,6 +26,7 @@ import {
   LOAD_OFFERED_LANGUAGES,
   SET_ACTIVE_LANGUAGE,
   ADMIN_UPDATE_OFFERED_LANGUAGES,
+  DEFAULT_ENGLISH_CODE,
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
 import { LANGUAGES } from "../../utils/internationalization/languages";
@@ -36,9 +37,12 @@ export const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
 
 export const getStaticText = () => {
   const state = store.getState();
-  const activeLanguage = state?.activeLanguage;
-  const staticTextHeap = state?.staticTextHeap;
-  return staticTextHeap[activeLanguage] || staticTextHeap?.en_US || {};
+  const languages = state?.campaign?.languages || [];
+  let activeLanguage = state?.activeLanguage;
+  const isNotInList = !languages.find((l) => l?.code === activeLanguage);
+  if (isNotInList) activeLanguage = DEFAULT_ENGLISH_CODE;
+  const staticTextHeap = state?.staticTextHeap || {};
+  return staticTextHeap[activeLanguage] || staticTextHeap[DEFAULT_ENGLISH_CODE] || {};
 };
 export const setActiveLanguageInStorage = (isoCode) => {
   localStorage.setItem(PREFERRED_LANGUAGE_STORAGE_KEY, isoCode);

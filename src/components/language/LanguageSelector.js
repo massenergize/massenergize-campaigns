@@ -18,10 +18,11 @@ function LanguageSelector() {
     if (reload) window.location.reload();
   };
 
-  if (!languages || languages.length === 0) {
-    setActiveLanguage("en-US", false);
-    return null;
-  }
+  // if (!languages.length) {
+  //   setActiveLanguage("en-US", false);
+  //   console.log("I run this place ooo", languages)
+  //   return null;
+  // }
   return (
     // <div className="l-drop">
     <div className="floating-l-drop">
@@ -30,14 +31,14 @@ function LanguageSelector() {
         onChange={(e) => {
           const langs = languages;
           const key = e?.target?.value; // languageISO
-          if (key === DEFAULT?.code) return;
+          // if (key === DEFAULT?.code) return;
           const obj = langs.find((l) => l?.code === key);
           setActiveLanguage(obj?.code);
         }}
         // style={{ textTransform: "uppercase" }}
         className="undefault"
       >
-        {[DEFAULT, ...languages]?.map(({ name, code }) => (
+        {languages?.map(({ name, code }) => (
           <option key={code} value={code}>
             {/* {smartString(name, 12)} */}
             {name}

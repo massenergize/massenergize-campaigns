@@ -21,20 +21,14 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
   const [error, setError] = useState("");
   const [trackChanges, setChanges] = useState({});
   const languages = useSelector((state) => state?.languageList);
-  // let languages = Object.entries(langsFromSadmin || {});
   languages?.sort((a, b) => a?.name?.localeCompare(b?.name));
 
-  const cOffered = useSelector((state) => state?.campaignOfferedLanguages);
+  // const cOffered = useSelector((state) => state?.campaignOfferedLanguages);
   const dispatch = useDispatch();
   const campaignId = campaign?.id;
 
-  const offered = getOfferedForThisCampaign(cOffered, campaignId);
-
   const putLanguageListInRedux = (data) => {
     return dispatch(loadLanguagesAction(data));
-  };
-  const updateInRedux = (data) => {
-    return dispatch(updateOfferedLanguageAction({ ...(cOffered || {}), [campaignId]: data }));
   };
 
   const includeNewLanguage = (key, status) => {
@@ -50,16 +44,6 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
       putLanguageListInRedux(res?.data);
     });
   };
-  // const includeNewLanguage = (add, key) => {
-  //   const offered = getOfferedForThisCampaign(cOffered, campaignId);
-  //   let data = offered;
-  //   if (add) {
-  //     const found = getLangWithKey(key);
-  //     if (!found) return console.log("Error: Did not find language with key -> ", key);
-  //     data = [...offered, { label: found[1], value: key }];
-  //   } else data = offered?.filter(({ value }) => value !== key);
-  //   updateInRedux(data);
-  // };
 
   const fetchEssentials = () => {
     Promise.all([apiCall("campaigns.supported_languages.list", { campaign_id: campaignId })]).then(([langList]) => {
@@ -76,20 +60,6 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
     if (!languages?.length) fetchEssentials();
     else setLoading(false);
   }, []);
-
-  const getLangWithKey = (key) => {
-    return languages?.find(([k]) => key === k);
-  };
-  const isToggled = (key) => {
-    const offered = getOfferedForThisCampaign(cOffered, campaignId);
-    return offered?.find(({ value }) => value === key);
-  };
-
-  const removeLang = (key) => {
-    const offered = getOfferedForThisCampaign(cOffered, campaignId);
-    const newOffered = offered?.filter(({ value }) => value !== key);
-    updateInRedux(newOffered);
-  };
 
   if (error) return <p style={{ width: "100%", textAlign: "center", fontWeight: "bold", color: "#df5555" }}>{error}</p>;
   if (loading) return <Loading text="Fetching languages...." />;
@@ -141,6 +111,7 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
               <h5 style={{ marginLeft: "auto", display: "inline", color: "#d8d8d8" }}>Toggle ON/OFF</h5>
             </div>
             {languages?.map(({ name: label, code: k, is_active }) => {
+              const isEnglish = k === "en-US";
               return (
                 <h6
                   // className="touchable-opacity"
@@ -157,7 +128,7 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
                   {label}
 
                   <div style={{ marginLeft: "auto" }}>
-                    <ToggleSwitch onChange={(state) => includeNewLanguage(k, state)} ON={is_active} />
+                    {!isEnglish && <ToggleSwitch onChange={(state) => includeNewLanguage(k, state)} ON={is_active} />}
                   </div>
                   {/* <span
                     onClick={() => removeLang(lang?.value)}
