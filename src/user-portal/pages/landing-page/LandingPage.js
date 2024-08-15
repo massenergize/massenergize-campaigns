@@ -44,7 +44,7 @@ function LandingPage({
 }) {
   const [mounted, setMounted] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
-  const { loader, pages, share: shareStaticT, inPreview: previewStaticT } = getStaticText();
+  const { modals, loader, pages, share: shareStaticT, inPreview: previewStaticT } = getStaticText();
   const homepageStaticT = pages?.homepage || {};
 
   const coachesRef = useRef();
@@ -119,12 +119,12 @@ function LandingPage({
     if (!firstTime) return;
     toggleModal({
       show: true,
-      title: `Please tell us where you are from`,
+      title: modals?.whereFrom?.title?.text || `Please tell us where you are from`,
       component: ({ close }) => (
         <JoinUsForm
           close={close}
-          confirmText="Okay, Done!"
-          cancelText="NO"
+          confirmText={modals?.whereFrom?.buttons?.submit?.text || "Okay, Done!"}
+          cancelText={modals?.whereFrom?.buttons?.no?.text || "NO"}
           noForm
           onConfirm={(props) => stashUserCommunity({ ...props, campaign: justLoadedCampaign })}
         />

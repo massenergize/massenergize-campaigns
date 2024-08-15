@@ -21,7 +21,7 @@ import NewTestimonialForm from "./NewTestimonialForm";
 import { fetchUrlParams, setPageTitle } from "../../../utils/utils";
 
 function OneTestimonial({ testimonials, updateTestimonials, campaign, init, toggleModal, authUser }) {
-  const { pages } = getStaticText();
+  const { pages, modals } = getStaticText();
   const one_testimonial_page = pages?.one_testimonial_page;
   const { sections, loader } = one_testimonial_page || {};
   const testimonialRef = useRef();
@@ -72,7 +72,7 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init, togg
   const triggerRegistration = () => {
     toggleModal({
       show: true,
-      title: `Before you add a testimonial, we would like to know you`,
+      title: modals?.preTestimonial?.title?.text || `Before you add a testimonial, we would like to know you`,
       // iconName: "fa-thumbs-up",
 
       component: ({ close }) => (
@@ -82,7 +82,7 @@ function OneTestimonial({ testimonials, updateTestimonials, campaign, init, togg
             close && close();
             initiateTestimonialCreation(user);
           }}
-          confirmText="Continue"
+          confirmText={modals?.preTestimonial?.buttons?.continue?.text || "Continue"}
         />
       ),
 

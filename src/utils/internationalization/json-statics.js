@@ -202,6 +202,10 @@ export const ENGLISH = {
     },
   },
   modals: {
+    whereFrom: {
+      title: { text: "Please tell us where you are from" },
+      buttons: { no: { text: "NO" }, submit: { text: "Okay, Done!" } },
+    },
     preTestimonial: {
       title: { text: "Before you add a testimonial, we would like to know you" },
       buttons: { continue: { text: "Continue" }, cancel: { text: "Cancel" } },
@@ -453,6 +457,13 @@ export const GERMAN = {
     },
   },
   modals: {
+    whereFrom: {
+      title: { text: "Bitte sagen Sie uns, woher Sie kommen" },
+      buttons: {
+        no: { text: "NEIN" },
+        submit: { text: "Okay, erledigt!" },
+      },
+    },
     preTestimonial: {
       title: { text: "Bevor Sie ein Testimonial hinzufügen, möchten wir Sie kennenlernen" },
       buttons: {
@@ -703,6 +714,13 @@ export const SPANISH = {
     },
   },
   modals: {
+    whereFrom: {
+      title: { text: "Por favor, díganos de dónde es" },
+      buttons: {
+        no: { text: "NO" },
+        submit: { text: "¡Vale, listo!" },
+      },
+    },
     preTestimonial: {
       title: { text: "Antes de agregar un testimonio, nos gustaría conocerte" },
       buttons: {
@@ -958,6 +976,13 @@ export const FRENCH = {
     },
   },
   modals: {
+    whereFrom: {
+      title: { text: "Veuillez nous dire d'où vous venez" },
+      buttons: {
+        no: { text: "NON" },
+        submit: { text: "D'accord, terminé!" },
+      },
+    },
     preTestimonial: {
       title: { text: "Avant d'ajouter un témoignage, nous aimerions vous connaître" },
       buttons: {
@@ -1204,6 +1229,13 @@ export const CHINESE = {
     },
   },
   modals: {
+    whereFrom: {
+      title: { text: "请告诉我们你来自哪里" },
+      buttons: {
+        no: { text: "不" },
+        submit: { text: "好的，完成了!" },
+      },
+    },
     preTestimonial: {
       title: { text: "在添加推荐之前，我们想了解您" },
       buttons: {
@@ -1451,6 +1483,13 @@ export const PORTUGUESE = {
     },
   },
   modals: {
+    whereFrom: {
+      title: { text: "Por favor, diga-nos de onde você é" },
+      buttons: {
+        no: { text: "NÃO" },
+        submit: { text: "Ok, pronto!" },
+      },
+    },
     preTestimonial: {
       title: { text: "Antes de adicionar um depoimento, gostaríamos de conhecê-lo" },
       buttons: {
@@ -1705,6 +1744,13 @@ export const ITALIAN = {
     },
   },
   modals: {
+    whereFrom: {
+      title: { text: "Per favore, dicci da dove vieni" },
+      buttons: {
+        no: { text: "NO" },
+        submit: { text: "Ok, fatto!" },
+      },
+    },
     preTestimonial: {
       title: { text: "Prima di aggiungere una testimonianza, vorremmo conoscerti" },
       buttons: {
