@@ -21,11 +21,11 @@ function CampaignNotLive({ campaign }) {
         <Col sm="auto">
           <Button
             className={"close-btn"}
-            style={{ borderRadius: "100%", padding: "4px 9px" }}
+            style={{ borderRadius: "100%", padding: "0px 6px" }}
             variant={"dark"}
             onClick={() => setShow(false)}
           >
-            <span className="fa fa-times" style={{ fontSize: 18 }}></span>
+            <span className="fa fa-times" style={{ fontSize: 15 }}></span>
           </Button>
         </Col>
       </Row>

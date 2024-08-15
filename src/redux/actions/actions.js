@@ -156,7 +156,7 @@ export const appInnitAction = (campaignId, cb) => {
   return (dispatch) => {
     dispatch(loadUserObjAction(savedUser)); // use saved user to run a request to bring in the most recent changes to the user
     const userContent = user?.email ? { email: user.email } : {};
-    const activeLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || "en_US";
+    const activeLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || "en-US";
     dispatch(loadActiveLanguageAction(activeLang));
     Promise.all([
       apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
