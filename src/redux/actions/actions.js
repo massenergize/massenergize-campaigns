@@ -38,9 +38,9 @@ export const getPreferredLanguageISO = () => {
   const code = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY);
   return findInLanguageList(code)?.code || DEFAULT_ENGLISH_CODE;
 };
-export const findInLanguageList = (code) => {
+export const findInLanguageList = (code, list) => {
   const state = store.getState();
-  const languages = state?.campaign?.languages || [];
+  const languages = list?.length ? list : state?.campaign?.languages || [];
   return languages.find((l) => l?.code === code);
 };
 export const getStaticText = () => {
@@ -167,10 +167,7 @@ export const appInnitAction = (campaignId, cb) => {
   return (dispatch) => {
     dispatch(loadUserObjAction(savedUser)); // use saved user to run a request to bring in the most recent changes to the user
     const userContent = user?.email ? { email: user.email } : {};
-    let activeLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || "en-US";
-    const found = findInLanguageList(activeLang);
-    if (!found) activeLang = DEFAULT_ENGLISH_CODE;
-    dispatch(loadActiveLanguageAction(activeLang));
+
     Promise.all([
       apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
       apiCall(CAMPAIGN_VIEW_URL, {
@@ -184,6 +181,10 @@ export const appInnitAction = (campaignId, cb) => {
         // console.log("INSIDE INNIT", data, campaignId);
         dispatch(loadCampaignInformation(data));
         if (data) {
+          let activeLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || "en-US";
+          const found = findInLanguageList(activeLang, data?.languages);
+          if (!found) activeLang = DEFAULT_ENGLISH_CODE;
+          dispatch(loadActiveLanguageAction(activeLang));
           dispatch(setNavigationMenuAction(data?.navigation || []));
           dispatch(setTestimonialsActions(data?.my_testimonials || []));
           cb && cb(data, campaignInformation?.success);
