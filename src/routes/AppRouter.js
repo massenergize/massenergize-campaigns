@@ -8,6 +8,7 @@ import {
   appInnitAction,
   testReduxAction,
   toggleUniversalModal,
+  getStaticText,
 } from "../redux/actions/actions";
 import { connect } from "react-redux";
 import CustomModal from "../components/modal/CustomModal";
@@ -24,7 +25,7 @@ import CreateCampaignAccount from "../admin-portal/pages/campaign-account/Create
 import { CampaignStatistics } from "../admin-portal/pages/campaign/campaign-statistics/campaign-statistics";
 import Login from "../admin-portal/pages/auth/Login";
 import Dummy from "../admin-portal/pages/auth/Dummy";
-import { portalIsAdmin, setPageTitle } from "../utils/utils";
+import { setPageTitle } from "../utils/utils";
 import JoinUsForm from "../user-portal/pages/forms/JoinUsForm";
 import AddOfferedLanguages from "../admin-portal/internationalization/AddOfferedLanguages";
 
@@ -161,6 +162,7 @@ function AppRouter({
   isAdminPortal,
   // navigation,
 }) {
+  const { modals } = getStaticText();
   const params = useParams();
 
   useEffect(() => {
@@ -173,11 +175,11 @@ function AppRouter({
     toggleModal({
       fullControl: true,
       show: true,
-      title: `Before you add a testimonial, we would like to know you`,
+      title: modals?.preTestimonial?.title?.text || `Before you add a testimonial, we would like to know you`,
       component: (props) => (
         <JoinUsForm
           {...(props || {})}
-          confirmText="Continue"
+          confirmText={modals?.preTestimonial?.buttons?.continue?.text || "Continue"}
           callbackOnSubmit={({ close }) => close && close()}
           {...(registrationProps || {})}
         />

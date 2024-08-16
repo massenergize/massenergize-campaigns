@@ -578,7 +578,7 @@ function TechnologyFullViewPage({
             trackActivity={trackActivity}
             authUser={authUser}
             vendors={vendors}
-            staticT = {sections?.take_action_section}
+            staticT={sections?.take_action_section}
           />
         </div>
         <div ref={testimonialsRef}>

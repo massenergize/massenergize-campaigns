@@ -41,10 +41,10 @@ export const campaignPages = [
     name: "Comments",
     component: CampaignComments,
   },
-  // {
-  //   name: "Translation",
-  //   component: AddOfferedLanguages,
-  // },
+  {
+    name: "Translation",
+    component: AddOfferedLanguages,
+  },
   // {
   // 	name: "Partners",
   // 	component: Partners,

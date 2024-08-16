@@ -26,19 +26,32 @@ import {
   LOAD_OFFERED_LANGUAGES,
   SET_ACTIVE_LANGUAGE,
   ADMIN_UPDATE_OFFERED_LANGUAGES,
+  DEFAULT_ENGLISH_CODE,
+  PREFERRED_LANGUAGE_STORAGE_KEY,
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
-import { LANGUAGES } from "../../utils/internationalization/languages";
 import store from "./../store";
-import { PREFERRED_LANGUAGE_STORAGE_KEY } from "src/utils/utils";
 
 export const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
 
+export const getPreferredLanguageISO = () => {
+  const code = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY);
+  return findInLanguageList(code)?.code || DEFAULT_ENGLISH_CODE;
+};
+export const findInLanguageList = (code) => {
+  const state = store.getState();
+  const languages = state?.campaign?.languages || [];
+  return languages.find((l) => l?.code === code);
+};
 export const getStaticText = () => {
   const state = store.getState();
-  const activeLanguage = state?.activeLanguage;
-  const staticTextHeap = state?.staticTextHeap;
-  return staticTextHeap[activeLanguage] || staticTextHeap?.en_US || {};
+  // const languages = state?.campaign?.languages || [];
+  let activeLanguage = state?.activeLanguage;
+  // const isNotInList = !languages.find((l) => l?.code === activeLanguage);
+  const isNotInList = !findInLanguageList(activeLanguage);
+  if (isNotInList) activeLanguage = DEFAULT_ENGLISH_CODE;
+  const staticTextHeap = state?.staticTextHeap || {};
+  return staticTextHeap[activeLanguage] || staticTextHeap[DEFAULT_ENGLISH_CODE] || {};
 };
 export const setActiveLanguageInStorage = (isoCode) => {
   localStorage.setItem(PREFERRED_LANGUAGE_STORAGE_KEY, isoCode);
@@ -53,7 +66,7 @@ export const loadActiveLanguageAction = (isoCode) => {
 export const loadStaticTextHeapAction = (data = {}) => {
   return { type: SET_STATIC_TEXT_HEAP, payload: data };
 };
-export const loadOfferedLanguagesAction = (data = []) => {
+export const loadLanguagesAction = (data = []) => {
   return { type: LOAD_OFFERED_LANGUAGES, payload: data };
 };
 export const testReduxAction = (someValue = []) => {
@@ -156,7 +169,7 @@ export const appInnitAction = (campaignId, cb) => {
   return (dispatch) => {
     dispatch(loadUserObjAction(savedUser)); // use saved user to run a request to bring in the most recent changes to the user
     const userContent = user?.email ? { email: user.email } : {};
-    const activeLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || "en_US";
+    const activeLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || "en-US";
     dispatch(loadActiveLanguageAction(activeLang));
     Promise.all([
       apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),

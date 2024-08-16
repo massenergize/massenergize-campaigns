@@ -45,7 +45,7 @@ export default combineReducers({
   campaignComments: campaignCommentsReducer,
   campaignTestimonials: campaignTestimonialsReducer,
   portalTestimonials: setPortalTestimonialsReducer,
-  offeredLanguages: offeredLanguagesReducer,
+  languageList: offeredLanguagesReducer,
   staticTextHeap: staticTextHeapReducer,
   activeLanguage: setActiveLanguageReducer,
   campaignOfferedLanguages: reducerForCampaignOfferedLanguages,

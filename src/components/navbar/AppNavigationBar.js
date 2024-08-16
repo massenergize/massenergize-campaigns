@@ -63,8 +63,8 @@ function AppNavigationBar({ menu, campaign }) {
         {/* <Navbar.Brand href="#home">MassEnergize Campaigns</Navbar.Brand> */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" className={" mb-2"} />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className=" w-md-100">
-            <Row className={"w-md-100 justify-content-center"}>
+          <Nav className=" w-md-100 justify-content-center">
+            <Row className={" "}>
               <Col xs={12} md="auto" className={"mb-3 mb-md-0 d-flex"}>
                 <Row className={"justify-content-between w-100"}>
                   <Col xs={"auto"} sm={"auto"}>
@@ -110,7 +110,7 @@ function AppNavigationBar({ menu, campaign }) {
                       return (
                         <Col sm={12} md={"auto"} key={i} className={"d-flex  align-items-center px-0"}>
                           <Nav.Link
-                            className="c-nav-item body-font d-flex mx-md-2 mx-auto px-0"
+                            className="c-nav-item  d-flex mx-md-2 mx-auto px-0"
                             key={menu?.key}
                             style={{
                               textTransform: "capitalize",
@@ -133,7 +133,7 @@ function AppNavigationBar({ menu, campaign }) {
                     return (
                       <Col key={i} sm={12} md={"auto"} className={"d-flex align-items-center px-0"}>
                         <NavDropdown
-                          className={"fw-bold text-capitalize mx-md-1 mx-auto body-font d-md-flex px-0 w-100"}
+                          className={"fw-bold text-capitalize mx-md-1 mx-auto  d-md-flex px-0 w-100"}
                           title={<DropdownTitle menu={menu} />}
                           id="basic-nav-dropdown"
                         >
@@ -177,9 +177,29 @@ function AppNavigationBar({ menu, campaign }) {
               </Col>
             </Row>
 
-            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-              <LanguageSelector />
-            </div>
+            <LanguageSelector />
+            {/* <div
+              className="touchable-opacity"
+              style={{
+                position: "absolute",
+                top: 0,
+                right: 40,
+                display: "flex",
+                flexDirection: "row",
+                // justifyContent: "center",
+                alignItems: "center",
+                fontSize: 18,
+                // background: "red",
+                height: "100%",
+                fontWeight: "bold",
+                color: "var(--app-main-color)",
+                textTransform: "uppercase",
+              }}
+            >
+            
+              <i className="fa fa-globe" style={{ marginRight: 3 }}></i>
+              <span>EN</span>
+            </div> */}
           </Nav>
         </Navbar.Collapse>
       </Container>

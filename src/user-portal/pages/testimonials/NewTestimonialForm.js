@@ -133,7 +133,7 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
         </InputGroup> */}
         <InputGroup className="mb-3 mt-2 body-font">
           <InputGroup.Text style={{ fontWeight: "bold" }} id="basic-addon1">
-            {staticT?.title?.title || "Title*"}
+            {staticT?.title?.text || "Title*"}
           </InputGroup.Text>
           <Form.Control
             type="text"
