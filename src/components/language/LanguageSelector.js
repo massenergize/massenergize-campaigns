@@ -1,23 +1,28 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getStaticText,
   loadActiveLanguageAction,
   setActiveLanguageInStorage,
   toggleUniversalModal,
 } from "../../redux/actions/actions";
 import { PREFERRED_LANGUAGE_STORAGE_KEY, smartString } from "../../utils/utils";
+import LanguageSelectionModal from "./LanguageSelectionModal";
 
 const DEFAULT = { name: "--", code: "---" };
 function LanguageSelector() {
   const campaign = useSelector((state) => state?.campaign);
   const languages = campaign?.languages || [];
   const activeLanguage = useSelector((state) => state?.activeLanguage);
+  const { modals } = getStaticText();
+  const staticT = modals?.languageSelectionModal || {};
   const dispatch = useDispatch();
 
   const openModal = (data) => {
     dispatch(toggleUniversalModal(data));
   };
 
+  const getLangLetters = (code) => code.split("-")[0] || "";
   const setActiveLanguage = (lang, reload = true) => {
     setActiveLanguageInStorage(lang);
     dispatch(loadActiveLanguageAction(lang));
@@ -27,17 +32,22 @@ function LanguageSelector() {
   return (
     <div
       className="touchable-opacity"
-      onClick={() => openModal({ show: true, title: "Choose a Language", component: () => <h3>Gbemi</h3> })}
+      onClick={() =>
+        openModal({
+          noFooter: true,
+          show: true,
+          title: staticT?.title?.text || "Choose a Language",
+          component: () => <LanguageSelectionModal languages={languages} selectLanguage={setActiveLanguage} />,
+        })
+      }
       style={{
         position: "absolute",
         top: 0,
         right: 40,
         display: "flex",
         flexDirection: "row",
-        // justifyContent: "center",
         alignItems: "center",
         fontSize: 18,
-        // background: "red",
         height: "100%",
         fontWeight: "bold",
         color: "var(--app-main-color)",
@@ -45,7 +55,7 @@ function LanguageSelector() {
       }}
     >
       <i className="fa fa-globe" style={{ marginRight: 3 }}></i>
-      <span>EN</span>
+      <span>{getLangLetters(activeLanguage)}</span>
     </div>
   );
   return (

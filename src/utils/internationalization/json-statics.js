@@ -202,6 +202,7 @@ export const ENGLISH = {
     },
   },
   modals: {
+    languageSelectionModal: { title: { text: "Choose a Language" } },
     whereFrom: {
       title: { text: "Please tell us where you are from" },
       buttons: { no: { text: "NO" }, submit: { text: "Okay, Done!" } },
@@ -457,6 +458,9 @@ export const GERMAN = {
     },
   },
   modals: {
+    languageSelectionModal: {
+      title: { text: "Wählen Sie eine Sprache" },
+    },
     whereFrom: {
       title: { text: "Bitte sagen Sie uns, woher Sie kommen" },
       buttons: {
@@ -714,6 +718,9 @@ export const SPANISH = {
     },
   },
   modals: {
+    languageSelectionModal: {
+      title: { text: "Elija un idioma" },
+    },
     whereFrom: {
       title: { text: "Por favor, díganos de dónde es" },
       buttons: {
@@ -976,6 +983,9 @@ export const FRENCH = {
     },
   },
   modals: {
+    languageSelectionModal: {
+      title: { text: "Choisissez une langue" },
+    },
     whereFrom: {
       title: { text: "Veuillez nous dire d'où vous venez" },
       buttons: {
@@ -1229,6 +1239,9 @@ export const CHINESE = {
     },
   },
   modals: {
+    languageSelectionModal: {
+      title: { text: "选择一种语言" },
+    },
     whereFrom: {
       title: { text: "请告诉我们你来自哪里" },
       buttons: {
@@ -1483,6 +1496,9 @@ export const PORTUGUESE = {
     },
   },
   modals: {
+    languageSelectionModal: {
+      title: { text: "Escolha um Idioma" },
+    },
     whereFrom: {
       title: { text: "Por favor, diga-nos de onde você é" },
       buttons: {
@@ -1744,6 +1760,9 @@ export const ITALIAN = {
     },
   },
   modals: {
+    languageSelectionModal: {
+      title: { text: "Scegli una Lingua" },
+    },
     whereFrom: {
       title: { text: "Per favore, dicci da dove vieni" },
       buttons: {
