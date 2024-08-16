@@ -41,7 +41,6 @@ export const getPreferredLanguageISO = () => {
 export const findInLanguageList = (code, list) => {
   const state = store.getState();
   const languages = list?.length ? list : state?.campaign?.languages || [];
-  console.log("The languages", languages);
   return languages.find((l) => l?.code === code);
 };
 export const getStaticText = () => {
