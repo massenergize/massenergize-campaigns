@@ -62,7 +62,7 @@ function LanguageSelector() {
         src={`https://flagicons.lipis.dev/flags/4x3/${country}.svg`}
         style={{ objectFit: "contain", marginRight: 4, borderRadius: 2, width: 20 }}
       />
-      <span>{getLangLetters(activeLanguage)}</span>
+      <span>{getLangLetters(activeLanguage)}</span> <i style={{ marginLeft: 4 }} className=" fa fa-caret-down" />
     </div>
   );
   return (
