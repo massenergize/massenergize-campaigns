@@ -10,6 +10,9 @@ const LANG_CODE_TO_DATE_OBJ = { en: enUS, es, pt: ptBR }; // means when a new la
 export const getCountryFromCode = (code) => {
   return (code?.split("-")[1] || "US").toLowerCase();
 };
+
+export const PREFERRED_LANGUAGE_STORAGE_KEY = "PREFERRED_LANGUAGE";
+export const getPreferredLanguageISO = () => localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || "en-US";
 export function sortEvents(events) {
   return events?.sort((a, b) => new Date(a?.event?.start_date) - new Date(b?.event?.start_date));
 }

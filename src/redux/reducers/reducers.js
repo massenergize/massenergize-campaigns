@@ -66,10 +66,6 @@ export const universalModalReducer = (state = { show: false, component: <></> },
   return state;
 };
 export const setActiveLanguageReducer = (state = null, action = {}) => {
-  // if (state == undefined) {
-  //   state = getPreferredLanguageISO();
-  //   state = state || LANGUAGES[DEFAULT_ENGLISH_CODE];
-  // }
   if (action.type === SET_ACTIVE_LANGUAGE) {
     return action.payload;
   }
