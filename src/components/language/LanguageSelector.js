@@ -6,7 +6,7 @@ import {
   setActiveLanguageInStorage,
   toggleUniversalModal,
 } from "../../redux/actions/actions";
-import { PREFERRED_LANGUAGE_STORAGE_KEY, smartString } from "../../utils/utils";
+import { getCountryFromCode, PREFERRED_LANGUAGE_STORAGE_KEY, smartString } from "../../utils/utils";
 import LanguageSelectionModal from "./LanguageSelectionModal";
 
 const DEFAULT = { name: "--", code: "---" };
@@ -17,6 +17,8 @@ function LanguageSelector() {
   const { modals } = getStaticText();
   const staticT = modals?.languageSelectionModal || {};
   const dispatch = useDispatch();
+
+  const country = getCountryFromCode(activeLanguage);
 
   const openModal = (data) => {
     dispatch(toggleUniversalModal(data));
@@ -43,7 +45,7 @@ function LanguageSelector() {
       style={{
         position: "absolute",
         top: 0,
-        right: 40,
+        right: 50,
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
@@ -54,7 +56,12 @@ function LanguageSelector() {
         textTransform: "uppercase",
       }}
     >
-      <i className="fa fa-globe" style={{ marginRight: 3 }}></i>
+      {/* <i className="fa fa-globe" style={{ marginRight: 3 }}></i> */}
+      <img
+        alt="flag"
+        src={`https://flagicons.lipis.dev/flags/4x3/${country}.svg`}
+        style={{ objectFit: "contain", marginRight: 4, borderRadius: 2, width: 20 }}
+      />
       <span>{getLangLetters(activeLanguage)}</span>
     </div>
   );

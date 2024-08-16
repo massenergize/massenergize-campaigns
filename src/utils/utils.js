@@ -6,6 +6,10 @@ import { DEFAULT_ENGLISH_CODE, PREFERRED_LANGUAGE_STORAGE_KEY } from "src/redux/
 import { getPreferredLanguageISO } from "src/redux/actions/actions";
 
 const LANG_CODE_TO_DATE_OBJ = { en: enUS, es, pt: ptBR }; // means when a new language is approved, we wld have to add it in here as well
+
+export const getCountryFromCode = (code) => {
+  return (code?.split("-")[1] || "US").toLowerCase();
+};
 export function sortEvents(events) {
   return events?.sort((a, b) => new Date(a?.event?.start_date) - new Date(b?.event?.start_date));
 }
@@ -116,8 +120,6 @@ export function smartString(inputString, maxLength = 30) {
 
   return inputString.slice(0, maxLength) + "...";
 }
-
-
 
 export function mergeArrays(arrays, reducer) {
   const mergedArray = [];
