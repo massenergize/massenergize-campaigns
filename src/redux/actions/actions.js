@@ -36,8 +36,7 @@ export const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
 
 export const getPreferredLanguageISO = () => {
   const code = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY);
-  // return code;
-  return findInLanguageList(code) || DEFAULT_ENGLISH_CODE;
+  return findInLanguageList(code)?.code || DEFAULT_ENGLISH_CODE;
 };
 export const findInLanguageList = (code) => {
   const state = store.getState();

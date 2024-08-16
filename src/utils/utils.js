@@ -46,7 +46,7 @@ export function formatTime(dateString, formatString = "HH:mm aaa") {
 const pruneLanuguage = (code) => {
   const DEFAULT = "en";
   if (!code) return DEFAULT;
-  return code.split("-")[0] || DEFAULT;
+  return code?.split("-")[0] || DEFAULT;
 };
 
 export function relativeTimeAgo(datetimeString) {
