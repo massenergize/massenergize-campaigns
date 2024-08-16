@@ -18,11 +18,13 @@ function LanguageSelector() {
   const staticT = modals?.languageSelectionModal || {};
   const dispatch = useDispatch();
 
+  const noLanguages = !languages || !languages.length || languages.length < 2;
   const country = getCountryFromCode(activeLanguage);
 
   const openModal = (data) => {
     dispatch(toggleUniversalModal(data));
   };
+
 
   const getLangLetters = (code) => code.split("-")[0] || "";
   const setActiveLanguage = (lang, reload = true) => {
@@ -34,14 +36,15 @@ function LanguageSelector() {
   return (
     <div
       className="touchable-opacity"
-      onClick={() =>
+      onClick={() => {
+        if (noLanguages) return;
         openModal({
           noFooter: true,
           show: true,
           title: staticT?.title?.text || "Choose a Language",
           component: () => <LanguageSelectionModal languages={languages} selectLanguage={setActiveLanguage} />,
-        })
-      }
+        });
+      }}
       style={{
         position: "absolute",
         top: 0,
@@ -62,7 +65,12 @@ function LanguageSelector() {
         src={`https://flagicons.lipis.dev/flags/4x3/${country}.svg`}
         style={{ objectFit: "contain", marginRight: 4, borderRadius: 2, width: 20 }}
       />
-      <span>{getLangLetters(activeLanguage)}</span> <i style={{ marginLeft: 4 }} className=" fa fa-caret-down" />
+      <span>{getLangLetters(activeLanguage)}</span>
+      {!noLanguages && (
+        <>
+          <i style={{ marginLeft: 4 }} className=" fa fa-caret-down" />
+        </>
+      )}
     </div>
   );
   return (

@@ -45,9 +45,7 @@ export const findInLanguageList = (code) => {
 };
 export const getStaticText = () => {
   const state = store.getState();
-  // const languages = state?.campaign?.languages || [];
   let activeLanguage = state?.activeLanguage;
-  // const isNotInList = !languages.find((l) => l?.code === activeLanguage);
   const isNotInList = !findInLanguageList(activeLanguage);
   if (isNotInList) activeLanguage = DEFAULT_ENGLISH_CODE;
   const staticTextHeap = state?.staticTextHeap || {};
@@ -169,7 +167,9 @@ export const appInnitAction = (campaignId, cb) => {
   return (dispatch) => {
     dispatch(loadUserObjAction(savedUser)); // use saved user to run a request to bring in the most recent changes to the user
     const userContent = user?.email ? { email: user.email } : {};
-    const activeLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || "en-US";
+    let activeLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || "en-US";
+    const found = findInLanguageList(activeLang);
+    if (!found) activeLang = DEFAULT_ENGLISH_CODE;
     dispatch(loadActiveLanguageAction(activeLang));
     Promise.all([
       apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
