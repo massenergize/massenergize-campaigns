@@ -5,6 +5,7 @@ import qs from "qs";
 import { API_HOST } from "./urls";
 import store from "src/redux/store";
 import { PREFERRED_LANGUAGE_STORAGE_KEY } from "src/redux/redux-action-types";
+import {portalIsAdmin} from "../redux/reducers/reducers";
 // import { API_HOST, IS_CANARY, IS_PROD, IS_LOCAL, CC_HOST } from '../config/constants';
 export const PERMISSION_DENIED = "permission_denied";
 export const SESSION_EXPIRED = "session_expired";
@@ -32,7 +33,7 @@ export async function apiCall(destinationUrl, dataToSend = {}, relocationPage = 
 
   const formData = new FormData();
   Object.keys(data).map((k) => formData.append(k, data[k]));
-  if (lang) formData.append("__user_language", lang);
+  if (lang && !portalIsAdmin()) formData.append("__user_language", lang);
 
   if (!destinationUrl || destinationUrl.length < 2) {
     return { success: false, error: "Invalid URL passed to apiCall" };
