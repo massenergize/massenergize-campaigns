@@ -4,6 +4,7 @@
 import qs from "qs";
 import { API_HOST } from "./urls";
 import store from "src/redux/store";
+import { PREFERRED_LANGUAGE_STORAGE_KEY } from "src/redux/redux-action-types";
 // import { API_HOST, IS_CANARY, IS_PROD, IS_LOCAL, CC_HOST } from '../config/constants';
 export const PERMISSION_DENIED = "permission_denied";
 export const SESSION_EXPIRED = "session_expired";
@@ -18,7 +19,10 @@ export const SESSION_EXPIRED = "session_expired";
  * @param { String } relocationPage
  */
 export async function apiCall(destinationUrl, dataToSend = {}, relocationPage = null) {
-  const { activeLanguage: lang } = store?.getState() || {};
+  const persistedLanguage = localStorage?.getItem(PREFERRED_LANGUAGE_STORAGE_KEY)
+  let { activeLanguage: lang } = store?.getState() || {};
+
+  lang = lang || persistedLanguage;
   // add some meta data for context in backend
   const data = {
     // __is_prod: IS_PROD || IS_CANARY,
