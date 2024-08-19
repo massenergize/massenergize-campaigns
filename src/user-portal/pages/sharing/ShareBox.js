@@ -10,7 +10,7 @@ const items = [
   { key: "whatsapp", text: "Whatsapp", icon: "fa-whatsapp", alias: "whatsapp" },
   { key: "other", text: "Other", icon: "", alias: "" },
 ];
-function ShareBox({ data, onChange, campaign, authUser }) {
+function ShareBox({ data, onChange, campaign, authUser, staticT }) {
   const [copied, setCopied] = useState(false);
   const [state, setState] = useState({});
   const [error, setError] = useState({});
@@ -68,7 +68,7 @@ function ShareBox({ data, onChange, campaign, authUser }) {
       <div style={{ padding: 20 }}>
         <div style={{ marginBottom: 10 }}>
           <Form.Text className="small-font">
-            Please select a platform that you would like to share this technology to
+            {staticT?.instruction?.text || "Please select a platform that you would like to share this technology to"}
           </Form.Text>
         </div>
         <Form
@@ -131,11 +131,12 @@ function ShareBox({ data, onChange, campaign, authUser }) {
               id="button-addon2"
               style={{ fontWeight: "bold", background: "var(--app-main-color)" }}
             >
-              {copied ? "Copied!" : "Copy Link"}
+              {copied ? staticT?.button?.copied?.text || "Copied!" : staticT?.button?.copy?.text || "Copy Link"}
             </Button>
           </InputGroup>
           <Form.Text className="small-font">
-            You can copy the link and share it {state?.platform === "other" ? "" : ` on ${state.platform}`}
+            {staticT?.hint?.text || "You can copy the link and share it"}{" "}
+            {state?.platform === "other" ? "" : ` on ${state.platform}`}
           </Form.Text>
         </div>
       </div>

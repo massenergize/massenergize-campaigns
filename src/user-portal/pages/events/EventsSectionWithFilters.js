@@ -9,7 +9,7 @@ import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 import OurParagraph from "../../../components/OurParagraph";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 
-function EventsSectionWithFilters({ sectionId, technologies }) {
+function EventsSectionWithFilters({ sectionId, technologies, staticT }) {
   const containerRef = useRef();
 
   let events = technologies?.map((tech) => tech?.events);
@@ -22,7 +22,7 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
       });
     else data = events;
 
-    data = sortEvents(data)
+    data = sortEvents(data);
     return (
       <Row
         ref={containerRef}
@@ -35,7 +35,7 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
         {data?.map((item) => {
           return (
             <Col key={item.id} xs={12} md={4} xl={3}>
-              <EventBox {...item} />
+              <EventBox {...item} staticT={staticT} />
             </Col>
           );
         })}
@@ -58,16 +58,17 @@ function EventsSectionWithFilters({ sectionId, technologies }) {
       <CenteredWrapper>
         <Container>
           <div className="row-flex t-with-filter-top">
-            <SectionTitle>Events</SectionTitle>
+            <SectionTitle>{staticT?.title?.text || "Events"}</SectionTitle>
             {hasScrollableEvents && <ArrowButtons containerRef={containerRef} style={{ marginLeft: "auto" }} />}
           </div>
           {hasScrollableEvents && (
             <OurParagraph>
-              Scroll from left to right to see more events, or use the arrow buttons(top right) to scroll
+              {staticT?.scrollable?.text ||
+                " Scroll from left to right to see more events, or use the arrow buttons(top right) to scroll"}
             </OurParagraph>
           )}
           <Filter
-            title="Filter events by"
+            title={staticT?.call_to_filter?.text || "Filter events by"}
             filterOptions={technologies}
             labelAccessor={(tech) => tech?.name}
             valueAccessor={(tech) => tech?.campaign_technology_id}

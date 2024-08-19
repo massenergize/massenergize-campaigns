@@ -1,14 +1,20 @@
-import {
-  CAMPAIGN_DATA,
-  ONE_TECH_DATA,
-} from "../../user-portal/data/user-portal-dummy-data";
+import { CAMPAIGN_DATA, ONE_TECH_DATA } from "../../user-portal/data/user-portal-dummy-data";
 import { LOADING } from "../../utils/Constants";
-import { portalIsAdmin } from "../../utils/utils";
+import { LANGUAGES } from "../../utils/internationalization/languages";
+// import { portalIsAdmin } from "../../utils/utils";
+// import { getPreferredLanguageISO } from "../actions/actions";
+
 import {
+  ADMIN_UPDATE_OFFERED_LANGUAGES,
+  DEFAULT_ENGLISH_CODE,
   DO_NOTHING,
   LOAD_CAMPAIGN_INFORMATION,
+  LOAD_OFFERED_LANGUAGES,
+  SET_ACTIVE_LANGUAGE,
   SET_AUTH_USER,
-  SET_CAMPAIGN_ACCOUNT, SET_CAMPAIGN_COMMENTS, SET_CAMPAIGN_COMMUNITIES_EVENTS,
+  SET_CAMPAIGN_ACCOUNT,
+  SET_CAMPAIGN_COMMENTS,
+  SET_CAMPAIGN_COMMUNITIES_EVENTS,
   SET_CAMPAIGN_TESTIMONIALS,
   SET_FIRE_AUTH,
   SET_FULL_TECH_OBJ,
@@ -16,12 +22,36 @@ import {
   SET_MASSENERGISE_USERS,
   SET_NAVIGATION_MENU,
   SET_PORTAL_TESTIMONIALS,
+  SET_STATIC_TEXT_HEAP,
   SET_TESTIMONIALS,
   SET_USER_OBJ,
   TOGGLE_UNIVERSAL_MODAL,
   UPDATE_EVENT_OBJ,
-  UPDATE_TESTIMONIALS_OBJ
+  UPDATE_TESTIMONIALS_OBJ,
 } from "../redux-action-types";
+
+// import defaultStaticText from "./../../utils/default-static-text.json";
+import {
+  CHINESE,
+  ENGLISH,
+  FRENCH,
+  ITALIAN,
+  PORTUGUESE,
+  SPANISH,
+} from "./../../utils/internationalization/json-statics";
+
+export const portalIsAdmin = () => {
+  const url = window.location.href;
+  return url.includes("admin/");
+};
+const DEFAULT_STATIC_TEXT = {
+  [DEFAULT_ENGLISH_CODE]: ENGLISH,
+  "es-ES": SPANISH,
+  "fr-FR": FRENCH,
+  "zh-TW": CHINESE,
+  "pt-BR": PORTUGUESE,
+  "it-IT": ITALIAN,
+};
 
 export const doNothingReducer = (state = [], action = {}) => {
   if (action.type === DO_NOTHING) {
@@ -29,11 +59,26 @@ export const doNothingReducer = (state = [], action = {}) => {
   }
   return state;
 };
-export const universalModalReducer = (
-  state = { show: false, component: <></> },
-  action = {}
-) => {
+export const universalModalReducer = (state = { show: false, component: <></> }, action = {}) => {
   if (action.type === TOGGLE_UNIVERSAL_MODAL) {
+    return action.payload;
+  }
+  return state;
+};
+export const setActiveLanguageReducer = (state = null, action = {}) => {
+  if (action.type === SET_ACTIVE_LANGUAGE) {
+    return action.payload;
+  }
+  return state;
+};
+export const staticTextHeapReducer = (state = DEFAULT_STATIC_TEXT, action = {}) => {
+  if (action.type === SET_STATIC_TEXT_HEAP) {
+    return action.payload;
+  }
+  return state;
+};
+export const offeredLanguagesReducer = (state = null, action = {}) => {
+  if (action.type === LOAD_OFFERED_LANGUAGES) {
     return action.payload;
   }
   return state;
@@ -46,6 +91,12 @@ export const campaignInformationReducer = (state = LOADING, action = {}) => {
 };
 export const fullTechnologiesReducer = (state = {}, action = {}) => {
   if (action.type === SET_FULL_TECH_OBJ) {
+    return action.payload;
+  }
+  return state;
+};
+export const reducerForCampaignOfferedLanguages = (state = null, action = {}) => {
+  if (action.type === ADMIN_UPDATE_OFFERED_LANGUAGES) {
     return action.payload;
   }
   return state;
@@ -115,7 +166,7 @@ export const adminPortalReducer = (state = portalIsAdmin(), action) => {
       return state; // return current state if action is not handled
   }
 };
-export const massEnergizeUsersReducer = (state =[], action) => {
+export const massEnergizeUsersReducer = (state = [], action) => {
   switch (action.type) {
     case SET_MASSENERGISE_USERS:
       return action.payload; // return new state
@@ -123,7 +174,7 @@ export const massEnergizeUsersReducer = (state =[], action) => {
       return state; // return current state if action is not handled
   }
 };
-export const CampaignCommunitiesEventsReducer = (state =[], action) => {
+export const CampaignCommunitiesEventsReducer = (state = [], action) => {
   switch (action.type) {
     case SET_CAMPAIGN_COMMUNITIES_EVENTS:
       return action.payload; // return new state
@@ -131,7 +182,7 @@ export const CampaignCommunitiesEventsReducer = (state =[], action) => {
       return state; // return current state if action is not handled
   }
 };
-export const campaignCommentsReducer = (state =[], action) => {
+export const campaignCommentsReducer = (state = [], action) => {
   switch (action.type) {
     case SET_CAMPAIGN_COMMENTS:
       return action.payload; // return new state
@@ -139,7 +190,7 @@ export const campaignCommentsReducer = (state =[], action) => {
       return state; // return current state if action is not handled
   }
 };
-export const campaignTestimonialsReducer = (state =[], action) => {
+export const campaignTestimonialsReducer = (state = [], action) => {
   switch (action.type) {
     case SET_CAMPAIGN_TESTIMONIALS:
       return action.payload; // return new state
@@ -147,7 +198,7 @@ export const campaignTestimonialsReducer = (state =[], action) => {
       return state; // return current state if action is not handled
   }
 };
-export const setPortalTestimonialsReducer = (state =[], action) => {
+export const setPortalTestimonialsReducer = (state = [], action) => {
   switch (action.type) {
     case SET_PORTAL_TESTIMONIALS:
       return action.payload; // return new state

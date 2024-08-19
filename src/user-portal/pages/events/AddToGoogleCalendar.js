@@ -3,7 +3,7 @@ import { GoogleCalendar } from "datebook";
 
 import { stateAbbreviation } from "../../../utils/utils";
 
-const AddToGoogleCalendar = ({ data }) => {
+const AddToGoogleCalendar = ({ data, staticT }) => {
   const locationFormat = (location) => {
     if (!location) return "";
     let firstLine =
@@ -35,7 +35,8 @@ const AddToGoogleCalendar = ({ data }) => {
       style={{ background: "#ff4b00", width: "100%" }}
     >
       <p style={{ margin: 0 }}>
-        <i className="fa fa-calendar" style={{ marginRight: 0 }} /> Google Calendar
+        <i className="fa fa-calendar" style={{ marginRight: 0 }} />{" "}
+        {staticT?.google_calendar?.text || "Google Calendar"}
       </p>
     </div>
   );

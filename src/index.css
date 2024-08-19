@@ -5,6 +5,58 @@ body {
   font-family: "Manrope", sans-serif;
 }
 
+.floating-l-drop {
+  position: fixed;
+  bottom: 60px;
+  right: 0px;
+  padding: 10px 15px;
+  border-top-left-radius: 55px;
+  border-bottom-left-radius: 55px;
+  box-shadow: var(--elevate-5);
+  background-color: white;
+  color: var(--app-accent-3);
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.floating-l-drop > select {
+  cursor: pointer;
+  color: var(--app-main-color);
+  text-transform: capitalize;
+  font-size: var(--app-body-font);
+  font-weight: bold;
+  width: 200px;
+}
+
+.floating-l-drop:hover {
+  opacity: 1;
+  transition: 0.3s ease-in-out;
+}
+.undefault {
+  border: 0px;
+  background-color: white;
+  font-weight: bold;
+}
+
+.undefault:active,
+.undefault:focus {
+  outline: 0;
+  border: 0;
+}
+.l-drop {
+  padding: 5px;
+  cursor: pointer;
+  /* border: solid 2px var(--app-main-color); */
+  border: solid 2px #e4e4ff;
+  margin: 0px 20px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.l-drop > select {
+  color: var(--app-main-color);
+}
+
 .table-trashcan {
   padding: 0.5rem;
   /* width: 2rem;
@@ -33,7 +85,6 @@ body {
   border-width: 0px !important;
   font-weight: bold !important;
 }
-
 
 ::-webkit-scrollbar {
   display: none !important;

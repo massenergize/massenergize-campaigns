@@ -88,7 +88,8 @@ const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName }) => {
   );
 };
 
-const SmartFooter = ({ renderFooter, close }) => {
+const SmartFooter = ({ renderFooter, close, noFooter }) => {
+  if(noFooter) return <></>;
   if (renderFooter) return renderFooter();
   return (
     <Modal.Footer style={{ padding: 0, fontWeight: "bold" }}>

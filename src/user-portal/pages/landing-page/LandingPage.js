@@ -9,7 +9,13 @@ import GettingStartedSection from "../getting-started/GettingStartedSection";
 import { connect, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { USER_STORAGE_KEY, appInnitAction, loadUserObjAction, trackActivity } from "../../../redux/actions/actions";
+import {
+  USER_STORAGE_KEY,
+  appInnitAction,
+  getStaticText,
+  loadUserObjAction,
+  trackActivity,
+} from "../../../redux/actions/actions";
 import { LOADING, MOBILE_WIDTH } from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
@@ -38,6 +44,8 @@ function LandingPage({
 }) {
   const [mounted, setMounted] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
+  const { modals, loader, pages, share: shareStaticT, inPreview: previewStaticT } = getStaticText();
+  const homepageStaticT = pages?.homepage || {};
 
   const coachesRef = useRef();
   const eventsRef = useRef();
@@ -59,8 +67,8 @@ function LandingPage({
   const salt = fetchUrlParams("salt");
   const heroAB = fetchUrlParams("hero");
   const showHeroV1 = heroAB && heroAB === "v2";
-
-  const { key_contact, is_published, description, technologies_section, coaches_section, about_us_title } = campaign || {};
+  const { key_contact, is_published, description, technologies_section, coaches_section, about_us_title } =
+    campaign || {};
 
   const technologies = campaign?.technologies || [];
   const { campaignId } = useParams();
@@ -111,12 +119,12 @@ function LandingPage({
     if (!firstTime) return;
     toggleModal({
       show: true,
-      title: `Please tell us where you are from`,
+      title: modals?.whereFrom?.title?.text || `Please tell us where you are from`,
       component: ({ close }) => (
         <JoinUsForm
           close={close}
-          confirmText="Okay, Done!"
-          cancelText="NO"
+          confirmText={modals?.whereFrom?.buttons?.submit?.text || "Okay, Done!"}
+          cancelText={modals?.whereFrom?.buttons?.no?.text || "NO"}
           noForm
           onConfirm={(props) => stashUserCommunity({ ...props, campaign: justLoadedCampaign })}
         />
@@ -129,7 +137,7 @@ function LandingPage({
     const data = { description };
     toggleModal({
       show: true,
-      title: `About ${campaign?.title || ""}`,
+      title: `${campaign?.title || ""}`,
       component: ({ close }) => <RoamingModalSheet close={close} data={data} />,
       fullControl: true,
     });
@@ -138,9 +146,9 @@ function LandingPage({
   const handleShareCampaign = () => {
     toggleModal({
       show: true,
-      title: "Share Campaign",
+      title: homepageStaticT?.share?.title?.text || "Share Campaign",
       // iconName: "fa-comment",
-      component: () => <ShareBox campaign={campaign} authUser={authUser} />,
+      component: () => <ShareBox campaign={campaign} authUser={authUser} staticT={homepageStaticT?.share} />,
       modalNativeProps: { size: "lg" },
       fullControl: true,
     });
@@ -150,7 +158,8 @@ function LandingPage({
     if (!preview) init(campaignId);
   }, []);
 
-  if (campaign === LOADING && !preview) return <Loading fullPage>Fetching campaign details...</Loading>;
+  if (campaign === LOADING && !preview)
+    return <Loading fullPage>{loader?.text || "Fetching campaign details..."}</Loading>;
 
   if (!campaign) return <NotFound></NotFound>;
 
@@ -192,12 +201,12 @@ function LandingPage({
             borderBottomLeftRadius: 55,
           }}
         >
-          <span>PREVIEW MODE</span>
+          <span>{previewStaticT?.button?.text || "PREVIEW MODE"}</span>
         </p>
       )}
       <AppNavigationBar menu={menu} campaign={campaign} />
 
-      <Hero v2={showHeroV1 && !isMobile} handleShareCampaign={handleShareCampaign} />
+      <Hero v2={showHeroV1 && !isMobile} handleShareCampaign={handleShareCampaign} staticT={{ share: shareStaticT }} />
 
       <Container>
         <RoamingBox
@@ -205,6 +214,10 @@ function LandingPage({
           advert={{ description, title: about_us_title || `About ${campaign?.title || ""}` }}
           keyContact={key_contact}
           showMore={showMoreAboutAdvert}
+          staticT={{
+            learnMore: homepageStaticT?.sections?.about_box,
+            keyContact: homepageStaticT?.sections?.key_contact,
+          }}
         />
       </Container>
 
@@ -216,6 +229,7 @@ function LandingPage({
           sectionId="getting-started-section"
           trackActivity={trackActivity}
           authUser={authUser}
+          staticT={homepageStaticT?.sections?.getting_started_section}
         />
       </div>
 
@@ -226,12 +240,17 @@ function LandingPage({
           technologies={technologies}
           sectionId="testimonial-section"
           protectedFunction={(options) => triggerProtectedFunctionality(authUser, options)}
+          staticT={homepageStaticT?.sections?.testimonials_section}
         />
       </div>
       {/*<br />*/}
 
       <div ref={eventsRef}>
-        <EventsSectionWithFilters technologies={technologies} sectionId="event-section" />
+        <EventsSectionWithFilters
+          technologies={technologies}
+          sectionId="event-section"
+          staticT={homepageStaticT?.sections?.events_section}
+        />
       </div>
 
       <div ref={coachesRef}>
@@ -240,6 +259,7 @@ function LandingPage({
           technologies={technologies}
           toggleModal={toggleModal}
           sectionId="coaches-section"
+          staticT={homepageStaticT?.sections?.coaches_section}
         />
       </div>
       <div ref={communitiesRef}>
