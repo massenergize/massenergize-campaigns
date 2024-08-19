@@ -76,9 +76,9 @@ export function TableFilters ({ columns, originalData, first, last, setData, set
    */
   const handleFilterByChange = (e) => {
     const value = e.target.value;
-    let [ columnId, header ] = value.split(",");
+    let [ columnId, header ] = value?.split(",");
 
-    let filters = columnId.split(".");
+    let filters = columnId?.split(".");
     setFilterBy(filters);
 
     if (!isEmpty(filterText)) {

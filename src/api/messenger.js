@@ -151,7 +151,7 @@ export async function apiCallFile(destinationUrl, dataToSend = {}) {
     const contentDisposition = response.headers.get("content-disposition");
     const filename = contentDisposition
       ? contentDisposition.match(/filename="(.+)"/)[1]
-      : "download." + contentType.split("/")[1];
+      : "download." + contentType?.split("/")[1];
     return response.blob().then((blob) => ({
       success: true,
       file: new File([blob], filename, { type: contentType }),
