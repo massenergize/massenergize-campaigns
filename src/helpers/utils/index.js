@@ -146,15 +146,15 @@ export const getQueryParams = function (url) {
     if (url.endsWith("#")) {
       url = url.replace(new RegExp("#" + "$"), "");
     }
-    let queryString = url.split("?")[1];
+    let queryString = url?.split("?")[1];
     if (!queryString) {
       return params;
     }
-    let queryArray = queryString.split("&");
+    let queryArray = queryString?.split("&");
 
     queryArray.forEach((param) => {
-      let [key, value] = param.split("=");
-      params[key] = value ? decodeURIComponent(value.replace(/\+/g, " ")) : "";
+      let [key, value] = param?.split("=");
+      params[key] = value ? decodeURIComponent(value?.replace(/\+/g, " ")) : "";
     });
 
     url = queryString = queryArray = null;
@@ -264,7 +264,7 @@ export const formatPhoneNumber = (phoneNumber, numberType = "INTERNATIONAL", cou
  * @returns {File}
  */
 export function dataURItoFile(dataUri, filename) {
-  let arr = dataUri.split(",");
+  let arr = dataUri?.split(",");
   let mimeType = arr[0].match(/:(.*?);/)[1];
   let byteStr = atob(arr[1]);
   let bStringLength = byteStr.length;
@@ -285,13 +285,13 @@ export function dataURItoFile(dataUri, filename) {
 export function dataURItoBlob(dataURI) {
   // convert base64/URLEncoded data component to raw binary data held in a string
   var byteString;
-  if (dataURI.split(",")[0].indexOf("base64") >= 0) {
-    byteString = atob(dataURI.split(",")[1]);
+  if (dataURI?.split(",")[0].indexOf("base64") >= 0) {
+    byteString = atob(dataURI?.split(",")[1]);
   } else {
-    byteString = unescape(dataURI.split(",")[1]);
+    byteString = unescape(dataURI?.split(",")[1]);
   }
   // separate out the mime component
-  var mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
+  var mimeString = dataURI?.split(",")[0]?.split(":")[1]?.split(";")[0];
   // write the bytes of the string to a typed array
   var ia = new Uint8Array(byteString.length);
   for (var i = 0; i < byteString.length; i++) {

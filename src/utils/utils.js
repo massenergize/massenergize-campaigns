@@ -74,7 +74,7 @@ export function fetchUrlParams(name) {
 
 export function getLastSegmentFromUrl(url) {
   const parsedUrl = new URL(url);
-  const pathnameSegments = parsedUrl.pathname.split("/").filter(Boolean);
+  const pathnameSegments = parsedUrl.pathname?.split("/").filter(Boolean);
 
   if (pathnameSegments.length > 0) {
     return pathnameSegments[pathnameSegments.length - 1];

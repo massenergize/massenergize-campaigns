@@ -8,7 +8,7 @@ import { isNumber, isString } from "./index";
  */
 export function decodeFromBase64 (str) {
   // Going backwards: from byte stream, to percent-encoding, to original string.
-  return decodeURIComponent(atob(str).split("").map(function (c) {
+  return decodeURIComponent(atob(str)?.split("").map(function (c) {
     return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
   }).join(""));
 }
@@ -91,7 +91,7 @@ export const camelCaseTo = (str, to = "kebab") => {
     title: " "
   };
 
-  return str.split("")
+  return str?.split("")
     .map((letter, idx) => {
       return letter.toUpperCase() === letter
         ? `${idx !== 0 ? replacers[to] : ""}${letter.toLowerCase()}` : letter;
@@ -414,22 +414,22 @@ export const isSingleAlphabetCharacter = (str) => {
 };
 
 export const replaceCharsFromTo = (str, from, lastBut = 3, replaceWith = "*") => {
-  str = str.split("");
+  str = str?.split("");
   let i = str.length - (lastBut + 1);
   for (; i >= 0; i--) {
     str[i] = replaceWith;
   }
 
-  return str.join("")
+  return str?.join("")
 }
 
 export const obscureText = function (text, start = 0, end = null, hideWith = "*") {
-  text = text.split("@");
+  text = text?.split("@");
   return `${replaceCharsFromTo(text[0], 4, hideWith)}`;
 }
 
 export const replaceCharToLastBut = (str, lastBut = 3, replaceWith = "*") => {
-  str = str.split("");
+  str = str?.split("");
   let i = str.length - (lastBut + 1);
   for (; i >= 0; i--) {
     str[i] = replaceWith;
@@ -448,9 +448,9 @@ export const obscureEmail = function (email, hideWith = "*") {
     return "";
   }
 
-  email = email.split("@");
+  email = email?.split("@");
   const id = email[0];
-  const provider = email[1].split(".");
+  const provider = email[1]?.split(".");
 
   return `${replaceCharToLastBut(id, 2, hideWith)}@${replaceCharToLastBut(provider[0], 2)}.${provider[1]}`;
 }
