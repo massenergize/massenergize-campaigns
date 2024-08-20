@@ -313,20 +313,6 @@ function LandingPage({
         <DoMore campaign={campaign} />
       </div>
 
-      {/*<Modal*/}
-      {/*show={true}*/}
-      {/*>*/}
-      {/*  <ModalHeader closeButton>*/}
-      {/*    <Modal.Title className={"text-center"}>Sorry</Modal.Title>*/}
-      {/*  </ModalHeader>*/}
-      {/*  <ModalBody>*/}
-      {/*    <p>The admin for this campaign has disabled support for {`currentLanguage`}</p>*/}
-      {/*  </ModalBody>*/}
-      {/*  <ModalFooter>*/}
-      {/*    <Button variant="primary">OK</Button>*/}
-      {/*  </ModalFooter>*/}
-      {/*</Modal>*/}
-
       <Footer toggleModal={toggleModal} />
     </div>
   );
