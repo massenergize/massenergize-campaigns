@@ -291,3 +291,8 @@ export function isEmpty(value) {
   }
   return false;
 }
+
+export const getPreferredLanguageObjFromStorage = () => {
+    const obj = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY);
+    return obj ? JSON.parse(obj) : null;
+}
