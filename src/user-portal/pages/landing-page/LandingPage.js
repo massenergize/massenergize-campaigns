@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
 
-import { Container } from "react-bootstrap";
+import {Button, Container, Modal, ModalBody, ModalFooter, ModalHeader} from "react-bootstrap";
 import RoamingBox from "./RoamingBox";
 import Footer from "../footer/Footer";
 import GettingStartedSection from "../getting-started/GettingStartedSection";
@@ -14,7 +14,7 @@ import {
   appInnitAction,
   getStaticText,
   loadUserObjAction,
-  trackActivity,
+  trackActivity, findInLanguageList,
 } from "../../../redux/actions/actions";
 import { LOADING, MOBILE_WIDTH } from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
@@ -30,6 +30,7 @@ import CoachesSectionWithFilters from "../coaches/CoachesSectionWithFilters";
 import ShareBox from "../sharing/ShareBox";
 import Hero from "../banner/Hero";
 import { useMediaQuery } from "react-responsive";
+import {PREFERRED_LANGUAGE_STORAGE_KEY} from "../../../redux/redux-action-types";
 
 function LandingPage({
   toggleModal,
@@ -92,9 +93,39 @@ function LandingPage({
         tellUsWhereYouAreFrom(justLoadedCampaign);
         setPageTitle(justLoadedCampaign?.title);
       }
+      verifyLanguage(justLoadedCampaign);
       setMounted(true);
     });
   }, [campaignId]);
+
+
+
+
+  const verifyLanguage = (campaign) => {
+    const persistedLanguage = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || "en-US";
+    const { languages } = campaign || [];
+    const found = findInLanguageList(persistedLanguage, languages);
+    if (found) return;
+    toggleModal({
+      show: true,
+      component: (props) => (
+          <div>
+            <div className="text-center pb-3 px-3 pt-4 mb-3  ">
+                <p style={{fontSize:'1.2em'}}>Support for {persistedLanguage} has been disabled by the admin. We've switched your language to English (US).</p>
+            </div>
+            <div className="text-center">
+              <Button onClick={()=>{
+                localStorage.setItem(PREFERRED_LANGUAGE_STORAGE_KEY, "en-US");
+                window.location.reload();
+              }} className="px-5 mb-3 py-2">OK</Button>
+            </div>
+          </div>
+      ),
+      title: `Oops! Language Changed` || "...",
+      fullControl: true,
+    });
+
+  }
 
   const stashUserCommunity = ({ data, close, campaign }) => {
     let communities = campaign?.communities || [];
@@ -265,6 +296,20 @@ function LandingPage({
       <div ref={communitiesRef}>
         <DoMore campaign={campaign} />
       </div>
+
+      {/*<Modal*/}
+      {/*show={true}*/}
+      {/*>*/}
+      {/*  <ModalHeader closeButton>*/}
+      {/*    <Modal.Title className={"text-center"}>Sorry</Modal.Title>*/}
+      {/*  </ModalHeader>*/}
+      {/*  <ModalBody>*/}
+      {/*    <p>The admin for this campaign has disabled support for {`currentLanguage`}</p>*/}
+      {/*  </ModalBody>*/}
+      {/*  <ModalFooter>*/}
+      {/*    <Button variant="primary">OK</Button>*/}
+      {/*  </ModalFooter>*/}
+      {/*</Modal>*/}
 
       <Footer toggleModal={toggleModal} />
     </div>
