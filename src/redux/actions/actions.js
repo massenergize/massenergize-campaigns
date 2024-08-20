@@ -31,12 +31,14 @@ import {
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
 import store from "./../store";
+import {getPreferredLanguageObjFromStorage} from "../../utils/utils";
+import {DEFAULT_LANGUAGE_CODE} from "../../utils/Constants";
 
 export const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
 
 export const getPreferredLanguageISO = () => {
-  const code = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY);
-  return findInLanguageList(code)?.code || DEFAULT_ENGLISH_CODE;
+  const languageObj  = getPreferredLanguageObjFromStorage()
+  return findInLanguageList(languageObj?.code)?.code || DEFAULT_ENGLISH_CODE;
 };
 export const findInLanguageList = (code, list) => {
   const state = store.getState();
@@ -51,8 +53,8 @@ export const getStaticText = () => {
   const staticTextHeap = state?.staticTextHeap || {};
   return staticTextHeap[activeLanguage] || staticTextHeap[DEFAULT_ENGLISH_CODE] || {};
 };
-export const setActiveLanguageInStorage = (isoCode) => {
-  localStorage.setItem(PREFERRED_LANGUAGE_STORAGE_KEY, isoCode);
+export const setActiveLanguageInStorage = (languageObj) => {
+  localStorage.setItem(PREFERRED_LANGUAGE_STORAGE_KEY, JSON.stringify(languageObj));
 };
 
 export const updateOfferedLanguageAction = (data) => {
@@ -181,7 +183,7 @@ export const appInnitAction = (campaignId, cb) => {
         // console.log("INSIDE INNIT", data, campaignId);
         dispatch(loadCampaignInformation(data));
         if (data) {
-          let activeLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || "en-US";
+          let activeLang = getPreferredLanguageObjFromStorage()?.code || DEFAULT_LANGUAGE_CODE
           const found = findInLanguageList(activeLang, data?.languages);
           if (!found) activeLang = DEFAULT_ENGLISH_CODE;
           dispatch(loadActiveLanguageAction(activeLang));

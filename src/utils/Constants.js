@@ -1614,3 +1614,6 @@ export const monthsOfYear = [
 ];
 
 export const MOBILE_WIDTH = 768;
+
+export const DEFAULT_LANGUAGE_CODE = "en-US";
+export const DEFAULT_LANGUAGE_OBJ = {code: "en-US", name: "English (US)"};
