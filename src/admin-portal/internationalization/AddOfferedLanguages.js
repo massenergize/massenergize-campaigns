@@ -9,6 +9,7 @@ import Button from "src/components/admin-components/Button";
 import ToggleSwitch from "src/components/toggle-switch/ToggleSwitch";
 import Loading from "src/components/pieces/Loading";
 import { apiCall } from "src/api/messenger";
+import {DEFAULT_LANGUAGE_CODE} from "../../utils/Constants";
 export const getOfferedForThisCampaign = (objFromRedux, id) => {
   if (!objFromRedux) return DEFAULT_OFFERED_PER_CAMPAIGN;
   return objFromRedux[id];
@@ -111,7 +112,7 @@ function AddOfferedLanguages({ campaignDetails: campaign }) {
               <h5 style={{ marginLeft: "auto", display: "inline", color: "#d8d8d8" }}>Toggle ON/OFF</h5>
             </div>
             {languages?.map(({ name: label, code: k, is_active }) => {
-              const isEnglish = k === "en-US";
+              const isEnglish = k === DEFAULT_LANGUAGE_CODE;
               return (
                 <h6
                   // className="touchable-opacity"

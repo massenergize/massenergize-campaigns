@@ -6,6 +6,7 @@ import { API_HOST } from "./urls";
 import store from "src/redux/store";
 import { PREFERRED_LANGUAGE_STORAGE_KEY } from "src/redux/redux-action-types";
 import {portalIsAdmin} from "../redux/reducers/reducers";
+import {getPreferredLanguageObjFromStorage} from "../utils/utils";
 // import { API_HOST, IS_CANARY, IS_PROD, IS_LOCAL, CC_HOST } from '../config/constants';
 export const PERMISSION_DENIED = "permission_denied";
 export const SESSION_EXPIRED = "session_expired";
@@ -20,7 +21,7 @@ export const SESSION_EXPIRED = "session_expired";
  * @param { String } relocationPage
  */
 export async function apiCall(destinationUrl, dataToSend = {}, relocationPage = null) {
-  const persistedLanguage = localStorage?.getItem(PREFERRED_LANGUAGE_STORAGE_KEY)
+  const persistedLanguage = getPreferredLanguageObjFromStorage()?.code;
   let { activeLanguage: lang } = store?.getState() || {};
 
   lang = lang || persistedLanguage;
