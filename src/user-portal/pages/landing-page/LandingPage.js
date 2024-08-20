@@ -14,12 +14,18 @@ import {
   appInnitAction,
   getStaticText,
   loadUserObjAction,
-  trackActivity, findInLanguageList,
+  trackActivity, findInLanguageList, setActiveLanguageInStorage,
 } from "../../../redux/actions/actions";
-import { LOADING, MOBILE_WIDTH } from "../../../utils/Constants";
+import {DEFAULT_LANGUAGE_OBJ, LOADING, MOBILE_WIDTH} from "../../../utils/Constants";
 import Loading from "../../../components/pieces/Loading";
 import NotFound from "../error/404";
-import { fetchUrlParams, scrollIntoView, setPageTitle } from "../../../utils/utils";
+import {
+  fetchUrlParams,
+  getCountryFromCode,
+  getPreferredLanguageObjFromStorage,
+  scrollIntoView,
+  setPageTitle
+} from "../../../utils/utils";
 import RoamingModalSheet from "./RoamingModalSheet";
 import DoMore from "./DoMore";
 import JoinUsForm from "../forms/JoinUsForm";
@@ -93,7 +99,7 @@ function LandingPage({
         tellUsWhereYouAreFrom(justLoadedCampaign);
         setPageTitle(justLoadedCampaign?.title);
       }
-      verifyLanguage(justLoadedCampaign);
+      verifyLanguageExistence(justLoadedCampaign);
       setMounted(true);
     });
   }, [campaignId]);
@@ -101,27 +107,37 @@ function LandingPage({
 
 
 
-  const verifyLanguage = (campaign) => {
-    const persistedLanguage = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || "en-US";
+  const verifyLanguageExistence = (campaign) => {
+    const persistedLanguage = getPreferredLanguageObjFromStorage()
     const { languages } = campaign || [];
-    const found = findInLanguageList(persistedLanguage, languages);
+    const found = findInLanguageList(persistedLanguage?.code, languages);
+    const country = getCountryFromCode(persistedLanguage?.code);
     if (found) return;
     toggleModal({
       show: true,
       component: (props) => (
           <div>
             <div className="text-center pb-3 px-3 pt-4 mb-3  ">
-                <p style={{fontSize:'1.2em'}}>Support for {persistedLanguage} has been disabled by the admin. We've switched your language to English (US).</p>
+              <p style={{fontSize: '1.2em'}}>Support for {persistedLanguage?.name} {"\t"} <img
+                  alt="flag"
+                  src={`https://flagicons.lipis.dev/flags/4x3/${country}.svg`}
+                  style={{objectFit: "contain", borderRadius: 2, marginLeft: "auto", width: 20}}
+              /> {"\t"}
+                has been disabled by the admin. <br /> We've switched your language to English (US) {"\t"} <img
+                    alt="flag"
+                    src={`https://flagicons.lipis.dev/flags/4x3/us.svg`}
+                    style={{objectFit: "contain", borderRadius: 2, marginLeft: "auto", width: 20}}
+                />.</p>
             </div>
             <div className="text-center">
-              <Button onClick={()=>{
-                localStorage.setItem(PREFERRED_LANGUAGE_STORAGE_KEY, "en-US");
+              <Button onClick={() => {
+                setActiveLanguageInStorage(DEFAULT_LANGUAGE_OBJ);
                 window.location.reload();
               }} className="px-5 mb-3 py-2">OK</Button>
             </div>
           </div>
       ),
-      title: `Oops! Language Changed` || "...",
+      title: `Oops! Sorry` || "...",
       fullControl: true,
     });
 
