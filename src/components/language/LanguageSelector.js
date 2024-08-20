@@ -29,7 +29,7 @@ function LanguageSelector() {
   const getLangLetters = (code) => code?.split("-")[0] || "";
   const setActiveLanguage = (lang, reload = true) => {
     setActiveLanguageInStorage(lang);
-    dispatch(loadActiveLanguageAction(lang));
+    dispatch(loadActiveLanguageAction(lang?.code));
     if (reload) window.location.reload();
   };
 

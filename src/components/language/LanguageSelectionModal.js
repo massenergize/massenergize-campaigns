@@ -12,7 +12,7 @@ function LanguageSelectionModal({ languages, selectLanguage }) {
         const country = getCountryFromCode(l?.code);
         return (
           <div
-            onClick={() => selectLanguage(l?.code)}
+            onClick={() => selectLanguage(l)}
             className="touchable-opacity"
             key={l?.code}
             style={{
