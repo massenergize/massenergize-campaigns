@@ -4,6 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { useSelector } from "react-redux";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
+import {getCommunityPortalBaseURL} from "../../../utils/utils";
 
 const DoMore = (props) => {
   const { optimum } = props;
@@ -23,7 +24,7 @@ function DoMoreComponent({ staticT }) {
   const { communities, communities_section } = campaign || {};
   const { title, description } = communities_section || {};
 
-  const COMMUNITY_PORTAL_URL = "https://communities.massenergize.org/";
+  const COMMUNITY_PORTAL_URL = getCommunityPortalBaseURL();
   return (
     <div className="do-more-root">
       {/* <OptimumWrapper> */}

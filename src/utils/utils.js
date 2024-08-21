@@ -4,6 +4,7 @@ import { ME_STATES } from "./States";
 import { enUS, es, ptBR } from "date-fns/locale";
 import { DEFAULT_ENGLISH_CODE, PREFERRED_LANGUAGE_STORAGE_KEY } from "src/redux/redux-action-types";
 import { getPreferredLanguageISO } from "src/redux/actions/actions";
+import {IS_CANARY, IS_LOCAL, IS_PROD} from "../config/environment";
 
 const LANG_CODE_TO_DATE_OBJ = { en: enUS, es, pt: ptBR }; // means when a new language is approved, we wld have to add it in here as well
 
@@ -290,4 +291,12 @@ export function isEmpty(value) {
     return true;
   }
   return false;
+}
+
+
+export const getCommunityPortalBaseURL = ()=>{
+  if(IS_LOCAL) return "http://massenergize.test:3000/";
+  if(IS_CANARY) return "https://communities-canary.massenergize.org/";
+  if(IS_PROD) return "https://communities.massenergize.org/";
+  return "https://communities.massenergize.dev/";
 }
