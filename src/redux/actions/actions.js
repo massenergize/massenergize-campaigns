@@ -159,6 +159,32 @@ export const updateUserAction = (payload, cb) => {
   };
 };
 
+const fetchStartupContent = (params) => {
+  const { campaignId, userContent, dispatch, cb } = params || {};
+  Promise.all([
+    apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
+    apiCall(CAMPAIGN_VIEW_URL, {
+      campaign_id: campaignId,
+      url: window.location.href,
+    }),
+  ])
+    .then((response) => {
+      const [campaignInformation] = response;
+      const data = campaignInformation.data;
+      dispatch(loadCampaignInformation(data));
+      if (data) {
+        let activeLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || DEFAULT_ENGLISH_CODE;
+        const found = findInLanguageList(activeLang, data?.languages);
+        if (!found) activeLang = DEFAULT_ENGLISH_CODE;
+        dispatch(loadActiveLanguageAction(activeLang));
+        dispatch(setNavigationMenuAction(data?.navigation || []));
+        dispatch(setTestimonialsActions(data?.my_testimonials || []));
+        cb && cb(data, campaignInformation?.success);
+      }
+    })
+    .catch((e) => console.log("ERROR_IN_INNIT:", e?.toString()));
+};
+
 export const appInnitAction = (campaignId, cb) => {
   let savedUser = localStorage.getItem(USER_STORAGE_KEY);
   savedUser = JSON.parse(savedUser);
@@ -168,29 +194,15 @@ export const appInnitAction = (campaignId, cb) => {
     dispatch(loadUserObjAction(savedUser)); // use saved user to run a request to bring in the most recent changes to the user
     const userContent = user?.email ? { email: user.email } : {};
 
-    Promise.all([
-      apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
-      apiCall(CAMPAIGN_VIEW_URL, {
-        campaign_id: campaignId,
-        url: window.location.href,
-      }),
-    ])
-      .then((response) => {
-        const [campaignInformation, campaignViewResponse] = response;
-        const data = campaignInformation.data;
-        // console.log("INSIDE INNIT", data, campaignId);
-        dispatch(loadCampaignInformation(data));
-        if (data) {
-          let activeLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || "en-US";
-          const found = findInLanguageList(activeLang, data?.languages);
-          if (!found) activeLang = DEFAULT_ENGLISH_CODE;
-          dispatch(loadActiveLanguageAction(activeLang));
-          dispatch(setNavigationMenuAction(data?.navigation || []));
-          dispatch(setTestimonialsActions(data?.my_testimonials || []));
-          cb && cb(data, campaignInformation?.success);
-        }
-      })
-      .catch((e) => console.log("ERROR_IN_INNIT:", e?.toString()));
+    apiCall("/campaigns.supported_languages.list", { campaign_id: campaignId }).then((response) => {
+      const languages = response?.data || [];
+      const prefLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY);
+      if (!prefLang) return;
+      const found = findInLanguageList(prefLang, languages);
+      const language = found?.is_active ? found?.code : DEFAULT_ENGLISH_CODE;
+
+      fetchStartupContent({ campaignId, userContent, language, dispatch, cb });
+    });
   };
 };
 
