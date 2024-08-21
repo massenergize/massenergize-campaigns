@@ -28,6 +28,7 @@ import {
   ADMIN_UPDATE_OFFERED_LANGUAGES,
   DEFAULT_ENGLISH_CODE,
   PREFERRED_LANGUAGE_STORAGE_KEY,
+  USER_NOTIFICATION,
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
 import store from "./../store";
@@ -55,6 +56,9 @@ export const setActiveLanguageInStorage = (isoCode) => {
   localStorage.setItem(PREFERRED_LANGUAGE_STORAGE_KEY, isoCode);
 };
 
+export const setNotificationBlanket = (data) => {
+  return { type: USER_NOTIFICATION, payload: data };
+};
 export const updateOfferedLanguageAction = (data) => {
   return { type: ADMIN_UPDATE_OFFERED_LANGUAGES, payload: data };
 };
@@ -160,12 +164,14 @@ export const updateUserAction = (payload, cb) => {
 };
 
 const fetchStartupContent = (params) => {
-  const { campaignId, userContent, dispatch, cb } = params || {};
+  const { campaignId, userContent, dispatch, cb, languageCode } = params || {};
+  const languageParams = { __user_language: languageCode };
   Promise.all([
-    apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
+    apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent, ...languageParams }),
     apiCall(CAMPAIGN_VIEW_URL, {
       campaign_id: campaignId,
       url: window.location.href,
+      ...languageParams,
     }),
   ])
     .then((response) => {
@@ -199,9 +205,26 @@ export const appInnitAction = (campaignId, cb) => {
       const prefLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY);
       if (!prefLang) return;
       const found = findInLanguageList(prefLang, languages);
-      const language = found?.is_active ? found?.code : DEFAULT_ENGLISH_CODE;
+      const notActive = !found?.is_active;
+      const languageCode = notActive ? found?.code : DEFAULT_ENGLISH_CODE;
 
-      fetchStartupContent({ campaignId, userContent, language, dispatch, cb });
+      if (notActive) {
+        setActiveLanguageInStorage(DEFAULT_ENGLISH_CODE);
+        return dispatch(
+          setNotificationBlanket({
+            title: "Please Note (Unsupported Language)",
+            durationToReload: 3,
+            message: (
+              <span>
+                Your preferred language <b>{found?.name}</b> is no longer supported by this campaign. We have set your
+                language to English. In 3 seconds, this page will reload with all features in English...
+              </span>
+            ),
+          }),
+        );
+      }
+
+      fetchStartupContent({ campaignId, userContent, language: languageCode, dispatch, cb });
     });
   };
 };

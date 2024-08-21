@@ -7,7 +7,6 @@ function CampaignNotLive({ campaign }) {
   const [show, setShow] = useState(true);
 
   const { inPreview: staticT } = getStaticText();
-  console.log("");
   if (campaign?.is_published || !show) return <></>;
   return (
     <Alert variant="warning mb-0">

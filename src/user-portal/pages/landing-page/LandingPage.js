@@ -30,6 +30,7 @@ import CoachesSectionWithFilters from "../coaches/CoachesSectionWithFilters";
 import ShareBox from "../sharing/ShareBox";
 import Hero from "../banner/Hero";
 import { useMediaQuery } from "react-responsive";
+import BlanketNotification from "../../../components/pieces/BlanketNotification";
 
 function LandingPage({
   toggleModal,
@@ -46,6 +47,7 @@ function LandingPage({
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
   const { modals, loader, pages, share: shareStaticT, inPreview: previewStaticT } = getStaticText();
   const homepageStaticT = pages?.homepage || {};
+  const blanketNotification = useSelector((state) => state.blanketNotification);
 
   const coachesRef = useRef();
   const eventsRef = useRef();
@@ -157,6 +159,8 @@ function LandingPage({
   useEffect(() => {
     if (!preview) init(campaignId);
   }, []);
+
+  if (blanketNotification) return <BlanketNotification {...blanketNotification} />;
 
   if (campaign === LOADING && !preview)
     return <Loading fullPage>{loader?.text || "Fetching campaign details..."}</Loading>;
