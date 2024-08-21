@@ -45,7 +45,7 @@ function LandingPage({
 }) {
   const [mounted, setMounted] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
-  const { modals, loader, pages, share: shareStaticT, inPreview: previewStaticT } = getStaticText();
+  const {  loader, pages, share: shareStaticT, inPreview: previewStaticT } = getStaticText();
   const homepageStaticT = pages?.homepage || {};
   const blanketNotification = useSelector((state) => state.blanketNotification);
 
@@ -117,6 +117,7 @@ function LandingPage({
   const tellUsWhereYouAreFrom = (justLoadedCampaign) => {
     const user = authUser || localStorage.getItem(USER_STORAGE_KEY);
     const firstTime = !user || user === "null";
+    const { modals } = getStaticText();
 
     if (!firstTime) return;
     toggleModal({

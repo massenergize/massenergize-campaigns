@@ -11,8 +11,6 @@ import LanguageSelectionModal from "./LanguageSelectionModal";
 
 const DEFAULT = { name: "--", code: "---" };
 function LanguageSelector() {
-  // const campaign = useSelector((state) => state?.campaign);
-  // const languages = campaign?.languages || [];
   const languages = useSelector((state) => state?.usersListOfLanguages);
   const activeLanguage = useSelector((state) => state?.activeLanguage);
   const { modals } = getStaticText();
