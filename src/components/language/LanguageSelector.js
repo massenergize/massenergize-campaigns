@@ -24,7 +24,6 @@ function LanguageSelector() {
     dispatch(toggleUniversalModal(data));
   };
 
-
   const getLangLetters = (code) => code?.split("-")[0] || "";
   const setActiveLanguage = (lang, reload = true) => {
     setActiveLanguageInStorage(lang);
@@ -34,23 +33,15 @@ function LanguageSelector() {
 
   return (
     <div
-      className="touchable-opacity"
-      onClick={() => {
-        if (noLanguages) return;
-        openModal({
-          noFooter: true,
-          show: true,
-          title: staticT?.title?.text || "Choose a Language",
-          component: () => <LanguageSelectionModal languages={languages} selectLanguage={setActiveLanguage} />,
-        });
-      }}
+      className="touchable-opacity lang-s-p-override"
       style={{
         position: "absolute",
         top: 0,
         right: 50,
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
         alignItems: "center",
+        justifyContent: "center",
         fontSize: 18,
         height: "100%",
         fontWeight: "bold",
@@ -58,18 +49,32 @@ function LanguageSelector() {
         textTransform: "uppercase",
       }}
     >
-      {/* <i className="fa fa-globe" style={{ marginRight: 3 }}></i> */}
-      <img
-        alt="flag"
-        src={`https://flagicons.lipis.dev/flags/4x3/${country}.svg`}
-        style={{ objectFit: "contain", marginRight: 4, borderRadius: 2, width: 20 }}
-      />
-      <span>{getLangLetters(activeLanguage)}</span>
-      {!noLanguages && (
-        <>
-          <i style={{ marginLeft: 4 }} className=" fa fa-caret-down" />
-        </>
-      )}
+      <div
+        onClick={() => {
+          if (noLanguages) return;
+          openModal({
+            noFooter: true,
+            show: true,
+            title: staticT?.title?.text || "Choose a Language",
+            component: () => <LanguageSelectionModal languages={languages} selectLanguage={setActiveLanguage} />,
+          });
+        }}
+        className="lang-s-ribbon"
+        style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}
+      >
+        {/* <i className="fa fa-globe" style={{ marginRight: 3 }}></i> */}
+        <img
+          alt="flag"
+          src={`https://flagicons.lipis.dev/flags/4x3/${country}.svg`}
+          style={{ objectFit: "contain", marginRight: 4, borderRadius: 2, width: 20 }}
+        />
+        <span>{getLangLetters(activeLanguage)}</span>
+        {!noLanguages && (
+          <>
+            <i style={{ marginLeft: 4 }} className=" fa fa-caret-down" />
+          </>
+        )}
+      </div>
     </div>
   );
   return (

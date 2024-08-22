@@ -115,6 +115,7 @@ function LandingPage({
   };
 
   const tellUsWhereYouAreFrom = (justLoadedCampaign) => {
+    if (blanketNotification) return;
     const user = authUser || localStorage.getItem(USER_STORAGE_KEY);
     const firstTime = !user || user === "null";
     const { modals } = getStaticText();
@@ -218,7 +219,7 @@ function LandingPage({
           id="roaming-box"
           advert={{
             description,
-            title: about_us_title || `${homepageStaticT?.about?.text || ""} ${campaign?.title || ""}`,
+            title: about_us_title || `${homepageStaticT?.about?.text || ""}${campaign?.title || ""}`,
           }}
           keyContact={key_contact}
           showMore={showMoreAboutAdvert}
