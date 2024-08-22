@@ -162,8 +162,6 @@ function LandingPage({
     if (!preview) init(campaignId);
   }, []);
 
-  if (blanketNotification) return <BlanketNotification {...blanketNotification} />;
-
   if (campaign === LOADING && !preview)
     return <Loading fullPage>{loader?.text || "Fetching campaign details..."}</Loading>;
 
