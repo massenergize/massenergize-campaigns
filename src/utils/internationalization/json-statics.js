@@ -40,6 +40,7 @@ export const ENGLISH = {
   },
   pages: {
     homepage: {
+      about: { text: "About" },
       share: {
         button: { copied: { text: "Copied!" }, copy: { text: "Copy Link" } },
         title: { text: "Share Campaign" },
