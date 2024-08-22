@@ -221,7 +221,7 @@ export const appInnitAction = (campaignId, cb) => {
             title: "Please Note (Unsupported Language)",
             durationToReload: 3,
             message: (
-              <span>
+              <span className="body-font">
                 Your preferred language <b>{found?.name}</b> is no longer supported by this campaign. We have set your
                 language to English. In 3 seconds, this page will reload with all features in English...
               </span>
