@@ -209,7 +209,8 @@ export const appInnitAction = (campaignId, cb) => {
       const languages = response?.data || [];
       dispatch(setUsersListOfLanguages(languages?.map((l) => l?.is_active)));
       const prefLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY);
-      if (!prefLang) return;
+      const startUpObj = { campaignId, userContent, dispatch, cb, languageCode: DEFAULT_ENGLISH_CODE };
+      if (!prefLang) return fetchStartupContent({ campaignId, userContent, dispatch, cb });
       const found = findInLanguageList(prefLang, languages);
       const notActive = !found?.is_active;
       const languageCode = notActive ? found?.code : DEFAULT_ENGLISH_CODE;
@@ -230,7 +231,7 @@ export const appInnitAction = (campaignId, cb) => {
         );
       }
 
-      fetchStartupContent({ campaignId, userContent, language: languageCode, dispatch, cb });
+      fetchStartupContent({ ...startUpObj, language: languageCode, dispatch, cb });
     });
   };
 };
