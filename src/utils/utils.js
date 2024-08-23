@@ -299,9 +299,18 @@ export function isEmpty(value) {
 }
 
 
-export const getCommunityPortalBaseURL = ()=>{
-  if(IS_LOCAL) return "http://massenergize.test:3000/";
-  if(IS_CANARY) return "https://communities-canary.massenergize.org/";
-  if(IS_PROD) return "https://communities.massenergize.org/";
-  return "https://communities.massenergize.dev/";
+let baseUrl;
+if (IS_LOCAL) {
+  baseUrl = "http://massenergize.test:3000/";
+} else if (IS_CANARY) {
+  baseUrl = "https://communities-canary.massenergize.org/";
 }
+if (IS_PROD) {
+  baseUrl = "https://communities.massenergize.org/";
+}  else  {
+  baseUrl = "https://communities.massenergize.dev/";
+}
+
+export const BASE_URL = baseUrl
+
+// at this point you can set the value stored in `baseUrl` to ```javascript null``` since it's been copied into `BASE_URL` so it can be garbage collecte
