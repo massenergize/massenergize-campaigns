@@ -7,7 +7,6 @@ function CampaignNotLive({ campaign }) {
   const [show, setShow] = useState(true);
 
   const { inPreview: staticT } = getStaticText();
-  console.log("");
   if (campaign?.is_published || !show) return <></>;
   return (
     <Alert variant="warning mb-0">
@@ -19,14 +18,15 @@ function CampaignNotLive({ campaign }) {
           </p>
         </Col>
         <Col sm="auto">
-          <Button
+          <span className="fa fa-times touchable-opacity" style={{ fontSize: 20, marginRight: 10 }}></span>
+          {/* <Button
             className={"close-btn"}
             style={{ borderRadius: "100%", padding: "0px 6px" }}
             variant={"dark"}
             onClick={() => setShow(false)}
           >
-            <span className="fa fa-times" style={{ fontSize: 15 }}></span>
-          </Button>
+            
+          </Button> */}
         </Col>
       </Row>
     </Alert>

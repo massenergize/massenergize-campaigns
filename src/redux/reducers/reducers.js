@@ -25,9 +25,11 @@ import {
   SET_STATIC_TEXT_HEAP,
   SET_TESTIMONIALS,
   SET_USER_OBJ,
+  SET_USERS_LIST_OF_LANGUAGES,
   TOGGLE_UNIVERSAL_MODAL,
   UPDATE_EVENT_OBJ,
   UPDATE_TESTIMONIALS_OBJ,
+  USER_NOTIFICATION,
 } from "../redux-action-types";
 
 // import defaultStaticText from "./../../utils/default-static-text.json";
@@ -53,6 +55,18 @@ const DEFAULT_STATIC_TEXT = {
   "it-IT": ITALIAN,
 };
 
+export const reducerForSettingUserLanguageList = (state = [], action = {}) => {
+  if (action.type === SET_USERS_LIST_OF_LANGUAGES) {
+    return action.payload;
+  }
+  return state;
+};
+export const reducerForSettingNotificationBlanket = (state = null, action = {}) => {
+  if (action.type === USER_NOTIFICATION) {
+    return action.payload;
+  }
+  return state;
+};
 export const doNothingReducer = (state = [], action = {}) => {
   if (action.type === DO_NOTHING) {
     return action.payload;

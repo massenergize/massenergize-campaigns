@@ -36,16 +36,22 @@ export function formatTimeRange(startDateString, endDateString) {
   }
 }
 
+const getLocale = () => {
+  let locale = pruneLanuguage(getPreferredLanguageISO());
+  return LANG_CODE_TO_DATE_OBJ[locale] || enUS;
+};
 export function formatDate(dateString, formatString = "MMM d, yyyy") {
   if (!dateString) return "";
+  const locale = getLocale();
   const date = parseISO(dateString);
-  return format(date, formatString);
+  return format(date, formatString, { locale });
 }
 
 export function formatTime(dateString, formatString = "HH:mm aaa") {
   if (!dateString) return "";
+  const locale = getLocale();
   const date = parseISO(dateString);
-  return format(date, formatString);
+  return format(date, formatString, { locale });
 }
 
 const pruneLanuguage = (code) => {
@@ -55,8 +61,7 @@ const pruneLanuguage = (code) => {
 };
 
 export function relativeTimeAgo(datetimeString) {
-  let locale = pruneLanuguage(getPreferredLanguageISO());
-  locale = LANG_CODE_TO_DATE_OBJ[locale] || enUS;
+  const locale = getLocale();
   const date = parseISO(datetimeString);
   return formatDistanceToNow(date, { addSuffix: true, locale });
 }

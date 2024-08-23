@@ -28,6 +28,8 @@ import {
   ADMIN_UPDATE_OFFERED_LANGUAGES,
   DEFAULT_ENGLISH_CODE,
   PREFERRED_LANGUAGE_STORAGE_KEY,
+  USER_NOTIFICATION,
+  SET_USERS_LIST_OF_LANGUAGES,
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
 import store from "./../store";
@@ -55,6 +57,12 @@ export const setActiveLanguageInStorage = (isoCode) => {
   localStorage.setItem(PREFERRED_LANGUAGE_STORAGE_KEY, isoCode);
 };
 
+export const setUsersListOfLanguages = (data) => {
+  return { type: SET_USERS_LIST_OF_LANGUAGES, payload: data };
+};
+export const setNotificationBlanket = (data) => {
+  return { type: USER_NOTIFICATION, payload: data };
+};
 export const updateOfferedLanguageAction = (data) => {
   return { type: ADMIN_UPDATE_OFFERED_LANGUAGES, payload: data };
 };
@@ -159,6 +167,35 @@ export const updateUserAction = (payload, cb) => {
   };
 };
 
+const fetchStartupContent = (params) => {
+  const { campaignId, userContent, dispatch, cb, languageCode } = params || {};
+  const languageParams = { __user_language: languageCode };
+  Promise.all([
+    apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent, ...languageParams }),
+    apiCall(CAMPAIGN_VIEW_URL, {
+      campaign_id: campaignId,
+      url: window.location.href,
+      ...languageParams,
+    }),
+  ])
+    .then((response) => {
+      const [campaignInformation] = response;
+      const data = campaignInformation.data;
+      dispatch(loadCampaignInformation(data));
+      if (data) {
+        let activeLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || DEFAULT_ENGLISH_CODE;
+        const found = findInLanguageList(activeLang, data?.languages);
+        dispatch(setUsersListOfLanguages(data?.languages));
+        if (!found) activeLang = DEFAULT_ENGLISH_CODE;
+        dispatch(loadActiveLanguageAction(activeLang));
+        dispatch(setNavigationMenuAction(data?.navigation || []));
+        dispatch(setTestimonialsActions(data?.my_testimonials || []));
+        cb && cb(data, campaignInformation?.success);
+      }
+    })
+    .catch((e) => console.log("ERROR_IN_INNIT:", e?.toString()));
+};
+
 export const appInnitAction = (campaignId, cb) => {
   let savedUser = localStorage.getItem(USER_STORAGE_KEY);
   savedUser = JSON.parse(savedUser);
@@ -168,29 +205,34 @@ export const appInnitAction = (campaignId, cb) => {
     dispatch(loadUserObjAction(savedUser)); // use saved user to run a request to bring in the most recent changes to the user
     const userContent = user?.email ? { email: user.email } : {};
 
-    Promise.all([
-      apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
-      apiCall(CAMPAIGN_VIEW_URL, {
-        campaign_id: campaignId,
-        url: window.location.href,
-      }),
-    ])
-      .then((response) => {
-        const [campaignInformation, campaignViewResponse] = response;
-        const data = campaignInformation.data;
-        // console.log("INSIDE INNIT", data, campaignId);
-        dispatch(loadCampaignInformation(data));
-        if (data) {
-          let activeLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || "en-US";
-          const found = findInLanguageList(activeLang, data?.languages);
-          if (!found) activeLang = DEFAULT_ENGLISH_CODE;
-          dispatch(loadActiveLanguageAction(activeLang));
-          dispatch(setNavigationMenuAction(data?.navigation || []));
-          dispatch(setTestimonialsActions(data?.my_testimonials || []));
-          cb && cb(data, campaignInformation?.success);
-        }
-      })
-      .catch((e) => console.log("ERROR_IN_INNIT:", e?.toString()));
+    apiCall("/campaigns.supported_languages.list", { campaign_id: campaignId }).then((response) => {
+      const languages = response?.data || [];
+      dispatch(setUsersListOfLanguages(languages?.map((l) => l?.is_active)));
+      const prefLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY);
+      const startUpObj = { campaignId, userContent, dispatch, cb, languageCode: DEFAULT_ENGLISH_CODE };
+      if (!prefLang) return fetchStartupContent({ campaignId, userContent, dispatch, cb });
+      const found = findInLanguageList(prefLang, languages);
+      const notActive = !found?.is_active;
+      const languageCode = notActive ? found?.code : DEFAULT_ENGLISH_CODE;
+
+      if (notActive) {
+        setActiveLanguageInStorage(DEFAULT_ENGLISH_CODE);
+        return dispatch(
+          setNotificationBlanket({
+            title: "Please Note (Unsupported Language)",
+            durationToReload: 3,
+            message: (
+              <span className="body-font">
+                Your preferred language <b>{found?.name}</b> is no longer supported by this campaign. We have set your
+                language to English. In 3 seconds, this page will reload with all features in English...
+              </span>
+            ),
+          }),
+        );
+      }
+
+      fetchStartupContent({ ...startUpObj, language: languageCode, dispatch, cb });
+    });
   };
 };
 

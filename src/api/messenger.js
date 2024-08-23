@@ -32,8 +32,9 @@ export async function apiCall(destinationUrl, dataToSend = {}, relocationPage = 
   };
 
   const formData = new FormData();
-  Object.keys(data).map((k) => formData.append(k, data[k]));
   if (lang && !portalIsAdmin()) formData.append("__user_language", lang);
+  Object.keys(data).map((k) => formData.append(k, data[k]));
+
 
   if (!destinationUrl || destinationUrl.length < 2) {
     return { success: false, error: "Invalid URL passed to apiCall" };
