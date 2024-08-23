@@ -92,6 +92,7 @@ export const ENGLISH = {
     },
     one_technology_page: {
       share: {
+        other: { text: "Other" },
         button: { copied: { text: "Copied!" }, copy: { text: "Copy Link" } },
         title: { text: "Share" },
         hint: { text: "You can copy the link and share it" },
@@ -213,6 +214,7 @@ export const ENGLISH = {
       buttons: { continue: { text: "Continue" }, cancel: { text: "Cancel" } },
     },
     community_selection: {
+      other: { text: "Other" },
       selection_label: { text: "What community do you live in?" },
       text_after_selection: { text: "We will direct you to the right resources based on where you are from -" },
       form: {
@@ -477,6 +479,7 @@ export const GERMAN = {
       },
     },
     community_selection: {
+      other: { text: "Andere" },
       selection_label: { text: "In welcher Gemeinschaft leben Sie?" },
       text_after_selection: { text: "Wir leiten Sie basierend auf Ihrem Standort zu den richtigen Ressourcen -" },
       form: {
@@ -603,6 +606,7 @@ export const SPANISH = {
     },
     one_technology_page: {
       share: {
+        other: { text: "Otro" },
         button: { copied: { text: "¡Copiado!" }, copy: { text: "Copiar enlace" } },
         title: { text: "Compartir" },
         hint: { text: "Puedes copiar el enlace y compartirlo" },
@@ -737,6 +741,7 @@ export const SPANISH = {
       },
     },
     community_selection: {
+      other: { text: "Otro" },
       selection_label: { text: "¿En qué comunidad vives?" },
       text_after_selection: { text: "Te dirigiremos a los recursos adecuados según tu ubicación -" },
       form: {
@@ -867,6 +872,7 @@ export const FRENCH = {
     },
     one_technology_page: {
       share: {
+        other: { text: "Autre" },
         button: { copied: { text: "Copié!" }, copy: { text: "Copier le lien" } },
         title: { text: "Partager" },
         hint: { text: "Vous pouvez copier le lien et le partager" },
@@ -1002,6 +1008,7 @@ export const FRENCH = {
       },
     },
     community_selection: {
+      other: { text: "Autre" },
       selection_label: { text: "Dans quelle communauté vivez-vous?" },
       text_after_selection: {
         text: "Nous vous dirigerons vers les bonnes ressources en fonction de votre localisation -",
@@ -1258,6 +1265,7 @@ export const CHINESE = {
       },
     },
     community_selection: {
+      other: { text: "其他" },
       selection_label: { text: "你居住在哪个社区?" },
       text_after_selection: { text: "我们将根据你的位置为你指引到正确的资源 -" },
       form: {
@@ -1381,6 +1389,7 @@ export const PORTUGUESE = {
     },
     one_technology_page: {
       share: {
+        other: { text: "Outro" },
         button: { copied: { text: "Copiado!" }, copy: { text: "Copiar Link" } },
         title: { text: "Compartilhar" },
         hint: { text: "Você pode copiar o link e compartilhá-lo" },
@@ -1515,6 +1524,7 @@ export const PORTUGUESE = {
       },
     },
     community_selection: {
+      other: { text: "Outro" },
       selection_label: { text: "Em qual comunidade você mora?" },
       text_after_selection: { text: "Nós direcionaremos você para os recursos corretos com base na sua localização -" },
       form: {
@@ -1779,6 +1789,7 @@ export const ITALIAN = {
       },
     },
     community_selection: {
+      other: { text: "Altro" },
       selection_label: { text: "In quale comunità vivi?" },
       text_after_selection: { text: "Ti indirizzeremo alle risorse corrette in base alla tua posizione -" },
       form: {
