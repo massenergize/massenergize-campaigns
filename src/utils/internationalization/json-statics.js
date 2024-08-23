@@ -92,6 +92,7 @@ export const ENGLISH = {
     },
     one_technology_page: {
       share: {
+        other: { text: "Other" },
         button: { copied: { text: "Copied!" }, copy: { text: "Copy Link" } },
         title: { text: "Share" },
         hint: { text: "You can copy the link and share it" },
@@ -605,6 +606,7 @@ export const SPANISH = {
     },
     one_technology_page: {
       share: {
+        other: { text: "Otro" },
         button: { copied: { text: "¡Copiado!" }, copy: { text: "Copiar enlace" } },
         title: { text: "Compartir" },
         hint: { text: "Puedes copiar el enlace y compartirlo" },
@@ -870,6 +872,7 @@ export const FRENCH = {
     },
     one_technology_page: {
       share: {
+        other: { text: "Autre" },
         button: { copied: { text: "Copié!" }, copy: { text: "Copier le lien" } },
         title: { text: "Partager" },
         hint: { text: "Vous pouvez copier le lien et le partager" },
@@ -1386,6 +1389,7 @@ export const PORTUGUESE = {
     },
     one_technology_page: {
       share: {
+        other: { text: "Outro" },
         button: { copied: { text: "Copiado!" }, copy: { text: "Copiar Link" } },
         title: { text: "Compartilhar" },
         hint: { text: "Você pode copiar o link e compartilhá-lo" },
