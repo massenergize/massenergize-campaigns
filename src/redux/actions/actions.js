@@ -183,11 +183,6 @@ const fetchStartupContent = (params) => {
       const data = campaignInformation.data;
       dispatch(loadCampaignInformation(data));
       if (data) {
-        let activeLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY) || DEFAULT_ENGLISH_CODE;
-        const found = findInLanguageList(activeLang, data?.languages);
-        dispatch(setUsersListOfLanguages(data?.languages));
-        if (!found) activeLang = DEFAULT_ENGLISH_CODE;
-        dispatch(loadActiveLanguageAction(activeLang));
         dispatch(setNavigationMenuAction(data?.navigation || []));
         dispatch(setTestimonialsActions(data?.my_testimonials || []));
         cb && cb(data, campaignInformation?.success);
@@ -210,10 +205,11 @@ export const appInnitAction = (campaignId, cb) => {
       dispatch(setUsersListOfLanguages(languages?.map((l) => l?.is_active)));
       const prefLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY);
       const startUpObj = { campaignId, userContent, dispatch, cb, languageCode: DEFAULT_ENGLISH_CODE };
-      if (!prefLang) return fetchStartupContent({ campaignId, userContent, dispatch, cb });
+      if (!prefLang) return fetchStartupContent(startUpObj);
       const found = findInLanguageList(prefLang, languages);
       const notActive = !found?.is_active;
-      const languageCode = notActive ? found?.code : DEFAULT_ENGLISH_CODE;
+      const languageCode = found ? found?.code : DEFAULT_ENGLISH_CODE;
+      dispatch(loadActiveLanguageAction(languageCode));
 
       if (notActive) {
         setActiveLanguageInStorage(DEFAULT_ENGLISH_CODE);
@@ -231,7 +227,7 @@ export const appInnitAction = (campaignId, cb) => {
         );
       }
 
-      fetchStartupContent({ ...startUpObj, language: languageCode, dispatch, cb });
+      fetchStartupContent({ ...startUpObj, languageCode });
     });
   };
 };

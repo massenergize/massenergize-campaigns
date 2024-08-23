@@ -75,7 +75,7 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
               cursor: "pointer",
             }}
           >
-            {OTHER}
+            {staticT?.other?.text || OTHER}
           </Form.Check.Label>
         </Form.Check>
       </Form>

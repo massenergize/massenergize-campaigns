@@ -28,11 +28,12 @@ export async function apiCall(destinationUrl, dataToSend = {}, relocationPage = 
   const data = {
     // __is_prod: IS_PROD || IS_CANARY,
     // __is_admin_site: true,
+    ...(lang && !portalIsAdmin() ? { __user_language: lang } : {}),
     ...dataToSend,
   };
 
   const formData = new FormData();
-  if (lang && !portalIsAdmin()) formData.append("__user_language", lang);
+  // if (lang && !portalIsAdmin()) formData.append("__user_language", lang);
   Object.keys(data).map((k) => formData.append(k, data[k]));
 
 

@@ -213,6 +213,7 @@ export const ENGLISH = {
       buttons: { continue: { text: "Continue" }, cancel: { text: "Cancel" } },
     },
     community_selection: {
+      other: { text: "Other" },
       selection_label: { text: "What community do you live in?" },
       text_after_selection: { text: "We will direct you to the right resources based on where you are from -" },
       form: {
@@ -477,6 +478,7 @@ export const GERMAN = {
       },
     },
     community_selection: {
+      other: { text: "Andere" },
       selection_label: { text: "In welcher Gemeinschaft leben Sie?" },
       text_after_selection: { text: "Wir leiten Sie basierend auf Ihrem Standort zu den richtigen Ressourcen -" },
       form: {
@@ -737,6 +739,7 @@ export const SPANISH = {
       },
     },
     community_selection: {
+      other: { text: "Otro" },
       selection_label: { text: "¿En qué comunidad vives?" },
       text_after_selection: { text: "Te dirigiremos a los recursos adecuados según tu ubicación -" },
       form: {
@@ -1002,6 +1005,7 @@ export const FRENCH = {
       },
     },
     community_selection: {
+      other: { text: "Autre" },
       selection_label: { text: "Dans quelle communauté vivez-vous?" },
       text_after_selection: {
         text: "Nous vous dirigerons vers les bonnes ressources en fonction de votre localisation -",
@@ -1258,6 +1262,7 @@ export const CHINESE = {
       },
     },
     community_selection: {
+      other: { text: "其他" },
       selection_label: { text: "你居住在哪个社区?" },
       text_after_selection: { text: "我们将根据你的位置为你指引到正确的资源 -" },
       form: {
@@ -1515,6 +1520,7 @@ export const PORTUGUESE = {
       },
     },
     community_selection: {
+      other: { text: "Outro" },
       selection_label: { text: "Em qual comunidade você mora?" },
       text_after_selection: { text: "Nós direcionaremos você para os recursos corretos com base na sua localização -" },
       form: {
@@ -1779,6 +1785,7 @@ export const ITALIAN = {
       },
     },
     community_selection: {
+      other: { text: "Altro" },
       selection_label: { text: "In quale comunità vivi?" },
       text_after_selection: { text: "Ti indirizzeremo alle risorse corrette in base alla tua posizione -" },
       form: {
