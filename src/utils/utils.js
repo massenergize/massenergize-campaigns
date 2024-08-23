@@ -305,7 +305,7 @@ if (IS_LOCAL) {
 } else if (IS_CANARY) {
   baseUrl = "https://communities-canary.massenergize.org/";
 }
-if (IS_PROD) {
+else if (IS_PROD) {
   baseUrl = "https://communities.massenergize.org/";
 }  else  {
   baseUrl = "https://communities.massenergize.dev/";
