@@ -10,7 +10,7 @@ import {
   toggleUniversalModal,
   getStaticText,
 } from "../redux/actions/actions";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import CustomModal from "../components/modal/CustomModal";
 import TechnologyFullViewPage from "../user-portal/pages/technology/TechnologyFullViewPage";
 import OneEvent from "../user-portal/pages/events/OneEvent";
@@ -28,6 +28,7 @@ import Dummy from "../admin-portal/pages/auth/Dummy";
 import { setPageTitle } from "../utils/utils";
 import JoinUsForm from "../user-portal/pages/forms/JoinUsForm";
 import AddOfferedLanguages from "../admin-portal/internationalization/AddOfferedLanguages";
+import BlanketNotification from "../components/pieces/BlanketNotification";
 
 export const NavigateWithParams = ({ to, ...props }) => {
   const params = useParams();
@@ -163,7 +164,7 @@ function AppRouter({
   // navigation,
 }) {
   const { modals } = getStaticText();
-  const params = useParams();
+  const blanketNotification = useSelector((state) => state.blanketNotification);
 
   useEffect(() => {
     let pageName = "ME Campaign";
@@ -191,6 +192,8 @@ function AppRouter({
     if (!user) return register(registrationOptions);
     cb && cb();
   };
+
+  if (blanketNotification) return <BlanketNotification {...blanketNotification} />;
 
   return (
     <>

@@ -40,6 +40,7 @@ export const ENGLISH = {
   },
   pages: {
     homepage: {
+      about: { text: "About " },
       share: {
         button: { copied: { text: "Copied!" }, copy: { text: "Copy Link" } },
         title: { text: "Share Campaign" },
@@ -586,7 +587,7 @@ export const SPANISH = {
           full_view: { text: "Vista completa" },
         },
         events_section: {
-          title: { text: "Testimonios" },
+          title: { text: "Eventos" },
           scrollable: {
             text: "Desplázate de izquierda a derecha para ver más eventos, o usa los botones de flecha (arriba a la derecha) para desplazarte",
           },
