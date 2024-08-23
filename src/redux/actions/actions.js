@@ -202,7 +202,7 @@ export const appInnitAction = (campaignId, cb) => {
 
     apiCall("/campaigns.supported_languages.list", { campaign_id: campaignId }).then((response) => {
       const languages = response?.data || [];
-      dispatch(setUsersListOfLanguages(languages?.map((l) => l?.is_active)));
+      dispatch(setUsersListOfLanguages(languages?.filter((l) => l?.is_active)));
       const prefLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY);
       const startUpObj = { campaignId, userContent, dispatch, cb, languageCode: DEFAULT_ENGLISH_CODE };
       if (!prefLang) return fetchStartupContent(startUpObj);
