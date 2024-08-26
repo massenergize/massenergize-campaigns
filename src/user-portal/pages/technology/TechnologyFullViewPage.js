@@ -67,6 +67,7 @@ function TechnologyFullViewPage({
   const { pages } = getStaticText();
   const one_technology_page = pages?.one_technology_page || {};
   const { sections, loader, share: shareStaticT } = one_technology_page;
+  const modalStaticT = sections?.comments?.modal || {};
   // const [idsToRefMap, setidsToRefMap] = useState({});
   const coachesRef = useRef();
   const vendorsRef = useRef();
@@ -205,15 +206,16 @@ function TechnologyFullViewPage({
   };
 
   // NB: Dont worry, I will merge the two trigger fxns into one, when there is more time
-  const triggerRegistration = () => {
+  const triggerRegistration = (options) => {
+    const { staticT } = options || {};
     toggleModal({
       show: true,
-      title: `Before you continue, we would like to know you`,
+      title: staticT?.preComment?.title?.text || `Before you continue, we would like to know you`,
       iconName: "fa-comment",
       component: ({ close }) => (
         <JoinUsForm
           close={close}
-          confirmText="Continue"
+          confirmText={staticT?.preComment?.buttons?.continue?.text || "Continue"}
           callbackOnSubmit={({ user }) => {
             close && close();
             triggerCommentBox(user);
@@ -225,9 +227,9 @@ function TechnologyFullViewPage({
     });
   };
 
-  const triggerCommentBox = (userObject) => {
+  const triggerCommentBox = (userObject, options) => {
     const { user } = userObject || {};
-    if (!user) return triggerRegistration();
+    if (!user) return triggerRegistration(options);
     toggleModal({
       show: true,
       title: sections?.comments?.title?.text || "Read comments or add yours",
@@ -316,7 +318,7 @@ function TechnologyFullViewPage({
               {image?.url && <img className="mt-2" src={image?.url || carPhoto} alt={"event"} />}
               <InteractionsPanel
                 openShareBox={openShareBox}
-                openCommentBox={() => triggerCommentBox(authUser)}
+                openCommentBox={() => triggerCommentBox(authUser, { staticT: modalStaticT })}
                 liked={technology?.has_liked}
                 likes={likes}
                 like={() => like(authUser?.user)}
@@ -471,7 +473,12 @@ function TechnologyFullViewPage({
                               color: !isForCurrentUser ? "var(--app-main-color)" : "var(--app-accent-3)",
                             }}
                           >
-                            {user?.full_name || "..."} {isForCurrentUser ? " (Yours)" : ""}
+                            {user?.full_name || "..."}{" "}
+                            {isForCurrentUser
+                              ? modalStaticT?.yours?.text
+                                ? `(${modalStaticT?.yours?.text})`
+                                : "" || " (Yours)"
+                              : ""}
                           </h6>
                           <small className="small-font">
                             {message.substr(0, COMMENT_LENGTH)}
@@ -500,7 +507,11 @@ function TechnologyFullViewPage({
                               flexDirection: "row",
                             }}
                           >
-                            <CommentDeleteConfirmation show={isForCurrentUser} onDelete={() => deleteComment(com)} />
+                            <CommentDeleteConfirmation
+                              staticT={modalStaticT}
+                              show={isForCurrentUser}
+                              onDelete={() => deleteComment(com)}
+                            />
                             <span
                               style={{
                                 color: "#cbcbcb",
@@ -552,7 +563,7 @@ function TechnologyFullViewPage({
                     padding: 10,
                     color: "white",
                   }}
-                  onClick={() => triggerCommentBox(authUser)}
+                  onClick={() => triggerCommentBox(authUser, { staticT: modalStaticT })}
                 >
                   <i className=" fa fa-plus" style={{ marginRight: 4 }}></i>
                   <p style={{ margin: 0, fontWeight: "bold" }}>

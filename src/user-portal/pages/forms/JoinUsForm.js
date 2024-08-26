@@ -29,6 +29,7 @@ function JoinUsForm({
   const [loading, setLoading] = useState(false);
   const { modals } = getStaticText();
   const staticT = modals?.join || {};
+  console.log("FORM STATIC", staticT)
 
   useState(() => {
     if (authUser) {
