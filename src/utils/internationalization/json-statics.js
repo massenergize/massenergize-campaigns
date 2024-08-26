@@ -557,7 +557,7 @@ export const PORTUGUESE = {
   footer: {
     modal: { title: { prefix: "Seguir" }, cancel: { text: "Cancelar" }, ok: { text: "Assinar" } },
     news_letter: {
-      subscribe_button: { text: "Assine nossa Newsletter" },
+      subscribe_button: { text: "Assine nossa boletim informativo" },
       subscribe_message: { text: "Você já se inscreveu com " },
     },
     quick_links: { text: "Links Rápidos" },
