@@ -2,6 +2,14 @@
 
 // Use this to translate: https://translate.google.com/
 export const ENGLISH = {
+  toasts: {
+    join: {
+      noEmail: { text: "Please provide a valid email address..." },
+      noCommunity: { text: "Please select a community..." },
+      noZipcodeAndOther: { text: "Please provide the zipcode & community name..." },
+      joined: { text: "Well done, thank you for joining us!" },
+    },
+  },
   inPreview: {
     button: { text: "Preview Mode" },
     notice: {
@@ -120,7 +128,7 @@ export const ENGLISH = {
           modal: {
             preComment: {
               title: { text: "Before you continue, we would like to know you" },
-              buttons: { continue: { text: "XContinue" }, cancel: { text: "Cancel" } },
+              buttons: { continue: { text: "Continue" }, cancel: { text: "Cancel" } },
               email: { text: "Email" },
             },
             deletion: {
@@ -256,6 +264,14 @@ export const ENGLISH = {
 };
 
 export const SPANISH = {
+  toasts: {
+    join: {
+      noEmail: { text: "Por favor, proporcione una dirección de correo electrónico válida..." },
+      noCommunity: { text: "Por favor, seleccione una comunidad..." },
+      noZipcodeAndOther: { text: "Por favor, proporcione el código postal y el nombre de la comunidad..." },
+      joined: { text: "¡Bien hecho, gracias por unirse a nosotros!" },
+    },
+  },
   inPreview: {
     button: { text: "Modo de Vista Previa" },
     notice: {
@@ -529,6 +545,14 @@ export const SPANISH = {
 };
 
 export const PORTUGUESE = {
+  toasts: {
+    join: {
+      noEmail: { text: "Por favor, forneça um endereço de e-mail válido..." },
+      noCommunity: { text: "Por favor, selecione uma comunidade..." },
+      noZipcodeAndOther: { text: "Por favor, forneça o código postal e o nome da comunidade..." },
+      join: { text: "Muito bem, obrigado por se juntar a nós!" },
+    },
+  },
   inPreview: {
     button: { text: "Modo de Pré-visualização" },
     notice: {
@@ -798,7 +822,6 @@ export const PORTUGUESE = {
   },
 };
 
-
 export const GERMAN = {
   inPreview: {
     button: { text: "Vorschau-Modus" },
@@ -1063,7 +1086,6 @@ export const GERMAN = {
     },
   },
 };
-
 
 export const FRENCH = {
   inPreview: {
@@ -1588,8 +1610,6 @@ export const CHINESE = {
     },
   },
 };
-
-
 
 export const ITALIAN = {
   inPreview: {
