@@ -40,7 +40,6 @@ const ICSEventCreator = ({ data }) => {
       url: window.location.href,
     };
 
-    console.log("SEE ICAL EVENT", event)
     createEvent(event, (error, value) => {
       if (error) {
         console.error("Error creating ICS file:", error?.toString());
