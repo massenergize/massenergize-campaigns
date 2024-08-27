@@ -93,6 +93,7 @@ function CommentComponentForModal({
     });
   };
 
+
   return (
     <div style={{ maxHeight: 500, position: "relative" }}>
       <div
@@ -132,7 +133,8 @@ function CommentComponentForModal({
                 }}
               >
                 <span style={{}}>
-                  {user?.full_name || "..."} {isForCurrentUser ? " (Yours)" : ""}{" "}
+                  {user?.full_name || "..."}{" "}
+                  {isForCurrentUser ? (staticT?.yours?.text ? `(${staticT?.yours?.text})` : "" || " (Yours)") : ""}{" "}
                 </span>{" "}
                 {community && " from "}
                 <span style={{ color: "var(--app-medium-green)" }}>{community} </span>
@@ -146,6 +148,7 @@ function CommentComponentForModal({
                 }}
               >
                 <CommentDeleteConfirmation
+                  staticT={staticT}
                   show={isForCurrentUser}
                   onDelete={() => onDelete && onDelete(com, (rem) => setCommentItems([...(rem || [])].reverse()))}
                 />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function CommentDeleteConfirmation ({ onDelete, show }) {
+function CommentDeleteConfirmation({ onDelete, show, staticT }) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   if (!show) return <></>;
@@ -13,20 +13,16 @@ function CommentDeleteConfirmation ({ onDelete, show }) {
   if (isDeleting)
     return (
       <span>
-        <span>Are you sure? </span>
-        <span
-          onClick={() => onDelete && onDelete()}
-          className="touchable-opacity"
-          style={{ ...common }}
-        >
-          YES
+        <span>{staticT?.deletion?.title?.text || "Are you sure?"} </span>
+        <span onClick={() => onDelete && onDelete()} className="touchable-opacity" style={{ ...common }}>
+          {staticT?.deletion?.buttons?.yes?.text || "YES"}
         </span>
         <span
           className="touchable-opacity"
           onClick={() => setIsDeleting(false)}
           style={{ ...common, color: "#a52424" }}
         >
-          NO
+          {staticT?.deletion?.buttons?.no?.text || "NO"}
         </span>
       </span>
     );
@@ -42,7 +38,7 @@ function CommentDeleteConfirmation ({ onDelete, show }) {
         fontWeight: "bold",
       }}
     >
-      Delete{" "}
+      {staticT?.deletion?.delete?.text || "Delete"}
     </span>
   );
 }

@@ -1,6 +1,15 @@
 // All items here are dummies used to test the internationalization feature
 
+// Use this to translate: https://translate.google.com/
 export const ENGLISH = {
+  toasts: {
+    join: {
+      noEmail: { text: "Please provide a valid email address..." },
+      noCommunity: { text: "Please select a community..." },
+      noZipcodeAndOther: { text: "Please provide the zipcode & community name..." },
+      joined: { text: "Well done, thank you for joining us!" },
+    },
+  },
   inPreview: {
     button: { text: "Preview Mode" },
     notice: {
@@ -117,6 +126,17 @@ export const ENGLISH = {
           see_more: { text: "See More Comments" },
           call_to_add: { text: "Add a comment" },
           modal: {
+            preComment: {
+              title: { text: "Before you continue, we would like to know you" },
+              buttons: { continue: { text: "Continue" }, cancel: { text: "Cancel" } },
+              email: { text: "Email" },
+            },
+            deletion: {
+              delete: { text: "Delete" },
+              title: { text: "Are you sure?" },
+              buttons: { yes: { text: "Yes" }, no: { text: "No" } },
+            },
+            yours: { text: "Yours" },
             title: "Read comments or add yours",
             relative_data: { text: "50 days ago" },
             name: { text: "Your name" },
@@ -239,6 +259,565 @@ export const ENGLISH = {
       buttons: { cancel: { text: "Cancel" }, ok: { text: "Let's Go" } },
       title: { text: "Get Help" },
       selection_hint: { text: "We will direct you to the right resources based on where you are from" },
+    },
+  },
+};
+
+export const SPANISH = {
+  toasts: {
+    join: {
+      noEmail: { text: "Por favor, proporcione una dirección de correo electrónico válida..." },
+      noCommunity: { text: "Por favor, seleccione una comunidad..." },
+      noZipcodeAndOther: { text: "Por favor, proporcione el código postal y el nombre de la comunidad..." },
+      joined: { text: "¡Bien hecho, gracias por unirse a nosotros!" },
+    },
+  },
+  inPreview: {
+    button: { text: "Modo de Vista Previa" },
+    notice: {
+      text: "aún no está publicado. Los administradores siguen trabajando en ello. Por favor, vuelva más tarde cuando esté completo...",
+    },
+  },
+  forms: {
+    testimonials: {
+      title: { text: "Título*", placeholder: "Ingrese el título del testimonio...", label: "¡Cuéntenos su historia!" },
+      image: {
+        label: "Incluya una imagen en su testimonio",
+        text: "Elegir archivo",
+        placeholder: "Ningún archivo seleccionado",
+      },
+      community: { label: "Seleccione su comunidad", placeholder: "---Seleccione su comunidad---" },
+      technology: {
+        label: "¿Bajo qué tecnología está este testimonio?",
+        placeholder: "---Seleccione la tecnología---",
+      },
+      description: { placeholder: "Comience a contar su historia aquí..." },
+      buttons: { cancel: { text: "Cancelar" }, submit: { text: "Enviar" } },
+    },
+  },
+
+  loader: {
+    text: "Obteniendo detalles de la campaña...",
+  },
+  share: { text: "Compartir" },
+  footer: {
+    modal: { title: { prefix: "Seguir" }, cancel: { text: "Cancelar" }, ok: { text: "Suscribirse" } },
+    news_letter: {
+      subscribe_button: { text: "Suscribirse a nuestro Boletín" },
+      subscribe_message: { text: "Ya estás suscrito con " },
+    },
+    quick_links: { text: "Enlaces rápidos" },
+  },
+  navbar: {
+    home: { text: "Inicio" },
+    tech: { text: "Tecnologías" },
+    coaches: { text: "Entrenadores" },
+    events: { text: "Eventos" },
+    vendors: { text: "Vendedores" },
+    Deals: { text: "Ofertas" },
+  },
+  pages: {
+    homepage: {
+      share: {
+        button: { copied: { text: "¡Copiado!" }, copy: { text: "Copiar enlace" } },
+        title: { text: "Compartir campaña" },
+        hint: { text: "Puedes copiar el enlace y compartirlo" },
+        instruction: { text: "Por favor, selecciona una plataforma en la que te gustaría compartir esta tecnología" },
+      },
+      sections: {
+        key_contact: {
+          text: "Contacto principal",
+        },
+
+        about_box: {
+          button: "Saber más",
+        },
+        getting_started_section: {
+          quote: { text: "Cita" },
+          coach: { text: "Entrenador" },
+          learn_more: { text: "Saber más" },
+          communities: {
+            text: "Comunidades",
+            title: "Comunidades",
+            description: "Conéctate con tu comunidad y descubre otras acciones",
+          },
+        },
+        testimonials_section: {
+          scrollable: {
+            text: "Desplázate de izquierda a derecha para ver más testimonios, o usa los botones de flecha (arriba a la derecha) para desplazarte",
+          },
+          title: { text: "Testimonios" },
+          call_to_add_testimonial: { text: "Agrega tu testimonio aquí" },
+          call_to_hide_testimonial: { text: "Ocultar formulario de testimonio" },
+          call_to_filter: { text: "Filtrar testimonios por" },
+          full_view: { text: "Vista completa" },
+        },
+        events_section: {
+          title: { text: "Eventos" },
+          scrollable: {
+            text: "Desplázate de izquierda a derecha para ver más eventos, o usa los botones de flecha (arriba a la derecha) para desplazarte",
+          },
+          call_to_filter: { text: "Filtrar testimonios por" },
+          card: { online: { text: "En línea" }, both: { text: "Ambos" }, in_person: { text: "En persona" } },
+        },
+        coaches_section: {
+          call_to_filter: { text: "Filtrar testimonios por" },
+          get_help: { text: "Obtener ayuda" },
+          help_modal: { title: "Obtener ayuda" },
+        },
+      },
+    },
+    one_technology_page: {
+      share: {
+        other: { text: "Otro" },
+        button: { copied: { text: "¡Copiado!" }, copy: { text: "Copiar enlace" } },
+        title: { text: "Compartir" },
+        hint: { text: "Puedes copiar el enlace y compartirlo" },
+        instruction: { text: "Por favor, selecciona una plataforma en la que te gustaría compartir esta tecnología" },
+      },
+      loader: {
+        text: "Obteniendo detalles de la tecnología...",
+      },
+      sections: {
+        see_more: { text: "Ver más..." },
+        see_less: { text: "Ver menos..." },
+        get_updates: {
+          button: { text: "Obtener actualizaciones" },
+          description: { text: "Obtener actualizaciones sobre" },
+          title: { text: "Obtener actualizaciones sobre" },
+          confirm_button: { text: "Obtener actualizaciones" },
+          cancel_button: { text: "Cancelar" },
+        },
+        comments: {
+          title: { text: "Comentarios" },
+          see_more_trunc: { text: "Ver más" },
+          see_more: { text: "Ver más comentarios" },
+          call_to_add: { text: "Agregar un comentario" },
+          modal: {
+            preComment: {
+              title: { text: "Antes de continuar, nos gustaría saber de usted" },
+              buttons: { continue: { text: "Continue" }, cancel: { text: "Cancelar" } },
+              email: { text: "Email" },
+            },
+            deletion: {
+              delete: { text: "Eliminar" },
+              title: { text: "¿Está seguro?" },
+              buttons: { yes: { text: "Sí" }, no: { text: "No" } },
+            },
+            yours: { text: "Tuyo" },
+            title: "Leer comentarios o agregar el tuyo",
+            relative_data: { text: "hace 50 días" },
+            name: { text: "Tu nombre" },
+            name_placeholder: { text: "¿Quién está haciendo este comentario?" },
+            comment_placeholder: { text: "Escribe tu comentario aquí" },
+            button: { text: "Comentar" },
+            no_comments: { text: "Aún no hay comentarios, ¡agrega el tuyo!" },
+          },
+        },
+        interactions: {
+          like: { text: "Me gusta", plural: "Me gusta" },
+          comment: { text: "Comentario", plural: "Comentarios" },
+          view: { text: "Vista", plural: "Vistas" },
+          share: { text: "Compartir", plural: "Compartidos" },
+        },
+        testimonials_section: {
+          title: { text: "Testimonios" },
+          call_to_add_testimonial: { text: "Agrega tu testimonio aquí" },
+          full_view: { text: "Vista completa" },
+        },
+        coaches_section: {
+          button: { text: "Obtener ayuda" },
+        },
+        do_more: {
+          title: {
+            text: "Comunidades Participantes",
+          },
+        },
+        events_section: {
+          title: { text: "Eventos" },
+          card: {
+            online: { text: "En línea" },
+            both: { text: "Ambos" },
+            in_person: { text: "En persona" },
+          },
+        },
+        why_section: {
+          why: { text: "Por qué" },
+        },
+        take_action_section: {
+          title: { text: "Tomar Acción" },
+          coaches: {
+            title: "Haz una pregunta",
+            description: "Voluntarios de la comunidad están listos para responder preguntas, grandes o pequeñas",
+            button: { text: "Obtener Ayuda" },
+          },
+          incentives: {
+            title: "Enséñame el dinero",
+            description: "¡Mejora! Vea todos los incentivos disponibles para usted.",
+            button: { text: "Incentivos" },
+          },
+          vendors: {
+            title: "Encuentra un Vendedor",
+            description: "La pregunta crítica - ¿quién debería cotizar su proyecto?",
+            button: { text: "Vendedores" },
+          },
+        },
+        vendors_section: {
+          title: { text: "Vendedores" },
+        },
+      },
+    },
+
+    one_testimonial_page: {
+      loader: {
+        text: "Obteniendo detalles del testimonio...",
+      },
+      sections: {
+        call_to_add_testimonial: { text: "Agrega tu testimonio aquí" },
+        call_to_hide_testimonial: { text: "Ocultar formulario de testimonio" },
+        form: { title: { text: "Agrega tu testimonio" } },
+        sidebar: {
+          other_testimonials: { text: "Otros testimonios" },
+          call_to_add_testimonial: { text: "Agregar testimonio" },
+          call_to_hide_testimonial: { text: "Ocultar formulario" },
+        },
+      },
+    },
+    one_event_page: {
+      loader: {
+        text: "Obteniendo detalles del evento...",
+      },
+      sections: {
+        card: { online: { text: "En línea" }, both: { text: "Ambos" }, in_person: { text: "En persona" } },
+        call_to_download: { text: "Descargar a tu calendario" },
+        apple_calendar: { text: "ICAL" },
+        google_calendar: { text: "Google Calendar" },
+        call_to_register: { text: "Registrar/Unirse" },
+      },
+    },
+  },
+  modals: {
+    languageSelectionModal: {
+      title: { text: "Elija un idioma" },
+    },
+    whereFrom: {
+      title: { text: "Por favor, díganos de dónde es" },
+      buttons: {
+        no: { text: "NO" },
+        submit: { text: "¡Vale, listo!" },
+      },
+    },
+    preTestimonial: {
+      title: { text: "Antes de agregar un testimonio, nos gustaría conocerte" },
+      buttons: {
+        continue: { text: "Continuar" },
+        cancel: { text: "Cancelar" },
+      },
+    },
+    community_selection: {
+      other: { text: "Otro" },
+      selection_label: { text: "¿En qué comunidad vives?" },
+      text_after_selection: { text: "Te dirigiremos a los recursos adecuados según tu ubicación -" },
+      form: {
+        zipcode: {
+          text: "Código postal",
+          label: "Introduce tu código postal (Editable)",
+          placeholder: "Introduce el código postal aquí...",
+        },
+        community_name: { text: "Nombre de la comunidad", placeholder: "¿En qué comunidad vives?" },
+      },
+      buttons: {
+        close: { text: "Cerrar" },
+        submit: { text: "Vamos" },
+      },
+      success: { text: "¡Gracias por unirte!" },
+    },
+    join: {
+      email: { text: "Correo electrónico", placeholder: "Introduce tu correo electrónico aquí..." },
+      buttons: { cancel: { text: "Cancelar" }, ok: { text: "Vamos" } },
+    },
+    help: {
+      buttons: { cancel: { text: "Cancelar" }, ok: { text: "Vamos" } },
+      title: { text: "Obtener ayuda" },
+      selection_hint: { text: "Te dirigiremos a los recursos adecuados según tu ubicación" },
+    },
+  },
+};
+
+export const PORTUGUESE = {
+  toasts: {
+    join: {
+      noEmail: { text: "Por favor, forneça um endereço de e-mail válido..." },
+      noCommunity: { text: "Por favor, selecione uma comunidade..." },
+      noZipcodeAndOther: { text: "Por favor, forneça o código postal e o nome da comunidade..." },
+      join: { text: "Muito bem, obrigado por se juntar a nós!" },
+    },
+  },
+  inPreview: {
+    button: { text: "Modo de Pré-visualização" },
+    notice: {
+      text: "ainda não foi publicado. Os administradores ainda estão trabalhando nisso. Por favor, volte mais tarde quando estiver completo...",
+    },
+  },
+  forms: {
+    testimonials: {
+      title: { text: "Título*", placeholder: "Insira o título do depoimento...", label: "Conte-nos sua história!" },
+      image: {
+        label: "Inclua uma imagem no seu depoimento",
+        text: "Escolher arquivo",
+        placeholder: "Nenhum arquivo escolhido",
+      },
+      community: { label: "Selecione sua comunidade", placeholder: "---Selecione sua comunidade---" },
+      technology: { label: "A qual tecnologia pertence este depoimento?", placeholder: "---Selecione a tecnologia---" },
+      description: { placeholder: "Comece a contar sua história aqui..." },
+      buttons: { cancel: { text: "Cancelar" }, submit: { text: "Enviar" } },
+    },
+  },
+
+  loader: {
+    text: "Buscando detalhes da campanha...",
+  },
+  share: { text: "Compartilhar" },
+  footer: {
+    modal: { title: { prefix: "Seguir" }, cancel: { text: "Cancelar" }, ok: { text: "Assinar" } },
+    news_letter: {
+      subscribe_button: { text: "Assine nossa boletim informativo" },
+      subscribe_message: { text: "Você já se inscreveu com " },
+    },
+    quick_links: { text: "Links Rápidos" },
+  },
+  navbar: {
+    home: { text: "Início" },
+    tech: { text: "Tecnologias" },
+    coaches: { text: "Treinadores" },
+    events: { text: "Eventos" },
+    vendors: { text: "Fornecedores" },
+    Deals: { text: "Ofertas" },
+  },
+  pages: {
+    homepage: {
+      share: {
+        button: { copied: { text: "Copiado!" }, copy: { text: "Copiar Link" } },
+        title: { text: "Compartilhar Campanha" },
+        hint: { text: "Você pode copiar o link e compartilhá-lo" },
+        instruction: { text: "Selecione uma plataforma na qual você gostaria de compartilhar esta tecnologia" },
+      },
+      sections: {
+        key_contact: {
+          text: "Contato Principal",
+        },
+
+        about_box: {
+          button: "Saiba Mais",
+        },
+        getting_started_section: {
+          quote: { text: "Citação" },
+          coach: { text: "Treinador" },
+          learn_more: { text: "Saiba Mais" },
+          communities: {
+            text: "Comunidades",
+            title: "Comunidades",
+            description: "Conecte-se com sua comunidade e confira outras ações",
+          },
+        },
+        testimonials_section: {
+          scrollable: {
+            text: "Role da esquerda para a direita para ver mais depoimentos, ou use os botões de seta (canto superior direito) para rolar",
+          },
+          title: { text: "Depoimentos" },
+          call_to_add_testimonial: { text: "Adicione seu depoimento aqui" },
+          call_to_hide_testimonial: { text: "Ocultar formulário de depoimento" },
+          call_to_filter: { text: "Filtrar depoimentos por" },
+          full_view: { text: "Visualização Completa" },
+        },
+        events_section: {
+          title: { text: "Eventos" },
+          scrollable: {
+            text: "Role da esquerda para a direita para ver mais eventos, ou use os botões de seta (canto superior direito) para rolar",
+          },
+          call_to_filter: { text: "Filtrar depoimentos por" },
+          card: { online: { text: "Online" }, both: { text: "Ambos" }, in_person: { text: "Presencial" } },
+        },
+        coaches_section: {
+          call_to_filter: { text: "Filtrar depoimentos por" },
+          get_help: { text: "Obter Ajuda" },
+          help_modal: { title: "Obter Ajuda" },
+        },
+      },
+    },
+    one_technology_page: {
+      share: {
+        other: { text: "Outro" },
+        button: { copied: { text: "Copiado!" }, copy: { text: "Copiar Link" } },
+        title: { text: "Compartilhar" },
+        hint: { text: "Você pode copiar o link e compartilhá-lo" },
+        instruction: { text: "Selecione uma plataforma na qual você gostaria de compartilhar esta tecnologia" },
+      },
+      loader: {
+        text: "Buscando detalhes da tecnologia...",
+      },
+      sections: {
+        see_more: { text: "Ver mais..." },
+        see_less: { text: "Ver menos..." },
+        get_updates: {
+          button: { text: "Receber Atualizações" },
+          description: { text: "Receber atualizações sobre" },
+          title: { text: "Receber atualizações sobre" },
+          confirm_button: { text: "Receber Atualizações" },
+          cancel_button: { text: "Cancelar" },
+        },
+        comments: {
+          title: { text: "Comentários" },
+          see_more_trunc: { text: "Ver mais" },
+          see_more: { text: "Ver mais comentários" },
+          call_to_add: { text: "Adicionar um comentário" },
+          modal: {
+            preComment: {
+              title: { text: "Antes de continuar, gostaríamos de saber sobre você" },
+              buttons: { continue: { text: "Continuar" }, cancel: { text: "Cancelar" } },
+              email: { text: "E-mail" },
+            },
+            deletion: {
+              delete: { text: "Excluir" },
+              title: { text: "Tem certeza?" },
+              buttons: { yes: { text: "Sim" }, no: { text: "Não" } },
+            },
+            yours: { text: "Seu" },
+            title: "Leia comentários ou adicione o seu",
+            relative_data: { text: "50 dias atrás" },
+            name: { text: "Seu nome" },
+            name_placeholder: { text: "Quem está fazendo este comentário?" },
+            comment_placeholder: { text: "Digite o comentário aqui" },
+            button: { text: "Comentar" },
+            no_comments: { text: "Ainda não há comentários, adicione o seu!" },
+          },
+        },
+        interactions: {
+          like: { text: "Curtir", plural: "Curtidas" },
+          comment: { text: "Comentar", plural: "Comentários" },
+          view: { text: "Visualizar", plural: "Visualizações" },
+          share: { text: "Compartilhar", plural: "Compartilhamentos" },
+        },
+        testimonials_section: {
+          title: { text: "Depoimentos" },
+          call_to_add_testimonial: { text: "Adicione seu depoimento aqui" },
+          full_view: { text: "Visualização Completa" },
+        },
+        coaches_section: {
+          button: { text: "Obter Ajuda" },
+        },
+        do_more: {
+          title: {
+            text: "Comunidades Participantes",
+          },
+        },
+        events_section: {
+          title: { text: "Eventos" },
+          card: {
+            online: { text: "Online" },
+            both: { text: "Ambos" },
+            in_person: { text: "Presencial" },
+          },
+        },
+        why_section: {
+          why: { text: "Por quê" },
+        },
+        take_action_section: {
+          title: { text: "Tomar Ação" },
+          coaches: {
+            title: "Faça uma pergunta",
+            description: "Voluntários da comunidade estão prontos para responder perguntas, grandes ou pequenas",
+            button: { text: "Obter Ajuda" },
+          },
+          incentives: {
+            title: "Mostre-me o dinheiro",
+            description: "Fica melhor! Veja todos os incentivos disponíveis para você.",
+            button: { text: "Incentivos" },
+          },
+          vendors: {
+            title: "Encontre um Fornecedor",
+            description: "A questão crítica - quem deve cotar seu projeto?",
+            button: { text: "Fornecedores" },
+          },
+        },
+        vendors_section: {
+          title: { text: "Fornecedores" },
+        },
+      },
+    },
+
+    one_testimonial_page: {
+      loader: {
+        text: "Buscando detalhes do depoimento...",
+      },
+      sections: {
+        call_to_add_testimonial: { text: "Adicione seu depoimento aqui" },
+        call_to_hide_testimonial: { text: "Ocultar formulário de depoimento" },
+        form: { title: { text: "Adicione seu depoimento" } },
+        sidebar: {
+          other_testimonials: { text: "Outros Depoimentos" },
+          call_to_add_testimonial: { text: "Adicionar Depoimento" },
+          call_to_hide_testimonial: { text: "Ocultar Formulário" },
+        },
+      },
+    },
+    one_event_page: {
+      loader: {
+        text: "Buscando detalhes do evento...",
+      },
+      sections: {
+        card: { online: { text: "Online" }, both: { text: "Ambos" }, in_person: { text: "Presencial" } },
+        call_to_download: { text: "Baixar para o seu calendário" },
+        apple_calendar: { text: "ICAL" },
+        google_calendar: { text: "Google Calendar" },
+        call_to_register: { text: "Registrar/Participar" },
+      },
+    },
+  },
+  modals: {
+    languageSelectionModal: {
+      title: { text: "Escolha um Idioma" },
+    },
+    whereFrom: {
+      title: { text: "Por favor, diga-nos de onde você é" },
+      buttons: {
+        no: { text: "NÃO" },
+        submit: { text: "Ok, pronto!" },
+      },
+    },
+    preTestimonial: {
+      title: { text: "Antes de adicionar um depoimento, gostaríamos de conhecê-lo" },
+      buttons: {
+        continue: { text: "Continuar" },
+        cancel: { text: "Cancelar" },
+      },
+    },
+    community_selection: {
+      other: { text: "Outro" },
+      selection_label: { text: "Em qual comunidade você mora?" },
+      text_after_selection: { text: "Nós direcionaremos você para os recursos corretos com base na sua localização -" },
+      form: {
+        zipcode: {
+          text: "CEP",
+          label: "Digite seu CEP (Editável)",
+          placeholder: "Digite o CEP aqui...",
+        },
+        community_name: { text: "Nome da Comunidade", placeholder: "Em qual comunidade você mora?" },
+      },
+      buttons: {
+        close: { text: "Fechar" },
+        submit: { text: "Vamos lá" },
+      },
+      success: { text: "Obrigado por se juntar a nós!" },
+    },
+    join: {
+      email: { text: "Email", placeholder: "Digite o email aqui..." },
+      buttons: { cancel: { text: "Cancelar" }, ok: { text: "Vamos lá" } },
+    },
+    help: {
+      buttons: { cancel: { text: "Cancelar" }, ok: { text: "Vamos lá" } },
+      title: { text: "Obter Ajuda" },
+      selection_hint: { text: "Nós direcionaremos você para os recursos corretos com base na sua localização" },
     },
   },
 };
@@ -504,268 +1083,6 @@ export const GERMAN = {
       buttons: { cancel: { text: "Abbrechen" }, ok: { text: "Los geht's" } },
       title: { text: "Hilfe erhalten" },
       selection_hint: { text: "Wir leiten Sie basierend auf Ihrem Standort zu den richtigen Ressourcen" },
-    },
-  },
-};
-
-export const SPANISH = {
-  inPreview: {
-    button: { text: "Modo de Vista Previa" },
-    notice: {
-      text: "aún no está publicado. Los administradores siguen trabajando en ello. Por favor, vuelva más tarde cuando esté completo...",
-    },
-  },
-  forms: {
-    testimonials: {
-      title: { text: "Título*", placeholder: "Ingrese el título del testimonio...", label: "¡Cuéntenos su historia!" },
-      image: {
-        label: "Incluya una imagen en su testimonio",
-        text: "Elegir archivo",
-        placeholder: "Ningún archivo seleccionado",
-      },
-      community: { label: "Seleccione su comunidad", placeholder: "---Seleccione su comunidad---" },
-      technology: {
-        label: "¿Bajo qué tecnología está este testimonio?",
-        placeholder: "---Seleccione la tecnología---",
-      },
-      description: { placeholder: "Comience a contar su historia aquí..." },
-      buttons: { cancel: { text: "Cancelar" }, submit: { text: "Enviar" } },
-    },
-  },
-
-  loader: {
-    text: "Obteniendo detalles de la campaña...",
-  },
-  share: { text: "Compartir" },
-  footer: {
-    modal: { title: { prefix: "Seguir" }, cancel: { text: "Cancelar" }, ok: { text: "Suscribirse" } },
-    news_letter: {
-      subscribe_button: { text: "Suscribirse a nuestro Boletín" },
-      subscribe_message: { text: "Ya estás suscrito con " },
-    },
-    quick_links: { text: "Enlaces rápidos" },
-  },
-  navbar: {
-    home: { text: "Inicio" },
-    tech: { text: "Tecnologías" },
-    coaches: { text: "Entrenadores" },
-    events: { text: "Eventos" },
-    vendors: { text: "Vendedores" },
-    Deals: { text: "Ofertas" },
-  },
-  pages: {
-    homepage: {
-      share: {
-        button: { copied: { text: "¡Copiado!" }, copy: { text: "Copiar enlace" } },
-        title: { text: "Compartir campaña" },
-        hint: { text: "Puedes copiar el enlace y compartirlo" },
-        instruction: { text: "Por favor, selecciona una plataforma en la que te gustaría compartir esta tecnología" },
-      },
-      sections: {
-        key_contact: {
-          text: "Contacto principal",
-        },
-
-        about_box: {
-          button: "Saber más",
-        },
-        getting_started_section: {
-          quote: { text: "Cita" },
-          coach: { text: "Entrenador" },
-          learn_more: { text: "Saber más" },
-          communities: {
-            text: "Comunidades",
-            title: "Comunidades",
-            description: "Conéctate con tu comunidad y descubre otras acciones",
-          },
-        },
-        testimonials_section: {
-          scrollable: {
-            text: "Desplázate de izquierda a derecha para ver más testimonios, o usa los botones de flecha (arriba a la derecha) para desplazarte",
-          },
-          title: { text: "Testimonios" },
-          call_to_add_testimonial: { text: "Agrega tu testimonio aquí" },
-          call_to_hide_testimonial: { text: "Ocultar formulario de testimonio" },
-          call_to_filter: { text: "Filtrar testimonios por" },
-          full_view: { text: "Vista completa" },
-        },
-        events_section: {
-          title: { text: "Eventos" },
-          scrollable: {
-            text: "Desplázate de izquierda a derecha para ver más eventos, o usa los botones de flecha (arriba a la derecha) para desplazarte",
-          },
-          call_to_filter: { text: "Filtrar testimonios por" },
-          card: { online: { text: "En línea" }, both: { text: "Ambos" }, in_person: { text: "En persona" } },
-        },
-        coaches_section: {
-          call_to_filter: { text: "Filtrar testimonios por" },
-          get_help: { text: "Obtener ayuda" },
-          help_modal: { title: "Obtener ayuda" },
-        },
-      },
-    },
-    one_technology_page: {
-      share: {
-        other: { text: "Otro" },
-        button: { copied: { text: "¡Copiado!" }, copy: { text: "Copiar enlace" } },
-        title: { text: "Compartir" },
-        hint: { text: "Puedes copiar el enlace y compartirlo" },
-        instruction: { text: "Por favor, selecciona una plataforma en la que te gustaría compartir esta tecnología" },
-      },
-      loader: {
-        text: "Obteniendo detalles de la tecnología...",
-      },
-      sections: {
-        see_more: { text: "Ver más..." },
-        see_less: { text: "Ver menos..." },
-        get_updates: {
-          button: { text: "Obtener actualizaciones" },
-          description: { text: "Obtener actualizaciones sobre" },
-          title: { text: "Obtener actualizaciones sobre" },
-          confirm_button: { text: "Obtener actualizaciones" },
-          cancel_button: { text: "Cancelar" },
-        },
-        comments: {
-          title: { text: "Comentarios" },
-          see_more_trunc: { text: "Ver más" },
-          see_more: { text: "Ver más comentarios" },
-          call_to_add: { text: "Agregar un comentario" },
-          modal: {
-            title: "Leer comentarios o agregar el tuyo",
-            relative_data: { text: "hace 50 días" },
-            name: { text: "Tu nombre" },
-            name_placeholder: { text: "¿Quién está haciendo este comentario?" },
-            comment_placeholder: { text: "Escribe tu comentario aquí" },
-            button: { text: "Comentar" },
-            no_comments: { text: "Aún no hay comentarios, ¡agrega el tuyo!" },
-          },
-        },
-        interactions: {
-          like: { text: "Me gusta", plural: "Me gusta" },
-          comment: { text: "Comentario", plural: "Comentarios" },
-          view: { text: "Vista", plural: "Vistas" },
-          share: { text: "Compartir", plural: "Compartidos" },
-        },
-        testimonials_section: {
-          title: { text: "Testimonios" },
-          call_to_add_testimonial: { text: "Agrega tu testimonio aquí" },
-          full_view: { text: "Vista completa" },
-        },
-        coaches_section: {
-          button: { text: "Obtener ayuda" },
-        },
-        do_more: {
-          title: {
-            text: "Comunidades Participantes",
-          },
-        },
-        events_section: {
-          title: { text: "Eventos" },
-          card: {
-            online: { text: "En línea" },
-            both: { text: "Ambos" },
-            in_person: { text: "En persona" },
-          },
-        },
-        why_section: {
-          why: { text: "Por qué" },
-        },
-        take_action_section: {
-          title: { text: "Tomar Acción" },
-          coaches: {
-            title: "Haz una pregunta",
-            description: "Voluntarios de la comunidad están listos para responder preguntas, grandes o pequeñas",
-            button: { text: "Obtener Ayuda" },
-          },
-          incentives: {
-            title: "Enséñame el dinero",
-            description: "¡Mejora! Vea todos los incentivos disponibles para usted.",
-            button: { text: "Incentivos" },
-          },
-          vendors: {
-            title: "Encuentra un Vendedor",
-            description: "La pregunta crítica - ¿quién debería cotizar su proyecto?",
-            button: { text: "Vendedores" },
-          },
-        },
-        vendors_section: {
-          title: { text: "Vendedores" },
-        },
-      },
-    },
-
-    one_testimonial_page: {
-      loader: {
-        text: "Obteniendo detalles del testimonio...",
-      },
-      sections: {
-        call_to_add_testimonial: { text: "Agrega tu testimonio aquí" },
-        call_to_hide_testimonial: { text: "Ocultar formulario de testimonio" },
-        form: { title: { text: "Agrega tu testimonio" } },
-        sidebar: {
-          other_testimonials: { text: "Otros testimonios" },
-          call_to_add_testimonial: { text: "Agregar testimonio" },
-          call_to_hide_testimonial: { text: "Ocultar formulario" },
-        },
-      },
-    },
-    one_event_page: {
-      loader: {
-        text: "Obteniendo detalles del evento...",
-      },
-      sections: {
-        card: { online: { text: "En línea" }, both: { text: "Ambos" }, in_person: { text: "En persona" } },
-        call_to_download: { text: "Descargar a tu calendario" },
-        apple_calendar: { text: "ICAL" },
-        google_calendar: { text: "Google Calendar" },
-        call_to_register: { text: "Registrar/Unirse" },
-      },
-    },
-  },
-  modals: {
-    languageSelectionModal: {
-      title: { text: "Elija un idioma" },
-    },
-    whereFrom: {
-      title: { text: "Por favor, díganos de dónde es" },
-      buttons: {
-        no: { text: "NO" },
-        submit: { text: "¡Vale, listo!" },
-      },
-    },
-    preTestimonial: {
-      title: { text: "Antes de agregar un testimonio, nos gustaría conocerte" },
-      buttons: {
-        continue: { text: "Continuar" },
-        cancel: { text: "Cancelar" },
-      },
-    },
-    community_selection: {
-      other: { text: "Otro" },
-      selection_label: { text: "¿En qué comunidad vives?" },
-      text_after_selection: { text: "Te dirigiremos a los recursos adecuados según tu ubicación -" },
-      form: {
-        zipcode: {
-          text: "Código postal",
-          label: "Introduce tu código postal (Editable)",
-          placeholder: "Introduce el código postal aquí...",
-        },
-        community_name: { text: "Nombre de la comunidad", placeholder: "¿En qué comunidad vives?" },
-      },
-      buttons: {
-        close: { text: "Cerrar" },
-        submit: { text: "Vamos" },
-      },
-      success: { text: "¡Gracias por unirte!" },
-    },
-    join: {
-      email: { text: "Correo electrónico", placeholder: "Introduce tu correo electrónico aquí..." },
-      buttons: { cancel: { text: "Cancelar" }, ok: { text: "Vamos" } },
-    },
-    help: {
-      buttons: { cancel: { text: "Cancelar" }, ok: { text: "Vamos" } },
-      title: { text: "Obtener ayuda" },
-      selection_hint: { text: "Te dirigiremos a los recursos adecuados según tu ubicación" },
     },
   },
 };
@@ -1290,265 +1607,6 @@ export const CHINESE = {
       buttons: { cancel: { text: "取消" }, ok: { text: "走吧" } },
       title: { text: "获取帮助" },
       selection_hint: { text: "我们将根据你的位置为你指引到正确的资源" },
-    },
-  },
-};
-
-export const PORTUGUESE = {
-  inPreview: {
-    button: { text: "Modo de Pré-visualização" },
-    notice: {
-      text: "ainda não foi publicado. Os administradores ainda estão trabalhando nisso. Por favor, volte mais tarde quando estiver completo...",
-    },
-  },
-  forms: {
-    testimonials: {
-      title: { text: "Título*", placeholder: "Insira o título do depoimento...", label: "Conte-nos sua história!" },
-      image: {
-        label: "Inclua uma imagem no seu depoimento",
-        text: "Escolher arquivo",
-        placeholder: "Nenhum arquivo escolhido",
-      },
-      community: { label: "Selecione sua comunidade", placeholder: "---Selecione sua comunidade---" },
-      technology: { label: "A qual tecnologia pertence este depoimento?", placeholder: "---Selecione a tecnologia---" },
-      description: { placeholder: "Comece a contar sua história aqui..." },
-      buttons: { cancel: { text: "Cancelar" }, submit: { text: "Enviar" } },
-    },
-  },
-
-  loader: {
-    text: "Buscando detalhes da campanha...",
-  },
-  share: { text: "Compartilhar" },
-  footer: {
-    modal: { title: { prefix: "Seguir" }, cancel: { text: "Cancelar" }, ok: { text: "Assinar" } },
-    news_letter: {
-      subscribe_button: { text: "Assine nossa Newsletter" },
-      subscribe_message: { text: "Você já se inscreveu com " },
-    },
-    quick_links: { text: "Links Rápidos" },
-  },
-  navbar: {
-    home: { text: "Início" },
-    tech: { text: "Tecnologias" },
-    coaches: { text: "Treinadores" },
-    events: { text: "Eventos" },
-    vendors: { text: "Fornecedores" },
-    Deals: { text: "Ofertas" },
-  },
-  pages: {
-    homepage: {
-      share: {
-        button: { copied: { text: "Copiado!" }, copy: { text: "Copiar Link" } },
-        title: { text: "Compartilhar Campanha" },
-        hint: { text: "Você pode copiar o link e compartilhá-lo" },
-        instruction: { text: "Selecione uma plataforma na qual você gostaria de compartilhar esta tecnologia" },
-      },
-      sections: {
-        key_contact: {
-          text: "Contato Principal",
-        },
-
-        about_box: {
-          button: "Saiba Mais",
-        },
-        getting_started_section: {
-          quote: { text: "Citação" },
-          coach: { text: "Treinador" },
-          learn_more: { text: "Saiba Mais" },
-          communities: {
-            text: "Comunidades",
-            title: "Comunidades",
-            description: "Conecte-se com sua comunidade e confira outras ações",
-          },
-        },
-        testimonials_section: {
-          scrollable: {
-            text: "Role da esquerda para a direita para ver mais depoimentos, ou use os botões de seta (canto superior direito) para rolar",
-          },
-          title: { text: "Depoimentos" },
-          call_to_add_testimonial: { text: "Adicione seu depoimento aqui" },
-          call_to_hide_testimonial: { text: "Ocultar formulário de depoimento" },
-          call_to_filter: { text: "Filtrar depoimentos por" },
-          full_view: { text: "Visualização Completa" },
-        },
-        events_section: {
-          title: { text: "Eventos" },
-          scrollable: {
-            text: "Role da esquerda para a direita para ver mais eventos, ou use os botões de seta (canto superior direito) para rolar",
-          },
-          call_to_filter: { text: "Filtrar depoimentos por" },
-          card: { online: { text: "Online" }, both: { text: "Ambos" }, in_person: { text: "Presencial" } },
-        },
-        coaches_section: {
-          call_to_filter: { text: "Filtrar depoimentos por" },
-          get_help: { text: "Obter Ajuda" },
-          help_modal: { title: "Obter Ajuda" },
-        },
-      },
-    },
-    one_technology_page: {
-      share: {
-        other: { text: "Outro" },
-        button: { copied: { text: "Copiado!" }, copy: { text: "Copiar Link" } },
-        title: { text: "Compartilhar" },
-        hint: { text: "Você pode copiar o link e compartilhá-lo" },
-        instruction: { text: "Selecione uma plataforma na qual você gostaria de compartilhar esta tecnologia" },
-      },
-      loader: {
-        text: "Buscando detalhes da tecnologia...",
-      },
-      sections: {
-        see_more: { text: "Ver mais..." },
-        see_less: { text: "Ver menos..." },
-        get_updates: {
-          button: { text: "Receber Atualizações" },
-          description: { text: "Receber atualizações sobre" },
-          title: { text: "Receber atualizações sobre" },
-          confirm_button: { text: "Receber Atualizações" },
-          cancel_button: { text: "Cancelar" },
-        },
-        comments: {
-          title: { text: "Comentários" },
-          see_more_trunc: { text: "Ver mais" },
-          see_more: { text: "Ver mais comentários" },
-          call_to_add: { text: "Adicionar um comentário" },
-          modal: {
-            title: "Leia comentários ou adicione o seu",
-            relative_data: { text: "50 dias atrás" },
-            name: { text: "Seu nome" },
-            name_placeholder: { text: "Quem está fazendo este comentário?" },
-            comment_placeholder: { text: "Digite o comentário aqui" },
-            button: { text: "Comentar" },
-            no_comments: { text: "Ainda não há comentários, adicione o seu!" },
-          },
-        },
-        interactions: {
-          like: { text: "Curtir", plural: "Curtidas" },
-          comment: { text: "Comentar", plural: "Comentários" },
-          view: { text: "Visualizar", plural: "Visualizações" },
-          share: { text: "Compartilhar", plural: "Compartilhamentos" },
-        },
-        testimonials_section: {
-          title: { text: "Depoimentos" },
-          call_to_add_testimonial: { text: "Adicione seu depoimento aqui" },
-          full_view: { text: "Visualização Completa" },
-        },
-        coaches_section: {
-          button: { text: "Obter Ajuda" },
-        },
-        do_more: {
-          title: {
-            text: "Comunidades Participantes",
-          },
-        },
-        events_section: {
-          title: { text: "Eventos" },
-          card: {
-            online: { text: "Online" },
-            both: { text: "Ambos" },
-            in_person: { text: "Presencial" },
-          },
-        },
-        why_section: {
-          why: { text: "Por quê" },
-        },
-        take_action_section: {
-          title: { text: "Tomar Ação" },
-          coaches: {
-            title: "Faça uma pergunta",
-            description: "Voluntários da comunidade estão prontos para responder perguntas, grandes ou pequenas",
-            button: { text: "Obter Ajuda" },
-          },
-          incentives: {
-            title: "Mostre-me o dinheiro",
-            description: "Fica melhor! Veja todos os incentivos disponíveis para você.",
-            button: { text: "Incentivos" },
-          },
-          vendors: {
-            title: "Encontre um Fornecedor",
-            description: "A questão crítica - quem deve cotar seu projeto?",
-            button: { text: "Fornecedores" },
-          },
-        },
-        vendors_section: {
-          title: { text: "Fornecedores" },
-        },
-      },
-    },
-
-    one_testimonial_page: {
-      loader: {
-        text: "Buscando detalhes do depoimento...",
-      },
-      sections: {
-        call_to_add_testimonial: { text: "Adicione seu depoimento aqui" },
-        call_to_hide_testimonial: { text: "Ocultar formulário de depoimento" },
-        form: { title: { text: "Adicione seu depoimento" } },
-        sidebar: {
-          other_testimonials: { text: "Outros Depoimentos" },
-          call_to_add_testimonial: { text: "Adicionar Depoimento" },
-          call_to_hide_testimonial: { text: "Ocultar Formulário" },
-        },
-      },
-    },
-    one_event_page: {
-      loader: {
-        text: "Buscando detalhes do evento...",
-      },
-      sections: {
-        card: { online: { text: "Online" }, both: { text: "Ambos" }, in_person: { text: "Presencial" } },
-        call_to_download: { text: "Baixar para o seu calendário" },
-        apple_calendar: { text: "ICAL" },
-        google_calendar: { text: "Google Calendar" },
-        call_to_register: { text: "Registrar/Participar" },
-      },
-    },
-  },
-  modals: {
-    languageSelectionModal: {
-      title: { text: "Escolha um Idioma" },
-    },
-    whereFrom: {
-      title: { text: "Por favor, diga-nos de onde você é" },
-      buttons: {
-        no: { text: "NÃO" },
-        submit: { text: "Ok, pronto!" },
-      },
-    },
-    preTestimonial: {
-      title: { text: "Antes de adicionar um depoimento, gostaríamos de conhecê-lo" },
-      buttons: {
-        continue: { text: "Continuar" },
-        cancel: { text: "Cancelar" },
-      },
-    },
-    community_selection: {
-      other: { text: "Outro" },
-      selection_label: { text: "Em qual comunidade você mora?" },
-      text_after_selection: { text: "Nós direcionaremos você para os recursos corretos com base na sua localização -" },
-      form: {
-        zipcode: {
-          text: "CEP",
-          label: "Digite seu CEP (Editável)",
-          placeholder: "Digite o CEP aqui...",
-        },
-        community_name: { text: "Nome da Comunidade", placeholder: "Em qual comunidade você mora?" },
-      },
-      buttons: {
-        close: { text: "Fechar" },
-        submit: { text: "Vamos lá" },
-      },
-      success: { text: "Obrigado por se juntar a nós!" },
-    },
-    join: {
-      email: { text: "Email", placeholder: "Digite o email aqui..." },
-      buttons: { cancel: { text: "Cancelar" }, ok: { text: "Vamos lá" } },
-    },
-    help: {
-      buttons: { cancel: { text: "Cancelar" }, ok: { text: "Vamos lá" } },
-      title: { text: "Obter Ajuda" },
-      selection_hint: { text: "Nós direcionaremos você para os recursos corretos com base na sua localização" },
     },
   },
 };
