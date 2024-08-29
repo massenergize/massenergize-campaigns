@@ -44,6 +44,7 @@ const getLocale = () => {
 export function formatDate(dateString, formatString = "MMM d, yyyy") {
   if (!dateString) return "";
   const locale = getLocale();
+
   const date = parseISO(dateString);
   return format(date, formatString, { locale });
 }
@@ -297,7 +298,6 @@ export function isEmpty(value) {
   }
   return false;
 }
-
 
 let baseUrl;
 if (IS_LOCAL) {

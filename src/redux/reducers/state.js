@@ -26,6 +26,7 @@ import {
   reducerForSettingUserNotification,
   reducerForSettingNotificationBlanket,
   reducerForSettingUserLanguageList,
+
 } from "./reducers";
 import { loadCampaignInformation } from "../actions/actions";
 
@@ -54,4 +55,5 @@ export default combineReducers({
   campaignOfferedLanguages: reducerForCampaignOfferedLanguages,
   blanketNotification: reducerForSettingNotificationBlanket,
   usersListOfLanguages: reducerForSettingUserLanguageList,
+
 });

@@ -29,7 +29,6 @@ function JoinUsForm({
   const [loading, setLoading] = useState(false);
   const { modals, toasts } = getStaticText();
   const staticT = modals?.join || {};
-  console.log("FORM STATIC", staticT);
 
   useState(() => {
     if (authUser) {
@@ -50,8 +49,6 @@ function JoinUsForm({
   const makeNotification = (message, good = false) => {
     setError({ message, good });
   };
-
-  console.log("FORM", toasts);
   const joinUs = () => {
     if (onConfirm) return onConfirm({ data: form, close });
     // if (authUser) return alert("You've already followed. Thank you very much!");

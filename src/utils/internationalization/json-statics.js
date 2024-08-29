@@ -464,6 +464,7 @@ export const SPANISH = {
         },
         vendors_section: {
           title: { text: "Vendedores" },
+
         },
       },
     },
@@ -597,6 +598,7 @@ export const PORTUGUESE = {
   pages: {
     homepage: {
       share: {
+
         button: { copied: { text: "Copiado!" }, copy: { text: "Copiar Link" } },
         title: { text: "Compartilhar Campanha" },
         hint: { text: "Você pode copiar o link e compartilhá-lo" },
@@ -1190,6 +1192,7 @@ export const FRENCH = {
     one_technology_page: {
       share: {
         other: { text: "Autre" },
+
         button: { copied: { text: "Copié!" }, copy: { text: "Copier le lien" } },
         title: { text: "Partager" },
         hint: { text: "Vous pouvez copier le lien et le partager" },
@@ -1610,6 +1613,7 @@ export const CHINESE = {
     },
   },
 };
+
 
 export const ITALIAN = {
   inPreview: {

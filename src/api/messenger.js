@@ -35,6 +35,7 @@ export async function apiCall(destinationUrl, dataToSend = {}, relocationPage = 
   const formData = new FormData();
   // if (lang && !portalIsAdmin()) formData.append("__user_language", lang);
   Object.keys(data).map((k) => formData.append(k, data[k]));
+  if (lang && !portalIsAdmin()) formData.append("__user_language", lang);
 
 
   if (!destinationUrl || destinationUrl.length < 2) {

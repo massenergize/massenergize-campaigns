@@ -5,7 +5,6 @@ import { getStaticText } from "../../../redux/actions/actions";
 
 function CampaignNotLive({ campaign }) {
   const [show, setShow] = useState(true);
-
   const { inPreview: staticT } = getStaticText();
   if (campaign?.is_published || !show) return <></>;
   return (
@@ -19,14 +18,6 @@ function CampaignNotLive({ campaign }) {
         </Col>
         <Col sm="auto">
           <span className="fa fa-times touchable-opacity" style={{ fontSize: 20, marginRight: 10 }}></span>
-          {/* <Button
-            className={"close-btn"}
-            style={{ borderRadius: "100%", padding: "0px 6px" }}
-            variant={"dark"}
-            onClick={() => setShow(false)}
-          >
-            
-          </Button> */}
         </Col>
       </Row>
     </Alert>

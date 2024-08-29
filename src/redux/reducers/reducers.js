@@ -30,6 +30,7 @@ import {
   UPDATE_EVENT_OBJ,
   UPDATE_TESTIMONIALS_OBJ,
   USER_NOTIFICATION,
+
 } from "../redux-action-types";
 
 // import defaultStaticText from "./../../utils/default-static-text.json";
