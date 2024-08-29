@@ -11,6 +11,8 @@ import CONFIG from "../../../config/config.json";
 import { getStaticText } from "../../../redux/actions/actions";
 
 const EXCLUDED_FOOTER_MENU_KEYS = ["deals", "vendors"];
+export const TRANSLATION_HELPERS_LINK =
+  "https://docs.google.com/forms/d/1ay2paNG3x_gZL8hhzmghIYSEuHDA_I4MRZJf7cEt_00/viewform?edit_requested=true";
 function Footer({ toggleModal, campaign, authUser, staticT }) {
   const { footer } = getStaticText();
   const navigator = useNavigate();
@@ -115,6 +117,7 @@ function Footer({ toggleModal, campaign, authUser, staticT }) {
                 borderWidth: 0,
                 padding: "8px 30px",
                 marginTop: 15,
+                marginBottom: 15,
                 borderRadius: 5,
                 fontWeight: "bold",
                 width: "100%",
@@ -140,7 +143,12 @@ function Footer({ toggleModal, campaign, authUser, staticT }) {
                 </i>
               </p>
             )}
+
+            <a target="_blank" href={TRANSLATION_HELPERS_LINK} style={{ margin: "10px 0px", fontWeight: "bold" }}>
+              <small style={{ color: "white" }}>Would you like to help translate this site?</small>
+            </a>
           </Col>
+
           <small style={{ color: "white", fontWeight: "bold", width: "100%", opacity: 0.6 }}>
             Build Version {CONFIG.BUILD_VERSION}
           </small>
@@ -222,6 +230,9 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization, staticT
         >
           {staticT?.subscribe_button?.text || " Subscribe"}
         </Button>
+        <a target="_blank" href={TRANSLATION_HELPERS_LINK} style={{ margin: "10px 0px " }}>
+          <small style={{ color: "white" }}>Would you like to help translate this site?</small>
+        </a>
         <small
           style={{
             marginTop: 15,
