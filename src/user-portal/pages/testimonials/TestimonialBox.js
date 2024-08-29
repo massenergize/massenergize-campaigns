@@ -55,6 +55,7 @@ function TestimonialBox({ title, user, image, body, campaign_technology, campaig
               height: 50,
               objectFit: "cover",
               borderRadius: 5,
+              marginRight: 12,
               // marginTop: 7,
             }}
             src={image?.url}

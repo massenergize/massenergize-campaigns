@@ -3,7 +3,7 @@ import { Button, Form, InputGroup } from "react-bootstrap";
 import { apiCall } from "../../../api/messenger";
 import copy from "clipboard-copy";
 import URLS, { API_HOST } from "../../../api/urls";
-const items = [
+let items = [
   { key: "facebook", text: "acebook", icon: "fa-facebook", alias: "facebook" },
   { key: "twitter", text: "Twitter", icon: "fa-twitter", alias: "twitter" },
   { key: "email", text: "Email", icon: "fa-envelope", alias: "email" },
@@ -16,6 +16,9 @@ function ShareBox({ data, onChange, campaign, authUser, staticT }) {
   const [error, setError] = useState({});
   const [link, setLink] = useState("");
   data = data || {};
+
+  const rem = items.filter((item) => item.key !== "other");
+  items = [...rem, { key: "other", text: staticT?.other?.text || "Other", icon: "", alias: "" }];
 
   const { user } = authUser || {};
   const generateLink = (obj) => {

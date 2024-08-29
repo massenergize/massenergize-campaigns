@@ -23,6 +23,10 @@ import {
   universalModalReducer,
   userObjectReducer,
   reducerForCampaignOfferedLanguages,
+  reducerForSettingUserNotification,
+  reducerForSettingNotificationBlanket,
+  reducerForSettingUserLanguageList,
+
 } from "./reducers";
 import { loadCampaignInformation } from "../actions/actions";
 
@@ -49,4 +53,7 @@ export default combineReducers({
   staticTextHeap: staticTextHeapReducer,
   activeLanguage: setActiveLanguageReducer,
   campaignOfferedLanguages: reducerForCampaignOfferedLanguages,
+  blanketNotification: reducerForSettingNotificationBlanket,
+  usersListOfLanguages: reducerForSettingUserLanguageList,
+
 });

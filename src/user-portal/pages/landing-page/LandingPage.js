@@ -30,6 +30,7 @@ import CoachesSectionWithFilters from "../coaches/CoachesSectionWithFilters";
 import ShareBox from "../sharing/ShareBox";
 import Hero from "../banner/Hero";
 import { useMediaQuery } from "react-responsive";
+import BlanketNotification from "../../../components/pieces/BlanketNotification";
 
 function LandingPage({
   toggleModal,
@@ -44,8 +45,9 @@ function LandingPage({
 }) {
   const [mounted, setMounted] = useState(false);
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
-  const { modals, loader, pages, share: shareStaticT, inPreview: previewStaticT } = getStaticText();
+  const { loader, pages, share: shareStaticT, inPreview: previewStaticT } = getStaticText();
   const homepageStaticT = pages?.homepage || {};
+  const blanketNotification = useSelector((state) => state.blanketNotification);
 
   const coachesRef = useRef();
   const eventsRef = useRef();
@@ -113,8 +115,10 @@ function LandingPage({
   };
 
   const tellUsWhereYouAreFrom = (justLoadedCampaign) => {
+    if (blanketNotification) return;
     const user = authUser || localStorage.getItem(USER_STORAGE_KEY);
     const firstTime = !user || user === "null";
+    const { modals } = getStaticText();
 
     if (!firstTime) return;
     toggleModal({
@@ -211,7 +215,10 @@ function LandingPage({
       <Container>
         <RoamingBox
           id="roaming-box"
-          advert={{ description, title: about_us_title || `About ${campaign?.title || ""}` }}
+          advert={{
+            description,
+            title: about_us_title || `${homepageStaticT?.about?.text || ""}${campaign?.title || ""}`,
+          }}
           keyContact={key_contact}
           showMore={showMoreAboutAdvert}
           staticT={{

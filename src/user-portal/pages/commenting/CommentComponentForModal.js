@@ -5,6 +5,7 @@ import { relativeTimeAgo } from "../../../utils/utils";
 import Notification from "../../../components/pieces/Notification";
 import { apiCall } from "../../../api/messenger";
 import CommentDeleteConfirmation from "../technology/CommentDeleteConfirmation";
+import { TRANSLATION_HELPERS_LINK } from "../footer/Footer";
 
 function CommentComponentForModal({
   comments,
@@ -101,7 +102,7 @@ function CommentComponentForModal({
           overflowY: "scroll",
           minHeight: 250,
           maxHeight: 500,
-          paddingBottom: 130,
+          paddingBottom: 150,
         }}
         ref={comBox}
       >
@@ -132,7 +133,8 @@ function CommentComponentForModal({
                 }}
               >
                 <span style={{}}>
-                  {user?.full_name || "..."} {isForCurrentUser ? " (Yours)" : ""}{" "}
+                  {user?.full_name || "..."}{" "}
+                  {isForCurrentUser ? (staticT?.yours?.text ? `(${staticT?.yours?.text})` : "" || " (Yours)") : ""}{" "}
                 </span>{" "}
                 {community && " from "}
                 <span style={{ color: "var(--app-medium-green)" }}>{community} </span>
@@ -146,6 +148,7 @@ function CommentComponentForModal({
                 }}
               >
                 <CommentDeleteConfirmation
+                  staticT={staticT}
                   show={isForCurrentUser}
                   onDelete={() => onDelete && onDelete(com, (rem) => setCommentItems([...(rem || [])].reverse()))}
                 />
@@ -205,6 +208,9 @@ function CommentComponentForModal({
               {staticT?.button?.text || " Comment"}
             </Button>
           </InputGroup>
+          <a target="_blank" href={TRANSLATION_HELPERS_LINK} style={{ margin: "10px 0px " }}>
+            <small style={{ color: "var(--app-main-color)" }}>Would you like to help translate this site?</small>
+          </a>
         </div>
 
         <Notification show={error} good={!error}>

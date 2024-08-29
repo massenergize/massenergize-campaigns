@@ -27,7 +27,7 @@ function JoinUsForm({
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { modals } = getStaticText();
+  const { modals, toasts } = getStaticText();
   const staticT = modals?.join || {};
 
   useState(() => {
@@ -49,18 +49,21 @@ function JoinUsForm({
   const makeNotification = (message, good = false) => {
     setError({ message, good });
   };
-
   const joinUs = () => {
     if (onConfirm) return onConfirm({ data: form, close });
     // if (authUser) return alert("You've already followed. Thank you very much!");
     const emailIsValid = validateEmail(email);
-    if (!emailIsValid) return makeNotification("Please provide a valid email address...");
+    if (!emailIsValid)
+      return makeNotification(toasts?.join?.noEmail?.text || "Please provide a valid email address...");
     const { comId, zipcode, valueForOther } = form || {};
     var otherContent = {};
-    if (!comId) return makeNotification("Please select a community...");
+    if (!comId) return makeNotification(toasts?.join?.noCommunity?.text || "Please select a community...");
     if (comId === OTHER) {
       otherContent = { community_name: valueForOther, zipcode, is_other: true };
-      if (!zipcode || !valueForOther) return makeNotification("Please provide the zipcode & community name...");
+      if (!zipcode || !valueForOther)
+        return makeNotification(
+          toasts?.join?.noZipcodeAndOther?.text || "Please provide the zipcode & community name...",
+        );
     }
 
     setLoading(true);
@@ -71,7 +74,7 @@ function JoinUsForm({
       ...otherContent,
     };
     payload = processPayload ? processPayload(payload) : payload;
-    makeNotification("Well done, thank you for joining us!", true);
+    makeNotification(toasts?.join?.joined?.text || "Well done, thank you for joining us!", true);
     apiCall(apiURL || "/campaigns.follow", payload).then((response) => {
       setLoading(false);
       if (!response?.success) {

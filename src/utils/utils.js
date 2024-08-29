@@ -4,6 +4,7 @@ import { ME_STATES } from "./States";
 import { enUS, es, ptBR } from "date-fns/locale";
 import { DEFAULT_ENGLISH_CODE, PREFERRED_LANGUAGE_STORAGE_KEY } from "src/redux/redux-action-types";
 import { getPreferredLanguageISO } from "src/redux/actions/actions";
+import {IS_CANARY, IS_LOCAL, IS_PROD} from "../config/environment";
 
 const LANG_CODE_TO_DATE_OBJ = { en: enUS, es, pt: ptBR }; // means when a new language is approved, we wld have to add it in here as well
 
@@ -36,16 +37,23 @@ export function formatTimeRange(startDateString, endDateString) {
   }
 }
 
+const getLocale = () => {
+  let locale = pruneLanuguage(getPreferredLanguageISO());
+  return LANG_CODE_TO_DATE_OBJ[locale] || enUS;
+};
 export function formatDate(dateString, formatString = "MMM d, yyyy") {
   if (!dateString) return "";
+  const locale = getLocale();
+
   const date = parseISO(dateString);
-  return format(date, formatString);
+  return format(date, formatString, { locale });
 }
 
 export function formatTime(dateString, formatString = "HH:mm aaa") {
   if (!dateString) return "";
+  const locale = getLocale();
   const date = parseISO(dateString);
-  return format(date, formatString);
+  return format(date, formatString, { locale });
 }
 
 const pruneLanuguage = (code) => {
@@ -55,8 +63,7 @@ const pruneLanuguage = (code) => {
 };
 
 export function relativeTimeAgo(datetimeString) {
-  let locale = pruneLanuguage(getPreferredLanguageISO());
-  locale = LANG_CODE_TO_DATE_OBJ[locale] || enUS;
+  const locale = getLocale();
   const date = parseISO(datetimeString);
   return formatDistanceToNow(date, { addSuffix: true, locale });
 }
@@ -291,3 +298,19 @@ export function isEmpty(value) {
   }
   return false;
 }
+
+let baseUrl;
+if (IS_LOCAL) {
+  baseUrl = "http://massenergize.test:3000/";
+} else if (IS_CANARY) {
+  baseUrl = "https://communities-canary.massenergize.org/";
+}
+else if (IS_PROD) {
+  baseUrl = "https://communities.massenergize.org/";
+}  else  {
+  baseUrl = "https://communities.massenergize.dev/";
+}
+
+export const BASE_URL = baseUrl
+
+// at this point you can set the value stored in `baseUrl` to ```javascript null``` since it's been copied into `BASE_URL` so it can be garbage collecte
