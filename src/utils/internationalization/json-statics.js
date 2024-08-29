@@ -396,7 +396,7 @@ export const SPANISH = {
           modal: {
             preComment: {
               title: { text: "Antes de continuar, nos gustaría saber de usted" },
-              buttons: { continue: { text: "Continue" }, cancel: { text: "Cancelar" } },
+              buttons: { continue: { text: "Continuar" }, cancel: { text: "Cancelar" } },
               email: { text: "Email" },
             },
             deletion: {
