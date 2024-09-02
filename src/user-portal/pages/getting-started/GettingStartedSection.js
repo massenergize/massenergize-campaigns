@@ -42,12 +42,11 @@ function GettingStartedSection({
       <Container>
         <Row>
           <Col lg={{ span: 12 }}>
-            <SectionTitle style={{ color: "white" }}>{customization?.title || "Getting Started"}</SectionTitle>
+            <SectionTitle style={{ color: "white" }}>{customization?.title ||staticT?.header?.title ||"Getting Started"}</SectionTitle>
 
             <p className="body-font" style={{ color: "white", marginBottom: 20 }}>
               {/* This section should be edited via the admin portal */}
-              {customization?.description ||
-                "Explore the actions we have under these technologies and get started right away!"}
+              {customization?.description || staticT?.header?.description || "Explore the actions we have under these technologies and get started right away!"}
               {/* Explore the actions we have under these technologies and get started right away! */}
             </p>
             <Row>

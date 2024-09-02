@@ -23,7 +23,7 @@ function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, r
         <div style={{ display: "flex", flexDirection: "row" }}>
           <div>
             <SectionTitle className="mb-5" style={{ color: "black" }}>
-              {title || "Meet the Coaches"}
+              {title || staticT?.title || " Meet the coaches"}
             </SectionTitle>
           </div>
 
