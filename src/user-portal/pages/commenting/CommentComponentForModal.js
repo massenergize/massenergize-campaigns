@@ -53,7 +53,7 @@ function CommentComponentForModal({
 
   const sendComment = () => {
     setError("");
-    if (!comment.trim() || !name?.trim()) return setError("Please provide a name and a valid comment");
+    if (!comment.trim() || !name?.trim()) return setError(staticT?.notifications?.provide_a_name?.text || "Please provide a name and a valid comment");
 
     const doesNotHaveName = !user?.full_name;
     setLoading(true);
@@ -83,7 +83,7 @@ function CommentComponentForModal({
       user_id: user?.id || null,
     }).then((response) => {
       setLoading(false);
-      if (!response || !response.success) return setError(response?.error || "Sorry something happened!");
+      if (!response || !response.success) return setError(response?.error || staticT?.notifications?.error?.text||"Sorry something happened!");
       const latestComments = response.data;
       const updated = { ...(technology || {}), comments: latestComments };
       setCommentItems([...latestComments].reverse());
@@ -209,7 +209,7 @@ function CommentComponentForModal({
             </Button>
           </InputGroup>
           <a target="_blank" href={TRANSLATION_HELPERS_LINK} style={{ margin: "10px 0px " }}>
-            <small style={{ color: "var(--app-main-color)" }}>Would you like to help translate this site?</small>
+            <small style={{ color: "var(--app-main-color)" }}>{staticT?.help_us_translate?.text}</small>
           </a>
         </div>
 
