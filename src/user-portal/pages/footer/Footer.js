@@ -230,7 +230,7 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization, staticT
           {staticT?.subscribe_button?.text || " Subscribe"}
         </Button>
         <a target="_blank" href={TRANSLATION_HELPERS_LINK} style={{ margin: "10px 0px " }}>
-          <small style={{ color: "white" }}>{staticT?.help_us_translate?.text || "Would you like to help translate this site?"}</small> #TODO: Add to static
+          <small style={{ color: "white" }}>{staticT?.help_us_translate?.text || "Would you like to help translate this site?"}</small>
         </a>
         <small
           style={{
