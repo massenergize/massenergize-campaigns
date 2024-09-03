@@ -104,10 +104,10 @@ function Footer({ toggleModal, campaign, authUser, staticT }) {
           <Col lg={{ span: 6, offset: 3 }}>
             {/* We should be able to change this part tooo from the admin portal */}
             <h4 className="subheader-font" style={{ color: "white" }}>
-              {customization?.title ||footer?.header?.title||"Newsletter"}
+              {customization?.title ||footer?.header?.title?.text||"Newsletter"}
             </h4>
             <p className="body-font" style={{ color: "white" }}>
-              {customization?.description ||footer?.header?.description || "Sign up for email updates with the latest info on events and incentives!"}
+              {customization?.description ||footer?.header?.description?.text || "Sign up for email updates with the latest info on events and incentives!"}
             </p>
             <Button
               className=" touchable-opacity"
@@ -208,10 +208,10 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization, staticT
         }}
       >
         <h5 className="subheader-font" style={{ color: "white" }}>
-          {customization?.title|| staticT?.header?.title || "Newsletter"}
+          {customization?.title|| staticT?.header?.title?.text || "Newsletter"}
         </h5>
         <p className="body-font" style={{ color: "white" }}>
-          {customization?.description ||staticT?.header?.description || "Sign up for email updates with the latest info on events and incentives!"}
+          {customization?.description ||staticT?.header?.description?.text || "Sign up for email updates with the latest info on events and incentives!"}
         </p>
         <Button
           className="elevate-float-pro touchable-opacity"
