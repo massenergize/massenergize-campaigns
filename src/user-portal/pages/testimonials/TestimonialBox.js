@@ -22,7 +22,7 @@ function TestimonialBox({ title, user, image, body, campaign_technology, campaig
         {title || "..."}
       </h5>
       <h6 className="body-font" style={{ color: "var(--app-accent-3)", marginBottom: 15 }}>
-        {userName ? `${userName} ${comName ? "from" : ""} ${comName || ""}` : "..."}
+        {userName ? `${userName} ${comName ? staticT?.from?.text ||"from" : ""} ${comName || ""}` : "..."}
       </h6>
       <div
         className="body-font text-muted"

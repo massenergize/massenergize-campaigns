@@ -47,9 +47,9 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
     const { name, title, campaign_technology_id } = form || {};
     setNotification({});
     // if (!name) return notify("Please ensure that you have provided : name");
-    if (!title) return notify("Please ensure that you have provided : title");
+    if (!title) return notify(staticT?.notifications?.provide_title?.text || "Please ensure that you have provided : title");
     if (!campaign_technology_id || campaign_technology_id === NULL) {
-      return notify("Please ensure that you have provided : technology");
+      return notify(staticT?.notifications?.provide_technology?.text || "Please ensure that you have provided : technology");
     }
     setLoading(true);
     const body = editorRef?.current?.getContent();
@@ -70,7 +70,7 @@ function NewTestimonialForm({ close, campaign, callbackOnSubmit, authUser, updat
         }
         reset();
         updateTestimonials({ [data?.id]: data, ...testimonials });
-        notify("Thanks for leaving a testimonial! Our admins will review & publish it as soon as possible!", true);
+        notify(staticT?.notifications?.success?.text ||"Thanks for leaving a testimonial! Our admins will review & publish it as soon as possible!" , true);
       })
       .catch((e) => {
         setLoading(false);

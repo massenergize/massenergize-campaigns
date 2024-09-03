@@ -65,7 +65,7 @@ function Footer({ toggleModal, campaign, authUser, staticT }) {
       component: (props) => (
         <JoinUsForm
           {...(props || {})}
-          confirmText={footer?.modal?.ok?.text || "XSubscribe"}
+          confirmText={footer?.modal?.ok?.text || "Subscribe"}
           callbackOnSubmit={({ close }) => close && close()}
         />
       ),
@@ -73,7 +73,6 @@ function Footer({ toggleModal, campaign, authUser, staticT }) {
       fullControl: true,
     });
   };
-
   if (isMobile)
     return (
       <MobileFooter
@@ -105,10 +104,10 @@ function Footer({ toggleModal, campaign, authUser, staticT }) {
           <Col lg={{ span: 6, offset: 3 }}>
             {/* We should be able to change this part tooo from the admin portal */}
             <h4 className="subheader-font" style={{ color: "white" }}>
-              {customization?.title || "Newsletter"}
+              {customization?.title ||footer?.header?.title?.text||"Newsletter"}
             </h4>
             <p className="body-font" style={{ color: "white" }}>
-              {customization?.description || "Sign up for email updates with the latest info on events and incentives!"}
+              {customization?.description ||footer?.header?.description?.text || "Sign up for email updates with the latest info on events and incentives!"}
             </p>
             <Button
               className=" touchable-opacity"
@@ -145,7 +144,7 @@ function Footer({ toggleModal, campaign, authUser, staticT }) {
             )}
 
             <a target="_blank" href={TRANSLATION_HELPERS_LINK} style={{ margin: "10px 0px", fontWeight: "bold" }}>
-              <small style={{ color: "white" }}>Would you like to help translate this site?</small>
+              <small style={{ color: "white" }}>{footer?.help_us_translate?.text|| "Would you like to help translate this site?"}</small>
             </a>
           </Col>
 
@@ -209,10 +208,10 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization, staticT
         }}
       >
         <h5 className="subheader-font" style={{ color: "white" }}>
-          {customization?.title || "Newsletter"}
+          {customization?.title|| staticT?.header?.title?.text || "Newsletter"}
         </h5>
         <p className="body-font" style={{ color: "white" }}>
-          {customization?.description || "Sign up for email updates with the latest info on events and incentives!"}
+          {customization?.description ||staticT?.header?.description?.text || "Sign up for email updates with the latest info on events and incentives!"}
         </p>
         <Button
           className="elevate-float-pro touchable-opacity"
@@ -231,7 +230,7 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization, staticT
           {staticT?.subscribe_button?.text || " Subscribe"}
         </Button>
         <a target="_blank" href={TRANSLATION_HELPERS_LINK} style={{ margin: "10px 0px " }}>
-          <small style={{ color: "white" }}>Would you like to help translate this site?</small>
+          <small style={{ color: "white" }}>{staticT?.help_us_translate?.text || "Would you like to help translate this site?"}</small>
         </a>
         <small
           style={{
