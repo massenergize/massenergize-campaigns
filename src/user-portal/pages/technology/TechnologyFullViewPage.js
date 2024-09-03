@@ -491,7 +491,7 @@ function TechnologyFullViewPage({
                                   color: "var(--app-accent-3)",
                                   fontWeight: "bold",
                                 }}
-                                onClick={() => triggerCommentBox(authUser)}
+                                onClick={() => triggerCommentBox(authUser, { staticT: modalStaticT })}
                               >
                                 {sections?.comments?.see_more_trunc?.text || "See more..."}
                               </span>
