@@ -45,8 +45,8 @@ export const ENGLISH = {
     },
     quick_links: { text: "Quick Links" },
     header:{
-      title:"Newsletter",
-      description:"Sign up for email updates with the latest info on events and incentives!"
+      title:{text:"Newsletter"},
+      description:{text:"Sign up for email updates with the latest info on events and incentives!"}
     },
     help_us_translate: { text: "Would you like to help translate this site?" },
   },
@@ -85,8 +85,8 @@ export const ENGLISH = {
             description: "Connect with your community and check out other actions",
           },
           header:{
-            title: "Getting Started",
-            description:"Explore the actions we have under these technologies and get started right away!"
+            title: {text:"Getting Started"},
+            description:{text:"Explore the actions we have under these technologies and get started right away!"}
           }
         },
         testimonials_section: {
@@ -112,7 +112,7 @@ export const ENGLISH = {
           call_to_filter: { text: "Filter testimonials by" },
           get_help: { text: "Get Help" },
           help_modal: { title: "Get Help" },
-          title: "Meet the Coaches",
+          title: {text:"Meet the Coaches"},
         },
       },
     },
@@ -185,7 +185,7 @@ export const ENGLISH = {
 
         coaches_section: {
           button: { text: "Get Help" },
-          title: "Meet the Coaches",
+          title: {text:"Meet the Coaches"},
         },
         do_more: {
           title: { text: " Participating Communities" },
@@ -339,8 +339,8 @@ export const SPANISH = {
     },
     quick_links: { text: "Enlaces rápidos" },
     header:{
-      title:"Hoja informativa",
-      description:"¡Regístrese para recibir actualizaciones por correo electrónico con la información más reciente sobre eventos e incentivos!"
+      title:{text:"Hoja informativa"},
+      description:{text:"¡Regístrese para recibir actualizaciones por correo electrónico con la información más reciente sobre eventos e incentivos!"}
     },
     help_us_translate: { text: "¿Quieres ayudar a traducir este sitio?" },
   },
@@ -378,8 +378,8 @@ export const SPANISH = {
             description: "Conéctate con tu comunidad y descubre otras acciones",
           },
           header:{
-            title: "Comenzando",
-            description:"¡Explora las acciones que tenemos bajo estas tecnologías y comienza de inmediato!"
+            title: {text:"Comenzando"},
+            description:{text:"¡Explora las acciones que tenemos bajo estas tecnologías y comienza de inmediato!"}
           }
         },
         testimonials_section: {
@@ -405,8 +405,7 @@ export const SPANISH = {
           call_to_filter: { text: "Filtrar testimonios por" },
           get_help: { text: "Obtener ayuda" },
           help_modal: { title: "Obtener ayuda" },
-          title:"Conoce a los Entrenadores"
-
+          title:{text:"Conoce a los Entrenadores"}
         },
       },
     },
@@ -478,7 +477,7 @@ export const SPANISH = {
         },
         coaches_section: {
           button: { text: "Obtener ayuda" },
-          title: "Conoce a los Entrenadores",
+          title:{text:"Conoce a los Entrenadores"},
         },
         do_more: {
           title: {
@@ -644,8 +643,8 @@ export const PORTUGUESE = {
     },
     quick_links: { text: "Links Rápidos" },
     header:{
-      title:"Boletim informativo",
-      description:"Inscreva-se para receber atualizações por e-mail com as últimas informações sobre eventos e incentivos!"
+      title:{text:"Boletim informativo"},
+      description:{text:"Inscreva-se para receber atualizações por e-mail com as últimas informações sobre eventos e incentivos!"}
     },
     help_us_translate: { text: "Gostaria de ajudar a traduzir este site?" },
 
@@ -661,7 +660,6 @@ export const PORTUGUESE = {
   pages: {
     homepage: {
       share: {
-
         button: { copied: { text: "Copiado!" }, copy: { text: "Copiar Link" } },
         title: { text: "Compartilhar Campanha" },
         hint: { text: "Você pode copiar o link e compartilhá-lo" },
@@ -685,8 +683,8 @@ export const PORTUGUESE = {
             description: "Conecte-se com sua comunidade e confira outras ações",
           },
           header:{
-            title: "Introdução",
-            description:"Explore as ações que temos sob essas tecnologias e comece agora mesmo!"
+            title: {text:"Introdução"},
+            description:{text:"Explore as ações que temos sob essas tecnologias e comece agora mesmo!"}
           }
         },
         testimonials_section: {
@@ -712,7 +710,7 @@ export const PORTUGUESE = {
           call_to_filter: { text: "Filtrar depoimentos por" },
           get_help: { text: "Obter Ajuda" },
           help_modal: { title: "Obter Ajuda" },
-          title:"Conheça os Treinadores"
+          title:{text:"Conheça os Treinadores"}
         },
       },
     },
@@ -784,7 +782,7 @@ export const PORTUGUESE = {
         },
         coaches_section: {
           button: { text: "Obter Ajuda" },
-          title:"Conheça os Treinadores"
+          title:{text:"Conheça os Treinadores"}
         },
         do_more: {
           title: {
