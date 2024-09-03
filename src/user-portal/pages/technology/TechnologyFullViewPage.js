@@ -204,7 +204,7 @@ function TechnologyFullViewPage({
       updateTechList(response?.data, id);
     });
   };
-
+    // console.log("==STATicT==", options);
   // NB: Dont worry, I will merge the two trigger fxns into one, when there is more time
   const triggerRegistration = (options) => {
     const { staticT } = options || {};
@@ -218,7 +218,7 @@ function TechnologyFullViewPage({
           confirmText={staticT?.preComment?.buttons?.continue?.text || "Continue"}
           callbackOnSubmit={({ user }) => {
             close && close();
-            triggerCommentBox(user);
+            triggerCommentBox(user, { staticT });
           }}
         />
       ),
@@ -377,7 +377,7 @@ function TechnologyFullViewPage({
                         <JoinUsForm
                           close={close}
                           confirmText={sections?.get_updates?.confirm_button?.text || "Get Updates"}
-                          cancelText={sections?.get_updates?.cancel_text?.text || "Cancel"}
+                          cancelText={sections?.get_updates?.cancel_button?.text || "Cancel"}
                           apiURL="/campaigns.technology.follow"
                           processPayload={(payload) => {
                             const data = {
@@ -538,7 +538,7 @@ function TechnologyFullViewPage({
                     justifyContent: "center",
                     alignItems: "center",
                   }}
-                  onClick={() => triggerCommentBox(authUser)}
+                  onClick={() => triggerCommentBox(authUser, { staticT: modalStaticT })}
                 >
                   <p
                     className="body-font"

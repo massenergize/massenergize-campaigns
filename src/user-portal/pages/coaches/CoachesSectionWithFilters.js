@@ -67,7 +67,7 @@ function CoachesSectionWithFilters({ toggleModal, sectionId, technologies, custo
           <div>
             <div className="row-flex t-with-filter-top">
               <div>
-                <SectionTitle style={{ color: "black" }}>{customization?.title || " Meet the coaches"}</SectionTitle>
+                <SectionTitle style={{ color: "black" }}>{customization?.title ||staticT?.title?.text || " Meet the coaches"}</SectionTitle>
                 {/* <h2
                   className="header-font"
                   style={{
