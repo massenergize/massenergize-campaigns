@@ -1,27 +1,23 @@
-import React, {useState} from "react";
-import {Alert, Button, Col, Row} from "react-bootstrap";
-import {connect} from "react-redux";
+import React, { useState } from "react";
+import { Alert, Button, Col, Row } from "react-bootstrap";
+import { connect } from "react-redux";
+import { getStaticText } from "../../../redux/actions/actions";
 
-function CampaignNotLive({campaign}) {
+function CampaignNotLive({ campaign }) {
   const [show, setShow] = useState(true);
-
+  const { inPreview: staticT } = getStaticText();
   if (campaign?.is_published || !show) return <></>;
   return (
     <Alert variant="warning mb-0">
       <Row>
         <Col className={"d-flex"}>
           <p className={"my-auto"}>
-            <i className="fa fa-warning" style={{marginRight: 10}}/>
-            <i>{`This campaign '${
-              campaign?.title || "..."
-            }' is not published yet. Admins are still working on it. Please come back later when its complete...`}</i>
+            <i className="fa fa-warning" style={{ marginRight: 10 }} />
+            <i>{`'${campaign?.title || "..."}' ${staticT?.notice?.text}`}</i>
           </p>
         </Col>
         <Col sm="auto">
-          <Button className={"close-btn"} style={{borderRadius: "100%", padding:"4px 9px"}} variant={"dark"}
-                  onClick={() => setShow(false)}>
-            <span className="fa fa-times" style={{fontSize: 18}}></span>
-          </Button>
+          <span className="fa fa-times touchable-opacity" style={{ fontSize: 20, marginRight: 10 }}></span>
         </Col>
       </Row>
     </Alert>
@@ -29,6 +25,6 @@ function CampaignNotLive({campaign}) {
 }
 
 const mapState = (state) => {
-  return {campaign: state.campaign};
+  return { campaign: state.campaign };
 };
 export default connect(mapState)(CampaignNotLive);

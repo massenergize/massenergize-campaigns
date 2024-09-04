@@ -34,6 +34,7 @@ function GettingStartedSection({
   scrollToCommunities,
   trackActivity,
   authUser,
+  staticT,
 }) {
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
   return (
@@ -41,19 +42,24 @@ function GettingStartedSection({
       <Container>
         <Row>
           <Col lg={{ span: 12 }}>
-            <SectionTitle style={{ color: "white" }}>{customization?.title || "Getting Started"}</SectionTitle>
+            <SectionTitle style={{ color: "white" }}>{customization?.title ||staticT?.header?.title?.text ||"Getting Started"}</SectionTitle>
 
             <p className="body-font" style={{ color: "white", marginBottom: 20 }}>
               {/* This section should be edited via the admin portal */}
-              {customization?.description ||
-                "Explore the actions we have under these technologies and get started right away!"}
+              {customization?.description || staticT?.header?.description?.text || "Explore the actions we have under these technologies and get started right away!"}
               {/* Explore the actions we have under these technologies and get started right away! */}
             </p>
             <Row>
               {technologies?.map((box) => {
                 return (
                   <Col key={box.id} md={6} lg={3} className="one-tech-wrapper mb-4">
-                    <OneBox v2={!isMobile} {...box} trackActivity={trackActivity} authUser={authUser} />
+                    <OneBox
+                      v2={!isMobile}
+                      {...box}
+                      trackActivity={trackActivity}
+                      authUser={authUser}
+                      staticT={staticT}
+                    />
                   </Col>
                 );
               })}
@@ -61,6 +67,7 @@ function GettingStartedSection({
                 <DoMoreBox
                   isMobile={isMobile}
                   scrollToCommunities={() => scrollToCommunities && scrollToCommunities()}
+                  staticT={staticT?.communities}
                 />
               </Col>
             </Row>
@@ -73,7 +80,7 @@ function GettingStartedSection({
 
 export default GettingStartedSection;
 
-const DoMoreBox = ({ scrollToCommunities, isMobile }) => {
+const DoMoreBox = ({ scrollToCommunities, isMobile, staticT }) => {
   return (
     <div className="card rounded-4 one-box-container h-100" style={{ height: isMobile ? 287 : 475 }}>
       <div className="one-box">
@@ -84,10 +91,10 @@ const DoMoreBox = ({ scrollToCommunities, isMobile }) => {
           alt="people"
         />
         <h5 className="subheader-font" style={{ color: "var(--app-main-color)" }}>
-          Communities
+          {staticT?.title || "Communities"}
         </h5>
         <p className="body-font" style={{ textAlign: "center" }}>
-          Connect with your community and check out other actions
+          {staticT?.description || " Connect with your community and check out other actions"}
         </p>
 
         <Button
@@ -99,7 +106,7 @@ const DoMoreBox = ({ scrollToCommunities, isMobile }) => {
           className="touchable-opacity  pc-vanish"
           style={{ fontWeight: "bold", color: "var(--app-orange)" }}
         >
-          Our Communities
+          {staticT?.text || "Our Communities"}
         </Button>
       </div>
 
@@ -109,7 +116,7 @@ const DoMoreBox = ({ scrollToCommunities, isMobile }) => {
           style={{ background: "var(--app-main-color)" }}
           className="tech-btn touchable-opacity"
         >
-          <span> Communities</span>
+          <span> {staticT?.text || "Communities"}</span>
         </Button>
       </div>
     </div>

@@ -21,7 +21,7 @@ if (IS_PROD || IS_CANARY) {
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
   };
 }
-
+console.log("Welcome: ", firebaseConfig?.authDomain);
 export const FIREBASE_CONFIG = firebaseConfig;
 
 // !firebase.apps.length

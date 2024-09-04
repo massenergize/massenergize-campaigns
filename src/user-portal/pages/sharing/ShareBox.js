@@ -3,19 +3,22 @@ import { Button, Form, InputGroup } from "react-bootstrap";
 import { apiCall } from "../../../api/messenger";
 import copy from "clipboard-copy";
 import URLS, { API_HOST } from "../../../api/urls";
-const items = [
+let items = [
   { key: "facebook", text: "acebook", icon: "fa-facebook", alias: "facebook" },
   { key: "twitter", text: "Twitter", icon: "fa-twitter", alias: "twitter" },
   { key: "email", text: "Email", icon: "fa-envelope", alias: "email" },
   { key: "whatsapp", text: "Whatsapp", icon: "fa-whatsapp", alias: "whatsapp" },
   { key: "other", text: "Other", icon: "", alias: "" },
 ];
-function ShareBox({ data, onChange, campaign, authUser }) {
+function ShareBox({ data, onChange, campaign, authUser, staticT }) {
   const [copied, setCopied] = useState(false);
   const [state, setState] = useState({});
   const [error, setError] = useState({});
   const [link, setLink] = useState("");
   data = data || {};
+
+  const rem = items.filter((item) => item.key !== "other");
+  items = [...rem, { key: "other", text: staticT?.other?.text || "Other", icon: "", alias: "" }];
 
   const { user } = authUser || {};
   const generateLink = (obj) => {
@@ -68,7 +71,7 @@ function ShareBox({ data, onChange, campaign, authUser }) {
       <div style={{ padding: 20 }}>
         <div style={{ marginBottom: 10 }}>
           <Form.Text className="small-font">
-            Please select a platform that you would like to share this technology to
+            {staticT?.instruction?.text || "Please select a platform that you would like to share this technology to"}
           </Form.Text>
         </div>
         <Form
@@ -131,11 +134,12 @@ function ShareBox({ data, onChange, campaign, authUser }) {
               id="button-addon2"
               style={{ fontWeight: "bold", background: "var(--app-main-color)" }}
             >
-              {copied ? "Copied!" : "Copy Link"}
+              {copied ? staticT?.button?.copied?.text || "Copied!" : staticT?.button?.copy?.text || "Copy Link"}
             </Button>
           </InputGroup>
           <Form.Text className="small-font">
-            You can copy the link and share it {state?.platform === "other" ? "" : ` on ${state.platform}`}
+            {staticT?.hint?.text || "You can copy the link and share it"}{" "}
+            {state?.platform === "other" ? "" : ` on ${state.platform}`}
           </Form.Text>
         </div>
       </div>

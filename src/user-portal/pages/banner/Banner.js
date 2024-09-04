@@ -24,6 +24,7 @@ function Banner(props) {
     tagline,
     handleShareCampaign,
     is_published,
+    staticT,
   } = props;
   return (
     <Container className="nav-top-margin">
@@ -74,7 +75,7 @@ function Banner(props) {
             <FontAwesomeIcon icon={faShareNodes} />
             <small className="body" style={{ marginLeft: 6 }}>
               {" "}
-              Share
+              {staticT?.share?.text || "Share"}
             </small>
             {/* <i className="fa fa-share-nodes" /> <small className="body"> Share</small> */}
           </div>

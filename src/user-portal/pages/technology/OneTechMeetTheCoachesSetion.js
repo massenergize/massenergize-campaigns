@@ -5,34 +5,8 @@ import { Button, Col, Row } from "react-bootstrap";
 import OneCoach from "../coaches/OneCoach";
 import { ArrowButtons } from "../../../components/pieces/ArrowButtons";
 
-const SCROLL_TRAVEL = 100;
-const dummies = [
-  {
-    icon: "fa-globe",
-    title: "ENVIRONMENTALLY FRIENDLY",
-    content:
-      "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
-  },
-  {
-    icon: "fa-lightbulb-o",
-    title: "ECONOMIC BENEFITS ",
-    content:
-      "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
-  },
-  {
-    icon: "fa-fire",
-    title: "HEALTH & WELLNESS",
-    content:
-      "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
-  },
-  {
-    icon: "fa-cog",
-    title: "COMFORT",
-    content:
-      "1500s, when an unknown printer took a galley of type rised in the 1960s with the release of L1500s, when an unknown printer took a galley of type rised in the 1960s with the release of ",
-  },
-];
-function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, ref }) {
+
+function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, ref, staticT }) {
   const { title, description } = data || {};
 
   const scrollContainerRef = useRef(null);
@@ -49,7 +23,7 @@ function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, r
         <div style={{ display: "flex", flexDirection: "row" }}>
           <div>
             <SectionTitle className="mb-5" style={{ color: "black" }}>
-              {title || "Meet the Coaches"}
+              {title || staticT?.title?.text || " Meet the coaches"}
             </SectionTitle>
           </div>
 
@@ -94,7 +68,7 @@ function OneTechMeetTheCoachesSection({ toggleModal, sectionId, coaches, data, r
               }}
               onClick={() => toggleModal()}
             >
-              Get Help{" "}
+              {staticT?.button?.text || "Get Help"}
             </Button>
           </div>
         </div>

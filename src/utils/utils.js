@@ -1,5 +1,16 @@
 import { format, formatDistanceToNow, isSameDay, parseISO } from "date-fns";
 import { ME_STATES } from "./States";
+// import { LANGUAGES } from "./internationalization/languages";
+import { enUS, es, ptBR } from "date-fns/locale";
+import { DEFAULT_ENGLISH_CODE, PREFERRED_LANGUAGE_STORAGE_KEY } from "src/redux/redux-action-types";
+import { getPreferredLanguageISO } from "src/redux/actions/actions";
+import {IS_CANARY, IS_LOCAL, IS_PROD} from "../config/environment";
+
+const LANG_CODE_TO_DATE_OBJ = { en: enUS, es, pt: ptBR }; // means when a new language is approved, we wld have to add it in here as well
+
+export const getCountryFromCode = (code) => {
+  return (code?.split("-")[1] || "US").toLowerCase();
+};
 
 export function sortEvents(events) {
   return events?.sort((a, b) => new Date(a?.event?.start_date) - new Date(b?.event?.start_date));
@@ -26,22 +37,35 @@ export function formatTimeRange(startDateString, endDateString) {
   }
 }
 
+const getLocale = () => {
+  let locale = pruneLanuguage(getPreferredLanguageISO());
+  return LANG_CODE_TO_DATE_OBJ[locale] || enUS;
+};
 export function formatDate(dateString, formatString = "MMM d, yyyy") {
-  if(!dateString) return '';
+  if (!dateString) return "";
+  const locale = getLocale();
+
   const date = parseISO(dateString);
-  return format(date, formatString);
+  return format(date, formatString, { locale });
 }
 
 export function formatTime(dateString, formatString = "HH:mm aaa") {
-  if(!dateString) return '';
+  if (!dateString) return "";
+  const locale = getLocale();
   const date = parseISO(dateString);
-  return format(date, formatString);
+  return format(date, formatString, { locale });
 }
 
-export function relativeTimeAgo(datetimeString) {
-  const date = parseISO(datetimeString);
+const pruneLanuguage = (code) => {
+  const DEFAULT = "en";
+  if (!code) return DEFAULT;
+  return code?.split("-")[0] || DEFAULT;
+};
 
-  return formatDistanceToNow(date, { addSuffix: true });
+export function relativeTimeAgo(datetimeString) {
+  const locale = getLocale();
+  const date = parseISO(datetimeString);
+  return formatDistanceToNow(date, { addSuffix: true, locale });
 }
 
 export const validateEmail = (email) => {
@@ -57,7 +81,7 @@ export function fetchUrlParams(name) {
 
 export function getLastSegmentFromUrl(url) {
   const parsedUrl = new URL(url);
-  const pathnameSegments = parsedUrl.pathname.split("/").filter(Boolean);
+  const pathnameSegments = parsedUrl.pathname?.split("/").filter(Boolean);
 
   if (pathnameSegments.length > 0) {
     return pathnameSegments[pathnameSegments.length - 1];
@@ -104,11 +128,6 @@ export function smartString(inputString, maxLength = 30) {
 
   return inputString.slice(0, maxLength) + "...";
 }
-
-export const portalIsAdmin = () => {
-  const url = window.location.href;
-  return url.includes("admin/");
-};
 
 export function mergeArrays(arrays, reducer) {
   const mergedArray = [];
@@ -223,7 +242,7 @@ export function sortByProperty(arr, getProperty) {
 export function addUrlSearchParams(url, jsonData) {
   // Check if both URL and JSON data are provided
   if (!url || !jsonData) {
-    console.error("URL and JSON data are required.", url, jsonData);
+    console.log("URL and JSON data are required.", url, jsonData);
     return;
   }
 
@@ -264,8 +283,6 @@ export const scrollIntoView = (ref, offset = 0) => {
   }
 };
 
-
-
 export function isEmpty(value) {
   if (typeof value === "undefined" || value === null) {
     return true;
@@ -281,3 +298,19 @@ export function isEmpty(value) {
   }
   return false;
 }
+
+let baseUrl;
+if (IS_LOCAL) {
+  baseUrl = "http://massenergize.test:3000/";
+} else if (IS_CANARY) {
+  baseUrl = "https://communities-canary.massenergize.org/";
+}
+else if (IS_PROD) {
+  baseUrl = "https://communities.massenergize.org/";
+}  else  {
+  baseUrl = "https://communities.massenergize.dev/";
+}
+
+export const BASE_URL = baseUrl
+
+// at this point you can set the value stored in `baseUrl` to ```javascript null``` since it's been copied into `BASE_URL` so it can be garbage collecte

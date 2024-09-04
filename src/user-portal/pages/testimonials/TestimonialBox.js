@@ -6,7 +6,7 @@ import { smartString } from "../../../utils/utils";
 
 const PREVIEW_LENGTH = 125;
 const LONG_LENGTH = 330;
-function TestimonialBox({ title, user, image, body, campaign_technology, campaign, id, community }) {
+function TestimonialBox({ title, user, image, body, campaign_technology, campaign, id, community, staticT }) {
   const hasNoImage = !image?.url;
   const navigator = useNavigate();
   const isMobile = useMediaQuery({ maxWidth: MOBILE_WIDTH });
@@ -21,8 +21,8 @@ function TestimonialBox({ title, user, image, body, campaign_technology, campaig
       <h5 className="body-font" style={{ fontWeight: "bold", marginBottom: 10, color: "var(--app-main-color)" }}>
         {title || "..."}
       </h5>
-      <h6 className="body-font" style={{ color: "var(--app-accent-3)", marginBottom:15, }}>
-        {userName ? `${userName} ${comName ? "from" : ""} ${comName || ""}` : "..."}
+      <h6 className="body-font" style={{ color: "var(--app-accent-3)", marginBottom: 15 }}>
+        {userName ? `${userName} ${comName ? staticT?.from?.text ||"from" : ""} ${comName || ""}` : "..."}
       </h6>
       <div
         className="body-font text-muted"
@@ -55,6 +55,7 @@ function TestimonialBox({ title, user, image, body, campaign_technology, campaig
               height: 50,
               objectFit: "cover",
               borderRadius: 5,
+              marginRight: 12,
               // marginTop: 7,
             }}
             src={image?.url}
@@ -75,7 +76,7 @@ function TestimonialBox({ title, user, image, body, campaign_technology, campaig
           }}
         >
           <i className="fa fa-eye"></i>
-          <span style={{ marginLeft: 6 }}> Full View</span>
+          <span style={{ marginLeft: 6 }}> {staticT?.full_view?.text || "Full View"}</span>
         </p>
       </div>
     </div>

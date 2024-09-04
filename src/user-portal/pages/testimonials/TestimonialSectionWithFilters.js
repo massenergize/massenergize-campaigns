@@ -13,7 +13,7 @@ import NewTestimonialForm from "./NewTestimonialForm";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 
 export const TESTIMONIAL_FORM_SHOW_KEY = "testimonial-form";
-function TestimonialSectionWithFilters({ sectionId, technologies, defaultTab, campaign, protectedFunction }) {
+function TestimonialSectionWithFilters({ staticT, sectionId, technologies, defaultTab, campaign, protectedFunction }) {
   const [showForm, setShowForm] = useState(false);
   const containerRef = useRef();
   const navigator = useNavigate();
@@ -74,7 +74,7 @@ function TestimonialSectionWithFilters({ sectionId, technologies, defaultTab, ca
         {data?.map((item) => {
           return (
             <Col key={item.id} xs={12} lg={3}>
-              <TestimonialBox {...item} />
+              <TestimonialBox {...item} staticT={staticT} />
             </Col>
           );
         })}
@@ -99,7 +99,7 @@ function TestimonialSectionWithFilters({ sectionId, technologies, defaultTab, ca
         <Container>
           <div className="row-flex t-with-filter-top">
             <div>
-              <SectionTitle>Testimonials</SectionTitle>
+              <SectionTitle>{staticT?.title?.text || "Testimonials"}</SectionTitle>
               {/* <h2
                 className="header-font"
                 style={{
@@ -112,7 +112,11 @@ function TestimonialSectionWithFilters({ sectionId, technologies, defaultTab, ca
               </h2> */}
               <AddNewTestimonial
                 icon={showForm ? "minus" : "plus"}
-                text={showForm ? "Hide testimonial form" : "Add your testimonial here"}
+                text={
+                  showForm
+                    ? staticT?.call_to_hide_testimonial?.text || "Hide testimonial form"
+                    : staticT?.call_to_add_testimonial?.text || "Add your testimonial here"
+                }
                 onClick={() => {
                   addTestimonial();
                 }}
@@ -130,11 +134,12 @@ function TestimonialSectionWithFilters({ sectionId, technologies, defaultTab, ca
             <>
               {hasScrollableTestimonials && (
                 <OurParagraph>
-                  Scroll from left to right to see more testimonials, or use the arrow buttons(top right) to scroll
+                  {staticT?.scrollable?.text ||
+                    " Scroll from left to right to see more testimonials, or use the arrow buttons(top right) to scroll"}
                 </OurParagraph>
               )}
               <Filter
-                title="Filter testimonials by"
+                title={staticT?.call_to_filter?.text || "Filter testimonials by"}
                 filterOptions={technologies}
                 labelAccessor={(tech) => tech?.name}
                 valueAccessor={(tech) => tech?.campaign_technology_id}

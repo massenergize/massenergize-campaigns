@@ -4,6 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import SectionTitle from "../../../components/pieces/SectionTitle";
 import { useSelector } from "react-redux";
 import OptimumWrapper from "../wrappers/OptimumWrapper";
+import {BASE_URL, getCommunityPortalBaseURL} from "../../../utils/utils";
 
 const DoMore = (props) => {
   const { optimum } = props;
@@ -18,19 +19,20 @@ const DoMore = (props) => {
   );
 };
 
-function DoMoreComponent() {
+function DoMoreComponent({ staticT }) {
   const campaign = useSelector((state) => state.campaign);
   const { communities, communities_section } = campaign || {};
   const { title, description } = communities_section || {};
 
-  const COMMUNITY_PORTAL_URL = "https://communities.massenergize.org/";
   return (
     <div className="do-more-root">
       {/* <OptimumWrapper> */}
       <Container>
         <Row>
           <Col className={"pt-3"}>
-            <SectionTitle className={"text-center text-md-start"}>{title || " Participating Communities"}</SectionTitle>
+            <SectionTitle className={"text-center text-md-start"}>
+              {title || staticT?.title?.text || "..."}
+            </SectionTitle>
             {/* <h2
             style={{
               color: "black",
@@ -77,7 +79,7 @@ function DoMoreComponent() {
                     <li
                       role={"button"}
                       onClick={() => {
-                        window.open(`${COMMUNITY_PORTAL_URL}${community?.subdomain}`);
+                        window.open(`${BASE_URL}${community?.subdomain}`);
                       }}
                       className="touchable-opacity body-font"
                       style={{

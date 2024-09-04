@@ -7,7 +7,7 @@ const interactions = [
   { icon: "fa-eye", name: "Views", count: 3542 },
   // { icon: "fa-share", name: "Shares", count: 15 },
 ];
-function InteractionsPanel({ openCommentBox, likes, views, comments, openShareBox, like, liked }) {
+function InteractionsPanel({ openCommentBox, likes, views, comments, openShareBox, like, liked, staticT }) {
   const [hasLiked, setHasLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
 
@@ -43,7 +43,9 @@ function InteractionsPanel({ openCommentBox, likes, views, comments, openShareBo
 
         <small className="touchable-opacity" style={{ fontWeight: "bold", ...commonTheme }}>
           {`${likeCount ? likeCount : ""} `}
-          <span className="phone-vanish">{`${!likeCount || likeCount === 1 ? " Like" : " Likes"}`}</span>
+          <span className="phone-vanish">{`${
+            !likeCount || likeCount === 1 ? staticT?.like?.text || " Like" : staticT?.like?.plural || " Likes"
+          }`}</span>
         </small>
       </div>
       <div
@@ -61,7 +63,9 @@ function InteractionsPanel({ openCommentBox, likes, views, comments, openShareBo
           style={{ fontWeight: "bold", textDecoration: "underline", ...commonTheme }}
         >
           {`${comments ? comments : ""}`}
-          <span className="phone-vanish">{`${!comments || comments === 1 ? " Comment" : " Comments"}`}</span>
+          <span className="phone-vanish">{`${
+            !comments || comments === 1 ? staticT?.comment?.text || " Comment" : staticT?.comment?.plural || " Comments"
+          }`}</span>
         </small>
       </div>
       {views ? (
@@ -75,7 +79,10 @@ function InteractionsPanel({ openCommentBox, likes, views, comments, openShareBo
         >
           <i className={`fa fa-eye`} style={{ marginRight: 6, ...commonTheme }} />
           <small style={{ fontWeight: "bold", ...commonTheme }}>
-            {views} <span className="phone-vanish">{views === 1 ? " View" : "Views"}</span>
+            {views}{" "}
+            <span className="phone-vanish">
+              {views === 1 ? staticT?.view?.text || " View" : staticT?.view?.plural || "Views"}
+            </span>
           </small>
         </div>
       ) : (
@@ -93,7 +100,9 @@ function InteractionsPanel({ openCommentBox, likes, views, comments, openShareBo
         onClick={() => openShareBox()}
       >
         <i className={`fa fa-share`} style={{ marginRight: 6, ...commonTheme }} />
-        <small style={{ fontWeight: "bold", textDecoration: "underline", ...commonTheme }}>Share</small>
+        <small style={{ fontWeight: "bold", textDecoration: "underline", ...commonTheme }}>
+          {staticT?.share?.text || "Share"}
+        </small>
       </div>
 
       {/* {interactions.map((inter, index) => {

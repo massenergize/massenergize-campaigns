@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { validateEmail } from "../../../utils/utils";
 import { apiCall } from "../../../api/messenger";
 import { bindActionCreators } from "redux";
-import { loadUserObjAction } from "../../../redux/actions/actions";
+import { getStaticText, loadUserObjAction } from "../../../redux/actions/actions";
 
 function JoinUsForm({
   campaign,
@@ -27,6 +27,8 @@ function JoinUsForm({
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { modals, toasts } = getStaticText();
+  const staticT = modals?.join || {};
 
   useState(() => {
     if (authUser) {
@@ -48,19 +50,21 @@ function JoinUsForm({
     setError({ message, good });
   };
 
-  console.log("Then lets see form", form)
-
   const joinUs = () => {
     if (onConfirm) return onConfirm({ data: form, close });
     // if (authUser) return alert("You've already followed. Thank you very much!");
     const emailIsValid = validateEmail(email);
-    if (!emailIsValid) return makeNotification("Please provide a valid email address...");
+    if (!emailIsValid)
+      return makeNotification(toasts?.join?.noEmail?.text || "Please provide a valid email address...");
     const { comId, zipcode, valueForOther } = form || {};
     var otherContent = {};
-    if (!comId) return makeNotification("Please select a community...");
+    if (!comId) return makeNotification(toasts?.join?.noCommunity?.text || "Please select a community...");
     if (comId === OTHER) {
       otherContent = { community_name: valueForOther, zipcode, is_other: true };
-      if (!zipcode || !valueForOther) return makeNotification("Please provide the zipcode & community name...");
+      if (!zipcode || !valueForOther)
+        return makeNotification(
+          toasts?.join?.noZipcodeAndOther?.text || "Please provide the zipcode & community name...",
+        );
     }
 
     setLoading(true);
@@ -71,11 +75,11 @@ function JoinUsForm({
       ...otherContent,
     };
     payload = processPayload ? processPayload(payload) : payload;
-    makeNotification("Well done, thank you for joining us!", true);
+    makeNotification(toasts?.join?.joined?.text || "Well done, thank you for joining us!", true);
     apiCall(apiURL || "/campaigns.follow", payload).then((response) => {
       setLoading(false);
       if (!response?.success) {
-        makeNotification(response.error)
+        makeNotification(response.error);
         // setError("Error: ", response.error);
         return console.log("FOLLOW_ERROR_BE: ", response.error);
       }
@@ -97,11 +101,11 @@ function JoinUsForm({
           <div>
             {/* <Form.Text>Join us because we are great!</Form.Text> */}
             <InputGroup className="mb-3 mt-2">
-              <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
+              <InputGroup.Text id="basic-addon1">{staticT?.email?.text || "Email"}</InputGroup.Text>
               <Form.Control
                 value={email}
                 type="email"
-                placeholder="Enter Email Here..."
+                placeholder={staticT?.email?.placeholder || "Enter Email Here..."}
                 aria-label="email"
                 aria-describedby="basic-addon1"
                 onChange={(e) => {
@@ -129,7 +133,7 @@ function JoinUsForm({
             background: "#292929",
           }}
         >
-          {cancelText || "Cancel"}
+          {cancelText || staticT?.buttons?.cancel?.text || "Cancel"}
         </Button>
         <Button
           className="touchable-opacity"
@@ -148,7 +152,7 @@ function JoinUsForm({
           }}
         >
           {loading && <Spinner size="sm" style={{ marginRight: 6 }}></Spinner>}
-          {confirmText || "Join Us"}
+          {confirmText || staticT?.buttons?.ok?.text || "Join Us"}
         </Button>
       </ModalFooter>
     </div>

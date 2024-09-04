@@ -3,6 +3,9 @@
  */
 import qs from "qs";
 import { API_HOST } from "./urls";
+import store from "src/redux/store";
+import { PREFERRED_LANGUAGE_STORAGE_KEY } from "src/redux/redux-action-types";
+import {portalIsAdmin} from "../redux/reducers/reducers";
 // import { API_HOST, IS_CANARY, IS_PROD, IS_LOCAL, CC_HOST } from '../config/constants';
 export const PERMISSION_DENIED = "permission_denied";
 export const SESSION_EXPIRED = "session_expired";
@@ -16,16 +19,24 @@ export const SESSION_EXPIRED = "session_expired";
  * @param { String } dataToSend
  * @param { String } relocationPage
  */
-export async function apiCall (destinationUrl, dataToSend = {}, relocationPage = null) {
+export async function apiCall(destinationUrl, dataToSend = {}, relocationPage = null) {
+  const persistedLanguage = localStorage?.getItem(PREFERRED_LANGUAGE_STORAGE_KEY)
+  let { activeLanguage: lang } = store?.getState() || {};
+
+  lang = lang || persistedLanguage;
   // add some meta data for context in backend
   const data = {
     // __is_prod: IS_PROD || IS_CANARY,
     // __is_admin_site: true,
+    ...(lang && !portalIsAdmin() ? { __user_language: lang } : {}),
     ...dataToSend,
   };
 
   const formData = new FormData();
+  // if (lang && !portalIsAdmin()) formData.append("__user_language", lang);
   Object.keys(data).map((k) => formData.append(k, data[k]));
+  if (lang && !portalIsAdmin()) formData.append("__user_language", lang);
+
 
   if (!destinationUrl || destinationUrl.length < 2) {
     return { success: false, error: "Invalid URL passed to apiCall" };
@@ -52,10 +63,10 @@ export async function apiCall (destinationUrl, dataToSend = {}, relocationPage =
 
   try {
     const response = await fetch(destinationUrl, {
-    credentials: "include",
-    method: "POST",
-    body: formData,
-  });
+      credentials: "include",
+      method: "POST",
+      body: formData,
+    });
 
     const contentType = response.headers.get("content-type");
     if (contentType && contentType.indexOf("application/json") !== -1) {
@@ -63,10 +74,7 @@ export async function apiCall (destinationUrl, dataToSend = {}, relocationPage =
       if (relocationPage && json && json.success) {
         window.location.href = relocationPage;
       } else if (!json.success) {
-        if (
-          json.error === SESSION_EXPIRED ||
-          json.error === PERMISSION_DENIED
-        ) {
+        if (json.error === SESSION_EXPIRED || json.error === PERMISSION_DENIED) {
           window.location.href = "/login";
         } else if (json !== "undefined") {
           console.log(destinationUrl, json);
@@ -84,11 +92,7 @@ export async function apiCall (destinationUrl, dataToSend = {}, relocationPage =
   } catch (error) {
     const errorText = error.toString();
     if (errorText.search("JSON") > -1) {
-      const errorMessage =
-        "Invalid response to " +
-        destinationUrl +
-        " Data: " +
-        JSON.stringify(data);
+      const errorMessage = "Invalid response to " + destinationUrl + " Data: " + JSON.stringify(data);
       // this will send message to Sentry Slack channel
       // Sentry.captureMessage(errorMessage);
       return { success: false, error: errorMessage };
@@ -100,7 +104,7 @@ export async function apiCall (destinationUrl, dataToSend = {}, relocationPage =
 }
 
 // ----- Used when the backend is meant to return a file for download
-export async function apiCallFile (destinationUrl, dataToSend = {}) {
+export async function apiCallFile(destinationUrl, dataToSend = {}) {
   const idToken = localStorage.getItem("idToken");
 
   // don't need this strictUrl optional arg?  Won't work with IS_LOCAL
@@ -115,9 +119,7 @@ export async function apiCallFile (destinationUrl, dataToSend = {}) {
   //     destinationUrl = "api/" + destinationUrl;
   //   }
 
-  const url = strictUrl
-    ? `${API_HOST}${destinationUrl}`
-    : `${API_HOST}/${destinationUrl}`;
+  const url = strictUrl ? `${API_HOST}${destinationUrl}` : `${API_HOST}/${destinationUrl}`;
   // add some meta data for context in backend
   const data = {
     // __is_prod: IS_PROD,
@@ -152,7 +154,7 @@ export async function apiCallFile (destinationUrl, dataToSend = {}) {
     const contentDisposition = response.headers.get("content-disposition");
     const filename = contentDisposition
       ? contentDisposition.match(/filename="(.+)"/)[1]
-      : "download." + contentType.split("/")[1];
+      : "download." + contentType?.split("/")[1];
     return response.blob().then((blob) => ({
       success: true,
       file: new File([blob], filename, { type: contentType }),

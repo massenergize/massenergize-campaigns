@@ -5,6 +5,7 @@ import { relativeTimeAgo } from "../../../utils/utils";
 import Notification from "../../../components/pieces/Notification";
 import { apiCall } from "../../../api/messenger";
 import CommentDeleteConfirmation from "../technology/CommentDeleteConfirmation";
+import { TRANSLATION_HELPERS_LINK } from "../footer/Footer";
 
 function CommentComponentForModal({
   comments,
@@ -16,6 +17,7 @@ function CommentComponentForModal({
   updateUserInRedux,
   commentIsForUser,
   onDelete,
+  staticT,
 }) {
   const [commentItems, setCommentItems] = useState([]);
   const [name, setName] = useState("");
@@ -51,7 +53,7 @@ function CommentComponentForModal({
 
   const sendComment = () => {
     setError("");
-    if (!comment.trim() || !name?.trim()) return setError("Please provide a name and a valid comment");
+    if (!comment.trim() || !name?.trim()) return setError(staticT?.notifications?.provide_a_name?.text || "Please provide a name and a valid comment");
 
     const doesNotHaveName = !user?.full_name;
     setLoading(true);
@@ -81,7 +83,7 @@ function CommentComponentForModal({
       user_id: user?.id || null,
     }).then((response) => {
       setLoading(false);
-      if (!response || !response.success) return setError(response?.error || "Sorry something happened!");
+      if (!response || !response.success) return setError(response?.error || staticT?.notifications?.error?.text||"Sorry something happened!");
       const latestComments = response.data;
       const updated = { ...(technology || {}), comments: latestComments };
       setCommentItems([...latestComments].reverse());
@@ -100,13 +102,13 @@ function CommentComponentForModal({
           overflowY: "scroll",
           minHeight: 250,
           maxHeight: 500,
-          paddingBottom: 130,
+          paddingBottom: 150,
         }}
         ref={comBox}
       >
         {data?.length === 0 && (
           <center>
-            <small>No comments yet, be the first!</small>
+            <small>{staticT?.no_comments?.text || "No comments yet, be the first!"}</small>
           </center>
         )}
         {data?.map((com) => {
@@ -131,7 +133,8 @@ function CommentComponentForModal({
                 }}
               >
                 <span style={{}}>
-                  {user?.full_name || "..."} {isForCurrentUser ? " (Yours)" : ""}{" "}
+                  {user?.full_name || "..."}{" "}
+                  {isForCurrentUser ? (staticT?.yours?.text ? `(${staticT?.yours?.text})` : "" || " (Yours)") : ""}{" "}
                 </span>{" "}
                 {community && " from "}
                 <span style={{ color: "var(--app-medium-green)" }}>{community} </span>
@@ -145,6 +148,7 @@ function CommentComponentForModal({
                 }}
               >
                 <CommentDeleteConfirmation
+                  staticT={staticT}
                   show={isForCurrentUser}
                   onDelete={() => onDelete && onDelete(com, (rem) => setCommentItems([...(rem || [])].reverse()))}
                 />
@@ -179,12 +183,12 @@ function CommentComponentForModal({
       >
         <div>
           <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1">Your Name</InputGroup.Text>
+            <InputGroup.Text id="basic-addon1">{staticT?.name?.text || "Your Name"}</InputGroup.Text>
             <Form.Control
               value={name}
               onChange={(e) => setName(e.target.value)}
               type="text"
-              placeholder="Who is making this comment?..."
+              placeholder={staticT?.name_placeholder?.text || "Who is making this comment?..."}
               aria-label="text"
               aria-describedby="basic-addon1"
             />
@@ -195,15 +199,18 @@ function CommentComponentForModal({
             <Form.Control
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              placeholder="Type comment here..."
+              placeholder={staticT?.comment_placeholder?.text || "Type comment here..."}
               aria-label="User comment"
               aria-describedby="basic-addon2"
             />
             <Button variant="outline-success" id="button-addon2" onClick={() => sendComment()}>
               {loading && <Spinner size="sm" style={{ marginRight: 5 }} />}
-              Comment
+              {staticT?.button?.text || " Comment"}
             </Button>
           </InputGroup>
+          <a target="_blank" href={TRANSLATION_HELPERS_LINK} style={{ margin: "10px 0px " }}>
+            <small style={{ color: "var(--app-main-color)" }}>{staticT?.help_us_translate?.text}</small>
+          </a>
         </div>
 
         <Notification show={error} good={!error}>

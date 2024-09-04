@@ -3,11 +3,14 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addUrlSearchParams, generateUniqueRandomString } from "../../utils/utils";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import * as PropTypes from "prop-types";
+import { loadActiveLanguageAction } from "../../redux/actions/actions";
+import LanguageSelector from "../language/LanguageSelector";
+import { PLATFORM } from "../../api/urls";
 
 const EXCLUDE_FROM_NAV = ["communities"];
 
@@ -55,16 +58,14 @@ function AppNavigationBar({ menu, campaign }) {
   const navigator = useNavigate();
   const { secondary_logo, primary_logo } = campaign || {};
 
-  const home = menu?.find((m) => m?.key?.toLowerCase() === "home");
-
   return (
     <Navbar variant="light" expand="lg" style={{ background: "white" }} fixed="top" className="app-nav-bar elevate-1">
       <Container className={""} style={{ maxWidth: 1420 }}>
         {/* <Navbar.Brand href="#home">MassEnergize Campaigns</Navbar.Brand> */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" className={" mb-2"} />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className=" w-md-100">
-            <Row className={"w-md-100 justify-content-center"}>
+          <Nav className=" w-md-100 justify-content-center">
+            <Row className={" "}>
               <Col xs={12} md="auto" className={"mb-3 mb-md-0 d-flex"}>
                 <Row className={"justify-content-between w-100"}>
                   <Col xs={"auto"} sm={"auto"}>
@@ -110,7 +111,7 @@ function AppNavigationBar({ menu, campaign }) {
                       return (
                         <Col sm={12} md={"auto"} key={i} className={"d-flex  align-items-center px-0"}>
                           <Nav.Link
-                            className="c-nav-item body-font d-flex mx-md-2 mx-auto px-0"
+                            className="c-nav-item  d-flex mx-md-2 mx-auto px-0"
                             key={menu?.key}
                             style={{
                               textTransform: "capitalize",
@@ -133,7 +134,7 @@ function AppNavigationBar({ menu, campaign }) {
                     return (
                       <Col key={i} sm={12} md={"auto"} className={"d-flex align-items-center px-0"}>
                         <NavDropdown
-                          className={"fw-bold text-capitalize mx-md-1 mx-auto body-font d-md-flex px-0 w-100"}
+                          className={"fw-bold text-capitalize mx-md-1 mx-auto  d-md-flex px-0 w-100"}
                           title={<DropdownTitle menu={menu} />}
                           id="basic-nav-dropdown"
                         >
@@ -176,6 +177,30 @@ function AppNavigationBar({ menu, campaign }) {
                 )}
               </Col>
             </Row>
+
+            {PLATFORM?.toUpperCase() !== "PRODUCTION" && <LanguageSelector />}
+            {/* <div
+              className="touchable-opacity"
+              style={{
+                position: "absolute",
+                top: 0,
+                right: 40,
+                display: "flex",
+                flexDirection: "row",
+                // justifyContent: "center",
+                alignItems: "center",
+                fontSize: 18,
+                // background: "red",
+                height: "100%",
+                fontWeight: "bold",
+                color: "var(--app-main-color)",
+                textTransform: "uppercase",
+              }}
+            >
+            
+              <i className="fa fa-globe" style={{ marginRight: 3 }}></i>
+              <span>EN</span>
+            </div> */}
           </Nav>
         </Navbar.Collapse>
       </Container>

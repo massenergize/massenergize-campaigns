@@ -14,6 +14,7 @@ function NewOneBox({
   campaign_id,
   trackActivity,
   authUser,
+  staticT,
 }) {
   const navigator = useNavigate();
   const { user } = authUser || {};
@@ -29,16 +30,15 @@ function NewOneBox({
   return (
     <div className="card border-0 rounded-4 one-box-container h-100">
       <div className="card-body p-0 new-one-box overflow-hidden">
-        {image && <img src={image?.url} alt={image?.name} className={"overflow-hidden rounded-top-4 w-100"} style={{}} />}
+        {image && (
+          <img src={image?.url} alt={image?.name} className={"overflow-hidden rounded-top-4 w-100"} style={{}} />
+        )}
         <div className="new-one-box-body p-3">
           <h5 className="subheader-font mb-1" style={{ textTransform: "capitalize", color: "var(--app-main-color)" }}>
             {name}
           </h5>
-          <p className="body-font lh-sm">
-            {smartString(summary, 75) || "..."}
-          </p>
+          <p className="body-font lh-sm">{smartString(summary, 75) || "..."}</p>
         </div>
-
       </div>
 
       <div className="card-footer border-0 bg-transparent p-3">
@@ -53,7 +53,7 @@ function NewOneBox({
               }}
               style={{ fontWeight: "bold", color: "var(--app-accent-3)" }}
             >
-              Learn More...
+              {staticT?.learn_more?.text || " Learn More..."}
             </Button>
           </Col>
         </Row>
@@ -65,9 +65,9 @@ function NewOneBox({
                 navigator(`${route}?section=vendors`);
               }}
               className="tech-btn touchable-opacity"
-              style={{ background: "var(--app-accent-3)",}}
+              style={{ background: "var(--app-accent-3)" }}
             >
-              Quote
+              {staticT?.quote?.text || "Quote"}
             </Button>
           </Col>
           <Col sm={"auto"}>
@@ -79,7 +79,7 @@ function NewOneBox({
               style={{ background: "var(--app-main-color)" }}
               className="tech-btn touchable-opacity"
             >
-              Coach
+              {staticT?.coach?.text || "Coach"}
             </Button>
           </Col>
         </Row>

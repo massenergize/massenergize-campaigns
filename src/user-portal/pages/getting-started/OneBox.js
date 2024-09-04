@@ -8,8 +8,19 @@ import { smartString } from "../../../utils/utils";
 import NewOneBox from "./NewOneBox";
 
 function OneBox(props) {
-  const { icon, v2, name, campaign_technology_id, isIcon, image, summary, campaign_id, trackActivity, authUser } =
-    props;
+  const {
+    icon,
+    v2,
+    name,
+    campaign_technology_id,
+    isIcon,
+    image,
+    summary,
+    campaign_id,
+    trackActivity,
+    authUser,
+    staticT,
+  } = props;
 
   const navigator = useNavigate();
   const { user } = authUser || {};
@@ -22,7 +33,7 @@ function OneBox(props) {
     email: user?.email,
   };
 
-  return <NewOneBox {...props} />;
+  return <NewOneBox {...props} staticT={staticT} />;
 
   /*return (
     <div className="card elevate-float-pro one-box-container h-100">

@@ -17,11 +17,64 @@ import {
   UPDATE_TESTIMONIALS_OBJ,
   SET_CAMPAIGN_ACCOUNT,
   SET_IS_ADMIN_PORTAL,
-  SET_MASSENERGISE_USERS, SET_CAMPAIGN_COMMUNITIES_EVENTS, SET_CAMPAIGN_COMMENTS, SET_CAMPAIGN_TESTIMONIALS, SET_PORTAL_TESTIMONIALS
+  SET_MASSENERGISE_USERS,
+  SET_CAMPAIGN_COMMUNITIES_EVENTS,
+  SET_CAMPAIGN_COMMENTS,
+  SET_CAMPAIGN_TESTIMONIALS,
+  SET_PORTAL_TESTIMONIALS,
+  SET_STATIC_TEXT_HEAP,
+  LOAD_OFFERED_LANGUAGES,
+  SET_ACTIVE_LANGUAGE,
+  ADMIN_UPDATE_OFFERED_LANGUAGES,
+  DEFAULT_ENGLISH_CODE,
+  PREFERRED_LANGUAGE_STORAGE_KEY,
+  USER_NOTIFICATION,
+  SET_USERS_LIST_OF_LANGUAGES,
 } from "../redux-action-types";
 import { signOut } from "firebase/auth";
+import store from "./../store";
 
 export const USER_STORAGE_KEY = "LOOSE_USER_TEMP_PROFILE";
+
+export const getPreferredLanguageISO = () => {
+  const code = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY);
+  return findInLanguageList(code)?.code || DEFAULT_ENGLISH_CODE;
+};
+export const findInLanguageList = (code, list) => {
+  const state = store.getState();
+  const languages = list?.length ? list : state?.campaign?.languages || [];
+  return languages.find((l) => l?.code === code);
+};
+export const getStaticText = () => {
+  const state = store.getState();
+  let activeLanguage = state?.activeLanguage;
+  const isNotInList = !findInLanguageList(activeLanguage);
+  if (isNotInList) activeLanguage = DEFAULT_ENGLISH_CODE;
+  const staticTextHeap = state?.staticTextHeap || {};
+  return staticTextHeap[activeLanguage] || staticTextHeap[DEFAULT_ENGLISH_CODE] || {};
+};
+export const setActiveLanguageInStorage = (isoCode) => {
+  localStorage.setItem(PREFERRED_LANGUAGE_STORAGE_KEY, isoCode);
+};
+
+export const setUsersListOfLanguages = (data) => {
+  return { type: SET_USERS_LIST_OF_LANGUAGES, payload: data };
+};
+export const setNotificationBlanket = (data) => {
+  return { type: USER_NOTIFICATION, payload: data };
+};
+export const updateOfferedLanguageAction = (data) => {
+  return { type: ADMIN_UPDATE_OFFERED_LANGUAGES, payload: data };
+};
+export const loadActiveLanguageAction = (isoCode) => {
+  return { type: SET_ACTIVE_LANGUAGE, payload: isoCode };
+};
+export const loadStaticTextHeapAction = (data = {}) => {
+  return { type: SET_STATIC_TEXT_HEAP, payload: data };
+};
+export const loadLanguagesAction = (data = []) => {
+  return { type: LOAD_OFFERED_LANGUAGES, payload: data };
+};
 export const testReduxAction = (someValue = []) => {
   return { type: DO_NOTHING, payload: someValue };
 };
@@ -114,6 +167,30 @@ export const updateUserAction = (payload, cb) => {
   };
 };
 
+const fetchStartupContent = (params) => {
+  const { campaignId, userContent, dispatch, cb, languageCode } = params || {};
+  const languageParams = { __user_language: languageCode };
+  Promise.all([
+    apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent, ...languageParams }),
+    apiCall(CAMPAIGN_VIEW_URL, {
+      campaign_id: campaignId,
+      url: window.location.href,
+      ...languageParams,
+    }),
+  ])
+    .then((response) => {
+      const [campaignInformation] = response;
+      const data = campaignInformation.data;
+      dispatch(loadCampaignInformation(data));
+      if (data) {
+        dispatch(setNavigationMenuAction(data?.navigation || []));
+        dispatch(setTestimonialsActions(data?.my_testimonials || []));
+        cb && cb(data, campaignInformation?.success);
+      }
+    })
+    .catch((e) => console.log("ERROR_IN_INNIT:", e?.toString()));
+};
+
 export const appInnitAction = (campaignId, cb) => {
   let savedUser = localStorage.getItem(USER_STORAGE_KEY);
   savedUser = JSON.parse(savedUser);
@@ -122,25 +199,36 @@ export const appInnitAction = (campaignId, cb) => {
   return (dispatch) => {
     dispatch(loadUserObjAction(savedUser)); // use saved user to run a request to bring in the most recent changes to the user
     const userContent = user?.email ? { email: user.email } : {};
-    Promise.all([
-      apiCall(CAMPAIGN_INFORMATION_URL, { id: campaignId, ...userContent }),
-      apiCall(CAMPAIGN_VIEW_URL, {
-        campaign_id: campaignId,
-        url: window.location.href,
-      }),
-    ])
-      .then((response) => {
-        const [campaignInformation, campaignViewResponse] = response;
-        const data = campaignInformation.data;
-        // console.log("INSIDE INNIT", data, campaignId);
-        dispatch(loadCampaignInformation(data));
-        if (data) {
-          dispatch(setNavigationMenuAction(data?.navigation || []));
-          dispatch(setTestimonialsActions(data?.my_testimonials || []));
-          cb && cb(data, campaignInformation?.success);
-        }
-      })
-      .catch((e) => console.log("ERROR_IN_INNIT:", e?.toString()));
+
+    apiCall("/campaigns.supported_languages.list", { campaign_id: campaignId }).then((response) => {
+      const languages = response?.data || [];
+      dispatch(setUsersListOfLanguages(languages?.filter((l) => l?.is_active)));
+      const prefLang = localStorage.getItem(PREFERRED_LANGUAGE_STORAGE_KEY);
+      const startUpObj = { campaignId, userContent, dispatch, cb, languageCode: DEFAULT_ENGLISH_CODE };
+      if (!prefLang) return fetchStartupContent(startUpObj);
+      const found = findInLanguageList(prefLang, languages);
+      const notActive = !found?.is_active;
+      const languageCode = found ? found?.code : DEFAULT_ENGLISH_CODE;
+      dispatch(loadActiveLanguageAction(languageCode));
+
+      if (notActive) {
+        setActiveLanguageInStorage(DEFAULT_ENGLISH_CODE);
+        return dispatch(
+          setNotificationBlanket({
+            title: "Please Note (Unsupported Language)",
+            durationToReload: 3,
+            message: (
+              <span className="body-font">
+                Your preferred language <b>{found?.name}</b> is no longer supported by this campaign. We have set your
+                language to English. In 3 seconds, this page will reload with all features in English...
+              </span>
+            ),
+          }),
+        );
+      }
+
+      fetchStartupContent({ ...startUpObj, languageCode });
+    });
   };
 };
 
@@ -169,22 +257,22 @@ export const logUserOut = () => {
       // dispatch(s(null))
     });
 };
-export const setAdminPortalBooleanAction = (payload =false) => {
+export const setAdminPortalBooleanAction = (payload = false) => {
   return { type: SET_IS_ADMIN_PORTAL, payload };
 };
-export const setMassEnergizeUsersAction = (payload =[]) => {
+export const setMassEnergizeUsersAction = (payload = []) => {
   return { type: SET_MASSENERGISE_USERS, payload };
 };
 
-export const setCampaignCommunityEventsAction = (payload =[]) => {
+export const setCampaignCommunityEventsAction = (payload = []) => {
   return { type: SET_CAMPAIGN_COMMUNITIES_EVENTS, payload };
 };
-export const setCampaignCommentsAction = (payload =[]) => {
+export const setCampaignCommentsAction = (payload = []) => {
   return { type: SET_CAMPAIGN_COMMENTS, payload };
 };
-export const setCampaignTestimonialsAction = (payload =[]) => {
+export const setCampaignTestimonialsAction = (payload = []) => {
   return { type: SET_CAMPAIGN_TESTIMONIALS, payload };
 };
-export const setPortalTestimonialsAction = (payload =[]) => {
+export const setPortalTestimonialsAction = (payload = []) => {
   return { type: SET_PORTAL_TESTIMONIALS, payload };
 };

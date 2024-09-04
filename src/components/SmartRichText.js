@@ -2,7 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 
 const DEFAULT_MAX = 150;
 const PADDING = 15;
-function SmartRichText({ text, richText, children, maxHeight = DEFAULT_MAX, style, renderSeeMore, className }) {
+function SmartRichText({
+  text,
+  richText,
+  children,
+  maxHeight = DEFAULT_MAX,
+  style,
+  renderSeeMore,
+  className,
+  seeMoreText,
+  seeLessText,
+}) {
   const ref = useRef();
   const [stashedHeight, setStashedHeight] = useState(0);
   const [displayHeight, setDisplayHeight] = useState(maxHeight);
@@ -43,7 +53,7 @@ function SmartRichText({ text, richText, children, maxHeight = DEFAULT_MAX, styl
         }}
         onClick={() => toggleReadMore()}
       >
-        {inFullView ? "See Less" : "See More..."}
+        {inFullView ? seeLessText || "See Less..." : seeMoreText || "See More..."}
       </small>
     );
   };

@@ -3,7 +3,22 @@ import { useNavigate } from "react-router-dom";
 import { formatDate, formatTime, smartString } from "../../../utils/utils";
 import { Col, Row } from "react-bootstrap";
 
-function EventBox({ event, campaign_technology }) {
+const ONLINE = "online";
+const IN_PERSON = "in person";
+const BOTH = "both";
+export const translatedEventType = (eventType, staticT) => {
+  if (eventType === ONLINE) {
+    return staticT?.card?.online?.text || "Online";
+  }
+  if (eventType === IN_PERSON) {
+    return staticT?.card?.in_person?.text || "In Person";
+  }
+  if (eventType === BOTH) {
+    return staticT?.card?.in_person?.text || "In Person";
+  }
+  return eventType;
+};
+function EventBox({ event, campaign_technology, staticT }) {
   const { campaign } = campaign_technology || {};
 
   const { name, image, start_date, end_date, id, event_type } = event || {};
@@ -19,7 +34,13 @@ function EventBox({ event, campaign_technology }) {
         {image?.url ? (
           <img
             className={"rounded-3 w-100 cursor-pointer"}
-            style={{ height: 180, objectFit: "contain", borderRadius: 5, background:'grey', backgroundColor:'#f8f8f8' }}
+            style={{
+              height: 180,
+              objectFit: "contain",
+              borderRadius: 5,
+              background: "grey",
+              backgroundColor: "#f8f8f8",
+            }}
             src={image?.url}
             alt={"event"}
             role={"button"}
@@ -52,7 +73,7 @@ function EventBox({ event, campaign_technology }) {
         <Row>
           <Col className={"pe-0"}>
             <p className="text-sm fw-medium text-accent mb-0">
-              <span>{event_type}</span>
+              <span>{translatedEventType(event_type, staticT)}</span>
             </p>
           </Col>
         </Row>

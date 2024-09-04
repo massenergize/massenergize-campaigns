@@ -2,7 +2,9 @@ import { combineReducers } from "redux";
 import {
   adminPortalReducer,
   authenticatedAdminReducer,
-  campaignAccountReducer, campaignCommentsReducer, CampaignCommunitiesEventsReducer,
+  campaignAccountReducer,
+  campaignCommentsReducer,
+  CampaignCommunitiesEventsReducer,
   campaignInformationReducer,
   campaignTestimonialsReducer,
   commentsListReducer,
@@ -12,11 +14,19 @@ import {
   fullTechnologiesReducer,
   massEnergizeUsersReducer,
   navigationMenuReducer,
+  offeredLanguagesReducer,
+  setActiveLanguageReducer,
   setPortalTestimonialsReducer,
+  staticTextHeapReducer,
   testimonialsListReducer,
   testimonialsReducer,
   universalModalReducer,
-  userObjectReducer
+  userObjectReducer,
+  reducerForCampaignOfferedLanguages,
+  reducerForSettingUserNotification,
+  reducerForSettingNotificationBlanket,
+  reducerForSettingUserLanguageList,
+
 } from "./reducers";
 import { loadCampaignInformation } from "../actions/actions";
 
@@ -35,8 +45,15 @@ export default combineReducers({
   campaignAccount: campaignAccountReducer,
   isAdminPortal: adminPortalReducer,
   massUsers: massEnergizeUsersReducer,
-  communitiesEvents:CampaignCommunitiesEventsReducer,
-  campaignComments: campaignCommentsReducer, 
-  campaignTestimonials:campaignTestimonialsReducer, 
-  portalTestimonials: setPortalTestimonialsReducer
+  communitiesEvents: CampaignCommunitiesEventsReducer,
+  campaignComments: campaignCommentsReducer,
+  campaignTestimonials: campaignTestimonialsReducer,
+  portalTestimonials: setPortalTestimonialsReducer,
+  languageList: offeredLanguagesReducer,
+  staticTextHeap: staticTextHeapReducer,
+  activeLanguage: setActiveLanguageReducer,
+  campaignOfferedLanguages: reducerForCampaignOfferedLanguages,
+  blanketNotification: reducerForSettingNotificationBlanket,
+  usersListOfLanguages: reducerForSettingUserLanguageList,
+
 });

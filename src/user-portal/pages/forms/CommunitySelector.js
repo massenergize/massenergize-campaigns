@@ -3,11 +3,15 @@ import { COMMUNITY_LIST } from "../../data/user-portal-dummy-data";
 import { Form, InputGroup } from "react-bootstrap";
 import { connect } from "react-redux";
 import { sortByProperty } from "src/utils/utils";
+import { getStaticText } from "src/redux/actions/actions";
 
 export const OTHER = "other";
 export const OTHER_JSON = { name: OTHER, id: OTHER };
 
 function CommunitySelector({ onChange, communities, data, readOnly }) {
+  const { modals } = getStaticText();
+
+  const staticT = modals?.community_selection || {};
   const [state, setState] = useState({});
   data = data || {};
 
@@ -28,7 +32,7 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
 
   return (
     <div>
-      <Form.Text className="small-font">What community do you live in?</Form.Text>
+      <Form.Text className="small-font">{staticT?.selection_label?.text || "What community do you live in?"}</Form.Text>
       {/* <p>Please tell us where you are from (Editable)</p> */}
       <Form
         className="m-2 pb-2"
@@ -71,7 +75,7 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
               cursor: "pointer",
             }}
           >
-            {OTHER}
+            {staticT?.other?.text || OTHER}
           </Form.Check.Label>
         </Form.Check>
       </Form>
@@ -79,10 +83,12 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
         <>
           <div>
             <InputGroup className="mb-3">
-              <InputGroup.Text id="basic-addon1">Community Name</InputGroup.Text>
+              <InputGroup.Text id="basic-addon1">
+                {staticT?.form?.community_name?.text || "Community Name"}
+              </InputGroup.Text>
               <Form.Control
                 type="text"
-                placeholder="What community do you live in?"
+                placeholder={staticT?.form?.community_name?.placeholder || "What community do you live in?"}
                 aria-label="text"
                 aria-describedby="basic-addon1"
                 onChange={(e) => {
@@ -95,12 +101,12 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
           </div>
 
           <div>
-            <Form.Text>Enter your zip code (Editable)</Form.Text>
+            <Form.Text>{staticT?.form?.zipcode?.label || "Enter your zip code (Editable)"}</Form.Text>
             <InputGroup className="mb-3 mt-2">
-              <InputGroup.Text id="basic-addon1">Zip Code</InputGroup.Text>
+              <InputGroup.Text id="basic-addon1">{staticT?.form?.zipcode?.text || "Zip Code"}</InputGroup.Text>
               <Form.Control
                 type="text"
-                placeholder="Enter zip code here..."
+                placeholder={staticT?.form?.zipcode?.placeholder || "Enter zip code here..."}
                 aria-label="zipcode"
                 aria-describedby="basic-addon1"
                 maxLength={5}

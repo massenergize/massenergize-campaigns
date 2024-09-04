@@ -8,9 +8,13 @@ import { useMediaQuery } from "react-responsive";
 import { generateUniqueRandomString } from "../../../utils/utils";
 import URLS from "../../../api/urls";
 import CONFIG from "../../../config/config.json";
+import { getStaticText } from "../../../redux/actions/actions";
 
 const EXCLUDED_FOOTER_MENU_KEYS = ["deals", "vendors"];
-function Footer({ toggleModal, campaign, authUser }) {
+export const TRANSLATION_HELPERS_LINK =
+  "https://docs.google.com/forms/d/1ay2paNG3x_gZL8hhzmghIYSEuHDA_I4MRZJf7cEt_00/viewform?edit_requested=true";
+function Footer({ toggleModal, campaign, authUser, staticT }) {
+  const { footer } = getStaticText();
   const navigator = useNavigate();
   const { navigation, newsletter_section: customization, communities } = campaign || {};
   const { user } = authUser || {};
@@ -59,16 +63,24 @@ function Footer({ toggleModal, campaign, authUser }) {
     toggleModal({
       show: true,
       component: (props) => (
-        <JoinUsForm {...(props || {})} confirmText="Subscribe" callbackOnSubmit={({ close }) => close && close()} />
+        <JoinUsForm
+          {...(props || {})}
+          confirmText={footer?.modal?.ok?.text || "Subscribe"}
+          callbackOnSubmit={({ close }) => close && close()}
+        />
       ),
-      title: `Follow ${campaign?.title}` || "...",
+      title: `${footer?.modal?.title?.prefix || "Follow"} ${campaign?.title}` || "...",
       fullControl: true,
     });
   };
-
   if (isMobile)
     return (
-      <MobileFooter signUpForNewsletter={signUpForNewsletter} renderMenus={renderMenus} customization={customization} />
+      <MobileFooter
+        staticT={footer}
+        signUpForNewsletter={signUpForNewsletter}
+        renderMenus={renderMenus}
+        customization={customization}
+      />
     );
   return (
     <div
@@ -92,10 +104,10 @@ function Footer({ toggleModal, campaign, authUser }) {
           <Col lg={{ span: 6, offset: 3 }}>
             {/* We should be able to change this part tooo from the admin portal */}
             <h4 className="subheader-font" style={{ color: "white" }}>
-              {customization?.title || "Newsletter"}
+              {customization?.title ||footer?.header?.title?.text||"Newsletter"}
             </h4>
             <p className="body-font" style={{ color: "white" }}>
-              {customization?.description || "Sign up for email updates with the latest info on events and incentives!"}
+              {customization?.description ||footer?.header?.description?.text || "Sign up for email updates with the latest info on events and incentives!"}
             </p>
             <Button
               className=" touchable-opacity"
@@ -104,6 +116,7 @@ function Footer({ toggleModal, campaign, authUser }) {
                 borderWidth: 0,
                 padding: "8px 30px",
                 marginTop: 15,
+                marginBottom: 15,
                 borderRadius: 5,
                 fontWeight: "bold",
                 width: "100%",
@@ -111,7 +124,7 @@ function Footer({ toggleModal, campaign, authUser }) {
               }}
               onClick={() => signUpForNewsletter()}
             >
-              Subscribe to our Newsletter
+              {footer?.news_letter?.subscribe_button?.text || " Subscribe to our Newsletter"}
             </Button>
             {user?.email && (
               <p
@@ -124,12 +137,18 @@ function Footer({ toggleModal, campaign, authUser }) {
               >
                 <i>
                   {" "}
-                  You've already subscribed with <b style={{}}>'{user?.email || ""}' </b>
+                  {footer?.news_letter?.subscribe_message?.text || "You've already subscribed with"}{" "}
+                  <b style={{}}>'{user?.email || ""}' </b>
                 </i>
               </p>
             )}
+
+            <a target="_blank" href={TRANSLATION_HELPERS_LINK} style={{ margin: "10px 0px", fontWeight: "bold" }}>
+              <small style={{ color: "white" }}>{footer?.help_us_translate?.text|| "Would you like to help translate this site?"}</small>
+            </a>
           </Col>
-          <small style={{ color: "white", fontWeight: "bold", width: "100%", opacity:.6 }}>
+
+          <small style={{ color: "white", fontWeight: "bold", width: "100%", opacity: 0.6 }}>
             Build Version {CONFIG.BUILD_VERSION}
           </small>
         </Container>
@@ -147,7 +166,7 @@ function Footer({ toggleModal, campaign, authUser }) {
           <Row>
             <Col lg={{ span: 9, offset: 1 }} style={{}}>
               <h4 className="subheader-font" style={{ color: "white" }}>
-                Quick Links
+                {footer?.quick_links?.text || " Quick Links"}
               </h4>
               <ul
                 style={{
@@ -176,7 +195,7 @@ const mapState = (state) => {
 };
 export default connect(mapState)(Footer);
 
-const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
+const MobileFooter = ({ signUpForNewsletter, renderMenus, customization, staticT }) => {
   return (
     <div style={{ minHeight: 250, margin: 0 }}>
       <div
@@ -189,10 +208,10 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
         }}
       >
         <h5 className="subheader-font" style={{ color: "white" }}>
-          {customization?.title || "Newsletter"}
+          {customization?.title|| staticT?.header?.title?.text || "Newsletter"}
         </h5>
         <p className="body-font" style={{ color: "white" }}>
-          {customization?.description || "Sign up for email updates with the latest info on events and incentives!"}
+          {customization?.description ||staticT?.header?.description?.text || "Sign up for email updates with the latest info on events and incentives!"}
         </p>
         <Button
           className="elevate-float-pro touchable-opacity"
@@ -208,9 +227,21 @@ const MobileFooter = ({ signUpForNewsletter, renderMenus, customization }) => {
           }}
           onClick={() => signUpForNewsletter()}
         >
-          Subscribe
+          {staticT?.subscribe_button?.text || " Subscribe"}
         </Button>
-        <small style={{ marginTop: 15, color: "white", fontWeight: "bold", width: "100%", textAlign: "center", opacity:.6 }}>
+        <a target="_blank" href={TRANSLATION_HELPERS_LINK} style={{ margin: "10px 0px " }}>
+          <small style={{ color: "white" }}>{staticT?.help_us_translate?.text || "Would you like to help translate this site?"}</small>
+        </a>
+        <small
+          style={{
+            marginTop: 15,
+            color: "white",
+            fontWeight: "bold",
+            width: "100%",
+            textAlign: "center",
+            opacity: 0.6,
+          }}
+        >
           Build Version {CONFIG.BUILD_VERSION}
         </small>
       </div>
