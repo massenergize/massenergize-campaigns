@@ -49,6 +49,7 @@ function JoinUsForm({
   const makeNotification = (message, good = false) => {
     setError({ message, good });
   };
+
   const joinUs = () => {
     if (onConfirm) return onConfirm({ data: form, close });
     // if (authUser) return alert("You've already followed. Thank you very much!");
