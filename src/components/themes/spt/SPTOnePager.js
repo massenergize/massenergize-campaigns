@@ -1,5 +1,6 @@
 import React from "react";
 import SPTHero from "./components/SPTHero";
+import HelpBanner from "./components/HelpBanner";
 
 function SPTOnePager() {
   return (
@@ -60,7 +61,7 @@ function SPTOnePager() {
 
               <div
                 style={{
-                  padding: "10px 15px",
+                  padding: "8px 25px",
                   background: "rgba(255, 132, 71, 1)",
                   // fontWeight: "bold",
                   borderRadius: 4,
@@ -81,6 +82,11 @@ function SPTOnePager() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/*  --- Help Area -----*/}
+      <div style={{ marginTop: 40, padding: "0% 7%" }}>
+        <HelpBanner />
       </div>
     </div>
   );
