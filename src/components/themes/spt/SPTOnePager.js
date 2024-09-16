@@ -1,7 +1,8 @@
 import React from "react";
 import SPTHero from "./components/SPTHero";
 import HelpBanner from "./components/HelpBanner";
-
+import CustomAccordion from "../../admin-components/CustomAccordion";
+import { ACCORDION_SECTIONS, FAQS } from "../../themes/spt/SPTConstants";
 function SPTOnePager() {
   return (
     <div>
@@ -83,10 +84,102 @@ function SPTOnePager() {
           </div>
         </div>
       </div>
+      {/* ------ FAQS----------- */}
+
+      <div style={{ marginTop: 40, padding: "0% 7%" }}>
+        {ACCORDION_SECTIONS.map((section, index) => {
+          return (
+            <div key={index} style={{ marginBottom: 10 }}>
+              <CustomAccordion
+                renderHeader={({ opened, setOpen }) => {
+                  return (
+                    <div
+                      // className="touchable-opacity"
+                      onClick={() => setOpen(!opened)}
+                      style={{ width: "100%", height: "100%", padding: "10px 20px" }}
+                    >
+                      <h4 style={{ margin: 0, fontWeight: "normal" }}>{section?.title}</h4>
+                    </div>
+                  );
+                }}
+                elevate={false}
+                radius={6}
+                title={section.title}
+                key={index}
+                component={<p>{section.description}</p>}
+                isOpen={index === 0}
+              />
+            </div>
+          );
+        })}
+      </div>
 
       {/*  --- Help Area -----*/}
       <div style={{ marginTop: 40, padding: "0% 7%" }}>
         <HelpBanner />
+      </div>
+
+      {/* ------ Our Partners ------- */}
+
+      <div style={{ padding: "0% 7%", margin: "40px 0px " }}>
+        <h1>Our Partners</h1>
+        <div
+          style={{
+            paddingTop: 40,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+          }}
+        >
+          {[2, 3, 4, 5].map((item) => {
+            return (
+              <img
+                //placeholder image
+                src="https://via.placeholder.com/280"
+                alt="Community Solar"
+                style={{ flexBasis: "23%", objectFit: "cover", height: 100 }}
+              />
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ------------ Events --------- */}
+      <div style={{ marginTop: 40, padding: "0% 7%" }}>
+        <h1>Events</h1>
+        <div></div>
+      </div>
+      {/* ------------ Frequently Asked Questions --------- */}
+      <div style={{ marginTop: 40, padding: "2% 7%", background: "rgba(236, 254, 255, 1)" }}>
+        <h1 style={{ marginBottom: 40 }}>Frequently Asked Questions</h1>
+        <div>
+          {FAQS.map((section, index) => {
+            return (
+              <div key={index} style={{ marginBottom: 10 }}>
+                <CustomAccordion
+                  renderHeader={({ opened, setOpen }) => {
+                    return (
+                      <div
+                        // className="touchable-opacity"
+                        onClick={() => setOpen(!opened)}
+                        style={{ width: "100%", height: "100%", padding: "10px 20px" }}
+                      >
+                        <h4 style={{ margin: 0, fontWeight: "normal" }}>{section?.title}</h4>
+                      </div>
+                    );
+                  }}
+                  elevate={false}
+                  radius={6}
+                  title={section.title}
+                  key={index}
+                  component={<p>{section.description}</p>}
+                  isOpen={index === 0}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

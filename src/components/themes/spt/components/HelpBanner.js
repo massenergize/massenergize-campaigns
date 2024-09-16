@@ -4,7 +4,7 @@ function HelpBanner() {
   return (
     <div
       style={{
-        padding: "20px 25px",
+        padding: "10px 25px",
         display: "flex",
         flexDirection: "row",
         border: "solid 1px #efefef",
