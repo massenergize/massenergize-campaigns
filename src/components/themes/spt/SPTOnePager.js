@@ -181,6 +181,48 @@ function SPTOnePager() {
           })}
         </div>
       </div>
+
+      {/* --------------------- Footer -------------------- */}
+
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <div
+          className=""
+          style={{
+            padding: "0% 7%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            background: "rgba(0, 58, 68, 1)",
+            height: 300,
+            width: "75%",
+          }}
+        >
+          <h1 style={{ color: "white", fontSize: 50, fontWeight: "normal", width: "70%" }}>
+            Chat or text with our ambassadors{" "}
+          </h1>
+
+          <div
+            style={{
+              padding: "8px 25px",
+              background: "rgba(255, 132, 71, 1)",
+              // fontWeight: "bold",
+              borderRadius: 4,
+              width: "fit-content",
+              marginTop: 10,
+              color: "white",
+            }}
+          >
+            Email Us!
+          </div>
+        </div>
+        <div className="" style={{ width: "25%" }}>
+          <img
+            alt="Supporting Footer Media"
+            src="https://via.placeholder.com/80"
+            style={{ height: 300, width: "100%", background: "blue", objectFit: "cover" }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
