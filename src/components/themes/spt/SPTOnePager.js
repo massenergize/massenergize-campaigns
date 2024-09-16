@@ -76,7 +76,7 @@ function SPTOnePager() {
             </div>
             <div className="col-md-6">
               <img
-                src="https://www.massenergize.org/wp-content/uploads/2023/12/pexels-pixabay-433308-scaled.jpg"
+                src="https://massenergize-prod-files.s3.amazonaws.com/media/crowd-of-people-marching-on-a-rally-2975498.jpg"
                 alt="Community Solar"
                 style={{ width: "100%", height: "100%", borderRadius: 20 }}
               />
@@ -197,7 +197,7 @@ function SPTOnePager() {
             width: "75%",
           }}
         >
-          <h1 style={{ color: "white", fontSize: 50, fontWeight: "normal", width: "70%" }}>
+          <h1 style={{ color: "white", fontSize: 45, fontWeight: "normal", width: "67%" }}>
             Chat or text with our ambassadors{" "}
           </h1>
 
@@ -218,7 +218,7 @@ function SPTOnePager() {
         <div className="" style={{ width: "25%" }}>
           <img
             alt="Supporting Footer Media"
-            src="https://via.placeholder.com/80"
+            src="https://massenergize-prod-files.s3.amazonaws.com/media/crowd-of-people-marching-on-a-rally-2975498.jpg"
             style={{ height: 300, width: "100%", background: "blue", objectFit: "cover" }}
           />
         </div>
