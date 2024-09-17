@@ -3,6 +3,8 @@ import SPTHero from "./components/SPTHero";
 import HelpBanner from "./components/HelpBanner";
 import CustomAccordion from "../../admin-components/CustomAccordion";
 import { ACCORDION_SECTIONS, FAQS } from "../../themes/spt/SPTConstants";
+import SPTAboutSection from "./components/SPTAboutSection";
+import SPTGoalSections from "./components/SPTGoalSections";
 function SPTOnePager() {
   return (
     <div>
@@ -19,89 +21,18 @@ function SPTOnePager() {
       </div>
 
       {/* About Community Solar */}
-      <div style={{ padding: "0% 7%" }}>
-        <div style={{ border: "solid 1px #f3f3f3", borderRadius: 20, padding: 70, minHeight: 400 }}>
-          <div className="row">
-            <div className="col-md-6">
-              <img
-                src="https://www.massenergize.org/wp-content/uploads/2023/12/pexels-pixabay-433308-scaled.jpg"
-                alt="Community Solar"
-                style={{ width: "100%", height: "100%", borderRadius: 20 }}
-              />
-            </div>
-            <div className="col-md-6" style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-              <h1>What's Community Solar?</h1>
-              <p>
-                Community solar is a solar power plant whose electricity is shared by more than one household. It is a
-                way for people to have access to solar energy even if they cannot or prefer not to install solar panels
-                on their property. Community solar is also known as shared solar or solar gardens.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <SPTAboutSection />
       {/*  Our Goals */}
-      <div style={{ padding: "0% 7%", marginTop: 40 }}>
-        <div
-          style={{
-            background: "#dfeef08c",
-            border: "solid 1px #f3f3f3",
-            borderRadius: 20,
-            padding: 70,
-            minHeight: 400,
-          }}
-        >
-          <div className="row">
-            <div className="col-md-6" style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-              <h1>What is our goal?</h1>
-              <p>
-                Community solar is a solar power plant whose electricity is shared by more than one household. It is a
-                way for people to have access to solar energy even if they cannot or prefer not to install solar panels
-                on their property. Community solar is also known as shared solar or solar gardens.
-              </p>
-
-              <div
-                style={{
-                  padding: "8px 25px",
-                  background: "rgba(255, 132, 71, 1)",
-                  // fontWeight: "bold",
-                  borderRadius: 4,
-                  width: "fit-content",
-                  marginTop: 10,
-                  color: "white",
-                }}
-              >
-                Sign up now!
-              </div>
-            </div>
-            <div className="col-md-6">
-              <img
-                src="https://massenergize-prod-files.s3.amazonaws.com/media/crowd-of-people-marching-on-a-rally-2975498.jpg"
-                alt="Community Solar"
-                style={{ width: "100%", height: "100%", borderRadius: 20 }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <SPTGoalSections />
       {/* ------ FAQS----------- */}
-
       <div style={{ marginTop: 40, padding: "0% 7%" }}>
         {ACCORDION_SECTIONS.map((section, index) => {
           return (
             <div key={index} style={{ marginBottom: 10 }}>
               <CustomAccordion
-                renderHeader={({ opened, setOpen }) => {
-                  return (
-                    <div
-                      // className="touchable-opacity"
-                      onClick={() => setOpen(!opened)}
-                      style={{ width: "100%", height: "100%", padding: "10px 20px" }}
-                    >
-                      <h4 style={{ margin: 0, fontWeight: "normal" }}>{section?.title}</h4>
-                    </div>
-                  );
-                }}
+                renderHeader={({ opened, setOpen }) => (
+                  <AccordionTitle section={section} setOpen={setOpen} opened={opened} />
+                )}
                 elevate={false}
                 radius={6}
                 title={section.title}
@@ -158,17 +89,9 @@ function SPTOnePager() {
             return (
               <div key={index} style={{ marginBottom: 10 }}>
                 <CustomAccordion
-                  renderHeader={({ opened, setOpen }) => {
-                    return (
-                      <div
-                        // className="touchable-opacity"
-                        onClick={() => setOpen(!opened)}
-                        style={{ width: "100%", height: "100%", padding: "10px 20px" }}
-                      >
-                        <h4 style={{ margin: 0, fontWeight: "normal" }}>{section?.title}</h4>
-                      </div>
-                    );
-                  }}
+                  renderHeader={({ opened, setOpen }) => (
+                    <AccordionTitle section={section} setOpen={setOpen} opened={opened} />
+                  )}
                   elevate={false}
                   radius={6}
                   title={section.title}
@@ -228,3 +151,23 @@ function SPTOnePager() {
 }
 
 export default SPTOnePager;
+
+const AccordionTitle = ({ section, setOpen, opened }) => {
+  return (
+    <div
+      // className="touchable-opacity"
+      onClick={() => setOpen(!opened)}
+      style={{
+        width: "100%",
+        height: "100%",
+        padding: "10px 20px",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+      }}
+    >
+      <h4 style={{ margin: 0, fontWeight: "normal" }}>{section?.title} </h4>
+      <i className="fa fa-plus" style={{ marginLeft: "auto" }} />
+    </div>
+  );
+};

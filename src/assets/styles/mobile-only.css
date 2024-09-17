@@ -1,4 +1,18 @@
 @media only screen and (max-width: 767px) {
+  /* -- SPT THEME ---- */
+
+  .spt-section-style {
+    padding: 40px;
+    min-height: 200px;
+  }
+  .spt-section-margin-top {
+    margin-top: 20px;
+  }
+  .spt-body-font {
+    font-size: 1rem;
+  }
+
+  /* ------------------ */
   .phone-vanish {
     display: none !important;
   }
@@ -193,16 +207,16 @@
     font-size: var(--app-mobile-small-font);
   }
 
-  .nav-top-margin { 
+  .nav-top-margin {
     margin-top: 75px;
   }
 
   /* ---------------------------- END OF PHONE SPECIFIC STYLES ----------- */
 }
 
-@media screen and (max-width: 576px){
-  .app-nav-bar{
-    .navbar-collapse.show{
+@media screen and (max-width: 576px) {
+  .app-nav-bar {
+    .navbar-collapse.show {
       /*min-height: 650px;*/
       /* set the height to the available viewport height */
       height: 100vh;
@@ -217,7 +231,7 @@
         min-width: 250px;
       }
 
-      &::after{
+      &::after {
         display: none !important;
       }
     }
