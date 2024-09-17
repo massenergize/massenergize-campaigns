@@ -6,14 +6,20 @@ body {
 }
 
 /* -- SPT THEME ---- */
+
+.spt-acc-t-opened {
+  background-color: var(--spt-main-color);
+  color: white;
+}
 .spt-acc-title {
   width: 100%;
   height: 100%;
-
   display: flex;
   flex-direction: row;
   align-items: center;
   cursor: pointer;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .spt-acc-title h4 {

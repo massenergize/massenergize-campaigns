@@ -139,7 +139,7 @@ function SPTOnePager() {
             Email Us!
           </div>
         </div>
-        <div className="" style={{ width: "25%" }}>
+        <div className="phone-vanish" style={{ width: "25%" }}>
           <img
             alt="Supporting Footer Media"
             src="https://massenergize-prod-files.s3.amazonaws.com/media/crowd-of-people-marching-on-a-rally-2975498.jpg"
@@ -157,18 +157,8 @@ const AccordionTitle = ({ section, setOpen, opened }) => {
   return (
     <div
       // className="touchable-opacity"
-      className="spt-acc-title"
+      className={`spt-acc-title ${opened ? "spt-acc-t-opened" : ""}`}
       onClick={() => setOpen(!opened)}
-      style={
-        {
-          // width: "100%",
-          // height: "100%",
-          // padding: "10px 20px",
-          // display: "flex",
-          // flexDirection: "row",
-          // alignItems: "center",
-        }
-      }
     >
       <h4 style={{ margin: 0, fontWeight: "normal" }}>{section?.title} </h4>
       <i className="fa fa-plus" style={{ marginLeft: "auto" }} />
