@@ -6,7 +6,27 @@ body {
 }
 
 /* -- SPT THEME ---- */
+.spt-acc-title {
+  width: 100%;
+  height: 100%;
 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+
+.spt-acc-title h4 {
+  font-weight: normal;
+  margin: 0;
+}
+.spt-get-help {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid rgb(239, 239, 239);
+  border-radius: 10px;
+  align-items: center;
+}
 .spt-goal-section {
   background: antiquewhite;
 }
@@ -44,6 +64,16 @@ body {
   /* font-weight: bold; */
   cursor: pointer;
   width: fit-content;
+}
+
+.spt-btn-outline {
+  margin-bottom: 5px;
+  background: white;
+  border: 1px solid rgb(255, 132, 71);
+  color: rgb(255, 132, 71);
+  border-radius: 4px;
+  width: auto;
+  margin-top: 10px;
 }
 
 /* ------------------ */

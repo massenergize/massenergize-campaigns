@@ -3,7 +3,28 @@
 }
 @media only screen and (min-width: 768px) {
   /* -- SPT THEME ---- */
-  .spt-section-style { 
+
+  .spt-acc-title { 
+    padding: 10px 20px;
+  }
+  .spt-btn-outline {
+    padding: 7px 25px;
+  }
+  .spt-get-help h5 {
+    font-weight: bold;
+  }
+  .spt-get-help p {
+    width: 70%;
+  }
+  .spt-get-help img {
+    width: 80px;
+    border-radius: 100%;
+    margin-right: 20px;
+  }
+  .spt-get-help {
+    padding: 10px 25px;
+  }
+  .spt-section-style {
     padding: 60px;
     min-height: 400px;
   }

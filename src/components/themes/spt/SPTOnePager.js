@@ -10,6 +10,7 @@ function SPTOnePager() {
     <div>
       <SPTHero />
       <div
+        className="phone-vanish"
         style={{ padding: 20, display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}
       >
         <div style={{ padding: "15px 20px", background: "antiquewhite", borderRadius: 5 }}>
@@ -37,7 +38,7 @@ function SPTOnePager() {
                 radius={6}
                 title={section.title}
                 key={index}
-                component={<p>{section.description}</p>}
+                component={<p className="spt-body-font">{section.description}</p>}
                 isOpen={index === 0}
               />
             </div>
@@ -96,7 +97,7 @@ function SPTOnePager() {
                   radius={6}
                   title={section.title}
                   key={index}
-                  component={<p>{section.description}</p>}
+                  component={<p className="spt-body-font">{section.description}</p>}
                   isOpen={index === 0}
                 />
               </div>
@@ -156,15 +157,18 @@ const AccordionTitle = ({ section, setOpen, opened }) => {
   return (
     <div
       // className="touchable-opacity"
+      className="spt-acc-title"
       onClick={() => setOpen(!opened)}
-      style={{
-        width: "100%",
-        height: "100%",
-        padding: "10px 20px",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-      }}
+      style={
+        {
+          // width: "100%",
+          // height: "100%",
+          // padding: "10px 20px",
+          // display: "flex",
+          // flexDirection: "row",
+          // alignItems: "center",
+        }
+      }
     >
       <h4 style={{ margin: 0, fontWeight: "normal" }}>{section?.title} </h4>
       <i className="fa fa-plus" style={{ marginLeft: "auto" }} />

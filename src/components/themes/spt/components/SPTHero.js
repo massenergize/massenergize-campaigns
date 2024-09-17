@@ -11,7 +11,7 @@ function SPTHero() {
           <div className="intro">
             <h6>SAVE MONEY WITH CLEAN ENERGY</h6>
             <h1>Solar Para Todos</h1>
-            <p>
+            <p className="spt-body-font">
               Connect to a community solar garden near you to unlock reliable savings and support and support a clean
               energy future
             </p>
