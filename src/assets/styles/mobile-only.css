@@ -1,25 +1,58 @@
 @media only screen and (max-width: 767px) {
   /* -- SPT THEME ---- */
 
-
-  .spt-acc-title { 
+  .spt-mobile-section-t {
+    font-weight: normal;
+    font-size: 1.65rem;
+    text-align: center;
+    width: 80%;
+  }
+  .mobile-margin {
+    margin: var(--my-custom-margin);
+  }
+  .spt-flex-column-m {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .spt-section .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .spt-section .img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    height: 150px;
+  }
+  .spt-section-padding {
+    padding: 0% 3%;
+  }
+  .spt-hero .intro {
+    padding: 10% 7%;
+  }
+  .spt-acc-title {
     padding: 10px 20px;
   }
   .spt-get-help p {
     width: 100%;
   }
-  .spt-get-help{ 
+  .spt-get-help {
     padding: 10px 25px;
   }
   .spt-section-style {
-    padding: 40px;
-    min-height: 200px;
+    border: solid 0px white;
+    padding: 10px;
+    border-radius: 10px;
   }
   .spt-section-margin-top {
     margin-top: 20px;
   }
   .spt-body-font {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   /* ------------------ */

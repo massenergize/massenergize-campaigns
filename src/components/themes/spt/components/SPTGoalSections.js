@@ -1,6 +1,16 @@
 import React from "react";
 
 function SPTGoalSections() {
+  const renderImage = () => {
+    return (
+      <img
+        className="img"
+        src="https://massenergize-prod-files.s3.amazonaws.com/media/crowd-of-people-marching-on-a-rally-2975498.jpg"
+        alt="Community Solar"
+        // style={{ width: "100%", height: "100%", borderRadius: 20 }}
+      />
+    );
+  };
   return (
     <div className="spt-section-padding spt-section-margin-top">
       <div
@@ -14,8 +24,17 @@ function SPTGoalSections() {
         // }}
       >
         <div className="row" style={{ flexDirection: "row" }}>
-          <div className="col-md-6" style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-            <h1>What is our goal?</h1>
+          <div
+            className="col-md-6 pc-vanish spt-flex-column-m mobile-margin"
+            style={{ marginLeft: "auto", display: "flex", alignItems: "center", "--my-custom-margin": "15px 0px" }}
+          >
+            {renderImage()}
+          </div>
+          <div
+            className="col-md-6 spt-flex-column-m"
+            style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}
+          >
+            <h1 className="spt-mobile-section-t">What is our goal?</h1>
             <p className="spt-body-font">
               Community solar is a solar power plant whose electricity is shared by more than one household. It is a way
               for people to have access to solar energy even if they cannot or prefer not to install solar panels on
@@ -36,13 +55,8 @@ function SPTGoalSections() {
               Sign up now!
             </div>
           </div>
-          <div className="col-md-6" style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
-            <img
-              className="img"
-              src="https://massenergize-prod-files.s3.amazonaws.com/media/crowd-of-people-marching-on-a-rally-2975498.jpg"
-              alt="Community Solar"
-              // style={{ width: "100%", height: "100%", borderRadius: 20 }}
-            />
+          <div className="col-md-6 phone-vanish" style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
+            {renderImage()}
           </div>
         </div>
       </div>
