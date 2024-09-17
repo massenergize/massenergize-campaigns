@@ -11,13 +11,14 @@ function SPTHero() {
           <div className="intro">
             <h6>SAVE MONEY WITH CLEAN ENERGY</h6>
             <h1>Solar Para Todos</h1>
-            <p className="spt-body-font">
+            <p className="spt-body-font ">
               Connect to a community solar garden near you to unlock reliable savings and support and support a clean
               energy future
             </p>
 
-            <div className="spt-btn touchable-opacity">
-              See if you qualify <i style={{ marginLeft: 8 }} className="fa fa-long-arrow-right"></i>
+            <div className="spt-btn touchable-opacity custom-margin">
+              See if you qualify{" "}
+              <i style={{ marginLeft: 8, "--my-pc-custom-margin": "30px 0px" }} className="fa fa-long-arrow-right"></i>
             </div>
           </div>
         </div>

@@ -23,7 +23,7 @@ body {
 }
 
 .spt-acc-title h4 {
-  font-weight: normal;
+  /* font-weight: normal; */
   margin: 0;
 }
 .spt-get-help {
@@ -64,11 +64,11 @@ body {
   background-color: var(--spt-accent-2);
   color: white;
   border: 0px;
-  padding: 10px 25px;
   border-radius: 5px;
   /* font-weight: bold; */
   cursor: pointer;
-  width: fit-content;
+  /* width: fit-content; */
+  text-align: center;
 }
 
 .spt-btn-outline {

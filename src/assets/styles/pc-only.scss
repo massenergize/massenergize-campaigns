@@ -4,8 +4,36 @@
 @media only screen and (min-width: 768px) {
   /* -- SPT THEME ---- */
 
+  .custom-margin { 
+    margin: var(--my-custom-margin);
+  }
+  .spt-footer h1 {
+    color: white;
+    font-size: 45px;
+    font-weight: normal;
+    width: 67%;
+  }
+  .spt-footer {
+    background-color: var(--spt-main-color);
+    width: 75%;
+    color: white;
+    padding: 0% 7%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .spt-acc-title h4 {
+    font-weight: normal;
+  }
   .spt-acc-title {
     padding: 10px 20px;
+  }
+
+  .spt-btn {
+    padding: 10px 25px;
+    font-weight: bold;
+    width: fit-content;
   }
   .spt-btn-outline {
     padding: 7px 25px;
@@ -25,7 +53,6 @@
     padding: 10px 25px;
   }
   .spt-section-style {
-    
     border-radius: 20px;
     padding: 60px;
     min-height: 400px;

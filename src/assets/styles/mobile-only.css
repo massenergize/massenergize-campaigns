@@ -1,14 +1,45 @@
 @media only screen and (max-width: 767px) {
   /* -- SPT THEME ---- */
 
+
+  
+  .spt-footer h1 {
+    color: white;
+    font-size: 25px;
+    font-weight: normal;
+    width: 87%;
+  }
+  .spt-footer {
+    background-color: var(--spt-main-color);
+    color: white;
+    width: 100%;
+    padding: 3% 3%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+  }
+  .spt-btn {
+    padding: 7px 25px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .mobile-padding {
+    padding: var(--my-custom-padding) !important;
+  }
+
   .spt-mobile-section-t {
     font-weight: normal;
     font-size: 1.65rem;
     text-align: center;
     width: 80%;
   }
+  .mobile-width {
+    width: var(--my-custom-width) !important;
+  }
   .mobile-margin {
-    margin: var(--my-custom-margin);
+    margin: var(--my-custom-margin) !important;
   }
   .spt-flex-column-m {
     display: flex;
@@ -36,6 +67,11 @@
   }
   .spt-acc-title {
     padding: 10px 20px;
+  }
+
+  .spt-acc-title h4 {
+    font-size: 0.9rem;
+    font-weight: normal;
   }
   .spt-get-help p {
     width: 100%;

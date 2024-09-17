@@ -25,8 +25,14 @@ function SPTGoalSections() {
       >
         <div className="row" style={{ flexDirection: "row" }}>
           <div
-            className="col-md-6 pc-vanish spt-flex-column-m mobile-margin"
-            style={{ marginLeft: "auto", display: "flex", alignItems: "center", "--my-custom-margin": "15px 0px" }}
+            className="col-md-6 pc-vanish spt-flex-column-m mobile-margin mobile-padding"
+            style={{
+              marginLeft: "auto",
+              display: "flex",
+              alignItems: "center",
+              "--my-custom-margin": "15px 0px",
+              "--my-custom-padding": "0px",
+            }}
           >
             {renderImage()}
           </div>
@@ -42,15 +48,21 @@ function SPTGoalSections() {
             </p>
 
             <div
+              className="spt-btn mobile-width mobile-margin custom-margin"
               style={{
-                padding: "8px 25px",
-                background: "rgba(255, 132, 71, 1)",
-                // fontWeight: "bold",
-                borderRadius: 4,
-                width: "fit-content",
-                marginTop: 10,
-                color: "white",
+                "--my-custom-width": "100%",
+                "--my-custom-margin": "10px 0px",
+                "--my-pc-custom-margin": "30px 0px",
               }}
+              // style={{
+              //   padding: "8px 25px",
+              //   background: "rgba(255, 132, 71, 1)",
+              //   // fontWeight: "bold",
+              //   borderRadius: 4,
+              //   width: "fit-content",
+              //   marginTop: 10,
+              //   color: "white",
+              // }}
             >
               Sign up now!
             </div>

@@ -5,6 +5,7 @@ import CustomAccordion from "../../admin-components/CustomAccordion";
 import { ACCORDION_SECTIONS, FAQS } from "../../themes/spt/SPTConstants";
 import SPTAboutSection from "./components/SPTAboutSection";
 import SPTGoalSections from "./components/SPTGoalSections";
+import SPTFooter from "./components/SPTFooter";
 function SPTOnePager() {
   return (
     <div>
@@ -26,7 +27,7 @@ function SPTOnePager() {
       {/*  Our Goals */}
       <SPTGoalSections />
       {/* ------ FAQS----------- */}
-      <div style={{ marginTop: 40, padding: "0% 7%" }}>
+      <div className="spt-section-padding spt-section-margin-top">
         {ACCORDION_SECTIONS.map((section, index) => {
           return (
             <div key={index} style={{ marginBottom: 10 }}>
@@ -108,45 +109,7 @@ function SPTOnePager() {
 
       {/* --------------------- Footer -------------------- */}
 
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <div
-          className=""
-          style={{
-            padding: "0% 7%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            background: "rgba(0, 58, 68, 1)",
-            height: 300,
-            width: "75%",
-          }}
-        >
-          <h1 style={{ color: "white", fontSize: 45, fontWeight: "normal", width: "67%" }}>
-            Chat or text with our ambassadors{" "}
-          </h1>
-
-          <div
-            style={{
-              padding: "8px 25px",
-              background: "rgba(255, 132, 71, 1)",
-              // fontWeight: "bold",
-              borderRadius: 4,
-              width: "fit-content",
-              marginTop: 10,
-              color: "white",
-            }}
-          >
-            Email Us!
-          </div>
-        </div>
-        <div className="phone-vanish" style={{ width: "25%" }}>
-          <img
-            alt="Supporting Footer Media"
-            src="https://massenergize-prod-files.s3.amazonaws.com/media/crowd-of-people-marching-on-a-rally-2975498.jpg"
-            style={{ height: 300, width: "100%", background: "blue", objectFit: "cover" }}
-          />
-        </div>
-      </div>
+    <SPTFooter />
     </div>
   );
 }
@@ -160,7 +123,7 @@ const AccordionTitle = ({ section, setOpen, opened }) => {
       className={`spt-acc-title ${opened ? "spt-acc-t-opened" : ""}`}
       onClick={() => setOpen(!opened)}
     >
-      <h4 style={{ margin: 0, fontWeight: "normal" }}>{section?.title} </h4>
+      <h4>{section?.title} </h4>
       <i className="fa fa-plus" style={{ marginLeft: "auto" }} />
     </div>
   );
