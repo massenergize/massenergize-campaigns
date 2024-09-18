@@ -4,6 +4,11 @@
 @media only screen and (min-width: 768px) {
   /* -- SPT THEME ---- */
 
+  .spt-hero-media-area {
+    height: 100%;
+    position: relative;
+    background-color: var(--spt-main-color);
+  }
   .spt-about-chip {
     padding: 7px 15px;
     margin: 4px;

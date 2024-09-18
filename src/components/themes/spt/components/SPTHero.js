@@ -42,8 +42,8 @@ function SPTHero() {
           </div>
         </div>
 
-        <div className="col-md-4" style={{ background: "var(--spt-main-color)" }}>
-          <div style={{ position: "relative", height: "100$" }}>
+        <div className="col-md-4 " style={{ background: "var(--spt-main-color)" }}>
+          <div className="spt-hero-media-area">
             <ReactPlayer
               volume={0}
               muted={true}
