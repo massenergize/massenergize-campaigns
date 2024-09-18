@@ -145,10 +145,10 @@ const ROUTE_TABLE = [
     path: "/admin/campaign/languages/add",
     component: AddOfferedLanguages,
   },
-  {
-    path: "/campaign/theme/spt",
-    component: SPTOnePager,
-  },
+  // {
+  //   path: "/campaign/theme/spt",
+  //   component: SPTOnePager,
+  // },
   {
     path: "/dummy-for-auth",
     component: Dummy,

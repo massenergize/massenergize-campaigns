@@ -8,7 +8,10 @@ import SPTGoalSections from "./components/SPTGoalSections";
 import SPTFooter from "./components/SPTFooter";
 import SPTSectionTitle from "./components/SPTSectionTitle";
 import SPTEventsSections from "./components/SPTEventsSections";
+import { useSelector } from "react-redux";
 function SPTOnePager() {
+  const campaign = useSelector((state) => state.campaign);
+  console.log("lets see campaign", campaign);
   return (
     <div>
       <SPTHero />

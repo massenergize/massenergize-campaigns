@@ -31,6 +31,7 @@ import ShareBox from "../sharing/ShareBox";
 import Hero from "../banner/Hero";
 import { useMediaQuery } from "react-responsive";
 import BlanketNotification from "../../../components/pieces/BlanketNotification";
+import SPTOnePager from "../../../components/themes/spt/SPTOnePager";
 
 function LandingPage({
   toggleModal,
@@ -185,6 +186,8 @@ function LandingPage({
       </Container>
     );
 
+  const themeIsSPT = campaign?.theme === "spt";
+  if (true) return <SPTOnePager />;
   return (
     <div style={{}}>
       <div ref={homeRef}></div>
