@@ -457,3 +457,19 @@ export async function fetchAllCampaignComments(campaign_id, url = "campaigns.com
     handleRequestError(e, "FETCH_ALL_COMMENTS_OF_CAMPAIGN");
   }
 }
+
+
+export async function deleteCallToAction(id, url = "call.to.action.delete") {
+    try {
+      console.log("Deleting CTA lll", id);
+        const response = await apiCall(url, { id:id }, null);
+
+        if (!response || !response?.success) {
+        handleRequestError(response?.error, "DELETE_CALL_TO_ACTION_BE");
+        }
+
+        return response?.data;
+    } catch (e) {
+        handleRequestError(e, "DELETE_CALL_TO_ACTION");
+    }
+}

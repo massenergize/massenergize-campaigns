@@ -1614,3 +1614,10 @@ export const monthsOfYear = [
 ];
 
 export const MOBILE_WIDTH = 768;
+
+export const MULTI_TECHNOLOGY_CAMPAIGN = "MULTI_TECHNOLOGY_CAMPAIGN";
+export const SINGLE_TECHNOLOGY_CAMPAIGN_SPT = "SINGLE_TECHNOLOGY_CAMPAIGN_SPT";
+export const CAMPAIGN_TEMPLATES =[
+  {key:MULTI_TECHNOLOGY_CAMPAIGN, value:"Multi Technology Campaign"},
+  {key:SINGLE_TECHNOLOGY_CAMPAIGN_SPT, value:"Single Technology Campaign SPT"},
+]
