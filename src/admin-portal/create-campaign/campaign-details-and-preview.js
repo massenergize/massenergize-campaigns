@@ -19,15 +19,6 @@ export function CampaignDetailsAndPreview({ setStep }) {
     handleCampaignDetailsChange: setCampaignDetails,
   } = useCampaignContext();
 
-
-  const getCampaignTabs = (template_key, pages)=>{
-    if(template_key===SINGLE_TECHNOLOGY_CAMPAIGN_SPT) {
-      let namesToExclude = ["Communities", "Testimonials", "Comments"];
-      return pages.filter(page => !namesToExclude.includes(page.name));
-    }
-    else return pages;
-  }
-
   return (
     <>
       <Row className="justify-content-between mb-4 mt-4">
@@ -55,7 +46,7 @@ export function CampaignDetailsAndPreview({ setStep }) {
           <Row className="pb-2 overflow-x-auto">
             <Col className={"px-4"}>
               <div className="nav-tabs-container">
-                {getCampaignTabs(campaignDetails?.template_key,campaignPages)?.map((page) => (
+                {campaignPages?.map((page) => (
                   <div
                     key={page?.name}
                     className={classes("nav-tabs-main tab", { "tab-active": activeTab === page?.name })}

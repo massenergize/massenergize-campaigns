@@ -202,7 +202,6 @@ export function StartCampaign ({ step, setStep, }) {
 
                     </Col>
                 </Row>
-                {campaignDetails?.template_key === MULTI_TECHNOLOGY_CAMPAIGN &&(
                     <Row className="py-4">
                       <Col>
                         <FormLabel>Choose one or more communities for your campaign from the dropdown below.</FormLabel>
@@ -222,7 +221,6 @@ export function StartCampaign ({ step, setStep, }) {
                         />
                       </Col>
                     </Row>
-                )}
 
                 <Row>
                   <Col className={"d-"}>
