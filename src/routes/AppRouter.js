@@ -160,11 +160,6 @@ function AppRouter({
   testFunction,
   modalOptions,
   toggleModal,
-  appInnit,
-  fetchMassenergizeUser,
-  logUserOut,
-  init,
-  campaign,
   isAdminPortal,
   // navigation,
 }) {

@@ -8,12 +8,28 @@ import SPTGoalSections from "./components/SPTGoalSections";
 import SPTFooter from "./components/SPTFooter";
 import SPTSectionTitle from "./components/SPTSectionTitle";
 import SPTEventsSections from "./components/SPTEventsSections";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { loadActiveLanguageAction, setActiveLanguageInStorage } from "../../../redux/actions/actions";
+
+const LANGUAGE_LIST = [
+  { name: "English", code: "en-US" },
+  { name: "Español", code: "es-ES" },
+  { name: "Portuguese", code: "pt-BR" },
+];
+
 function SPTOnePager() {
+  const dispatch = useDispatch();
+  const activeLanguage = useSelector((state) => state.activeLanguage);
   const campaign = useSelector((state) => state.campaign);
   const technology = (campaign?.technologies || [])[0];
   const goal_section = campaign?.goal_section;
   console.log("lets see campaign", campaign);
+
+  const setActiveLanguage = (lang, reload = true) => {
+    setActiveLanguageInStorage(lang);
+    dispatch(loadActiveLanguageAction(lang));
+    if (reload) window.location.reload();
+  };
   return (
     <div>
       <SPTHero campaign={campaign} />
@@ -21,18 +37,19 @@ function SPTOnePager() {
         className="phone-vanish"
         style={{ padding: 20, display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}
       >
-        <div
-          className="s-touchable-opacity"
-          style={{ padding: "15px 20px", background: "rgba(223, 238, 240, 1)", borderRadius: 5 }}
-        >
-          <h4 style={{ margin: 0 }}>Español</h4>
-        </div>
-        <div
-          className="s-touchable-opacity"
-          style={{ padding: "15px 20px", marginLeft: 10, background: "rgba(223, 238, 240, 1)", borderRadius: 5 }}
-        >
-          <h4 style={{ margin: 0 }}>Portuguese</h4>
-        </div>
+        {LANGUAGE_LIST.map((lang, index) => {
+          if (lang?.code === activeLanguage) return null;
+          return (
+            <div
+              key={index}
+              onClick={() => setActiveLanguage(lang.code)}
+              className="s-touchable-opacity"
+              style={{ marginRight: 8, padding: "15px 20px", background: "rgba(223, 238, 240, 1)", borderRadius: 5 }}
+            >
+              <h4 style={{ margin: 0 }}>{lang.name}</h4>
+            </div>
+          );
+        })}
       </div>
 
       {/* About Community Solar */}
