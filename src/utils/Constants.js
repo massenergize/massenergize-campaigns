@@ -7,6 +7,7 @@ import Incentives from "../admin-portal/create-campaign/create-technology/Incent
 import Info from "../admin-portal/create-campaign/create-technology/Info";
 import Vendors from "../admin-portal/create-campaign/create-technology/Vendors";
 import TechnologyDeals from "../admin-portal/create-campaign/create-technology/TechnologyDeals";
+import Faqs from "../admin-portal/create-campaign/create-technology/faqs";
 import CampaignTestimonials from "../admin-portal/create-campaign/CampaignTestimonials";
 import CampaignComments from "../admin-portal/create-campaign/CampaignComments";
 import CampaignCommunities from "../admin-portal/create-campaign/CampaignCommunities";
@@ -81,11 +82,15 @@ export const technologyPages = [
     key: "deals",
     component: TechnologyDeals,
   },
+  {
+    name: "FAQs",
+    component: Faqs,
+  }
   // ===== DON'T DELETE THIS COMMENTED CODE =====
   // its a future feature
   // {
   //   name: "Actions To Take",
-  //   key: "actions-to-take",  
+  //   key: "actions-to-take",
   //   component: TechnologyActions,
   // },
   // ====================================

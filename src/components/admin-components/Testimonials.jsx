@@ -84,18 +84,9 @@ const Testimonials = ({ campaign, onModalClose, startOfPage, updateTestimonial }
         ...formData,
         is_published: formData?.is_published ? true : false,
       };
+
       if (userType === USER_TYPES.MYSELF) {
         toSend.user_id = loggedInUser?.id;
-      }
-
-      if (!validateEmail(toSend?.email)) {
-        setLoading(false);
-        return pop({
-          title: "Error",
-          message: "Please enter a valid email",
-          type: "error",
-          duration: 5000,
-        });
       }
 
       const createdTestimonial = await createCampaignTestimonial(toSend);
@@ -142,7 +133,7 @@ const Testimonials = ({ campaign, onModalClose, startOfPage, updateTestimonial }
               <Col>
                 <Input
                   label="Title"
-                  placeholder="Enter name of partner here..."
+                  placeholder="Enter testimonial title here..."
                   required={true}
                   type="textbox"
                   onChange={(val) => {
