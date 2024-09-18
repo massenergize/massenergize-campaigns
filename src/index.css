@@ -7,6 +7,16 @@ body {
 
 /* -- SPT THEME ---- */
 
+.spt-about-chip i {
+  color: #7eba7e;
+}
+.spt-about-chip {
+  border: solid 1px #f2f2f2;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .s-touchable-opacity {
   cursor: pointer;
 }

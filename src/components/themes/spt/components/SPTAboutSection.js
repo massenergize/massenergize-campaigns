@@ -27,6 +27,16 @@ function SPTAboutSection() {
               for people to have access to solar energy even if they cannot or prefer not to install solar panels on
               their property. Community solar is also known as shared solar or solar gardens.
             </p>
+            <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+              {[3, 4, 5, 3, 2, 2, 3, 4].map((item, index) => {
+                return (
+                  <div key={index} className="spt-about-chip">
+                    <i className=" fa fa-check-circle" />
+                    <span>No Upfront Costs {item}</span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

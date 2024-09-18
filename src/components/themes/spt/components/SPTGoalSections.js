@@ -46,6 +46,7 @@ function SPTGoalSections() {
               for people to have access to solar energy even if they cannot or prefer not to install solar panels on
               their property. Community solar is also known as shared solar or solar gardens.
             </p>
+            
 
             <div
               className="spt-btn mobile-width mobile-margin custom-margin"
@@ -54,15 +55,6 @@ function SPTGoalSections() {
                 "--my-custom-margin": "10px 0px",
                 "--my-pc-custom-margin": "30px 0px",
               }}
-              // style={{
-              //   padding: "8px 25px",
-              //   background: "rgba(255, 132, 71, 1)",
-              //   // fontWeight: "bold",
-              //   borderRadius: 4,
-              //   width: "fit-content",
-              //   marginTop: 10,
-              //   color: "white",
-              // }}
             >
               Sign up now!
             </div>

@@ -4,6 +4,16 @@
 @media only screen and (min-width: 768px) {
   /* -- SPT THEME ---- */
 
+  .spt-about-chip {
+    padding: 7px 15px;
+    margin: 4px;
+  }
+
+  .spt-about-chip i {
+    margin-right: 8px;
+    font-size: 20px;
+  }
+
   .play-btn {
     font-size: 90px;
     margin-bottom: 10px;
