@@ -177,8 +177,8 @@ function Info({
            component={<SectionForm
           section="more_info_section"
           data={techObject?.more_info_section || {}}
-          updateTechObject={(more_info_section) => updateTechObject(more_info_section)}
-          tech_id={tech_id}
+          updateExistingObject={(more_info_section) => updateTechObject(more_info_section)}
+          item_id={tech_id}
         />}
         isOpen={openAccordion}
         onClick={() => setOpenAccordion(!openAccordion)}
