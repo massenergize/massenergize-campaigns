@@ -7,6 +7,7 @@ import SPTAboutSection from "./components/SPTAboutSection";
 import SPTGoalSections from "./components/SPTGoalSections";
 import SPTFooter from "./components/SPTFooter";
 import SPTSectionTitle from "./components/SPTSectionTitle";
+import SPTEventsSections from "./components/SPTEventsSections";
 function SPTOnePager() {
   return (
     <div>
@@ -87,11 +88,8 @@ function SPTOnePager() {
       </div>
 
       {/* ------------ Events --------- */}
-      <div style={{ marginTop: 40, padding: "0% 7%" }}>
-        <SPTSectionTitle>Events</SPTSectionTitle>
-        {/* <h1>Events</h1> */}
-        <div></div>
-      </div>
+      <SPTEventsSections />
+
       {/* ------------ Frequently Asked Questions --------- */}
       <div style={{ marginTop: 40, padding: "2% 7%", background: "rgba(236, 254, 255, 1)" }}>
         {/* <h1 >Frequently Asked Questions</h1> */}

@@ -15,13 +15,6 @@ function SPTGoalSections() {
     <div className="spt-section-padding spt-section-margin-top">
       <div
         className="spt-goal-section spt-section-style spt-section"
-        // style={{
-        //   background: "#dfeef08c",
-        //   border: "solid 1px #f3f3f3",
-        //   borderRadius: 20,
-        //   padding: 70,
-        //   minHeight: 400,
-        // }}
       >
         <div className="row" style={{ flexDirection: "row" }}>
           <div
