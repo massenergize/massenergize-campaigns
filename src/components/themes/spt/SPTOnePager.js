@@ -15,10 +15,16 @@ function SPTOnePager() {
         className="phone-vanish"
         style={{ padding: 20, display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}
       >
-        <div style={{ padding: "15px 20px", background: "antiquewhite", borderRadius: 5 }}>
+        <div
+          className="s-touchable-opacity"
+          style={{ padding: "15px 20px", background: "antiquewhite", borderRadius: 5 }}
+        >
           <h4 style={{ margin: 0 }}>Español</h4>
         </div>
-        <div style={{ padding: "15px 20px", marginLeft: 10, background: "antiquewhite", borderRadius: 5 }}>
+        <div
+          className="s-touchable-opacity"
+          style={{ padding: "15px 20px", marginLeft: 10, background: "antiquewhite", borderRadius: 5 }}
+        >
           <h4 style={{ margin: 0 }}>Portuguese</h4>
         </div>
       </div>

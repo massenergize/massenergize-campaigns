@@ -5,7 +5,7 @@ function SPTHero() {
     <div>
       <div className="row spt-hero">
         <div
-          className="col-md-7 hero-container "
+          className="col-md-8 hero-container "
           // style={{ height: 400, background: "rgba(0, 58, 68, 1)", color: "white" }}
         >
           <div className="intro">
@@ -23,7 +23,36 @@ function SPTHero() {
           </div>
         </div>
 
-        <div className="col-md-5" style={{ background: "blue" }}></div>
+        <div className="col-md-4" style={{ background: "var(--spt-main-color)" }}>
+          <div style={{ position: "relative" }}>
+            <img
+              alt="Supporting Hero Media"
+              src="https://massenergize-prod-files.s3.amazonaws.com/media/crowd-of-people-marching-on-a-rally-2975498.jpg"
+              style={{ height: 400, width: "100%", background: "blue", objectFit: "cover" }}
+            />
+            <div className="spt-hero-overlay">
+              <div className="spt-overlay-content soc">
+                <div className="play-btn s-touchable-opacity">
+                  <i className="fa fa-play-circle" />
+                </div>
+
+                <div className="bottom-content">
+                  <p style={{ textAlign: "center" }}>Learn how community solar works</p>
+                  <div className=" row-on-pc-col-on-mobile c-align-items-center">
+                    <div className="p-button s-touchable-opacity">
+                      <i className=" fa fa-play" /> Watch in Espaniol{" "}
+                      <i className="fa fa-angle-right" style={{ marginLeft: 10 }} />
+                    </div>
+                    <div className="p-button s-touchable-opacity">
+                      <i className=" fa fa-play" /> Watch in Portuguese{" "}
+                      <i className="fa fa-angle-right" style={{ marginLeft: 10 }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

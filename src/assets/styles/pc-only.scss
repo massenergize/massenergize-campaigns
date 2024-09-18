@@ -4,6 +4,31 @@
 @media only screen and (min-width: 768px) {
   /* -- SPT THEME ---- */
 
+  .play-btn {
+    font-size: 90px;
+    margin-bottom: 10px;
+  }
+  .p-button {
+    padding: 10px 20px;
+    margin: 0px 4px;
+  }
+  .c-align-items-center {
+    align-items: center;
+  }
+  .c-justify-content-center {
+    justify-content: center;
+  }
+  .col-on-pc-row-on-mobile {
+    display: flex;
+    flex-direction: column;
+  }
+  .row-on-pc-col-on-mobile {
+    display: flex;
+    flex-direction: row;
+  }
+  .spt-overlay-content {
+    padding: 30px;
+  }
   .smart-width {
     width: var(--smart-width) !important;
   }
@@ -43,7 +68,6 @@
   }
   .spt-btn-outline {
     padding: 7px 25px;
-
   }
   .spt-get-help h5 {
     font-weight: bold;
