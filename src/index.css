@@ -9,6 +9,8 @@ body {
 
 .spt-media-player {
   height: 360px;
+  background-color: #383838;
+  overflow-y: hidden;
   /* width: 100%; */
 }
 .spt-about-chip i {

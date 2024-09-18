@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { toggleUniversalModal } from "../../../../redux/actions/actions";
 import SPTMediaPlayer from "./SPTMediaPlayer";
+import ReactPlayer from "react-player";
 function SPTHero() {
   const dispatch = useDispatch();
   const toggleModal = (props) => dispatch(toggleUniversalModal(props));
@@ -9,13 +10,13 @@ function SPTHero() {
   const closeModal = () => {
     toggleModal({ show: false });
   };
-  const openVideoModal = (props) => {
+  const openVideoModal = (url, lang) => {
     toggleModal({
       show: true,
       fullControl: true,
       noHeader: true,
       title: "Learn how community solar works",
-      component: () => <SPTMediaPlayer close={closeModal} />,
+      component: () => <SPTMediaPlayer close={closeModal} url={url} language={lang} />,
     });
   };
 
@@ -42,26 +43,40 @@ function SPTHero() {
         </div>
 
         <div className="col-md-4" style={{ background: "var(--spt-main-color)" }}>
-          <div style={{ position: "relative" }}>
-            <img
-              alt="Supporting Hero Media"
-              src="https://massenergize-prod-files.s3.amazonaws.com/media/crowd-of-people-marching-on-a-rally-2975498.jpg"
-              style={{ height: 400, width: "100%", background: "blue", objectFit: "cover" }}
+          <div style={{ position: "relative", height: "100$" }}>
+            <ReactPlayer
+              volume={0}
+              muted={true}
+              loop={true}
+              playing={true}
+              url={"https://www.youtube.com/watch?v=Yxt72aDjFgY"}
+              height={"100%"}
+              width={"100%"}
             />
+
             <div className="spt-hero-overlay">
               <div className="spt-overlay-content soc">
-                <div className="play-btn s-touchable-opacity">
+                <div
+                  className="play-btn s-touchable-opacity"
+                  onClick={() => openVideoModal("https://www.youtube.com/watch?v=lT6GJxcG-RM", "en")}
+                >
                   <i className="fa fa-play-circle" />
                 </div>
 
                 <div className="bottom-content">
                   <p style={{ textAlign: "center" }}>Learn how community solar works</p>
                   <div className=" row-on-pc-col-on-mobile c-align-items-center">
-                    <div className="p-button s-touchable-opacity" onClick={() => openVideoModal({ lang: "ES" })}>
+                    <div
+                      className="p-button s-touchable-opacity"
+                      onClick={() => openVideoModal("https://www.youtube.com/watch?v=4lGsFUVJv3Q", "es")}
+                    >
                       <i className=" fa fa-play" /> Watch in Español{" "}
                       <i className="fa fa-angle-right" style={{ marginLeft: 10 }} />
                     </div>
-                    <div className="p-button s-touchable-opacity">
+                    <div
+                      className="p-button s-touchable-opacity"
+                      onClick={() => openVideoModal("https://www.youtube.com/watch?v=tzdTcXhbpQ0", "br")}
+                    >
                       <i className=" fa fa-play" /> Watch in Portuguese{" "}
                       <i className="fa fa-angle-right" style={{ marginLeft: 10 }} />
                     </div>
