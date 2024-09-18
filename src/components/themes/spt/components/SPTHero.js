@@ -3,7 +3,10 @@ import { useDispatch } from "react-redux";
 import { toggleUniversalModal } from "../../../../redux/actions/actions";
 import SPTMediaPlayer from "./SPTMediaPlayer";
 import ReactPlayer from "react-player";
-function SPTHero() {
+import { smartString } from "../../../../utils/utils";
+import { toSentenceCase } from "../../../../helpers/utils/string";
+function SPTHero({ campaign }) {
+  const { title, description, tagline } = campaign || {};
   const dispatch = useDispatch();
   const toggleModal = (props) => dispatch(toggleUniversalModal(props));
 
@@ -28,8 +31,9 @@ function SPTHero() {
           // style={{ height: 400, background: "rgba(0, 58, 68, 1)", color: "white" }}
         >
           <div className="intro">
-            <h6>SAVE MONEY WITH CLEAN ENERGY</h6>
-            <h1>Solar Para Todos</h1>
+            <h6 style={{ textTransform: "uppercase" }}>{tagline || "..."}</h6>
+            <h1>{toSentenceCase(title) || "..."}</h1>
+            {/* <p className="spt-body-font " dangerouslySetInnerHTML={{ __html: smartString(description, 105) }}></p> */}
             <p className="spt-body-font ">
               Connect to a community solar garden near you to unlock reliable savings and support and support a clean
               energy future

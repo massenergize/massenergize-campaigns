@@ -32,6 +32,7 @@ import Hero from "../banner/Hero";
 import { useMediaQuery } from "react-responsive";
 import BlanketNotification from "../../../components/pieces/BlanketNotification";
 import SPTOnePager from "../../../components/themes/spt/SPTOnePager";
+import { CAMPAIGN_TEMPLATE_KEYS } from "../../../utils/Values";
 
 function LandingPage({
   toggleModal,
@@ -186,7 +187,7 @@ function LandingPage({
       </Container>
     );
 
-  const themeIsSPT = campaign?.theme === "spt";
+  const themeIsSPT = campaign?.template_key === CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT;
   if (true) return <SPTOnePager />;
   return (
     <div style={{}}>

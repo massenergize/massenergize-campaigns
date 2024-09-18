@@ -11,32 +11,34 @@ import SPTEventsSections from "./components/SPTEventsSections";
 import { useSelector } from "react-redux";
 function SPTOnePager() {
   const campaign = useSelector((state) => state.campaign);
+  const technology = (campaign?.technologies || [])[0];
+  const goal_section = campaign?.goal_section;
   console.log("lets see campaign", campaign);
   return (
     <div>
-      <SPTHero />
+      <SPTHero campaign={campaign} />
       <div
         className="phone-vanish"
         style={{ padding: 20, display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}
       >
         <div
           className="s-touchable-opacity"
-          style={{ padding: "15px 20px", background: "antiquewhite", borderRadius: 5 }}
+          style={{ padding: "15px 20px", background: "rgba(223, 238, 240, 1)", borderRadius: 5 }}
         >
           <h4 style={{ margin: 0 }}>Español</h4>
         </div>
         <div
           className="s-touchable-opacity"
-          style={{ padding: "15px 20px", marginLeft: 10, background: "antiquewhite", borderRadius: 5 }}
+          style={{ padding: "15px 20px", marginLeft: 10, background: "rgba(223, 238, 240, 1)", borderRadius: 5 }}
         >
           <h4 style={{ margin: 0 }}>Portuguese</h4>
         </div>
       </div>
 
       {/* About Community Solar */}
-      <SPTAboutSection />
+      <SPTAboutSection technology={technology} />
       {/*  Our Goals */}
-      <SPTGoalSections />
+      <SPTGoalSections technology={technology} section={goal_section} />
       {/* ------ FAQS----------- */}
       <div className="spt-section-padding spt-section-margin-top">
         {ACCORDION_SECTIONS.map((section, index) => {
@@ -91,7 +93,7 @@ function SPTOnePager() {
       </div>
 
       {/* ------------ Events --------- */}
-      <SPTEventsSections />
+      <SPTEventsSections campaign={campaign} technology={technology} />
 
       {/* ------------ Frequently Asked Questions --------- */}
       <div style={{ marginTop: 40, padding: "2% 7%", background: "rgba(236, 254, 255, 1)" }}>

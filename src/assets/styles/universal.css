@@ -48,6 +48,7 @@ body {
   --spt-main-color: rgb(0, 58, 68);
   --spt-accent-1: rgb(236, 254, 255);
   --spt-accent-2: rgb(255, 132, 71);
+  --spt-accent-3: rgba(223, 238, 240, 1);
   --spt-body-font: 1.2rem;
 }
 

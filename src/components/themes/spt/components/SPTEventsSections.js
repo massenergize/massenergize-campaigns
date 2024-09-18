@@ -4,8 +4,12 @@ import { ArrowButtons } from "../../../pieces/ArrowButtons";
 import { Col, Row } from "react-bootstrap";
 import EventBox from "../../../../user-portal/pages/events/EventBox";
 
-function SPTEventsSections() {
+function SPTEventsSections({ campaign, technology }) {
   const containerRef = useRef();
+  const { technologies } = campaign || {};
+  // const tech = (technologies || [])[0];
+  const { events } = technology || {};
+  console.log("SEE TECH", events);
 
   return (
     <div className="spt-section-padding spt-section-margin-top">
@@ -19,10 +23,10 @@ function SPTEventsSections() {
         />
       </div>
       <Row ref={containerRef} style={{ flexWrap: "nowrap", overflowX: "auto", overflowY: "hidden" }}>
-        {[3, 4, 5, 6, 7, 5].map((event) => {
+        {events?.map((event, index) => {
           return (
-            <Col key={event} xs={12} md={4} xl={3}>
-              <EventBox />
+            <Col key={event?.id || index?.toString()} xs={12} md={4} xl={3}>
+              <EventBox {...event} />
             </Col>
           );
         })}

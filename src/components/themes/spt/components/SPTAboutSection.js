@@ -1,6 +1,9 @@
 import React from "react";
+import { smartString } from "../../../../utils/utils";
 
-function SPTAboutSection() {
+function SPTAboutSection({ technology }) {
+  const { name, description, summary, deals } = technology || {};
+
   return (
     <div className="spt-section-padding spt-section mobile-margin" style={{ "--my-custom-margin": "20px 0px" }}>
       <div className="spt-section-style">
@@ -21,18 +24,14 @@ function SPTAboutSection() {
             className="col-md-6 spt-flex-column-m "
             style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}
           >
-            <h1 className="spt-mobile-section-t">What's Community Solar?</h1>
-            <p className="spt-body-font">
-              Community solar is a solar power plant whose electricity is shared by more than one household. It is a way
-              for people to have access to solar energy even if they cannot or prefer not to install solar panels on
-              their property. Community solar is also known as shared solar or solar gardens.
-            </p>
+            <h1 className="spt-mobile-section-t">{name}</h1>
+            <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: summary }}></div>
             <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
-              {[3, 4, 5, 3, 2, 2, 3, 4].map((item, index) => {
+              {deals?.map((deal, index) => {
                 return (
                   <div key={index} className="spt-about-chip">
                     <i className=" fa fa-check-circle" />
-                    <span>No Upfront Costs {item}</span>
+                    <span>{deal?.title}</span>
                   </div>
                 );
               })}

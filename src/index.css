@@ -98,7 +98,7 @@ body {
   align-items: center;
 }
 .spt-goal-section {
-  background: antiquewhite;
+  background: var(--spt-accent-3);
 }
 .spt-section-style {
   border: 1px solid rgb(243, 243, 243);
@@ -122,6 +122,7 @@ body {
 .spt-hero .intro h1 {
   color: white;
   font-weight: normal;
+  text-transform: capitalize;
 }
 
 .spt-btn {
