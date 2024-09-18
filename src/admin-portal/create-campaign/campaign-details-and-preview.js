@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { campaignPages } from "../../utils/Constants";
+import {campaignPages, MULTI_TECHNOLOGY_CAMPAIGN, SINGLE_TECHNOLOGY_CAMPAIGN_SPT} from "../../utils/Constants";
 import { Button, ButtonGroup, Col, Row } from "react-bootstrap";
 import classes from "classnames";
 import LandingPage from "../../user-portal/pages/landing-page/LandingPage";

@@ -10,7 +10,6 @@ import { Button, Col, Row } from "react-bootstrap";
 import * as PropTypes from "prop-types";
 import { loadActiveLanguageAction } from "../../redux/actions/actions";
 import LanguageSelector from "../language/LanguageSelector";
-import { PLATFORM } from "../../api/urls";
 
 const EXCLUDE_FROM_NAV = ["communities"];
 
@@ -178,7 +177,8 @@ function AppNavigationBar({ menu, campaign }) {
               </Col>
             </Row>
 
-            {PLATFORM?.toUpperCase() !== "PRODUCTION" && <LanguageSelector />}
+
+            <LanguageSelector />
             {/* <div
               className="touchable-opacity"
               style={{

@@ -226,8 +226,8 @@ function Coaches({
             <SectionForm
               section="coaches_section"
               data={techObject?.coaches_section}
-              updateTechObject={updateTechObject}
-              tech_id={tech_id}
+              updateExistingObject={updateTechObject}
+              item_id={tech_id}
             />
           }
           isOpen={openAccordion}
