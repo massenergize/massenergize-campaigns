@@ -177,6 +177,7 @@ function AppNavigationBar({ menu, campaign }) {
               </Col>
             </Row>
 
+
             <LanguageSelector />
             {/* <div
               className="touchable-opacity"

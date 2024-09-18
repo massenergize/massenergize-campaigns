@@ -8,6 +8,7 @@ export default function MeModal({ children, title, open, onHide, size = "lg", ..
         <Modal.Title className={"text-sm"}>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body style={props?.style ||{}}>{children}</Modal.Body>
+
     </Modal>
   );
 }
