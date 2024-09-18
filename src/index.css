@@ -7,6 +7,10 @@ body {
 
 /* -- SPT THEME ---- */
 
+.spt-media-player {
+  height: 360px;
+  /* width: 100%; */
+}
 .spt-about-chip i {
   color: #7eba7e;
 }

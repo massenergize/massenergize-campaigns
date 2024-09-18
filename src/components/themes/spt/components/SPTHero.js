@@ -1,6 +1,24 @@
 import React from "react";
-
+import { useDispatch } from "react-redux";
+import { toggleUniversalModal } from "../../../../redux/actions/actions";
+import SPTMediaPlayer from "./SPTMediaPlayer";
 function SPTHero() {
+  const dispatch = useDispatch();
+  const toggleModal = (props) => dispatch(toggleUniversalModal(props));
+
+  const closeModal = () => {
+    toggleModal({ show: false });
+  };
+  const openVideoModal = (props) => {
+    toggleModal({
+      show: true,
+      fullControl: true,
+      noHeader: true,
+      title: "Learn how community solar works",
+      component: () => <SPTMediaPlayer close={closeModal} />,
+    });
+  };
+
   return (
     <div>
       <div className="row spt-hero">
@@ -39,8 +57,8 @@ function SPTHero() {
                 <div className="bottom-content">
                   <p style={{ textAlign: "center" }}>Learn how community solar works</p>
                   <div className=" row-on-pc-col-on-mobile c-align-items-center">
-                    <div className="p-button s-touchable-opacity">
-                      <i className=" fa fa-play" /> Watch in Espaniol{" "}
+                    <div className="p-button s-touchable-opacity" onClick={() => openVideoModal({ lang: "ES" })}>
+                      <i className=" fa fa-play" /> Watch in Español{" "}
                       <i className="fa fa-angle-right" style={{ marginLeft: 10 }} />
                     </div>
                     <div className="p-button s-touchable-opacity">

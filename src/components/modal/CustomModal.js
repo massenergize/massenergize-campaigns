@@ -17,6 +17,7 @@ function CustomModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       style={styles}
       {...(modalNativeProps || {})}
+      
     >
       <SmartHeader {...props} />
       {fullControl ? (
@@ -33,7 +34,8 @@ function CustomModal(props) {
 
 export default CustomModal;
 
-const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName }) => {
+const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName, noHeader }) => {
+  if (noHeader) return <></>;
   if (renderHeader) return renderHeader();
 
   const renderHeaderMedia = () => {
@@ -72,9 +74,7 @@ const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName }) => {
         }}
       >
         {renderHeaderMedia()}
-        <Modal.Title id="contained-modal-title-vcenter body-font">
-          {title || "..."}
-        </Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter body-font">{title || "..."}</Modal.Title>
       </div>
       <Button
         className="touchable-opacity"
@@ -89,7 +89,7 @@ const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName }) => {
 };
 
 const SmartFooter = ({ renderFooter, close, noFooter }) => {
-  if(noFooter) return <></>;
+  if (noFooter) return <></>;
   if (renderFooter) return renderFooter();
   return (
     <Modal.Footer style={{ padding: 0, fontWeight: "bold" }}>
