@@ -137,8 +137,8 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
               <SectionForm
                 section="vendors_section"
                 data={techObject?.vendors_section}
-                updateTechObject={updateTechObject}
-                tech_id={tech_id}
+                updateExistingObject={updateTechObject}
+                item_id={tech_id}
               />
             }
             isOpen={openAccordion}
