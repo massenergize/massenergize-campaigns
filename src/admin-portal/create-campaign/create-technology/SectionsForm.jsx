@@ -44,10 +44,12 @@ export default function SectionsForm ({section, data,updateTechObject, tech_id})
 
   }
 
+
+
   return (
     <div>
     <Container>
-      <Row className="py-4">
+      <Row className="pb-4">
         <Col>
           <Input
             label="Title"
