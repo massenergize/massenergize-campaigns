@@ -4,8 +4,11 @@ function SPTAboutSection() {
   return (
     <div className="spt-section-padding spt-section mobile-margin" style={{ "--my-custom-margin": "20px 0px" }}>
       <div className="spt-section-style">
-        <div className="row">
-          <div className="col-md-6 spt-flex-column-m " style={{ display: "flex", alignItems: "center" }}>
+        <div className="row " style={{}}>
+          <div
+            className="col-md-6 spt-flex-column-m mobile-margin "
+            style={{ "--my-custom-margin": 0, display: "flex", alignItems: "center" }}
+          >
             <img
               className="img mobile-margin"
               src="https://www.massenergize.org/wp-content/uploads/2023/12/pexels-pixabay-433308-scaled.jpg"

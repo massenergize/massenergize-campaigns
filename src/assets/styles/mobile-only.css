@@ -1,8 +1,21 @@
 @media only screen and (max-width: 767px) {
   /* -- SPT THEME ---- */
 
+  .spt-hero .intro h1 {
+    font-size: 2.5rem;
+  }
+  .spt-get-help div {
+    margin-bottom: 5px;
+  }
 
-  
+  .spt-get-help h5,
+  p,
+  img {
+    margin-top: 10px;
+  }
+  .spt-get-help .btn-area {
+    width: 100%;
+  }
   .spt-footer h1 {
     color: white;
     font-size: 25px;
@@ -21,6 +34,12 @@
     justify-content: center;
   }
   .spt-btn {
+    padding: 7px 25px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .spt-btn-outline {
     padding: 7px 25px;
     font-size: 15px;
     font-weight: bold;
@@ -78,6 +97,16 @@
   }
   .spt-get-help {
     padding: 10px 25px;
+    flex-direction: column;
+  }
+
+  .spt-get-help img {
+    width: 80px;
+    border-radius: 100%;
+    margin-right: 20px;
+  }
+  .spt-get-help * {
+    text-align: center;
   }
   .spt-section-style {
     border: solid 0px white;

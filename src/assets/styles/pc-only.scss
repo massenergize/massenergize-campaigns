@@ -4,7 +4,14 @@
 @media only screen and (min-width: 768px) {
   /* -- SPT THEME ---- */
 
-  .custom-margin { 
+  .smart-width {
+    width: var(--smart-width) !important;
+  }
+  .spt-get-help .btn-area {
+    margin-left: auto;
+    min-width: 200px;
+  }
+  .custom-margin {
     margin: var(--my-custom-margin);
   }
   .spt-footer h1 {
@@ -32,11 +39,11 @@
 
   .spt-btn {
     padding: 10px 25px;
-    font-weight: bold;
     width: fit-content;
   }
   .spt-btn-outline {
     padding: 7px 25px;
+
   }
   .spt-get-help h5 {
     font-weight: bold;

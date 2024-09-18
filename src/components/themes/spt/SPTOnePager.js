@@ -6,6 +6,7 @@ import { ACCORDION_SECTIONS, FAQS } from "../../themes/spt/SPTConstants";
 import SPTAboutSection from "./components/SPTAboutSection";
 import SPTGoalSections from "./components/SPTGoalSections";
 import SPTFooter from "./components/SPTFooter";
+import SPTSectionTitle from "./components/SPTSectionTitle";
 function SPTOnePager() {
   return (
     <div>
@@ -48,14 +49,15 @@ function SPTOnePager() {
       </div>
 
       {/*  --- Help Area -----*/}
-      <div style={{ marginTop: 40, padding: "0% 7%" }}>
-        <HelpBanner />
-      </div>
+      {/* <div style={{ marginTop: 40, padding: "0% 7%" }}> */}
+      <HelpBanner />
+      {/* </div> */}
 
       {/* ------ Our Partners ------- */}
 
       <div style={{ padding: "0% 7%", margin: "40px 0px " }}>
-        <h1>Our Partners</h1>
+        <SPTSectionTitle>Our Partners</SPTSectionTitle>
+        {/* <h1>Our Partners</h1> */}
         <div
           style={{
             paddingTop: 40,
@@ -80,12 +82,14 @@ function SPTOnePager() {
 
       {/* ------------ Events --------- */}
       <div style={{ marginTop: 40, padding: "0% 7%" }}>
-        <h1>Events</h1>
+        <SPTSectionTitle>Events</SPTSectionTitle>
+        {/* <h1>Events</h1> */}
         <div></div>
       </div>
       {/* ------------ Frequently Asked Questions --------- */}
       <div style={{ marginTop: 40, padding: "2% 7%", background: "rgba(236, 254, 255, 1)" }}>
-        <h1 style={{ marginBottom: 40 }}>Frequently Asked Questions</h1>
+        {/* <h1 >Frequently Asked Questions</h1> */}
+        <SPTSectionTitle style={{ margin: "20px 0px" }}>Frequently Asked Questions</SPTSectionTitle>
         <div>
           {FAQS.map((section, index) => {
             return (
@@ -109,7 +113,7 @@ function SPTOnePager() {
 
       {/* --------------------- Footer -------------------- */}
 
-    <SPTFooter />
+      <SPTFooter />
     </div>
   );
 }

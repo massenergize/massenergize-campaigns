@@ -7,6 +7,10 @@ body {
 
 /* -- SPT THEME ---- */
 
+.spt-section-title {
+  margin: 0px;
+  font-weight: normal;
+}
 .spt-acc-t-opened {
   background-color: var(--spt-main-color);
   color: white;
@@ -28,7 +32,6 @@ body {
 }
 .spt-get-help {
   display: flex;
-  flex-direction: row;
   border: 1px solid rgb(239, 239, 239);
   border-radius: 10px;
   align-items: center;
@@ -79,6 +82,7 @@ body {
   border-radius: 4px;
   width: auto;
   margin-top: 10px;
+  text-align: center;
 }
 
 /* ------------------ */
