@@ -8,7 +8,7 @@ import { validateEmail } from "../../../utils/utils";
 import { apiCall } from "../../../api/messenger";
 import { bindActionCreators } from "redux";
 import { getStaticText, loadUserObjAction } from "../../../redux/actions/actions";
-
+import { THEME_COLORS, DEFAULT_THEME_COLORS } from "../../../utils/Values";
 function JoinUsForm({
   campaign,
   close,
@@ -22,6 +22,7 @@ function JoinUsForm({
   noForm,
   apiURL,
   processPayload,
+  themeKey,
 }) {
   const [form, setForm] = useState({});
   const [email, setEmail] = useState("");
@@ -29,6 +30,7 @@ function JoinUsForm({
   const [loading, setLoading] = useState(false);
   const { modals, toasts } = getStaticText();
   const staticT = modals?.join || {};
+  const theme = THEME_COLORS[themeKey] || DEFAULT_THEME_COLORS;
 
   useState(() => {
     if (authUser) {
@@ -95,7 +97,7 @@ function JoinUsForm({
     <div className="">
       <div className="p-4">
         {description && <p>{description}</p>}
-        <CommunitySelector onChange={(data) => setForm(data)} data={form} />
+        <CommunitySelector theme={theme} onChange={(data) => setForm(data)} data={form} />
         {!noForm && (
           <div>
             {/* <Form.Text>Join us because we are great!</Form.Text> */}
@@ -129,7 +131,7 @@ function JoinUsForm({
             margin: 0,
             borderRadius: 0,
             borderWidth: 0,
-            background: "#292929",
+            background: theme?.modalFooterCancel || "#292929",
           }}
         >
           {cancelText || staticT?.buttons?.cancel?.text || "Cancel"}
@@ -143,7 +145,7 @@ function JoinUsForm({
             margin: 0,
             borderRadius: 0,
             borderWidth: 0,
-            background: "var(--app-main-color)",
+            background: theme?.color || "var(--app-main-color)",
             borderBottomRightRadius: 5,
             display: "flex",
             flexDirection: "row",

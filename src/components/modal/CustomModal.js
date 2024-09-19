@@ -1,10 +1,41 @@
 import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
+import { CAMPAIGN_TEMPLATE_KEYS } from "../../utils/Values";
+
+const DEFAULT_THEME = {
+  header: {
+    background: "var(--app-main-color)",
+    color: "white",
+    padding: "10px 25px",
+  },
+  footer: {
+    background: "black",
+    padding: "5px 15px",
+    height: "100%",
+    margin: 0,
+  },
+};
 
 function CustomModal(props) {
-  const { show, component, modalNativeProps, fullControl, style, close } = props || {};
+  const { show, component, modalNativeProps, fullControl, style, close, themeKey } = props || {};
   if (!show) return <></>;
   const styles = { ...(style || {}), ...(fullControl ? { padding: 0 } : {}) };
+
+  const THEMES = {
+    [CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT]: {
+      header: {
+        background: "var(--spt-main-color)",
+      },
+      footer: {
+        background: "black",
+        padding: "5px 15px",
+        height: "100%",
+        margin: 0,
+      },
+    },
+  };
+
+  const theme = THEMES[themeKey] || DEFAULT_THEME;
 
   const renderComponent = () => {
     if (!component) return <></>;
@@ -17,9 +48,8 @@ function CustomModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       style={styles}
       {...(modalNativeProps || {})}
-      
     >
-      <SmartHeader {...props} />
+      <SmartHeader {...props} theme={theme} />
       {fullControl ? (
         <Modal.Body style={{ padding: 0 }}>{renderComponent()}</Modal.Body>
       ) : (
@@ -34,7 +64,7 @@ function CustomModal(props) {
 
 export default CustomModal;
 
-const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName, noHeader }) => {
+const SmartHeader = ({ theme, renderHeader, close, title, imgSrc, iconName, noHeader }) => {
   if (noHeader) return <></>;
   if (renderHeader) return renderHeader();
 
@@ -64,6 +94,7 @@ const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName, noHeader })
         background: "var(--app-main-color)",
         color: "white",
         padding: "10px 25px",
+        ...(theme?.header || {}),
       }}
     >
       <div
@@ -88,7 +119,7 @@ const SmartHeader = ({ renderHeader, close, title, imgSrc, iconName, noHeader })
   );
 };
 
-const SmartFooter = ({ renderFooter, close, noFooter }) => {
+const SmartFooter = ({ renderFooter, close, noFooter, theme }) => {
   if (noFooter) return <></>;
   if (renderFooter) return renderFooter();
   return (
@@ -100,6 +131,7 @@ const SmartFooter = ({ renderFooter, close, noFooter }) => {
           padding: "5px 15px",
           height: "100%",
           margin: 0,
+          ...(theme?.footer || {}),
         }}
         onClick={() => close && close()}
       >

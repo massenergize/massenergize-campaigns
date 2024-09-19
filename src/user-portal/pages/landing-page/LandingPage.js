@@ -121,13 +121,15 @@ function LandingPage({
     const user = authUser || localStorage.getItem(USER_STORAGE_KEY);
     const firstTime = !user || user === "null";
     const { modals } = getStaticText();
-
+    const themeKey = justLoadedCampaign?.template_key;
     if (!firstTime) return;
     toggleModal({
+      themeKey,
       show: true,
       title: modals?.whereFrom?.title?.text || `Please tell us where you are from`,
       component: ({ close }) => (
         <JoinUsForm
+          themeKey={themeKey}
           close={close}
           confirmText={modals?.whereFrom?.buttons?.submit?.text || "Okay, Done!"}
           cancelText={modals?.whereFrom?.buttons?.no?.text || "NO"}
