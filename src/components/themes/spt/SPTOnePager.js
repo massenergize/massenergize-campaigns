@@ -22,8 +22,13 @@ function SPTOnePager() {
   const activeLanguage = useSelector((state) => state.activeLanguage);
   const campaign = useSelector((state) => state.campaign);
   const technology = (campaign?.technologies || [])[0];
+  const overviewItems = technology?.overview || [];
   const goal_section = campaign?.goal_section;
-  console.log("lets see campaign", campaign);
+  const vendorRels = technology?.vendors || [];
+  const faqs = technology?.faqs || [];
+  const callout_section = campaign?.callout_section;
+  const contact_section = campaign?.contact_section;
+
 
   const setActiveLanguage = (lang, reload = true) => {
     setActiveLanguageInStorage(lang);
@@ -58,19 +63,20 @@ function SPTOnePager() {
       <SPTGoalSections technology={technology} section={goal_section} />
       {/* ------ FAQS----------- */}
       <div className="spt-section-padding spt-section-margin-top">
-        {ACCORDION_SECTIONS.map((section, index) => {
+        {overviewItems?.map((overview, index) => {
           return (
-            <div key={index} style={{ marginBottom: 10 }}>
+            <div key={overview?.id} style={{ marginBottom: 10 }}>
               <CustomAccordion
                 renderHeader={({ opened, setOpen }) => (
-                  <AccordionTitle section={section} setOpen={setOpen} opened={opened} />
+                  <AccordionTitle section={overview} setOpen={setOpen} opened={opened} />
                 )}
                 elevate={false}
                 radius={6}
-                title={section.title}
-                key={index}
-                component={<p className="spt-body-font">{section.description}</p>}
-                isOpen={index === 0}
+                title={overview.title}
+                key={overview?.id}
+                component={
+                  <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: overview?.description }} />
+                }
               />
             </div>
           );
@@ -79,7 +85,7 @@ function SPTOnePager() {
 
       {/*  --- Help Area -----*/}
       {/* <div style={{ marginTop: 40, padding: "0% 7%" }}> */}
-      <HelpBanner />
+      <HelpBanner section={callout_section} />
       {/* </div> */}
 
       {/* ------ Our Partners ------- */}
@@ -96,11 +102,11 @@ function SPTOnePager() {
             flexWrap: "wrap",
           }}
         >
-          {[2, 3, 4, 5].map((item) => {
+          {vendorRels.map(({ vendor }) => {
             return (
               <img
                 //placeholder image
-                src="https://via.placeholder.com/280"
+                src={vendor?.logo?.url}
                 alt="Community Solar"
                 style={{ flexBasis: "23%", objectFit: "cover", height: 100 }}
               />
@@ -117,19 +123,19 @@ function SPTOnePager() {
         {/* <h1 >Frequently Asked Questions</h1> */}
         <SPTSectionTitle style={{ margin: "20px 0px" }}>Frequently Asked Questions</SPTSectionTitle>
         <div>
-          {FAQS.map((section, index) => {
+          {faqs?.map(({ id, question: title, answer: description }, index) => {
             return (
-              <div key={index} style={{ marginBottom: 10 }}>
+              <div key={id} style={{ marginBottom: 10 }}>
                 <CustomAccordion
                   renderHeader={({ opened, setOpen }) => (
-                    <AccordionTitle section={section} setOpen={setOpen} opened={opened} />
+                    <AccordionTitle section={{ title, description }} setOpen={setOpen} opened={opened} />
                   )}
                   elevate={false}
                   radius={6}
-                  title={section.title}
+                  title={title}
                   key={index}
-                  component={<p className="spt-body-font">{section.description}</p>}
-                  isOpen={index === 0}
+                  component={<p className="spt-body-font">{description}</p>}
+                  // isOpen={index === 0}
                 />
               </div>
             );
@@ -139,7 +145,7 @@ function SPTOnePager() {
 
       {/* --------------------- Footer -------------------- */}
 
-      <SPTFooter />
+      <SPTFooter section={contact_section} />
     </div>
   );
 }

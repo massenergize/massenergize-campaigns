@@ -188,7 +188,7 @@ function LandingPage({
     );
 
   const themeIsSPT = campaign?.template_key === CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT;
-  if (true) return <SPTOnePager />;
+  if (themeIsSPT) return <SPTOnePager />;
   return (
     <div style={{}}>
       <div ref={homeRef}></div>

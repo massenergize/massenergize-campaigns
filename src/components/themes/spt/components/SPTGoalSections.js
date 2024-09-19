@@ -1,7 +1,8 @@
 import React from "react";
 
-function SPTGoalSections({ technology, goal_section }) {
-  const { title, description, media, call_to_action_items } = goal_section || {};
+function SPTGoalSections({ technology, section }) {
+  const { title, description, media, call_to_action_items } = section || {};
+  // console.log("LE GOALS", goal_section);
   const renderImage = () => {
     return (
       <img
@@ -42,22 +43,24 @@ function SPTGoalSections({ technology, goal_section }) {
               their property. Community solar is also known as shared solar or solar gardens. */}
             </p>
 
-            {call_to_action_items?.map(({ url, text }) => (
-              <div
-                onClick={() => {
-                  if (!url) return;
-                  window.open(url, "_blank");
-                }}
-                className="spt-btn mobile-width mobile-margin custom-margin s-touchable-opacity"
-                style={{
-                  "--my-custom-width": "100%",
-                  "--my-custom-margin": "10px 0px",
-                  "--my-pc-custom-margin": "30px 0px",
-                }}
-              >
-                {text}
-              </div>
-            ))}
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              {call_to_action_items?.map(({ url, text }) => (
+                <div
+                  onClick={() => {
+                    if (!url) return;
+                    window.open(url, "_blank");
+                  }}
+                  className="spt-btn mobile-width mobile-margin custom-margin s-touchable-opacity"
+                  style={{
+                    "--my-custom-width": "100%",
+                    "--my-custom-margin": "10px 5px",
+                    "--my-pc-custom-margin": "30px 5px",
+                  }}
+                >
+                  {text}
+                </div>
+              ))}
+            </div>
           </div>
           <div className="col-md-6 phone-vanish" style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
             {renderImage()}

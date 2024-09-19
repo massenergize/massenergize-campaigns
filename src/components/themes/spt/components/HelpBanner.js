@@ -1,6 +1,9 @@
 import React from "react";
 
-function HelpBanner() {
+function HelpBanner({ section }) {
+  const { title, description, media, call_to_action_items } = section || {};
+
+  console.log("lets see media", section, media);
   return (
     <div className="spt-section-padding spt-section-margin-top">
       <div
@@ -16,20 +19,33 @@ function HelpBanner() {
       >
         <img
           // style={{ width: 80, borderRadius: "100%", marginRight: 20 }}
-          src="https://via.placeholder.com/80"
+          src={media?.url}
           alt="Help Banner"
         />
         <div style={{ display: "flex", flexDirection: "row", width: "100%", alignItems: "center" }}>
           <div>
-            <h5>We are here to help</h5>
-            <p className="spt-body-font">
-              Our Energy Advisors provide expert, unbiased energy advice at no cost to you. No annoying sales pitches,
-              and no spam calls.
-            </p>
+            <h5>{title || "..."}</h5>
+            <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: description }}></div>
           </div>
         </div>
         <div className="btn-area">
-          <div className="spt-btn smart-width" style={{ "--smart-width": "100%" }}>
+          {call_to_action_items?.map(({ url, text }, index) => {
+            const even = (index + 1) % 2 === 0;
+            return (
+              <div
+                onClick={() => {
+                  if (!url) return;
+                  window.open(url, "_blank");
+                }}
+                className={`${even ? "spt-btn-outline" : "spt-btn"} smart-width`}
+                style={{ "--smart-width": "100%", marginTop: 8 }}
+              >
+                {text}
+              </div>
+            );
+          })}
+
+          {/* <div className="spt-btn smart-width" style={{ "--smart-width": "100%" }}>
             Schedule a Call
           </div>
           <div
@@ -39,7 +55,7 @@ function HelpBanner() {
             }}
           >
             Send an Email
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

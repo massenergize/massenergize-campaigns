@@ -60,7 +60,7 @@ body {
 }
 
 .spt-hero-overlay {
-  background: rgba(0, 58, 68, 0.8);
+  background: rgb(0 58 68 / 53%);
   position: absolute;
   top: 0;
   left: 0;
