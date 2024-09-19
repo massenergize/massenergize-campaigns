@@ -25,10 +25,13 @@ function SPTOnePager() {
   const overviewItems = technology?.overview || [];
   const goal_section = campaign?.goal_section;
   const vendorRels = technology?.vendors || [];
+  const vendorsSection = technology?.vendors_section;
   const faqs = technology?.faqs || [];
   const callout_section = campaign?.callout_section;
   const contact_section = campaign?.contact_section;
+  const faq_section = technology?.faq_section;
 
+  console.log("lets see campaign", campaign);
 
   const setActiveLanguage = (lang, reload = true) => {
     setActiveLanguageInStorage(lang);
@@ -91,14 +94,14 @@ function SPTOnePager() {
       {/* ------ Our Partners ------- */}
 
       <div style={{ padding: "0% 7%", margin: "40px 0px " }}>
-        <SPTSectionTitle>Our Partners</SPTSectionTitle>
+        <SPTSectionTitle>{vendorsSection?.title}</SPTSectionTitle>
         {/* <h1>Our Partners</h1> */}
         <div
           style={{
             paddingTop: 40,
             display: "flex",
             flexDirection: "row",
-            justifyContent: "space-between",
+            justifyContent: "flex-start",
             flexWrap: "wrap",
           }}
         >
@@ -108,7 +111,7 @@ function SPTOnePager() {
                 //placeholder image
                 src={vendor?.logo?.url}
                 alt="Community Solar"
-                style={{ flexBasis: "23%", objectFit: "cover", height: 100 }}
+                style={{ flexBasis: "23%", objectFit: "cover", height: 100, marginRight: 10 }}
               />
             );
           })}
@@ -121,7 +124,7 @@ function SPTOnePager() {
       {/* ------------ Frequently Asked Questions --------- */}
       <div style={{ marginTop: 40, padding: "2% 7%", background: "rgba(236, 254, 255, 1)" }}>
         {/* <h1 >Frequently Asked Questions</h1> */}
-        <SPTSectionTitle style={{ margin: "20px 0px" }}>Frequently Asked Questions</SPTSectionTitle>
+        <SPTSectionTitle style={{ margin: "20px 0px" }}>{faq_section?.title}</SPTSectionTitle>
         <div>
           {faqs?.map(({ id, question: title, answer: description }, index) => {
             return (
@@ -134,8 +137,7 @@ function SPTOnePager() {
                   radius={6}
                   title={title}
                   key={index}
-                  component={<p className="spt-body-font">{description}</p>}
-                  // isOpen={index === 0}
+                  component={<div className="spt-body-font" dangerouslySetInnerHTML={{ __html: description }}></div>}
                 />
               </div>
             );
