@@ -12,8 +12,7 @@ function SPTHero({ campaign }) {
   const { call_to_action_items } = banner_section || {};
   const firstVideo = (call_to_action_items || [])[0];
   const backGroundVideo = firstVideo?.url;
-
-  console.log("Video", backGroundVideo, firstVideo);
+  const remainingVideos = call_to_action_items?.slice(1);
 
   const closeModal = () => {
     toggleModal({ show: false });
@@ -79,7 +78,7 @@ function SPTHero({ campaign }) {
                 <div className="bottom-content">
                   <p style={{ textAlign: "center" }}>{banner_section?.title}</p>
                   <div className=" row-on-pc-col-on-mobile c-align-items-center">
-                    {call_to_action_items?.map(({ text, url }, index) => (
+                    {remainingVideos?.map(({ text, url }, index) => (
                       <div
                         key={index}
                         className="p-button s-touchable-opacity"
