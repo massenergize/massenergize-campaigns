@@ -16,6 +16,7 @@ export default function SectionsForm({section, data, updateExistingObject, item_
     const [formData, setFormData] = useState({
         ...data, call_to_action_items: data?.call_to_action_items || [],
     });
+
     const [loading, setLoading] = useState(false);
 
     const updateFormData = (field, value) => {
@@ -30,7 +31,6 @@ export default function SectionsForm({section, data, updateExistingObject, item_
 
     const handleRemoveCallToAction = async(ctaObj) => {
         if (ctaObj?.id){
-            console.log("Deleting CTA", ctaObj.id);
             let res = await deleteCallToAction(ctaObj.id);
             if (!res) return pop({"title": "Error", "message": "Could not delete call to action", "type": "failure"});
         }
@@ -54,6 +54,7 @@ export default function SectionsForm({section, data, updateExistingObject, item_
                 [section]: JSON.stringify(formData),
                 ...(typeof media !== "string" ? { media } : {})
             };
+
             let res;
             if(apiUpdateFunc){
                 res = apiUpdateFunc(toUpdate);
@@ -156,8 +157,8 @@ export default function SectionsForm({section, data, updateExistingObject, item_
                             </BTN>
                         </Col>
                     </Row>))}
-                {version === "v2" && (<div className="py-4 justify-content-end">
-                        <BTN variant={"primary"} text="Add Call to Action" onClick={handleAddCallToAction}>
+                {version === "v2" && (<div className="py-4 justify-content-end flex">
+                        <BTN variant={"secondary"} text="Add Call to Action" onClick={handleAddCallToAction}>
                             Add Call to Action
                         </BTN>
                     </div>)}

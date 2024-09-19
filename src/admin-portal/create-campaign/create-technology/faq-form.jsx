@@ -49,8 +49,9 @@ export default function FaqForm({ faq, onSubmit, technology_id, modal = false })
         answer: formData?.answer,
       };
 
-      // const data = isNew ? await addTechnologyFaq(payload) : await updateTechnologyFaq(payload); // FIXME: uncomment this line
-      onSubmit(payload, isNew);
+      const data = isNew ? await addTechnologyFaq(payload) : await updateTechnologyFaq(payload);
+
+      onSubmit(data, isNew);
       blow({
         title: "Success",
         message: `Faq ${isNew ? "added" : "updated"} successfully`,
