@@ -22,7 +22,7 @@ function HelpBanner({ section }) {
                   if (!url) return;
                   window.open(url, "_blank");
                 }}
-                className={`${even ? "spt-btn-outline" : "spt-btn"} smart-width`}
+                className={`${even ? "spt-btn-outline" : "spt-btn"} smart-width s-touchable-opacity`}
                 style={{ "--smart-width": "100%", marginTop: 8 }}
               >
                 {text}

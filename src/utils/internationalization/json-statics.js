@@ -2,6 +2,7 @@
 
 // Use this to translate: https://translate.google.com/
 export const ENGLISH = {
+  spt: { modal: { button: { text: "Close Video" } } },
   toasts: {
     join: {
       noEmail: { text: "Please provide a valid email address..." },
@@ -25,10 +26,11 @@ export const ENGLISH = {
       description: { placeholder: "Start telling your story here..." },
       buttons: { cancel: { text: "Cancel" }, submit: { text: "Submit" } },
       notifications: {
-        success: { text: "Thank you for leaving a testimonial! Our admins will review and publish it as soon as possible!" },
+        success: {
+          text: "Thank you for leaving a testimonial! Our admins will review and publish it as soon as possible!",
+        },
         provide_title: { text: "Please ensure that you have provided: title" },
         provide_technology: { text: "Please ensure that you have provided: technology" },
-
       },
     },
   },
@@ -44,9 +46,9 @@ export const ENGLISH = {
       subscribe_message: { text: "You've already subscribed with " },
     },
     quick_links: { text: "Quick Links" },
-    header:{
-      title:{text:"Newsletter"},
-      description:{text:"Sign up for email updates with the latest info on events and incentives!"}
+    header: {
+      title: { text: "Newsletter" },
+      description: { text: "Sign up for email updates with the latest info on events and incentives!" },
     },
     help_us_translate: { text: "Would you like to help translate this site?" },
   },
@@ -84,10 +86,10 @@ export const ENGLISH = {
             title: "Communities",
             description: "Connect with your community and check out other actions",
           },
-          header:{
-            title: {text:"Getting Started"},
-            description:{text:"Explore the actions we have under these technologies and get started right away!"}
-          }
+          header: {
+            title: { text: "Getting Started" },
+            description: { text: "Explore the actions we have under these technologies and get started right away!" },
+          },
         },
         testimonials_section: {
           scrollable: {
@@ -98,7 +100,7 @@ export const ENGLISH = {
           call_to_hide_testimonial: { text: "Hide testimonial form" },
           call_to_filter: { text: "Filter testimonials by" },
           full_view: { text: "Full View" },
-          from:{text:"from"}
+          from: { text: "from" },
         },
         events_section: {
           title: { text: "Events" },
@@ -112,7 +114,7 @@ export const ENGLISH = {
           call_to_filter: { text: "Filter testimonials by" },
           get_help: { text: "Get Help" },
           help_modal: { title: "Get Help" },
-          title: {text:"Meet the Coaches"},
+          title: { text: "Meet the Coaches" },
         },
       },
     },
@@ -163,12 +165,10 @@ export const ENGLISH = {
             no_comments: { text: "No comments yet, add yours!" },
             help_us_translate: { text: "Would you like to help translate this site?" },
             notifications: {
-              provide_a_name: {text: "Please provide a name and a valid comment"},
-              error:{text:"An error occurred while adding your comment. Please try again."}
-            }
-
+              provide_a_name: { text: "Please provide a name and a valid comment" },
+              error: { text: "An error occurred while adding your comment. Please try again." },
+            },
           },
-
         },
         interactions: {
           like: { text: "Like", plural: "Likes" },
@@ -180,12 +180,12 @@ export const ENGLISH = {
           title: { text: "Testimonials" },
           call_to_add_testimonial: { text: "Add your testimonial here" },
           full_view: { text: "Full View" },
-          from:{text:"from"}
+          from: { text: "from" },
         },
 
         coaches_section: {
           button: { text: "Get Help" },
-          title: {text:"Meet the Coaches"},
+          title: { text: "Meet the Coaches" },
         },
         do_more: {
           title: { text: " Participating Communities" },
@@ -290,6 +290,7 @@ export const ENGLISH = {
 };
 
 export const SPANISH = {
+  spt: { modal: { button: { text: "Cerrar Vídeo" } } },
   toasts: {
     join: {
       noEmail: { text: "Por favor, proporcione una dirección de correo electrónico válida..." },
@@ -320,10 +321,12 @@ export const SPANISH = {
       description: { placeholder: "Comience a contar su historia aquí..." },
       buttons: { cancel: { text: "Cancelar" }, submit: { text: "Enviar" } },
       notifications: {
-            success: { text: "¡Gracias por dejar un testimonio! Nuestros administradores lo revisarán y lo publicarán lo antes posible!"},
-            provide_title: { text: "Asegúrese de haber proporcionado: título" },
-            provide_technology: { text: "Asegúrese de haber proporcionado: tecnología" },
-      }
+        success: {
+          text: "¡Gracias por dejar un testimonio! Nuestros administradores lo revisarán y lo publicarán lo antes posible!",
+        },
+        provide_title: { text: "Asegúrese de haber proporcionado: título" },
+        provide_technology: { text: "Asegúrese de haber proporcionado: tecnología" },
+      },
     },
   },
 
@@ -338,9 +341,11 @@ export const SPANISH = {
       subscribe_message: { text: "Ya estás suscrito con " },
     },
     quick_links: { text: "Enlaces rápidos" },
-    header:{
-      title:{text:"Hoja informativa"},
-      description:{text:"¡Regístrese para recibir actualizaciones por correo electrónico con la información más reciente sobre eventos e incentivos!"}
+    header: {
+      title: { text: "Hoja informativa" },
+      description: {
+        text: "¡Regístrese para recibir actualizaciones por correo electrónico con la información más reciente sobre eventos e incentivos!",
+      },
     },
     help_us_translate: { text: "¿Quieres ayudar a traducir este sitio?" },
   },
@@ -377,10 +382,10 @@ export const SPANISH = {
             title: "Comunidades",
             description: "Conéctate con tu comunidad y descubre otras acciones",
           },
-          header:{
-            title: {text:"Comenzando"},
-            description:{text:"¡Explora las acciones que tenemos bajo estas tecnologías y comienza de inmediato!"}
-          }
+          header: {
+            title: { text: "Comenzando" },
+            description: { text: "¡Explora las acciones que tenemos bajo estas tecnologías y comienza de inmediato!" },
+          },
         },
         testimonials_section: {
           scrollable: {
@@ -391,7 +396,7 @@ export const SPANISH = {
           call_to_hide_testimonial: { text: "Ocultar formulario de testimonio" },
           call_to_filter: { text: "Filtrar testimonios por" },
           full_view: { text: "Vista completa" },
-          from:{text:"de"}
+          from: { text: "de" },
         },
         events_section: {
           title: { text: "Eventos" },
@@ -405,7 +410,7 @@ export const SPANISH = {
           call_to_filter: { text: "Filtrar testimonios por" },
           get_help: { text: "Obtener ayuda" },
           help_modal: { title: "Obtener ayuda" },
-          title:{text:"Conoce a los Entrenadores"}
+          title: { text: "Conoce a los Entrenadores" },
         },
       },
     },
@@ -456,12 +461,10 @@ export const SPANISH = {
             no_comments: { text: "Aún no hay comentarios, ¡agrega el tuyo!" },
             help_us_translate: { text: "¿Quieres ayudar a traducir este sitio?" },
             notifications: {
-              provide_a_name: {text: "Por favor proporcione un nombre y un comentario válido"},
-              error:{text:"Se produjo un error al agregar tu comentario. Vuelve a intentarlo."}
-            }
+              provide_a_name: { text: "Por favor proporcione un nombre y un comentario válido" },
+              error: { text: "Se produjo un error al agregar tu comentario. Vuelve a intentarlo." },
+            },
           },
-
-
         },
         interactions: {
           like: { text: "Me gusta", plural: "Me gusta" },
@@ -473,11 +476,11 @@ export const SPANISH = {
           title: { text: "Testimonios" },
           call_to_add_testimonial: { text: "Agrega tu testimonio aquí" },
           full_view: { text: "Vista completa" },
-          from:{text:"de"}
+          from: { text: "de" },
         },
         coaches_section: {
           button: { text: "Obtener ayuda" },
-          title:{text:"Conoce a los Entrenadores"},
+          title: { text: "Conoce a los Entrenadores" },
         },
         do_more: {
           title: {
@@ -515,7 +518,6 @@ export const SPANISH = {
         },
         vendors_section: {
           title: { text: "Vendedores" },
-
         },
       },
     },
@@ -597,6 +599,7 @@ export const SPANISH = {
 };
 
 export const PORTUGUESE = {
+  spt: { modal: { button: { text: "Fechar Vídeo" } } },
   toasts: {
     join: {
       noEmail: { text: "Por favor, forneça um endereço de e-mail válido..." },
@@ -624,9 +627,11 @@ export const PORTUGUESE = {
       description: { placeholder: "Comece a contar sua história aqui..." },
       buttons: { cancel: { text: "Cancelar" }, submit: { text: "Enviar" } },
       notifications: {
-        success:  { text: "Obrigado por deixar um depoimento! Nossos administradores irão revisá-lo e publicá-lo o mais breve possível!" },
+        success: {
+          text: "Obrigado por deixar um depoimento! Nossos administradores irão revisá-lo e publicá-lo o mais breve possível!",
+        },
         provide_title: { text: "Por favor, certifique-se de ter fornecido: título" },
-        provide_technology: { text: "Por favor, certifique-se de ter fornecido: tecnologia"},
+        provide_technology: { text: "Por favor, certifique-se de ter fornecido: tecnologia" },
       },
     },
   },
@@ -642,12 +647,13 @@ export const PORTUGUESE = {
       subscribe_message: { text: "Você já se inscreveu com " },
     },
     quick_links: { text: "Links Rápidos" },
-    header:{
-      title:{text:"Boletim informativo"},
-      description:{text:"Inscreva-se para receber atualizações por e-mail com as últimas informações sobre eventos e incentivos!"}
+    header: {
+      title: { text: "Boletim informativo" },
+      description: {
+        text: "Inscreva-se para receber atualizações por e-mail com as últimas informações sobre eventos e incentivos!",
+      },
     },
     help_us_translate: { text: "Gostaria de ajudar a traduzir este site?" },
-
   },
   navbar: {
     home: { text: "Início" },
@@ -682,10 +688,10 @@ export const PORTUGUESE = {
             title: "Comunidades",
             description: "Conecte-se com sua comunidade e confira outras ações",
           },
-          header:{
-            title: {text:"Introdução"},
-            description:{text:"Explore as ações que temos sob essas tecnologias e comece agora mesmo!"}
-          }
+          header: {
+            title: { text: "Introdução" },
+            description: { text: "Explore as ações que temos sob essas tecnologias e comece agora mesmo!" },
+          },
         },
         testimonials_section: {
           scrollable: {
@@ -696,7 +702,7 @@ export const PORTUGUESE = {
           call_to_hide_testimonial: { text: "Ocultar formulário de depoimento" },
           call_to_filter: { text: "Filtrar depoimentos por" },
           full_view: { text: "Visualização Completa" },
-          from:{text:"de"}
+          from: { text: "de" },
         },
         events_section: {
           title: { text: "Eventos" },
@@ -710,7 +716,7 @@ export const PORTUGUESE = {
           call_to_filter: { text: "Filtrar depoimentos por" },
           get_help: { text: "Obter Ajuda" },
           help_modal: { title: "Obter Ajuda" },
-          title:{text:"Conheça os Treinadores"}
+          title: { text: "Conheça os Treinadores" },
         },
       },
     },
@@ -761,12 +767,10 @@ export const PORTUGUESE = {
             no_comments: { text: "Ainda não há comentários, adicione o seu!" },
             help_us_translate: { text: "Gostaria de ajudar a traduzir este site?" },
             notifications: {
-              provide_a_name: {text: "Por favor, forneça um nome e um comentário válido"},
-              error:{text:"Ocorreu um erro ao adicionar seu comentário. Tente novamente."}
-            }
-          }
-
-
+              provide_a_name: { text: "Por favor, forneça um nome e um comentário válido" },
+              error: { text: "Ocorreu um erro ao adicionar seu comentário. Tente novamente." },
+            },
+          },
         },
         interactions: {
           like: { text: "Curtir", plural: "Curtidas" },
@@ -778,11 +782,11 @@ export const PORTUGUESE = {
           title: { text: "Depoimentos" },
           call_to_add_testimonial: { text: "Adicione seu depoimento aqui" },
           full_view: { text: "Visualização Completa" },
-          from:{text:"de"}
+          from: { text: "de" },
         },
         coaches_section: {
           button: { text: "Obter Ajuda" },
-          title:{text:"Conheça os Treinadores"}
+          title: { text: "Conheça os Treinadores" },
         },
         do_more: {
           title: {
@@ -1205,12 +1209,12 @@ export const FRENCH = {
       subscribe_message: { text: "Vous êtes déjà abonné avec " },
     },
     quick_links: { text: "Liens rapides" },
-    header:{
-      title:"Bulletin",
-      description:"Inscrivez-vous pour recevoir par e-mail les dernières informations sur les événements et les incentives !"
+    header: {
+      title: "Bulletin",
+      description:
+        "Inscrivez-vous pour recevoir par e-mail les dernières informations sur les événements et les incentives !",
     },
     help_us_translate: { text: "Souhaitez-vous aider à traduire ce site ?" },
-
   },
   navbar: {
     home: { text: "Accueil" },
@@ -1245,10 +1249,11 @@ export const FRENCH = {
             title: "Communautés",
             description: "Connectez-vous avec votre communauté et découvrez d'autres actions",
           },
-        header:{
-          title: "Mise en route",
-          description:"Découvrez les actions que nous proposons dans le cadre de ces technologies et commencez tout de suite !"
-        }
+          header: {
+            title: "Mise en route",
+            description:
+              "Découvrez les actions que nous proposons dans le cadre de ces technologies et commencez tout de suite !",
+          },
         },
         testimonials_section: {
           scrollable: {
@@ -1259,7 +1264,7 @@ export const FRENCH = {
           call_to_hide_testimonial: { text: "Masquer le formulaire de témoignage" },
           call_to_filter: { text: "Filtrer les témoignages par" },
           full_view: { text: "Vue complète" },
-          from:{text:"depuis"}
+          from: { text: "depuis" },
         },
         events_section: {
           title: { text: "Témoignages" },
@@ -1700,7 +1705,6 @@ export const CHINESE = {
     },
   },
 };
-
 
 export const ITALIAN = {
   inPreview: {
