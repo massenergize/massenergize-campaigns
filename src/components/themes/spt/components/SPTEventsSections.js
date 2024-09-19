@@ -9,7 +9,6 @@ function SPTEventsSections({ campaign, technology }) {
   const { pages } = getStaticText();
   const { sections } = pages?.homepage || {};
   const { title } = sections?.events_section || {};
-  console.log("LE TITLE", title, sections);
   const containerRef = useRef();
   const { events } = technology || {};
   const hasScrollableEvents = events?.length > 4;
