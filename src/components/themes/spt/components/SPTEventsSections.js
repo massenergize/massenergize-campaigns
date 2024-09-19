@@ -6,11 +6,7 @@ import EventBox from "../../../../user-portal/pages/events/EventBox";
 
 function SPTEventsSections({ campaign, technology }) {
   const containerRef = useRef();
-  const { technologies } = campaign || {};
-  // const tech = (technologies || [])[0];
   const { events } = technology || {};
-  console.log("SEE TECH", events);
-
   const hasScrollableEvents = events?.length > 4;
 
   return (
