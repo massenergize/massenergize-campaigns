@@ -3,15 +3,20 @@ import SPTSectionTitle from "./SPTSectionTitle";
 import { ArrowButtons } from "../../../pieces/ArrowButtons";
 import { Col, Row } from "react-bootstrap";
 import EventBox from "../../../../user-portal/pages/events/EventBox";
+import { getStaticText } from "../../../../redux/actions/actions";
 
 function SPTEventsSections({ campaign, technology }) {
+  const { pages } = getStaticText();
+  const { sections } = pages?.homepage || {};
+  const { title } = sections?.events_section || {};
+  console.log("LE TITLE", title, sections);
   const containerRef = useRef();
   const { events } = technology || {};
   const hasScrollableEvents = events?.length > 4;
 
   return (
     <div className="spt-section-padding spt-section-margin-top">
-      <SPTSectionTitle>Events</SPTSectionTitle>
+      <SPTSectionTitle>{title?.text}</SPTSectionTitle>
 
       <div className="row-flex" style={{ padding: "15px 0px" }}>
         {hasScrollableEvents && (
