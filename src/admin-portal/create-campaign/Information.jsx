@@ -18,6 +18,8 @@ import LandingPageCustomization from "./LandingPageCustomization";
 import Button from "src/components/admin-components/Button";
 import { useCampaignContext } from "src/hooks/use-campaign-context";
 import SectionForm from "./create-technology/SectionsForm";
+import {SINGLE_TECHNOLOGY_CAMPAIGN_SPT} from "../../utils/Constants";
+import {Button as BTN} from "react-bootstrap";
 
 const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
   const [showError, setShowError] = useState(false);
@@ -46,6 +48,8 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
 
   const [openedAccordion, setOpenedAccordion] = useState(null);
 
+  const [campaignCallToAction, setCampaignCallToAction] = useState(campaignDetails?.call_to_action || {});
+
   const { setNewCampaignDetails } = useCampaignContext();
 
   const handleFieldChange = (field, value) => {
@@ -55,6 +59,27 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
   const toggleAccordion = (section) => {
     setOpenedAccordion(openedAccordion === section ? null : section);
   }
+
+  const handleSaveCallToAction = async () => {
+      let data = {id: campaignDetails.id, call_to_action: JSON.stringify(campaignCallToAction)};
+      let res = await updateCampaign(data);
+        if (res) {
+             blow({
+                title: "Success",
+                message: "Call to action saved successfully",
+                type: "success",
+                duration: 5000,
+            });
+        }else{
+            blow({
+                title: "Error",
+                message: "An error occurred while saving call to action",
+                type: "error",
+                duration: 5000,
+            });
+        }
+  }
+
 
   const handleSubmit = async (e) => {
     try {
@@ -68,6 +93,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
         tagline: campaignDetails.tagline,
         description: campaignDetails.description,
         about_us_title: campaignDetails.about_us_title ,
+        featured_summary: campaignDetails.featured_summary,
         ...(campaignDetails.start_date && { start_date: dayjs(campaignDetails.start_date).format("YYYY-MM-DD") }),
         ...(campaignDetails.end_date && { end_date: dayjs(campaignDetails.end_date).format("YYYY-MM-DD") }),
         ...getImageValue(campaignDetails, "primary_logo"),
@@ -95,62 +121,131 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
 
   return (
       <>
-          <div style={{marginBottom: 20}}>
-              <CustomAccordion title="Add other page customizations to your main campaign page">
-                  <LandingPageCustomization/>
-              </CustomAccordion>
-          </div>
-          <div className="mb-3">
-              <CustomAccordion
-                  title={"Add Content to Goal Section"}
-                  component={
-                      <SectionForm
-                          section="goal_section"
-                          data={campaignDetails?.goal_section}
-                          updateExistingObject={setCampaignDetails}
-                          item_id={campaignDetails?.id}
-                          apiUpdateFunc={updateCampaign}
-                          version={"v2"}
-                      />
-                  }
-                  isOpen={openedAccordion === "goal_section"}
-                  onClick={() => toggleAccordion("goal_section")}
-              />
-          </div>
-          <div className="mb-3">
-              <CustomAccordion
-                  title={"Add Content to Call Us Section"}
-                  component={
-                      <SectionForm
-                          section="callout_section"
-                          data={campaignDetails?.callout_section}
-                          updateExistingObject={setCampaignDetails}
-                          item_id={campaignDetails?.id}
-                          apiUpdateFunc={updateCampaign}
-                          version={"v2"}
-                      />
-                  }
-                  isOpen={openedAccordion === "callout_section"}
-                  onClick={() => toggleAccordion("callout_section")}
-              />
-          </div>
-          <div className="mb-3">
-              <CustomAccordion
-                  title={"Add Content to Footer Call Us"}
-                  component={
-                      <SectionForm
-                          section="contact_section"
-                          data={campaignDetails?.contact_section}
-                          updateExistingObject={setCampaignDetails}
-                          item_id={campaignDetails?.id}
-                          apiUpdateFunc={updateCampaign}
-                          version={"v2"}
-                      />
-                  }
-                  isOpen={openedAccordion === "contact_section"}
-                  onClick={() => toggleAccordion("contact_section")}
-              />
-          </div>
+          {
+              campaignDetails?.template_key !== SINGLE_TECHNOLOGY_CAMPAIGN_SPT ? (
+                  <div style={{marginBottom: 20}}>
+                      <CustomAccordion title="Add other page customizations to your main campaign page">
+                          <LandingPageCustomization/>
+                      </CustomAccordion>
+                  </div>
+              ):(
+                  <>
+                      <div className="mb-3">
+                          <CustomAccordion
+                              title="Add Call to Action on Hero Section"
+                              component={
+                                  <Row className="py-4">
+                                      <Col>
+                                          <Input
+                                              label="Call to Action Text"
+                                              placeholder="Enter call to action text..."
+                                              required={false}
+                                              type="textbox"
+                                              onChange={(val) => setCampaignCallToAction({...campaignCallToAction, text: val})}
+                                              value={campaignCallToAction?.text}
+                                          />
+                                      </Col>
+                                      <Col>
+                                          <Input
+                                              label="Call to Action URL"
+                                              placeholder="Enter call to action URL..."
+                                              required={false}
+                                              type="textbox"
+                                              onChange={(val) =>setCampaignCallToAction({...campaignCallToAction, url: val})}
+                                              value={campaignCallToAction?.url}
+                                          />
+                                      </Col>
+                                      <Row>
+                                          <Col className="py-4">
+                                              <Button
+                                                  text="Save Section"
+                                                  onSubmit={() => handleSaveCallToAction()}
+                                                  rounded={false}
+                                                  loading={loading}
+                                                  disabled={loading}
+                                              />
+                                          </Col>
+                                      </Row>
+
+                                  </Row>
+                              }
+                              isOpen={openedAccordion === "call_to_action"}
+                              onClick={() => toggleAccordion("call_to_action")}
+                          />
+                      </div>
+                      <div className="mb-3">
+                          <CustomAccordion
+                              title="Add Content to Banner Section"
+                              component={
+                                  <SectionForm
+                                      section="banner_section"
+                                      data={campaignDetails?.banner_section}
+                                      updateExistingObject={setCampaignDetails}
+                                      item_id={campaignDetails?.id}
+                                      apiUpdateFunc={updateCampaign}
+                                      version={"v2"}
+                                  />
+                              }
+                              isOpen={openedAccordion === "banner_section"}
+                              onClick={() => toggleAccordion("banner_section")}
+                          />
+                      </div>
+                      <div className="mb-3">
+                          <CustomAccordion
+                              title={"Add Content to Goal Section"}
+                              component={
+                                  <SectionForm
+                                      section="goal_section"
+                                      data={campaignDetails?.goal_section}
+                                      updateExistingObject={setCampaignDetails}
+                                      item_id={campaignDetails?.id}
+                                      apiUpdateFunc={updateCampaign}
+                                      version={"v2"}
+                                  />
+                              }
+                              isOpen={openedAccordion === "goal_section"}
+                              onClick={() => toggleAccordion("goal_section")}
+                          />
+                      </div>
+                      <div className="mb-3">
+                          <CustomAccordion
+                              title={"Add Content to Call Us Section"}
+                              component={
+                                  <SectionForm
+                                      section="callout_section"
+                                      data={campaignDetails?.callout_section}
+                                      updateExistingObject={setCampaignDetails}
+                                      item_id={campaignDetails?.id}
+                                      apiUpdateFunc={updateCampaign}
+                                      version={"v2"}
+                                  />
+                              }
+                              isOpen={openedAccordion === "callout_section"}
+                              onClick={() => toggleAccordion("callout_section")}
+                          />
+                      </div>
+                      <div className="mb-3">
+                          <CustomAccordion
+                              title={"Add Content to Footer Call Us"}
+                              component={
+                                  <SectionForm
+                                      section="contact_section"
+                                      data={campaignDetails?.contact_section}
+                                      updateExistingObject={setCampaignDetails}
+                                      item_id={campaignDetails?.id}
+                                      apiUpdateFunc={updateCampaign}
+                                      version={"v2"}
+                                  />
+                              }
+                              isOpen={openedAccordion === "contact_section"}
+                              onClick={() => toggleAccordion("contact_section")}
+                          />
+                      </div>
+                  </>
+              )
+          }
+
+
           <Row className="mt-4">
               <Col>
                   <Input
@@ -237,7 +332,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
                   />
               </Col>
           </Row>
-          <Row className="py-4">
+          <Row className="py-3">
               <Col style={{marginBottom: 10}}>
                   <Input
                       id="about-us-title"
@@ -250,6 +345,22 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
                       value={campaignDetails?.about_us_title}
                       onChange={(val) => {
                           handleFieldChange("about_us_title", val);
+                      }}
+                  />
+              </Col>
+          </Row>
+          <Row className="py-3">
+              <Col style={{marginBottom: 10}}>
+                  <Input
+                      id="featured-summary"
+                      name="featured_summary"
+                      label="Featured Summary"
+                      placeholder="Add a short summary of your campaign..."
+                      required={false}
+                      error={errors?.featured_summary}
+                      value={campaignDetails?.featured_summary}
+                      onChange={(val) => {
+                          handleFieldChange("featured_summary", val);
                       }}
                   />
               </Col>
