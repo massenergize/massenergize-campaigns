@@ -5,6 +5,150 @@ body {
   font-family: "Manrope", sans-serif;
 }
 
+/* -- SPT THEME ---- */
+
+.spt-media-player {
+  height: 360px;
+  background-color: #383838;
+  overflow-y: hidden;
+  /* width: 100%; */
+}
+.spt-about-chip i {
+  color: #7eba7e;
+}
+.spt-about-chip {
+  border: solid 1px #f2f2f2;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.s-touchable-opacity {
+  cursor: pointer;
+}
+.s-touchable-opacity:hover {
+  opacity: 0.8;
+  transition: 0.2s ease-in-out;
+}
+
+.spt-overlay-content .bottom-content {
+}
+.p-button {
+  border: solid 1px grey;
+  /* padding: 10px; */
+  border-radius: 5px;
+  background-color: #ffffff1c;
+}
+.play-btn {
+  color: #ffffffcf;
+  /* margin-bottom: 20px; */
+}
+
+.spt-overlay-content {
+  color: white;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.spt-hero-overlay {
+  background: rgb(0 58 68 / 53%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.spt-section-title {
+  margin: 0px;
+  font-weight: normal;
+}
+.spt-acc-t-opened {
+  background-color: var(--spt-main-color);
+  color: white;
+}
+.spt-acc-title {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.spt-acc-title h4 {
+  /* font-weight: normal; */
+  margin: 0;
+}
+.spt-get-help {
+  display: flex;
+  border: 1px solid rgb(239, 239, 239);
+  border-radius: 10px;
+  align-items: center;
+}
+.spt-goal-section {
+  background: var(--spt-accent-3);
+}
+.spt-section-style {
+  border: 1px solid rgb(243, 243, 243);
+}
+
+.spt-section-margin {
+}
+.spt-section .img {
+  width: 90%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+.hero-container {
+  color: white;
+  background-color: rgba(0, 58, 68, 1);
+}
+.spt-hero .intro h6 {
+  color: var(--spt-accent-2);
+}
+
+.spt-hero .intro h1 {
+  color: white;
+  font-weight: normal;
+  text-transform: capitalize;
+}
+
+.spt-btn {
+  background-color: var(--spt-accent-2);
+  color: white;
+  border: 0px;
+  border-radius: 5px;
+  /* font-weight: bold; */
+  cursor: pointer;
+  /* width: fit-content; */
+  text-align: center;
+}
+
+.spt-btn-outline {
+  margin-bottom: 5px;
+  background: white;
+  border: 1px solid rgb(255, 132, 71);
+  color: rgb(255, 132, 71);
+  border-radius: 4px;
+  width: auto;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* ------------------ */
+
 .floating-l-drop {
   position: fixed;
   bottom: 60px;

@@ -1,14 +1,9 @@
 import React from "react";
 
-function SectionTitle (props) {
+function SectionTitle(props) {
   let classes = `${props?.className || ""} section-title`;
   return (
-    <h2
-      
-      {...props}
-      className={classes}
-      style={{ color: "var(--app-accent-3)", ...(props?.style || {}) }}
-    >
+    <h2 {...props} className={classes} style={{ color: "var(--app-accent-3)", ...(props?.style || {}) }}>
       {props?.children}
     </h2>
   );

@@ -8,7 +8,7 @@ import { getStaticText } from "src/redux/actions/actions";
 export const OTHER = "other";
 export const OTHER_JSON = { name: OTHER, id: OTHER };
 
-function CommunitySelector({ onChange, communities, data, readOnly }) {
+function CommunitySelector({ onChange, communities, data, readOnly, theme }) {
   const { modals } = getStaticText();
 
   const staticT = modals?.community_selection || {};
@@ -52,7 +52,7 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
                 style={{
                   textTransform: "Capitalize",
                   // fontWeight: "bold",
-                  color: "var(--app-main-color)",
+                  color: theme?.color || "var(--app-main-color)",
                   // fontSize: 15,
                   cursor: "pointer",
                 }}
@@ -70,7 +70,7 @@ function CommunitySelector({ onChange, communities, data, readOnly }) {
             style={{
               textTransform: "Capitalize",
               // fontWeight: "bold",
-              color: "var(--app-main-color)",
+              color: theme?.color || "var(--app-main-color)",
               fontSize: 15,
               cursor: "pointer",
             }}
