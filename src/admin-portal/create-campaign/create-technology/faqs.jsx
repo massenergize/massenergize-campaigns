@@ -3,7 +3,7 @@ import { Button, Col, Row, Button as BTN, Modal, Accordion } from "react-bootstr
 import classes from "classnames";
 import IncentivesBar from "../../../components/admin-components/IncentivesBar";
 import FaqForm from "./faq-form";
-import { removeTechnologyDeal } from "src/requests/technology-requests";
+import {removeTechnologyDeal, removeTechnologyFaq} from "src/requests/technology-requests";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import GhostLoader from "src/components/admin-components/GhostLoader";
 import CustomAccordion from "src/components/admin-components/CustomAccordion";
@@ -35,29 +35,26 @@ export default function FAQs({ campaign_id, tech_id, techObject, updateTechObjec
   };
 
   const handleRemove = async (id) => {
-    console.log("id", id);
     if (typeof id === "undefined") return;
     if (!window.confirm("Are you sure you want to delete this faq?")) return;
-    // setLoading(true);
     try {
-      // setFaqs(faqs.filter((f, index) => f.id !== id));
-      setFaqs(faqs.filter((f, index) => index !== id));
-      // const res = await removeTechnologyDeal({ id });
-      // if (res) {
-      //   setLoading(false);
-      //   const newDeals = deals.filter((d) => d.id !== id);
-      //   updateTechObject({ deals: newDeals });
-      //   blow({
-      //     title: "Success",
-      //     message: "Deal removed successfully",
-      //     type: "success",
-      //   });
-      // }
+      const res = await removeTechnologyFaq(id);
+      if (res) {
+        setLoading(false);
+        const updatedFaqs = faqs?.filter((d) => d.id !== id);
+        setFaqs(updatedFaqs);
+        updateTechObject({ faqs: updatedFaqs });
+        blow({
+          title: "Success",
+          message: "Faq item removed successfully",
+          type: "success",
+        });
+      }
     } catch (e) {
       setLoading(false);
       pop({
         title: "Error",
-        message: "An error occurred while removing deal",
+        message: "An error occurred while removing faq item",
         type: "error",
       });
     }
@@ -73,10 +70,10 @@ export default function FAQs({ campaign_id, tech_id, techObject, updateTechObjec
           title={"Customize the Title and Description of the FAQs section"}
           component={
             <SectionsForm
-              section="deal_section"
-              data={techObject?.deal_section}
-              updateTechObject={updateTechObject}
-              tech_id={tech_id}
+              section="faq_section"
+              data={techObject?.faq_section}
+              updateExistingObject={updateTechObject}
+              item_id={tech_id}
             />
           }
           isOpen={openAccordion}
@@ -94,7 +91,7 @@ export default function FAQs({ campaign_id, tech_id, techObject, updateTechObjec
                     <FaqEditor
                       faq={{ ...faq, title : faq.question }}
                       onRemove={() => {
-                        handleRemove(faq?.id || index);
+                        handleRemove(faq?.id);
                       }}
                     >
                       <FaqForm technology_id={tech_id} faq={faq} onSubmit={updateFaqsList} />
