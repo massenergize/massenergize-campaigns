@@ -148,7 +148,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
                                       <Col>
                                           <Input
                                               label="Call to Action URL"
-                                              placeholder="Enter call to action URL..."
+                                              placeholder="https://www.something.com"
                                               required={false}
                                               type="textbox"
                                               onChange={(val) =>setCampaignCallToAction({...campaignCallToAction, url: val})}

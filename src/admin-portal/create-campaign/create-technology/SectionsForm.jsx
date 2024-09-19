@@ -134,7 +134,7 @@ export default function SectionsForm({section, data, updateExistingObject, item_
                         <Col md={5}>
                             <Input
                                 label="Call to Action URL"
-                                placeholder="Enter call to action URL..."
+                                placeholder="https://www.something.com"
                                 required={false}
                                 type="textbox"
                                 onChange={(val) => handleCallToActionChange(index, "url", val)}
