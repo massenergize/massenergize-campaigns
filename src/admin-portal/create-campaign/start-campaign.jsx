@@ -11,6 +11,8 @@ import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons"
 import { useSelector } from "react-redux";
 import { useCampaignContext } from "../../hooks/use-campaign-context";
 import { useNavigate } from "react-router-dom";
+import Dropdown from "../../components/admin-components/Dropdown";
+import {CAMPAIGN_TEMPLATES, MULTI_TECHNOLOGY_CAMPAIGN} from "../../utils/Constants";
 
 export function StartCampaign ({ step, setStep, }) {
   const [showError, setShowError] = useState(false);
@@ -33,6 +35,7 @@ export function StartCampaign ({ step, setStep, }) {
     email: "",
     phone_number: "",
     key_contact_image: "",
+    template_key: "",
   };
 
   const reducer = (state, action) => {
@@ -68,6 +71,7 @@ export function StartCampaign ({ step, setStep, }) {
         campaign_account_id: account?.id,
         title: campaignDetails?.title,
         community_ids: campaignDetails?.communities?.map((community) => community?.id),
+        template_key: campaignDetails?.template_key,
       }
       let campaign = await createCampaignFromTemplate(payload);
 
@@ -181,25 +185,42 @@ export function StartCampaign ({ step, setStep, }) {
                     />
                   </Col>
                 </Row>
-                <Row className="py-4">
-                  <Col>
-                    <FormLabel>Choose one or more communities for your campaign from the dropdown below.</FormLabel>
-                    <MultiSelect
-                      options={(allCommunities?.data || []).map((campaign) => {
-                        return {
-                          ...campaign,
-                          value: campaign?.id,
-                          label: campaign?.name
-                        }
-                      })}
-                      value={campaignDetails?.communities}
-                      onChange={(val) => {
-                        setCampaignDetails("communities", val);
-                      }}
-                      labelledBy="Select"
-                    />
-                  </Col>
+                <Row>
+                    <Col>
+                        <FormLabel>Choose a template</FormLabel>
+                      <Dropdown
+                          displayTextToggle="Choose a template"
+                          data={CAMPAIGN_TEMPLATES}
+                          valueExtractor={(item) => item?.key}
+                          labelExtractor={(item) => item?.value}
+                          multiple={false}
+                          onItemSelect={(selectedItem, allSelected) => {
+                            setCampaignDetails("template_key", selectedItem);
+                            console.log(selectedItem)
+                          }}
+                      />
+
+                    </Col>
                 </Row>
+                    <Row className="py-4">
+                      <Col>
+                        <FormLabel>Choose one or more communities for your campaign from the dropdown below.</FormLabel>
+                        <MultiSelect
+                            options={(allCommunities?.data || []).map((campaign) => {
+                              return {
+                                ...campaign,
+                                value: campaign?.id,
+                                label: campaign?.name
+                              }
+                            })}
+                            value={campaignDetails?.communities}
+                            onChange={(val) => {
+                              setCampaignDetails("communities", val);
+                            }}
+                            labelledBy="Select"
+                        />
+                      </Col>
+                    </Row>
 
                 <Row>
                   <Col className={"d-"}>
@@ -232,7 +253,7 @@ export function StartCampaign ({ step, setStep, }) {
                   <Col>
                     <ProgressButton
                       loading={loading}
-                      disabled={isEmpty(campaignDetails?.title) || campaignDetails?.communities?.length < 1 || loading}
+                      disabled={isEmpty(campaignDetails?.title) || loading}
                       onClick={() => {
                         // setStep("COMPLETE");
                         console.log(step)

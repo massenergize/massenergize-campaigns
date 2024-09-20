@@ -1,22 +1,33 @@
 import React, { useEffect, useState } from "react";
 import "./sideNav.css";
 
-export default function CustomAccordion({ title, children, component, key, isOpen, onClick }) {
+export default function CustomAccordion({
+  renderHeader,
+  elevate = true,
+  radius,
+  title,
+  children,
+  component,
+  key,
+  isOpen,
+  onClick,
+}) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setOpen(isOpen);
   }, [isOpen]);
 
-  return (
-    <div className="accordion" key={key} style={{ borderRadius: 0 }}>
+  const header = () => {
+    if (renderHeader) return renderHeader({ opened: open, setOpen });
+    return (
       <div
-        className="accordion-header elevate-float-pro d-flex justify-content-between"
+        className={`accordion-header ${elevate ? "elevate-float-pro" : ""} d-flex justify-content-between`}
         onClick={() => {
           if (onClick) return onClick();
           setOpen(!open);
         }}
-        style={{ alignItems: "center", borderWidth: 0 }}
+        style={{ alignItems: "center", borderWidth: 0, borderRadius: radius || 0 }}
       >
         <div
           className="accordion-title"
@@ -36,7 +47,19 @@ export default function CustomAccordion({ title, children, component, key, isOpe
           )}
         </div>
       </div>
-      {open && <div className="accordion-body">{component || children}</div>}
+    );
+  };
+  return (
+    <div className="accordion" key={key} style={{ borderRadius: radius || 0 }}>
+      {header()}
+      {open && (
+        <div
+          className="accordion-body"
+          style={{ borderBottomRightRadius: radius || 0, borderBottomLeftRadius: radius || 0 }}
+        >
+          {component || children}
+        </div>
+      )}
     </div>
   );
 }

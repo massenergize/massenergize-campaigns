@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const SCROLL_TRAVEL = 350;
-export const ArrowButtons = ({ style, containerRef }) => {
+export const ArrowButtons = ({ style, containerRef, arrowStyle }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   // const scrollIntervalRef = useRef(null);
 
   const handleScroll = (scrollContainerRef, scrollValue) => {
     if (!scrollContainerRef) return;
-    const maxScroll =
-      scrollContainerRef.current.scrollWidth -
-      scrollContainerRef.current.clientWidth;
+    const maxScroll = scrollContainerRef.current.scrollWidth - scrollContainerRef.current.clientWidth;
 
     if (scrollValue >= maxScroll) scrollValue = maxScroll;
     else if (scrollValue <= 0) scrollValue = 0;
@@ -45,12 +43,13 @@ export const ArrowButtons = ({ style, containerRef }) => {
           fontSize: 35,
           color: "var(--app-main-color)",
           marginRight: 10,
+          ...(arrowStyle || {}),
         }}
       />
       <i
         onClick={() => doScroll()}
         className="fa fa-arrow-circle-right touchable-opacity"
-        style={{ fontSize: 35, color: "var(--app-main-color)" }}
+        style={{ fontSize: 35, color: "var(--app-main-color)", ...(arrowStyle || {}) }}
       />
     </div>
   );

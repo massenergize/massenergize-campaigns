@@ -1,4 +1,156 @@
 @media only screen and (max-width: 767px) {
+  /* -- SPT THEME ---- */
+
+  .spt-hero-media-area {
+    height: 250px;
+    position: relative;
+    background-color: var(--spt-main-color);
+  }
+  .spt-about-chip {
+    padding: 5px 10px;
+    margin: 4px;
+    font-size: 13px;
+  }
+  .spt-about-chip i {
+    margin-right: 4px;
+    font-size: 14px;
+  }
+  .play-btn {
+    font-size: 50px;
+    margin-bottom: 10px;
+  }
+  .p-button {
+    padding: 7px 20px;
+    margin: 5px 0px;
+  }
+  .col-on-pc-row-on-mobile {
+    display: flex;
+    flex-direction: row;
+  }
+  .row-on-pc-col-on-mobile {
+    display: flex;
+    flex-direction: column;
+  }
+  .spt-hero .intro h1 {
+    font-size: 2.5rem;
+  }
+  .spt-get-help div {
+    margin-bottom: 5px;
+  }
+
+  .spt-get-help h5,
+  p,
+  img {
+    margin-top: 10px;
+  }
+  .spt-get-help .btn-area {
+    width: 100%;
+  }
+  .spt-footer h1 {
+    color: white;
+    font-size: 25px;
+    font-weight: normal;
+    width: 87%;
+  }
+  .spt-footer {
+    background-color: var(--spt-main-color);
+    color: white;
+    width: 100%;
+    padding: 3% 3%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+  }
+  .spt-btn {
+    padding: 7px 25px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .spt-btn-outline {
+    padding: 7px 25px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .mobile-padding {
+    padding: var(--my-custom-padding) !important;
+  }
+
+  .spt-mobile-section-t {
+    font-weight: normal;
+    font-size: 1.65rem;
+    text-align: center;
+    width: 80%;
+  }
+  .mobile-width {
+    width: var(--my-custom-width) !important;
+  }
+  .mobile-margin {
+    margin: var(--my-custom-margin) !important;
+  }
+  .spt-flex-column-m {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .spt-section .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .spt-section .img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    height: 150px;
+  }
+  .spt-section-padding {
+    padding: 0% 3%;
+  }
+  .spt-hero .intro {
+    padding: 10% 7%;
+  }
+  .spt-acc-title {
+    padding: 10px 20px;
+  }
+
+  .spt-acc-title h4 {
+    font-size: 0.9rem;
+    font-weight: normal;
+  }
+  .spt-get-help p {
+    width: 100%;
+  }
+  .spt-get-help {
+    padding: 10px 25px;
+    flex-direction: column;
+  }
+
+  .spt-get-help img {
+    width: 80px;
+    border-radius: 100%;
+    margin-right: 20px;
+  }
+  .spt-get-help * {
+    text-align: center;
+  }
+  .spt-section-style {
+    border: solid 0px white;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .spt-section-margin-top {
+    margin-top: 20px;
+  }
+  .spt-body-font {
+    font-size: 0.9rem;
+  }
+
+  /* ------------------ */
   .phone-vanish {
     display: none !important;
   }
@@ -193,16 +345,16 @@
     font-size: var(--app-mobile-small-font);
   }
 
-  .nav-top-margin { 
+  .nav-top-margin {
     margin-top: 75px;
   }
 
   /* ---------------------------- END OF PHONE SPECIFIC STYLES ----------- */
 }
 
-@media screen and (max-width: 576px){
-  .app-nav-bar{
-    .navbar-collapse.show{
+@media screen and (max-width: 576px) {
+  .app-nav-bar {
+    .navbar-collapse.show {
       /*min-height: 650px;*/
       /* set the height to the available viewport height */
       height: 100vh;
@@ -217,7 +369,7 @@
         min-width: 250px;
       }
 
-      &::after{
+      &::after {
         display: none !important;
       }
     }

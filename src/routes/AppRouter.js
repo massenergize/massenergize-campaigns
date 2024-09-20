@@ -29,6 +29,7 @@ import { setPageTitle } from "../utils/utils";
 import JoinUsForm from "../user-portal/pages/forms/JoinUsForm";
 import AddOfferedLanguages from "../admin-portal/internationalization/AddOfferedLanguages";
 import BlanketNotification from "../components/pieces/BlanketNotification";
+import SPTOnePager from "../components/themes/spt/SPTOnePager";
 
 export const NavigateWithParams = ({ to, ...props }) => {
   const params = useParams();
@@ -144,6 +145,10 @@ const ROUTE_TABLE = [
     path: "/admin/campaign/languages/add",
     component: AddOfferedLanguages,
   },
+  // {
+  //   path: "/campaign/theme/spt",
+  //   component: SPTOnePager,
+  // },
   {
     path: "/dummy-for-auth",
     component: Dummy,
@@ -155,11 +160,6 @@ function AppRouter({
   testFunction,
   modalOptions,
   toggleModal,
-  appInnit,
-  fetchMassenergizeUser,
-  logUserOut,
-  init,
-  campaign,
   isAdminPortal,
   // navigation,
 }) {

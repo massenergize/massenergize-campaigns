@@ -62,8 +62,8 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
             <SectionsForm
               section="deal_section"
               data={techObject?.deal_section}
-              updateTechObject={updateTechObject}
-              tech_id={tech_id}
+              updateExistingObject={updateTechObject}
+              item_id={tech_id}
             />
           }
           isOpen={openAccordion}

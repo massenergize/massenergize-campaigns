@@ -22,7 +22,7 @@ export default function DealsForm({ deal, onSubmit, technology_id }) {
     setErrors({});
     let newErrors = {};
 
-    for (let field of [formData.title, formData.description]) {
+    for (let field of [formData.title]) {
       if (isEmpty(field)) {
         newErrors[field] = "This field is required";
       }

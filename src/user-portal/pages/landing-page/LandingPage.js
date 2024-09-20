@@ -31,6 +31,8 @@ import ShareBox from "../sharing/ShareBox";
 import Hero from "../banner/Hero";
 import { useMediaQuery } from "react-responsive";
 import BlanketNotification from "../../../components/pieces/BlanketNotification";
+import SPTOnePager from "../../../components/themes/spt/SPTOnePager";
+import { CAMPAIGN_TEMPLATE_KEYS } from "../../../utils/Values";
 
 function LandingPage({
   toggleModal,
@@ -119,13 +121,15 @@ function LandingPage({
     const user = authUser || localStorage.getItem(USER_STORAGE_KEY);
     const firstTime = !user || user === "null";
     const { modals } = getStaticText();
-
+    const themeKey = justLoadedCampaign?.template_key;
     if (!firstTime) return;
     toggleModal({
+      themeKey,
       show: true,
       title: modals?.whereFrom?.title?.text || `Please tell us where you are from`,
       component: ({ close }) => (
         <JoinUsForm
+          themeKey={themeKey}
           close={close}
           confirmText={modals?.whereFrom?.buttons?.submit?.text || "Okay, Done!"}
           cancelText={modals?.whereFrom?.buttons?.no?.text || "NO"}
@@ -185,6 +189,8 @@ function LandingPage({
       </Container>
     );
 
+  const themeIsSPT = campaign?.template_key === CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT;
+  if (themeIsSPT) return <SPTOnePager />;
   return (
     <div style={{}}>
       <div ref={homeRef}></div>
