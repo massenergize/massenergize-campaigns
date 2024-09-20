@@ -132,7 +132,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
                   <>
                       <div className="mb-3">
                           <CustomAccordion
-                              title="Add Call to Action on Hero Section"
+                              title="Customize Hero Section"
                               component={
                                   <Row className="py-4">
                                       <Col>
@@ -175,7 +175,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
                       </div>
                       <div className="mb-3">
                           <CustomAccordion
-                              title="Add Content to Banner Section"
+                              title="Customize Banner Section"
                               component={
                                   <SectionForm
                                       section="banner_section"
@@ -192,7 +192,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
                       </div>
                       <div className="mb-3">
                           <CustomAccordion
-                              title={"Add Content to Goal Section"}
+                              title={"Customize Goal Section"}
                               component={
                                   <SectionForm
                                       section="goal_section"
@@ -209,7 +209,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
                       </div>
                       <div className="mb-3">
                           <CustomAccordion
-                              title={"Add Content to Call Us Section"}
+                              title={"Customize Get Help Section"}
                               component={
                                   <SectionForm
                                       section="callout_section"
@@ -226,7 +226,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
                       </div>
                       <div className="mb-3">
                           <CustomAccordion
-                              title={"Add Content to Footer Call Us"}
+                              title={"Customize Contact Us Section"}
                               component={
                                   <SectionForm
                                       section="contact_section"
