@@ -178,7 +178,8 @@ function AppNavigationBar({ menu, campaign }) {
               </Col>
             </Row>
 
-            {PLATFORM?.toUpperCase() !== "PRODUCTION" && <LanguageSelector />}
+            {/* {PLATFORM?.toUpperCase() !== "PRODUCTION" && <LanguageSelector />} */}
+            <LanguageSelector />
             {/* <div
               className="touchable-opacity"
               style={{
