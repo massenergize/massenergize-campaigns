@@ -4,11 +4,13 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
 import OptimumWrapper from "./OptimumWrapper";
 import { bindActionCreators } from "redux";
-import { toggleUniversalModal } from "../../../redux/actions/actions";
+import {getStaticText, toggleUniversalModal} from "../../../redux/actions/actions";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function PageWrapper({ children, toggleModal, menu, noNavBar = false, noFooter = false, theme }) {
+    const { pages } = getStaticText();
+    const { goBack } = pages || {};
   const navigator = useNavigate();
   return (
     <div style={{}}>
@@ -17,7 +19,7 @@ function PageWrapper({ children, toggleModal, menu, noNavBar = false, noFooter =
           {" "}
           <h6 role="button" className="touchable-opacity" onClick={() => navigator(-1)}>
             <i className=" fa fa-long-arrow-left" style={{ marginRight: 10 }} />
-            Go Back
+              {goBack?.text || "Go Back"}
           </h6>
         </div>
       )}

@@ -220,7 +220,6 @@ export const ENGLISH = {
         },
       },
     },
-
     one_testimonial_page: {
       loader: {
         text: "Fetching testimonial details...",
@@ -248,6 +247,7 @@ export const ENGLISH = {
         call_to_register: { text: "Register/Join" },
       },
     },
+    goBack: { text: "Go Back" }
   },
   modals: {
     languageSelectionModal: { title: { text: "Choose a Language" } },
@@ -521,7 +521,6 @@ export const SPANISH = {
         },
       },
     },
-
     one_testimonial_page: {
       loader: {
         text: "Obteniendo detalles del testimonio...",
@@ -549,6 +548,7 @@ export const SPANISH = {
         call_to_register: { text: "Registrar/Unirse" },
       },
     },
+    goBack: { text: "Volver" }
   },
   modals: {
     languageSelectionModal: {
@@ -599,7 +599,7 @@ export const SPANISH = {
 };
 
 export const PORTUGUESE = {
-  spt: { modal: { button: { text: "Fechar Vídeo" } } },
+  spt: { modal: { button: { text: "Fechar Vídeo" } },  },
   toasts: {
     join: {
       noEmail: { text: "Por favor, forneça um endereço de e-mail válido..." },
@@ -827,7 +827,6 @@ export const PORTUGUESE = {
         },
       },
     },
-
     one_testimonial_page: {
       loader: {
         text: "Buscando detalhes do depoimento...",
@@ -855,6 +854,7 @@ export const PORTUGUESE = {
         call_to_register: { text: "Registrar/Participar" },
       },
     },
+    goBack: { text: "Volte" }
   },
   modals: {
     languageSelectionModal: {
