@@ -321,12 +321,10 @@ export const SPANISH = {
       description: { placeholder: "Comience a contar su historia aquí..." },
       buttons: { cancel: { text: "Cancelar" }, submit: { text: "Enviar" } },
       notifications: {
-        success: {
-          text: "¡Gracias por dejar un testimonio! Nuestros administradores lo revisarán y lo publicarán lo antes posible!",
-        },
+        success: { text: "¡Gracias por dejar un testimonio! Nuestros administradores lo revisarán y lo publicarán lo antes posible!"},
         provide_title: { text: "Asegúrese de haber proporcionado: título" },
         provide_technology: { text: "Asegúrese de haber proporcionado: tecnología" },
-      },
+      }
     },
   },
 
@@ -1249,11 +1247,11 @@ export const FRENCH = {
             title: "Communautés",
             description: "Connectez-vous avec votre communauté et découvrez d'autres actions",
           },
-          header: {
+          header:{
             title: "Mise en route",
-            description:
-              "Découvrez les actions que nous proposons dans le cadre de ces technologies et commencez tout de suite !",
-          },
+            description:"Découvrez les actions que nous proposons dans le cadre de ces technologies et commencez tout de suite !"
+          }
+
         },
         testimonials_section: {
           scrollable: {
