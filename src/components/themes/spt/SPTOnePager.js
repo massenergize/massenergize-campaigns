@@ -31,8 +31,6 @@ function SPTOnePager() {
   const contact_section = campaign?.contact_section;
   const faq_section = technology?.faq_section;
 
-  console.log("lets see campaign", campaign);
-
   const setActiveLanguage = (lang, reload = true) => {
     setActiveLanguageInStorage(lang);
     dispatch(loadActiveLanguageAction(lang));
@@ -108,10 +106,15 @@ function SPTOnePager() {
           {vendorRels.map(({ vendor }) => {
             return (
               <img
+                role="button"
+                className="s-touchable-opacity"
+                onClick={() => {
+                  if (vendor?.website) window.open(vendor?.website, "_blank");
+                }}
                 //placeholder image
                 src={vendor?.logo?.url}
                 alt="Community Solar"
-                style={{ flexBasis: "23%", objectFit: "cover", height: 100, marginRight: 10 }}
+                style={{ flexBasis: "20%", objectFit: "cover", height: 100, marginRight: 30 }}
               />
             );
           })}
