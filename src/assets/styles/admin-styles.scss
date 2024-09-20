@@ -421,3 +421,11 @@
   color: #6e207c;
   border: 1px solid #6e207c;
 }
+
+.modal-content {
+  overflow-y: unset !important;
+}
+
+.modal-body {
+  overflow-y: auto;
+}

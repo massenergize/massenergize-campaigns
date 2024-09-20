@@ -213,6 +213,42 @@ export async function updateTechnologyDeal(data, url = "technologies.deals.updat
   }
 }
 
+export async function addTechnologyFaq(data, url = "technologies.faqs.create") {
+  try {
+    const response = await apiCall(url, data, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "ADD_TECHNOLOGY_FAQ_ERROR_BE");
+    }
+    return response?.data;
+  } catch (error) {
+    handleRequestError(error, "ADD_TECHNOLOGY_FAQ_ERROR");
+  }
+}
+
+export async function updateTechnologyFaq(data, url = "technologies.faqs.update") {
+  try {
+    const response = await apiCall(url, data, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "UPDATE_TECHNOLOGY_FAQ_ERROR_BE");
+    }
+    return response?.data;
+  } catch (error) {
+    handleRequestError(error, "UPDATE_TECHNOLOGY_FAQ_ERROR");
+  }
+}
+
+export async function removeTechnologyFaq(id, url = "technologies.faqs.delete") {
+    try {
+        const response = await apiCall(url,{id:id}, null);
+        if (!response || !response?.success) {
+        handleRequestError(response?.error, "REMOVE_TECHNOLOGY_FAQ_ERROR_BE");
+        }
+        return response?.data;
+    } catch (error) {
+        handleRequestError(error, "REMOVE_TECHNOLOGY_FAQ_ERROR");
+    }
+}
+
 export async function removeTechnologyDeal(data, url = "technologies.deals.delete") {
   try {
     const response = await apiCall(url, data, null);

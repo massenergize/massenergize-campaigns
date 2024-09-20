@@ -14,6 +14,7 @@ import { formatDate, formatTime, formatTimeRange, setPageTitle } from "../../../
 import AddToGoogleCalendar from "./AddToGoogleCalendar";
 import ICSEventCreator from "./ICSEventCreator";
 import { translatedEventType } from "./EventBox";
+import { DEFAULT_THEME_COLORS, THEME_COLORS } from "../../../utils/Values";
 
 function OneEvent({ events, updateEvents, init, campaign }) {
   const { pages } = getStaticText();
@@ -54,9 +55,14 @@ function OneEvent({ events, updateEvents, init, campaign }) {
   if (event === LOADING)
     return <Loading fullPage>{one_event_page?.loader?.text || "Fetching event information..."}</Loading>;
 
+  const templateKey = campaign?.template_key;
+  const theme = THEME_COLORS[templateKey] || DEFAULT_THEME_COLORS;
+
   return (
-    <PageWrapper>
-      <SectionTitle className={"text-large"}>{name || "..."}</SectionTitle>
+    <PageWrapper noNavBar noFooter theme={theme}>
+      <SectionTitle className={"text-large"} style={{ color: theme?.color }}>
+        {name || "..."}
+      </SectionTitle>
       <Row>
         <Col lg={4} className="mt-2">
           {image?.url && (
@@ -65,9 +71,6 @@ function OneEvent({ events, updateEvents, init, campaign }) {
               src={image?.url}
               style={{
                 width: "100%",
-                // height: 200,
-                // ...(image?.url ? { minHeight: 200 } : { height: 200 }),
-                // objectFit: "contain",
                 borderRadius: 10,
                 marginBottom: 10,
               }}
@@ -75,10 +78,6 @@ function OneEvent({ events, updateEvents, init, campaign }) {
             />
           )}
           <div>
-            {/* <h6 className="small-font" style={{ fontWeight: "", color: "black" }}>
-              <span>Date</span>
-            </h6> */}
-
             <p
               className="body-font fw-medium text-accent-3"
               style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
@@ -88,13 +87,13 @@ function OneEvent({ events, updateEvents, init, campaign }) {
             </p>
           </div>
           {event?.event_type && (
-            <div style={{ marginTop: 10, color: "var(--app-main-color)" }}>
+            <div style={{ marginTop: 10, color: theme?.color || "var(--app-main-color)" }}>
               <p>{translatedEventType(event?.event_type, one_event_page?.sections?.card)}</p>
             </div>
           )}
 
           <div>
-            <h6 style={{ color: "var(--app-main-color)" }}>
+            <h6 style={{ color: theme?.color || "var(--app-main-color)" }}>
               <i className=" fa fa-download" />{" "}
               {one_event_page?.sections?.call_to_download?.text || "Download to your calendar"}
             </h6>
@@ -112,7 +111,7 @@ function OneEvent({ events, updateEvents, init, campaign }) {
               }}
               className="mt-2 touchable-opacity body-font"
               style={{
-                background: "var(--app-main-color)",
+                background: theme?.color || "var(--app-main-color)",
                 padding: 10,
                 color: "white",
                 textAlign: "center",

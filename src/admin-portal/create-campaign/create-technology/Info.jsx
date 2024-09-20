@@ -119,14 +119,14 @@ function Info({
         <Row className="mt-3">
           <Col>
             <Input
-              label="Summary (75 Chars)"
+              label="Summary"
               placeholder="Add a Summary for this focus......."
               required={true}
               type="textbox"
               onChange={(val) => {
                 handleFieldChange("summary", val);
               }}
-              maxLength="75"
+              maxLength="500"
               value={getValue("summary")}
             />
           </Col>
@@ -177,8 +177,8 @@ function Info({
            component={<SectionForm
           section="more_info_section"
           data={techObject?.more_info_section || {}}
-          updateTechObject={(more_info_section) => updateTechObject(more_info_section)}
-          tech_id={tech_id}
+          updateExistingObject={(more_info_section) => updateTechObject(more_info_section)}
+          item_id={tech_id}
         />}
         isOpen={openAccordion}
         onClick={() => setOpenAccordion(!openAccordion)}

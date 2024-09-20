@@ -1,20 +1,31 @@
 import React from "react";
 import Footer from "../footer/Footer";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import AppNavigationBar from "../../../components/navbar/AppNavigationBar";
 import OptimumWrapper from "./OptimumWrapper";
 import { bindActionCreators } from "redux";
-import { toggleUniversalModal } from "../../../redux/actions/actions";
+import {getStaticText, toggleUniversalModal} from "../../../redux/actions/actions";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-function PageWrapper ({ children, toggleModal, menu }) {
+function PageWrapper({ children, toggleModal, menu, noNavBar = false, noFooter = false, theme }) {
+    const { pages } = getStaticText();
+    const { goBack } = pages || {};
+  const navigator = useNavigate();
   return (
     <div style={{}}>
-      <AppNavigationBar />
-      <OptimumWrapper style={{ minHeight: "85vh", marginTop: 130 }}>
-        {children}
-      </OptimumWrapper>
-      <Footer toggleModal={toggleModal} />
+      {noNavBar && (
+        <div style={{ padding: 20, background: theme?.color, color: theme?.textcolor }}>
+          {" "}
+          <h6 role="button" className="touchable-opacity" onClick={() => navigator(-1)}>
+            <i className=" fa fa-long-arrow-left" style={{ marginRight: 10 }} />
+              {goBack?.text || "Go Back"}
+          </h6>
+        </div>
+      )}
+      {!noNavBar && <AppNavigationBar />}
+      <OptimumWrapper style={{ minHeight: "85vh", marginTop: 130 }}>{children}</OptimumWrapper>
+      {!noFooter && <Footer toggleModal={toggleModal} />}
     </div>
   );
 }
@@ -27,7 +38,7 @@ const mapDispatch = (dispatch) => {
     {
       toggleModal: toggleUniversalModal,
     },
-    dispatch
+    dispatch,
   );
 };
 export default connect(mapState, mapDispatch)(PageWrapper);
