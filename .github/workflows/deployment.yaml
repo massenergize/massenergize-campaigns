@@ -44,7 +44,7 @@ jobs:
         if:  startsWith(github.ref, 'refs/tags/dev') 
         run: |
           echo "Setting prod branch secrets..."
-          echo "REACT_APP_TINY_MCE_KEY=${{ secrets.REACT_APP_TINY_MCE_KEY }}" >> $GITHUB_ENV
+          echo "REACT_APP_TINY_MCE_KEY_FOR_DEV=${{ secrets.REACT_APP_TINY_MCE_KEY_FOR_DEV }}" >> $GITHUB_ENV
           echo "REACT_APP_FIREBASE_API_KEY=${{ secrets.REACT_APP_FIREBASE_API_KEY }}" >> $GITHUB_ENV
           echo "REACT_APP_FIREBASE_DATABASE_URL=${{ secrets.REACT_APP_FIREBASE_DATABASE_URL }}" >> $GITHUB_ENV
           echo "REACT_APP_FIREBASE_STORAGE_BUCKET=${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}" >> $GITHUB_ENV
