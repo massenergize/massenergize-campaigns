@@ -27,7 +27,7 @@ If yes, please describe the impact and migration path for existing applications:
 
 **The PR fulfills these requirements:**
 
-- [ ] It's submitted to the `dev` branch or to a feature branch, _not_ the `main` branch
+<!-- - [ ] It's submitted to the `dev` branch or to a feature branch, _not_ the `main` branch -->
 - [ ] When resolving a specific issue, it's referenced in the PR's title (e.g. `fix #xxx[,#xxx]`, where "xxx" is the
   issue number)
 - [ ] All tests are
