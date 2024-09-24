@@ -10,6 +10,7 @@ import SPTSectionTitle from "./components/SPTSectionTitle";
 import SPTEventsSections from "./components/SPTEventsSections";
 import { useDispatch, useSelector } from "react-redux";
 import { loadActiveLanguageAction, setActiveLanguageInStorage } from "../../../redux/actions/actions";
+import { DEFAULT_ENGLISH_CODE } from "../../../redux/redux-action-types";
 
 const LANGUAGE_LIST = [
   { name: "English", code: "en-US" },
@@ -44,6 +45,7 @@ function SPTOnePager() {
         style={{ padding: 20, display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}
       >
         {LANGUAGE_LIST.map((lang, index) => {
+          if (!activeLanguage && lang?.code === DEFAULT_ENGLISH_CODE) return null;
           if (lang?.code === activeLanguage) return null;
           return (
             <div
