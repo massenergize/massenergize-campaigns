@@ -33,6 +33,7 @@ import { useMediaQuery } from "react-responsive";
 import BlanketNotification from "../../../components/pieces/BlanketNotification";
 import SPTOnePager from "../../../components/themes/spt/SPTOnePager";
 import { CAMPAIGN_TEMPLATE_KEYS } from "../../../utils/Values";
+import SPTV2Entry from "../../../components/themes/sptV2/SPTV2Entry";
 
 function LandingPage({
   toggleModal,
@@ -190,7 +191,9 @@ function LandingPage({
     );
 
   const themeIsSPT = campaign?.template_key === CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT;
-  if (themeIsSPT) return <SPTOnePager />;
+  const themeIsSPTV2 = campaign?.template_key === CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT_V2;
+  // if (themeIsSPT) return <SPTOnePager />;
+  if (true) return <SPTV2Entry />;
   return (
     <div style={{}}>
       <div ref={homeRef}></div>

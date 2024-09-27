@@ -1,13 +1,6 @@
 {
-  "extends": [
-    "react-app",
-    "react-app/jest",
-    "plugin:jsx-a11y/recommended"
-  ],
-  "plugins": [
-    "react",
-    "jsx-a11y"
-  ],
+  "extends": ["react-app", "react-app/jest", "plugin:jsx-a11y/recommended"],
+  "plugins": ["react", "jsx-a11y"],
   "ignorePatterns": [
     "node_modules/",
     "build/",
@@ -23,7 +16,7 @@
     "**/*.spec.js"
   ],
   "rules": {
-    "no-unused-vars": "off" ,
+    "no-unused-vars": "off",
     "react/react-in-jsx-scope": 0,
     "react/jsx-uses-react": 0,
     "react/jsx-key": 1,
@@ -43,7 +36,10 @@
     ],
     "space-in-parens": "warn",
     "no-unneeded-comma": "off",
-    "no-noninteractive-element-to-interactive-role":"off"
+    "no-noninteractive-element-to-interactive-role": "off",
+
+    "react-hooks/exhaustive-deps": "off"
+
     // "space-before-function-paren": "error"
   }
 }
