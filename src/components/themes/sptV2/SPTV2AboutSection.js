@@ -1,5 +1,6 @@
 import React from "react";
 import SPTSectionComponent from "./components/SPTSectionComponent";
+import SPTButton from "./components/SPTButton.js";
 
 function SPTV2AboutSection({ technology }) {
   const { name, description, summary, deals, image } = technology || {};
@@ -12,11 +13,8 @@ function SPTV2AboutSection({ technology }) {
       >
         <h1 className="spt-mobile-section-t">{name}</h1>
         <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: summary }}></div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus dolor, nihil ipsa eos qui blanditiis id
-          eligendi iste quasi! Repudiandae, inventore tempora fugit sapiente eveniet saepe cupiditate distinctio magnam
-          esse?
-        </p>
+
+        <SPTButton>Sign Up Now!</SPTButton>
       </div>
       <div
         className="col-md-6 spt-flex-column-m mobile-margin "
