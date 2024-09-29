@@ -17,7 +17,6 @@ function SPTAboutSection({ technology }) {
               src={image?.url}
               alt="Community Solar"
               style={{ "--my-custom-margin": "20px 0px" }}
-              //   style={{ width: "100%", height: "100%", borderRadius: 20 }}
             />
           </div>
           <div

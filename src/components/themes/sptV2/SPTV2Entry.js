@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadActiveLanguageAction, setActiveLanguageInStorage } from "../../../redux/actions/actions";
 import { DEFAULT_ENGLISH_CODE } from "../../../redux/redux-action-types";
 import Hero from "./components/hero/Hero";
+import SPTSectionComponent from "./components/SPTSectionComponent";
+import SPTV2OurGoals from "./SPTV2OurGoals";
 
 const LANGUAGE_LIST = [
   { name: "English", code: "en-US" },
@@ -40,7 +42,6 @@ function SPTV2Entry() {
   };
   return (
     <div>
-
       <Hero />
       {/* <SPTHero campaign={campaign} /> */}
       <div
@@ -64,7 +65,8 @@ function SPTV2Entry() {
       </div>
 
       {/* About Community Solar */}
-      <SPTAboutSection technology={technology} />
+      {/* <SPTAboutSection technology={technology} />  */}
+      <SPTV2OurGoals technology={technology} />
       {/*  Our Goals */}
       <SPTGoalSections technology={technology} section={goal_section} />
       {/* ------ FAQS----------- */}

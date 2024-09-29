@@ -4,6 +4,13 @@
 @media only screen and (min-width: 768px) {
   /* -- SPT THEME ---- */
 
+  .spt-s-img {
+    border-radius: 20px;
+    width: 85%;
+  }
+  .spt-section-component {
+    padding: 5vh 7vw;
+  }
   .spt-hero-media-area {
     height: 100%;
     position: relative;

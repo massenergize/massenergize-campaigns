@@ -22,35 +22,67 @@ const Hero = () => {
   ];
 
   return (
-    <div className="hero">
-      <div>
-        <div className="hero-content">
-          <h1 className="hero-title">Solar Para Todos</h1>
-          <p className="hero-subtext">Save money with clean energy!</p>
-          <div
-            className="spt-btn touchable-opacity custom-margin"
-            style={{ "--my-custom-margin": "20px 0px" }}
-            onClick={() => {
-              // if (call_to_action?.url) window.open(call_to_action?.url, "_blank");
-            }}
-          >
-            See if you qualify
-            {/* {call_to_action?.text} */}
-            <i style={{ marginLeft: 8, "--my-pc-custom-margin": "30px 0px" }} className="fa fa-long-arrow-right"></i>
+    <>
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          display: "flex",
+          flexDirection: "row",
+          width: "100%",
+          background: "transparent",
+          alignItems: "center",
+          height: "auto",
+          zIndex: 1000,
+          width: "100%",
+          padding: 20,
+        }}
+      >
+        <img
+          style={{ objectFit: "contain", height: 70 }}
+          src="https://via.placeholder.com/100x50/ffc0cb/fff?text=ffc0cb"
+          alt="logo"
+        />
+        <small style={{ marginLeft: "auto" }}>Language Selector </small>
+      </div>
+      <div className="hero">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            height: "100%",
+          }}
+        >
+          <div className="hero-content">
+            <h1 className="hero-title">Solar Para Todos</h1>
+            <p className="hero-subtext">Save money with clean energy!</p>
+            <div
+              className="spt-btn touchable-opacity custom-margin"
+              style={{ "--my-custom-margin": "20px 0px" }}
+              onClick={() => {
+                // if (call_to_action?.url) window.open(call_to_action?.url, "_blank");
+              }}
+            >
+              See if you qualify
+              {/* {call_to_action?.text} */}
+              <i style={{ marginLeft: 8, "--my-pc-custom-margin": "30px 0px" }} className="fa fa-long-arrow-right"></i>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="hero-carousel">
-        <Slider {...settings}>
-          {images.map((image, index) => (
-            <div key={index}>
-              <div className="hero-slide" style={{ backgroundImage: `url(${image})` }} />
-            </div>
-          ))}
-        </Slider>
+        <div className="hero-carousel">
+          <Slider {...settings}>
+            {images.map((image, index) => (
+              <div key={index}>
+                <div className="hero-slide" style={{ backgroundImage: `url(${image})` }} />
+              </div>
+            ))}
+          </Slider>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

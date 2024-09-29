@@ -2,9 +2,9 @@
   position: relative;
   height: 60vh;
   overflow: hidden;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: column; */
 }
 
 .hero-carousel {
