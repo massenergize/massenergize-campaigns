@@ -3,8 +3,7 @@ import SPTHero from "../spt/components/SPTHero";
 import HelpBanner from "../spt/components/HelpBanner";
 import CustomAccordion from "../../admin-components/CustomAccordion";
 import { ACCORDION_SECTIONS, FAQS } from "../spt/SPTConstants";
-import SPTAboutSection from "../spt/components/SPTAboutSection";
-import SPTGoalSections from "../spt/components/SPTGoalSections";
+
 import SPTFooter from "../spt/components/SPTFooter";
 import SPTSectionTitle from "../spt/components/SPTSectionTitle";
 import SPTEventsSections from "../spt/components/SPTEventsSections";
@@ -14,6 +13,7 @@ import { DEFAULT_ENGLISH_CODE } from "../../../redux/redux-action-types";
 import Hero from "./components/hero/Hero";
 import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTV2OurGoals from "./SPTV2OurGoals";
+import SPTV2AboutSection from "./SPTV2AboutSection";
 
 const LANGUAGE_LIST = [
   { name: "English", code: "en-US" },
@@ -64,11 +64,10 @@ function SPTV2Entry() {
         })}
       </div>
 
-      {/* About Community Solar */}
-      {/* <SPTAboutSection technology={technology} />  */}
-      <SPTV2OurGoals technology={technology} />
       {/*  Our Goals */}
-      <SPTGoalSections technology={technology} section={goal_section} />
+      <SPTV2OurGoals section={goal_section} />
+      {/* About Community Solar */}
+      <SPTV2AboutSection technology={technology} />
       {/* ------ FAQS----------- */}
       <div className="spt-section-padding spt-section-margin-top">
         {overviewItems?.map((overview, index) => {

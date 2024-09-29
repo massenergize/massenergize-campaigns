@@ -1,5 +1,4 @@
 import React from "react";
-import { smartString } from "../../../../utils/utils";
 
 function SPTAboutSection({ technology }) {
   const { name, description, summary, deals, image } = technology || {};
