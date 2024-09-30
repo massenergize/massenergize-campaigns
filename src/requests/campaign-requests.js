@@ -473,3 +473,46 @@ export async function deleteCallToAction(id, url = "call.to.action.delete") {
         handleRequestError(e, "DELETE_CALL_TO_ACTION");
     }
 }
+
+
+export async function addCampaignMedia(data, url = "campaigns.media.add") {
+  try{
+    const response = await apiCall(url, data, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "ADD_MEDIA_MEDIA_BE");
+    }
+    return response?.data;
+  }
+  catch (e) {
+    handleRequestError(e, "ADD_MEDIA_MEDIA_MEDIA");
+  }
+}
+
+export async function removeCampaignMedia(data, url = "campaigns.media.delete") {
+  try{
+    const response = await apiCall(url, data, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "REMOVE_MEDIA_MEDIA_MEDIA");
+    }
+    return response?.data;
+
+  }
+  catch (e) {
+    handleRequestError(e, "REMOVE_MEDIA_MEDIA");
+  }
+
+}
+
+export async function updateCampaignMedia(data, url = "campaigns.media.update") {
+  try{
+    const response = await apiCall(url, data, null);
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "UPDATE_MEDIA_MEDIA_MEDIA");
+    }
+    return response?.data;
+  }
+  catch (e) {
+    handleRequestError(e, "UPDATE_MEDIA_MEDIA");
+  }
+
+}
