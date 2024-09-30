@@ -79,8 +79,10 @@ function SPTV2Entry() {
       <SPTV2OurGoals themeKey={themeKey} section={goal_section} />
       {/* About Community Solar */}
       <SPTV2AboutSection themeKey={themeKey} technology={technology} />
-      {/* ------ FAQS----------- */}
+      {/* ------ BENEFITS----------- */}
       <div className="spt-section-padding spt-section-margin-top">
+        <SPTSectionTitle>Benefits</SPTSectionTitle>
+        <div className="mobile-margin" style={{ marginTop: 40, "--my-custom-margin": "10px 0px" }}></div>
         {overviewItems?.map((overview, index) => {
           return (
             <div key={overview?.id} style={{ marginBottom: 10 }}>
