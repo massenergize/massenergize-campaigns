@@ -1,15 +1,19 @@
 import React from "react";
+import SPTButton from "../../sptV2/components/SPTButton";
+import { getTheme } from "../../../../utils/Values";
 
-function SPTFooter({ section }) {
+function SPTFooter({ section, themeKey }) {
   const { title, description, media, call_to_action_items } = section || {};
+  const theme = getTheme(themeKey);
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
-      <div className="spt-footer spt-section-padding">
+      <div className="spt-footer spt-section-padding" style={{ "--background": theme?.footerBack }}>
         <h1>{title || ""} </h1>
 
         <div style={{ display: "flex", flexDirection: "row" }}>
           {call_to_action_items?.map(({ url, text }, index) => (
-            <div
+            <SPTButton
+              themeKey={themeKey}
               key={index}
               onClick={() => {
                 if (!url) return;
@@ -19,7 +23,7 @@ function SPTFooter({ section }) {
               style={{ "--my-custom-width": "fit-content", "--my-custom-margin": "0px 10px" }}
             >
               {text}
-            </div>
+            </SPTButton>
           ))}
           {/* <div
             className="spt-btn mobile-width moblie-margin"
@@ -44,7 +48,7 @@ function SPTFooter({ section }) {
             media?.url ||
             "https://massenergize-prod-files.s3.amazonaws.com/media/crowd-of-people-marching-on-a-rally-2975498.jpg"
           }
-          style={{ height: 300, width: "100%", background: "blue", objectFit: "cover" }}
+          style={{ height: 300, width: "100%", objectFit: "cover" }}
         />
       </div>
     </div>

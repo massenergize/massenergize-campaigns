@@ -25,7 +25,7 @@ function Loading({ text = "Loading...", fullPage, children, spinnerStyle }) {
         style={{
           margin: 10,
           fontWeight: "bold",
-          color: "var(--app-main-color)",
+          // color: "var(--app-main-color)",
         }}
       >
         {children || text}

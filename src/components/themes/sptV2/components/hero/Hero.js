@@ -7,8 +7,11 @@ import LanguageSelector from "../../../../language/LanguageSelector";
 import MobileLanguageSelector from "../../../../language/MobileLanguageSelector";
 import SPTButton from "../SPTButton";
 import { getTheme } from "../../../../../utils/Values";
+import { useSelector } from "react-redux";
 
 const Hero = ({ themeKey }) => {
+  const campaign = useSelector((state) => state.campaign);
+  console.log("This is the campaign", campaign);
   const settings = {
     dots: true,
     infinite: true,
@@ -29,12 +32,13 @@ const Hero = ({ themeKey }) => {
   ];
 
   const theme = getTheme(themeKey);
+  const { primary_logo } = campaign || {};
   return (
     <>
       <div className="spt-v2-nav">
         <img
           // style={{ objectFit: "contain", height: 70 }}
-          src="https://via.placeholder.com/100x50/ffc0cb/fff?text=ffc0cb"
+          src={primary_logo?.url}
           alt="logo"
         />
 

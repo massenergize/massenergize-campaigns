@@ -73,7 +73,7 @@
     width: 87%;
   }
   .spt-footer {
-    background-color: var(--spt-main-color);
+    background-color: var(--background);
     color: white;
     width: 100%;
     padding: 3% 3%;
