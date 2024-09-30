@@ -1,10 +1,13 @@
 import React from "react";
 import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTButton from "./components/SPTButton.js";
+import { getStaticText } from "../../../redux/actions/actions.js";
 
 function SPTV2AboutSection({ technology, themeKey }) {
   const { name, description, summary, deals, image } = technology || {};
 
+  const { spt } = getStaticText();
+  const addOnT = spt?.about?.titleAddOn;
   return (
     <SPTSectionComponent style={{ background: "#ffe7e4" }}>
       <div
@@ -13,7 +16,7 @@ function SPTV2AboutSection({ technology, themeKey }) {
       >
         <h1 className="spt-mobile-section-t">
           {name}
-          {": What is it?"}
+          {addOnT ? `: ${addOnT?.text}` : ""}
         </h1>
         <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: summary }}></div>
 

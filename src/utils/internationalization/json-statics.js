@@ -2,7 +2,7 @@
 
 // Use this to translate: https://translate.google.com/
 export const ENGLISH = {
-  spt: { modal: { button: { text: "Close Video" } } },
+  spt: { modal: { button: { text: "Close Video" } }, about: { titleAddOn: { text: "What is it?" } } },
   toasts: {
     join: {
       noEmail: { text: "Please provide a valid email address..." },
@@ -247,7 +247,7 @@ export const ENGLISH = {
         call_to_register: { text: "Register/Join" },
       },
     },
-    goBack: { text: "Go Back" }
+    goBack: { text: "Go Back" },
   },
   modals: {
     languageSelectionModal: { title: { text: "Choose a Language" } },
@@ -290,7 +290,7 @@ export const ENGLISH = {
 };
 
 export const SPANISH = {
-  spt: { modal: { button: { text: "Cerrar Vídeo" } } },
+  spt: { modal: { button: { text: "Cerrar Vídeo" } }, about: { titleAddOn: { text: "¿Qué es?" } } },
   toasts: {
     join: {
       noEmail: { text: "Por favor, proporcione una dirección de correo electrónico válida..." },
@@ -321,10 +321,12 @@ export const SPANISH = {
       description: { placeholder: "Comience a contar su historia aquí..." },
       buttons: { cancel: { text: "Cancelar" }, submit: { text: "Enviar" } },
       notifications: {
-        success: { text: "¡Gracias por dejar un testimonio! Nuestros administradores lo revisarán y lo publicarán lo antes posible!"},
+        success: {
+          text: "¡Gracias por dejar un testimonio! Nuestros administradores lo revisarán y lo publicarán lo antes posible!",
+        },
         provide_title: { text: "Asegúrese de haber proporcionado: título" },
         provide_technology: { text: "Asegúrese de haber proporcionado: tecnología" },
-      }
+      },
     },
   },
 
@@ -546,7 +548,7 @@ export const SPANISH = {
         call_to_register: { text: "Registrar/Unirse" },
       },
     },
-    goBack: { text: "Volver" }
+    goBack: { text: "Volver" },
   },
   modals: {
     languageSelectionModal: {
@@ -597,7 +599,7 @@ export const SPANISH = {
 };
 
 export const PORTUGUESE = {
-  spt: { modal: { button: { text: "Fechar Vídeo" } },  },
+  spt: { modal: { button: { text: "Fechar Vídeo" } }, about: { titleAddOn: { text: "O que é?" } } },
   toasts: {
     join: {
       noEmail: { text: "Por favor, forneça um endereço de e-mail válido..." },
@@ -852,7 +854,7 @@ export const PORTUGUESE = {
         call_to_register: { text: "Registrar/Participar" },
       },
     },
-    goBack: { text: "Volte" }
+    goBack: { text: "Volte" },
   },
   modals: {
     languageSelectionModal: {
@@ -1247,11 +1249,11 @@ export const FRENCH = {
             title: "Communautés",
             description: "Connectez-vous avec votre communauté et découvrez d'autres actions",
           },
-          header:{
+          header: {
             title: "Mise en route",
-            description:"Découvrez les actions que nous proposons dans le cadre de ces technologies et commencez tout de suite !"
-          }
-
+            description:
+              "Découvrez les actions que nous proposons dans le cadre de ces technologies et commencez tout de suite !",
+          },
         },
         testimonials_section: {
           scrollable: {

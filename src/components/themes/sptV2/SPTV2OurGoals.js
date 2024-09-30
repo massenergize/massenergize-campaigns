@@ -1,16 +1,17 @@
 import React from "react";
 import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTButton from "./components/SPTButton";
+import { getStaticText } from "../../../redux/actions/actions";
 
 function SPTV2OurGoals({ section, themeKey }) {
   const { title, description, media, call_to_action_items } = section || {};
+ 
   const renderImage = () => {
     return (
       <img
         className="spt-s-img"
         src={
-          media?.url ||
-          "https://massenergize-prod-files.s3.amazonaws.com/media/crowd-of-people-marching-on-a-rally-2975498.jpg"
+          media?.url  
         }
         alt="Community Solar"
         // style={{ width: "100%", height: "100%", borderRadius: 20 }}
