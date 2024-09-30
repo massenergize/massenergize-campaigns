@@ -1,5 +1,4 @@
 import React from "react";
-import { smartString } from "../../../../utils/utils";
 
 function SPTAboutSection({ technology }) {
   const { name, description, summary, deals, image } = technology || {};
@@ -17,7 +16,6 @@ function SPTAboutSection({ technology }) {
               src={image?.url}
               alt="Community Solar"
               style={{ "--my-custom-margin": "20px 0px" }}
-              //   style={{ width: "100%", height: "100%", borderRadius: 20 }}
             />
           </div>
           <div

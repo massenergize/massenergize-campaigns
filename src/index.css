@@ -5,6 +5,22 @@ body {
   font-family: "Manrope", sans-serif;
 }
 
+.spt-v2-nav img {
+  object-fit: contain;
+}
+.spt-v2-nav {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background: transparent;
+  align-items: center;
+  height: auto;
+  z-index: 1000;
+  padding: 20px;
+}
 /* -- SPT THEME ---- */
 
 .spt-media-player {
@@ -126,7 +142,7 @@ body {
 }
 
 .spt-btn {
-  background-color: var(--spt-accent-2);
+  background-color: var(--background);
   color: white;
   border: 0px;
   border-radius: 5px;
@@ -139,8 +155,8 @@ body {
 .spt-btn-outline {
   margin-bottom: 5px;
   background: white;
-  border: 1px solid rgb(255, 132, 71);
-  color: rgb(255, 132, 71);
+  border: 1px var(--border-color) solid;
+  color:var(--text-color);
   border-radius: 4px;
   width: auto;
   margin-top: 10px;
@@ -150,16 +166,17 @@ body {
 /* ------------------ */
 
 .floating-l-drop {
-  position: fixed;
+  border-radius: 5px;
+  /* position: fixed;
   bottom: 60px;
-  right: 0px;
+  right: 0px; */
   padding: 10px 15px;
-  border-top-left-radius: 55px;
-  border-bottom-left-radius: 55px;
+  /* border-top-left-radius: 55px;
+  border-bottom-left-radius: 55px; */
   box-shadow: var(--elevate-5);
   background-color: white;
   color: var(--app-accent-3);
-  opacity: 0.7;
+  /* opacity: 0.7; */
   cursor: pointer;
 }
 
@@ -169,7 +186,7 @@ body {
   text-transform: capitalize;
   font-size: var(--app-body-font);
   font-weight: bold;
-  width: 200px;
+  width: auto;
 }
 
 .floating-l-drop:hover {
