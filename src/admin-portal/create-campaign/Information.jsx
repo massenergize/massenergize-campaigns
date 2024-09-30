@@ -20,6 +20,7 @@ import { useCampaignContext } from "src/hooks/use-campaign-context";
 import SectionForm from "./create-technology/SectionsForm";
 import {SINGLE_TECHNOLOGY_CAMPAIGN_SPT} from "../../utils/Constants";
 import {Button as BTN} from "react-bootstrap";
+import HeroComponent from "./HeroComponent";
 
 const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) => {
   const [showError, setShowError] = useState(false);
@@ -47,10 +48,7 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
   const [errors, setErrors] = useNamedState("Error", {});
 
   const [openedAccordion, setOpenedAccordion] = useState(null);
-
-  const [campaignCallToAction, setCampaignCallToAction] = useState(campaignDetails?.call_to_action || {});
-
-  const { setNewCampaignDetails } = useCampaignContext();
+    const { setNewCampaignDetails } = useCampaignContext();
 
   const handleFieldChange = (field, value) => {
     setCampaignDetails(field, value);
@@ -58,26 +56,6 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
 
   const toggleAccordion = (section) => {
     setOpenedAccordion(openedAccordion === section ? null : section);
-  }
-
-  const handleSaveCallToAction = async () => {
-      let data = {id: campaignDetails.id, call_to_action: JSON.stringify(campaignCallToAction)};
-      let res = await updateCampaign(data);
-        if (res) {
-             blow({
-                title: "Success",
-                message: "Call to action saved successfully",
-                type: "success",
-                duration: 5000,
-            });
-        }else{
-            blow({
-                title: "Error",
-                message: "An error occurred while saving call to action",
-                type: "error",
-                duration: 5000,
-            });
-        }
   }
 
 
@@ -134,40 +112,10 @@ const Information = ({ campaignDetails, setCampaignDetails, setStep, lists }) =>
                           <CustomAccordion
                               title="Customize Hero Section"
                               component={
-                                  <Row className="py-4">
-                                      <Col>
-                                          <Input
-                                              label="Call to Action Text"
-                                              placeholder="Enter call to action text..."
-                                              required={false}
-                                              type="textbox"
-                                              onChange={(val) => setCampaignCallToAction({...campaignCallToAction, text: val})}
-                                              value={campaignCallToAction?.text}
-                                          />
-                                      </Col>
-                                      <Col>
-                                          <Input
-                                              label="Call to Action URL"
-                                              placeholder="https://www.something.com"
-                                              required={false}
-                                              type="textbox"
-                                              onChange={(val) =>setCampaignCallToAction({...campaignCallToAction, url: val})}
-                                              value={campaignCallToAction?.url}
-                                          />
-                                      </Col>
-                                      <Row>
-                                          <Col className="py-4">
-                                              <Button
-                                                  text="Save Section"
-                                                  onSubmit={() => handleSaveCallToAction()}
-                                                  rounded={false}
-                                                  loading={loading}
-                                                  disabled={loading}
-                                              />
-                                          </Col>
-                                      </Row>
-
-                                  </Row>
+                              <HeroComponent
+                                  campaignDetails={campaignDetails}
+                                  updateCampaignDetails={setCampaignDetails}
+                                  />
                               }
                               isOpen={openedAccordion === "call_to_action"}
                               onClick={() => toggleAccordion("call_to_action")}
