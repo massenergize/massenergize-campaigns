@@ -20,6 +20,7 @@ function SPTV2AboutSection({ technology, themeKey }) {
         </h1>
         <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: summary }}></div>
 
+        
         <SPTButton themeKey={themeKey}>Sign Up Now!</SPTButton>
       </div>
       <div
