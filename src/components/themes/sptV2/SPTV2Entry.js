@@ -131,7 +131,7 @@ function SPTV2Entry() {
                 //placeholder image
                 src={vendor?.logo?.url}
                 alt="Community Solar"
-                style={{ flexBasis: "20%", objectFit: "cover", height: 100, marginRight: 30 }}
+                style={{ flexBasis: "20%", objectFit: "contain", height: 100, marginRight: 30 }}
               />
             );
           })}
