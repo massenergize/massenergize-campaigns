@@ -41,7 +41,6 @@ function SPTV2Entry() {
   const { spt } = getStaticText();
   const { overview } = spt || {};
 
-  console.log("Lets see overview", campaign);
   const setActiveLanguage = (lang, reload = true) => {
     setActiveLanguageInStorage(lang);
     dispatch(loadActiveLanguageAction(lang));
