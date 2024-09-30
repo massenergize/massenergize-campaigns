@@ -8,7 +8,7 @@ import SPTFooter from "../spt/components/SPTFooter";
 import SPTSectionTitle from "../spt/components/SPTSectionTitle";
 import SPTEventsSections from "../spt/components/SPTEventsSections";
 import { useDispatch, useSelector } from "react-redux";
-import { loadActiveLanguageAction, setActiveLanguageInStorage } from "../../../redux/actions/actions";
+import { getStaticText, loadActiveLanguageAction, setActiveLanguageInStorage } from "../../../redux/actions/actions";
 import { DEFAULT_ENGLISH_CODE } from "../../../redux/redux-action-types";
 import Hero from "./components/hero/Hero";
 import SPTSectionComponent from "./components/SPTSectionComponent";
@@ -36,7 +36,12 @@ function SPTV2Entry() {
   const contact_section = campaign?.contact_section;
   const faq_section = technology?.faq_section;
   const languages = useSelector((state) => state?.usersListOfLanguages);
+  const overviewTitle = technology?.overview_title;
 
+  const { spt } = getStaticText();
+  const { overview } = spt || {};
+
+  console.log("Lets see overview", campaign);
   const setActiveLanguage = (lang, reload = true) => {
     setActiveLanguageInStorage(lang);
     dispatch(loadActiveLanguageAction(lang));
@@ -81,7 +86,7 @@ function SPTV2Entry() {
       <SPTV2AboutSection themeKey={themeKey} technology={technology} />
       {/* ------ BENEFITS----------- */}
       <div className="spt-section-padding spt-section-margin-top">
-        <SPTSectionTitle>Benefits</SPTSectionTitle>
+        <SPTSectionTitle>{overviewTitle || overview?.title?.text}</SPTSectionTitle>
         <div className="mobile-margin" style={{ marginTop: 40, "--my-custom-margin": "10px 0px" }}></div>
         {overviewItems?.map((overview, index) => {
           return (

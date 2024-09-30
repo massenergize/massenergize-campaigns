@@ -2,7 +2,11 @@
 
 // Use this to translate: https://translate.google.com/
 export const ENGLISH = {
-  spt: { modal: { button: { text: "Close Video" } }, about: { titleAddOn: { text: "What is it?" } } },
+  spt: {
+    modal: { button: { text: "Close Video" } },
+    overview: { title: { text: "Benefits" } },
+    about: { titleAddOn: { text: "What is it?" } },
+  },
   toasts: {
     join: {
       noEmail: { text: "Please provide a valid email address..." },
@@ -290,7 +294,11 @@ export const ENGLISH = {
 };
 
 export const SPANISH = {
-  spt: { modal: { button: { text: "Cerrar Vídeo" } }, about: { titleAddOn: { text: "¿Qué es?" } } },
+  spt: {
+    modal: { button: { text: "Cerrar Vídeo" } },
+    overview: { title: { text: "Beneficios" } },
+    about: { titleAddOn: { text: "¿Qué es?" } },
+  },
   toasts: {
     join: {
       noEmail: { text: "Por favor, proporcione una dirección de correo electrónico válida..." },
@@ -599,7 +607,11 @@ export const SPANISH = {
 };
 
 export const PORTUGUESE = {
-  spt: { modal: { button: { text: "Fechar Vídeo" } }, about: { titleAddOn: { text: "O que é?" } } },
+  spt: {
+    modal: { button: { text: "Fechar Vídeo" } },
+    overview: { title: { text: "Benefícios" } },
+    about: { titleAddOn: { text: "O que é?" } },
+  },
   toasts: {
     join: {
       noEmail: { text: "Por favor, forneça um endereço de e-mail válido..." },
