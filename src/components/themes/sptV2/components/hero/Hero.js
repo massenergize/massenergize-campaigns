@@ -3,6 +3,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./hero.css";
 import React from "react";
 import Slider from "react-slick";
+import LanguageSelector from "../../../../language/LanguageSelector";
 
 const Hero = () => {
   const settings = {
@@ -16,9 +17,12 @@ const Hero = () => {
   };
 
   const images = [
-    "https://via.placeholder.com/1600x900/1975bb/fff?text=1975bb",
-    "https://via.placeholder.com/1600x900/ec4233/fff?text=ec4233",
-    "https://via.placeholder.com/1600x900/f2c044/fff?text=f2c044",
+    // "https://via.placeholder.com/1600x900/1975bb/fff?text=1975bb",
+    "https://massenergize-prod-files.s3.amazonaws.com/media/alternative-alternative-energy-clouds-eco-energy-433308.jpg",
+    // "https://via.placeholder.com/1600x900/ec4233/fff?text=ec4233",
+    "https://massenergize-prod-files.s3.amazonaws.com/media/clear-light-bulb-planter-on-gray-rock-1108572_1.jpg",
+    // "https://via.placeholder.com/1600x900/f2c044/fff?text=f2c044",
+    "https://massenergize-prod-files.s3.amazonaws.com/media/IMG_5734-231017-153600.JPG",
   ];
 
   return (
@@ -44,7 +48,11 @@ const Hero = () => {
           src="https://via.placeholder.com/100x50/ffc0cb/fff?text=ffc0cb"
           alt="logo"
         />
-        <small style={{ marginLeft: "auto" }}>Language Selector </small>
+
+        <div className="pc-vanish">
+          <LanguageSelector />
+        </div>
+        {/* <small style={{ marginLeft: "auto" }}>Language Selector </small> */}
       </div>
       <div className="hero">
         <div
@@ -66,13 +74,12 @@ const Hero = () => {
               }}
             >
               See if you qualify
-              {/* {call_to_action?.text} */}
-              <i style={{ marginLeft: 8, "--my-pc-custom-margin": "30px 0px" }} className="fa fa-long-arrow-right"></i>
             </div>
           </div>
         </div>
 
         <div className="hero-carousel">
+          <div className="hero-overlay"></div>
           <Slider {...settings}>
             {images.map((image, index) => (
               <div key={index}>

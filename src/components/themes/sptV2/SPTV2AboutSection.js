@@ -11,14 +11,18 @@ function SPTV2AboutSection({ technology }) {
         className="col-md-6 spt-flex-column-m "
         style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}
       >
-        <h1 className="spt-mobile-section-t">{name}</h1>
+        <h1 className="spt-mobile-section-t">
+          {name}
+          {": What is it?"}
+        </h1>
         <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: summary }}></div>
 
         <SPTButton>Sign Up Now!</SPTButton>
       </div>
       <div
-        className="col-md-6 spt-flex-column-m mobile-margin "
-        style={{ "--my-custom-margin": 0, display: "flex", alignItems: "center", justifyContent: "end" }}
+        className="col-md-6 spt-section-img-area mobile-margin "
+        style={{ "--justify-content": "end" }}
+        // style={{ "--my-custom-margin": 0, display: "flex", alignItems: "center", justifyContent: "end" }}
       >
         <img
           className="spt-s-img "

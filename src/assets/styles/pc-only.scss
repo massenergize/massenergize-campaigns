@@ -9,7 +9,12 @@
     width: 95%;
   }
   .spt-section-component {
-    padding: 5vh 7vw;
+    padding: 10vh 7vw;
+  }
+  .spt-section-img-area { 
+    display: flex;
+    align-items: center;
+    justify-content: var(--justify-content);
   }
   .spt-hero-media-area {
     height: 100%;
