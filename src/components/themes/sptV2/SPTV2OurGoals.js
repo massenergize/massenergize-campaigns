@@ -2,7 +2,7 @@ import React from "react";
 import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTButton from "./components/SPTButton";
 
-function SPTV2OurGoals({ section }) {
+function SPTV2OurGoals({ section, themeKey }) {
   const { title, description, media, call_to_action_items } = section || {};
   const renderImage = () => {
     return (
@@ -37,6 +37,7 @@ function SPTV2OurGoals({ section }) {
           <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
             {call_to_action_items?.map(({ url, text }) => (
               <SPTButton
+                themeKey={themeKey}
                 onClick={() => {
                   if (!url) return;
                   window.open(url, "_blank");

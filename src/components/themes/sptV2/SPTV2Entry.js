@@ -14,6 +14,7 @@ import Hero from "./components/hero/Hero";
 import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTV2OurGoals from "./SPTV2OurGoals";
 import SPTV2AboutSection from "./SPTV2AboutSection";
+import { CAMPAIGN_TEMPLATE_KEYS, getTheme } from "../../../utils/Values";
 
 const LANGUAGE_LIST = [
   { name: "English", code: "en-US" },
@@ -34,21 +35,25 @@ function SPTV2Entry() {
   const callout_section = campaign?.callout_section;
   const contact_section = campaign?.contact_section;
   const faq_section = technology?.faq_section;
+  const languages = useSelector((state) => state?.usersListOfLanguages);
 
   const setActiveLanguage = (lang, reload = true) => {
     setActiveLanguageInStorage(lang);
     dispatch(loadActiveLanguageAction(lang));
     if (reload) window.location.reload();
   };
+
+  const themeKey = CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT_V2;
+  const theme = getTheme(themeKey);
   return (
     <div>
-      <Hero />
+      <Hero themeKey={themeKey} />
       {/* <SPTHero campaign={campaign} /> */}
       <div
         className="phone-vanish"
         style={{ padding: 20, display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}
       >
-        {LANGUAGE_LIST.map((lang, index) => {
+        {languages.map((lang, index) => {
           if (!activeLanguage && lang?.code === DEFAULT_ENGLISH_CODE) return null;
           if (lang?.code === activeLanguage) return null;
           return (
@@ -56,7 +61,13 @@ function SPTV2Entry() {
               key={index}
               onClick={() => setActiveLanguage(lang.code)}
               className="s-touchable-opacity"
-              style={{ marginRight: 8, padding: "15px 20px", background: "rgba(223, 238, 240, 1)", borderRadius: 5 }}
+              style={{
+                marginRight: 30,
+                padding: "15px 20px",
+                background: theme?.color2,
+                borderRadius: 5,
+                color: "white",
+              }}
             >
               <h4 style={{ margin: 0 }}>{lang.name}</h4>
             </div>
@@ -65,9 +76,9 @@ function SPTV2Entry() {
       </div>
 
       {/*  Our Goals */}
-      <SPTV2OurGoals section={goal_section} />
+      <SPTV2OurGoals themeKey={themeKey} section={goal_section} />
       {/* About Community Solar */}
-      <SPTV2AboutSection technology={technology} />
+      <SPTV2AboutSection themeKey={themeKey} technology={technology} />
       {/* ------ FAQS----------- */}
       <div className="spt-section-padding spt-section-margin-top">
         {overviewItems?.map((overview, index) => {
@@ -75,7 +86,7 @@ function SPTV2Entry() {
             <div key={overview?.id} style={{ marginBottom: 10 }}>
               <CustomAccordion
                 renderHeader={({ opened, setOpen }) => (
-                  <AccordionTitle section={overview} setOpen={setOpen} opened={opened} />
+                  <AccordionTitle themeKey={themeKey} section={overview} setOpen={setOpen} opened={opened} />
                 )}
                 elevate={false}
                 radius={6}
@@ -92,7 +103,7 @@ function SPTV2Entry() {
 
       {/*  --- Help Area -----*/}
       {/* <div style={{ marginTop: 40, padding: "0% 7%" }}> */}
-      <HelpBanner section={callout_section} />
+      <HelpBanner themeKey={themeKey} section={callout_section} />
       {/* </div> */}
 
       {/* ------ Our Partners ------- */}
@@ -128,10 +139,10 @@ function SPTV2Entry() {
       </div>
 
       {/* ------------ Events --------- */}
-      <SPTEventsSections campaign={campaign} technology={technology} />
+      <SPTEventsSections themeKey={themeKey} campaign={campaign} technology={technology} />
 
       {/* ------------ Frequently Asked Questions --------- */}
-      <div style={{ marginTop: 40, padding: "2% 7%", background: "rgba(236, 254, 255, 1)" }}>
+      <div style={{ marginTop: 40, padding: "2% 7%", background: theme?.colorLight }}>
         {/* <h1 >Frequently Asked Questions</h1> */}
         <SPTSectionTitle style={{ margin: "20px 0px" }}>{faq_section?.title}</SPTSectionTitle>
         <div>
@@ -139,8 +150,14 @@ function SPTV2Entry() {
             return (
               <div key={id} style={{ marginBottom: 10 }}>
                 <CustomAccordion
+                  wrapperStyle={{ borderColor: theme?.forBorders }}
                   renderHeader={({ opened, setOpen }) => (
-                    <AccordionTitle section={{ title, description }} setOpen={setOpen} opened={opened} />
+                    <AccordionTitle
+                      themeKey={themeKey}
+                      section={{ title, description }}
+                      setOpen={setOpen}
+                      opened={opened}
+                    />
                   )}
                   elevate={false}
                   radius={6}
@@ -156,17 +173,19 @@ function SPTV2Entry() {
 
       {/* --------------------- Footer -------------------- */}
 
-      <SPTFooter section={contact_section} />
+      <SPTFooter themeKey={themeKey} section={contact_section} />
     </div>
   );
 }
 
 export default SPTV2Entry;
 
-const AccordionTitle = ({ section, setOpen, opened }) => {
+const AccordionTitle = ({ section, setOpen, opened, themeKey }) => {
+  const theme = getTheme(themeKey);
   return (
     <div
       // className="touchable-opacity"
+      style={opened ? { background: theme?.color, borderColor: "green" } : {}}
       className={`spt-acc-title ${opened ? "spt-acc-t-opened" : ""}`}
       onClick={() => setOpen(!opened)}
     >

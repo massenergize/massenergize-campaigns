@@ -4,8 +4,11 @@ import "./hero.css";
 import React from "react";
 import Slider from "react-slick";
 import LanguageSelector from "../../../../language/LanguageSelector";
+import MobileLanguageSelector from "../../../../language/MobileLanguageSelector";
+import SPTButton from "../SPTButton";
+import { getTheme } from "../../../../../utils/Values";
 
-const Hero = () => {
+const Hero = ({ themeKey }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -25,32 +28,18 @@ const Hero = () => {
     "https://massenergize-prod-files.s3.amazonaws.com/media/IMG_5734-231017-153600.JPG",
   ];
 
+  const theme = getTheme(themeKey);
   return (
     <>
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          display: "flex",
-          flexDirection: "row",
-          width: "100%",
-          background: "transparent",
-          alignItems: "center",
-          height: "auto",
-          zIndex: 1000,
-          width: "100%",
-          padding: 20,
-        }}
-      >
+      <div className="spt-v2-nav">
         <img
-          style={{ objectFit: "contain", height: 70 }}
+          // style={{ objectFit: "contain", height: 70 }}
           src="https://via.placeholder.com/100x50/ffc0cb/fff?text=ffc0cb"
           alt="logo"
         />
 
-        <div className="pc-vanish">
-          <LanguageSelector />
+        <div className="pc-vanish" style={{ marginLeft: "auto" }}>
+          <MobileLanguageSelector />
         </div>
         {/* <small style={{ marginLeft: "auto" }}>Language Selector </small> */}
       </div>
@@ -66,7 +55,8 @@ const Hero = () => {
           <div className="hero-content">
             <h1 className="hero-title">Solar Para Todos</h1>
             <p className="hero-subtext">Save money with clean energy!</p>
-            <div
+            <SPTButton themeKey={themeKey}>See if you qualify</SPTButton>
+            {/* <div
               className="spt-btn touchable-opacity custom-margin"
               style={{ "--my-custom-margin": "20px 0px" }}
               onClick={() => {
@@ -74,7 +64,7 @@ const Hero = () => {
               }}
             >
               See if you qualify
-            </div>
+            </div> */}
           </div>
         </div>
 

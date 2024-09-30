@@ -11,6 +11,7 @@ export default function CustomAccordion({
   key,
   isOpen,
   onClick,
+  wrapperStyle,
 }) {
   const [open, setOpen] = useState(false);
 
@@ -50,7 +51,7 @@ export default function CustomAccordion({
     );
   };
   return (
-    <div className="accordion" key={key} style={{ borderRadius: radius || 0 }}>
+    <div className="accordion" key={key} style={{ borderRadius: radius || 0, ...(wrapperStyle || {}) }}>
       {header()}
       {open && (
         <div

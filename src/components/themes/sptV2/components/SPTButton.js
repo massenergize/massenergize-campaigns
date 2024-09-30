@@ -1,6 +1,8 @@
 import React from "react";
+import { getTheme } from "../../../../utils/Values";
 
-function SPTButton({ text, children, onClick, href, target, className, style }) {
+function SPTButton({ text, children, onClick, href, target, className, style, themeKey }) {
+  const theme = getTheme(themeKey);
   return (
     <div
       onClick={() => {
@@ -13,6 +15,7 @@ function SPTButton({ text, children, onClick, href, target, className, style }) 
         "--my-custom-width": "100%",
         "--my-custom-margin": "10px 5px",
         "--my-pc-custom-margin": "30px 5px",
+        "--background": theme?.color,
         ...(style || {}),
       }}
     >

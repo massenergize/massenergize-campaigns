@@ -4,6 +4,10 @@
 @media only screen and (min-width: 768px) {
   /* -- SPT THEME ---- */
 
+  .spt-v2-nav img {
+    margin: 0px;
+    height: 100px;
+  }
   .spt-s-img {
     border-radius: 20px;
     width: 95%;
@@ -11,7 +15,7 @@
   .spt-section-component {
     padding: 10vh 7vw;
   }
-  .spt-section-img-area { 
+  .spt-section-img-area {
     display: flex;
     align-items: center;
     justify-content: var(--justify-content);

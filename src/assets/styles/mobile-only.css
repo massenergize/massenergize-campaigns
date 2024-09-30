@@ -1,6 +1,10 @@
 @media only screen and (max-width: 767px) {
   /* -- SPT THEME ---- */
 
+  .spt-v2-nav img {
+    margin: 0px;
+    height: 55px;
+  }
   .spt-section-component {
     padding: 4vh 1vw;
   }
