@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {campaignPages, MULTI_TECHNOLOGY_CAMPAIGN, SINGLE_TECHNOLOGY_CAMPAIGN_SPT} from "../../utils/Constants";
+import { campaignPages, MULTI_TECHNOLOGY_CAMPAIGN, SINGLE_TECHNOLOGY_CAMPAIGN_SPT } from "../../utils/Constants";
 import { Button, ButtonGroup, Col, Row } from "react-bootstrap";
 import classes from "classnames";
 import LandingPage from "../../user-portal/pages/landing-page/LandingPage";
@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLink } from "@fortawesome/free-solid-svg-icons";
 import { useCampaignContext } from "../../hooks/use-campaign-context";
 import ToggleLanguage from "../internationalization/ToggleLanguage";
+import { findTabConfig, THEME_CONFIGURATIONS } from "../themes/theme-configurations";
 
 export function CampaignDetailsAndPreview({ setStep }) {
   const [activeTab, setActiveTab] = useState(campaignPages[0].name);
@@ -19,15 +20,14 @@ export function CampaignDetailsAndPreview({ setStep }) {
     handleCampaignDetailsChange: setCampaignDetails,
   } = useCampaignContext();
 
-
-  const getCampaignTabs = (template_key, pages)=>{
-    if(template_key===SINGLE_TECHNOLOGY_CAMPAIGN_SPT) {
+  const getCampaignTabs = (template_key, pages) => {
+    if (template_key === SINGLE_TECHNOLOGY_CAMPAIGN_SPT) {
       let namesToExclude = ["Managers", "Testimonials", "Comments"];
-      return pages.filter(page => !namesToExclude.includes(page.name));
-    }
-    else return pages;
-  }
+      return pages.filter((page) => !namesToExclude.includes(page.name));
+    } else return pages;
+  };
 
+  const themeKey = campaignDetails?.template_key;
   return (
     <>
       <Row className="justify-content-between mb-4 mt-4">
@@ -55,15 +55,23 @@ export function CampaignDetailsAndPreview({ setStep }) {
           <Row className="pb-2 overflow-x-auto">
             <Col className={"px-4"}>
               <div className="nav-tabs-container">
-                {getCampaignTabs(campaignDetails?.template_key,campaignPages)?.map((page) => (
-                  <div
-                    key={page?.name}
-                    className={classes("nav-tabs-main tab", { "tab-active": activeTab === page?.name })}
-                    onClick={() => setActiveTab(page?.name)}
-                  >
-                    <h5 className={classes("nav-tabs")}>{page?.name}</h5>
-                  </div>
-                ))}
+                {campaignPages?.map((page) => {
+                  // const themeConfig = THEME_CONFIGURATIONS[themeKey];
+                  // const cPageConfig = themeConfig?.pages?.campaign;
+                  // const tabConfig = cPageConfig?.tabs.find((tab) => tab?.tabKeyId === page?.name);
+
+                  const tabConfig = findTabConfig(page?.name, themeKey, "campaign");
+                  if (!tabConfig) return null;
+                  return (
+                    <div
+                      key={page?.name}
+                      className={classes("nav-tabs-main tab", { "tab-active": activeTab === page?.name })}
+                      onClick={() => setActiveTab(page?.name)}
+                    >
+                      <h5 className={classes("nav-tabs")}>{page?.name}</h5>
+                    </div>
+                  );
+                })}
               </div>
             </Col>
           </Row>
@@ -73,10 +81,12 @@ export function CampaignDetailsAndPreview({ setStep }) {
           <Row className=" pt-4">
             <Col className={"px-4"}>
               {campaignPages?.map((tab) => {
+                const tabConfig = findTabConfig(tab?.name, themeKey, "campaign");
                 return (
                   activeTab === tab?.name && (
                     <tab.component
-                      key={tab?.name}
+                      sectionConfigs={tabConfig?.sections}
+                      key={tabConfig?.alias || tab?.name}
                       setStep={setStep}
                       campaignDetails={campaignDetails}
                       originalCampaignDetails={originalCampaignDetails}

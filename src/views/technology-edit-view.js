@@ -14,6 +14,10 @@ import { faExternalLink } from "@fortawesome/free-solid-svg-icons";
 import { HorizontalPushLoader } from "../components/horizontal-push-loader/horizontal-push-loader";
 import usePrevious from "../hooks/use-previous";
 import ToggleLanguage from "../admin-portal/internationalization/ToggleLanguage";
+import { findTabConfig } from "../admin-portal/themes/theme-configurations";
+import { useCampaignContext } from "../hooks/use-campaign-context";
+import { useSelector } from "react-redux";
+import { fetchCampaign } from "../requests/campaign-requests";
 
 const INFO_INITIAL_STATE = {
   name: "",
@@ -27,6 +31,8 @@ const UNPROTECTED = ["information"];
 
 export function TechnologyEditView() {
   const { setNewTechnologyDetails } = useTechnologyContext();
+  const { campaignDetails, setNewCampaignDetails } = useCampaignContext();
+
   let TABS = technologyPages;
 
   const [techObject, setTechObject] = useState(null);
@@ -94,6 +100,11 @@ export function TechnologyEditView() {
   const prevTechnologyData = usePrevious(technologyData);
 
   useEffect(() => {
+    fetchCampaign(campaign_id).then((data) => {
+      setNewCampaignDetails(data);
+    });
+  }, []);
+  useEffect(() => {
     if (prevTechnologyData === undefined && technologyData !== undefined) {
       setTechObject(technologyData);
       setNewTechnologyDetails(technologyData);
@@ -123,9 +134,11 @@ export function TechnologyEditView() {
       <Col>
         {/*</Link>*/}
         {TABS?.map((tab) => {
+          const tabConfig = findTabConfig(tab?.name, themeKey, "technology");
           return (
             activeTab === tab?.key && (
               <tab.component
+                sectionsConfig={tabConfig?.sections}
                 key={tab?.key}
                 techObject={techObject}
                 setInformation={setInformation}
@@ -153,6 +166,8 @@ export function TechnologyEditView() {
       </Container>
     );
   }
+
+  const themeKey = campaignDetails.template_key;
 
   return (
     <div className={"p-3 mt-2"}>
@@ -184,6 +199,9 @@ export function TechnologyEditView() {
 
           <div className="nav-tabs-container" style={{ marginTop: 10 }}>
             {TABS?.map(({ key, name, deactivate }) => {
+              const tabConfig = findTabConfig(name, themeKey, "technology");
+
+              if (!tabConfig) return null;
               return (
                 <div
                   tabIndex={0}
@@ -195,7 +213,7 @@ export function TechnologyEditView() {
                     setActiveTab(key);
                   }}
                 >
-                  <h5 className={classes("nav-tabs")}>{name}</h5>
+                  <h5 className={classes("nav-tabs")}>{tabConfig?.alias || name}</h5>
                 </div>
               );
             })}
