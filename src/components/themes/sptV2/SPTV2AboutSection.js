@@ -4,7 +4,7 @@ import SPTButton from "./components/SPTButton.js";
 import { getStaticText } from "../../../redux/actions/actions.js";
 
 function SPTV2AboutSection({ technology, themeKey }) {
-  const { name, description, summary, deals, image } = technology || {};
+  const { name, description, summary, deals, image, call_to_action } = technology || {};
 
   const { spt } = getStaticText();
   const addOnT = spt?.about?.titleAddOn;
@@ -21,7 +21,7 @@ function SPTV2AboutSection({ technology, themeKey }) {
         <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: summary }}></div>
 
         
-        <SPTButton themeKey={themeKey}>Sign Up Now!</SPTButton>
+        <SPTButton themeKey={themeKey} href={call_to_action?.url}>{call_to_action?.text ||"Sign Up Here"}</SPTButton>
       </div>
       <div
         className="col-md-6 spt-section-img-area mobile-margin "

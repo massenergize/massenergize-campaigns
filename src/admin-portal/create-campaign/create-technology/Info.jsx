@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Input from "../../../components/admin-components/Input";
@@ -7,14 +7,14 @@ import Button from "../../../components/admin-components/Button";
 import "../../../assets/styles/admin-styles.scss";
 import MERichText from "../../../components/admin-components/RichText";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
-import { useParams, useNavigate } from "react-router-dom";
-import { fetchUrlParams } from "src/utils/utils";
+import { useNavigate } from "react-router-dom";
 import { apiCall } from "src/api/messenger";
 import { useTechnologyContext } from "../../../hooks/use-technology-context";
 import CustomAccordion from "../../../components/admin-components/CustomAccordion";
 import SectionForm from "./SectionsForm";
-import { getImageValue } from "../../../helpers/utils";
 import { useSelector } from "react-redux";
+import CallToActionForm from "./CallToActionForm";
+import {updateTechnology} from "../../../requests/technology-requests";
 
 function Info({
   information,
@@ -26,7 +26,7 @@ function Info({
   techObject,
 }) {
   const [loading, setLoading] = useState(false);
-  const [openAccordion, setOpenAccordion] = useState(false);
+  const [openedAccordion, toggleAccordion] = useState(null);
   const isEditing = tech_id;
 
   const navigate = useNavigate()
@@ -99,93 +99,120 @@ function Info({
       notifySuccess("Saved successfully!");
     });
   };
-  return (
-    <div className="py-4">
-      <form>
-        <Row className="">
-          <Col>
-            <Input
-              label="Technology Name"
-              placeholder="Enter your technology here...."
-              required={true}
-              type="textbox"
-              onChange={(val) => {
-                handleFieldChange("name", val);
-              }}
-              value={getValue("name")}
-            />
-          </Col>
-        </Row>
-        <Row className="mt-3">
-          <Col>
-            <Input
-              label="Summary"
-              placeholder="Add a Summary for this focus......."
-              required={true}
-              type="textbox"
-              onChange={(val) => {
-                handleFieldChange("summary", val);
-              }}
-              maxLength="500"
-              value={getValue("summary")}
-            />
-          </Col>
-        </Row>
-        <Row className="py-4">
-          <Col>
-            <MERichText
-              label="Description"
-              placeholder="Add more description for this technology......."
-              required={true}
-              onEditorChange={(val, _) => {
-                handleFieldChange("description", val);
-              }}
-              // value={formData?.description}
-              value={getValue("description")}
-            />
-          </Col>
-        </Row>
 
-        <Row className="py-4">
-          <Col>
-            <FileUploader
-              required={false}
-              id="tech_image"
-              text="Add an image"
-              onChange={(val) => {
-                handleFieldChange("image", val);
-              }}
-              value={getValue("image")}
-              defaultValue={getValue("image")}
-            />
-          </Col>
-        </Row>
-        <Row className="py-4 justify-content-end">
-          <Col>
-            <Button
-              text="Save & Continue"
-              onClick={handleSubmit}
-              rounded={false}
-              loading={loading}
-            />
-          </Col>
-        </Row>
-      </form>
-      {isEditing && (<div className="py-5">
+  const handleUpdateCallToAction = async(data) => {
+    data = {call_to_action: JSON.stringify(data), id: tech_id };
+    setLoading(true);
+    let res = await updateTechnology(data);
+    if(res){
+      setLoading(false);
+      updateTechObject({call_to_action: res?.call_to_action});
+      notifySuccess("Technology updated successfully!");
+    }else{
+      setLoading(false);
+      notifyError("An error occurred! Technology update failed!");
+    }
+  }
+  return (
+      <div className="py-4">
+        <div className="mb-3">
           <CustomAccordion
-          title={"Customize The Title and Description of Info Section"}
-           component={<SectionForm
-          section="more_info_section"
-          data={techObject?.more_info_section || {}}
-          updateExistingObject={(more_info_section) => updateTechObject(more_info_section)}
-          item_id={tech_id}
-        />}
-        isOpen={openAccordion}
-        onClick={() => setOpenAccordion(!openAccordion)}
-      />
-    </div>)
-}
-    </div>
+              title="Customize Hero Section"
+              component={
+                <CallToActionForm
+                    data={techObject?.call_to_action}
+                    onSaveFunction={handleUpdateCallToAction}
+                />
+              }
+              isOpen={openedAccordion === "call_to_action"}
+              onClick={() => toggleAccordion("call_to_action")}
+          />
+        </div>
+        <form>
+          <Row className="">
+            <Col>
+              <Input
+                  label="Technology Name"
+                  placeholder="Enter your technology here...."
+                  required={true}
+                  type="textbox"
+                  onChange={(val) => {
+                    handleFieldChange("name", val);
+                  }}
+                  value={getValue("name")}
+              />
+            </Col>
+          </Row>
+          <Row className="mt-3">
+            <Col>
+              <Input
+                  label="Summary"
+                  placeholder="Add a Summary for this focus......."
+                  required={true}
+                  type="textbox"
+                  onChange={(val) => {
+                    handleFieldChange("summary", val);
+                  }}
+                  maxLength="500"
+                  value={getValue("summary")}
+              />
+            </Col>
+          </Row>
+          <Row className="py-4">
+            <Col>
+              <MERichText
+                  label="Description"
+                  placeholder="Add more description for this technology......."
+                  required={true}
+                  onEditorChange={(val, _) => {
+                    handleFieldChange("description", val);
+                  }}
+                  // value={formData?.description}
+                  value={getValue("description")}
+              />
+            </Col>
+          </Row>
+
+          <Row className="py-4">
+            <Col>
+              <FileUploader
+                  required={false}
+                  id="tech_image"
+                  text="Add an image"
+                  onChange={(val) => {
+                    handleFieldChange("image", val);
+                  }}
+                  value={getValue("image")}
+                  defaultValue={getValue("image")}
+              />
+            </Col>
+          </Row>
+          <Row className="py-4 justify-content-end">
+            <Col>
+              <Button
+                  text="Save & Continue"
+                  onClick={handleSubmit}
+                  rounded={false}
+                  loading={loading}
+              />
+            </Col>
+          </Row>
+        </form>
+        {isEditing && (<div className="py-5">
+          <CustomAccordion
+              title={"Customize The Title and Description of Info Section"}
+              component={<SectionForm
+                  section="more_info_section"
+                  data={techObject?.more_info_section || {}}
+                  updateExistingObject={(more_info_section) => updateTechObject(more_info_section)}
+                  item_id={tech_id}
+              />}
+              isOpen={openedAccordion === "more_info_section"}
+              onClick={() => toggleAccordion("more_info_section")}
+          />
+        </div>)
+        }
+      </div>
   );
 }
 
