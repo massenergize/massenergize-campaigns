@@ -27,7 +27,7 @@ export function CampaignDetailsAndPreview({ setStep }) {
     } else return pages;
   };
 
-  const themeKey = campaignDetails?.template_key;
+  const themeKey = campaignDetails?.template_key || MULTI_TECHNOLOGY_CAMPAIGN;
   return (
     <>
       <Row className="justify-content-between mb-4 mt-4">

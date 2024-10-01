@@ -1,5 +1,5 @@
 import { useTechnologyContext } from "../hooks/use-technology-context";
-import { technologyPages } from "../utils/Constants";
+import { MULTI_TECHNOLOGY_CAMPAIGN, technologyPages } from "../utils/Constants";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useBubblyBalloons } from "../lib/bubbly-balloon/use-bubbly-balloons";
@@ -167,7 +167,7 @@ export function TechnologyEditView() {
     );
   }
 
-  const themeKey = campaignDetails.template_key;
+  const themeKey = campaignDetails.template_key || MULTI_TECHNOLOGY_CAMPAIGN;
 
   return (
     <div className={"p-3 mt-2"}>
