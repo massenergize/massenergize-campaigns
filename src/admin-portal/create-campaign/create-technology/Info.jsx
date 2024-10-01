@@ -120,7 +120,7 @@ function Info({
       <div className="py-4">
         <div className="mb-3">
           <CustomAccordion
-              title="Customize Hero Section"
+              title="Customize Call To Action"
               component={
                 <CallToActionForm
                     data={techObject?.call_to_action}
