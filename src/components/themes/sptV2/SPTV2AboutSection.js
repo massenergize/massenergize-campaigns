@@ -8,6 +8,8 @@ function SPTV2AboutSection({ technology, themeKey }) {
 
   const { spt } = getStaticText();
   const addOnT = spt?.about?.titleAddOn;
+
+  console.log("DESCRIPTION", technology);
   return (
     <SPTSectionComponent style={{ background: "#ffe7e4" }}>
       <div
@@ -20,8 +22,11 @@ function SPTV2AboutSection({ technology, themeKey }) {
         </h1>
         <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: summary }}></div>
 
-        
-        <SPTButton themeKey={themeKey} href={call_to_action?.url}>{call_to_action?.text ||"Sign Up Here"}</SPTButton>
+        {call_to_action && (
+          <SPTButton themeKey={themeKey} href={call_to_action?.url}>
+            {call_to_action?.text || "Sign Up Here"}
+          </SPTButton>
+        )}
       </div>
       <div
         className="col-md-6 spt-section-img-area mobile-margin "
