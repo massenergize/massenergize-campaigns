@@ -33,6 +33,17 @@ function CustomModal(props) {
         margin: 0,
       },
     },
+    [CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT_V2]: {
+      header: {
+        background: "var(--spt-v2-color-1)",
+      },
+      footer: {
+        background: "white",
+        padding: "5px 15px",
+        height: "100%",
+        margin: 0,
+      },
+    },
   };
 
   const theme = THEMES[themeKey] || DEFAULT_THEME;

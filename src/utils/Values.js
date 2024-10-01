@@ -21,10 +21,10 @@ export const THEME_COLORS = {
     color: "var(--spt-v2-color-1)",
     color2: "var(--spt-v2-color-2)",
     colorLight: "rgb(255, 231, 228)",
-    modalFooterCancel: "#d25050",
     forBorders: "rgb(251 215 219)",
     textcolor: "white",
     footerBack: "#5b0000",
+    modalFooterCancel: "#292929",
   },
 };
 
