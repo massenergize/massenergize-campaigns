@@ -84,7 +84,7 @@ export const technologyPages = [
   },
   {
     name: "FAQs",
-    name: "faqs",
+    key: "faqs",
     component: Faqs,
   }
   // ===== DON'T DELETE THIS COMMENTED CODE =====

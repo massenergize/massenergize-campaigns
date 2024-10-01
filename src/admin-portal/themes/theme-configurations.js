@@ -35,12 +35,12 @@ export const THEME_CONFIGURATIONS = {
         tabs: [
           {
             tabKeyId: "Information", //change to constants later
-            sections: [TECH_CALL_TO_ACTION_SECTION_KEY],
+            sections: [],
           },
-          { tabKeyId: "Vendors", alias: "Partners", sections: [] },
-          { tabKeyId: "Overviews", alias: "Benefits", sections: [] },
-          { tabKeyId: "Deals", alias: "How does it work?", sections: [] },
-          { tabKeyId: "FAQS", sections: [] },
+          { tabKeyId: "Coaches", sections: [] },
+          { tabKeyId: "Vendors", sections: [] },
+          { tabKeyId: "Overview", sections: [] },
+          { tabKeyId: "Deals", sections: [] },
         ],
       },
     },
@@ -75,7 +75,7 @@ export const THEME_CONFIGURATIONS = {
             sections: [TECH_CALL_TO_ACTION_SECTION_KEY],
           },
           { tabKeyId: "Vendors", alias: "Partners", sections: [] },
-          { tabKeyId: "Overviews", sections: [] },
+          { tabKeyId: "Overview", sections: [] },
           { tabKeyId: "Deals", sections: [] },
           { tabKeyId: "FAQS", sections: [] },
         ],
@@ -106,7 +106,7 @@ export const THEME_CONFIGURATIONS = {
             sections: [TECH_CALL_TO_ACTION_SECTION_KEY],
           },
           { tabKeyId: "Vendors", alias: "Partners", sections: [] },
-          { tabKeyId: "Overviews", alias: "Benefits", sections: [] },
+          { tabKeyId: "Overview", alias: "Benefits", sections: [] },
           { tabKeyId: "Deals", alias: "How does it work?", sections: [] },
           { tabKeyId: "FAQS", sections: [] },
         ],
@@ -115,12 +115,10 @@ export const THEME_CONFIGURATIONS = {
   },
 };
 
-
-
 export const findTabConfig = (tabKeyId, themeKey, page) => {
-    const themeConfig = THEME_CONFIGURATIONS[themeKey];
-    const cPageConfig = (themeConfig?.pages || {})[page];
-    if (!cPageConfig) return null;
-    const tabConfig = cPageConfig?.tabs.find((tab) => tab?.tabKeyId === tabKeyId);
-    return tabConfig;
-  };
+  const themeConfig = THEME_CONFIGURATIONS[themeKey];
+  const cPageConfig = (themeConfig?.pages || {})[page];
+  if (!cPageConfig) return null;
+  const tabConfig = cPageConfig?.tabs.find((tab) => tab?.tabKeyId === tabKeyId);
+  return tabConfig;
+};

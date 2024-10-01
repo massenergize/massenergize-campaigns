@@ -15,6 +15,8 @@ import SectionForm from "./SectionsForm";
 import { useSelector } from "react-redux";
 import CallToActionForm from "./CallToActionForm";
 import {updateTechnology} from "../../../requests/technology-requests";
+import ShowOnDemand from "src/components/admin-components/ShowOnDemand";
+import { TECH_CALL_TO_ACTION_SECTION_KEY } from "src/admin-portal/themes/theme-configurations";
 
 function Info({
   information,
@@ -24,6 +26,7 @@ function Info({
   campaign_id,
   updateTechObject,
   techObject,
+  sectionsConfig
 }) {
   const [loading, setLoading] = useState(false);
   const [openedAccordion, setOpenedAccordion] = useState(null);
@@ -118,19 +121,21 @@ function Info({
   }
   return (
       <div className="py-4">
-        <div className="mb-3">
-          <CustomAccordion
-              title="Customize Call To Action"
-              component={
-                <CallToActionForm
-                    data={techObject?.call_to_action}
-                    onSaveFunction={handleUpdateCallToAction}
-                />
-              }
-              isOpen={openedAccordion === "call_to_action"}
-              onClick={() => toggleAccordion("call_to_action")}
-          />
-        </div>
+        <ShowOnDemand show = {sectionsConfig?.includes(TECH_CALL_TO_ACTION_SECTION_KEY)}>
+          <div className="mb-3">
+            <CustomAccordion
+                title="Customize Call To Action"
+                component={
+                  <CallToActionForm
+                      data={techObject?.call_to_action}
+                      onSaveFunction={handleUpdateCallToAction}
+                  />
+                }
+                isOpen={openedAccordion === "call_to_action"}
+                onClick={() => toggleAccordion("call_to_action")}
+            />
+          </div>
+        </ShowOnDemand>
         <form>
           <Row className="">
             <Col>
