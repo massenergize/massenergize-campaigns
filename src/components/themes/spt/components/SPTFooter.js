@@ -50,7 +50,7 @@ function SPTFooter({ section, themeKey }) {
               opacity: 0.6,
             }}
           >
-            Build Version {CONFIG.BUILD_VERSION}, Theme Version [SPT V1]
+            Build Version {CONFIG.BUILD_VERSION}, Theme Version [SPT V2]
           </small>
         </small>
       </div>
