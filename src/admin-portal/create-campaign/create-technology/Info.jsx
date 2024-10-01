@@ -26,7 +26,7 @@ function Info({
   techObject,
 }) {
   const [loading, setLoading] = useState(false);
-  const [openedAccordion, toggleAccordion] = useState(null);
+  const [openedAccordion, setOpenedAccordion] = useState(null);
   const isEditing = tech_id;
 
   const navigate = useNavigate()
@@ -35,6 +35,9 @@ function Info({
   const handleFieldChange = (field, value) => {
     setInformation({ ...information, [field]: value });
   };
+  const toggleAccordion = (section) => {
+    setOpenedAccordion(openedAccordion === section ? null : section);
+  }
 
   const { setNewTechnologyDetails } = useTechnologyContext();
 
