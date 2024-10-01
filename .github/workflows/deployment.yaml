@@ -1,7 +1,7 @@
 name: Build and Deploy to Netlify
 on:
-    release:
-      types: [published]
+  release:
+    types: [published]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -26,7 +26,7 @@ jobs:
           echo "Old BUILD_VERSION: $OLD_VERSION"
 
       - name: Set Prod/Canary Environment Variables 🚀
-        if: startsWith(github.ref, 'refs/tags/main') || startsWith(github.ref, 'refs/tags/canary')
+        if: startsWith(github.ref, 'refs/tags/main') || startsWith(github.ref, 'refs/tags/master') || startsWith(github.ref, 'refs/tags/prod') || startsWith(github.ref, 'refs/tags/canary')
         run: |
           echo "Setting prod branch secrets..."
           echo "REACT_APP_TINY_MCE_KEY=${{ secrets.REACT_APP_TINY_MCE_KEY }}" >> $GITHUB_ENV
@@ -39,9 +39,8 @@ jobs:
           echo "REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.REACT_APP_FIREBASE_PROJECT_ID_FOR_PROD }}" >> $GITHUB_ENV
           echo "REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN_FOR_PROD }}" >> $GITHUB_ENV
 
-        
       - name: Set Dev Environment Variables 🚀
-        if:  startsWith(github.ref, 'refs/tags/dev') 
+        if: startsWith(github.ref, 'refs/tags/dev')
         run: |
           echo "Setting prod branch secrets..."
           echo "REACT_APP_TINY_MCE_KEY_FOR_DEV=${{ secrets.REACT_APP_TINY_MCE_KEY_FOR_DEV }}" >> $GITHUB_ENV
@@ -54,58 +53,54 @@ jobs:
           echo "REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}" >> $GITHUB_ENV
           echo "REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}" >> $GITHUB_ENV
 
-      - name: Install dependencies  
+      - name: Install dependencies
         run: |
-            npm  i --legacy-peer-deps
-      
+          npm  i --legacy-peer-deps
+
       - name: Build App For Dev 🏗
-        if:  startsWith(github.ref, 'refs/tags/dev') 
+        if: startsWith(github.ref, 'refs/tags/dev')
         run: |
-            npm run build:dev
+          npm run build:dev
 
       - name: Build App For Canary 🏗
-        if:  startsWith(github.ref, 'refs/tags/canary')
+        if: startsWith(github.ref, 'refs/tags/canary')
         run: |
-            npm run build:canary
+          npm run build:canary
 
       - name: Build App For Production 🏗
-        if:  startsWith(github.ref, 'refs/tags/main')
+        if: startsWith(github.ref, 'refs/tags/main') || startsWith(github.ref, 'refs/tags/main') || startsWith(github.ref, 'refs/tags/prod')
         run: |
-            npm run build:prod
+          npm run build:prod
 
-
-        
-      - name: Deploying to Prod 🚀 
-        if:  startsWith(github.ref, 'refs/tags/main') 
+      - name: Deploying to Prod 🚀
+        if: startsWith(github.ref, 'refs/tags/main') || startsWith(github.ref, 'refs/tags/main') || startsWith(github.ref, 'refs/tags/prod')
         uses: data-intuitive/netlify-deploy-site@v1
         with:
           auth: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          dir: 'build'
+          dir: "build"
           site: ${{ secrets.NETLIFY_PROD_SITE_ID }}
           prod: true
-          message: 'Deploying ${{ github.ref }}'
-    
-      
+          message: "Deploying ${{ github.ref }}"
+
       - name: Deploying to Canary 🚀
-        if: startsWith(github.ref, 'refs/tags/canary') 
+        if: startsWith(github.ref, 'refs/tags/canary')
         uses: data-intuitive/netlify-deploy-site@v1
         with:
           auth: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          dir: 'build'
+          dir: "build"
           site: ${{ secrets.NETLIFY_CANARY_SITE_ID }}
           prod: true
-          message: 'Deploying ${{ github.ref }}'
+          message: "Deploying ${{ github.ref }}"
 
       - name: Deploying  to Dev 🚀
-        if: startsWith(github.ref, 'refs/tags/dev') || startsWith(github.ref, 'refs/tags/setup-better-ci-cd') 
+        if: startsWith(github.ref, 'refs/tags/dev') || startsWith(github.ref, 'refs/tags/setup-better-ci-cd')
         uses: data-intuitive/netlify-deploy-site@v1
         with:
           auth: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          dir: 'build'
+          dir: "build"
           site: ${{ secrets.NETLIFY_DEV_SITE_ID }}
           prod: true
-          message: 'Deploying ${{ github.ref }}'
-
+          message: "Deploying ${{ github.ref }}"
 
       - name: Report status to Slack
         if: always()
@@ -122,4 +117,3 @@ jobs:
           MESSAGE="Campaign Portal deployment workflow in $BRANCH_NAME with build number $BUILD_VERSION has completed with status: $STATUS_EMOJI ${{ job.status }}"          
           PAYLOAD="{\"text\": \"$MESSAGE\"}"
           curl -X POST -H 'Content-type: application/json' --data "$PAYLOAD" $SLACK_WEBHOOK_URL
-    
