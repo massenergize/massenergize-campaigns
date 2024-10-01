@@ -1,7 +1,7 @@
 import Technologies from "../admin-portal/create-campaign/Technologies";
 import Managers from "../admin-portal/create-campaign/Managers";
 import Events from "../admin-portal/create-campaign/Events";
-import Information from "../admin-portal/create-campaign/Information";
+import Information from "../admin-portal/create-campaign/CampaignInformation";
 import Coaches from "../admin-portal/create-campaign/create-technology/Coaches";
 import Incentives from "../admin-portal/create-campaign/create-technology/Incentives";
 import Info from "../admin-portal/create-campaign/create-technology/Info";
@@ -84,6 +84,7 @@ export const technologyPages = [
   },
   {
     name: "FAQs",
+    name: "faqs",
     component: Faqs,
   }
   // ===== DON'T DELETE THIS COMMENTED CODE =====
