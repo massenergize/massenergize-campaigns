@@ -15,6 +15,7 @@ import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTV2OurGoals from "./SPTV2OurGoals";
 import SPTV2AboutSection from "./SPTV2AboutSection";
 import { CAMPAIGN_TEMPLATE_KEYS, getTheme } from "../../../utils/Values";
+import SPTContactSection from "./SPTContactSection";
 
 const LANGUAGE_LIST = [
   { name: "English", code: "en-US" },
@@ -176,6 +177,8 @@ function SPTV2Entry() {
           })}
         </div>
       </div>
+
+      <SPTContactSection />
 
       {/* --------------------- Footer -------------------- */}
 

@@ -2,8 +2,43 @@
   --site-logo: 100px;
 }
 @media only screen and (min-width: 768px) {
-  /* -- SPT THEME ---- */
 
+  .spt-form-area { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .spt-t-area p {
+    width: 80%;
+    text-align: center;
+  }
+  .spt-t-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+  }
+  .spt-contact-form {
+    width: 60%;
+    height: 500px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: var(--elevate-float);
+  }
+  .spt-contact-root {
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 300px;
+    background: url("https://massenergize-prod-files.s3.amazonaws.com/media/alternative-alternative-energy-clouds-eco-energy-433308.jpg")
+      no-repeat center center;
+  }
+
+  /* -- SPT THEME ---- */
   .spt-v2-nav img {
     margin: 0px;
     height: 100px;
