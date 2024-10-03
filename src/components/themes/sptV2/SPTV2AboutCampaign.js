@@ -3,9 +3,9 @@ import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTButton from "./components/SPTButton.js";
 import { getStaticText } from "../../../redux/actions/actions.js";
 
-function SPTV2AboutCampaign({ section, technology, themeKey }) {
-  const { title, media, call_to_action_items } = section || {};
-  const { name, description, summary, deals, image, call_to_action } = technology || {};
+function SPTV2AboutCampaign({ section, technology, themeKey, cImage, cDescription }) {
+  const { title, media, call_to_action_items, description } = section || {};
+  const { name, summary, deals, image, call_to_action } = technology || {};
 
   const { spt } = getStaticText();
   const addOnT = spt?.about?.titleAddOn;
@@ -13,7 +13,7 @@ function SPTV2AboutCampaign({ section, technology, themeKey }) {
     return (
       <img
         className="spt-s-img"
-        src={media?.url}
+        src={cImage?.url}
         alt="Community Solar"
         // style={{ width: "100%", height: "100%", borderRadius: 20 }}
       />
@@ -30,8 +30,8 @@ function SPTV2AboutCampaign({ section, technology, themeKey }) {
             className="col-md-6 spt-flex-column-m"
             style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}
           >
-            <h1 className="spt-mobile-section-t">{title || "..."}</h1>
-            <p className="spt-body-font" dangerouslySetInnerHTML={{ __html: description }}></p>
+            {/* <h1 className="spt-mobile-section-t">{title || "..."}</h1> */}
+            <p className="spt-body-font" dangerouslySetInnerHTML={{ __html: cDescription }}></p>
 
             <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
               {call_to_action_items?.map(({ url, text }) => (
@@ -60,19 +60,16 @@ function SPTV2AboutCampaign({ section, technology, themeKey }) {
           className="col-md-6 spt-flex-column-m "
           style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}
         >
-          <h1 className="spt-mobile-section-t">
+          {/* <h1 className="spt-mobile-section-t">
             {name}
             {addOnT ? `: ${addOnT?.text}` : ""}
-          </h1>
-          <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: summary }}></div>
+          </h1> */}
+          <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: description }}></div>
         </div>
-        <div
-          className="col-md-6 spt-section-img-area mobile-margin "
-          style={{ "--justify-content": "end" }}
-        >
+        <div className="col-md-6 spt-section-img-area mobile-margin " style={{ "--justify-content": "end" }}>
           <img
             className="spt-s-img "
-            src={image?.url}
+            src={media?.url}
             alt="Community Solar"
             style={{ "--my-custom-margin": "20px 0px", objectFit: "contain" }}
           />

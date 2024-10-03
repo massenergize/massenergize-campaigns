@@ -37,6 +37,8 @@ function SPTV2Entry() {
   const faqs = technology?.faqs || [];
   const callout_section = campaign?.callout_section;
   const contact_section = campaign?.contact_section;
+  const about_us_section = campaign?.about_us_section;
+  const eligibility_section = campaign?.eligibility_section;
   const faq_section = technology?.faq_section;
   const languages = useSelector((state) => state?.usersListOfLanguages);
   const overviewTitle = technology?.overview_title;
@@ -52,6 +54,8 @@ function SPTV2Entry() {
 
   const themeKey = CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT_V2;
   const theme = getTheme(themeKey);
+
+  console.log("Lets see something here", campaign);
   return (
     <div>
       <Hero themeKey={themeKey} />
@@ -130,7 +134,13 @@ function SPTV2Entry() {
         })}
       </div> */}
 
-      <SPTV2AboutCampaign section={goal_section} themeKey={themeKey} technology={technology} />
+      <SPTV2AboutCampaign
+        cImage={campaign?.image}
+        cDescription={campaign?.description}
+        section={about_us_section}
+        themeKey={themeKey}
+        technology={technology}
+      />
 
       {/* --- How does it work? ------ */}
       <SPTSectionComponent>
@@ -153,7 +163,7 @@ function SPTV2Entry() {
       </SPTSectionComponent>
 
       {/* --------- ELIGIBILITY -------- */}
-      <EligibilitySection themeKey={themeKey} technology={technology} />
+      <EligibilitySection section={eligibility_section} themeKey={themeKey} technology={technology} />
 
       {/*  --- Help Area -----*/}
       {/* <HelpBanner themeKey={themeKey} section={callout_section} /> */}
