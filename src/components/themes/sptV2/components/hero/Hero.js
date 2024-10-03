@@ -29,8 +29,6 @@ const Hero = ({ themeKey }) => {
   //   // "https://via.placeholder.com/1600x900/f2c044/fff?text=f2c044",
   //   "https://massenergize-prod-files.s3.amazonaws.com/media/IMG_5734-231017-153600.JPG",
   // ];
-
-  console.log("== log==", campaign)
   const theme = getTheme(themeKey);
   const { primary_logo } = campaign || {};
   return (

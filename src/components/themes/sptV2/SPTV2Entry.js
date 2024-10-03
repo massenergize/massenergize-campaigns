@@ -130,7 +130,7 @@ function SPTV2Entry() {
         })}
       </div> */}
 
-      <SPTV2AboutCampaign section={goal_section}  themeKey={themeKey} technology={technology} />
+      <SPTV2AboutCampaign section={goal_section} themeKey={themeKey} technology={technology} />
 
       {/* --- How does it work? ------ */}
       <SPTSectionComponent>
@@ -224,7 +224,7 @@ function SPTV2Entry() {
         </div>
       </div>
 
-      <SPTContactSection />
+      <SPTContactSection themeKey={themeKey} />
 
       {/* --------------------- Footer -------------------- */}
 
