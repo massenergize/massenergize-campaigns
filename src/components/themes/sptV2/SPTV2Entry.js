@@ -14,7 +14,7 @@ import Hero from "./components/hero/Hero";
 import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTV2OurGoals from "./SPTV2OurGoals";
 import SPTV2AboutSection from "./SPTV2AboutSection";
-import { CAMPAIGN_TEMPLATE_KEYS, getTheme } from "../../../utils/Values";
+import { CAMPAIGN_TEMPLATE_KEYS, getTheme, PlaceholderImageURL } from "../../../utils/Values";
 import SPTContactSection from "./SPTContactSection";
 
 const LANGUAGE_LIST = [
@@ -88,6 +88,26 @@ function SPTV2Entry() {
       <div className="spt-section-padding spt-section-margin-top">
         <SPTSectionTitle>{overviewTitle || overview?.title?.text}</SPTSectionTitle>
         <div className="mobile-margin" style={{ marginTop: 40, "--my-custom-margin": "10px 0px" }}></div>
+        <div className="spt-benefits-part">
+          {overviewItems?.map((overview, index) => {
+            return (
+              <div className="spt-benefits-item" key={overview?.id} style={{ marginBottom: 10 }}>
+                <img src={PlaceholderImageURL} alt="Benefit" />
+                <div>
+                  <h5>Want to be more like you</h5>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      {/* <div className="spt-section-padding spt-section-margin-top">
+        <SPTSectionTitle>{overviewTitle || overview?.title?.text}</SPTSectionTitle>
+        <div className="mobile-margin" style={{ marginTop: 40, "--my-custom-margin": "10px 0px" }}></div>
         {overviewItems?.map((overview, index) => {
           return (
             <div key={overview?.id} style={{ marginBottom: 10 }}>
@@ -106,10 +126,10 @@ function SPTV2Entry() {
             </div>
           );
         })}
-      </div>
+      </div> */}
 
       {/*  --- Help Area -----*/}
-      {/* <div style={{ marginTop: 40, padding: "0% 7%" }}> */}
+
       <HelpBanner themeKey={themeKey} section={callout_section} />
       {/* </div> */}
 

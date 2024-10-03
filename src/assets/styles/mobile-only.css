@@ -1,6 +1,13 @@
 @media only screen and (max-width: 767px) {
   /* -- SPT THEME ---- */
 
+  .spt-benefits-item img {
+    margin-bottom: 10px;
+  }
+  .spt-benefits-item {
+    flex-basis: 100%;
+    flex-direction: column;
+  }
   .spt-contact-root {
     padding: 20px 10px;
   }

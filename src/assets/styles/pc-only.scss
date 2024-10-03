@@ -3,6 +3,10 @@
 }
 @media only screen and (min-width: 768px) {
 
+  .spt-benefits-item {
+    flex-basis: 48%;
+    flex-direction: row;
+  }
   .spt-form-area { 
     display: flex;
     flex-direction: column;
