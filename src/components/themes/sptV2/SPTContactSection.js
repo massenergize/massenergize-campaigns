@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import SPTButton from "./components/SPTButton";
 import { useSelector } from "react-redux";
 import { getPlaceholderURL } from "../../../utils/Values";
+import { apiCall } from "../../../api/messenger";
 
-function SPTContactSection({ themeKey, section }) {
+const OTHER = "other";
+function SPTContactSection({ themeKey, section, campaign_id }) {
   const { title, description, media } = section || {};
   const [form, setForm] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
+  const user = useSelector((state) => state?.user);
 
   const languages = useSelector((state) => state?.usersListOfLanguages);
 
@@ -17,7 +20,7 @@ function SPTContactSection({ themeKey, section }) {
   };
 
   const isValid = (form) => {
-    if (!form?.name || !form?.email || !form?.phone) {
+    if (!form?.full_name || !form?.email || !form?.phone_number) {
       setError("Please fill out all fields");
       return false;
     }
@@ -33,8 +36,21 @@ function SPTContactSection({ themeKey, section }) {
     if (!isValid(form)) return;
     setLoading(true);
     // Make API call here
-    setLoading(false);
-    setSuccess("Thank you for contacting us. We will get back to you shortly");
+    //campaign_id, email, phone_number, full_name, language,community_id, other(json)
+    const { community, community_name, zipcode } = user || {};
+    const community_id = community?.id && community?.id !== OTHER ? community?.id : null;
+    const other = { community_name, id: community_id, zipcode };
+    const payload = { ...form, community_id, other, campaign_id };
+    apiCall("/campaigns.contact.us", payload).then((response) => {
+      console.log("SEE RESPONSE", response);
+      setLoading(false);
+      if (!response.success) {
+        setError(response.error);
+        return;
+      }
+      setForm({});
+      setSuccess("Thank you for contacting us. We will get back to you shortly!");
+    });
   };
   return (
     <div className="spt-contact-root" style={{ "--background-image": `url(${media?.url || getPlaceholderURL()})` }}>
@@ -54,8 +70,8 @@ function SPTContactSection({ themeKey, section }) {
                   </span>
                   <input
                     placeholder="Your Name..."
-                    onChange={(e) => updateForm("name", e.target.value)}
-                    value={form?.name}
+                    onChange={(e) => updateForm("full_name", e.target.value)}
+                    value={form?.full_name}
                     type="text"
                     className="form-control"
                     aria-label="Sizing example input"
@@ -109,8 +125,8 @@ function SPTContactSection({ themeKey, section }) {
                   </span>
                   <input
                     placeholder="Your Phone Number..."
-                    onChange={(e) => updateForm("phone", e.target.value)}
-                    value={form?.phone}
+                    onChange={(e) => updateForm("phone_number", e.target.value)}
+                    value={form?.phone_number}
                     type="telephone"
                     className="form-control"
                     aria-describedby="inputGroup-sizing-default"

@@ -198,7 +198,7 @@ function SPTV2Entry() {
         </div>
       </div>
 
-      <SPTContactSection section={callout_section} themeKey={themeKey} />
+      <SPTContactSection campaign_id={campaign?.id} section={callout_section} themeKey={themeKey} />
 
       {/* ------------ Events --------- */}
       <SPTEventsSections themeKey={themeKey} campaign={campaign} technology={technology} />

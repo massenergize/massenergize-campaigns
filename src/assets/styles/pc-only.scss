@@ -2,21 +2,20 @@
   --site-logo: 100px;
 }
 @media only screen and (min-width: 768px) {
-
   .how-it-works-item {
     flex-basis: 28%;
     margin-right: 2%;
     margin-bottom: 10px;
   }
-  .how-it-works img { 
+  .how-it-works img {
     height: 300px;
-    margin: 50px 0px ;
+    margin: 50px 0px;
   }
   .spt-benefits-item {
     flex-basis: 48%;
     flex-direction: row;
   }
-  .spt-form-area { 
+  .spt-form-area {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,7 +30,8 @@
   }
   .spt-contact-form {
     width: 60%;
-    height: 380px;
+    min-height: 380px;
+    padding-bottom: 20px;
   }
   .spt-contact-root {
     padding: 80px;
