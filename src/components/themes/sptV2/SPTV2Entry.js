@@ -17,6 +17,7 @@ import SPTV2AboutSection from "./SPTV2AboutSection";
 import { CAMPAIGN_TEMPLATE_KEYS, getPlaceholderURL, getTheme, PlaceholderImageURL } from "../../../utils/Values";
 import SPTContactSection from "./SPTContactSection";
 import EligibilitySection from "./EligibilitySection";
+import SPTV2AboutCampaign from "./SPTV2AboutCampaign";
 
 const LANGUAGE_LIST = [
   { name: "English", code: "en-US" },
@@ -129,7 +130,7 @@ function SPTV2Entry() {
         })}
       </div> */}
 
-      
+      <SPTV2AboutCampaign section={goal_section}  themeKey={themeKey} technology={technology} />
 
       {/* --- How does it work? ------ */}
       <SPTSectionComponent>

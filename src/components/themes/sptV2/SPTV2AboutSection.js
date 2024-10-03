@@ -9,7 +9,6 @@ function SPTV2AboutSection({ technology, themeKey }) {
   const { spt } = getStaticText();
   const addOnT = spt?.about?.titleAddOn;
 
-  console.log("DESCRIPTION", technology);
   return (
     <SPTSectionComponent style={{ background: "#ffe7e4" }}>
       <div
