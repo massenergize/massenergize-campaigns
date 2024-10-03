@@ -5,6 +5,23 @@ body {
   font-family: "Manrope", sans-serif;
 }
 
+.how-it-works .items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.how-it-works img {
+  width: 100%;
+  object-fit: contain;
+}
+.how-it-works-item {
+}
+
+.how-it-works-item h6 {
+  color: var(--text-color);
+  font-weight: bold;
+  text-transform: uppercase;
+}
 .spt-benefits-part {
   display: flex;
   flex-direction: row;

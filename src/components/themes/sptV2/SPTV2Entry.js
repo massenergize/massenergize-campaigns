@@ -14,7 +14,7 @@ import Hero from "./components/hero/Hero";
 import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTV2OurGoals from "./SPTV2OurGoals";
 import SPTV2AboutSection from "./SPTV2AboutSection";
-import { CAMPAIGN_TEMPLATE_KEYS, getTheme, PlaceholderImageURL } from "../../../utils/Values";
+import { CAMPAIGN_TEMPLATE_KEYS, getPlaceholderURL, getTheme, PlaceholderImageURL } from "../../../utils/Values";
 import SPTContactSection from "./SPTContactSection";
 
 const LANGUAGE_LIST = [
@@ -128,8 +128,27 @@ function SPTV2Entry() {
         })}
       </div> */}
 
-      {/*  --- Help Area -----*/}
+      {/* --- How does it work? ------ */}
+      <SPTSectionComponent>
+        <SPTSectionTitle>How does it work?</SPTSectionTitle>
+        <div className="how-it-works">
+          <img src={getPlaceholderURL(1280, 720)} alt="How it works" />
+          <div className="items">
+            {[1, 2, 3, 4, 5].map((item, index) => {
+              return (
+                <div className="how-it-works-item" style={{ "--text-color": theme?.color }} key={index}>
+                  <h6>{index + 1}. This is how it works</h6>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </SPTSectionComponent>
 
+      {/*  --- Help Area -----*/}
       <HelpBanner themeKey={themeKey} section={callout_section} />
       {/* </div> */}
 

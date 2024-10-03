@@ -3,6 +3,15 @@
 }
 @media only screen and (min-width: 768px) {
 
+  .how-it-works-item {
+    flex-basis: 28%;
+    margin-right: 2%;
+    margin-bottom: 10px;
+  }
+  .how-it-works img { 
+    height: 300px;
+    margin: 50px 0px ;
+  }
   .spt-benefits-item {
     flex-basis: 48%;
     flex-direction: row;
