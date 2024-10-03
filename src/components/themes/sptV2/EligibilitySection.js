@@ -3,7 +3,7 @@ import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTButton from "./components/SPTButton.js";
 import { getStaticText } from "../../../redux/actions/actions.js";
 import SPTSectionTitle from "../spt/components/SPTSectionTitle.js";
-function EligibilitySection({ section, technology, themeKey,cImage, cDescription }) {
+function EligibilitySection({ section, technology, themeKey, cImage, cDescription }) {
   const { name, description, title, media } = section || {};
 
   const { spt } = getStaticText();
@@ -14,7 +14,7 @@ function EligibilitySection({ section, technology, themeKey,cImage, cDescription
       <SPTSectionTitle>{title}</SPTSectionTitle>
       <div
         className="col-md-6 spt-flex-column-m "
-        style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}
+        style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: 40 }}
       >
         {/* <h1 className="spt-mobile-section-t">
           {title}

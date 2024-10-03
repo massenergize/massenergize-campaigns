@@ -62,8 +62,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: url("https://massenergize-prod-files.s3.amazonaws.com/media/alternative-alternative-energy-clouds-eco-energy-433308.jpg")
-    no-repeat center center;
+  background: var(--background-image) no-repeat center center;
   width: 100%;
 }
 

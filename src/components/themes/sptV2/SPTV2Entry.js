@@ -95,16 +95,13 @@ function SPTV2Entry() {
         <SPTSectionTitle>{overviewTitle || overview?.title?.text}</SPTSectionTitle>
         <div className="mobile-margin" style={{ marginTop: 40, "--my-custom-margin": "10px 0px" }}></div>
         <div className="spt-benefits-part">
-          {overviewItems?.map((overview, index) => {
+          {overviewItems?.map((overview) => {
             return (
               <div className="spt-benefits-item" key={overview?.id} style={{ marginBottom: 10 }}>
-                <img src={PlaceholderImageURL} alt="Benefit" />
+                {overview?.image && <img src={overview?.media?.url} alt="Benefit" />}
                 <div>
-                  <h5>Want to be more like you</h5>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                  </p>
+                  <h5>{overview?.title}</h5>
+                  <p style={{ color: "#9d9d9d" }} dangerouslySetInnerHTML={{ __html: overview?.description }}></p>
                 </div>
               </div>
             );
@@ -234,7 +231,7 @@ function SPTV2Entry() {
         </div>
       </div>
 
-      <SPTContactSection themeKey={themeKey} />
+      <SPTContactSection section={callout_section} themeKey={themeKey} />
 
       {/* --------------------- Footer -------------------- */}
 

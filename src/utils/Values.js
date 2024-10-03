@@ -33,5 +33,5 @@ export const getTheme = (themeKey) => {
 };
 
 export const PlaceholderImageURL = "https://via.placeholder.com/150";
-export const getPlaceholderURL = (x, y, color) =>
+export const getPlaceholderURL = (x = 800, y = 600, color) =>
   `https://via.placeholder.com/${x || y}x${y || x}/${color || "383838"}/fff`;

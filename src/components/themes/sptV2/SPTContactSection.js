@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import SPTButton from "./components/SPTButton";
 import { useSelector } from "react-redux";
+import { getPlaceholderURL } from "../../../utils/Values";
 
-function SPTContactSection({ themeKey }) {
+function SPTContactSection({ themeKey, section }) {
+  const { title, description, media } = section || {};
   const [form, setForm] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -35,14 +37,11 @@ function SPTContactSection({ themeKey }) {
     setSuccess("Thank you for contacting us. We will get back to you shortly");
   };
   return (
-    <div className="spt-contact-root">
+    <div className="spt-contact-root" style={{ "--background-image": `(${media?.url || getPlaceholderURL()})` }}>
       <div className="spt-contact-form">
         <div className="spt-t-area">
-          <h1>Get In Touch</h1>
-          <p>
-            Our Energy Advisors provide expert, unbiased energy advice at no cost to you. Call or send a text message to
-            (857) 293-1201
-          </p>
+          <h1>{title}</h1>
+          <p dangerouslySetInnerHTML={{ __html: description }} />
         </div>
 
         <div className="spt-form-area">

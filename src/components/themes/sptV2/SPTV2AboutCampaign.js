@@ -20,7 +20,7 @@ function SPTV2AboutCampaign({ section, technology, themeKey, cImage, cDescriptio
     );
   };
   return (
-    <>
+    <div style={{ marginTop: 40 }}>
       <SPTSectionComponent style={{ background: "#ffe7e4" }}>
         <div className="row" style={{ flexDirection: "row" }}>
           <div className="col-md-6 spt-section-img-area" style={{ "--justify-content": "start" }}>
@@ -75,7 +75,7 @@ function SPTV2AboutCampaign({ section, technology, themeKey, cImage, cDescriptio
           />
         </div>
       </SPTSectionComponent>
-    </>
+    </div>
   );
 }
 
