@@ -1,7 +1,7 @@
 import React from "react";
 import SPTButton from "../../sptV2/components/SPTButton";
 import { getTheme } from "../../../../utils/Values";
-import CONFIG from "./../../../../config/config.json";
+import CONFIG from "../../../../config/config.json";
 function SPTFooter({ section, themeKey }) {
   const { title, description, media, call_to_action_items } = section || {};
   const theme = getTheme(themeKey);
@@ -50,7 +50,7 @@ function SPTFooter({ section, themeKey }) {
               opacity: 0.6,
             }}
           >
-            Build Version {CONFIG.BUILD_VERSION}, Theme Version [SPT V2]
+            Build Version {CONFIG.BUILD_VERSION}, Theme Version [SPT V3]
           </small>
         </small>
       </div>

@@ -4,7 +4,7 @@ import HelpBanner from "../spt/components/HelpBanner";
 import CustomAccordion from "../../admin-components/CustomAccordion";
 import { ACCORDION_SECTIONS, FAQS } from "../spt/SPTConstants";
 
-import SPTFooter from "../spt/components/SPTFooter";
+import SPTFooter from "../spt/components/SPTV2Footer";
 import SPTSectionTitle from "../spt/components/SPTSectionTitle";
 import SPTEventsSections from "../spt/components/SPTEventsSections";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,6 +42,8 @@ function SPTV2Entry() {
   const faq_section = technology?.faq_section;
   const languages = useSelector((state) => state?.usersListOfLanguages);
   const overviewTitle = technology?.overview_title;
+  const deals = technology?.deals;
+  const deal_section = technology?.deal_section;
 
   const { spt } = getStaticText();
   const { overview } = spt || {};
@@ -55,7 +57,6 @@ function SPTV2Entry() {
   const themeKey = CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT_V2;
   const theme = getTheme(themeKey);
 
-  console.log("Lets see something here", campaign);
   return (
     <div>
       <Hero themeKey={themeKey} />
@@ -98,7 +99,7 @@ function SPTV2Entry() {
           {overviewItems?.map((overview) => {
             return (
               <div className="spt-benefits-item" key={overview?.id} style={{ marginBottom: 10 }}>
-                {overview?.image && <img src={overview?.media?.url} alt="Benefit" />}
+                {overview?.image && <img src={overview?.image?.url} alt="Benefit" />}
                 <div>
                   <h5>{overview?.title}</h5>
                   <p style={{ color: "#9d9d9d" }} dangerouslySetInnerHTML={{ __html: overview?.description }}></p>
@@ -137,21 +138,22 @@ function SPTV2Entry() {
         section={about_us_section}
         themeKey={themeKey}
         technology={technology}
+        cTitle={campaign?.title}
       />
 
       {/* --- How does it work? ------ */}
       <SPTSectionComponent>
-        <SPTSectionTitle>How does it work?</SPTSectionTitle>
+        <SPTSectionTitle>{deal_section?.title}</SPTSectionTitle>
         <div className="how-it-works">
-          <img src={getPlaceholderURL(1280, 720)} alt="How it works" />
+          <img src={deal_section?.media?.url} alt="How it works" />
           <div className="items">
-            {[1, 2, 3, 4, 5].map((item, index) => {
+            {deals?.map((item, index) => {
               return (
-                <div className="how-it-works-item" style={{ "--text-color": theme?.color }} key={index}>
-                  <h6>{index + 1}. This is how it works</h6>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                  </p>
+                <div className="how-it-works-item" style={{ "--text-color": theme?.color }} key={item?.id}>
+                  <h6>
+                    {index + 1}. {item?.title}
+                  </h6>
+                  <p style={{ color: "grey" }} dangerouslySetInnerHTML={{ __html: item?.description }}></p>
                 </div>
               );
             })}
@@ -165,41 +167,6 @@ function SPTV2Entry() {
       {/*  --- Help Area -----*/}
       {/* <HelpBanner themeKey={themeKey} section={callout_section} /> */}
       {/* </div> */}
-
-      {/* ------ Our Partners ------- */}
-
-      <div style={{ padding: "0% 7%", margin: "40px 0px " }}>
-        <SPTSectionTitle>{vendorsSection?.title}</SPTSectionTitle>
-        {/* <h1>Our Partners</h1> */}
-        <div
-          style={{
-            paddingTop: 40,
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-start",
-            flexWrap: "wrap",
-          }}
-        >
-          {vendorRels.map(({ vendor }) => {
-            return (
-              <img
-                role="button"
-                className="s-touchable-opacity"
-                onClick={() => {
-                  if (vendor?.website) window.open(vendor?.website, "_blank");
-                }}
-                //placeholder image
-                src={vendor?.logo?.url}
-                alt="Community Solar"
-                style={{ flexBasis: "20%", objectFit: "contain", height: 100, marginRight: 30 }}
-              />
-            );
-          })}
-        </div>
-      </div>
-
-      {/* ------------ Events --------- */}
-      <SPTEventsSections themeKey={themeKey} campaign={campaign} technology={technology} />
 
       {/* ------------ Frequently Asked Questions --------- */}
       <div style={{ marginTop: 40, padding: "2% 7%", background: theme?.colorLight }}>
@@ -232,6 +199,41 @@ function SPTV2Entry() {
       </div>
 
       <SPTContactSection section={callout_section} themeKey={themeKey} />
+
+      {/* ------------ Events --------- */}
+      <SPTEventsSections themeKey={themeKey} campaign={campaign} technology={technology} />
+
+      {/* ------ Our Partners ------- */}
+
+      <div style={{ padding: "0% 7%", margin: "40px 0px " }}>
+        <SPTSectionTitle>{vendorsSection?.title}</SPTSectionTitle>
+        {/* <h1>Our Partners</h1> */}
+        <div
+          style={{
+            paddingTop: 40,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            flexWrap: "wrap",
+          }}
+        >
+          {vendorRels.map(({ vendor }) => {
+            return (
+              <img
+                role="button"
+                className="s-touchable-opacity"
+                onClick={() => {
+                  if (vendor?.website) window.open(vendor?.website, "_blank");
+                }}
+                //placeholder image
+                src={vendor?.logo?.url}
+                alt="Community Solar"
+                style={{ flexBasis: "20%", objectFit: "contain", height: 100, marginRight: 30 }}
+              />
+            );
+          })}
+        </div>
+      </div>
 
       {/* --------------------- Footer -------------------- */}
 

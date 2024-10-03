@@ -37,7 +37,7 @@ function SPTContactSection({ themeKey, section }) {
     setSuccess("Thank you for contacting us. We will get back to you shortly");
   };
   return (
-    <div className="spt-contact-root" style={{ "--background-image": `(${media?.url || getPlaceholderURL()})` }}>
+    <div className="spt-contact-root" style={{ "--background-image": `url(${media?.url || getPlaceholderURL()})` }}>
       <div className="spt-contact-form">
         <div className="spt-t-area">
           <h1>{title}</h1>

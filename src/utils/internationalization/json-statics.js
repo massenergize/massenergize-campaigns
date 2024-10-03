@@ -5,7 +5,7 @@ export const ENGLISH = {
   spt: {
     modal: { button: { text: "Close Video" } },
     overview: { title: { text: "Benefits" } },
-    about: { titleAddOn: { text: "What is it?" } },
+    about: { titleAddOn: { text: "What is it?" }, prefix: { text: "About" } },
   },
   toasts: {
     join: {
@@ -297,7 +297,7 @@ export const SPANISH = {
   spt: {
     modal: { button: { text: "Cerrar Vídeo" } },
     overview: { title: { text: "Beneficios" } },
-    about: { titleAddOn: { text: "¿Qué es?" } },
+    about: { titleAddOn: { text: "¿Qué es?" }, prefix: { text: "Acerca de" } },
   },
   toasts: {
     join: {
@@ -610,7 +610,7 @@ export const PORTUGUESE = {
   spt: {
     modal: { button: { text: "Fechar Vídeo" } },
     overview: { title: { text: "Benefícios" } },
-    about: { titleAddOn: { text: "O que é?" } },
+    about: { titleAddOn: { text: "O que é?" }, prefix: { text: "Sobre" } },
   },
   toasts: {
     join: {

@@ -3,21 +3,15 @@ import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTButton from "./components/SPTButton.js";
 import { getStaticText } from "../../../redux/actions/actions.js";
 
-function SPTV2AboutCampaign({ section, technology, themeKey, cImage, cDescription }) {
-  const { title, media, call_to_action_items, description } = section || {};
-  const { name, summary, deals, image, call_to_action } = technology || {};
+function SPTV2AboutCampaign({ section, technology, themeKey, cImage, cDescription, cTitle }) {
+  const { media, call_to_action_items, description } = section || {};
 
   const { spt } = getStaticText();
   const addOnT = spt?.about?.titleAddOn;
+  const about = spt?.about?.prefix?.text;
+
   const renderImage = () => {
-    return (
-      <img
-        className="spt-s-img"
-        src={cImage?.url}
-        alt="Community Solar"
-        // style={{ width: "100%", height: "100%", borderRadius: 20 }}
-      />
-    );
+    return <img className="spt-s-img" src={cImage?.url} alt="Community Solar" />;
   };
   return (
     <div style={{ marginTop: 40 }}>
@@ -30,7 +24,7 @@ function SPTV2AboutCampaign({ section, technology, themeKey, cImage, cDescriptio
             className="col-md-6 spt-flex-column-m"
             style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}
           >
-            {/* <h1 className="spt-mobile-section-t">{title || "..."}</h1> */}
+            <h1 className="spt-mobile-section-t">{(about || "") + " " + cTitle || "..."}</h1>
             <p className="spt-body-font" dangerouslySetInnerHTML={{ __html: cDescription }}></p>
 
             <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
