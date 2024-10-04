@@ -9,7 +9,6 @@ import GhostLoader from "src/components/admin-components/GhostLoader";
 import CustomAccordion from "src/components/admin-components/CustomAccordion";
 import SectionsForm from "./SectionsForm";
 import MeModal from "src/components/MEModal/MeModal";
-import { faMinus } from "@fortawesome/free-solid-svg-icons";
 
 export default function TechnologyDeals({ campaign_id, tech_id, techObject, updateTechObject }) {
   const { deals } = techObject;
@@ -57,13 +56,14 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
       {/* SECTION */}
       <div className="py-5">
         <CustomAccordion
-          title={"Customize The Title and Description of Deals Section"}
+          title={"Customize The Title and Description of Section"}
           component={
             <SectionsForm
               section="deal_section"
               data={techObject?.deal_section}
               updateExistingObject={updateTechObject}
               item_id={tech_id}
+              version={"v2"}
             />
           }
           isOpen={openAccordion}

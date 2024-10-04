@@ -1,31 +1,28 @@
-import React, { useContext, useReducer, useState } from "react";
-import Container from "react-bootstrap/Container";
+import React, { useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Input from "../../components/admin-components/Input";
 import FileUploader from "../../components/admin-components/FileUploader";
 import "../../assets/styles/admin-styles.scss";
-import { ProgressButton } from "../../components/progress-button/progress-button";
 import dayjs from "dayjs";
 import { updateCampaign } from "../../requests/campaign-requests";
 import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
 import { useNamedState } from "../../hooks/useNamedState";
 import { isEmpty } from "../../helpers/utils/string";
-import { BubblyBalloonContext } from "../../lib/bubbly-balloon/bubbly-balloon-context";
 import { getImageValue } from "../../helpers/utils";
 import CustomAccordion from "src/components/admin-components/CustomAccordion";
 import LandingPageCustomization from "./LandingPageCustomization";
 import Button from "src/components/admin-components/Button";
 import { useCampaignContext } from "src/hooks/use-campaign-context";
 import SectionForm from "./create-technology/SectionsForm";
-import { SINGLE_TECHNOLOGY_CAMPAIGN_SPT } from "../../utils/Constants";
-import { Button as BTN } from "react-bootstrap";
 import HeroComponent from "./HeroComponent";
 import ShowOnDemand from "../../components/admin-components/ShowOnDemand";
 
 import {
+  ABOUT_US_SECTION_KEY,
   BANNER_SECTION_KEY,
   CONTACT_US_SECTION_KEY,
+  ELIGIBILITY_SECTION_KEY,
   GET_HELP_SECTION_KEY,
   GOAL_SECTION_KEY,
   HERO_SECTION_KEY,
@@ -106,9 +103,12 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
     }
   };
 
+  const saveUpdatedSection = (sectionData) => {    
+    setNewCampaignDetails({ ...(campaignDetails || {}), ...sectionData });
+  }
+
   return (
     <>
-      {/* {campaignDetails?.template_key !== SINGLE_TECHNOLOGY_CAMPAIGN_SPT ? ( */}
       <ShowOnDemand show={sectionConfigs?.includes(MAIN_PAGE_CUSTOMIZATION_SECTION_KEY)}>
         <div style={{ marginBottom: 20 }}>
           <CustomAccordion title="Add other page customizations to your main campaign page">
@@ -116,15 +116,31 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
           </CustomAccordion>
         </div>
       </ShowOnDemand>
-      {/* ) : ( */}
       <>
         <ShowOnDemand show={sectionConfigs?.includes(HERO_SECTION_KEY)}>
           <div className="mb-3">
             <CustomAccordion
               title="Customize Hero Section"
-              component={<HeroComponent campaignDetails={campaignDetails} updateCampaignDetails={setCampaignDetails} />}
-              isOpen={openedAccordion === "call_to_action"}
-              onClick={() => toggleAccordion("call_to_action")}
+              component={<HeroComponent campaignDetails={campaignDetails} updateCampaignDetails={saveUpdatedSection} />}
+              isOpen={openedAccordion === HERO_SECTION_KEY}
+              onClick={() => toggleAccordion(HERO_SECTION_KEY)}
+            />
+          </div>
+        </ShowOnDemand>
+        <ShowOnDemand show={sectionConfigs?.includes(ABOUT_US_SECTION_KEY)}>
+          <div className="mb-3">
+            <CustomAccordion
+              title="Customize About Section"
+              component={ <SectionForm
+                section="about_us_section"
+                data={campaignDetails?.about_us_section}
+                updateExistingObject={saveUpdatedSection}
+                item_id={campaignDetails?.id}
+                apiUpdateFunc={updateCampaign}
+                version={"v2"}
+              />}
+              isOpen={openedAccordion === ABOUT_US_SECTION_KEY}
+              onClick={() => toggleAccordion(ABOUT_US_SECTION_KEY)}
             />
           </div>
         </ShowOnDemand>
@@ -136,14 +152,33 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
                 <SectionForm
                   section="banner_section"
                   data={campaignDetails?.banner_section}
-                  updateExistingObject={setCampaignDetails}
+                  updateExistingObject={saveUpdatedSection}
                   item_id={campaignDetails?.id}
                   apiUpdateFunc={updateCampaign}
                   version={"v2"}
                 />
               }
-              isOpen={openedAccordion === "banner_section"}
-              onClick={() => toggleAccordion("banner_section")}
+              isOpen={openedAccordion === BANNER_SECTION_KEY}
+              onClick={() => toggleAccordion(BANNER_SECTION_KEY)}
+            />
+          </div>
+        </ShowOnDemand>
+        <ShowOnDemand show={sectionConfigs?.includes(ELIGIBILITY_SECTION_KEY)}>
+          <div className="mb-3">
+            <CustomAccordion
+              title="Customize Eligibility Section"
+              component={
+                <SectionForm
+                  section="eligibility_section"
+                  data={campaignDetails?.eligibility_section}
+                  updateExistingObject={saveUpdatedSection}
+                  item_id={campaignDetails?.id}
+                  apiUpdateFunc={updateCampaign}
+                  version={"v2"}
+                />
+              }
+              isOpen={openedAccordion === ELIGIBILITY_SECTION_KEY}
+              onClick={() => toggleAccordion(ELIGIBILITY_SECTION_KEY)}
             />
           </div>
         </ShowOnDemand>
@@ -156,14 +191,14 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
                 <SectionForm
                   section="goal_section"
                   data={campaignDetails?.goal_section}
-                  updateExistingObject={setCampaignDetails}
+                  updateExistingObject={saveUpdatedSection}
                   item_id={campaignDetails?.id}
                   apiUpdateFunc={updateCampaign}
                   version={"v2"}
                 />
               }
-              isOpen={openedAccordion === "goal_section"}
-              onClick={() => toggleAccordion("goal_section")}
+              isOpen={openedAccordion === GOAL_SECTION_KEY}
+              onClick={() => toggleAccordion(GOAL_SECTION_KEY)}
             />
           </div>
         </ShowOnDemand>
@@ -176,14 +211,14 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
                 <SectionForm
                   section="callout_section"
                   data={campaignDetails?.callout_section}
-                  updateExistingObject={setCampaignDetails}
+                  updateExistingObject={saveUpdatedSection}
                   item_id={campaignDetails?.id}
                   apiUpdateFunc={updateCampaign}
                   version={"v2"}
                 />
               }
-              isOpen={openedAccordion === "callout_section"}
-              onClick={() => toggleAccordion("callout_section")}
+              isOpen={openedAccordion === GET_HELP_SECTION_KEY}
+              onClick={() => toggleAccordion(GET_HELP_SECTION_KEY)}
             />
           </div>
         </ShowOnDemand>
@@ -191,19 +226,19 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
         <ShowOnDemand show={sectionConfigs?.includes(CONTACT_US_SECTION_KEY)}>
           <div className="mb-3">
             <CustomAccordion
-              title={"Customize Contact Us Section"}
+              title={"Customize Footer Section"}
               component={
                 <SectionForm
                   section="contact_section"
                   data={campaignDetails?.contact_section}
-                  updateExistingObject={setCampaignDetails}
+                  updateExistingObject={saveUpdatedSection}
                   item_id={campaignDetails?.id}
                   apiUpdateFunc={updateCampaign}
                   version={"v2"}
                 />
               }
-              isOpen={openedAccordion === "contact_section"}
-              onClick={() => toggleAccordion("contact_section")}
+              isOpen={openedAccordion === CONTACT_US_SECTION_KEY}
+              onClick={() => toggleAccordion(CONTACT_US_SECTION_KEY)}
             />
           </div>
         </ShowOnDemand>
