@@ -8,6 +8,7 @@ export const GET_HELP_SECTION_KEY = "GET_HELP_SECTION_KEY";
 export const CONTACT_US_SECTION_KEY = "CONTACT_US_SECTION_KEY";
 export const ABOUT_US_SECTION_KEY = "ABOUT_US_SECTION_KEY";
 export const ELIGIBILITY_SECTION_KEY = "ELIGIBILITY_SECTION_KEY";
+export const FAQS_SECTION_KEY = "FAQS_SECTION_KEY";
 //  Technology Information
 
 export const TECH_CALL_TO_ACTION_SECTION_KEY = "TECH_CALL_TO_ACTION_SECTION_KEY";
@@ -112,7 +113,7 @@ export const THEME_CONFIGURATIONS = {
           { tabKeyId: "Vendors", alias: "Partners", sections: [] },
           { tabKeyId: "Overview", alias: "Benefits", sections: [] },
           { tabKeyId: "Deals", alias: "How does it work?", sections: [] },
-          { tabKeyId: "FAQS", sections: [] },
+          { tabKeyId: "FAQs", sections: [] },
         ],
       },
     },
