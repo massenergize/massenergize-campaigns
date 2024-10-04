@@ -9,7 +9,6 @@ import { useBubblyBalloons } from "../../../lib/bubbly-balloon/use-bubbly-balloo
 import { ProgressButton } from "../../../components/progress-button/progress-button";
 import "../../../assets/styles/admin-styles.scss";
 import CustomAccordion from "../../../components/admin-components/CustomAccordion";
-import CallToActionForm from "./CallToActionForm";
 import Input from "../../../components/admin-components/Input";
 import Button from "../../../components/admin-components/Button";
 
@@ -35,11 +34,26 @@ const Incentives = () => {
 
   const handleSaveTitle = async() => {
     if(formData.title && formData.title.length > 0){
+      setLoading(true);
       let data = {overview_title:formData.title, id:technology?.id};
       let res = await updateTechnology(data)
       if(res){
         handleTechnologyDetailsChange("overview_title", res?.overview_title)
+        notify({
+          title: "Success",
+          message: "Title updated successfully",
+          type: "success",
+          timeout: 15000,
+        });
+      }else{
+        notify({
+          title: "Error",
+          message: "An error occurred while updating title",
+          type: "error",
+          timeout: 15000,
+        });
       }
+      setLoading(false);
     }
   }
 
@@ -59,14 +73,14 @@ const Incentives = () => {
         setShowDeleteModal(false);
         notify({
           title: "Success",
-          message: "Incentive removed successfully",
+          message: "Item removed successfully",
           type: "success",
         });
       }
     } catch (e) {
       notify({
         title: "Error",
-        message: "An error occurred while removing incentive",
+        message: "An error occurred while removing item",
         type: "error",
       });
     } finally {
@@ -110,13 +124,13 @@ const Incentives = () => {
               onClick={() => setOpenAccordion(!openAccordion)}
           />
         </div>
-        <Row className={"mt-3"}>
+        <Row className={"mt-3 mb-3"}>
           <Col>
             <p>Dive in! Help your visitors understand every bit of this technology.</p>
           </Col>
           <Col sm={"auto"}>
             <Button text="" rounded onClick={() => setShowIncentiveModal(true)}>
-              Add Incentive
+              Add New Item
             </Button>
           </Col>
         </Row>
@@ -154,12 +168,12 @@ const Incentives = () => {
 
         <Modal show={showDeleteModal} onHide={() => hideDeleteModal} enforceFocus={false}>
           <Modal.Header closeButton>
-            <Modal.Title className={"text-sm"}>Delete incentive.</Modal.Title>
+            <Modal.Title className={"text-sm"}>Delete item.</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Row>
               <Col>
-                <p>Are you sure you want to delete this incentive?</p>
+                <p>Are you sure you want to delete this item?</p>
               </Col>
             </Row>
           </Modal.Body>

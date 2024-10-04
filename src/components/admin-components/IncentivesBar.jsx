@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { IncentiveForm } from "../../admin-portal/create-campaign/create-technology/incentive-form";
 import { Button, Col, Row } from "react-bootstrap";
 import classes from "classnames";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { objectIsEmpty } from "../../helpers/utils";
 
 const IncentivesBar = ({ incentive = {}, onRemove, onUpdate, formComponent }) => {

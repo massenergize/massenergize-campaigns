@@ -3,9 +3,8 @@ import {Col, Container, Row} from "react-bootstrap";
 import Input from "../../../components/admin-components/Input";
 import Button from "../../../components/admin-components/Button";
 
-export default function CallToActionForm({data, onSaveFunction}) {
+export default function CallToActionForm({data, onSaveFunction,loading}) {
     const [formState, setFormState] = useState(data || {});
-    const [loading, setLoading] = useState(false);
 
     const setFormData = (field, value) => {
         setFormState({...formState, [field]: value});

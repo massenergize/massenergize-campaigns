@@ -14,9 +14,6 @@ import {
 import CustomAccordion from "../../../components/admin-components/CustomAccordion";
 import SectionForm from "./SectionsForm";
 import CreateVendorForm from "./CreateVendorForm";
-import { addLabelsAndValues } from "../../../helpers/utils/array";
-import { useTechnologyContext } from "../../../hooks/use-technology-context";
-import vendors from "../../../user-portal/pages/technology/Vendors";
 import { SWR_NO_REFRESH_CONFIG } from "../../../config/config";
 import { useSelector } from "react-redux";
 import MeModal from "src/components/MEModal/MeModal";
@@ -58,7 +55,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
         setOpenAddVendorModal(false);
         blow({
           title: "Success",
-          message: "Vendors saved successfully",
+          message: "Items saved successfully",
           type: "success",
           duration: 5000,
         });
@@ -66,7 +63,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
     } catch (e) {
       pop({
         title: "Error",
-        message: "Error saving vendors",
+        message: "Error saving items",
         type: "error",
         duration: 5000,
       });
@@ -81,26 +78,25 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
     setSelectedVendors(existing);
   }, [techObject?.vendors]);
   const handleRemoveVendor = async (vendor) => {
-    if (!window.confirm("Are you sure you want to remove this vendor?")) return;
+    if (!window.confirm("Are you sure you want to remove this item?")) return;
     setLoading(true);
     try {
       let res = await removeTechnologyVendor({
         technology_id: tech_id,
         vendor_id: vendor?.id,
       });
-      // const filtered = selectedVendors?.filter((vend) => vend?.id !== vendor?.id);
-      // setSelectedVendors(filtered);
+
       let filtered = techObject?.vendors?.filter((vend) => vend?.vendor?.id !== vendor?.id);
       updateTechObject({ vendors: filtered });
       setLoading(false);
       blow({
         title: "Success",
-        message: "Vendor removed successfully",
+        message: "Item removed successfully",
         type: "success",
       });
     } catch (e) {
       setLoading(false);
-      pop({ title: "Error", message: "Error removing vendor", type: "error" });
+      pop({ title: "Error", message: "Error removing item", type: "error" });
     }
   };
 
@@ -126,13 +122,13 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
         <div style={{ display: "flex", flexDirection: "row", width: "100%", marginTop: "20px" }}>
           <BTN style={{ marginLeft: "auto" }} variant="success" onClick={() => setOpenAddVendorModal(true)}>
             <i className="fa fa-plus" style={{ marginRight: 7 }} />
-            Import A Vendor
+            Import An Existing Items
           </BTN>
         </div>
 
         <div className="py-3">
           <CustomAccordion
-            title={"Customize The Title and Description of Vendors Section"}
+            title={"Customize the Section Title and Description"}
             component={
               <SectionForm
                 section="vendors_section"
@@ -150,7 +146,7 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
 
         <div className="py-3">
           <CustomAccordion
-            title={"Create a new vendor"}
+            title={"Create a new item"}
             isOpen={openForVendor}
             onClick={() => {
               setOpenForVendor(!openForVendor);
