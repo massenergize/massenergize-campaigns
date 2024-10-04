@@ -2,30 +2,31 @@ import React from "react";
 import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTButton from "./components/SPTButton.js";
 import { getStaticText } from "../../../redux/actions/actions.js";
-
-function SPTV2AboutSection({ technology, themeKey }) {
-  const { name, description, summary, deals, image, call_to_action } = technology || {};
+import SPTSectionTitle from "../spt/components/SPTSectionTitle.js";
+function EligibilitySection({ section, technology, themeKey, cImage, cDescription }) {
+  const { name, description, title, media } = section || {};
 
   const { spt } = getStaticText();
-  const addOnT = spt?.about?.titleAddOn;
+  // const addOnT = title || spt?.about?.titleAddOn;
 
   return (
-    <SPTSectionComponent style={{ background: "#ffe7e4" }}>
+    <SPTSectionComponent style={{}}>
+      <SPTSectionTitle>{title}</SPTSectionTitle>
       <div
         className="col-md-6 spt-flex-column-m "
-        style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}
+        style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginTop: 40 }}
       >
-        <h1 className="spt-mobile-section-t">
-          {name}
-          {addOnT ? `: ${addOnT?.text}` : ""}
-        </h1>
-        <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: summary }}></div>
+        {/* <h1 className="spt-mobile-section-t">
+          {title}
+       
+        </h1> */}
+        <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: description }}></div>
 
-        {call_to_action && (
+        {/* {call_to_action && (
           <SPTButton themeKey={themeKey} href={call_to_action?.url}>
             {call_to_action?.text || "Sign Up Here"}
           </SPTButton>
-        )}
+        )} */}
       </div>
       <div
         className="col-md-6 spt-section-img-area mobile-margin "
@@ -34,13 +35,13 @@ function SPTV2AboutSection({ technology, themeKey }) {
       >
         <img
           className="spt-s-img "
-          src={image?.url}
+          src={media?.url}
           alt="Community Solar"
-          style={{ "--my-custom-margin": "20px 0px" }}
+          style={{ "--my-custom-margin": "20px 0px", objectFit: "contain" }}
         />
       </div>
     </SPTSectionComponent>
   );
 }
 
-export default SPTV2AboutSection;
+export default EligibilitySection;

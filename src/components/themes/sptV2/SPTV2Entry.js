@@ -4,7 +4,7 @@ import HelpBanner from "../spt/components/HelpBanner";
 import CustomAccordion from "../../admin-components/CustomAccordion";
 import { ACCORDION_SECTIONS, FAQS } from "../spt/SPTConstants";
 
-import SPTFooter from "../spt/components/SPTFooter";
+import SPTFooter from "../spt/components/SPTV2Footer";
 import SPTSectionTitle from "../spt/components/SPTSectionTitle";
 import SPTEventsSections from "../spt/components/SPTEventsSections";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,10 @@ import Hero from "./components/hero/Hero";
 import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTV2OurGoals from "./SPTV2OurGoals";
 import SPTV2AboutSection from "./SPTV2AboutSection";
-import { CAMPAIGN_TEMPLATE_KEYS, getTheme } from "../../../utils/Values";
+import { CAMPAIGN_TEMPLATE_KEYS, getPlaceholderURL, getTheme, PlaceholderImageURL } from "../../../utils/Values";
+import SPTContactSection from "./SPTContactSection";
+import EligibilitySection from "./EligibilitySection";
+import SPTV2AboutCampaign from "./SPTV2AboutCampaign";
 
 const LANGUAGE_LIST = [
   { name: "English", code: "en-US" },
@@ -34,9 +37,13 @@ function SPTV2Entry() {
   const faqs = technology?.faqs || [];
   const callout_section = campaign?.callout_section;
   const contact_section = campaign?.contact_section;
+  const about_us_section = campaign?.about_us_section;
+  const eligibility_section = campaign?.eligibility_section;
   const faq_section = technology?.faq_section;
   const languages = useSelector((state) => state?.usersListOfLanguages);
   const overviewTitle = technology?.overview_title;
+  const deals = technology?.deals;
+  const deal_section = technology?.deal_section;
 
   const { spt } = getStaticText();
   const { overview } = spt || {};
@@ -49,6 +56,7 @@ function SPTV2Entry() {
 
   const themeKey = CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT_V2;
   const theme = getTheme(themeKey);
+
   return (
     <div>
       <Hero themeKey={themeKey} />
@@ -87,6 +95,23 @@ function SPTV2Entry() {
       <div className="spt-section-padding spt-section-margin-top">
         <SPTSectionTitle>{overviewTitle || overview?.title?.text}</SPTSectionTitle>
         <div className="mobile-margin" style={{ marginTop: 40, "--my-custom-margin": "10px 0px" }}></div>
+        <div className="spt-benefits-part">
+          {overviewItems?.map((overview) => {
+            return (
+              <div className="spt-benefits-item" key={overview?.id} style={{ marginBottom: 10 }}>
+                {overview?.image && <img src={overview?.image?.url} alt="Benefit" />}
+                <div>
+                  <h5>{overview?.title}</h5>
+                  <p style={{ color: "#9d9d9d" }} dangerouslySetInnerHTML={{ __html: overview?.description }}></p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      {/* <div className="spt-section-padding spt-section-margin-top">
+        <SPTSectionTitle>{overviewTitle || overview?.title?.text}</SPTSectionTitle>
+        <div className="mobile-margin" style={{ marginTop: 40, "--my-custom-margin": "10px 0px" }}></div>
         {overviewItems?.map((overview, index) => {
           return (
             <div key={overview?.id} style={{ marginBottom: 10 }}>
@@ -105,12 +130,78 @@ function SPTV2Entry() {
             </div>
           );
         })}
-      </div>
+      </div> */}
+
+      <SPTV2AboutCampaign
+        cImage={campaign?.image}
+        cDescription={campaign?.description}
+        section={about_us_section}
+        themeKey={themeKey}
+        technology={technology}
+        cTitle={campaign?.title}
+      />
+
+      {/* --- How does it work? ------ */}
+      <SPTSectionComponent>
+        <SPTSectionTitle>{deal_section?.title}</SPTSectionTitle>
+        <div className="how-it-works">
+          <img src={deal_section?.media?.url} alt="How it works" />
+          <div className="items">
+            {deals?.map((item, index) => {
+              return (
+                <div className="how-it-works-item" style={{ "--text-color": theme?.color }} key={item?.id}>
+                  <h6>
+                    {index + 1}. {item?.title}
+                  </h6>
+                  <p style={{ color: "grey" }} dangerouslySetInnerHTML={{ __html: item?.description }}></p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </SPTSectionComponent>
+
+      {/* --------- ELIGIBILITY -------- */}
+      <EligibilitySection section={eligibility_section} themeKey={themeKey} technology={technology} />
 
       {/*  --- Help Area -----*/}
-      {/* <div style={{ marginTop: 40, padding: "0% 7%" }}> */}
-      <HelpBanner themeKey={themeKey} section={callout_section} />
+      {/* <HelpBanner themeKey={themeKey} section={callout_section} /> */}
       {/* </div> */}
+
+      {/* ------------ Frequently Asked Questions --------- */}
+      <div style={{ marginTop: 40, padding: "2% 7%", background: theme?.colorLight }}>
+        {/* <h1 >Frequently Asked Questions</h1> */}
+        <SPTSectionTitle style={{ margin: "20px 0px" }}>{faq_section?.title}</SPTSectionTitle>
+        <div>
+          {faqs?.map(({ id, question: title, answer: description }, index) => {
+            return (
+              <div key={id} style={{ marginBottom: 10 }}>
+                <CustomAccordion
+                  wrapperStyle={{ borderColor: theme?.forBorders }}
+                  renderHeader={({ opened, setOpen }) => (
+                    <AccordionTitle
+                      themeKey={themeKey}
+                      section={{ title, description }}
+                      setOpen={setOpen}
+                      opened={opened}
+                    />
+                  )}
+                  elevate={false}
+                  radius={6}
+                  title={title}
+                  key={index}
+                  component={<div className="spt-body-font" dangerouslySetInnerHTML={{ __html: description }}></div>}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <SPTContactSection campaign_id={campaign?.id} section={callout_section} themeKey={themeKey} />
+
+      {/* ------------ Events --------- */}
+      <SPTEventsSections themeKey={themeKey} campaign={campaign} technology={technology} />
 
       {/* ------ Our Partners ------- */}
 
@@ -139,39 +230,6 @@ function SPTV2Entry() {
                 alt="Community Solar"
                 style={{ flexBasis: "20%", objectFit: "contain", height: 100, marginRight: 30 }}
               />
-            );
-          })}
-        </div>
-      </div>
-
-      {/* ------------ Events --------- */}
-      <SPTEventsSections themeKey={themeKey} campaign={campaign} technology={technology} />
-
-      {/* ------------ Frequently Asked Questions --------- */}
-      <div style={{ marginTop: 40, padding: "2% 7%", background: theme?.colorLight }}>
-        {/* <h1 >Frequently Asked Questions</h1> */}
-        <SPTSectionTitle style={{ margin: "20px 0px" }}>{faq_section?.title}</SPTSectionTitle>
-        <div>
-          {faqs?.map(({ id, question: title, answer: description }, index) => {
-            return (
-              <div key={id} style={{ marginBottom: 10 }}>
-                <CustomAccordion
-                  wrapperStyle={{ borderColor: theme?.forBorders }}
-                  renderHeader={({ opened, setOpen }) => (
-                    <AccordionTitle
-                      themeKey={themeKey}
-                      section={{ title, description }}
-                      setOpen={setOpen}
-                      opened={opened}
-                    />
-                  )}
-                  elevate={false}
-                  radius={6}
-                  title={title}
-                  key={index}
-                  component={<div className="spt-body-font" dangerouslySetInnerHTML={{ __html: description }}></div>}
-                />
-              </div>
             );
           })}
         </div>

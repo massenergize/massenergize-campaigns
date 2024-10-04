@@ -55,7 +55,7 @@ export default function DealsForm({ deal, onSubmit, technology_id }) {
       onSubmit(data, isNew);
       blow({
         title: "Success",
-        message: `Deal ${isNew ? "added" : "updated"} successfully`,
+        message: `Item ${isNew ? "added" : "updated"} successfully`,
         type: "success",
       });
 
@@ -64,7 +64,7 @@ export default function DealsForm({ deal, onSubmit, technology_id }) {
       setLoading(false);
       pop({
         title: "Error",
-        message: `Something went wrong while ${isNew ? "adding" : "updating"} deal`,
+        message: `Something went wrong while ${isNew ? "adding" : "updating"} item`,
         type: "error",
       });
     }
@@ -112,7 +112,7 @@ export default function DealsForm({ deal, onSubmit, technology_id }) {
       </Row>
       <Row className="py-4 justify-content-end">
         <Col className="px-4">
-          <Button text="Save Deal" onSubmit={() => handleSave()} rounded={false} loading={loading} disabled={loading} />
+          <Button text="Save" onSubmit={() => handleSave()} rounded={false} loading={loading} disabled={loading} />
         </Col>
       </Row>
     </Container>

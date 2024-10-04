@@ -2,8 +2,44 @@
   --site-logo: 100px;
 }
 @media only screen and (min-width: 768px) {
-  /* -- SPT THEME ---- */
+  .how-it-works-item {
+    flex-basis: 28%;
+    margin-right: 2%;
+    margin-bottom: 10px;
+  }
+  .how-it-works img {
+    height: 300px;
+    margin: 50px 0px;
+  }
+  .spt-benefits-item {
+    flex-basis: 48%;
+    flex-direction: row;
+  }
+  .spt-form-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .spt-t-area p {
+    width: 80%;
+    text-align: center;
+  }
+  .spt-t-area {
+    padding: 25px;
+  }
+  .spt-contact-form {
+    width: 60%;
+    min-height: 380px;
+    padding-bottom: 20px;
+  }
+  .spt-contact-root {
+    padding: 80px;
+    display: flex;
+    min-height: 300px;
+  }
 
+  /* -- SPT THEME ---- */
   .spt-v2-nav img {
     margin: 0px;
     height: 100px;

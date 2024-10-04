@@ -129,6 +129,7 @@ function Info({
                   <CallToActionForm
                       data={techObject?.call_to_action}
                       onSaveFunction={handleUpdateCallToAction}
+                      loading = {loading}
                   />
                 }
                 isOpen={openedAccordion === "call_to_action"}

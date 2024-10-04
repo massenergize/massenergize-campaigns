@@ -1,11 +1,12 @@
 import React from "react";
 import { getTheme } from "../../../../utils/Values";
 
-function SPTButton({ text, children, onClick, href, target, className, style, themeKey }) {
+function SPTButton({ text, children, onClick, href, target, className, style, themeKey, disable }) {
   const theme = getTheme(themeKey);
   return (
     <div
       onClick={() => {
+        if (disable) return;
         if (onClick) return onClick();
         if (!href) return;
         window.open(href, target || "_blank");

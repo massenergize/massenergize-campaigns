@@ -66,9 +66,6 @@ export function IncentiveForm ({ incentive = {}, onSubmit, }) {
         return;
       }
       setLoading(true)
-
-      console.log("incentiveFormData", incentiveFormData)
-
       const payload = {
         technology_id,
         ...(IS_NEW ? {} : { id: incentive.id }),
@@ -79,13 +76,11 @@ export function IncentiveForm ({ incentive = {}, onSubmit, }) {
 
       };
 
-      console.log("payload", payload)
-
       const data = IS_NEW ? await addTechnologyIncentive(payload) : await updateTechnologyIncentive(payload);
 
       notify({
         title: "Success",
-        message: `Incentive ${IS_NEW ? 'added' : 'updated'} successfully`,
+        message: `Item ${IS_NEW ? 'added' : 'updated'} successfully`,
         type: "success"
       });
 
@@ -95,7 +90,7 @@ export function IncentiveForm ({ incentive = {}, onSubmit, }) {
       setLoading(false)
       notify({
         title: "Error",
-        message: `Something went wrong while ${IS_NEW ? 'adding' : 'updating'} incentive`,
+        message: `Something went wrong while ${IS_NEW ? 'adding' : 'updating'} item`,
         type: "error"
       })
     }
@@ -109,7 +104,7 @@ export function IncentiveForm ({ incentive = {}, onSubmit, }) {
             id="title"
             name="title"
             label="Title"
-            placeholder="Enter a Title for this incentive ..."
+            placeholder="Enter a Title"
             required={true}
             error={errors?.title}
             type="textbox"
@@ -126,7 +121,7 @@ export function IncentiveForm ({ incentive = {}, onSubmit, }) {
             id="description"
             name="description"
             label="Description"
-            placeholder="Add a more detailed description of the incentive..."
+            placeholder="Add a more detailed description"
             required={false}
             type="richText"
             error={errors?.description}

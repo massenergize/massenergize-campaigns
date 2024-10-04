@@ -6,6 +6,9 @@ export const BANNER_SECTION_KEY = "BANNER_SECTION_KEY";
 export const GOAL_SECTION_KEY = "GOAL_SECTION_KEY";
 export const GET_HELP_SECTION_KEY = "GET_HELP_SECTION_KEY";
 export const CONTACT_US_SECTION_KEY = "CONTACT_US_SECTION_KEY";
+export const ABOUT_US_SECTION_KEY = "ABOUT_US_SECTION_KEY";
+export const ELIGIBILITY_SECTION_KEY = "ELIGIBILITY_SECTION_KEY";
+export const FAQS_SECTION_KEY = "FAQS_SECTION_KEY";
 //  Technology Information
 
 export const TECH_CALL_TO_ACTION_SECTION_KEY = "TECH_CALL_TO_ACTION_SECTION_KEY";
@@ -63,6 +66,7 @@ export const THEME_CONFIGURATIONS = {
           },
           { tabKeyId: "Technologies", sections: [] },
           { tabKeyId: "Communities", sections: [] },
+          { tabKeyId: "Managers", sections: [] },
           { tabKeyId: "Events", sections: [] },
           { tabKeyId: "Translation", sections: [] },
         ],
@@ -90,10 +94,11 @@ export const THEME_CONFIGURATIONS = {
         tabs: [
           {
             tabKeyId: "Information", //change to constants later
-            sections: [HERO_SECTION_KEY, GOAL_SECTION_KEY, GET_HELP_SECTION_KEY, CONTACT_US_SECTION_KEY],
+            sections: [HERO_SECTION_KEY,ABOUT_US_SECTION_KEY, GOAL_SECTION_KEY,ELIGIBILITY_SECTION_KEY, GET_HELP_SECTION_KEY, CONTACT_US_SECTION_KEY],
           },
           { tabKeyId: "Technologies", sections: [] },
           { tabKeyId: "Communities", sections: [] },
+          { tabKeyId: "Managers", sections: [] },
           { tabKeyId: "Events", sections: [] },
           { tabKeyId: "Translation", sections: [] },
         ],
@@ -108,7 +113,7 @@ export const THEME_CONFIGURATIONS = {
           { tabKeyId: "Vendors", alias: "Partners", sections: [] },
           { tabKeyId: "Overview", alias: "Benefits", sections: [] },
           { tabKeyId: "Deals", alias: "How does it work?", sections: [] },
-          { tabKeyId: "FAQS", sections: [] },
+          { tabKeyId: "FAQs", sections: [] },
         ],
       },
     },

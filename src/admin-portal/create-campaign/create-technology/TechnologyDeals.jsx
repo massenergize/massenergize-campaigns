@@ -9,7 +9,6 @@ import GhostLoader from "src/components/admin-components/GhostLoader";
 import CustomAccordion from "src/components/admin-components/CustomAccordion";
 import SectionsForm from "./SectionsForm";
 import MeModal from "src/components/MEModal/MeModal";
-import { faMinus } from "@fortawesome/free-solid-svg-icons";
 
 export default function TechnologyDeals({ campaign_id, tech_id, techObject, updateTechObject }) {
   const { deals } = techObject;
@@ -26,7 +25,7 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
 
   const handleRemove = async (id) => {
     if (!id) return;
-    if (!window.confirm("Are you sure you want to delete this deal?")) return;
+    if (!window.confirm("Are you sure you want to delete this item?")) return;
     setLoading(true);
     try {
       const res = await removeTechnologyDeal({ id });
@@ -36,7 +35,7 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
         updateTechObject({ deals: newDeals });
         blow({
           title: "Success",
-          message: "Deal removed successfully",
+          message: "Item removed successfully",
           type: "success",
         });
       }
@@ -44,7 +43,7 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
       setLoading(false);
       pop({
         title: "Error",
-        message: "An error occurred while removing deal",
+        message: "An error occurred while removing item",
         type: "error",
       });
     }
@@ -55,15 +54,16 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
   return (
     <div>
       {/* SECTION */}
-      <div className="py-5">
+      <div className="mt-3 mb-3">
         <CustomAccordion
-          title={"Customize The Title and Description of Deals Section"}
+          title={"Customize The Title and Description of Section"}
           component={
             <SectionsForm
               section="deal_section"
               data={techObject?.deal_section}
               updateExistingObject={updateTechObject}
               item_id={tech_id}
+              version={"v2"}
             />
           }
           isOpen={openAccordion}
@@ -74,7 +74,7 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
         <Col sm={"auto"}>
           {deals?.length > 0 && (
             <Button variant="success" rounded onClick={() => setOpenDealsModal(true)}>
-              Add New Deal
+              Add New Item
             </Button>
           )}
         </Col>
@@ -99,13 +99,13 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
           <div className="w-100 flex items-center flex-column text-center">
             <div>
               <img src="/img/no-data.svg" alt="" />
-              <h5 className="">No deals added to this technology</h5>
+              <h5 className="">No Items added to this technology</h5>
             </div>
             <div className="text-center">
-              <h6 className="text-muted">Click the 'Add New Deal' button to add</h6>
+              <h6 className="text-muted">Click the 'Add New Item' button to add</h6>
               <div className="mt-4">
                 <BTN variant={"success"} onClick={() => setOpenDealsModal(true)}>
-                  <span>Add New Deal</span>
+                  <span>Add New Item</span>
                 </BTN>
               </div>
             </div>
@@ -113,7 +113,7 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
         )}
       </Row>
 
-      <MeModal size={"xl"} title={"New Technology Deal"} open={openDealsModal} onHide={() => setOpenDealsModal(false)}>
+      <MeModal size={"xl"} title={"Add New Item"} open={openDealsModal} onHide={() => setOpenDealsModal(false)}>
         <DealsForm key={"new-deal"} deal={{}} onSubmit={updateDealsList} technology_id={tech_id} />
       </MeModal>
     </div>

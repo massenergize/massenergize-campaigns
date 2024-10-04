@@ -5,6 +5,67 @@ body {
   font-family: "Manrope", sans-serif;
 }
 
+.how-it-works .items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.how-it-works img {
+  width: 100%;
+  object-fit: contain;
+}
+.how-it-works-item {
+}
+
+.how-it-works-item h6 {
+  color: var(--text-color);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.spt-benefits-part {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.spt-benefits-item {
+  border: solid 1px #e9e9e9;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+
+  align-items: start;
+  margin-right: 2%;
+}
+.spt-benefits-item img {
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+  object-fit: contain;
+}
+.spt .spt-t-area p {
+  text-align: center;
+}
+.spt-t-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.spt-contact-form {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: var(--elevate-float);
+}
+
+.spt-contact-root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--background-image) no-repeat center center;
+  width: 100%;
+}
+
 .spt-v2-nav img {
   object-fit: contain;
 }
@@ -156,7 +217,7 @@ body {
   margin-bottom: 5px;
   background: white;
   border: 1px var(--border-color) solid;
-  color:var(--text-color);
+  color: var(--text-color);
   border-radius: 4px;
   width: auto;
   margin-top: 10px;

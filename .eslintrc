@@ -38,7 +38,8 @@
     "no-unneeded-comma": "off",
     "no-noninteractive-element-to-interactive-role": "off",
 
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "jsx-a11y/label-has-associated-control": 0
 
     // "space-before-function-paren": "error"
   }
