@@ -18,6 +18,8 @@ import { CAMPAIGN_TEMPLATE_KEYS, getPlaceholderURL, getTheme, PlaceholderImageUR
 import SPTContactSection from "./SPTContactSection";
 import EligibilitySection from "./EligibilitySection";
 import SPTV2AboutCampaign from "./SPTV2AboutCampaign";
+import { renderSection } from "../../../page-builder/functions";
+import { dummySection } from "../../../page-builder/data";
 
 const LANGUAGE_LIST = [
   { name: "English", code: "en-US" },
@@ -56,6 +58,8 @@ function SPTV2Entry() {
 
   const themeKey = CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT_V2;
   const theme = getTheme(themeKey);
+
+  // return renderSection(dummySection);
 
   return (
     <div>
