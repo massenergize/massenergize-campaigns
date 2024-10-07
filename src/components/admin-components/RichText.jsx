@@ -4,7 +4,6 @@ import { IS_DEV, IS_PROD } from "src/config/environment";
 
 const TINY_MCE_API_KEY = IS_PROD ? process.env.REACT_APP_TINY_MCE_KEY : process.env.REACT_APP_TINY_MCE_KEY_FOR_DEV;
 
-console.log("TINY KEY", TINY_MCE_API_KEY)
 function MERichText(props) {
   const [editor, setEditor] = useState(null);
   const { onEditorChange } = props;
