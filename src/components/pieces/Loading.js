@@ -1,7 +1,7 @@
 import React from "react";
 import { Spinner } from "react-bootstrap";
 
-function Loading({ text = "Loading...", fullPage, children, spinnerStyle }) {
+function Loading({ text = "Loading...", fullPage, children, spinnerStyle, color }) {
   const styles = fullPage
     ? {
         height: "100vh",
@@ -19,12 +19,13 @@ function Loading({ text = "Loading...", fullPage, children, spinnerStyle }) {
       };
   return (
     <div style={styles}>
-      <Spinner style={{ ...(spinnerStyle || {}) }} animation="border" />
+      <Spinner style={{ color, ...(spinnerStyle || {}) }} animation="border" />
       <small
         className="small-font"
         style={{
           margin: 10,
           fontWeight: "bold",
+          color,
           // color: "var(--app-main-color)",
         }}
       >

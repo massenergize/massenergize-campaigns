@@ -54,6 +54,7 @@ function SPTContactSection({ themeKey, section, campaign_id }) {
   };
   return (
     <div className="spt-contact-root" style={{ "--background-image": `url(${media?.url || getPlaceholderURL()})` }}>
+      <div className="spt-ghost-overlay"></div>
       <div className="spt-contact-form">
         <div className="spt-t-area">
           <h1>{title}</h1>

@@ -5,6 +5,18 @@ body {
   font-family: "Manrope", sans-serif;
 }
 
+.spt-ghost-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .how-it-works .items {
   display: flex;
   flex-direction: row;
@@ -57,15 +69,19 @@ body {
   background-color: white;
   border-radius: 10px;
   box-shadow: var(--elevate-float);
+  position: absolute;
+  z-index: 5;
 }
 
 .spt-contact-root {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: var(--background-image) no-repeat center center;
   width: 100%;
+  min-height: 500px;
 }
 
 .spt-v2-nav img {
