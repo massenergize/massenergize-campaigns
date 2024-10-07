@@ -9,6 +9,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 .how-it-works img {
   width: 100%;
@@ -245,7 +246,7 @@ body {
   cursor: pointer;
   color: var(--app-main-color);
   text-transform: capitalize;
-  font-size: var(--app-body-font);
+  font-size: 13px;
   font-weight: bold;
   width: auto;
 }

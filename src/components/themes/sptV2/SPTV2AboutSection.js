@@ -2,10 +2,12 @@ import React from "react";
 import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTButton from "./components/SPTButton.js";
 import { getStaticText } from "../../../redux/actions/actions.js";
+import { getTheme } from "../../../utils/Values.js";
 
 function SPTV2AboutSection({ technology, themeKey }) {
   const { name, description, summary, deals, image, call_to_action } = technology || {};
 
+  const theme = getTheme(themeKey);
   const { spt } = getStaticText();
   const addOnT = spt?.about?.titleAddOn;
 
@@ -19,7 +21,11 @@ function SPTV2AboutSection({ technology, themeKey }) {
           {name}
           {addOnT ? `: ${addOnT?.text}` : ""}
         </h1>
-        <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: summary }}></div>
+        <div
+          style={{ color: theme?.darkText }}
+          className="spt-body-font"
+          dangerouslySetInnerHTML={{ __html: summary }}
+        ></div>
 
         {call_to_action && (
           <SPTButton themeKey={themeKey} href={call_to_action?.url}>

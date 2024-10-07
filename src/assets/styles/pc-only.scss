@@ -2,6 +2,9 @@
   --site-logo: 100px;
 }
 @media only screen and (min-width: 768px) {
+  .partner-img { 
+    height: 100px;
+  }
   .how-it-works-item {
     flex-basis: 28%;
     margin-right: 2%;

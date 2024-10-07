@@ -57,7 +57,11 @@ function SPTContactSection({ themeKey, section, campaign_id }) {
       <div className="spt-contact-form">
         <div className="spt-t-area">
           <h1>{title}</h1>
-          <p dangerouslySetInnerHTML={{ __html: description }} />
+          <div
+            style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+            className="spt-body-font"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
         </div>
 
         <div className="spt-form-area">

@@ -16,6 +16,7 @@ export const THEME_COLORS = {
     forBorders: "#d25050",
     textcolor: "white",
     footerBack: "var(--spt-main-color)",
+    darkText: "#656565",
   },
   [CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT_V2]: {
     color: "var(--spt-v2-color-1)",
@@ -25,6 +26,7 @@ export const THEME_COLORS = {
     textcolor: "white",
     footerBack: "#5b0000",
     modalFooterCancel: "#292929",
+    darkText: "#656565",
   },
 };
 
