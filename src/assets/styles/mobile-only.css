@@ -1,6 +1,16 @@
 @media only screen and (max-width: 767px) {
   /* -- SPT THEME ---- */
 
+  .spt-contact-form {
+    margin: 10px;
+  }
+  .spt-contact-root {
+    /* min-height: 500px; */
+  }
+
+  .partner-img {
+    height: 60px;
+  }
   .how-it-works-item {
     flex-basis: 100%;
     margin-bottom: 10px;
@@ -106,7 +116,7 @@
     justify-content: center;
   }
   .spt-btn {
-    padding: 7px 25px;
+    padding: 10px 25px;
     font-size: 15px;
     font-weight: bold;
   }
@@ -162,7 +172,7 @@
 
   .spt-acc-title h4 {
     font-size: 0.9rem;
-    font-weight: normal;
+    font-weight: bold;
   }
   .spt-get-help p {
     width: 100%;

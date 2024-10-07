@@ -32,7 +32,7 @@ import Hero from "../banner/Hero";
 import { useMediaQuery } from "react-responsive";
 import BlanketNotification from "../../../components/pieces/BlanketNotification";
 import SPTOnePager from "../../../components/themes/spt/SPTOnePager";
-import { CAMPAIGN_TEMPLATE_KEYS } from "../../../utils/Values";
+import { CAMPAIGN_TEMPLATE_KEYS, getTheme } from "../../../utils/Values";
 import SPTV2Entry from "../../../components/themes/sptV2/SPTV2Entry";
 
 function LandingPage({
@@ -167,8 +167,14 @@ function LandingPage({
     if (!preview) init(campaignId);
   }, []);
 
+  const theme = getTheme(campaign?.template_key);
+
   if (campaign === LOADING && !preview)
-    return <Loading fullPage>{loader?.text || "Fetching campaign details..."}</Loading>;
+    return (
+      <Loading color={theme?.color} fullPage>
+        {loader?.text || "Fetching campaign details..."}
+      </Loading>
+    );
 
   if (!campaign) return <NotFound></NotFound>;
 

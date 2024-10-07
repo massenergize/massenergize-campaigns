@@ -3,11 +3,14 @@ import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTButton from "./components/SPTButton.js";
 import { getStaticText } from "../../../redux/actions/actions.js";
 import SPTSectionTitle from "../spt/components/SPTSectionTitle.js";
+import { getTheme } from "../../../utils/Values.js";
 function EligibilitySection({ section, technology, themeKey, cImage, cDescription }) {
   const { name, description, title, media } = section || {};
 
   const { spt } = getStaticText();
   // const addOnT = title || spt?.about?.titleAddOn;
+
+  const theme = getTheme(themeKey);
 
   return (
     <SPTSectionComponent style={{}}>
@@ -20,7 +23,11 @@ function EligibilitySection({ section, technology, themeKey, cImage, cDescriptio
           {title}
        
         </h1> */}
-        <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: description }}></div>
+        <div
+          style={{ color: theme?.darkText }}
+          className="spt-body-font"
+          dangerouslySetInnerHTML={{ __html: description }}
+        ></div>
 
         {/* {call_to_action && (
           <SPTButton themeKey={themeKey} href={call_to_action?.url}>

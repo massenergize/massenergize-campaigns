@@ -101,8 +101,12 @@ function SPTV2Entry() {
               <div className="spt-benefits-item" key={overview?.id} style={{ marginBottom: 10 }}>
                 {overview?.image && <img src={overview?.image?.url} alt="Benefit" />}
                 <div>
-                  <h5>{overview?.title}</h5>
-                  <p style={{ color: "#9d9d9d" }} dangerouslySetInnerHTML={{ __html: overview?.description }}></p>
+                  <h5 style={{}}>{overview?.title}</h5>
+                  <p
+                    style={{ color: theme?.darkText }}
+                    className="spt-body-font"
+                    dangerouslySetInnerHTML={{ __html: overview?.description }}
+                  ></p>
                 </div>
               </div>
             );
@@ -153,7 +157,11 @@ function SPTV2Entry() {
                   <h6>
                     {index + 1}. {item?.title}
                   </h6>
-                  <p style={{ color: "grey" }} dangerouslySetInnerHTML={{ __html: item?.description }}></p>
+                  <p
+                    className="spt-body-font"
+                    style={{ color: theme?.darkText, textAlign: "justify" }}
+                    dangerouslySetInnerHTML={{ __html: item?.description }}
+                  ></p>
                 </div>
               );
             })}
@@ -190,7 +198,13 @@ function SPTV2Entry() {
                   radius={6}
                   title={title}
                   key={index}
-                  component={<div className="spt-body-font" dangerouslySetInnerHTML={{ __html: description }}></div>}
+                  component={
+                    <div
+                      style={{ color: theme?.darkText, padding: 15 }}
+                      className="spt-body-font"
+                      dangerouslySetInnerHTML={{ __html: description }}
+                    ></div>
+                  }
                 />
               </div>
             );
@@ -221,14 +235,14 @@ function SPTV2Entry() {
             return (
               <img
                 role="button"
-                className="s-touchable-opacity"
+                className="s-touchable-opacity partner-img"
                 onClick={() => {
                   if (vendor?.website) window.open(vendor?.website, "_blank");
                 }}
                 //placeholder image
                 src={vendor?.logo?.url}
                 alt="Community Solar"
-                style={{ flexBasis: "20%", objectFit: "contain", height: 100, marginRight: 30 }}
+                style={{ flexBasis: "20%", objectFit: "contain", marginRight: 30 }}
               />
             );
           })}

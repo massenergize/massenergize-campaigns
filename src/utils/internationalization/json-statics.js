@@ -40,7 +40,7 @@ export const ENGLISH = {
   },
 
   loader: {
-    text: "Fetching Campaign Details...",
+    text: "Almost there...",
   },
   share: { text: "Share" },
   footer: {

@@ -6,7 +6,7 @@ function SPTV2Footer({ section, themeKey }) {
   const theme = getTheme(themeKey);
   return (
     <div style={{ display: "flex", flexDirection: "row", background: theme?.footerBack, padding: "15px 30px" }}>
-      <small className="spt-footer-notes" style={{ color: "#b5b5b5" }}>
+      <small className="spt-footer-notes" style={{ color: theme?.footerTextColor }}>
         <span style={{ textDecoration: "underline", fontWeight: "bold" }}>Copyright &copy; 2024</span> All Rights
         Reserved. Powered by{" "}
         <span className="" style={{ textDecoration: "underline", fontWeight: "bold" }}>
