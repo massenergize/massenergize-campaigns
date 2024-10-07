@@ -59,7 +59,7 @@ function SPTV2Entry() {
   const themeKey = CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT_V2;
   const theme = getTheme(themeKey);
 
-  // return renderSection(dummySection);
+  return renderSection(dummySection);
 
   return (
     <div>

@@ -11,24 +11,25 @@ const renderElement = (element) => {
   let Element = Blocks[type] || Blocks.div;
   return <Element {...(props || {})} style={{ ...props?.style, ...layoutFlow(direction, Y) }} />;
 };
-export const renderSection = (section) => {
-  const { container, direction, elements } = section;
-  if (!elements) return null;
-  let ContainerBlock = Blocks[container?.type] || Blocks.div;
-  const Container = ({ style, children, ...rest }) => {
+export const renderSection = (block) => {
+  const { direction, element, content } = block || {};
+  const { type, text } = element || {};
+  if (!element) return null;
+  let Tag = Blocks[type] || Blocks.div;
+  const Element = ({ style, children, ...rest }) => {
     const containerStyle = { ...style, ...layoutFlow(direction) };
     return (
-      <ContainerBlock {...rest} style={containerStyle}>
-        {container?.children}
-      </ContainerBlock>
+      <Tag {...rest} style={containerStyle}>
+        {children}
+      </Tag>
     );
   };
+  if (!text && !content) return <Element {...element?.props} />;
 
   return (
-    <Container {...container?.props}>
-      {elements?.map((el) => (
-        <React.Fragment key={el?.key}>{renderElement(el)}</React.Fragment>
-      ))}
-    </Container>
+    <Element {...element?.props}>
+      {text && text}
+      {content && content?.map((el) => <React.Fragment key={el?.key}>{renderSection(el)}</React.Fragment>)}
+    </Element>
   );
 };

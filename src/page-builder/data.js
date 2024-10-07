@@ -1,25 +1,54 @@
 export const dummySection = {
-  container: { type: "div", props: { className: "container", style: { background: "red", padding: 20 } } },
+  element: {
+    id: new Date().getMilliseconds(),
+    type: "div",
+    props: { className: "first-container", style: { background: "red", padding: 20 } },
+  },
   direction: "x",
-  elements: [
+  content: [
     {
-      container: { type: "div", props: { className: "container" } },
+      element: { id: new Date().getMilliseconds(), type: "div", props: { className: "container" } },
       direction: "y",
-      elements: [
+      content: [
         {
-          container: { type: "div", props: { className: "container" } },
+          element: { id: new Date().getMilliseconds(), type: "div", props: { className: "container" } },
           direction: "x",
-          elements: [
-            { type: "img", props: { src: "https://via.placeholder.com/150" } },
-            { type: "p", props: { style: { fontWeight: "bold", color: "red" } } },
+          content: [
+            {
+              element: {
+                id: new Date().getMilliseconds(),
+                type: "img",
+                props: { src: "https://via.placeholder.com/150", alt: "Placeholder content" },
+              },
+            },
+            {
+              element: {
+                id: new Date().getMilliseconds(),
+                text: "The frog is playing piano",
+                type: "p",
+                props: { style: { fontWeight: "bold", color: "white" } },
+              },
+            },
           ],
         },
       ],
     },
     {
-      container: { type: "div", props: { className: "container" } },
+      element: { id: new Date().getMilliseconds(), type: "div", props: { className: "container" } },
       direction: "y",
-      elements: [{ type: "img", props: { src: "https://via.placeholder.com/150" } }],
+      content: [
+        {
+          element: {
+            id: new Date().getMilliseconds(),
+            type: "img",
+            props: {
+              src: "https://via.placeholder.com/50",
+              style: { borderRadius: "50%" },
+              alt: "Other image placeholder",
+            },
+          },
+        },
+      ],
     },
   ],
 };
