@@ -16,6 +16,7 @@ body {
   object-fit: contain;
 }
 .how-it-works-item {
+  margin-bottom: 20px;
 }
 
 .how-it-works-item h6 {
@@ -232,7 +233,7 @@ body {
   /* position: fixed;
   bottom: 60px;
   right: 0px; */
-  padding: 10px 15px;
+  padding: 5px;
   /* border-top-left-radius: 55px;
   border-bottom-left-radius: 55px; */
   box-shadow: var(--elevate-5);

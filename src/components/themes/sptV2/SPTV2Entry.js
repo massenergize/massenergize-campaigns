@@ -159,7 +159,7 @@ function SPTV2Entry() {
                   </h6>
                   <p
                     className="spt-body-font"
-                    style={{ color: "#383838" }}
+                    style={{ color: theme?.darkText, textAlign: "justify" }}
                     dangerouslySetInnerHTML={{ __html: item?.description }}
                   ></p>
                 </div>
@@ -198,7 +198,13 @@ function SPTV2Entry() {
                   radius={6}
                   title={title}
                   key={index}
-                  component={<div className="spt-body-font" dangerouslySetInnerHTML={{ __html: description }}></div>}
+                  component={
+                    <div
+                      style={{ color: theme?.darkText, padding: 15 }}
+                      className="spt-body-font"
+                      dangerouslySetInnerHTML={{ __html: description }}
+                    ></div>
+                  }
                 />
               </div>
             );

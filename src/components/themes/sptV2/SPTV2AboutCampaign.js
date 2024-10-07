@@ -2,6 +2,7 @@ import React from "react";
 import SPTSectionComponent from "./components/SPTSectionComponent";
 import SPTButton from "./components/SPTButton.js";
 import { getStaticText } from "../../../redux/actions/actions.js";
+import { getTheme } from "../../../utils/Values.js";
 
 function SPTV2AboutCampaign({ section, technology, themeKey, cImage, cDescription, cTitle }) {
   const { media, call_to_action_items, description } = section || {};
@@ -9,6 +10,8 @@ function SPTV2AboutCampaign({ section, technology, themeKey, cImage, cDescriptio
   const { spt } = getStaticText();
   const addOnT = spt?.about?.titleAddOn;
   const about = spt?.about?.prefix?.text;
+
+  const theme = getTheme(themeKey);
 
   const renderImage = () => {
     return <img className="spt-s-img" src={cImage?.url} alt="Community Solar" />;
@@ -25,7 +28,11 @@ function SPTV2AboutCampaign({ section, technology, themeKey, cImage, cDescriptio
           style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}
         >
           <h1 className="spt-mobile-section-t">{(about || "") + " " + cTitle || "..."}</h1>
-          <p className="spt-body-font" dangerouslySetInnerHTML={{ __html: cDescription }}></p>
+          <p
+            style={{ color: theme?.darkText }}
+            className="spt-body-font"
+            dangerouslySetInnerHTML={{ __html: cDescription }}
+          ></p>
 
           <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
             {call_to_action_items?.map(({ url, text }) => (
@@ -58,7 +65,11 @@ function SPTV2AboutCampaign({ section, technology, themeKey, cImage, cDescriptio
             {name}
             {addOnT ? `: ${addOnT?.text}` : ""}
           </h1> */}
-          <div className="spt-body-font" dangerouslySetInnerHTML={{ __html: description }}></div>
+          <div
+            style={{ color: theme?.darkText }}
+            className="spt-body-font"
+            dangerouslySetInnerHTML={{ __html: description }}
+          ></div>
         </div>
         <div className="col-md-6 spt-section-img-area mobile-margin " style={{ "--justify-content": "end" }}>
           <img
