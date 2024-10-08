@@ -53,7 +53,11 @@ function OneEvent({ events, updateEvents, init, campaign }) {
   if (!id || !event) return <NotFound>{error}</NotFound>;
 
   if (event === LOADING)
-    return <Loading fullPage>{one_event_page?.loader?.text || "Fetching event information..."}</Loading>;
+    return (
+      <Loading fullPage noText>
+        {one_event_page?.loader?.text || "Fetching event information..."}
+      </Loading>
+    );
 
   const templateKey = campaign?.template_key;
   const theme = THEME_COLORS[templateKey] || DEFAULT_THEME_COLORS;
