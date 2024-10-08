@@ -11,6 +11,7 @@ if (window.location.hostname === LOCALHOST) apiHost = "http://localhost:8000/api
 else apiHost = "https://api.massenergize.dev";
 
 export const API_HOST = apiHost;
+console.log("SEE API HOST", API_HOST)
 
 let platform = "";
 const URLS = {};
