@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import SPTHero from "../spt/components/SPTHero";
 import HelpBanner from "../spt/components/HelpBanner";
 import CustomAccordion from "../../admin-components/CustomAccordion";
@@ -18,14 +18,35 @@ import { CAMPAIGN_TEMPLATE_KEYS, getPlaceholderURL, getTheme, PlaceholderImageUR
 import SPTContactSection from "./SPTContactSection";
 import EligibilitySection from "./EligibilitySection";
 import SPTV2AboutCampaign from "./SPTV2AboutCampaign";
-
-const LANGUAGE_LIST = [
-  { name: "English", code: "en-US" },
-  { name: "Español", code: "es-ES" },
-  { name: "Portuguese", code: "pt-BR" },
-];
+import { fetchUrlParams, scrollIntoView } from "../../../utils/utils";
 
 function SPTV2Entry() {
+  const goalsArea = useRef(null);
+  const aboutTecArea = useRef(null);
+  const benefitsArea = useRef(null);
+  const eligibilityArea = useRef(null);
+  const faqArea = useRef(null);
+  const contactArea = useRef(null);
+  const partnersArea = useRef(null);
+  const eventsArea = useRef(null);
+  const aboutCampaignArea = useRef(null);
+  const howItWorks = useRef(null);
+  const heroArea = useRef(null);
+
+  const idsToRefMap = {
+    hero: heroArea,
+    goals: goalsArea,
+    about_tec: aboutTecArea,
+    benefits: benefitsArea,
+    eligibility: eligibilityArea,
+    faq: faqArea,
+    contact: contactArea,
+    partners: partnersArea,
+    events: eventsArea,
+    about_campaign: aboutCampaignArea,
+    how_it_works: howItWorks,
+  };
+
   const dispatch = useDispatch();
   const activeLanguage = useSelector((state) => state.activeLanguage);
   const campaign = useSelector((state) => state.campaign);
@@ -45,6 +66,11 @@ function SPTV2Entry() {
   const deals = technology?.deals;
   const deal_section = technology?.deal_section;
 
+  const scrollToSection = (id) => {
+    const ref = idsToRefMap[id];
+    scrollIntoView(ref, 100);
+  };
+
   const { spt } = getStaticText();
   const { overview } = spt || {};
 
@@ -57,9 +83,17 @@ function SPTV2Entry() {
   const themeKey = CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT_V2;
   const theme = getTheme(themeKey);
 
+  const section = fetchUrlParams("section");
+
+  useEffect(() => {
+    scrollToSection(section);
+  }, []);
+
   return (
     <div>
-      <Hero themeKey={themeKey} />
+      <div ref={heroArea}>
+        <Hero themeKey={themeKey} />
+      </div>
       {/* <SPTHero campaign={campaign} /> */}
       <div
         className="phone-vanish"
@@ -88,11 +122,15 @@ function SPTV2Entry() {
       </div>
 
       {/*  Our Goals */}
-      <SPTV2OurGoals themeKey={themeKey} section={goal_section} />
+      <div ref={goalsArea}>
+        <SPTV2OurGoals themeKey={themeKey} section={goal_section} />
+      </div>
       {/* About Community Solar */}
-      <SPTV2AboutSection themeKey={themeKey} technology={technology} />
+      <div ref={aboutTecArea}>
+        <SPTV2AboutSection themeKey={themeKey} technology={technology} />
+      </div>
       {/* ------ BENEFITS----------- */}
-      <div className="spt-section-padding spt-section-margin-top">
+      <div ref={benefitsArea} className="spt-section-padding spt-section-margin-top">
         <SPTSectionTitle>{overviewTitle || overview?.title?.text}</SPTSectionTitle>
         <div className="mobile-margin" style={{ marginTop: 40, "--my-custom-margin": "10px 0px" }}></div>
         <div className="spt-benefits-part">
@@ -136,48 +174,53 @@ function SPTV2Entry() {
         })}
       </div> */}
 
-      <SPTV2AboutCampaign
-        cImage={campaign?.image}
-        cDescription={campaign?.description}
-        section={about_us_section}
-        themeKey={themeKey}
-        technology={technology}
-        cTitle={campaign?.title}
-      />
+      <div ref={aboutCampaignArea}>
+        <SPTV2AboutCampaign
+          cImage={campaign?.image}
+          cDescription={campaign?.description}
+          section={about_us_section}
+          themeKey={themeKey}
+          technology={technology}
+          cTitle={campaign?.title}
+        />
+      </div>
 
       {/* --- How does it work? ------ */}
-      <SPTSectionComponent>
-        <SPTSectionTitle>{deal_section?.title}</SPTSectionTitle>
-        <div className="how-it-works">
-          <img src={deal_section?.media?.url} alt="How it works" />
-          <div className="items">
-            {deals?.map((item, index) => {
-              return (
-                <div className="how-it-works-item" style={{ "--text-color": theme?.color }} key={item?.id}>
-                  <h6>
-                    {index + 1}. {item?.title}
-                  </h6>
-                  <p
-                    className="spt-body-font"
-                    style={{ color: theme?.darkText }}
-                    dangerouslySetInnerHTML={{ __html: item?.description }}
-                  ></p>
-                </div>
-              );
-            })}
+      <div ref={howItWorks}>
+        <SPTSectionComponent>
+          <SPTSectionTitle>{deal_section?.title}</SPTSectionTitle>
+          <div className="how-it-works">
+            <img src={deal_section?.media?.url} alt="How it works" />
+            <div className="items">
+              {deals?.map((item, index) => {
+                return (
+                  <div className="how-it-works-item" style={{ "--text-color": theme?.color }} key={item?.id}>
+                    <h6>
+                      {index + 1}. {item?.title}
+                    </h6>
+                    <p
+                      className="spt-body-font"
+                      style={{ color: theme?.darkText, textAlign: "justify" }}
+                      dangerouslySetInnerHTML={{ __html: item?.description }}
+                    ></p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </SPTSectionComponent>
+        </SPTSectionComponent>
+      </div>
 
       {/* --------- ELIGIBILITY -------- */}
-      <EligibilitySection section={eligibility_section} themeKey={themeKey} technology={technology} />
-
+      <div ref={eligibilityArea}>
+        <EligibilitySection section={eligibility_section} themeKey={themeKey} technology={technology} />
+      </div>
       {/*  --- Help Area -----*/}
       {/* <HelpBanner themeKey={themeKey} section={callout_section} /> */}
       {/* </div> */}
 
       {/* ------------ Frequently Asked Questions --------- */}
-      <div style={{ marginTop: 40, padding: "2% 7%", background: theme?.colorLight }}>
+      <div ref={faqArea} style={{ marginTop: 40, padding: "2% 7%", background: theme?.colorLight }}>
         {/* <h1 >Frequently Asked Questions</h1> */}
         <SPTSectionTitle style={{ margin: "20px 0px" }}>{faq_section?.title}</SPTSectionTitle>
         <div>
@@ -212,14 +255,15 @@ function SPTV2Entry() {
         </div>
       </div>
 
-      <SPTContactSection campaign_id={campaign?.id} section={callout_section} themeKey={themeKey} />
-
+      <div ref={contactArea}>
+        <SPTContactSection campaign_id={campaign?.id} section={callout_section} themeKey={themeKey} />
+      </div>
       {/* ------------ Events --------- */}
       <SPTEventsSections themeKey={themeKey} campaign={campaign} technology={technology} />
 
       {/* ------ Our Partners ------- */}
 
-      <div style={{ padding: "0% 7%", margin: "40px 0px " }}>
+      <div ref={partnersArea} style={{ padding: "0% 7%", margin: "40px 0px " }}>
         <SPTSectionTitle>{vendorsSection?.title}</SPTSectionTitle>
         {/* <h1>Our Partners</h1> */}
         <div

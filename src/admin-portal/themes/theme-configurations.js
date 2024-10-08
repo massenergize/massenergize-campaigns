@@ -94,7 +94,7 @@ export const THEME_CONFIGURATIONS = {
         tabs: [
           {
             tabKeyId: "Information", //change to constants later
-            sections: [HERO_SECTION_KEY,ABOUT_US_SECTION_KEY, GOAL_SECTION_KEY,ELIGIBILITY_SECTION_KEY, GET_HELP_SECTION_KEY, CONTACT_US_SECTION_KEY],
+            sections: [HERO_SECTION_KEY,ABOUT_US_SECTION_KEY, GOAL_SECTION_KEY,ELIGIBILITY_SECTION_KEY, GET_HELP_SECTION_KEY],
           },
           { tabKeyId: "Technologies", sections: [] },
           { tabKeyId: "Communities", sections: [] },

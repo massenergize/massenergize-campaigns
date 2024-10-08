@@ -103,10 +103,25 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
     }
   };
 
-  const saveUpdatedSection = (sectionData) => {    
+  const saveUpdatedSection = (sectionData) => {
     setNewCampaignDetails({ ...(campaignDetails || {}), ...sectionData });
-  }
+  };
 
+  const Header = ({ opened, setOpen, children }) => {
+    return (
+      <div className="accordion-header">
+        <div
+          onClick={() => setOpen(!opened)}
+          className="accordion-title"
+          style={{ fontWeight: "bold", marginLeft: 10, color: "var(--admin-theme-color)" }}
+        >
+          {children}
+        </div>
+      </div>
+    );
+  };
+
+  const sectionViewLink = (section) => `/campaign/${campaignDetails.slug}?preview=true&section=${section}`;
   return (
     <>
       <ShowOnDemand show={sectionConfigs?.includes(MAIN_PAGE_CUSTOMIZATION_SECTION_KEY)}>
@@ -120,7 +135,18 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
         <ShowOnDemand show={sectionConfigs?.includes(HERO_SECTION_KEY)}>
           <div className="mb-3">
             <CustomAccordion
-              title="Customize Hero Section"
+              renderHeader={(props) => (
+                <Header {...props}>
+                  <span>Customize Hero Section</span>{" "}
+                  <a
+                    style={{ marginLeft: 10, fontSize: 13, color: "#b2b2b2" }}
+                    href={sectionViewLink("hero")}
+                    target="_blank"
+                  >
+                    Want to see where your edits will show?
+                  </a>{" "}
+                </Header>
+              )}
               component={<HeroComponent campaignDetails={campaignDetails} updateCampaignDetails={saveUpdatedSection} />}
               isOpen={openedAccordion === HERO_SECTION_KEY}
               onClick={() => toggleAccordion(HERO_SECTION_KEY)}
@@ -130,15 +156,28 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
         <ShowOnDemand show={sectionConfigs?.includes(ABOUT_US_SECTION_KEY)}>
           <div className="mb-3">
             <CustomAccordion
-              title="Customize About Section"
-              component={ <SectionForm
-                section="about_us_section"
-                data={campaignDetails?.about_us_section}
-                updateExistingObject={saveUpdatedSection}
-                item_id={campaignDetails?.id}
-                apiUpdateFunc={updateCampaign}
-                version={"v2"}
-              />}
+              renderHeader={(props) => (
+                <Header {...props}>
+                  <span>Customize About Section</span>{" "}
+                  <a
+                    style={{ marginLeft: 10, fontSize: 13, color: "#b2b2b2" }}
+                    href={sectionViewLink("about_tec")}
+                    target="_blank"
+                  >
+                    Want to see where your edits will show?
+                  </a>{" "}
+                </Header>
+              )}
+              component={
+                <SectionForm
+                  section="about_us_section"
+                  data={campaignDetails?.about_us_section}
+                  updateExistingObject={saveUpdatedSection}
+                  item_id={campaignDetails?.id}
+                  apiUpdateFunc={updateCampaign}
+                  version={"v2"}
+                />
+              }
               isOpen={openedAccordion === ABOUT_US_SECTION_KEY}
               onClick={() => toggleAccordion(ABOUT_US_SECTION_KEY)}
             />
@@ -166,7 +205,18 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
         <ShowOnDemand show={sectionConfigs?.includes(ELIGIBILITY_SECTION_KEY)}>
           <div className="mb-3">
             <CustomAccordion
-              title="Customize Eligibility Section"
+              renderHeader={(props) => (
+                <Header {...props}>
+                  <span>Customize Eligibility Area</span>{" "}
+                  <a
+                    style={{ marginLeft: 10, fontSize: 13, color: "#b2b2b2" }}
+                    href={sectionViewLink("eligibility")}
+                    target="_blank"
+                  >
+                    Want to see where your edits will show?
+                  </a>{" "}
+                </Header>
+              )}
               component={
                 <SectionForm
                   section="eligibility_section"
@@ -186,7 +236,18 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
         <ShowOnDemand show={sectionConfigs?.includes(GOAL_SECTION_KEY)}>
           <div className="mb-3">
             <CustomAccordion
-              title={"Customize Goal Section"}
+              renderHeader={(props) => (
+                <Header {...props}>
+                  <span>Customize Goal Section</span>{" "}
+                  <a
+                    style={{ marginLeft: 10, fontSize: 13, color: "#b2b2b2" }}
+                    href={sectionViewLink("goals")}
+                    target="_blank"
+                  >
+                    Want to see where your edits will show?
+                  </a>{" "}
+                </Header>
+              )}
               component={
                 <SectionForm
                   section="goal_section"
@@ -206,7 +267,18 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
         <ShowOnDemand show={sectionConfigs?.includes(GET_HELP_SECTION_KEY)}>
           <div className="mb-3">
             <CustomAccordion
-              title={"Customize Get Help Section"}
+              renderHeader={(props) => (
+                <Header {...props}>
+                  <span>Customize Get Help Section</span>{" "}
+                  <a
+                    style={{ marginLeft: 10, fontSize: 13, color: "#b2b2b2" }}
+                    href={sectionViewLink("contact")}
+                    target="_blank"
+                  >
+                    Want to see where your edits will show?
+                  </a>{" "}
+                </Header>
+              )}
               component={
                 <SectionForm
                   section="callout_section"
