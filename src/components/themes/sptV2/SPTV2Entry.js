@@ -159,7 +159,7 @@ function SPTV2Entry() {
                   </h6>
                   <p
                     className="spt-body-font"
-                    style={{ color: theme?.darkText, textAlign: "justify" }}
+                    style={{ color: theme?.darkText }}
                     dangerouslySetInnerHTML={{ __html: item?.description }}
                   ></p>
                 </div>
