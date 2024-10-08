@@ -3,11 +3,18 @@ import SPTButton from "./components/SPTButton";
 import { useSelector } from "react-redux";
 import { getPlaceholderURL } from "../../../utils/Values";
 import { apiCall } from "../../../api/messenger";
+import { validateEmail } from "../../../utils/utils";
 
 const OTHER = "other";
+const INITIAL = {
+  email: "",
+  full_name: "",
+  phone_number: "",
+  language: "",
+};
 function SPTContactSection({ themeKey, section, campaign_id }) {
   const { title, description, media } = section || {};
-  const [form, setForm] = useState(false);
+  const [form, setForm] = useState(INITIAL);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -24,6 +31,8 @@ function SPTContactSection({ themeKey, section, campaign_id }) {
       setError("Please fill out all fields");
       return false;
     }
+    if (!validateEmail(form?.email)) return setError("Please enter a valid email address");
+
     return true;
   };
 
@@ -42,13 +51,12 @@ function SPTContactSection({ themeKey, section, campaign_id }) {
     const other = { community_name, id: community_id, zipcode };
     const payload = { ...form, community_id, other, campaign_id };
     apiCall("/campaigns.contact.us", payload).then((response) => {
-      console.log("SEE RESPONSE", response);
       setLoading(false);
       if (!response.success) {
         setError(response.error);
         return;
       }
-      setForm({});
+      setForm(INITIAL);
       setSuccess("Thank you for contacting us. We will get back to you shortly!");
     });
   };
