@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Editor as TinyEditor } from "@tinymce/tinymce-react";
-import { IS_DEV, IS_PROD } from "src/config/environment";
+import { IS_CANARY, IS_DEV, IS_PROD } from "src/config/environment";
 
-const TINY_MCE_API_KEY = IS_PROD ? process.env.REACT_APP_TINY_MCE_KEY : process.env.REACT_APP_TINY_MCE_KEY_FOR_DEV;
+const TINY_MCE_API_KEY = IS_PROD || IS_CANARY ? process.env.REACT_APP_TINY_MCE_KEY : process.env.REACT_APP_TINY_MCE_KEY_FOR_DEV;
 
 function MERichText(props) {
   const [editor, setEditor] = useState(null);
