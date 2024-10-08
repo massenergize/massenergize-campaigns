@@ -6,12 +6,12 @@ let apiHost = "http://localhost:8000/api";
 if (IS_PROD) apiHost = "https://api.massenergize.org";
 else if (IS_DEV) apiHost = "https://api.massenergize.dev";
 else if (IS_CANARY) apiHost = "https://api-canary.massenergize.org";
-
-if (window.location.hostname === LOCALHOST) apiHost = "http://localhost:8000/api";
 else apiHost = "https://api.massenergize.dev";
 
+if (window.location.hostname === LOCALHOST) apiHost = "http://localhost:8000/api";
+
 export const API_HOST = apiHost;
-console.log("SEE API HOST", API_HOST)
+console.log("SEE API HOST, IS_LOCAL, IS_CANARY,IS_PROD, IS_DEV", API_HOST, IS_LOCAL, IS_CANARY, IS_PROD, IS_DEV);
 
 let platform = "";
 const URLS = {};
