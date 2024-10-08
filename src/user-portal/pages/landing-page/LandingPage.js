@@ -171,7 +171,7 @@ function LandingPage({
 
   if (campaign === LOADING && !preview)
     return (
-      <Loading color={theme?.color} fullPage>
+      <Loading color={theme?.color} noText fullPage>
         {loader?.text || "Fetching campaign details..."}
       </Loading>
     );

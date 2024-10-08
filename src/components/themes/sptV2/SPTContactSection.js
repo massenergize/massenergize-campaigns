@@ -3,17 +3,28 @@ import SPTButton from "./components/SPTButton";
 import { useSelector } from "react-redux";
 import { getPlaceholderURL } from "../../../utils/Values";
 import { apiCall } from "../../../api/messenger";
+import { validateEmail } from "../../../utils/utils";
+import { getStaticText } from "../../../redux/actions/actions";
 
 const OTHER = "other";
+const INITIAL = {
+  email: "",
+  full_name: "",
+  phone_number: "",
+  language: "",
+};
 function SPTContactSection({ themeKey, section, campaign_id }) {
   const { title, description, media } = section || {};
-  const [form, setForm] = useState(false);
+  const [form, setForm] = useState(INITIAL);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state?.user);
 
   const languages = useSelector((state) => state?.usersListOfLanguages);
+
+  const { spt } = getStaticText();
+  const formStaticT = spt?.contactForm;
 
   const updateForm = (name, value) => {
     setForm({ ...form, [name]: value });
@@ -24,6 +35,8 @@ function SPTContactSection({ themeKey, section, campaign_id }) {
       setError("Please fill out all fields");
       return false;
     }
+    if (!validateEmail(form?.email)) return setError("Please enter a valid email address");
+
     return true;
   };
 
@@ -42,13 +55,12 @@ function SPTContactSection({ themeKey, section, campaign_id }) {
     const other = { community_name, id: community_id, zipcode };
     const payload = { ...form, community_id, other, campaign_id };
     apiCall("/campaigns.contact.us", payload).then((response) => {
-      console.log("SEE RESPONSE", response);
       setLoading(false);
       if (!response.success) {
         setError(response.error);
         return;
       }
-      setForm({});
+      setForm(INITIAL);
       setSuccess("Thank you for contacting us. We will get back to you shortly!");
     });
   };
@@ -71,10 +83,10 @@ function SPTContactSection({ themeKey, section, campaign_id }) {
               <div className="col-md-6">
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="inputGroup-sizing-default">
-                    Name
+                    {formStaticT?.name?.text}
                   </span>
                   <input
-                    placeholder="Your Name..."
+                    placeholder={formStaticT?.name?.placeholder}
                     onChange={(e) => updateForm("full_name", e.target.value)}
                     value={form?.full_name}
                     type="text"
@@ -87,7 +99,7 @@ function SPTContactSection({ themeKey, section, campaign_id }) {
               <div className="col-md-6">
                 <div className="input-group mb-3">
                   <label className="input-group-text" for="inputGroupSelect01">
-                    Language
+                    {formStaticT?.language?.text}
                   </label>
                   <select
                     onChange={(e) => updateForm("language", e?.target.value)}
@@ -95,7 +107,7 @@ function SPTContactSection({ themeKey, section, campaign_id }) {
                     value={form?.language}
                     id="inputGroupSelect01"
                   >
-                    <option selected>Choose...</option>
+                    <option selected> {formStaticT?.language?.placeholder}</option>
                     {languages?.map((l) => (
                       <option value={l?.code}>{l?.name}</option>
                     ))}
@@ -110,10 +122,10 @@ function SPTContactSection({ themeKey, section, campaign_id }) {
               <div className="col-md-6">
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="inputGroup-sizing-default">
-                    Email
+                    {formStaticT?.email?.text}
                   </span>
                   <input
-                    placeholder="Your Email Address..."
+                    placeholder={formStaticT?.email?.placeholder}
                     onChange={(e) => updateForm("email", e.target.value)}
                     value={form?.email}
                     type="email"
@@ -126,10 +138,10 @@ function SPTContactSection({ themeKey, section, campaign_id }) {
               <div className="col-md-6">
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="inputGroup-sizing-default">
-                    Phone #
+                    {formStaticT?.phone?.text}
                   </span>
                   <input
-                    placeholder="Your Phone Number..."
+                    placeholder={formStaticT?.phone?.placeholder}
                     onChange={(e) => updateForm("phone_number", e.target.value)}
                     value={form?.phone_number}
                     type="telephone"
@@ -142,7 +154,7 @@ function SPTContactSection({ themeKey, section, campaign_id }) {
           </div>
           <SPTButton themeKey={themeKey} onClick={() => submit()} disable={loading}>
             {loading && <i className="fa fa-spinner fa-spin" style={{ marginRight: 5 }} />}
-            {loading ? "" : "Contact Us"}
+            {loading ? "" : formStaticT?.submit?.text || "Contact Us"}
           </SPTButton>
           {error && <h6 style={{ color: "#dc3545" }}>{error}</h6>}
           {success && <h6 style={{ color: "#4ba64b" }}>{success}</h6>}

@@ -6,6 +6,13 @@ export const ENGLISH = {
     modal: { button: { text: "Close Video" } },
     overview: { title: { text: "Benefits" } },
     about: { titleAddOn: { text: "What is it?" }, prefix: { text: "About" } },
+    contactForm: {
+      name: { text: "Name", placeholder: "Your name..." },
+      email: { text: "Email", placeholder: "Your email address..." },
+      phone: { text: "Phone #", placeholder: "Your phone number..." },
+      language: { text: "Language", placeholder: "Choose..." },
+      submit: { text: "Contact Us" },
+    },
   },
   toasts: {
     join: {
@@ -298,6 +305,16 @@ export const SPANISH = {
     modal: { button: { text: "Cerrar Vídeo" } },
     overview: { title: { text: "Beneficios" } },
     about: { titleAddOn: { text: "¿Qué es?" }, prefix: { text: "Acerca de" } },
+    contactForm: {
+      name: { text: "Nombre", placeholder: "Su nombre..." },
+      email: { text: "Correo electrónico", placeholder: "Su dirección de correo electrónico..." },
+      phone: { text: "Número de teléfono", placeholder: "Su número de teléfono..." },
+      language: {
+        text: "Idioma",
+        placeholder: "Elegir...",
+      },
+      submit: { text: "Contáctenos" },
+    },
   },
   toasts: {
     join: {
@@ -611,6 +628,16 @@ export const PORTUGUESE = {
     modal: { button: { text: "Fechar Vídeo" } },
     overview: { title: { text: "Benefícios" } },
     about: { titleAddOn: { text: "O que é?" }, prefix: { text: "Sobre" } },
+    contactForm: {
+      name: { text: "Nome", placeholder: "Seu nome..." },
+      email: { text: "E-mail", placeholder: "Seu endereço de e-mail..." },
+      phone: { text: "Telefone", placeholder: "Seu número de telefone..." },
+      language: {
+        text: "Idioma",
+        placeholder: "Escolha...",
+      },
+      submit: { text: "Fale conosco" },
+    },
   },
   toasts: {
     join: {
