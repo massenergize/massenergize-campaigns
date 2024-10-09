@@ -85,8 +85,8 @@ function EventBox({ event, campaign_technology, staticT }) {
               <span>{formatDate(end_date)}</span>*/}
             </p>
           </Col>
-          <Col sm={"auto ps-0"}>
-            <p className="text-sm fw-medium text-accent-3 mb-0">
+          <Col sm={"auto ps-0 mob-width-auto"}>
+            <p className="text-sm fw-medium  text-accent-3 mb-0">
               <span className={"text-muted"}>{formatTime(start_date, "K:mm aa")}</span>
             </p>
           </Col>

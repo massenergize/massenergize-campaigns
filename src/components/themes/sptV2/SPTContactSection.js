@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import SPTButton from "./components/SPTButton";
 import { useSelector } from "react-redux";
-import { getPlaceholderURL } from "../../../utils/Values";
+import { getPlaceholderURL, getTheme } from "../../../utils/Values";
 import { apiCall } from "../../../api/messenger";
-import { validateEmail } from "../../../utils/utils";
+import { addUrlSearchParams, generateUniqueRandomString, validateEmail } from "../../../utils/utils";
 import { getStaticText } from "../../../redux/actions/actions";
+import { useNavigate } from "react-router-dom";
 
 const OTHER = "other";
 const INITIAL = {
@@ -64,8 +65,11 @@ function SPTContactSection({ themeKey, section, campaign_id }) {
       setSuccess("Thank you for contacting us. We will get back to you shortly!");
     });
   };
+
+  const theme = getTheme(themeKey);
   return (
     <div className="spt-contact-root" style={{ "--background-image": `url(${media?.url || getPlaceholderURL()})` }}>
+      <ContactRibbon theme={theme} staticT={formStaticT} />
       <div className="spt-ghost-overlay"></div>
       <div className="spt-contact-form">
         <div className="spt-t-area">
@@ -165,3 +169,19 @@ function SPTContactSection({ themeKey, section, campaign_id }) {
 }
 
 export default SPTContactSection;
+
+const ContactRibbon = ({ theme, staticT }) => {
+  const navigate = useNavigate();
+  const route = addUrlSearchParams(window.location.href, { section: "contact", salt: generateUniqueRandomString(6) });
+  return (
+    <div
+      onClick={() => {
+        navigate(route || "#");
+      }}
+      style={{ "--background-color": theme?.color, "--text-color": "white" }}
+      className="contact-ribbon"
+    >
+      <p>{staticT?.submit?.text}</p>
+    </div>
+  );
+};
