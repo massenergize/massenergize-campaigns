@@ -84,10 +84,11 @@ function SPTV2Entry() {
   const theme = getTheme(themeKey);
 
   const section = fetchUrlParams("section");
+  const salt = fetchUrlParams("salt");
 
   useEffect(() => {
     scrollToSection(section);
-  }, []);
+  }, [salt]);
 
   return (
     <div>

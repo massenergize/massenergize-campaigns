@@ -1,6 +1,14 @@
 @media only screen and (max-width: 767px) {
   /* -- SPT THEME ---- */
 
+  .mob-width-auto { 
+    width: auto !important;
+  }
+  .contact-ribbon {
+    opacity: 0.5;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
   .spt-contact-form {
     margin: 10px;
   }
