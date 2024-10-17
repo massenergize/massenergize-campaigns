@@ -25,5 +25,5 @@ export const usePBModal = () => {
     [modalProps, open],
   );
 
-  return { modalState: open, Modal, close, init, open: openModal };
+  return { isOpen: open, Modal, close, init, open: openModal };
 };
