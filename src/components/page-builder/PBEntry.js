@@ -6,9 +6,10 @@ import PBBottomSheet from "./components/bottom-sheet/PBBottomSheet";
 import PBModal from "./components/modal/PBModal";
 import { usePBModal } from "./hooks/usePBModal";
 import { usePBBottomSheet } from "./hooks/usePBBottomSheet";
+import PBRichTextEditor from "./components/richtext/PBRichTextEditor";
 function PBEntry() {
   const { Modal, open: openModal } = usePBModal();
-  const { BottomSheet, open: openBottomSheet } = usePBBottomSheet();
+  const { BottomSheet, open: openBottomSheet, heightIsToggled } = usePBBottomSheet();
 
   return (
     <div className="pb-root">
@@ -23,11 +24,7 @@ function PBEntry() {
         <button onClick={openBottomSheet}>Open Bottom Sheet</button>
       </PBCanvas>
       <BottomSheet>
-        <div>
-          <button onClick={openModal}>Open Modal</button>
-          <h3>Excess Love ooo</h3>
-          <p>This is a bottom sheet component. It is used to display content that is not the main focus of the page.</p>
-        </div>
+        <PBRichTextEditor height={heightIsToggled ? 500 : 300} />
       </BottomSheet>
       <div className="pb-right-panel">
         <PBSidePanel />
