@@ -14,8 +14,10 @@
 
 .pb-canvas {
   flex-basis: 80%;
+  position: relative;
 }
 
 .pb-right-panel {
+  position: relative;
   flex-basis: 20%;
 }

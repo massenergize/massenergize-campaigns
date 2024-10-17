@@ -3,4 +3,7 @@
   width: 100%;
   background-color: green;
   box-shadow: var(--elevate-3);
+  position: absolute; 
+  right: 0;
+  z-index: 5;
 }

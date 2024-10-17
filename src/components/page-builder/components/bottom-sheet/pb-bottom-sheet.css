@@ -1,0 +1,19 @@
+.pb-bottom-sheet {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  height: 350px;
+  background-color: blanchedalmond;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.pb-bottom-sheet-content {
+  flex-basis: 80%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  
+}
