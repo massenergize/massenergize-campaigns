@@ -24,7 +24,9 @@ function PBEntry() {
         <button onClick={openBottomSheet}>Open Bottom Sheet</button>
       </PBCanvas>
       <BottomSheet>
-        <PBRichTextEditor height={heightIsToggled ? 500 : 300} />
+        <div style={{ width: "70%" }}>
+          <PBRichTextEditor height={heightIsToggled ? 500 : 300} />
+        </div>
       </BottomSheet>
       <div className="pb-right-panel">
         <PBSidePanel />
