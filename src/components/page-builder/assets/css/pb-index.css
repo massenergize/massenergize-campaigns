@@ -1,0 +1,21 @@
+@import url(./elevations.css);
+:root {
+  --pb-main-color: var(--pb-main-color, black);
+}
+
+.pb-root {
+  height: 100vh;
+  width: 100vw;
+  background-color: aliceblue;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.pb-canvas {
+  flex-basis: 80%;
+}
+
+.pb-right-panel {
+  flex-basis: 20%;
+}
