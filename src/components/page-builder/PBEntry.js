@@ -14,7 +14,6 @@ function PBEntry() {
 
   return (
     <div className="pb-root">
-      <PBFloatingFooter />
       <Modal>
         <div>
           <h3>Tabluga</h3>
@@ -22,8 +21,7 @@ function PBEntry() {
         </div>
       </Modal>
       <PBCanvas>
-        <h1>This is the hour of visitation!</h1>
-        <button onClick={openBottomSheet}>Open Bottom Sheet</button>
+        
       </PBCanvas>
       <BottomSheet>
         <div style={{ width: "70%" }}>
@@ -33,6 +31,7 @@ function PBEntry() {
       <div className="pb-right-panel">
         <PBSidePanel />
       </div>
+      <PBFloatingFooter />
     </div>
   );
 }
