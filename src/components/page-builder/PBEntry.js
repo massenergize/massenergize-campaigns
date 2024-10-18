@@ -7,12 +7,14 @@ import PBModal from "./components/modal/PBModal";
 import { usePBModal } from "./hooks/usePBModal";
 import { usePBBottomSheet } from "./hooks/usePBBottomSheet";
 import PBRichTextEditor from "./components/richtext/PBRichTextEditor";
+import PBFloatingFooter from "./components/floating-footer/PBFloatingFooter";
 function PBEntry() {
   const { Modal, open: openModal } = usePBModal();
   const { BottomSheet, open: openBottomSheet, heightIsToggled } = usePBBottomSheet();
 
   return (
     <div className="pb-root">
+      <PBFloatingFooter />
       <Modal>
         <div>
           <h3>Tabluga</h3>
