@@ -8,6 +8,7 @@ import { usePBModal } from "./hooks/usePBModal";
 import { usePBBottomSheet } from "./hooks/usePBBottomSheet";
 import PBRichTextEditor from "./components/richtext/PBRichTextEditor";
 import PBFloatingFooter from "./components/floating-footer/PBFloatingFooter";
+import PBSection from "./components/sectionizer/PBSectionizer";
 function PBEntry() {
   const { Modal, open: openModal } = usePBModal();
   const { BottomSheet, open: openBottomSheet, heightIsToggled } = usePBBottomSheet();
@@ -21,7 +22,7 @@ function PBEntry() {
         </div>
       </Modal>
       <PBCanvas>
-        
+        <PBSection />
       </PBCanvas>
       <BottomSheet>
         <div style={{ width: "70%" }}>
