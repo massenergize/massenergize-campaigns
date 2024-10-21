@@ -20,7 +20,7 @@ const Hero = ({ themeKey }) => {
     autoplay: true,
     autoplaySpeed: 10000, //Waiting time for next slide
   };
-  const images = (campaign?.media ||[])?.map(item => item?.media?.url)
+  const images = (campaign?.media || [])?.map((item) => item?.media?.url);
   // const images = [
   //   // "https://via.placeholder.com/1600x900/1975bb/fff?text=1975bb",
   //   "https://massenergize-prod-files.s3.amazonaws.com/media/alternative-alternative-energy-clouds-eco-energy-433308.jpg",
@@ -35,6 +35,7 @@ const Hero = ({ themeKey }) => {
     <>
       <div className="spt-v2-nav">
         <img
+          className="spt-v2-logo"
           // style={{ objectFit: "contain", height: 70 }}
           src={primary_logo?.url}
           alt=""
@@ -57,7 +58,9 @@ const Hero = ({ themeKey }) => {
           <div className="hero-content">
             <h1 className="hero-title">{campaign?.title}</h1>
             <p className="hero-subtext">{campaign?.tagline}</p>
-            <SPTButton themeKey={themeKey} href={campaign?.call_to_action?.url}>{campaign?.call_to_action?.text}</SPTButton>
+            <SPTButton themeKey={themeKey} href={campaign?.call_to_action?.url}>
+              {campaign?.call_to_action?.text}
+            </SPTButton>
             {/* <div
               className="spt-btn touchable-opacity custom-margin"
               style={{ "--my-custom-margin": "20px 0px" }}

@@ -48,10 +48,17 @@
     min-height: 300px;
   }
 
+  .spt-v2-nav { 
+    display: flex;
+    flex-direction: row;
+
+  }
+
   /* -- SPT THEME ---- */
   .spt-v2-nav img {
     margin: 0px;
-    height: 100px;
+    height: 170px;
+    margin-left: auto;
   }
   .spt-s-img {
     border-radius: 15px;
