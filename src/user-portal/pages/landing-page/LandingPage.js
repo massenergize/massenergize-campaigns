@@ -94,7 +94,9 @@ function LandingPage({
   useEffect(() => {
     init(campaignId, (justLoadedCampaign, passed) => {
       if (passed) {
-        tellUsWhereYouAreFrom(justLoadedCampaign);
+        const isNotSPTV2 =
+          justLoadedCampaign?.template_key !== CAMPAIGN_TEMPLATE_KEYS.SINGLE_TECHNOLOGY_CAMPAIGN_SPT_V2;
+        if (isNotSPTV2) tellUsWhereYouAreFrom(justLoadedCampaign);
         setPageTitle(justLoadedCampaign?.title);
       }
       setMounted(true);
