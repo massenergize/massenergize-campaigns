@@ -41,7 +41,7 @@ function EligibilitySection({ section, technology, themeKey, cImage, cDescriptio
         // style={{ "--my-custom-margin": 0, display: "flex", alignItems: "center", justifyContent: "end" }}
       >
         <img
-          className="spt-s-img "
+          className="spt-s-img spt-img-for-contain"
           src={media?.url}
           alt="Community Solar"
           style={{ "--my-custom-margin": "20px 0px", objectFit: "contain" }}

@@ -23,6 +23,7 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
   z-index: 5; /* Below the content but above the background images */
+  pointer-events: none;
 }
 
 .hero-slide {

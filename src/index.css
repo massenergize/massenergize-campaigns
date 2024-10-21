@@ -70,7 +70,7 @@ body {
   border-radius: 10px;
   padding: 20px;
   display: flex;
-
+  height:max-content;
   align-items: start;
   margin-right: 2%;
 }

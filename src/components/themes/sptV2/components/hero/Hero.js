@@ -18,7 +18,7 @@ const Hero = ({ themeKey }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000, //Waiting time for next slide
+    autoplaySpeed: 10000, //Waiting time for next slide
   };
   const images = (campaign?.media ||[])?.map(item => item?.media?.url)
   // const images = [

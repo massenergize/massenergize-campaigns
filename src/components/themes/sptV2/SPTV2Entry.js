@@ -18,7 +18,9 @@ import { CAMPAIGN_TEMPLATE_KEYS, getPlaceholderURL, getTheme, PlaceholderImageUR
 import SPTContactSection from "./SPTContactSection";
 import EligibilitySection from "./EligibilitySection";
 import SPTV2AboutCampaign from "./SPTV2AboutCampaign";
-import { fetchUrlParams, scrollIntoView } from "../../../utils/utils";
+import { fetchUrlParams, intoChunks, scrollIntoView } from "../../../utils/utils";
+import { ArrowButtons } from "../../pieces/ArrowButtons";
+import { Col } from "react-bootstrap";
 
 function SPTV2Entry() {
   const goalsArea = useRef(null);
@@ -90,6 +92,11 @@ function SPTV2Entry() {
     scrollToSection(section);
   }, [salt]);
 
+  const overviewChunks = intoChunks(overviewItems, 4);
+
+  const scrollableBenefitsArea = useRef();
+  const hasScrollableChunks = overviewChunks?.length > 1;
+  
   return (
     <div>
       <div ref={heroArea}>
@@ -132,24 +139,42 @@ function SPTV2Entry() {
       </div>
       {/* ------ BENEFITS----------- */}
       <div ref={benefitsArea} className="spt-section-padding spt-section-margin-top">
-        <SPTSectionTitle>{overviewTitle || overview?.title?.text}</SPTSectionTitle>
         <div className="mobile-margin" style={{ marginTop: 40, "--my-custom-margin": "10px 0px" }}></div>
-        <div className="spt-benefits-part">
-          {overviewItems?.map((overview) => {
-            return (
-              <div className="spt-benefits-item" key={overview?.id} style={{ marginBottom: 10 }}>
-                {overview?.image && <img src={overview?.image?.url} alt="Benefit" />}
-                <div>
-                  <h5 style={{}}>{overview?.title}</h5>
-                  <p
-                    style={{ color: theme?.darkText }}
-                    className="spt-body-font"
-                    dangerouslySetInnerHTML={{ __html: overview?.description }}
-                  ></p>
-                </div>
-              </div>
-            );
-          })}
+
+        <div style={{ display: "flex", padding: "20px 0px" }}>
+          <SPTSectionTitle>{overviewTitle || overview?.title?.text}</SPTSectionTitle>
+          {hasScrollableChunks && (
+            <ArrowButtons
+              arrowStyle={{ color: theme?.color }}
+              containerRef={scrollableBenefitsArea}
+              style={{ marginLeft: "auto" }}
+            />
+          )}
+        </div>
+
+        <div
+          ref={scrollableBenefitsArea}
+          style={{ display: "flex", flexDirection: "row", flexWrap: "nowrap", overflowX: "scroll" }}
+        >
+          {overviewChunks?.map((chunks) => (
+            <Col md={12} lg={12} xs={12} sm={12} className="spt-benefits-part">
+              {chunks?.map((overview) => {
+                return (
+                  <div className="spt-benefits-item" key={overview?.id} style={{ marginBottom: 10 }}>
+                    {overview?.image && <img src={overview?.image?.url} alt="Benefit" />}
+                    <div>
+                      <h5 style={{}}>{overview?.title}</h5>
+                      <p
+                        style={{ color: theme?.darkText }}
+                        className="spt-body-font"
+                        dangerouslySetInnerHTML={{ __html: overview?.description }}
+                      ></p>
+                    </div>
+                  </div>
+                );
+              })}
+            </Col>
+          ))}
         </div>
       </div>
       {/* <div className="spt-section-padding spt-section-margin-top">
