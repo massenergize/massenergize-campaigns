@@ -39,10 +39,10 @@ function SPTV2AboutSection({ technology, themeKey }) {
         // style={{ "--my-custom-margin": 0, display: "flex", alignItems: "center", justifyContent: "end" }}
       >
         <img
-          className="spt-s-img "
+          className="spt-s-img"
           src={image?.url}
           alt="Community Solar"
-          style={{ "--my-custom-margin": "20px 0px" }}
+          style={{ "--my-custom-margin": "20px 0px", background:'red' }}
         />
       </div>
     </SPTSectionComponent>

@@ -14,7 +14,7 @@ function SPTV2AboutCampaign({ section, technology, themeKey, cImage, cDescriptio
   const theme = getTheme(themeKey);
 
   const renderImage = () => {
-    return <img className="spt-s-img" src={cImage?.url} alt="Community Solar" />;
+    return <img className="spt-s-img " src={cImage?.url} alt="Community Solar" />;
   };
   return (
     <div style={{ marginTop: 40 }}>
@@ -73,7 +73,7 @@ function SPTV2AboutCampaign({ section, technology, themeKey, cImage, cDescriptio
         </div>
         <div className="col-md-6 spt-section-img-area mobile-margin " style={{ "--justify-content": "end" }}>
           <img
-            className="spt-s-img "
+            className="spt-s-img spt-img-for-contain"
             src={media?.url}
             alt="Community Solar"
             style={{ "--my-custom-margin": "20px 0px", objectFit: "contain" }}
