@@ -8,6 +8,14 @@ import {IS_CANARY, IS_LOCAL, IS_PROD} from "../config/environment";
 
 const LANG_CODE_TO_DATE_OBJ = { en: enUS, es, pt: ptBR }; // means when a new language is approved, we wld have to add it in here as well
 
+
+export const intoChunks = (arr, chunkSize) => { 
+  const chunks = [];
+  for (let i = 0; i < arr.length; i += chunkSize) {
+    chunks.push(arr.slice(i, i + chunkSize));
+  }
+  return chunks;
+}
 export const getCountryFromCode = (code) => {
   return (code?.split("-")[1] || "US").toLowerCase();
 };
