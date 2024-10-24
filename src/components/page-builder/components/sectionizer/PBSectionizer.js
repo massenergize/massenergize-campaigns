@@ -1,12 +1,14 @@
 import React from "react";
 import "./pb-section.css";
 import { usePBModal } from "../../hooks/usePBModal";
-function PBSection({ onButtonClick }) {
+function PBSection({ onButtonClick, openBlockModal }) {
   const { Modal, open: openModal } = usePBModal();
   return (
     <>
       <div className="pb-sectionizer">
-        <p className="pb-section-r touchable-opacity">+</p>
+        {/* <p className="pb-section-r touchable-opacity"> */}
+        <i className="fa fa-plus pb-sectionizer-plus-icon touchable-opacity" onClick={() => openBlockModal()} />
+        {/* </p> */}
         <small>Add Block</small>
       </div>
       <div className="pb-add-area">

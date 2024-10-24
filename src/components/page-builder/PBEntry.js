@@ -20,7 +20,7 @@ function PBEntry() {
         <PBBlockContainer />
       </Modal>
       <PBCanvas>
-        <PBSection onButtonClick={openModal} />
+        <PBSection onButtonClick={openModal} openBlockModal={openModal} />
       </PBCanvas>
       <BottomSheet>
         <div style={{ width: "70%" }}>

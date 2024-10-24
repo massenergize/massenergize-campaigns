@@ -50,3 +50,13 @@
   align-items: center;
   justify-content: center;
 }
+
+.pb-sectionizer-plus-icon {
+  font-size: 21px;
+  margin-bottom: 5px;
+  color: white;
+  /* border: 2px solid grey; */
+  padding: 8px 10px;
+  border-radius: 100%;
+  background: #0b9edc;
+}
