@@ -14,10 +14,10 @@ export const usePBModal = () => {
   }, []);
 
   const Modal = useCallback(
-    ({ children }) => {
+    ({ children, ...rest }) => {
       if (!open) return null;
       return (
-        <PBModal close={close} {...(modalProps || {})}>
+        <PBModal close={close} {...(modalProps || {})} {...rest}>
           {children}
         </PBModal>
       );

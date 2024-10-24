@@ -1,6 +1,8 @@
 import React from "react";
 import "./pb-section.css";
-function PBSection() {
+import { usePBModal } from "../../hooks/usePBModal";
+function PBSection({ onButtonClick }) {
+  const { Modal, open: openModal } = usePBModal();
   return (
     <>
       <div className="pb-sectionizer">
@@ -8,7 +10,9 @@ function PBSection() {
         <small>Add Block</small>
       </div>
       <div className="pb-add-area">
-        <button className="pb-add-section touchable-opacity">Add Section</button>
+        <button onClick={() => onButtonClick()} className="pb-add-section touchable-opacity">
+          Add Section
+        </button>
       </div>
     </>
   );

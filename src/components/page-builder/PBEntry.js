@@ -9,20 +9,18 @@ import { usePBBottomSheet } from "./hooks/usePBBottomSheet";
 import PBRichTextEditor from "./components/richtext/PBRichTextEditor";
 import PBFloatingFooter from "./components/floating-footer/PBFloatingFooter";
 import PBSection from "./components/sectionizer/PBSectionizer";
+import PBBlockContainer from "./components/layouts/blocks/PBBlockContainer";
 function PBEntry() {
   const { Modal, open: openModal } = usePBModal();
   const { BottomSheet, open: openBottomSheet, heightIsToggled } = usePBBottomSheet();
 
   return (
     <div className="pb-root">
-      <Modal>
-        <div>
-          <h3>Tabluga</h3>
-          <p>The man of Kings</p>
-        </div>
+      <Modal style={{ minHeight: 300 }}>
+        <PBBlockContainer />
       </Modal>
       <PBCanvas>
-        <PBSection />
+        <PBSection onButtonClick={openModal} />
       </PBCanvas>
       <BottomSheet>
         <div style={{ width: "70%" }}>
