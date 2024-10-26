@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import PBCanvas from "./PBCanvas";
 import "./assets/css/pb-index.css";
 import PBSidePanel from "./components/sidepanels/PBSidePanel";
-import PBBottomSheet from "./components/bottom-sheet/PBBottomSheet";
-import PBModal from "./components/modal/PBModal";
 import { usePBModal } from "./hooks/usePBModal";
 import { usePBBottomSheet } from "./hooks/usePBBottomSheet";
 import PBRichTextEditor from "./components/richtext/PBRichTextEditor";
@@ -13,6 +11,7 @@ import PBBlockContainer from "./components/layouts/blocks/PBBlockContainer";
 function PBEntry() {
   const { Modal, open: openModal } = usePBModal();
   const { BottomSheet, open: openBottomSheet, heightIsToggled } = usePBBottomSheet();
+  const [sections, setSection] = useState([]);
 
   return (
     <div className="pb-root">
@@ -20,7 +19,7 @@ function PBEntry() {
         <PBBlockContainer />
       </Modal>
       <PBCanvas>
-        <PBSection onButtonClick={openModal} openBlockModal={openModal} />
+        <PBSection sections={sections} onButtonClick={openModal} openBlockModal={openModal} />
       </PBCanvas>
       <BottomSheet>
         <div style={{ width: "70%" }}>
