@@ -9,14 +9,20 @@ import PBFloatingFooter from "./components/floating-footer/PBFloatingFooter";
 import PBSection from "./components/sectionizer/PBSectionizer";
 import PBBlockContainer from "./components/layouts/blocks/PBBlockContainer";
 function PBEntry() {
-  const { Modal, open: openModal } = usePBModal();
+  const { Modal, open: openModal, close } = usePBModal();
   const { BottomSheet, open: openBottomSheet, heightIsToggled } = usePBBottomSheet();
   const [sections, setSection] = useState([]);
 
+  const selectBlock = (blockJson) => {
+    console.log("We see block ouchere", blockJson)
+    const newSection = [...sections, blockJson];
+    setSection(newSection);
+    close();
+  };
   return (
     <div className="pb-root">
       <Modal style={{ minHeight: 300 }}>
-        <PBBlockContainer />
+        <PBBlockContainer onItemSelected={selectBlock} />
       </Modal>
       <PBCanvas>
         <PBSection sections={sections} onButtonClick={openModal} openBlockModal={openModal} />

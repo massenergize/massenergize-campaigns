@@ -1,0 +1,8 @@
+.pb-render-wrapper {
+  padding: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.pb-render-wrapper:hover {
+  border: solid 2px #0b9edc;
+}
