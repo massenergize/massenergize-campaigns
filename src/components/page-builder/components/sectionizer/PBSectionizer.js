@@ -3,7 +3,6 @@ import "./pb-section.css";
 import { usePBModal } from "../../hooks/usePBModal";
 import PBRender from "../render/PBRender";
 function PBSection({ onButtonClick, openBlockModal, sections }) {
-  console.log("TOKEN SECTIONS", sections);
   const { Modal, open: openModal } = usePBModal();
 
   const hasSections = sections.length > 0;

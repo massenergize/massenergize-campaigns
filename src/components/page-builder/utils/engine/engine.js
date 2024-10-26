@@ -15,7 +15,6 @@ const renderElement = (element) => {
 };
 
 export const renderSection = (block) => {
-  console.log("Inside Render Select", block);
   const { direction, element, content, children: childElements } = block || {};
   const { type, text } = element || {};
   if (!element) return null;

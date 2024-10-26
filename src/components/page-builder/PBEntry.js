@@ -14,7 +14,6 @@ function PBEntry() {
   const [sections, setSection] = useState([]);
 
   const selectBlock = (blockJson) => {
-    console.log("We see block ouchere", blockJson)
     const newSection = [...sections, blockJson];
     setSection(newSection);
     close();
