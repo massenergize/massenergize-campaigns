@@ -52,3 +52,20 @@ export const SECTION_BLOCK = {
     },
   ],
 };
+
+export const TITLE_BLOCK = {
+  element: {
+    id: new Date().getMilliseconds(),
+    type: "div",
+    props: { style: { background: "antiquewhite", padding: 10 } },
+  },
+  direction: "y",
+  content: [
+    {
+      element: { id: new Date().getMilliseconds(), type: "h2", text: "New title here..." },
+    },
+    {
+      element: { id: new Date().getMilliseconds(), type: "p", text: "Latest paragraph..." },
+    },
+  ],
+};

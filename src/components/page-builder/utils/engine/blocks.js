@@ -14,6 +14,10 @@ export const Paragraph = (props) => {
   const { children, ...rest } = props || {};
   return <p {...rest}>{children}</p>;
 };
+export const Title = (props) => {
+  const { children, ...rest } = props || {};
+  return <h2 {...rest}>{children}</h2>;
+};
 export const Span = (props) => {
   const { children, ...rest } = props || {};
   return <span {...rest}>{children}</span>;
@@ -24,4 +28,5 @@ export const Blocks = {
   img: Image,
   p: Paragraph,
   span: Span,
+  h2: Title,
 };

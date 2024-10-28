@@ -1,10 +1,10 @@
 import React from "react";
 import "./../pb-layout.css";
-import { SECTION_BLOCK } from "../../../utils/engine/data";
+import { SECTION_BLOCK, TITLE_BLOCK } from "../../../utils/engine/data";
 const BLOCKS = [
   { name: "Link", icon: "fa-link", key: "link", template: SECTION_BLOCK },
   { name: "Section", icon: "fa-square-o", key: "section", template: SECTION_BLOCK },
-  { name: "Title", icon: "fa-font", key: "title", template: SECTION_BLOCK },
+  { name: "Title", icon: "fa-font", key: "title", template: TITLE_BLOCK },
   { name: "Paragraph", icon: "fa-paragraph", key: "paragraph", template: SECTION_BLOCK },
   { name: "Button", icon: "fa-square", key: "button", template: SECTION_BLOCK },
   { name: "Video", icon: "fa-youtube", key: "video", template: SECTION_BLOCK },
