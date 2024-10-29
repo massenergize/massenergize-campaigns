@@ -77,6 +77,14 @@ export const PARAGRAPH_BLOCK = {
     text: "Start adding your paragraph here...",
   },
 };
+export const BTN_BLOCK = {
+  element: {
+    id: new Date().getMilliseconds(),
+    type: "button",
+    props: { className: "pb-block-btn touchable-opacity", style: {} },
+    text: "Click Me",
+  },
+};
 export const IMAGE_BLOCK = {
   element: {
     id: new Date().getMilliseconds(),

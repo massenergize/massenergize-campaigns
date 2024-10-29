@@ -24,11 +24,11 @@ export const Span = (props) => {
 };
 export const Link = (props) => {
   const { children, ...rest } = props || {};
-  return (
-    <a href="#" {...rest}>
-      {children}
-    </a>
-  );
+  return <div {...rest}>{children}</div>;
+};
+export const Button = (props) => {
+  const { children, text, ...rest } = props || {};
+  return <a {...rest}>{text || children}</a>;
 };
 export const Icon = (props) => {
   const { faIcon, ...rest } = props || {};

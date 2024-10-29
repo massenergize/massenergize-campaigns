@@ -3,8 +3,16 @@
   --pb-main-color: var(--pb-main-color, black);
 }
 
-
-
+.pb-block-btn {
+  padding: 6px 22px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #9fddeb47;
+  border: solid 1px #0b9edc;
+  border-radius: 4px;
+  color: #0b9edc;
+  width: fit-content;
+}
 
 .touchable-opacity {
   cursor: pointer;
@@ -25,6 +33,8 @@
 .pb-canvas {
   flex-basis: 80%;
   position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .pb-right-panel {
@@ -45,22 +55,20 @@
   justify-content: center;
 }
 
-.pb-textbox { 
+.pb-textbox {
   width: auto;
 }
 
-.pb-textbox label { 
+.pb-textbox label {
   font-size: 13px;
-  color:grey; 
+  color: grey;
   margin-bottom: 10px;
 }
 
-.pb-textbox input { 
+.pb-textbox input {
   width: 100%;
   padding: 4px 8px;
   border: 1px solid #ccc;
   border-radius: 3px;
   margin-bottom: 10px;
 }
-
-

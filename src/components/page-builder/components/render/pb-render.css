@@ -2,8 +2,22 @@
   padding: 5px;
   margin-bottom: 5px;
   cursor: pointer;
-  border: solid 2px white;
+  border: solid 1px transparent;
 }
 .pb-render-wrapper:hover {
-  border: solid 2px #0b9edc;
+  border: solid 1px #0b9edc;
+  background-color: #9fddeb21;
+}
+
+.pb-render-wrapper:hover .render-plus {
+  opacity: 1;
+  /* transition: 0.2s ease-in-out; */
+}
+
+.render-plus {
+  opacity: 0.2;
+  bottom: -25px;
+  position: absolute;
+  z-index: 5;
+  transform: translate(38vw, 0px);
 }

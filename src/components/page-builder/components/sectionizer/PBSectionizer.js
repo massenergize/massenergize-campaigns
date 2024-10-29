@@ -9,7 +9,11 @@ function PBSection({ onButtonClick, openBlockModal, sections }) {
 
   return (
     <>
-      {hasSections ? sections?.map(({ block }) => <PBRender json={block} />) : <EmptySection open={openBlockModal} />}
+      {hasSections ? (
+        sections?.map(({ block }) => <PBRender json={block} onClick={onButtonClick} />)
+      ) : (
+        <EmptySection open={openBlockModal} />
+      )}
       <div className="pb-add-area">
         <button onClick={() => onButtonClick()} className="pb-add-section touchable-opacity">
           Add Section
