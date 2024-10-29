@@ -27,22 +27,22 @@ function PBSidePanel() {
         <div className="pb-textbox">
           <label>Left</label>
           <br />
-          <input type="number" />
+          <input placeholder="0" type="number" />
         </div>
         <div className="pb-textbox" style={{ marginLeft: 10 }}>
           <label>Right</label>
           <br />
-          <input type="number" />
+          <input placeholder="0" type="number" />
         </div>
         <div className="pb-textbox" style={{ marginLeft: 10 }}>
           <label>Top</label>
           <br />
-          <input type="number" />
+          <input placeholder="0" type="number" />
         </div>
         <div className="pb-textbox" style={{ marginLeft: 10 }}>
           <label>Bottom</label>
           <br />
-          <input type="number" />
+          <input placeholder="0" type="number" />
         </div>
       </div>
       <h6 className="pb-panel-area-heading">Margin</h6>
@@ -50,22 +50,22 @@ function PBSidePanel() {
         <div className="pb-textbox">
           <label>Left</label>
           <br />
-          <input type="number" />
+          <input placeholder="0" type="number" />
         </div>
         <div className="pb-textbox" style={{ marginLeft: 10 }}>
           <label>Right</label>
           <br />
-          <input type="number" />
+          <input placeholder="0" type="number" />
         </div>
         <div className="pb-textbox" style={{ marginLeft: 10 }}>
           <label>Top</label>
           <br />
-          <input type="number" />
+          <input placeholder="0" type="number" />
         </div>
         <div className="pb-textbox" style={{ marginLeft: 10 }}>
           <label>Bottom</label>
           <br />
-          <input type="number" />
+          <input placeholder="0" type="number" />
         </div>
       </div>
       <br />
