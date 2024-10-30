@@ -6,7 +6,10 @@ export const usePBModal = () => {
   const [modalProps, setModalProps] = useState(null);
 
   const close = () => setOpen(false);
-  const openModal = () => setOpen(true);
+  const openModal = (options) => {
+    setOpen(true);
+    if (options) setModalProps(options);
+  };
 
   const init = useCallback(({ modalProps, open }) => {
     setModalProps(modalProps);
@@ -25,5 +28,5 @@ export const usePBModal = () => {
     [modalProps, open],
   );
 
-  return { isOpen: open, Modal, close, init, open: openModal };
+  return { isOpen: open, Modal, close, init, open: openModal, modalProps };
 };

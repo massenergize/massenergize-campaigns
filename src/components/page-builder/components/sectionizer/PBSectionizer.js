@@ -3,19 +3,22 @@ import "./pb-section.css";
 import { usePBModal } from "../../hooks/usePBModal";
 import PBRender from "../render/PBRender";
 function PBSection({ onButtonClick, openBlockModal, sections }) {
-  const { Modal, open: openModal } = usePBModal();
-
   const hasSections = sections.length > 0;
 
   return (
     <>
       {hasSections ? (
-        sections?.map(({ block }) => <PBRender json={block} onClick={onButtonClick} />)
+        sections?.map(({ block }, position) => (
+          <PBRender json={block} onClick={() => onButtonClick({ position: position + 1 })} />
+        ))
       ) : (
-        <EmptySection open={openBlockModal} />
+        <EmptySection open={() => openBlockModal({ position: 0 })} />
       )}
       <div className="pb-add-area">
-        <button onClick={() => onButtonClick()} className="pb-add-section touchable-opacity">
+        <button
+          onClick={() => onButtonClick({ position: sections?.length })}
+          className="pb-add-section touchable-opacity"
+        >
           Add Section
         </button>
       </div>

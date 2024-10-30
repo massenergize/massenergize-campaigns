@@ -15,7 +15,7 @@ const BLOCKS = [
   { name: "Button", icon: "fa-square", key: "button", template: BTN_BLOCK },
   { name: "Paragraph", icon: "fa-paragraph", key: "paragraph", template: PARAGRAPH_BLOCK },
   { name: "Link", icon: "fa-link", key: "link", template: LINK_BLOCK },
-  { name: "Section", icon: "fa-square-o", key: "section", template: SECTION_BLOCK },
+  // { name: "Section", icon: "fa-square-o", key: "section", template: SECTION_BLOCK },
   { name: "Video", icon: "fa-youtube", key: "video", template: VIDEO_BLOCK },
   { name: "Image", icon: "fa-image", key: "image", template: IMAGE_BLOCK },
   { name: "Icon", icon: "fa-circle-o", key: "icon", template: ICON_BLOCK },
