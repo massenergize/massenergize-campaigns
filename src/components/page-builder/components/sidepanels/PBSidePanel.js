@@ -1,6 +1,7 @@
 import React from "react";
 import "./pb-sidepanel.css";
 import PBDropdown from "../dropdown/PBDropdown";
+import { PBBackgroundPicker } from "./PBPropertyTypes";
 function PBSidePanel() {
   return (
     <div className="pb-side-panel-root">
@@ -19,8 +20,10 @@ function PBSidePanel() {
       </div>
 
       <h6 className="pb-panel-area-heading">Background</h6>
-      <div className="pb-image-picker"></div>
-      <div className="pb-side-panel-btn pb-touchable-opacity">Use Background Color</div>
+      <PBBackgroundPicker />
+
+      {/* <div className="pb-image-picker"></div>
+      <div className="pb-side-panel-btn pb-touchable-opacity">Use Color Picker</div> */}
       <br />
       <h6 className="pb-panel-area-heading">Padding</h6>
       <div className="flex-row align-center">
