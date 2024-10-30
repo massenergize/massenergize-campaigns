@@ -14,8 +14,9 @@ function PBEntry() {
   const [sections, setSection] = useState([]);
 
   const selectBlock = (blockJson) => {
-    const newSection = [...sections, blockJson];
-    console.log("This item needs to be at position -->", modalProps);
+    const { position } = modalProps || {};
+    const newSection = [...sections];
+    newSection.splice(position, 0, blockJson);
     setSection(newSection);
     close();
   };
