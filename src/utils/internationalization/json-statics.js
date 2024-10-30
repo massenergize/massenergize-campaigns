@@ -118,11 +118,11 @@ export const ENGLISH = {
           scrollable: {
             text: "Scroll from left to right to see more events, or use the arrow buttons(top right) to scroll",
           },
-          call_to_filter: { text: "Filter testimonials by" },
+          call_to_filter: { text: "Filter events by" },
           card: { online: { text: "Online" }, both: { text: "Both" }, in_person: { text: "In Person" } },
         },
         coaches_section: {
-          call_to_filter: { text: "Filter testimonials by" },
+          call_to_filter: { text: "Filter coaches by" },
           get_help: { text: "Get Help" },
           help_modal: { title: "Get Help" },
           title: { text: "Meet the Coaches" },
