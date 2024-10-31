@@ -1,13 +1,20 @@
-import React from 'react'
+import React from "react";
 import PBDropdown from "../dropdown/PBDropdown";
 
-const InputGroup = (props) => {
+export const PROPERTY_TYPES = {
+  INPUT: "input",
+  INPUT_GROUP: "input-group",
+  DROPDOWN: "dropdown",
+  COLOR_PICKER: "color-picker",
+  BACKGROUND_PICKER: "background-picker",
+};
+export const PBInputGroup = (props) => {
   const { group } = props || {};
   return (
     <div className="flex-row align-center">
       {group?.map((props, index) => {
         <React.Fragment key={index}>
-          <Input {...props} />;
+          <PBInput {...props} />;
         </React.Fragment>;
         // return (
         //   <div className="pb-textbox" style={{ marginLeft: index === 0 ? 0 : 10 }}>
@@ -20,7 +27,7 @@ const InputGroup = (props) => {
     </div>
   );
 };
-const Input = (props) => {
+export const PBInput = (props) => {
   const { label, type, value, onChange, placeholder } = props || {};
   return (
     <div className="flex-row align-center">
@@ -33,11 +40,11 @@ const Input = (props) => {
   );
 };
 
-const ColorPicker = () => {
+export const PBColorPicker = () => {
   return <input type="color" />;
 };
 
-const BackgroundPicker = (props) => {
+export const PBBackgroundPicker = (props) => {
   const { label, type, value, onChange, placeholder, colorPickerLabel = "Use Color Picker" } = props || {};
   return (
     <>
@@ -49,8 +56,6 @@ const BackgroundPicker = (props) => {
   );
 };
 
-const Dropdown = (props) => {
+export const Dropdown = (props) => {
   return <PBDropdown {...props} />;
 };
-
-export default { InputGroup, Input, ColorPicker, PBBackgroundPicker: BackgroundPicker, Dropdown };
