@@ -3,12 +3,11 @@ import { PROPERTY_TYPES } from "./PBPropertyTypes";
 export const EXAMPLE_PROPERTIES = [
   {
     _type: PROPERTY_TYPES.INPUT,
-    text: "Width",
-    name: "width",
-    placeholder: "Width",
-    type: "number",
-    label: "Width",
-    value: 0,
+    text: "Dimensions",
+    group: [
+      { name: "width", placeholder: "0", type: "number", label: "Width", value: 32 },
+      { name: "height", placeholder: "0", type: "number", label: "Height", value: 32 },
+    ],
   },
   {
     _type: PROPERTY_TYPES.INPUT_GROUP,

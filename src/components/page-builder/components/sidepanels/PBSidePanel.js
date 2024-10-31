@@ -2,13 +2,16 @@ import React from "react";
 import "./pb-sidepanel.css";
 import PBDropdown from "../dropdown/PBDropdown";
 import { PBBackgroundPicker } from "./PBPropertyTypes";
-import PropertyRenderer from "./PropertyRenderer";
+import usePropertyRenderer from "./usePropertyRenderer";
+import { EXAMPLE_PROPERTIES } from "./temp-data";
+// import PropertyRenderer from "./PropertyRenderer";
 
 function PBSidePanel() {
+  const { PropertyRenderer } = usePropertyRenderer();
   return (
     <div className="pb-side-panel-root">
       <h6>Properties</h6>
-      <PropertyRenderer />
+      <PropertyRenderer properties={EXAMPLE_PROPERTIES} />
       {/* <div className="flex-row align-center">
         <div className="pb-textbox">
           <label>Width</label>

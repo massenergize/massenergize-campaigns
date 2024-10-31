@@ -32,7 +32,7 @@ export const PBInput = (props) => {
   return (
     <div className="flex-row align-center">
       <div className="pb-textbox">
-        <label>{label || "label"}</label>
+        <label>{label || "..."}</label>
         <br />
         <input type={type} placeholder={placeholder} />
       </div>
