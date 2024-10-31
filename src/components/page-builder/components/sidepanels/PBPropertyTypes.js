@@ -55,7 +55,11 @@ export const PBBackgroundPicker = (props) => {
       <div className="pb-image-picker">
         <i className=" fa fa-image"></i>
       </div>
-      <div className="pb-side-panel-btn pb-touchable-opacity">{colorPickerLabel}</div>
+      <br />
+      <label style={{ color: "grey" }}>{colorPickerLabel}</label>
+      <br />
+      <input type="color" value="navajowhite" className="pb-color-picker" placeholder={colorPickerLabel} />
+      {/* <div className="pb-side-panel-btn pb-touchable-opacity">{colorPickerLabel}</div> */}
     </>
   );
 };
