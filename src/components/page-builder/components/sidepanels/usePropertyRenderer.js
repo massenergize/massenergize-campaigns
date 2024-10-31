@@ -1,5 +1,5 @@
 import React from "react";
-import { PBInput, PBInputGroup, PROPERTY_TYPES } from "./PBPropertyTypes";
+import { PBBackgroundPicker, PBInput, PBInputGroup, PROPERTY_TYPES } from "./PBPropertyTypes";
 import PBDropdown from "../dropdown/PBDropdown";
 
 function usePropertyRenderer() {
@@ -15,6 +15,7 @@ function usePropertyRenderer() {
   const PropertyField = ({ json }) => {
     const { _type, text, ...rest } = json || {};
     const commonProps = { text };
+
     switch (_type) {
       case PROPERTY_TYPES.INPUT:
         return (
@@ -38,6 +39,12 @@ function usePropertyRenderer() {
         return (
           <ContentWrapper {...commonProps}>
             <PBDropdown {...rest} />
+          </ContentWrapper>
+        );
+      case PROPERTY_TYPES.BACKGROUND_PICKER:
+        return (
+          <ContentWrapper {...commonProps}>
+            <PBBackgroundPicker {...rest} />
           </ContentWrapper>
         );
 

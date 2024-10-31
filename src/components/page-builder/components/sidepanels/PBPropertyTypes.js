@@ -10,12 +10,15 @@ export const PROPERTY_TYPES = {
 };
 export const PBInputGroup = (props) => {
   const { group } = props || {};
+
   return (
     <div className="flex-row align-center">
-      {group?.map((props, index) => {
-        <React.Fragment key={index}>
-          <PBInput {...props} />;
-        </React.Fragment>;
+      {group?.map((item, index) => {
+        return (
+          <React.Fragment key={index}>
+            <PBInput {...item} />
+          </React.Fragment>
+        );
         // return (
         //   <div className="pb-textbox" style={{ marginLeft: index === 0 ? 0 : 10 }}>
         //     <label index={index}>{itemLabel}</label>
@@ -29,9 +32,10 @@ export const PBInputGroup = (props) => {
 };
 export const PBInput = (props) => {
   const { label, type, value, onChange, placeholder } = props || {};
+
   return (
     <div className="flex-row align-center">
-      <div className="pb-textbox">
+      <div className="pb-textbox" style={{ marginRight: 10 }}>
         <label>{label || "..."}</label>
         <br />
         <input type={type} placeholder={placeholder} />
