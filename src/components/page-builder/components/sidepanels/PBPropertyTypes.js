@@ -58,7 +58,7 @@ export const PBBackgroundPicker = (props) => {
       <br />
       <label style={{ color: "grey" }}>{colorPickerLabel}</label>
       <br />
-      <input type="color" value="navajowhite" className="pb-color-picker" placeholder={colorPickerLabel} />
+      <input type="color" value="#dddddd" className="pb-color-picker" placeholder={colorPickerLabel} />
       {/* <div className="pb-side-panel-btn pb-touchable-opacity">{colorPickerLabel}</div> */}
     </>
   );

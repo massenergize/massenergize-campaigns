@@ -3,7 +3,7 @@ import "./pb-sidepanel.css";
 import PBDropdown from "../dropdown/PBDropdown";
 import { PBBackgroundPicker } from "./PBPropertyTypes";
 import usePropertyRenderer from "./usePropertyRenderer";
-import { EXAMPLE_PROPERTIES } from "./temp-data";
+import { DEFAULT_PROPERTIES, EXAMPLE_PROPERTIES } from "./property-data";
 // import PropertyRenderer from "./PropertyRenderer";
 
 function PBSidePanel() {
@@ -11,7 +11,7 @@ function PBSidePanel() {
   return (
     <div className="pb-side-panel-root">
       <h6>Properties</h6>
-      <PropertyRenderer properties={EXAMPLE_PROPERTIES} />
+      <PropertyRenderer properties={DEFAULT_PROPERTIES} />
       {/* <div className="flex-row align-center">
         <div className="pb-textbox">
           <label>Width</label>

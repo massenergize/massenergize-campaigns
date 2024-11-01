@@ -1,6 +1,6 @@
 import { PROPERTY_TYPES } from "./PBPropertyTypes";
 
-export const EXAMPLE_PROPERTIES = [
+export const DEFAULT_PROPERTIES = [
   {
     _type: PROPERTY_TYPES.INPUT_GROUP,
     text: "Dimensions (px)",
