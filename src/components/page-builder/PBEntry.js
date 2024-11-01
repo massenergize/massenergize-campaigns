@@ -21,7 +21,9 @@ function PBEntry() {
     setSection(newSection);
     close();
   };
+  
   console.log("BLOCK IN FOCUS", blockInFocus);
+
   return (
     <div className="pb-root">
       <Modal style={{ minHeight: 300 }}>
