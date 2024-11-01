@@ -10,10 +10,10 @@ import {
   TITLE_BLOCK,
   VIDEO_BLOCK,
 } from "../../../utils/engine/data";
-import { DEFAULT_PROPERTIES } from "../../sidepanels/property-data";
+import { DEFAULT_PROPERTIES, FAKE_PROPERTIES } from "../../sidepanels/property-data";
 const BLOCKS = [
   { name: "Title", icon: "fa-font", key: "title", template: TITLE_BLOCK, properties: DEFAULT_PROPERTIES },
-  { name: "Button", icon: "fa-square", key: "button", template: BTN_BLOCK, properties: DEFAULT_PROPERTIES },
+  { name: "Button", icon: "fa-square", key: "button", template: BTN_BLOCK, properties: FAKE_PROPERTIES },
   {
     name: "Paragraph",
     icon: "fa-paragraph",
@@ -21,11 +21,11 @@ const BLOCKS = [
     template: PARAGRAPH_BLOCK,
     properties: DEFAULT_PROPERTIES,
   },
-  { name: "Link", icon: "fa-link", key: "link", template: LINK_BLOCK },
+  { name: "Link", icon: "fa-link", key: "link", template: LINK_BLOCK, properties: DEFAULT_PROPERTIES },
   // { name: "Section", icon: "fa-square-o", key: "section", template: SECTION_BLOCK },
-  { name: "Video", icon: "fa-youtube", key: "video", template: VIDEO_BLOCK, properties: DEFAULT_PROPERTIES },
+  { name: "Video", icon: "fa-youtube", key: "video", template: VIDEO_BLOCK, properties: FAKE_PROPERTIES },
   { name: "Image", icon: "fa-image", key: "image", template: IMAGE_BLOCK, properties: DEFAULT_PROPERTIES },
-  { name: "Icon", icon: "fa-circle-o", key: "icon", template: ICON_BLOCK, properties: DEFAULT_PROPERTIES },
+  { name: "Icon", icon: "fa-circle-o", key: "icon", template: ICON_BLOCK, properties: FAKE_PROPERTIES },
 ];
 function PBBlockContainer({ onItemSelected }) {
   return (

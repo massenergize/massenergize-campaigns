@@ -42,7 +42,7 @@ function PBEntry() {
         </div>
       </BottomSheet>
       <div className="pb-right-panel">
-        <PBSidePanel />
+        <PBSidePanel block = {blockInFocus?.block} />
       </div>
       <PBFloatingFooter />
     </div>
