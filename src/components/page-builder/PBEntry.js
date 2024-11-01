@@ -12,6 +12,7 @@ function PBEntry() {
   const { Modal, open: openModal, close, modalProps } = usePBModal();
   const { BottomSheet, open: openBottomSheet, heightIsToggled } = usePBBottomSheet();
   const [sections, setSection] = useState([]);
+  const [blockInFocus, setBlockInFocus] = useState(null);
 
   const selectBlock = (blockJson) => {
     const { position } = modalProps || {};
@@ -20,14 +21,20 @@ function PBEntry() {
     setSection(newSection);
     close();
   };
-
+  console.log("BLOCK IN FOCUS", blockInFocus);
   return (
     <div className="pb-root">
       <Modal style={{ minHeight: 300 }}>
         <PBBlockContainer onItemSelected={selectBlock} />
       </Modal>
       <PBCanvas>
-        <PBSection sections={sections} onButtonClick={openModal} openBlockModal={openModal} />
+        <PBSection
+          blockInFocus={blockInFocus}
+          focusOnBlock={setBlockInFocus}
+          sections={sections}
+          onButtonClick={openModal}
+          openBlockModal={openModal}
+        />
       </PBCanvas>
       <BottomSheet>
         <div style={{ width: "70%" }}>

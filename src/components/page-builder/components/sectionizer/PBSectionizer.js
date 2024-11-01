@@ -2,14 +2,18 @@ import React from "react";
 import "./pb-section.css";
 import { usePBModal } from "../../hooks/usePBModal";
 import PBRender from "../render/PBRender";
-function PBSection({ onButtonClick, openBlockModal, sections }) {
+function PBSection({ onButtonClick, openBlockModal, sections, focusOnBlock, blockInFocus }) {
   const hasSections = sections.length > 0;
 
   return (
     <>
       {hasSections ? (
         sections?.map(({ block }, position) => (
-          <PBRender json={block} onClick={() => onButtonClick({ position: position + 1 })} />
+          <PBRender
+            onBlockClick={() => focusOnBlock({ block, options: { position } })}
+            json={block}
+            onClick={() => onButtonClick({ position: position + 1 })}
+          />
         ))
       ) : (
         <EmptySection open={() => openBlockModal({ position: 0 })} />
