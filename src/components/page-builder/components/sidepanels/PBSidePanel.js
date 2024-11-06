@@ -7,7 +7,6 @@ import { DEFAULT_PROPERTIES, EXAMPLE_PROPERTIES } from "./property-data";
 // import PropertyRenderer from "./PropertyRenderer";
 
 function PBSidePanel({ block, onPropertyChange }) {
-  console.log("LETS SEE BLOCK", block);
   const { PropertyRenderer } = usePropertyRenderer({ blockId: block?.id, onPropertyChange });
   return (
     <div className="pb-side-panel-root">

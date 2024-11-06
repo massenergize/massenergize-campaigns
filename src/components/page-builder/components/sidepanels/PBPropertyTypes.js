@@ -35,10 +35,17 @@ export const PBInput = (props) => {
         <input
           name={name}
           onChange={(e) =>
-            onChange && onChange({ cssKey, value: `${e?.target.value}${unit || "px"}`, name: e?.target.name, e })
+            onChange &&
+            onChange({
+              cssKey,
+              value: `${e?.target.value}${unit || "px"}`,
+              rawValue: e?.target.value,
+              name: e?.target.name,
+              e,
+            })
           }
           type={type}
-          // value={value || ""}
+          value={value || ""}
           placeholder={placeholder}
         />
       </div>

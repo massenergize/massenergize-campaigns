@@ -14,8 +14,43 @@ function PBEntry() {
   const [sections, setSection] = useState([]);
   const [blockInFocus, setBlockInFocus] = useState(null);
 
+  const addCssToBlock = (block, cssTrain, options) => {
+    const { cssKey, rawValue } = options || {};
+    const { block: blockItem, ...rest } = block;
+    const { template, properties } = blockItem || {};
+    //  ---- Handling Properties
+    const indexofItem = properties?.findIndex((p) => p?.cssKey === cssKey);
+    const newProperties = [...properties];
+    let propItem = properties[indexofItem];
+    if (propItem) {
+      propItem = { ...propItem, value: rawValue };
+      newProperties.splice(indexofItem, 1, propItem);
+    }
+
+    //  ---- Applying CSS Properties to block
+
+    const { element } = template || {};
+    const { props } = element || {};
+    const newElement = { ...element, props: { ...props, style: { ...props?.style, ...cssTrain } } };
+    const newBlock = {
+      ...rest,
+      block: { ...blockItem, properties: newProperties, template: { ...template, element: newElement } },
+    };
+    return newBlock;
+  };
+
   const whenPropertyChanges = (data) => {
-    console.log("PROPERTY CHANGED", data);
+    const newSectionList = [...sections];
+    const block = newSectionList.find((section) => section.block.id === data.id);
+
+    const newCss = { [data?.prop?.cssKey]: data?.prop?.value };
+    const newBlock = addCssToBlock(blockInFocus, newCss, {
+      cssKey: data?.prop?.cssKey,
+      rawValue: data?.prop?.rawValue,
+    });
+    newSectionList.splice(block?.options?.position, 1, newBlock);
+    setSection(newSectionList);
+    setBlockInFocus(newBlock);
   };
 
   const selectBlock = (blockJson) => {
@@ -25,7 +60,6 @@ function PBEntry() {
     setSection(newSection);
     close();
   };
-
 
   return (
     <div className="pb-root">

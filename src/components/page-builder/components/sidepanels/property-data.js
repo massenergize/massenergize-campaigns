@@ -2,6 +2,16 @@ import { PROPERTY_TYPES } from "./PBPropertyTypes";
 
 export const DEFAULT_PROPERTIES = [
   {
+    _type: PROPERTY_TYPES.INPUT,
+    text: "Fake Margins (%)",
+    name: "width",
+    placeholder: "0",
+    type: "number",
+    label: "Margin Top",
+    value: 32,
+    cssKey: "marginTop",
+  },
+  {
     _type: PROPERTY_TYPES.INPUT_GROUP,
     text: "Dimensions (px)",
     group: [
