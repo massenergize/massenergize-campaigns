@@ -13,7 +13,7 @@ import {
 import { DEFAULT_PROPERTIES, FAKE_PROPERTIES } from "../../sidepanels/property-data";
 const BLOCKS = [
   { name: "Title", icon: "fa-font", key: "title", template: TITLE_BLOCK, properties: DEFAULT_PROPERTIES },
-  { name: "Button", icon: "fa-square", key: "button", template: BTN_BLOCK, properties: FAKE_PROPERTIES },
+  { name: "Button", icon: "fa-square", key: "button", template: BTN_BLOCK, properties: DEFAULT_PROPERTIES },
   {
     name: "Paragraph",
     icon: "fa-paragraph",
@@ -31,7 +31,11 @@ function PBBlockContainer({ onItemSelected }) {
   return (
     <div className="pb-block-root" style={{ padding: 20 }}>
       {BLOCKS.map((block) => (
-        <div key={block.key} onClick={() => onItemSelected({ block })} className="pb-block-item">
+        <div
+          key={block.key}
+          onClick={() => onItemSelected({ block: { id: block?.template?.element?.id, ...block } })}
+          className="pb-block-item"
+        >
           <i className={`fa ${block.icon}`}></i>
           <p>{block.name}</p>
         </div>

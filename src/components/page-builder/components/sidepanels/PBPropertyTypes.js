@@ -8,37 +8,39 @@ export const PROPERTY_TYPES = {
   COLOR_PICKER: "color-picker",
   BACKGROUND_PICKER: "background-picker",
 };
+
 export const PBInputGroup = (props) => {
-  const { group } = props || {};
+  const { group, onChange } = props || {};
 
   return (
     <div className="flex-row align-center">
       {group?.map((item, index) => {
         return (
           <React.Fragment key={index}>
-            <PBInput {...item} />
+            <PBInput unit="%" onChange={onChange} {...item} />
           </React.Fragment>
         );
-        // return (
-        //   <div className="pb-textbox" style={{ marginLeft: index === 0 ? 0 : 10 }}>
-        //     <label index={index}>{itemLabel}</label>
-        //     <br />
-        //     <input type={itmType} />
-        //   </div>
-        // );
       })}
     </div>
   );
 };
 export const PBInput = (props) => {
-  const { label, type, value, onChange, placeholder } = props || {};
+  const { unit, label, type, value, onChange, placeholder, name, cssKey } = props || {};
 
   return (
     <div className="flex-row align-center">
       <div className="pb-textbox" style={{ marginRight: 10 }}>
         <label>{label || "..."}</label>
         <br />
-        <input type={type} placeholder={placeholder} />
+        <input
+          name={name}
+          onChange={(e) =>
+            onChange && onChange({ cssKey, value: `${e?.target.value}${unit || "px"}`, name: e?.target.name, e })
+          }
+          type={type}
+          // value={value || ""}
+          placeholder={placeholder}
+        />
       </div>
     </div>
   );

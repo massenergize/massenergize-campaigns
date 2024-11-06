@@ -6,12 +6,14 @@ import usePropertyRenderer from "./usePropertyRenderer";
 import { DEFAULT_PROPERTIES, EXAMPLE_PROPERTIES } from "./property-data";
 // import PropertyRenderer from "./PropertyRenderer";
 
-function PBSidePanel({ block }) {
-  const { PropertyRenderer } = usePropertyRenderer();
+function PBSidePanel({ block, onPropertyChange }) {
+  console.log("LETS SEE BLOCK", block);
+  const { PropertyRenderer } = usePropertyRenderer({ blockId: block?.id, onPropertyChange });
   return (
     <div className="pb-side-panel-root">
       <h6>Properties</h6>
       <PropertyRenderer properties={block?.properties} />
+
       {/* <div className="flex-row align-center">
         <div className="pb-textbox">
           <label>Width</label>

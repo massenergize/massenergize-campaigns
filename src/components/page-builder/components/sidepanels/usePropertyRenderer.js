@@ -2,7 +2,12 @@ import React from "react";
 import { PBBackgroundPicker, PBInput, PBInputGroup, PROPERTY_TYPES } from "./PBPropertyTypes";
 import PBDropdown from "../dropdown/PBDropdown";
 
-function usePropertyRenderer() {
+function usePropertyRenderer({ blockId, onPropertyChange }) {
+  const onChange = (prop) => {
+    onPropertyChange && onPropertyChange({ blockId, prop });
+    // console.log(prop);
+  };
+
   const ContentWrapper = ({ text, children }) => {
     return (
       <div>
@@ -15,36 +20,37 @@ function usePropertyRenderer() {
   const PropertyField = ({ json }) => {
     const { _type, text, ...rest } = json || {};
     const commonProps = { text };
+    const itemProps = { onChange, ...rest };
 
     switch (_type) {
       case PROPERTY_TYPES.INPUT:
         return (
           <ContentWrapper {...commonProps}>
-            <PBInput {...rest} />
+            <PBInput {...itemProps} />
           </ContentWrapper>
         );
       case PROPERTY_TYPES.INPUT_GROUP:
         return (
           <ContentWrapper {...commonProps}>
-            <PBInputGroup {...rest} />
+            <PBInputGroup {...itemProps} />
           </ContentWrapper>
         );
       case PROPERTY_TYPES.DROPDOWN:
         return (
           <ContentWrapper {...commonProps}>
-            <PBDropdown {...rest} />
+            <PBDropdown {...itemProps} />
           </ContentWrapper>
         );
       case PROPERTY_TYPES.COLOR_PICKER:
         return (
           <ContentWrapper {...commonProps}>
-            <PBDropdown {...rest} />
+            <PBDropdown {...itemProps} />
           </ContentWrapper>
         );
       case PROPERTY_TYPES.BACKGROUND_PICKER:
         return (
           <ContentWrapper {...commonProps}>
-            <PBBackgroundPicker {...rest} />
+            <PBBackgroundPicker {...itemProps} />
           </ContentWrapper>
         );
 

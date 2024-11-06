@@ -14,6 +14,10 @@ function PBEntry() {
   const [sections, setSection] = useState([]);
   const [blockInFocus, setBlockInFocus] = useState(null);
 
+  const whenPropertyChanges = (data) => {
+    console.log("PROPERTY CHANGED", data);
+  };
+
   const selectBlock = (blockJson) => {
     const { position } = modalProps || {};
     const newSection = [...sections];
@@ -21,8 +25,7 @@ function PBEntry() {
     setSection(newSection);
     close();
   };
-  
-  console.log("BLOCK IN FOCUS", blockInFocus);
+
 
   return (
     <div className="pb-root">
@@ -44,7 +47,7 @@ function PBEntry() {
         </div>
       </BottomSheet>
       <div className="pb-right-panel">
-        <PBSidePanel block = {blockInFocus?.block} />
+        <PBSidePanel onPropertyChange={whenPropertyChanges} block={blockInFocus?.block} />
       </div>
       <PBFloatingFooter />
     </div>
