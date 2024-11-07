@@ -14,21 +14,35 @@ function PBEntry() {
   const [sections, setSection] = useState([]);
   const [blockInFocus, setBlockInFocus] = useState(null);
 
-  const addCssToBlock = (block, cssTrain, options) => {
-    const { cssKey, rawValue } = options || {};
-    const { block: blockItem, ...rest } = block;
-    const { template, properties } = blockItem || {};
-    //  ---- Handling Properties
-    const indexofItem = properties?.findIndex((p) => p?.cssKey === cssKey);
+  const handlePropertyChange = (properties, options) => {
+    const { isGrouped, rawValue, cssKey, groupIndex, propertyIndex } = options || {};
+    console.log("WITHIN OPTIONS", options);
     const newProperties = [...properties];
-    let propItem = properties[indexofItem];
-    if (propItem) {
-      propItem = { ...propItem, value: rawValue };
-      newProperties.splice(indexofItem, 1, propItem);
+    if (isGrouped) {
+      const p = newProperties[propertyIndex];
+      const { group } = p;
+      const newGroup = [...group];
+      const item = group[groupIndex];
+      const newItem = { ...item, value: rawValue };
+      newGroup.splice(groupIndex, 1, newItem);
+      const newProp = { ...p, group: newGroup };
+      newProperties.splice(propertyIndex, 1, newProp);
+      return newProperties;
     }
+    // const indexofItem = properties?.findIndex((p) => p?.cssKey === cssKey);
+    let propItem = properties[propertyIndex];
+    propItem = { ...propItem, value: rawValue };
+    newProperties.splice(propertyIndex, 1, propItem);
+    return newProperties;
+  };
 
+  const addCssToBlock = (block, cssTrain, options) => {
+    const { data } = options || {};
+    const { block: blockItem, group, ...rest } = block;
+    const { template, properties } = blockItem || {};
+    //  ---- Handling Properties -----
+    const newProperties = handlePropertyChange(properties, data?.prop);
     //  ---- Applying CSS Properties to block
-
     const { element } = template || {};
     const { props } = element || {};
     const newElement = { ...element, props: { ...props, style: { ...props?.style, ...cssTrain } } };
@@ -47,6 +61,7 @@ function PBEntry() {
     const newBlock = addCssToBlock(blockInFocus, newCss, {
       cssKey: data?.prop?.cssKey,
       rawValue: data?.prop?.rawValue,
+      data,
     });
     newSectionList.splice(block?.options?.position, 1, newBlock);
     setSection(newSectionList);

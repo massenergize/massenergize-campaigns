@@ -10,14 +10,18 @@ export const PROPERTY_TYPES = {
 };
 
 export const PBInputGroup = (props) => {
-  const { group, onChange } = props || {};
+  const { group, onChange, propertyIndex } = props || {};
 
   return (
     <div className="flex-row align-center">
       {group?.map((item, index) => {
         return (
           <React.Fragment key={index}>
-            <PBInput unit="%" onChange={onChange} {...item} />
+            <PBInput
+              unit="%"
+              onChange={(data) => onChange({ ...data, groupIndex: index, isGrouped: true, propertyIndex })}
+              {...item}
+            />
           </React.Fragment>
         );
       })}

@@ -17,10 +17,10 @@ function usePropertyRenderer({ blockId, onPropertyChange }) {
     );
   };
 
-  const PropertyField = ({ json }) => {
+  const PropertyField = ({ json, propertyIndex }) => {
     const { _type, text, ...rest } = json || {};
     const commonProps = { text };
-    const itemProps = { onChange, ...rest };
+    const itemProps = { onChange, propertyIndex, ...rest };
 
     switch (_type) {
       case PROPERTY_TYPES.INPUT:
@@ -32,7 +32,7 @@ function usePropertyRenderer({ blockId, onPropertyChange }) {
       case PROPERTY_TYPES.INPUT_GROUP:
         return (
           <ContentWrapper {...commonProps}>
-            <PBInputGroup {...itemProps} />
+            <PBInputGroup isGroup {...itemProps} />
           </ContentWrapper>
         );
       case PROPERTY_TYPES.DROPDOWN:
@@ -64,7 +64,7 @@ function usePropertyRenderer({ blockId, onPropertyChange }) {
     if (!properties) return <small> Selected item has no properties </small>;
 
     return properties.map((item, index) => {
-      return <React.Fragment key={index}>{<PropertyField json={item} />}</React.Fragment>;
+      return <React.Fragment key={index}>{<PropertyField json={item} propertyIndex={index} />}</React.Fragment>;
     });
   };
 
