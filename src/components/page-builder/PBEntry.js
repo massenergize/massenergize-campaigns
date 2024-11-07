@@ -16,7 +16,6 @@ function PBEntry() {
 
   const handlePropertyChange = (properties, options) => {
     const { isGrouped, rawValue, cssKey, groupIndex, propertyIndex } = options || {};
-    console.log("WITHIN OPTIONS", options);
     const newProperties = [...properties];
     if (isGrouped) {
       const p = newProperties[propertyIndex];
@@ -31,6 +30,7 @@ function PBEntry() {
     }
     // const indexofItem = properties?.findIndex((p) => p?.cssKey === cssKey);
     let propItem = properties[propertyIndex];
+
     propItem = { ...propItem, value: rawValue };
     newProperties.splice(propertyIndex, 1, propItem);
     return newProperties;

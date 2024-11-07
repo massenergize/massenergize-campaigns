@@ -29,7 +29,7 @@ export const PBInputGroup = (props) => {
   );
 };
 export const PBInput = (props) => {
-  const { unit, label, type, value, onChange, placeholder, name, cssKey } = props || {};
+  const { unit, label, type, value, onChange, placeholder, name, cssKey, propertyIndex } = props || {};
 
   return (
     <div className="flex-row align-center">
@@ -45,6 +45,7 @@ export const PBInput = (props) => {
               value: `${e?.target.value}${unit || "px"}`,
               rawValue: e?.target.value,
               name: e?.target.name,
+              propertyIndex,
               e,
             })
           }
