@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { PBBackgroundPicker, PBInput, PBInputGroup, PROPERTY_TYPES } from "./PBPropertyTypes";
+import { PBBackgroundPicker, PBColorPicker, PBInput, PBInputGroup, PROPERTY_TYPES } from "./PBPropertyTypes";
 import PBDropdown from "../dropdown/PBDropdown";
 
 function usePropertyRenderer({ blockId, onPropertyChange, onFocused, lastFocus }) {
@@ -50,7 +50,7 @@ function usePropertyRenderer({ blockId, onPropertyChange, onFocused, lastFocus }
       case PROPERTY_TYPES.COLOR_PICKER:
         return (
           <ContentWrapper {...commonProps}>
-            <PBDropdown {...itemProps} />
+            <PBColorPicker focus={shouldBeFocused(rest?.name)} {...itemProps} />
           </ContentWrapper>
         );
       case PROPERTY_TYPES.BACKGROUND_PICKER:

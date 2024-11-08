@@ -68,8 +68,25 @@ export const PBInput = (props) => {
   );
 };
 
-export const PBColorPicker = () => {
-  return <input type="color" />;
+export const PBColorPicker = (props) => {
+  const { value, focus, onFocus, onChange, placeholder, propertyIndex, cssKey } = props || {};
+  const ref = useRef();
+  useEffect(() => {
+    if (focus) {
+      ref.current.focus();
+    }
+  }, [focus]);
+
+  return (
+    <input
+      onFocus={onFocus}
+      type="color"
+      onChange={(e) => onChange({ value: e?.target.value, rawValue: e?.target.value, e, propertyIndex, cssKey })}
+      value={value}
+      className="pb-color-picker"
+      placeholder={placeholder || "Use Color Picker"}
+    />
+  );
 };
 
 export const PBBackgroundPicker = (props) => {

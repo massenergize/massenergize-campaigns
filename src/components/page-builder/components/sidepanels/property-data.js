@@ -42,10 +42,11 @@ export const DEFAULT_PROPERTIES = [
     ],
   },
   {
-    _type: PROPERTY_TYPES.BACKGROUND_PICKER,
+    _type: PROPERTY_TYPES.COLOR_PICKER,
     name: "background",
-    text: "Background",
+    text: "Background Color",
     cssKey: "background",
+    value: "#dddddd",
   },
   {
     _type: PROPERTY_TYPES.DROPDOWN,
