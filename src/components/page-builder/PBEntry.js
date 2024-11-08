@@ -33,9 +33,7 @@ function PBEntry() {
       newProperties.splice(propertyIndex, 1, newProp);
       return newProperties;
     }
-    // const indexofItem = properties?.findIndex((p) => p?.cssKey === cssKey);
     let propItem = properties[propertyIndex];
-
     propItem = { ...propItem, value: rawValue };
     newProperties.splice(propertyIndex, 1, propItem);
     return newProperties;
@@ -60,8 +58,7 @@ function PBEntry() {
 
   const whenPropertyChanges = (data) => {
     const newSectionList = [...sections];
-    const block = newSectionList.find((section) => section.block.id === data.id);
-
+    const block = newSectionList.find((section) => section.block.id === data?.blockId);
     const newCss = { [data?.prop?.cssKey]: data?.prop?.value };
     const newBlock = addCssToBlock(blockInFocus, newCss, {
       cssKey: data?.prop?.cssKey,
@@ -76,7 +73,8 @@ function PBEntry() {
   const selectBlock = (blockJson) => {
     const { position } = modalProps || {};
     const newSection = [...sections];
-    newSection.splice(position, 0, blockJson);
+    const oldOptions = blockJson?.options || {};
+    newSection.splice(position, 0, { ...blockJson, options: { ...oldOptions, position } });
     setSection(newSection);
     close();
   };

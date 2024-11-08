@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { forwardRef, useEffect, useRef } from "react";
 import PBDropdown from "../dropdown/PBDropdown";
 
 export const PROPERTY_TYPES = {
@@ -79,6 +79,7 @@ export const PBColorPicker = (props) => {
 
   return (
     <input
+      ref={ref}
       onFocus={onFocus}
       type="color"
       onChange={(e) => onChange({ value: e?.target.value, rawValue: e?.target.value, e, propertyIndex, cssKey })}
@@ -106,5 +107,8 @@ export const PBBackgroundPicker = (props) => {
 };
 
 export const Dropdown = (props) => {
-  return <PBDropdown {...props} />;
+  const { value, focus, onFocus, onChange, placeholder, propertyIndex, cssKey } = props || {};
+  const ref = forwardRef();
+
+  return <PBDropdown ref={ref} {...props} />;
 };

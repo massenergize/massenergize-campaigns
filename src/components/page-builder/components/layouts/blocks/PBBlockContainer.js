@@ -27,13 +27,15 @@ const BLOCKS = [
   { name: "Image", icon: "fa-image", key: "image", template: IMAGE_BLOCK, properties: DEFAULT_PROPERTIES },
   { name: "Icon", icon: "fa-circle-o", key: "icon", template: ICON_BLOCK, properties: FAKE_PROPERTIES },
 ];
+
 function PBBlockContainer({ onItemSelected }) {
   return (
     <div className="pb-block-root" style={{ padding: 20 }}>
       {BLOCKS.map((block) => (
         <div
           key={block.key}
-          onClick={() => onItemSelected({ block: { id: block?.template?.element?.id, ...block } })}
+          // onClick={() => onItemSelected({ block: { id: block?.template?.element?.id, ...block } })}
+          onClick={() => onItemSelected({ block: { id: Date.now(), ...block } })}
           className="pb-block-item"
         >
           <i className={`fa ${block.icon}`}></i>

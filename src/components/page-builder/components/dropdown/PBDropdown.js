@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./pb-dropdown.css";
-function PBDropdown() {
+function PBDropdown(props) {
+  const { ref, focus, data, onChange, onFocus, cssKey, propertyIndex, value } = props || {};
+  useEffect(() => {
+    if (focus) {
+      ref.current.focus();
+    }
+  }, [focus]);
   return (
     <div className="pb-dropdown">
-      <select className="pb-undefault">
-        <option>Center</option>
-        <option> Left</option>
-        <option>Right</option>
+      <select
+        onFocus={onFocus}
+        ref={ref}
+        value={value}
+        className="pb-undefault"
+        onChange={(e) => {
+          onChange && onChange({ value: e?.target.value, rawValue: e?.target.value, e, cssKey, propertyIndex });
+        }}
+      >
+        {data?.map((item, index) => (
+          <option key={index} value={item?.value}>
+            {item?.name}
+          </option>
+        ))}
       </select>
     </div>
   );

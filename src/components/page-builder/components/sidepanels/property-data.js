@@ -50,15 +50,25 @@ export const DEFAULT_PROPERTIES = [
   },
   {
     _type: PROPERTY_TYPES.DROPDOWN,
-    name: "h-alignment",
-    text: "Horizontal Alignment",
+    name: "v-alignment",
+    text: "Vertical Alignment",
     cssKey: "justifyContent",
+    data: [
+      { name: "Center", value: "center" },
+      { name: "Left", value: "flex-start" },
+      { name: "Right", value: "flex-end" },
+    ],
   },
   {
     _type: PROPERTY_TYPES.DROPDOWN,
-    name: "v-alignment",
-    text: "Vertical Alignment",
+    name: "h-alignment",
+    text: "Horizontal Alignment",
     cssKey: "alignItems",
+    data: [
+      { name: "Center", value: "center" },
+      { name: "Left", value: "flex-start" },
+      { name: "Right", value: "flex-end" },
+    ],
   },
 ];
 export const FAKE_PROPERTIES = [
