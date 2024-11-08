@@ -3,20 +3,20 @@ import { PROPERTY_TYPES } from "./PBPropertyTypes";
 export const DEFAULT_PROPERTIES = [
   {
     _type: PROPERTY_TYPES.INPUT,
-    text: "Fake Margins (%)",
-    name: "fake-width",
+    text: "Text",
+    name: "text",
     placeholder: "0",
-    type: "number",
-    label: "Margin Top",
-    value: 32,
+    type: "text",
+    label: "Text Content",
+    value: "Enter text here...",
     cssKey: "marginTop",
   },
   {
     _type: PROPERTY_TYPES.INPUT_GROUP,
-    text: "Dimensions (px)",
+    text: "Dimensions",
     group: [
-      { name: "width", placeholder: "0", type: "number", label: "Width", value: 32, cssKey: "width" },
-      { name: "height", placeholder: "0", type: "number", label: "Height", value: 32, cssKey: "height" },
+      { name: "width", placeholder: "0", type: "number", label: "Width", value: 32, cssKey: "width", unit: "px" },
+      { name: "height", placeholder: "0", type: "number", label: "Height", value: 32, cssKey: "height", unit: "px" },
     ],
   },
   {
@@ -53,10 +53,11 @@ export const DEFAULT_PROPERTIES = [
     name: "v-alignment",
     text: "Vertical Alignment",
     cssKey: "justifyContent",
+    value: "flex-start",
     data: [
       { name: "Center", value: "center" },
-      { name: "Left", value: "flex-start" },
-      { name: "Right", value: "flex-end" },
+      { name: "Top", value: "flex-start" },
+      { name: "Bottom", value: "flex-end" },
     ],
   },
   {
@@ -64,6 +65,7 @@ export const DEFAULT_PROPERTIES = [
     name: "h-alignment",
     text: "Horizontal Alignment",
     cssKey: "alignItems",
+    value: "flex-start",
     data: [
       { name: "Center", value: "center" },
       { name: "Left", value: "flex-start" },
