@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { PBBackgroundPicker, PBInput, PBInputGroup, PROPERTY_TYPES } from "./PBPropertyTypes";
 import PBDropdown from "../dropdown/PBDropdown";
 
-function usePropertyRenderer({ blockId, onPropertyChange }) {
+function usePropertyRenderer({ blockId, onPropertyChange, onFocused, lastFocus }) {
   const onChange = (prop) => {
     onPropertyChange && onPropertyChange({ blockId, prop });
-    // console.log(prop);
+  };
+  const handleFocus = (focusedProps) => {
+    onFocused && onFocused(focusedProps);
   };
 
   const ContentWrapper = ({ text, children }) => {
@@ -20,19 +22,23 @@ function usePropertyRenderer({ blockId, onPropertyChange }) {
   const PropertyField = ({ json, propertyIndex }) => {
     const { _type, text, ...rest } = json || {};
     const commonProps = { text };
-    const itemProps = { onChange, propertyIndex, ...rest };
-
+    const itemProps = { onChange, onFocus: handleFocus, propertyIndex, ...rest };
+    const shouldBeFocused = (name) => lastFocus?.key === name;
     switch (_type) {
       case PROPERTY_TYPES.INPUT:
         return (
           <ContentWrapper {...commonProps}>
-            <PBInput {...itemProps} />
+            <PBInput
+              focus={shouldBeFocused(rest?.name)}
+              {...itemProps}
+              onFocus={(e) => handleFocus({ target: e?.target, key: rest?.name })}
+            />
           </ContentWrapper>
         );
       case PROPERTY_TYPES.INPUT_GROUP:
         return (
           <ContentWrapper {...commonProps}>
-            <PBInputGroup isGroup {...itemProps} />
+            <PBInputGroup shouldBeFocused={shouldBeFocused} isGroup {...itemProps} />
           </ContentWrapper>
         );
       case PROPERTY_TYPES.DROPDOWN:

@@ -4,7 +4,7 @@ export const DEFAULT_PROPERTIES = [
   {
     _type: PROPERTY_TYPES.INPUT,
     text: "Fake Margins (%)",
-    name: "width",
+    name: "fake-width",
     placeholder: "0",
     type: "number",
     label: "Margin Top",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./pb-sidepanel.css";
 import PBDropdown from "../dropdown/PBDropdown";
 import { PBBackgroundPicker } from "./PBPropertyTypes";
@@ -6,8 +6,17 @@ import usePropertyRenderer from "./usePropertyRenderer";
 import { DEFAULT_PROPERTIES, EXAMPLE_PROPERTIES } from "./property-data";
 // import PropertyRenderer from "./PropertyRenderer";
 
-function PBSidePanel({ block, onPropertyChange }) {
-  const { PropertyRenderer } = usePropertyRenderer({ blockId: block?.id, onPropertyChange });
+function PBSidePanel({ block, onPropertyChange, onFocused, lastFocus }) {
+  const { PropertyRenderer } = usePropertyRenderer({ blockId: block?.id, onPropertyChange, onFocused, lastFocus });
+  // useEffect(() => {
+  //   if (lastFocus) {
+  //     console.log("Found the focus", lastFocus);
+  //     lastFocus.focus();
+  //   } else console.log("No focus found");
+  // }, [lastFocus]);
+  useEffect(() =>{
+    console.log("SEE LAST FOCUS",lastFocus)
+  },[])
   return (
     <div className="pb-side-panel-root">
       <h6>Properties</h6>

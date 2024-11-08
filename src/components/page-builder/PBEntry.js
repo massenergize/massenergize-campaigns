@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import PBCanvas from "./PBCanvas";
 import "./assets/css/pb-index.css";
 import PBSidePanel from "./components/sidepanels/PBSidePanel";
@@ -13,6 +13,11 @@ function PBEntry() {
   const { BottomSheet, open: openBottomSheet, heightIsToggled } = usePBBottomSheet();
   const [sections, setSection] = useState([]);
   const [blockInFocus, setBlockInFocus] = useState(null);
+  const recentlyUsedFieldRef = useRef();
+
+  const onFocused = useCallback((target) => {
+    recentlyUsedFieldRef.current = target;
+  }, []);
 
   const handlePropertyChange = (properties, options) => {
     const { isGrouped, rawValue, cssKey, groupIndex, propertyIndex } = options || {};
@@ -96,7 +101,12 @@ function PBEntry() {
         </div>
       </BottomSheet>
       <div className="pb-right-panel">
-        <PBSidePanel onPropertyChange={whenPropertyChanges} block={blockInFocus?.block} />
+        <PBSidePanel
+          onFocused={onFocused}
+          lastFocus={recentlyUsedFieldRef?.current}
+          onPropertyChange={whenPropertyChanges}
+          block={blockInFocus?.block}
+        />
       </div>
       <PBFloatingFooter />
     </div>

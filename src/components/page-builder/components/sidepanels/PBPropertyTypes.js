@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import PBDropdown from "../dropdown/PBDropdown";
 
 export const PROPERTY_TYPES = {
@@ -10,7 +10,7 @@ export const PROPERTY_TYPES = {
 };
 
 export const PBInputGroup = (props) => {
-  const { group, onChange, propertyIndex } = props || {};
+  const { group, onChange, propertyIndex, onFocus, shouldBeFocused } = props || {};
 
   return (
     <div className="flex-row align-center">
@@ -18,6 +18,8 @@ export const PBInputGroup = (props) => {
         return (
           <React.Fragment key={index}>
             <PBInput
+              focus={shouldBeFocused(item?.name)}
+              onFocus={(e) => onFocus({ target: e?.target, key: item?.name })}
               unit="%"
               onChange={(data) => onChange({ ...data, groupIndex: index, isGrouped: true, propertyIndex })}
               {...item}
@@ -29,7 +31,13 @@ export const PBInputGroup = (props) => {
   );
 };
 export const PBInput = (props) => {
-  const { unit, label, type, value, onChange, placeholder, name, cssKey, propertyIndex } = props || {};
+  const { focus, onFocus, unit, label, type, value, onChange, placeholder, name, cssKey, propertyIndex } = props || {};
+  const ref = useRef();
+  useEffect(() => {
+    if (focus) {
+      ref.current.focus();
+    }
+  }, [focus]);
 
   return (
     <div className="flex-row align-center">
@@ -37,6 +45,8 @@ export const PBInput = (props) => {
         <label>{label || "..."}</label>
         <br />
         <input
+          ref={ref}
+          onFocus={onFocus}
           name={name}
           onChange={(e) =>
             onChange &&
