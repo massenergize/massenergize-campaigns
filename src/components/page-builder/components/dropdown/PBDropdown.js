@@ -1,7 +1,20 @@
 import React, { useEffect } from "react";
 import "./pb-dropdown.css";
 function PBDropdown(props) {
-  const { ref, focus, data, onChange, onFocus, cssKey, propertyIndex, value } = props || {};
+  const {
+    accessor,
+    propAccessor,
+    propIsObj,
+    append,
+    ref,
+    focus,
+    data,
+    onChange,
+    onFocus,
+    cssKey,
+    propertyIndex,
+    value,
+  } = props || {};
   useEffect(() => {
     if (focus) {
       ref.current.focus();
@@ -15,7 +28,18 @@ function PBDropdown(props) {
         value={value}
         className="pb-undefault"
         onChange={(e) => {
-          onChange && onChange({ value: e?.target.value, rawValue: e?.target.value, e, cssKey, propertyIndex });
+          onChange &&
+            onChange({
+              accessor,
+              propAccessor,
+              propIsObj,
+              append,
+              value: e?.target.value,
+              rawValue: e?.target.value,
+              e,
+              cssKey,
+              propertyIndex,
+            });
         }}
       >
         {data?.map((item, index) => (

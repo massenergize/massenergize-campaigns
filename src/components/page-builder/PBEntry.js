@@ -39,16 +39,47 @@ function PBEntry() {
     return newProperties;
   };
 
-  const addCssToBlock = (block, cssTrain, options) => {
+  // const addCssToBlock = (block, cssTrain, options) => {
+  //   const { data } = options || {};
+  //   const { block: blockItem, group, ...rest } = block;
+  //   const { template, properties } = blockItem || {};
+  //   //  ---- Handling Properties -----
+  //   const newProperties = handlePropertyChange(properties, data?.prop);
+  //   //  ---- Applying CSS Properties to block
+  //   const { element } = template || {};
+  //   const { props } = element || {};
+  //   const newElement = { ...element, props: { ...props, style: { ...props?.style, ...cssTrain } } };
+  //   const newBlock = {
+  //     ...rest,
+  //     block: { ...blockItem, properties: newProperties, template: { ...template, element: newElement } },
+  //   };
+  //   return newBlock;
+  // };
+
+  const mergeProps = (oldProps, valueObj, options) => {
+    const { propAccessor, append, propIsObj, rawValue } = options || {};
+    const newProps = { ...oldProps };
+    let prop = oldProps[propAccessor] || {};
+    if (propIsObj) {
+      if (append) prop = { ...prop, ...valueObj };
+      else prop = { ...valueObj };
+    } else prop = rawValue;
+    newProps[propAccessor] = prop;
+    return newProps;
+  };
+
+  const applyProps = (block, valueObj, options) => {
     const { data } = options || {};
+
     const { block: blockItem, group, ...rest } = block;
     const { template, properties } = blockItem || {};
     //  ---- Handling Properties -----
-    const newProperties = handlePropertyChange(properties, data?.prop);
-    //  ---- Applying CSS Properties to block
+    const newProperties = handlePropertyChange(properties, options);
+    //  ---- Applying Properties to block
     const { element } = template || {};
     const { props } = element || {};
-    const newElement = { ...element, props: { ...props, style: { ...props?.style, ...cssTrain } } };
+    const newProps = mergeProps(props, valueObj, options);
+    const newElement = { ...element, props: { ...props, ...newProps } };
     const newBlock = {
       ...rest,
       block: { ...blockItem, properties: newProperties, template: { ...template, element: newElement } },
@@ -59,12 +90,14 @@ function PBEntry() {
   const whenPropertyChanges = (data) => {
     const newSectionList = [...sections];
     const block = newSectionList.find((section) => section.block.id === data?.blockId);
-    const newCss = { [data?.prop?.cssKey]: data?.prop?.value };
-    const newBlock = addCssToBlock(blockInFocus, newCss, {
-      cssKey: data?.prop?.cssKey,
-      rawValue: data?.prop?.rawValue,
-      data,
-    });
+    const valueTrain = { [data?.prop?.accessor]: data?.prop?.value };
+    // const newBlock = addCssToBlock(blockInFocus, newCss, {
+    //   cssKey: data?.prop?.cssKey,
+    //   rawValue: data?.prop?.rawValue,
+    //   data,
+    // });
+    console.log("What DATA LOOKS LIKE", data);
+    const newBlock = applyProps(blockInFocus, valueTrain, data?.prop);
     newSectionList.splice(block?.options?.position, 1, newBlock);
     setSection(newSectionList);
     setBlockInFocus(newBlock);

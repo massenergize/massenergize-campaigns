@@ -31,7 +31,23 @@ export const PBInputGroup = (props) => {
   );
 };
 export const PBInput = (props) => {
-  const { focus, onFocus, unit, label, type, value, onChange, placeholder, name, cssKey, propertyIndex } = props || {};
+  const {
+    propIsObj,
+    propAccessor,
+    accessor,
+    append,
+    focus,
+    onFocus,
+    unit,
+    label,
+    type,
+    value,
+    onChange,
+    placeholder,
+    name,
+    cssKey,
+    propertyIndex,
+  } = props || {};
   const ref = useRef();
   useEffect(() => {
     if (focus) {
@@ -51,11 +67,14 @@ export const PBInput = (props) => {
           onChange={(e) =>
             onChange &&
             onChange({
-              cssKey,
+              accessor,
               value: `${e?.target.value}${unit || "px"}`,
               rawValue: e?.target.value,
               name: e?.target.name,
               propertyIndex,
+              propIsObj,
+              propAccessor,
+              append,
               e,
             })
           }
@@ -69,7 +88,18 @@ export const PBInput = (props) => {
 };
 
 export const PBColorPicker = (props) => {
-  const { value, focus, onFocus, onChange, placeholder, propertyIndex, cssKey } = props || {};
+  const {
+    accessor,
+    propAccessor,
+    propIsObj,
+    append,
+    value,
+    focus,
+    onFocus,
+    onChange,
+    placeholder,
+    propertyIndex,
+  } = props || {};
   const ref = useRef();
   useEffect(() => {
     if (focus) {
@@ -82,7 +112,18 @@ export const PBColorPicker = (props) => {
       ref={ref}
       onFocus={onFocus}
       type="color"
-      onChange={(e) => onChange({ value: e?.target.value, rawValue: e?.target.value, e, propertyIndex, cssKey })}
+      onChange={(e) =>
+        onChange({
+          value: e?.target.value,
+          rawValue: e?.target.value,
+          e,
+          propertyIndex,
+          accessor,
+          propAccessor,
+          propIsObj,
+          append,
+        })
+      }
       value={value}
       className="pb-color-picker"
       placeholder={placeholder || "Use Color Picker"}

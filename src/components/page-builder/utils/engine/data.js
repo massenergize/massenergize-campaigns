@@ -1,6 +1,6 @@
 export const SECTION_BLOCK = {
   element: {
-    id: Date.now(),
+    // id: Date.now(),
     type: "div",
     props: { className: "first-container", style: { background: "red", padding: 20 } },
   },
@@ -55,31 +55,23 @@ export const SECTION_BLOCK = {
 
 export const TITLE_BLOCK = {
   element: {
-    id: Date.now(),
-    type: "div",
-    props: { style: { padding: 10 } },
+    type: "h2",
+    props: { style: { padding: 10 }, text: "New title here..." },
   },
-  direction: "y",
-  content: [
-    {
-      element: { id: new Date().getMilliseconds(), type: "h2", text: "New title here..." },
-    },
-  ],
+
 };
 export const PARAGRAPH_BLOCK = {
   element: {
     id: Date.now(),
     type: "p",
-    props: { style: { background: "whitesmoke", padding: 10, margin: 0 } },
-    text: "Start adding your paragraph here...",
+    props: { style: { background: "whitesmoke", padding: 10, margin: 0 }, text: "Start adding your paragraph here..." },
   },
 };
 export const BTN_BLOCK = {
   element: {
     id: Date.now(),
     type: "button",
-    props: { className: "pb-block-btn touchable-opacity", style: {} },
-    text: "Click Me",
+    props: { className: "pb-block-btn touchable-opacity", style: {}, text: "Click Me" },
   },
 };
 export const IMAGE_BLOCK = {
@@ -100,8 +92,13 @@ export const LINK_BLOCK = {
   element: {
     // id: Date.now(),
     type: "link",
-    text: "Here is a link, change the url in right panel...",
-    props: { style: { padding: 10 }, href: "https://www.youtube.com/watch?v=J3oijWs-dCs", target: "_blank" },
+
+    props: {
+      text: "Here is a link, change the url in right panel...",
+      style: { padding: 10 },
+      href: "https://www.youtube.com/watch?v=J3oijWs-dCs",
+      target: "_blank",
+    },
   },
 };
 export const ICON_BLOCK = {
