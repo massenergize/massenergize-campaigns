@@ -1,12 +1,14 @@
 import { PROPERTY_TYPES } from "./PBPropertyTypes";
 
-const STYLE_DEFS = { 
+const STYLE_DEFS = {
   append: true,
   propAccessor: "style",
   propIsObj: true,
-}
-export const DEFAULT_PROPERTIES = [
+};
+
+const TEXT_PROPS = [
   {
+    // ...STYLE_DEFS,
     _type: PROPERTY_TYPES.INPUT,
     text: "Text Content",
     name: "text",
@@ -16,9 +18,11 @@ export const DEFAULT_PROPERTIES = [
     placeholder: "Enter text here...",
     propAccessor: "text",
   },
+];
+const BASIC_PROPS = [
   {
     _type: PROPERTY_TYPES.INPUT_GROUP,
-    text: "Dimensions",
+    text: "Dimensions(px)",
     group: [
       {
         ...STYLE_DEFS,
@@ -26,7 +30,7 @@ export const DEFAULT_PROPERTIES = [
         placeholder: "0",
         type: "number",
         label: "Width",
-        value: 32,
+
         accessor: "width",
         unit: "px",
       },
@@ -36,7 +40,7 @@ export const DEFAULT_PROPERTIES = [
         placeholder: "0",
         type: "number",
         label: "Height",
-        value: 32,
+
         accessor: "height",
         unit: "px",
       },
@@ -120,14 +124,9 @@ export const DEFAULT_PROPERTIES = [
       },
     ],
   },
-  {
-    ...STYLE_DEFS,
-    _type: PROPERTY_TYPES.COLOR_PICKER,
-    name: "background",
-    text: "Background Color",
-    accessor: "background",
-    value: "#dddddd",
-  },
+];
+
+const ALIGNMENTS_PROPS = [
   {
     ...STYLE_DEFS,
     _type: PROPERTY_TYPES.DROPDOWN,
@@ -155,40 +154,84 @@ export const DEFAULT_PROPERTIES = [
     ],
   },
 ];
-export const FAKE_PROPERTIES = [
+
+const BACKGROUND_PROPS = [
   {
-    _type: PROPERTY_TYPES.INPUT_GROUP,
-    text: "Dimensions (px)",
-    group: [
-      { name: "width", placeholder: "0", type: "number", label: "Width", value: 32 },
-      { name: "height", placeholder: "0", type: "number", label: "Height", value: 32 },
-    ],
-  },
-  {
-    _type: PROPERTY_TYPES.INPUT_GROUP,
-    name: "padding",
-    text: "Padding (%)",
-    group: [
-      { label: "Left", placeholder: "0", type: "number", name: "pl" },
-      { label: "Right", placeholder: "0", type: "number", name: "pr" },
-      { label: "Top", placeholder: "0", type: "number", name: "pt" },
-      { label: "Bottom", placeholder: "0", type: "number", name: "pb" },
-    ],
-  },
-  {
-    _type: PROPERTY_TYPES.INPUT_GROUP,
-    name: "margin",
-    text: "Margin (%)",
-    group: [
-      { label: "Left", placeholder: "0", type: "number", name: "pl" },
-      { label: "Right", placeholder: "0", type: "number", name: "pr" },
-      { label: "Top", placeholder: "0", type: "number", name: "pt" },
-      { label: "Bottom", placeholder: "0", type: "number", name: "pb" },
-    ],
-  },
-  {
-    _type: PROPERTY_TYPES.BACKGROUND_PICKER,
+    ...STYLE_DEFS,
+    _type: PROPERTY_TYPES.COLOR_PICKER,
     name: "background",
-    text: "Background",
+    text: "Background Color",
+    accessor: "background",
+    value: "#dddddd",
   },
+];
+const TEXT_COLOR_PROPS = [
+  {
+    ...STYLE_DEFS,
+    _type: PROPERTY_TYPES.COLOR_PICKER,
+    name: "color",
+    text: "Text Color",
+    accessor: "color",
+    value: "#000000",
+  },
+];
+export const DEFAULT_PROPERTIES = [
+  {
+    _type: PROPERTY_TYPES.INPUT,
+    text: "Text Content",
+    name: "text",
+    // placeholder: "0",
+    type: "text",
+    label: "Add text",
+    placeholder: "Enter text here...",
+    propAccessor: "text",
+  },
+  ...BASIC_PROPS,
+  {
+    ...STYLE_DEFS,
+    _type: PROPERTY_TYPES.COLOR_PICKER,
+    name: "background",
+    text: "Background Color",
+    accessor: "background",
+    value: "#dddddd",
+  },
+  ...ALIGNMENTS_PROPS,
+];
+
+export const VIDEO_PROPS = [
+  {
+    _type: PROPERTY_TYPES.INPUT,
+    text: "Video Source",
+    name: "src",
+    // placeholder: "0",
+    type: "text",
+    label: "Add video link(Eg. Youtube)",
+    placeholder: "Add link here...",
+    propAccessor: "src",
+  },
+  ...BASIC_PROPS,
+];
+export const BUTTON_PROPS = [
+  ...TEXT_PROPS,
+  ...BASIC_PROPS,
+  ...BACKGROUND_PROPS,
+  ...TEXT_COLOR_PROPS,
+  ...ALIGNMENTS_PROPS,
+];
+export const LINK_PROPS = [
+  ...TEXT_PROPS,
+  {
+    _type: PROPERTY_TYPES.INPUT,
+    text: "URL",
+    name: "url",
+    // placeholder: "0",
+    type: "text",
+    label: "URL Definition",
+    placeholder: "Insert link here...",
+    propAccessor: "href",
+  },
+  ...BASIC_PROPS,
+  ...BACKGROUND_PROPS,
+  ...TEXT_COLOR_PROPS,
+  ...ALIGNMENTS_PROPS,
 ];

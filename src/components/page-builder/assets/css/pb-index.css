@@ -8,10 +8,12 @@
   font-weight: bold;
   cursor: pointer;
   background-color: #9fddeb47;
-  border: solid 1px #0b9edc;
+  border: solid 0px #0b9edc;
   border-radius: 4px;
   color: #0b9edc;
   width: fit-content;
+  display: flex;
+  flex-direction: row;
 }
 
 .touchable-opacity {
