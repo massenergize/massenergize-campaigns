@@ -57,7 +57,7 @@ export const PBInput = (props) => {
 
   return (
     <div className="flex-row align-center">
-      <div className="pb-textbox" style={{ marginRight: 10 }}>
+      <div className="pb-textbox" style={{ marginRight: 10, width: "100%" }}>
         <label>{label || "..."}</label>
         <br />
         <input
@@ -88,18 +88,8 @@ export const PBInput = (props) => {
 };
 
 export const PBColorPicker = (props) => {
-  const {
-    accessor,
-    propAccessor,
-    propIsObj,
-    append,
-    value,
-    focus,
-    onFocus,
-    onChange,
-    placeholder,
-    propertyIndex,
-  } = props || {};
+  const { accessor, propAccessor, propIsObj, append, value, focus, onFocus, onChange, placeholder, propertyIndex } =
+    props || {};
   const ref = useRef();
   useEffect(() => {
     if (focus) {

@@ -9,12 +9,15 @@ function PBFloatingFooter({ openPageSettings, close }) {
           Modify Page Settings
         </h6>
         <div className="right-dock">
-          <button className="pb-save pb-footer-btn">
+          <button
+            className="pb-save pb-footer-btn"
+            onClick={() => alert("The 'Save' feature will be implemented soon!")}
+          >
             <i className="fa fa-save" style={{ marginRight: 5 }} /> Save
           </button>
           <button
             className="pb-preview pb-footer-btn"
-            onClick={() => alert("The preview feature will be implemented soon!")}
+            onClick={() => alert("The 'Preview' feature will be implemented soon!")}
           >
             Preview <i className="fa fa-external-link" style={{ marginLeft: 5 }} />
           </button>
