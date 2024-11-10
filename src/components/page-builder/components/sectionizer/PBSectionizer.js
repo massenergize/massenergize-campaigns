@@ -2,7 +2,7 @@ import React from "react";
 import "./pb-section.css";
 import { usePBModal } from "../../hooks/usePBModal";
 import PBRender from "../render/PBRender";
-function PBSection({ onButtonClick, openBlockModal, sections, focusOnBlock, blockInFocus }) {
+function PBSection({ onButtonClick, openBlockModal, sections, focusOnBlock, blockInFocus, removeBlockItem }) {
   const hasSections = sections.length > 0;
 
   return (
@@ -13,6 +13,7 @@ function PBSection({ onButtonClick, openBlockModal, sections, focusOnBlock, bloc
             onBlockClick={() => focusOnBlock({ block, options: { position } })}
             json={block}
             onClick={() => onButtonClick({ position: position + 1 })}
+            remove={() => removeBlockItem({ blockId: block?.id })}
           />
         ))
       ) : (

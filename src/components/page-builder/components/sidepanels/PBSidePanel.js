@@ -11,7 +11,9 @@ function PBSidePanel({ block, onPropertyChange, onFocused, lastFocus }) {
 
   return (
     <div className="pb-side-panel-root">
-      <h6>Properties</h6>
+      <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+        <h6>Properties</h6> <small style={{ marginLeft: "auto", color: "grey" }}>v1.0.0</small>
+      </div>
       <PropertyRenderer properties={block?.properties} />
     </div>
   );

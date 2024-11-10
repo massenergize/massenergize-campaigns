@@ -16,8 +16,22 @@
 
 .render-plus {
   opacity: 0;
-  bottom: -25px;
+  bottom: -17px;
   position: absolute;
-  z-index: 5;
+  z-index: 7;
   transform: translate(38vw, 0px);
+  background-color: white;
+  padding: 8px 15px;
+  border-radius: 55px;
+}
+.render-plus i {
+  margin: 0px 8px;
+  font-size: 22px;
+}
+
+.render-plus .fa-plus {
+  color: green;
+}
+.render-plus .fa-times {
+  color: #bd5a5a;
 }

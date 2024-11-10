@@ -100,6 +100,11 @@ function PBEntry() {
     setModalProps({ ...modalProps, modalKey: null });
     close();
   };
+
+  const removeBlockItem = ({ blockId }) => {
+    const newSection = sections.filter((section) => section.block.id !== blockId);
+    setSection(newSection);
+  };
   const IS_PAGE_SETTINGS = modalProps?.modalKey === PAGE_SETTINGS_KEY;
   return (
     <div className="pb-root">
@@ -113,6 +118,7 @@ function PBEntry() {
           sections={sections}
           onButtonClick={openModal}
           openBlockModal={openModal}
+          removeBlockItem={removeBlockItem}
         />
       </PBCanvas>
       <BottomSheet>
