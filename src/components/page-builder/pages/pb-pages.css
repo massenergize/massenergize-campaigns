@@ -1,0 +1,11 @@
+.pb-bordered-section {
+  border: solid 1px #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0px;
+}
+
+.pb-bordered-section label {
+  font-size: 13px;
+  color: grey;
+}

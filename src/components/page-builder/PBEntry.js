@@ -8,8 +8,10 @@ import PBRichTextEditor from "./components/richtext/PBRichTextEditor";
 import PBFloatingFooter from "./components/floating-footer/PBFloatingFooter";
 import PBSection from "./components/sectionizer/PBSectionizer";
 import PBBlockContainer from "./components/layouts/blocks/PBBlockContainer";
+import PBPageSettings from "./pages/PBPageSettings";
+const PAGE_SETTINGS_KEY = "PAGE_SETTINGS";
 function PBEntry() {
-  const { Modal, open: openModal, close, modalProps } = usePBModal();
+  const { Modal, open: openModal, close, modalProps, setModalProps } = usePBModal();
   const { BottomSheet, open: openBottomSheet, heightIsToggled } = usePBBottomSheet();
   const [sections, setSection] = useState([]);
   const [blockInFocus, setBlockInFocus] = useState(null);
@@ -38,23 +40,6 @@ function PBEntry() {
     newProperties.splice(propertyIndex, 1, propItem);
     return newProperties;
   };
-
-  // const addCssToBlock = (block, cssTrain, options) => {
-  //   const { data } = options || {};
-  //   const { block: blockItem, group, ...rest } = block;
-  //   const { template, properties } = blockItem || {};
-  //   //  ---- Handling Properties -----
-  //   const newProperties = handlePropertyChange(properties, data?.prop);
-  //   //  ---- Applying CSS Properties to block
-  //   const { element } = template || {};
-  //   const { props } = element || {};
-  //   const newElement = { ...element, props: { ...props, style: { ...props?.style, ...cssTrain } } };
-  //   const newBlock = {
-  //     ...rest,
-  //     block: { ...blockItem, properties: newProperties, template: { ...template, element: newElement } },
-  //   };
-  //   return newBlock;
-  // };
 
   const mergeProps = (oldProps, valueObj, options) => {
     const { propAccessor, append, propIsObj, rawValue } = options || {};
@@ -91,11 +76,6 @@ function PBEntry() {
     const newSectionList = [...sections];
     const block = newSectionList.find((section) => section.block.id === data?.blockId);
     const valueTrain = { [data?.prop?.accessor]: data?.prop?.value };
-    // const newBlock = addCssToBlock(blockInFocus, newCss, {
-    //   cssKey: data?.prop?.cssKey,
-    //   rawValue: data?.prop?.rawValue,
-    //   data,
-    // });
     console.log("What DATA LOOKS LIKE", data);
     const newBlock = applyProps(blockInFocus, valueTrain, data?.prop);
     newSectionList.splice(block?.options?.position, 1, newBlock);
@@ -112,10 +92,19 @@ function PBEntry() {
     close();
   };
 
+  const openSpecificModal = (modalKey) => {
+    setModalProps({ ...modalProps, modalKey });
+    openModal();
+  };
+  const closeModalWithKey = () => {
+    setModalProps({ ...modalProps, modalKey: null });
+    close();
+  };
+  const IS_PAGE_SETTINGS = modalProps?.modalKey === PAGE_SETTINGS_KEY;
   return (
     <div className="pb-root">
       <Modal style={{ minHeight: 300 }}>
-        <PBBlockContainer onItemSelected={selectBlock} />
+        {IS_PAGE_SETTINGS ? <PBPageSettings /> : <PBBlockContainer onItemSelected={selectBlock} />}
       </Modal>
       <PBCanvas>
         <PBSection
@@ -139,7 +128,7 @@ function PBEntry() {
           block={blockInFocus?.block}
         />
       </div>
-      <PBFloatingFooter />
+      <PBFloatingFooter close={closeModalWithKey} openPageSettings={() => openSpecificModal(PAGE_SETTINGS_KEY)} />
     </div>
   );
 }
