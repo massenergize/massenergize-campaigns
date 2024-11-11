@@ -2,7 +2,7 @@ export const SECTION_BLOCK = {
   element: {
     // id: Date.now(),
     type: "div",
-    props: { className: "first-container", style: { background: "red", padding: 20 } },
+    props: { className: "first-container", style: { padding: 20 } },
   },
   direction: "x",
   content: [
@@ -58,13 +58,12 @@ export const TITLE_BLOCK = {
     type: "h2",
     props: { style: { padding: 10 }, text: "New title here..." },
   },
-
 };
 export const PARAGRAPH_BLOCK = {
   element: {
     id: Date.now(),
     type: "p",
-    props: { style: { background: "whitesmoke", padding: 10, margin: 0 }, text: "Start adding your paragraph here..." },
+    props: { style: { padding: 10, margin: 0 }, text: "Start adding your paragraph here..." },
   },
 };
 export const BTN_BLOCK = {
@@ -85,7 +84,7 @@ export const VIDEO_BLOCK = {
   element: {
     // id: Date.now(),
     type: "video",
-    props: { style: { padding: 10 }, src: "https://www.youtube.com/watch?v=J3oijWs-dCs", alt: "Placeholder content" },
+    props: { style: { padding: 10 }, src: "https://www.youtube.com/embed/J3oijWs-dCs", alt: "Placeholder content" },
   },
 };
 export const LINK_BLOCK = {

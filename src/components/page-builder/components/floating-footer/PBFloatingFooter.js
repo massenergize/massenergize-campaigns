@@ -1,6 +1,6 @@
 import React from "react";
 import "./pb-floating-footer.css";
-function PBFloatingFooter({ openPageSettings, close }) {
+function PBFloatingFooter({ openPageSettings, close, save }) {
   return (
     <div className="pb-footer-root">
       <div className="pb-footer-content">
@@ -11,7 +11,10 @@ function PBFloatingFooter({ openPageSettings, close }) {
         <div className="right-dock">
           <button
             className="pb-save pb-footer-btn"
-            onClick={() => alert("The 'Save' feature will be implemented soon!")}
+            onClick={() => {
+              alert("The 'Save' feature will be implemented soon!");
+              save && save();
+            }}
           >
             <i className="fa fa-save" style={{ marginRight: 5 }} /> Save
           </button>
