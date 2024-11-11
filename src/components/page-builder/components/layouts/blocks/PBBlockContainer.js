@@ -30,7 +30,7 @@ const BLOCKS = [
   { name: "Link", icon: "fa-link", key: "link", template: LINK_BLOCK, properties: LINK_PROPS },
   // { name: "Section", icon: "fa-square-o", key: "section", template: SECTION_BLOCK },
   { name: "Video", icon: "fa-youtube", key: "video", template: VIDEO_BLOCK, properties: VIDEO_PROPS },
-  { name: "Image", icon: "fa-image", key: "image", template: IMAGE_BLOCK, properties: DEFAULT_PROPERTIES },
+  // { name: "Image", icon: "fa-image", key: "image", template: IMAGE_BLOCK, properties: DEFAULT_PROPERTIES },
   { name: "Icon", icon: "fa-circle-o", key: "icon", template: ICON_BLOCK, properties: DEFAULT_PROPERTIES },
 ];
 
