@@ -47,7 +47,7 @@ export const YoutubeVideo = (props) => {
   return (
     <div
       {...rest}
-      style={{ position: "relative", paddingBottom: "56.25%", height: 0, overflow: "hidden", ...(style || {}) }}
+      style={{ position: "relative", paddingBottom: "56.25%", height: 600, overflow: "hidden", ...(style || {}) }}
     >
       <iframe
         src={src || `https://www.youtube.com/embed/J3oijWs-dCs`}

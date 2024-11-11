@@ -134,7 +134,11 @@ function PBEntry() {
           block={blockInFocus?.block}
         />
       </div>
-      <PBFloatingFooter close={closeModalWithKey} openPageSettings={() => openSpecificModal(PAGE_SETTINGS_KEY)} />
+      <PBFloatingFooter
+        save={() => console.log("FINAL PAYLOAD: ", sections)}
+        close={closeModalWithKey}
+        openPageSettings={() => openSpecificModal(PAGE_SETTINGS_KEY)}
+      />
     </div>
   );
 }
