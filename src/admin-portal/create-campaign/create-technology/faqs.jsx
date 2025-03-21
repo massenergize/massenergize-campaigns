@@ -74,7 +74,13 @@ export default function FAQs({ campaign_id, tech_id, techObject, updateTechObjec
               data={techObject?.faq_section}
               updateExistingObject={updateTechObject}
               item_id={tech_id}
-            />
+              fieldConfig={{
+                title: true,
+                description: true,
+                media: false,
+                callToAction: false
+              }}
+            />    
           }
           isOpen={openAccordion}
           onClick={() => setOpenAccordion(!openAccordion)}

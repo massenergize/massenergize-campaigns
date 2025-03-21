@@ -215,6 +215,12 @@ function Info({
                   data={techObject?.more_info_section || {}}
                   updateExistingObject={(more_info_section) => updateTechObject(more_info_section)}
                   item_id={tech_id}
+                  fieldConfig={{
+                    title: true,
+                    description: true,
+                    media: false,
+                    callToAction: false
+                  }}
               />}
               isOpen={openedAccordion === "more_info_section"}
               onClick={() => toggleAccordion("more_info_section")}

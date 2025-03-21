@@ -236,6 +236,7 @@ function LandingPage({
             description,
             title: about_us_title || `${homepageStaticT?.about?.text || ""}${campaign?.title || ""}`,
           }}
+          managersSection={campaign?.manager_section}
           keyContact={key_contact}
           showMore={showMoreAboutAdvert}
           staticT={{
