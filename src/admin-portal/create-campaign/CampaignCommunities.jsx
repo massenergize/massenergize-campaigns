@@ -5,7 +5,7 @@ import IncentivesBar from "../../components/admin-components/IncentivesBar";
 import Input from "../../components/admin-components/Input";
 import Button from "../../components/admin-components/Button";
 import SectionsForm from "./create-technology/SectionsForm";
-import { updateCampaignCommunityInfo } from "../../requests/campaign-requests";
+import { updateCampaign, updateCampaignCommunityInfo } from "../../requests/campaign-requests";
 import { useBubblyBalloons } from "src/lib/bubbly-balloon/use-bubbly-balloons";
 import { findItemAtIndexAndRemainder } from "src/utils/utils";
 import { MultiSelect } from "react-multi-select-component";
@@ -97,18 +97,54 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
     }
   };
 
+  const saveDefaultCommunitySettings = async () => {
+    setLoading(true);
+    const toGo = formData["default_community_settings"] || {};
+
+    try {
+      const res = await updateCampaign({
+        id: campaignDetails?.id,
+        default_community_settings: JSON.stringify({
+          text: toGo?.alias,
+          url: toGo?.help_link,
+        }),
+      });
+      setLoading(false);
+      setCampaignDetails("default_community_settings", res);
+      blow({
+        title: "Success",
+        message: "Default community information updated successfully",
+        type: "success",
+      });
+    } catch (e) {
+      setLoading(false);
+      pop({
+        title: "Error",
+        message: "An error occurred while updating default community information",
+        type: "error",
+      });
+    }
+  }
+
   useEffect(() => {
     let d = campaignDetails?.communities || [];
     d = d?.map(({ community: c }) => ({ value: c?.id, label: c?.name }));
 
-    const initial = communities?.reduce((acc, item) => {
-      acc[item?.id] = { help_link: item?.help_link, alias: item?.alias, extra_links: item?.extra_links };
-      return acc;
-    }, {});
+    const initial = {
+      ...communities?.reduce((acc, item) => {
+        acc[item?.id] = { help_link: item?.help_link, alias: item?.alias, extra_links: item?.extra_links };
+        return acc;
+      }, {}),
+      default_community_settings: {
+        help_link: campaignDetails?.default_community_settings?.url,
+        alias: campaignDetails?.default_community_settings?.text,
+        extra_links: campaignDetails?.default_community_settings?.extra_links,},
+    };
 
     setFormData(initial);
     setComsInThisCampaign(d);
   }, [campaignDetails?.communities]);
+
 
   return (
     <Container fluid style={{ minHeight: "50vh" }}>
@@ -169,11 +205,29 @@ export default function CampaignCommunities({ campaignDetails, setCampaignDetail
           </Col>
         </Row>
       ))}
+      <div>
+      <CustomAccordion
+          title={`Customize Default Community`}
+          component={
+            <HelpLinkForm
+              data={campaignDetails?.default_community_settings}
+              getValue={getValue}
+              tabId={activeAccordion}
+              handleFieldChange={handleFieldChange}
+              handleSave={saveDefaultCommunitySettings}
+              loading={loading}
+              noExtraLinks={true}
+            />
+          }
+          isOpen={"default_community_settings" === activeAccordion}
+          onClick={() => openAccordion("default_community_settings")}
+        />
+      </div>
     </Container>
   );
 }
 
-const HelpLinkForm = ({ handleFieldChange, tabId, getValue, handleSave, loading, data }) => {
+const HelpLinkForm = ({ handleFieldChange, tabId, getValue, handleSave, loading, data, noExtraLinks }) => {
   return (
     <div className="m-3">
       <p className="text-muted">Click "Save Changes" to apply</p>
@@ -205,12 +259,14 @@ const HelpLinkForm = ({ handleFieldChange, tabId, getValue, handleSave, loading,
           />
         </Col>
       </Row>
-      <Row className="py-4 justify-content-end">
+      {!noExtraLinks && (
+        <Row className="py-4 justify-content-end">
         <CampaignCommunitiesExtraLinks
           linkObjs={getValue(tabId, "extra_links")}
           setLinkObjs={(data) => handleFieldChange(tabId, "extra_links", data)}
         />
       </Row>
+      )}
       <Row className="py-4 justify-content-end">
         <Col className="px-4">
           <Button
