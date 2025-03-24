@@ -262,6 +262,49 @@ export async function fetchCampaignPartners(id, url = "campaigns.partners.list")
   }
 }
 
+export async function createPartner(data, url = "/partners.create") {
+  try {
+    const response = await apiCall(url, data, null);
+
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "CREATE_PARTNER_ERROR_BE");
+    }
+
+    return response?.data;
+  } catch (e) {
+    handleRequestError(e, "CREATE_PARTNER_ERROR");
+  }
+}
+
+export async function removePartner(id, url = "/partners.delete") {
+  try {
+    const response = await apiCall(url, { id }, null);
+
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "REMOVE_PARTNER_ERROR_BE");
+    }
+
+    return response?.data;
+  } catch (e) {
+    handleRequestError(e, "REMOVE_PARTNER_ERROR");
+  }
+}
+
+export async function updatePartner(data, url = "/partners.update") {
+  try {
+    const response = await apiCall(url, data, null);
+
+    if (!response || !response?.success) {
+      handleRequestError(response?.error, "UPDATE_PARTNER_ERROR_BE");
+    }
+
+    return response?.data;
+  } catch (e) {
+    handleRequestError(e, "UPDATE_PARTNER_ERROR");
+  }
+  
+  }
+
 export async function removeCampaignManager(url = "campaigns.managers.remove", campaign_manager_id) {
   try {
     const response = await apiCall(url, { campaign_manager_id }, null);

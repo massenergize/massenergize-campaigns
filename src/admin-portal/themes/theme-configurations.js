@@ -27,6 +27,7 @@ export const THEME_CONFIGURATIONS = {
           { tabKeyId: "Technologies", sections: [] },
           { tabKeyId: "Communities", sections: [] },
           { tabKeyId: "Managers", sections: [] },
+          { tabKeyId: "Partners", sections: [] },
           { tabKeyId: "Events", sections: [] },
           { tabKeyId: "Testimonials", sections: [] },
           { tabKeyId: "Comments", sections: [] },

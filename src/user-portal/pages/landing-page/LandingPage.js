@@ -34,6 +34,7 @@ import BlanketNotification from "../../../components/pieces/BlanketNotification"
 import SPTOnePager from "../../../components/themes/spt/SPTOnePager";
 import { CAMPAIGN_TEMPLATE_KEYS, getTheme } from "../../../utils/Values";
 import SPTV2Entry from "../../../components/themes/sptV2/SPTV2Entry";
+import PartnersSection from "../../components/PartnersSection";
 
 function LandingPage({
   toggleModal,
@@ -76,6 +77,7 @@ function LandingPage({
     campaign || {};
 
   const technologies = campaign?.technologies || [];
+  const partners = campaign?.partners || [];
   const { campaignId } = useParams();
 
   const loggedInAdmin = useSelector((state) => state.authAdmin);
@@ -179,6 +181,7 @@ function LandingPage({
     );
 
   if (!campaign) return <NotFound></NotFound>;
+  
 
   let previewMode = fetchUrlParams("preview");
   previewMode = previewMode?.trim() === "true";
@@ -289,6 +292,13 @@ function LandingPage({
       </div>
       <div ref={communitiesRef}>
         <DoMore campaign={campaign} />
+      </div>
+
+      <div style={{marginTop: "50px"}}>
+        <PartnersSection 
+          partners={partners}
+          title={ "Our Partners"}
+        />
       </div>
 
       <Footer toggleModal={toggleModal} />
