@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import CenteredWrapper from "../pages/wrappers/CenteredWrapper";
 import { ArrowButtons } from "../../components/pieces/ArrowButtons";
+import SectionTitle from "../../components/pieces/SectionTitle";
 
 const PartnersContainer = ({ children, containerRef }) => (
   <div
@@ -50,19 +51,19 @@ const PartnersSection = ({ partners, title = "Our Partners" }) => {
       const checkScroll = () => {
         if (container) {
           const hasHorizontalScroll = container.scrollWidth > container.clientWidth;
-            if (hasHorizontalScroll) {
-                container.classList.add('has-scroll');
-            } else {
-                container.classList.remove('has-scroll');
-            }
+          if (hasHorizontalScroll) {
+            container.classList.add("has-scroll");
+          } else {
+            container.classList.remove("has-scroll");
+          }
         }
       };
 
       // Initial check
       checkScroll();
-      container.addEventListener('scroll', checkScroll);
+      container.addEventListener("scroll", checkScroll);
       return () => {
-        container.removeEventListener('scroll', checkScroll);
+        container.removeEventListener("scroll", checkScroll);
       };
     }
   }, [partners]);
@@ -70,7 +71,7 @@ const PartnersSection = ({ partners, title = "Our Partners" }) => {
   return (
     <CenteredWrapper>
       <div className="row-flex t-with-filter-top">
-        <h1>{title}</h1>
+        <SectionTitle className={"text-center text-md-start"}>{title}</SectionTitle>
         {!noPartners && hasScrollablePartners && (
           <ArrowButtons containerRef={containerRef} style={{ marginLeft: "auto" }} />
         )}

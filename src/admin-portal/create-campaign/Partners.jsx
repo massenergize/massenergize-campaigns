@@ -7,9 +7,7 @@ import { toSentenceCase } from "../../helpers/utils/string";
 import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons";
 import { useCampaignContext } from "../../hooks/use-campaign-context";
 import FileUploader from "../../components/admin-components/FileUploader";
-import CustomAccordion from "src/components/admin-components/CustomAccordion";
-import SectionsForm from "./create-technology/SectionsForm";
-import { createPartner, removePartner, updateCampaign } from "../../requests/campaign-requests";
+import { createPartner, removePartner } from "../../requests/campaign-requests";
 
 function Partners({ campaignDetails, setCampaignDetails, setStep, lists }) {
   const [pagesCount, setPagesCount] = useState(1);

@@ -294,13 +294,14 @@ function LandingPage({
         <DoMore campaign={campaign} />
       </div>
 
-      <div style={{marginTop: "50px"}}>
-        <PartnersSection 
-          partners={partners}
-          title={ "Our Partners"}
-        />
-      </div>
-
+      {partners.length > 0 && (
+        <div style={{marginTop: "50px"}}>
+          <PartnersSection 
+              partners={partners}
+              title={ "Partners Involved"}
+            />
+        </div>
+      )}
       <Footer toggleModal={toggleModal} />
     </div>
   );
