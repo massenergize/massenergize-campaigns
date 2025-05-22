@@ -64,6 +64,12 @@ export default function TechnologyDeals({ campaign_id, tech_id, techObject, upda
               updateExistingObject={updateTechObject}
               item_id={tech_id}
               version={"v2"}
+              fieldConfig={{
+                title: true,
+                description: true,
+                media: true,
+                callToAction: true
+              }}
             />
           }
           isOpen={openAccordion}

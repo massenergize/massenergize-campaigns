@@ -8,7 +8,20 @@ import FileUploader from "../../../components/admin-components/FileUploader";
 import { randomString } from "../../../helpers/utils/string";
 import { deleteCallToAction } from "../../../requests/campaign-requests";
 
-export default function SectionsForm({ section, data, updateExistingObject, item_id, apiUpdateFunc, version }) {
+export default function SectionsForm({ 
+  section, 
+  data, 
+  updateExistingObject, 
+  item_id, 
+  apiUpdateFunc, 
+  version,
+  fieldConfig = {
+    title: true,
+    description: true,
+    media: true,
+    callToAction: true
+  }
+}) {
   const { pop, blow } = useBubblyBalloons();
   const [media, setMedia] = useState(data?.media?.url);
   const [formData, setFormData] = useState({
@@ -89,30 +102,34 @@ export default function SectionsForm({ section, data, updateExistingObject, item
   return (
     <div>
       <Container>
-        <Row className="py-4">
-          <Col>
-            <Input
-              label="Title"
-              placeholder="Enter title here..."
-              required={true}
-              type="textbox"
-              onChange={(val) => updateFormData("title", val)}
-              value={formData?.title || ""}
-            />
-          </Col>
-        </Row>
-        <Row className="py-4">
-          <Col>
-            <Input
-              label="Description"
-              placeholder="Add a more description for this incentive..."
-              required={false}
-              type="richText"
-              onChange={(val) => updateFormData("description", val)}
-              value={formData?.description || ""}
-            />
-          </Col>
-        </Row>
+        {fieldConfig.title && (
+          <Row className="py-4">
+            <Col>
+              <Input
+                label="Title"
+                placeholder="Enter title here..."
+                required={true}
+                type="textbox"
+                onChange={(val) => updateFormData("title", val)}
+                value={formData?.title || ""}
+              />
+            </Col>
+          </Row>
+        )}
+        {fieldConfig.description && (
+          <Row className="py-4">
+            <Col>
+              <Input
+                label="Description"
+                placeholder="Add a more description for this incentive..."
+                required={false}
+                type="richText"
+                onChange={(val) => updateFormData("description", val)}
+                value={formData?.description || ""}
+              />
+            </Col>
+          </Row>
+        )}
         {version && (
           <Row className="py-4">
             <Col>
@@ -131,7 +148,7 @@ export default function SectionsForm({ section, data, updateExistingObject, item
           </Row>
         )}
 
-        {version &&
+        {fieldConfig.callToAction &&
           formData.call_to_action_items.map((cta, index) => (
             <Row className="py-4" key={index}>
               <Col md={5}>
@@ -172,7 +189,7 @@ export default function SectionsForm({ section, data, updateExistingObject, item
               </Col>
             </Row>
           ))}
-        {version && (
+        {fieldConfig.callToAction && (
           <div className="py-4 justify-content-end flex">
             <BTN variant={"secondary"} text="Add Call to Action" onClick={handleAddCallToAction}>
               Add Call to Action

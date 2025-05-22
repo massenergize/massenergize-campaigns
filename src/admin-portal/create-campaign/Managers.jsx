@@ -1,6 +1,6 @@
 import React, { useReducer, useState } from "react";
 import { Alert, Button as BTN, Button, Col, Row } from "react-bootstrap";
-import { addCampaignManager } from "../../requests/campaign-requests";
+import { addCampaignManager, updateCampaign } from "../../requests/campaign-requests";
 import { CampaignManagersView } from "./campaign-managers-view";
 import Modal from "react-bootstrap/Modal";
 import Input from "../../components/admin-components/Input";
@@ -9,13 +9,15 @@ import { useBubblyBalloons } from "../../lib/bubbly-balloon/use-bubbly-balloons"
 import { useCampaignContext } from "../../hooks/use-campaign-context";
 import { apiCall } from "../../api/messenger";
 import { NoItems } from "@kehillahglobal/ui";
+import SectionsForm from "./create-technology/SectionsForm";
+import CustomAccordion from "src/components/admin-components/CustomAccordion";
 
 function Managers({ campaignDetails, setCampaignDetails, setStep, lists }) {
   const [pagesCount, setPagesCount] = useState(1);
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [notification, setNotification] = useState(null);
-
+  const [openAccordion, setOpenAccordion] = useState(false);
   const { updateCampaignDetails } = useCampaignContext();
 
   const { managers: campaignManagers } = campaignDetails;
@@ -107,6 +109,9 @@ function Managers({ campaignDetails, setCampaignDetails, setStep, lists }) {
       setNotification({ message: toSentenceCase(e.message), good: false });
     }
   };
+  const saveUpdatedSection = (sectionData) => {
+    setCampaignDetails({ ...(campaignDetails || {}), ...sectionData });
+  };
 
   const handleRemove = async (manager) => {
     try {
@@ -156,6 +161,27 @@ function Managers({ campaignDetails, setCampaignDetails, setStep, lists }) {
             </Button>
           </Col>
         </Row>
+        <div className="py-5">
+        <CustomAccordion
+          title={"Customize the title and description of the managers section"}
+          component={
+            <SectionsForm
+            section="manager_section"
+            data={campaignDetails?.manager_section}
+            updateExistingObject={saveUpdatedSection}
+            apiUpdateFunc={updateCampaign}
+
+            item_id={campaignDetails?.id}
+            fieldConfig={{
+              title: true,
+            }}
+          />
+
+          }
+          isOpen={openAccordion}
+          onClick={() => setOpenAccordion(!openAccordion)}
+        />
+      </div>
         <Row className="py-4">
           <Col>
             {campaignManagers?.length > 0 ? (

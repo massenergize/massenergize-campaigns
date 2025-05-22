@@ -135,6 +135,12 @@ const Vendors = ({ campaign_id, tech_id, techObject, updateTechObject, notifyErr
                 data={techObject?.vendors_section}
                 updateExistingObject={updateTechObject}
                 item_id={tech_id}
+                fieldConfig={{
+                  title: true,
+                  description: true,
+                  media: false,
+                  callToAction: false
+                }}
               />
             }
             isOpen={openAccordion}

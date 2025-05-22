@@ -36,7 +36,7 @@ function GetHelpForm({ close, communities, authUser, campaign }) {
 
     setForm({
       ...(data || {}),
-      campaign_community: isOther ? { help_link: DEFAULT_HELP_LINK } : campaign_community,
+      campaign_community: isOther ? { help_link: campaign?.default_community_settings?.url||DEFAULT_HELP_LINK } : campaign_community,
     });
   };
 

@@ -175,7 +175,12 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
                   updateExistingObject={saveUpdatedSection}
                   item_id={campaignDetails?.id}
                   apiUpdateFunc={updateCampaign}
-                  version={"v2"}
+                  fieldConfig={{
+                    title: true,
+                    description: true,
+                    media: true,
+                    callToAction: true
+                  }}
                 />
               }
               isOpen={openedAccordion === ABOUT_US_SECTION_KEY}
@@ -194,7 +199,12 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
                   updateExistingObject={saveUpdatedSection}
                   item_id={campaignDetails?.id}
                   apiUpdateFunc={updateCampaign}
-                  version={"v2"}
+                  fieldConfig={{
+                    title: true,
+                    description: true,
+                    media: true,
+                    callToAction: true
+                  }}
                 />
               }
               isOpen={openedAccordion === BANNER_SECTION_KEY}
@@ -224,7 +234,12 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
                   updateExistingObject={saveUpdatedSection}
                   item_id={campaignDetails?.id}
                   apiUpdateFunc={updateCampaign}
-                  version={"v2"}
+                  fieldConfig={{
+                    title: true,
+                    description: true,
+                    media: true,
+                    callToAction: true
+                  }}
                 />
               }
               isOpen={openedAccordion === ELIGIBILITY_SECTION_KEY}
@@ -255,7 +270,12 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
                   updateExistingObject={saveUpdatedSection}
                   item_id={campaignDetails?.id}
                   apiUpdateFunc={updateCampaign}
-                  version={"v2"}
+                  fieldConfig={{
+                    title: true,
+                    description: true,
+                    media: true,
+                    callToAction: true
+                  }}
                 />
               }
               isOpen={openedAccordion === GOAL_SECTION_KEY}
@@ -286,7 +306,12 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
                   updateExistingObject={saveUpdatedSection}
                   item_id={campaignDetails?.id}
                   apiUpdateFunc={updateCampaign}
-                  version={"v2"}
+                  fieldConfig={{
+                    title: true,
+                    description: true,
+                    media: true,
+                    callToAction: true
+                  }}
                 />
               }
               isOpen={openedAccordion === GET_HELP_SECTION_KEY}
@@ -306,7 +331,12 @@ const CampaignInformation = ({ campaignDetails, setCampaignDetails, sectionConfi
                   updateExistingObject={saveUpdatedSection}
                   item_id={campaignDetails?.id}
                   apiUpdateFunc={updateCampaign}
-                  version={"v2"}
+                  fieldConfig={{
+                    title: true,
+                    description: true,
+                    media: true,
+                    callToAction: true
+                  }}
                 />
               }
               isOpen={openedAccordion === CONTACT_US_SECTION_KEY}

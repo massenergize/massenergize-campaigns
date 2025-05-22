@@ -1,12 +1,12 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import phone_call from "./../../../assets/imgs/phone_call.png";
 import SmartRichText from "../../../components/SmartRichText";
 const LEN = 250;
-function RoamingBox({ advert, keyContact, showMore, staticT }) {
+function RoamingBox({ advert, managersSection, keyContact, showMore, staticT }) {
   const desc = advert?.description;
   const preview = desc?.substr(0, LEN);
   const isLong = desc?.length > LEN;
+
 
   const { phone_number, email } = keyContact || {};
   return (
@@ -102,7 +102,7 @@ function RoamingBox({ advert, keyContact, showMore, staticT }) {
               }}
               alt={keyContact?.image?.name || "Key Contact"}
             ></img>
-            <span className="mb-1 small-font text-muted">{staticT?.keyContact?.text || "Key Contact"}</span>
+            <span className="mb-1 small-font text-muted">{managersSection?.title || staticT?.keyContact?.text || "Key Contact"}</span>
             <h6
               className="mb-1 body-font"
               style={{
